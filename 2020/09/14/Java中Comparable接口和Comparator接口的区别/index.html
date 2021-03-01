@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java中Comparable接口和Comparator接口的区别 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1、Comparable接口1234&#x2F;&#x2F; Comparable接口的源代码public interface Comparable&lt;T&gt; &amp;#123;    public int compareTo(T o);&amp;#125;  ​    Comparable被叫做内比较器，实现了该接口的类，会继承接口中的compareTo()方法。    也就是说，如果存在一组实现了该接口的子类实例对象，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中Comparable接口和Comparator接口的区别">
+<meta property="og:url" content="http://example.com/2020/09/14/Java%E4%B8%ADComparable%E6%8E%A5%E5%8F%A3%E5%92%8CComparator%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、Comparable接口1234&#x2F;&#x2F; Comparable接口的源代码public interface Comparable&lt;T&gt; &amp;#123;    public int compareTo(T o);&amp;#125;  ​    Comparable被叫做内比较器，实现了该接口的类，会继承接口中的compareTo()方法。    也就是说，如果存在一组实现了该接口的子类实例对象，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-14T13:51:56.000Z">
+<meta property="article:modified_time" content="2020-10-27T01:14:50.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java中Comparable接口和Comparator接口的区别" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/09/14/Java%E4%B8%ADComparable%E6%8E%A5%E5%8F%A3%E5%92%8CComparator%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
+  <time class="dt-published" datetime="2020-09-14T13:51:56.000Z" itemprop="datePublished">2020-09-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaSE/">JavaSE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java中Comparable接口和Comparator接口的区别
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1、Comparable接口"><a href="#1、Comparable接口" class="headerlink" title="1、Comparable接口"></a>1、Comparable接口</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Comparable接口的源代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T o)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    <code>Comparable</code>被叫做<strong>内比较器</strong>，实现了该接口的类，会继承接口中的<code>compareTo()</code>方法。    也就是说，如果存在一组实现了该接口的子类实例对象，就可以根据某种规则对这些实例对象进行排序。</p>
+<p>​    而比较的逻辑，则定义在<code>compareTo()</code>的具体实现方法中，所以凡是实现了该接口的类都必须重写<code>compareTo()</code>方法。</p>
+<blockquote>
+<p><code>compareTo()</code>方法的返回值是int类型，有3种情况：<br>    1、<code>this</code>对象大于<code>方法参数指向的对象</code>，返回正整数；<br>    2、<code>this</code>对象等于<code>方法参数指向的对象</code>，返回0；<br>    3、<code>this</code>对象小于<code>方法参数指向的对象</code>，返回正负整数；</p>
+</blockquote>
+<h2 id="1-1-实现Comparable接口的原生类"><a href="#1-1-实现Comparable接口的原生类" class="headerlink" title="1.1    实现Comparable接口的原生类"></a>1.1    实现Comparable接口的原生类</h2><p>​    Java中存在着一些原生的类，这些类在设计时就已经实现了<code>Comparable</code>接口，并重写了接口中的<code>compareTo()</code>方法。对于这些类可以直接调用它的<code>CompareTo()</code>方法进行比较。</p>
+<p>​    如：String、Integer等类本身就已经实现了<code>Comparable</code>接口，即重写了<code>compareTO()</code>方法，所以可以直接调用它的<code>compareTo()</code>方法进行比较。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String a = <span class="string">&quot;A&quot;</span>;</span><br><span class="line">    String b = <span class="string">&quot;Z&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> result = a.compareTo(b);</span><br><span class="line">    System.out.println(result);     <span class="comment">// -25</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="1-2-自定义类实现Comparable接口"><a href="#1-2-自定义类实现Comparable接口" class="headerlink" title="1.2    自定义类实现Comparable接口"></a>1.2    自定义类实现Comparable接口</h2><blockquote>
+<p>对于开发人员自定义的类，创建该类的多个不同的实例对象，显然无法直接比较这些实例对象的大小。因为还没有定义比较的规则。</p>
+<p>因此想要实现对这些实例对象的比较，在定义类时，</p>
+<ol>
+<li>需要实现该接口，</li>
+<li>并且重写接口中的<code>compareTo()</code>方法，自己定义比较的规则。</li>
+</ol>
+</blockquote>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><ol>
+<li><p>定义一个<code>Student</code>类，实现<code>comparable</code>接口，重写<code>compareTo()</code>方法；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Student</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">	<span class="comment">// get/set方法</span></span><br><span class="line">    <span class="comment">// toString方法</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义比较规则。（只要实现了Comparable接口必将重写compareTo方法）</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Student o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getAge() - o.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 比较两个学生对象，根据规则选出较大的一个</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> st1   学生1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> st2   学生2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Student <span class="title">getMax</span><span class="params">(Student st1, Student st2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = st1.compareTo(st2);</span><br><span class="line">        <span class="keyword">if</span> (result&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> st1;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> st2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student st1 = <span class="keyword">new</span> Student();</span><br><span class="line">        st1.setUsername(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        st1.setAge(<span class="number">23</span>);</span><br><span class="line">        Student st2 = <span class="keyword">new</span> Student();</span><br><span class="line">        st2.setUsername(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        st2.setAge(<span class="number">18</span>);</span><br><span class="line"></span><br><span class="line">        Student maxStu = getMax(st1, st2);</span><br><span class="line">        System.out.println(maxStu);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="2、Comparator接口"><a href="#2、Comparator接口" class="headerlink" title="2、Comparator接口"></a>2、Comparator接口</h1><p><code>Comparator接口</code>又叫做<strong>外比较器</strong>，如果我们需要比较某个类的两个实例对象的大小，并且该类本身不支持比较（即没有实现<code>Comparable接口</code>），那么我们可以另外定义一个类作为<em>“该类的比较器”</em>来对这个类的实例化对象进行比较。这个<code>比较器</code>只需要实现<code>Comparator接口</code>并重写接口中的<code>Compare(T o1, T o2)</code>方法，然后就可以通过这个<code>比较器</code>对目标类的实例对象进行比较。</p>
+<blockquote>
+<p><code>Compare(T o1, T o2)</code>方法，返回值是int类型，有3种情况。<br>    1、<code>o1&gt;o2</code>，返回正整数；<br>    2、<code>o1=o2</code>，返回0；<br>    3、<code>o1&lt;o2</code>，返回负整数。</p>
+</blockquote>
+<ul>
+<li><code>Compartor接口</code>的适用场景：<ol>
+<li>同一类的实例对象之间不支持互相比较（即没有实现<code>Comparable接口</code>），但又想对两个对象进行比较。</li>
+<li>实例对象的类上实现了<code>Comparable接口</code>，但开发者认为<code>compareTo()</code>方法中的比较规则并不是自己想要的。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="2-1-例子"><a href="#2-1-例子" class="headerlink" title="2.1    例子"></a>2.1    例子</h2><ol>
+<li><p>创建一个<code>Student类</code>（1.2中的Student类）</p>
+</li>
+<li><p>创建一个<code>StudentComparator类</code>，用于定义比较规则；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="comment">// 1、实现Comparator&lt;T&gt;接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Student</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 2、必须重写compare()方法，定义比较规则</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Student o1, Student o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 比较两个学生对象，根据规则选出较大的一个</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> st1   学生1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> st2   学生2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Student <span class="title">getMax</span><span class="params">(Student st1, Student st2)</span></span>&#123;</span><br><span class="line">        StudentComparator sc = <span class="keyword">new</span> StudentComparator();</span><br><span class="line">        <span class="keyword">int</span> result = sc.compare(st1, st2);</span><br><span class="line">        <span class="keyword">if</span> (result&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> st1;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> st2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 主方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student st1 = <span class="keyword">new</span> Student();</span><br><span class="line">        st1.setUsername(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        st1.setAge(<span class="number">23</span>);</span><br><span class="line">        Student st2 = <span class="keyword">new</span> Student();</span><br><span class="line">        st2.setUsername(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        st2.setAge(<span class="number">18</span>);</span><br><span class="line">        Student maxStu = getMax(st1, st2);</span><br><span class="line">        System.out.println(maxStu);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/14/Java%E4%B8%ADComparable%E6%8E%A5%E5%8F%A3%E5%92%8CComparator%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="cklqr5qid000kmcwncqxedrit" data-title="Java中Comparable接口和Comparator接口的区别" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/15/Spring%E4%B8%AD%E5%A4%84%E7%90%86Http%E5%93%8D%E5%BA%94%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Spring中处理Http响应的几种方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/07/%E9%80%9A%E7%94%A8Mapper%E7%9A%84%E8%AF%A6%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">通用Mapper的详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/MapReduce/">MapReduce</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/10/Hadoop/">Hadoop</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/HDFS/">HDFS</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

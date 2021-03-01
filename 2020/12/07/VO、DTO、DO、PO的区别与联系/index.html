@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>VO、DTO、DO、PO的区别与联系 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="应用分层推荐分层结构如下图所示，默认上层依赖于下层，箭头关系表示可直接依赖。如：开放API层可以依赖于Web层（Controller层），也可以直接依赖于Service层。   开放API层   可通过Web层封装成HTTP接口； 可直接封装Service层接口暴露成RPC接口；   终端显示层   各个端的模板渲染并执行显示的层。如JS渲染，JSP渲染，移动端展示等。   Web层   主要是对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VO、DTO、DO、PO的区别与联系">
+<meta property="og:url" content="http://example.com/2020/12/07/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="应用分层推荐分层结构如下图所示，默认上层依赖于下层，箭头关系表示可直接依赖。如：开放API层可以依赖于Web层（Controller层），也可以直接依赖于Service层。   开放API层   可通过Web层封装成HTTP接口； 可直接封装Service层接口暴露成RPC接口；   终端显示层   各个端的模板渲染并执行显示的层。如JS渲染，JSP渲染，移动端展示等。   Web层   主要是对">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/12/07/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/%E3%80%8AJava%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E5%B5%A9%E5%B1%B1%E7%89%88%EF%BC%89%E3%80%8B.jpg">
+<meta property="article:published_time" content="2020-12-07T13:52:18.000Z">
+<meta property="article:modified_time" content="2020-12-28T13:57:14.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/12/07/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/%E3%80%8AJava%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E5%B5%A9%E5%B1%B1%E7%89%88%EF%BC%89%E3%80%8B.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-VO、DTO、DO、PO的区别与联系" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/07/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/" class="article-date">
+  <time class="dt-published" datetime="2020-12-07T13:52:18.000Z" itemprop="datePublished">2020-12-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      VO、DTO、DO、PO的区别与联系
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="应用分层"><a href="#应用分层" class="headerlink" title="应用分层"></a>应用分层</h1><p>推荐分层结构如下图所示，默认上层依赖于下层，箭头关系表示<strong>可</strong>直接依赖。如：开放API层可以依赖于Web层（Controller层），也可以直接依赖于Service层。</p>
+<p><img src="VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/%E3%80%8AJava%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E5%B5%A9%E5%B1%B1%E7%89%88%EF%BC%89%E3%80%8B.jpg"></p>
+<blockquote>
+<p>开放API层</p>
+</blockquote>
+<ul>
+<li>可通过Web层封装成HTTP接口；</li>
+<li>可直接封装Service层接口暴露成RPC接口；</li>
+</ul>
+<blockquote>
+<p>终端显示层</p>
+</blockquote>
+<ul>
+<li>各个端的模板渲染并执行显示的层。如JS渲染，JSP渲染，移动端展示等。</li>
+</ul>
+<blockquote>
+<p>Web层</p>
+</blockquote>
+<ul>
+<li>主要是对访问控制进行转发，各类基本参数校验，或者不复用的业务简单处理等。</li>
+</ul>
+<blockquote>
+<p>Service层</p>
+</blockquote>
+<ul>
+<li>相对具体的业务逻辑服务层</li>
+</ul>
+<blockquote>
+<p>Manager层</p>
+</blockquote>
+<ul>
+<li>通用业务层，它有如下特征：<ol>
+<li>是对Service层通用能力的下沉，如缓存方案、中间件通用处理等；</li>
+<li>与Dao层交互，对多个Dao的组合复用；</li>
+<li>是对第三方平台封装的层。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>Dao层</p>
+</blockquote>
+<ul>
+<li>数据访问层，与底层MySql、Hbase、OB等进行数据交互。</li>
+</ul>
+<blockquote>
+<p>第三方服务</p>
+</blockquote>
+<ul>
+<li>包括其他部门的RPC服务接口，其他公司的HTTP接口等。如淘宝开放平台、支付宝付款等。</li>
+</ul>
+<blockquote>
+<p>外部数据接口</p>
+</blockquote>
+<ul>
+<li>外部应用数据存储服务提供的接口，多用于数据迁移场景中。</li>
+</ul>
+<hr>
+<h1 id="分层领域的模型规约"><a href="#分层领域的模型规约" class="headerlink" title="分层领域的模型规约"></a>分层领域的模型规约</h1><ul>
+<li><strong>DO</strong>（Data Object）：此对象与数据库表结构一一对应，通过Dao层向上传输数据源对象。</li>
+<li><strong>DTO</strong>（Data Transfer Object）：数据传输对象，Service层或Manager层向外传输的对象。</li>
+<li><strong>BO</strong>（Business Object）：业务对象，可以由Service层输出的封装业务逻辑的对象。</li>
+<li><strong>VO</strong>（View Object）：显示层对象，通常是Web层向模板渲染引擎层传输的对象。</li>
+<li><strong>Query</strong>：数据查询对象，各层接收上层的查询请求。注意超过2个参数的查询封装，禁止使用Map类来传输。</li>
+</ul>
+<h2 id="VO-与-DTO-的区别"><a href="#VO-与-DTO-的区别" class="headerlink" title="VO 与 DTO 的区别"></a>VO 与 DTO 的区别</h2><blockquote>
+<p>既然DTO是Service/Manager层向上层（Web层/开放API层）传递的数据对象，为什么还需要一个VO呢？</p>
+</blockquote>
+<p>对于绝大部分的应用场景来说，DTO和VO的属性值基本上是一致的，而且他们统称都是POJO，因此没有必要多此一举，但不要忘记这是实现层的思维，对于设计层面来说，概念上还是应该存在VO和DTO，因为两者有着本质上的区别，<strong>DTO是Service层与其直接上层（Web层和开放API层）进行数据交互的对象，而VO是Web层与其直接上层（终端显示层和开放API层）进行数据交互的对象</strong>。</p>
+<blockquote>
+<p>例1：</p>
+</blockquote>
+<p>Service层有一个<code>getUser()</code>方法返回一个用户，其中有一个属性是<code>gender</code>，对于服务层来说，只是从语义上定义：1-男性、2-女性、3-未指定，而对于Web层而言，他可能需要用“帅哥”代表男性，“美女”代表女性，“秘密”代表未指定。当然，也可以直接在service返回“帅哥美女”就可实现这一功能。对于大部分的应用来说，这是可以的，但是如果需求客户可以定制化风格，而不同风格对于“性别”的表现方式不一样，又或者这个服务同时供多个客户端使用，而不同的客户端对于表现层的要求有所不同，那么问题就来了。再者，回到设计层面上分析，<strong>从职责单一原则来看，服务层只负责业务，与业务的表现形式无关，因此，它返回的DTO，不应该表现出与表现形式的耦合。</strong></p>
+<h3 id="VO与DTO的应用"><a href="#VO与DTO的应用" class="headerlink" title="VO与DTO的应用"></a>VO与DTO的应用</h3><p>上面只是用了一个简单的例子来说明VO与DTO在概念上的区别，接下来我将会告诉你如何在应用中做出正确的选择。</p>
+<blockquote>
+<p>在以下场景中，我们可以考虑把VO与DTO二合为一（注意：是实现层面）：</p>
+</blockquote>
+<ul>
+<li>当需求非常清晰稳定，而且客户端很明确只有一个的时候，没有必要把VO和DTO区分开来，这时候VO可以退隐，只使用DTO即可。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/07/VO%E3%80%81DTO%E3%80%81DO%E3%80%81PO%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/" data-id="cklqr5qip001gmcwnetow4lrd" data-title="VO、DTO、DO、PO的区别与联系" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/08/keyset-%E5%92%8Centryset-%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          keyset()和entryset()的区别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/30/Thymeleaf/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Thymeleaf</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/MapReduce/">MapReduce</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/10/Hadoop/">Hadoop</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/HDFS/">HDFS</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

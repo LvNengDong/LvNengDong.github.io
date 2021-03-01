@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SpringBoot整合日志 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1、日志框架 日志的作用：  记录程序运行中产生的关键数据。  日志的发展：   System.out.println(&quot;&quot;)；，将程序运行时的关键数据打印在控制台上。 日志框架，既可以将程序运行时的关键数据打印在控制台上，也可以将日志信息持久化到指定的文件夹中去。 高级日志框架：在日志框架的基础上，增加了一些人性化的功能，如： 异步模式 自动归档：将每天的日志单独放在一个文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot整合日志">
+<meta property="og:url" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、日志框架 日志的作用：  记录程序运行中产生的关键数据。  日志的发展：   System.out.println(&quot;&quot;)；，将程序运行时的关键数据打印在控制台上。 日志框架，既可以将程序运行时的关键数据打印在控制台上，也可以将日志信息持久化到指定的文件夹中去。 高级日志框架：在日志框架的基础上，增加了一些人性化的功能，如： 异步模式 自动归档：将每天的日志单独放在一个文件">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/legacy.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227200842184.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180131220946.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203358527.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203732038.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227204458159.png">
+<meta property="article:published_time" content="2020-12-27T13:54:37.000Z">
+<meta property="article:modified_time" content="2020-12-27T14:17:00.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SpringBoot整合日志" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/" class="article-date">
+  <time class="dt-published" datetime="2020-12-27T13:54:37.000Z" itemprop="datePublished">2020-12-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SpringBoot/">SpringBoot</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SpringBoot整合日志
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="1、日志框架"><a href="#1、日志框架" class="headerlink" title="1、日志框架"></a>1、日志框架</h2><blockquote>
+<p>日志的作用：</p>
+</blockquote>
+<p>记录程序运行中产生的关键数据。</p>
+<blockquote>
+<p>日志的发展：</p>
+</blockquote>
+<ol>
+<li><code>System.out.println(&quot;&quot;)；</code>，将程序运行时的关键数据打印在控制台上。</li>
+<li>日志框架，既可以将程序运行时的关键数据打印在控制台上，也可以将日志信息持久化到指定的文件夹中去。</li>
+<li>高级日志框架：在日志框架的基础上，增加了一些人性化的功能，如：<ul>
+<li>异步模式</li>
+<li>自动归档：将每天的日志单独放在一个文件中，用来做分类</li>
+<li>……</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>存在的问题：</p>
+</blockquote>
+<p>显而易见，日志框架是需要不断迭代的，如果我们想要使用更高级的日志框架代替原本项目中低级的日志框架，该如何实现呢？</p>
+<ol>
+<li>将以前的框架卸载下俩，换上新的框架，重新修改项目中日志相关的API。显然这是不合适的，使用这种方式的话每次更换日志框架都需要修改项目中的API。</li>
+<li>仿照JDBC数据库驱动的实现，规定一个统一的接口层，要求所有的日志框架都必须实现该接口类，在程序中调用时直接使用接口API即可，这样即使更换日志框架也不用修改源代码。</li>
+</ol>
+<h3 id="常见的日志框架"><a href="#常见的日志框架" class="headerlink" title="常见的日志框架"></a>常见的日志框架</h3><p>JUL、JCL、Jboss-logging、logback、log4j、log4j2、slf4j….</p>
+<table>
+<thead>
+<tr>
+<th align="center">日志门面  （日志的抽象层）</th>
+<th align="center">日志实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>SLF4j</strong>（Simple  Logging Facade for Java）<br><del>JCL（Jakarta  Commons Logging）</del><br><del>jboss-logging</del></td>
+<td align="center">Log4j<br/>JUL（java.util.logging）<br/>  Log4j2<br/><strong>Logback</strong></td>
+</tr>
+</tbody></table>
+<p>左边选一个门面（抽象层）、右边来选一个实现；</p>
+<p>日志门面：SLF4J；</p>
+<p>日志实现：Logback；</p>
+<p>SpringBoot：底层是Spring框架，Spring框架默认是用JCL；</p>
+<p><strong>==SpringBoot选用 SLF4j和logback；==</strong></p>
+<hr>
+<h2 id="2、SLF4j使用"><a href="#2、SLF4j使用" class="headerlink" title="2、SLF4j使用"></a>2、SLF4j使用</h2><ul>
+<li>Slf4j官网：<a target="_blank" rel="noopener" href="https://www.slf4j.org/">https://www.slf4j.org</a></li>
+</ul>
+<h3 id="1、如何在系统中使用SLF4j"><a href="#1、如何在系统中使用SLF4j" class="headerlink" title="1、如何在系统中使用SLF4j"></a>1、如何在系统中使用SLF4j</h3><p>我们在开发的时候调用日志框架的记录方法，不是直接调用日志框架的实现类，而是调用日志抽象层里面的方法，抽象层再去调用实现层方法。</p>
+<blockquote>
+<p>官方Demo</p>
+</blockquote>
+<p>给系统里面导入：</p>
+<ol>
+<li><strong>slf4j的jar</strong>   </li>
+<li><strong>logback的实现jar</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Logger logger = LoggerFactory.getLogger(HelloWorld.class);		<span class="comment">// 指定记录哪一个类的日志信息</span></span><br><span class="line">    logger.info(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>slf4j的四层结构：</p>
+<ol>
+<li>应用程序层</li>
+<li>抽象层</li>
+<li>适配层：如果使用了slf4j的抽象层，又要使用没有实现slf4j规定接口的实现类，这时候就需要使用适配层来完成一个转换的功能。适配层向上实现了slf4j的接口，向下规定了实现类，只需要在适配器中完成对同一类功能之间的相互赋值，即可实现既定的功能。</li>
+<li>实现层</li>
+</ol>
+</blockquote>
+<p><strong>case1：</strong></p>
+<p>通过应用程序层直接调用Slf4j的抽象层，如果没有导入抽象层的实现类，显然只能得到null。</p>
+<p><strong>case2：</strong></p>
+<p>通过应用程序层直接调用Slf4j的抽象层，并且导入抽象层的实现类，则可以正确输出日志信息。</p>
+<p><strong>case3：</strong></p>
+<p>通过应用程序层直接调用Slf4j的抽象层，并且导入抽象层的实现类，但是实现类与抽象层并不适配，这时候就需要多加一层适配层，启到承上启下的作用，加上适配器后也以正确输出日志信息。</p>
+<p>如下图所示，<code>log4j</code>的是一种日志框架的实现类，<code>slf4j</code>是日志框架的一种抽象类，但是二者之间并不兼容，这时候我们引入了<code>slf4j-log412</code>这一适配器，就可将这二者关联起来。</p>
+<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png"></p>
+<p>每一个日志的实现框架都有自己   的配置文件。无论使用哪一种日志门面，<strong>配置文件还是得与具体的日志实现框架的匹配</strong>。</p>
+<h3 id="2、如何让系统中所有的日志都统一到slf4j"><a href="#2、如何让系统中所有的日志都统一到slf4j" class="headerlink" title="2、如何让系统中所有的日志都统一到slf4j"></a>2、如何让系统中所有的日志都统一到slf4j</h3><p>对于一个应用程序来说，往往要使用多种框架才能实现。比如有一个A程序，实现该程序使用了Spring、Hibernate、MyBatis等技术，对于Spring框架来说，其底层默认采用了<code>commons-logging</code>日志门面，而Hibernate则采用了<code>jboss-logging</code>作为日志门面。针对同一个项目使用不同的日志输出API显然非常不方便，那么如何才能让一个项目中所有框架都能使用slf4j作为日志框架的底层实现类就能完成日志的输出呢？</p>
+<p><strong>case1</strong></p>
+<p>如下图所示，假设应用程序application采用了4个框架，而这4个框架的采用的日志框架又各不相同，分别是：<code>SLF4J</code>、<code>Commons logging</code>、<code>log4j</code>、<code>java.util.logging</code>。</p>
+<p>我们想要达到的效果：只保留<code>SLF4J</code>框架的实现类，对于非<code>SLF4J</code>的框架则替换其默认日志框架为<code>SLF4J</code>。做到可以调用多个是指框架的抽象层API，但是只配置<code>SLF4J</code>的配置文件，就能完成对日志的相关操作。</p>
+<p>做法：</p>
+<p>将不需要使用的日志框架排除出去，但是排除过后会出现一个问题就是原来框架的运行需要的jar包不存在了程序直接无法启动，这时候我们可以引入<strong>中间包</strong>来替换掉被排除的jar包，中间包中的所有类与原jar包中的所有类名字完全一样，这就保证了程序在运行过程中可以加载到需要的全限定类名，但是中间包中的类的方法的实现又去调用SLF4J的抽象类，SLF4J的抽象类则继续调用SLF4J的实现类。</p>
+<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/legacy.png"></p>
+<ol>
+<li>==将系统中其他日志框架先排除出去；==</li>
+<li>==用中间包来替换原有的日志框架；==</li>
+<li>==我们导入slf4j的实现类==</li>
+</ol>
+<hr>
+<h2 id="3、SpringBoot日志关系"><a href="#3、SpringBoot日志关系" class="headerlink" title="3、SpringBoot日志关系"></a>3、SpringBoot日志关系</h2><p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227200842184.png" alt="image-20201227200842184"></p>
+<p>SpringBoot项目默认依赖<code>spirng-boot-starter</code>依赖，进而依赖<code>spirng-boot-starter-logging</code>依赖，改以来用来管理日志框架。</p>
+<p>底层依赖关系</p>
+<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180131220946.png"></p>
+<p>总结：</p>
+<ol>
+<li>SpringBoot底层默认使用<code>slf4j（抽象层）+ logback（实现类）</code>的方式进行日志记录；</li>
+<li>SpringBoot也把其他的日志框架的抽象层使用<strong>中间包</strong>替换，中间包再去依赖<code>slf4j</code>的抽象类；</li>
+<li><code>slf4j</code>的抽象类再去调用<code> logback（实现类）</code>实现类完成日志相关功能。</li>
+</ol>
+<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203358527.png" alt="image-20201227203358527"></p>
+<p>如图所示，我们可以看到默认日志框架的包结构与中间包的包结构完全相同，这就保证了即使用中间包替换默认包，项目的加载也不会出现问题。</p>
+<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203732038.png" alt="image-20201227203732038"></p>
+<p>但是我们进一步进入中间包的实现类中可以发现，在中间包的类中又调用了SLF4J的接口中的方法。完成了对SLF4J抽象层的依赖。</p>
+<ol start="4">
+<li><p>如果我们要引入其他框架，一定要把这个框架的默认日志依赖移除掉。</p>
+<p>如果不移除的话，就会出现如上图的情况，出现2个同名的jar包，产生依赖冲突。</p>
+</li>
+</ol>
+<p><strong>==SpringBoot能自动适配所有的日志，而且底层使用slf4j+logback的方式记录日志，引入其他框架的时候，只需要把这个框架依赖的日志框架排除掉即可；==</strong></p>
+<hr>
+<h2 id="4、日志使用；"><a href="#4、日志使用；" class="headerlink" title="4、日志使用；"></a>4、日志使用；</h2><h3 id="1、默认配置"><a href="#1、默认配置" class="headerlink" title="1、默认配置"></a>1、默认配置</h3><p>SpringBoot默认帮我们配置好了日志。我们只需启动一个SpringBoot项目，就会在控制台上看到如下日志信息，这就是默认日志。</p>
+<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227204458159.png" alt="image-20201227204458159"></p>
+<blockquote>
+<p>日志的级别:</p>
+</blockquote>
+<ol>
+<li><p>日志级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由低到高   trace &lt; debug &lt; info &lt; warn &lt; error</span><br></pre></td></tr></table></figure></li>
+<li><p>好处：</p>
+<p>使用<code>System.out.println()</code>输出日志信息，如果需求发生改变，不再需要打印日志信息，则需要在程序中把所有有日志输出的语句全部注释掉，每改一次需求都需要重新调整，非常麻烦。</p>
+<p>而使用日志级别则可以很容易的控制输出用户所需要的级别的日志信息，如果需求发生变化，只需要修改配置信息即可。</p>
+</li>
+<li><p>SpringBoot默认给我们使用的是info级别的，只会输出<code>Info</code>及以上级别的日志</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 记录器</span></span><br><span class="line">Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// System.out.println();</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 可以调整输出的日志级别；日志就只会在这个级别以以后的高级别生效</span></span><br><span class="line">    logger.trace(<span class="string">&quot;这是trace日志...&quot;</span>);</span><br><span class="line">    logger.debug(<span class="string">&quot;这是debug日志...&quot;</span>);</span><br><span class="line">    <span class="comment">// SpringBoot默认给我们使用的是info级别的</span></span><br><span class="line">    logger.info(<span class="string">&quot;这是info日志...&quot;</span>);</span><br><span class="line">    logger.warn(<span class="string">&quot;这是warn日志...&quot;</span>);</span><br><span class="line">    logger.error(<span class="string">&quot;这是error日志...&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>SpringBoot修改日志的默认配置</p>
+</blockquote>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改输出的日志级别</span></span><br><span class="line"><span class="meta">logging.level.com.atguigu</span>=<span class="string">trace</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不指定路径在当前目录下生成 springboot.log 日志文件</span></span><br><span class="line"><span class="meta">logging.file.name</span>=<span class="string">springboot.log</span></span><br><span class="line"><span class="comment"># 可以指定完整的路径；</span></span><br><span class="line"><span class="meta">logging.file</span>=<span class="string">G:/springboot.log</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在E盘生成一个 `springbootLogging` 文件夹（目录），在该目录下生成一个名为 `spring.log`[默认名字] 的日志文件</span></span><br><span class="line"><span class="meta">logging.file.path</span>=<span class="string">E:/springbootLogging</span></span><br><span class="line"><span class="comment"># 在当前磁盘的根路径下创建/springboot/logging文件夹；使用 spring.log 作为默认日志文件(在Linux中`/`就作为当前磁盘下的根路径)</span></span><br><span class="line"><span class="meta">logging.file.path</span>=<span class="string">/springboot/logging</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改在控制台输出的日志的格式</span></span><br><span class="line"><span class="meta">logging.pattern.console</span>=<span class="string">%d&#123;yyyy-MM-dd&#125; [%thread] %-5level %logger&#123;50&#125; - %msg%n</span></span><br><span class="line"><span class="comment"># 修改指定文件中日志输出的格式</span></span><br><span class="line"><span class="meta">logging.pattern.file</span>=<span class="string">%d&#123;yyyy-MM-dd&#125; 自定义1 [%thread] 自定义2 %-5level 自定义3 %logger&#123;50&#125; 自定义4 %msg%n</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>日志保存的路径</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">logging.file</th>
+<th align="center">logging.path</th>
+<th align="center">Example</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>-</code></td>
+<td align="center"><code>-</code></td>
+<td align="center"></td>
+<td align="center">只在控制台输出</td>
+</tr>
+<tr>
+<td align="center">指定文件名</td>
+<td align="center"><code>-</code></td>
+<td align="center">my.log</td>
+<td align="center">输出日志到my.log文件</td>
+</tr>
+<tr>
+<td align="center"><code>-</code></td>
+<td align="center">指定目录</td>
+<td align="center">/var/log</td>
+<td align="center">输出到指定目录的 spring.log 文件中</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><p>日志输出的格式</p>
+<p>日志输出格式：</p>
+<pre><code>%d表示日期时间，
+%thread表示线程名，
+%-5level：级别从左显示5个字符宽度
+%logger&#123;50&#125; 表示logger名字最长50个字符，否则按照句点分割。 
+%msg：日志消息，
+%n是换行符
+</code></pre>
+<p>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/" data-id="cklqr5qin0019mcwng3wu0hc8" data-title="SpringBoot整合日志" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/27/MyBatis%E7%9A%84XML%E6%98%A0%E5%B0%84%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MyBatis的XML映射器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/15/MyBatis%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81SQL/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MyBatis中的动态SQL</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/MapReduce/">MapReduce</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/10/Hadoop/">Hadoop</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/HDFS/">HDFS</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

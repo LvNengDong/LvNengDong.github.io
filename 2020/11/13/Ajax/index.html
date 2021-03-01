@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Ajax | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="什么是AJAX请求 AJAX（Asynchronous JavaScript And XML）：异步的 JavaScript 和 XML Ajax 在浏览器与 Web 服务器之间使用异步数据传输（HTTP 请求），这样就可使网页从服务器请求少量的信息，而不是整个页面。  AJAX是一种客户端通过JavaScript发起异步请求，局部更新页面的技术。  AJAX请求是局部更新，浏览器地址栏不会发生变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax">
+<meta property="og:url" content="http://example.com/2020/11/13/Ajax/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什么是AJAX请求 AJAX（Asynchronous JavaScript And XML）：异步的 JavaScript 和 XML Ajax 在浏览器与 Web 服务器之间使用异步数据传输（HTTP 请求），这样就可使网页从服务器请求少量的信息，而不是整个页面。  AJAX是一种客户端通过JavaScript发起异步请求，局部更新页面的技术。  AJAX请求是局部更新，浏览器地址栏不会发生变">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/13/Ajax/Ajax/1.%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5.bmp">
+<meta property="article:published_time" content="2020-11-13T14:11:26.000Z">
+<meta property="article:modified_time" content="2020-11-16T07:36:00.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/13/Ajax/Ajax/1.%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5.bmp">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Ajax" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/13/Ajax/" class="article-date">
+  <time class="dt-published" datetime="2020-11-13T14:11:26.000Z" itemprop="datePublished">2020-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Ajax
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是AJAX请求"><a href="#什么是AJAX请求" class="headerlink" title="什么是AJAX请求"></a>什么是AJAX请求</h1><blockquote>
+<p>AJAX（Asynchronous JavaScript And XML）：<strong>异步的</strong> JavaScript 和 XML</p>
+<p>Ajax 在浏览器与 Web 服务器之间使用异步数据传输（HTTP 请求），这样就可使网页从服务器请求少量的信息，而不是整个页面。</p>
+</blockquote>
+<p>AJAX是一种客户端通过JavaScript发起异步请求，局部更新页面的技术。</p>
+<ol>
+<li>AJAX请求是局部更新，<strong>浏览器地址栏不会发生变化</strong>；</li>
+<li>局部更新不会舍弃原来页面的内容。</li>
+</ol>
+<h2 id="异步和同步"><a href="#异步和同步" class="headerlink" title="异步和同步"></a>异步和同步</h2><ol>
+<li><p>异步和同步（客户端和服务器端相互通信的基础上）：</p>
+<blockquote>
+<ul>
+<li><strong>同步</strong>：客户端向服务器端发送请求，在服务器处理请求的时间段内，客户端必须等待服务器端做出响应后才能进行下一步操作。在等待的期间客户端不能进行其它的操作。</li>
+<li><strong>异步</strong>：客户端向服务器端发送请求，在服务器处理请求的时间段内，客户端也要等待服务器端的响应，但在等待响应的期间，客户端可以进行其它的操作。</li>
+</ul>
+</blockquote>
+<p><img src="Ajax/1.%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5.bmp"></p>
+</li>
+</ol>
+<ul>
+<li>Ajax是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</li>
+<li>通过在后台与服务器进行少量数据交换，Ajax可以使整个网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的部分进行更新。</li>
+<li>传统的网而言（不适用Ajax）如果需要更新内容，就必须重载整个网页页面。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">个人理解：</span><br><span class="line">    客户端无需等待：客户端按照原先既定的顺序执行。但是可以悄咪咪的向服务器发送数据，更改自身的部分内容。</span><br><span class="line">  所以可以实现在不重新加载整个页面的情况下更新内容。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h1 id="Ajax请求的实现方式"><a href="#Ajax请求的实现方式" class="headerlink" title="Ajax请求的实现方式"></a>Ajax请求的实现方式</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/ajax/index.asp">W3school地址</a></li>
+</ul>
+<blockquote>
+<p>AJAX请求定义在<code>&lt;script&gt;</code>标签内。所以可以通过JS或JS的框架发送异步请求。</p>
+</blockquote>
+<h2 id="JavaScript实现Ajax请求-了解"><a href="#JavaScript实现Ajax请求-了解" class="headerlink" title="JavaScript实现Ajax请求(了解)"></a>JavaScript实现Ajax请求(了解)</h2><h3 id="发送异步请求的步骤："><a href="#发送异步请求的步骤：" class="headerlink" title="发送异步请求的步骤："></a>发送异步请求的步骤：</h3><ol>
+<li><p>创建<code>XMLHttpRequest</code>对象：<code>xmlhttp</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    /*</span><br><span class="line">       XMLHttpRequest对象:</span><br><span class="line">         1.所有现代浏览器均支持 XMLHttpRequest 对象（IE5 和 IE6 使用 ActiveXObject）。XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</span><br><span class="line"></span><br><span class="line">         2.为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject </span><br><span class="line">     */</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> xmlhttp;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">    &#123;<span class="comment">// code for IE7+, Firefox, Chrome, Opera, Safari</span></span></span><br><span class="line"><span class="javascript">        xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    <span class="keyword">else</span></span></span><br><span class="line"><span class="javascript">    &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">        xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">&quot;Microsoft.XMLHTTP&quot;</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>客户端向服务器发送请求：</p>
+<ul>
+<li>建立连接：<code>xmlhttp.open()</code></li>
+<li>发送请求：<code>xmlhttp.send()</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center">规定请求的类型、URL以及是否异步处理请求。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>[method：GET/POST]</code></td>
+</tr>
+<tr>
+<td align="center"><code>open(method, url, async)</code></td>
+<td align="center"><code>[URL：文件在服务器上的位置]</code></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>[async：true(异步)/false(同步)]</code></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>send([string])</code></td>
+<td align="center">将请求发送到服务器。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>string：仅用于POST请求</code></td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 2.向服务器发送请求</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// GET请求</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 1&gt; 与服务器建立连接</span></span></span><br><span class="line"><span class="javascript">    xmlhttp.open(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;/AJAX/AjaxServlet?username=zhangsan&quot;</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 2&gt; 发送请求</span></span></span><br><span class="line">    xmlhttp.send();</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// POST请求</span></span></span><br><span class="line"><span class="javascript">    xmlhttp.open(<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;AjaxServlet&quot;</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">    xmlhttp.send(<span class="string">&quot;username=zhangsan&amp;password=123&quot;</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>服务器接收请求执行业务的逻辑。</p>
+</li>
+<li><p>客户端接收并处理服务器的响应结果。</p>
+</li>
+</ol>
+<blockquote>
+<p>客户端的浏览器监听服务器中响应状态信息，当监听到响应成功后，获取服务器的响应结果。</p>
+</blockquote>
+<ul>
+<li><p><code>XMLHttpServlet对象</code>中有3个重要<strong>属性</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center"><code>onreadystatechange</code></td>
+<td align="center">事件，绑定函数，每当<code>readyState</code>属性改变时，就会调用该函数</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">存放<code>XMLHttpServlet</code>的状态。从0到4发生变化</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0：请求未初始化</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"><code>readyState</code></td>
+<td align="center">1：服务器已建立连接</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2：请求已接收</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">3：请求处理中</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">4：请求已完成，且响应已就绪</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"><code>status</code></td>
+<td align="center">200：‘OK’</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">404：未找到页面</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li><p>在 <code>onreadystatechange</code> 事件中，我们定义当服务器响应已做好被处理的准备</p>
+</li>
+<li><p>并且 当 readyState 等于 4 且状态为 200 时，表示响应已就绪，这时才处理响应结果</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 3.接收并处理来自服务器的响应</span></span></span><br><span class="line"><span class="javascript">    xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 1&gt; 判断readyState就绪状态是否为4 &amp; 判断响应码状态是否为200</span></span></span><br><span class="line">        if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)&#123;</span><br><span class="line"><span class="javascript">            <span class="comment">// 2&gt; 获取服务器的响应结果</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> responseText = xmlhttp.responseText</span></span><br><span class="line">            alert(responseText)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>完整代码</strong>：</p>
+<ol>
+<li>客户端浏览器</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>原生JS方式实现AJAX<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 1.创建XMLHttpRequest对象</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> xmlhttp;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">                &#123;<span class="comment">// code for IE7+, Firefox, Chrome, Opera, Safari</span></span></span><br><span class="line"><span class="javascript">                    xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">                &#125;</span><br><span class="line"><span class="javascript">                <span class="keyword">else</span></span></span><br><span class="line"><span class="javascript">                &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">                    xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">&quot;Microsoft.XMLHTTP&quot;</span>);</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">                <span class="comment">// 2.向服务器发送请求</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">// 1&gt; 与服务器建立连接</span></span></span><br><span class="line"><span class="javascript">                xmlhttp.open(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;/AJAX/AjaxServlet?username=zhangsan&quot;</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">                <span class="comment">// xmlhttp.open(&quot;POST&quot;,&quot;AjaxServlet&quot;,true);</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">// 2&gt; 发送请求</span></span></span><br><span class="line">                xmlhttp.send();</span><br><span class="line"><span class="javascript">                <span class="comment">// xmlhttp.send(&quot;username=zhangsan&amp;password=123&quot;);</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                <span class="comment">// 3.接收并处理来自服务器的响应</span></span></span><br><span class="line">                /*</span><br><span class="line">             * 获取方式：xmlhttp.responseText()</span><br><span class="line">             * 什么时候获取服务器的响应？   当服务器响应成功后再获取</span><br><span class="line">             * */</span><br><span class="line"></span><br><span class="line"><span class="javascript">                xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                    <span class="comment">// 1&gt; 判断readyState就绪状态是否为4 &amp; 判断响应码状态是否为200</span></span></span><br><span class="line">                    if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)&#123;</span><br><span class="line"></span><br><span class="line"><span class="javascript">                        <span class="comment">// 2&gt; 获取服务器的响应结果</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> responseText = xmlhttp.responseText</span></span><br><span class="line">                        alert(responseText)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;发送异步请求&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;fun()&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--当&#x27;button&#x27;按钮发送异步请求，等待响应的时间段内，整个Html页面仍然正常运行，可以在此文本框中进行任何操作--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>服务器</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.XSYU.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/AjaxServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AjaxServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1.获取请求参数</span></span><br><span class="line">        String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.模拟处理业务耗时</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.打印到控制台上</span></span><br><span class="line">        System.out.println(username);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.返回结果</span></span><br><span class="line">        resp.getWriter().write(<span class="string">&quot;Hello&quot;</span>+username);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h2 id="JQuery实现Ajax请求"><a href="#JQuery实现Ajax请求" class="headerlink" title="JQuery实现Ajax请求"></a>JQuery实现Ajax请求</h2><h3 id="通用方式：-ajax"><a href="#通用方式：-ajax" class="headerlink" title="通用方式：$ajax()"></a>通用方式：<code>$ajax()</code></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>JQuery实现AJAX的通用方式<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--导入JQuery依赖--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 1.使用 $.ajax()发送异步请求</span></span></span><br><span class="line"><span class="javascript">                $.ajax(&#123;</span></span><br><span class="line"><span class="javascript">                    url: <span class="string">&quot;/AJAX/ajaxServlet&quot;</span>,       <span class="comment">// 请求资源路径</span></span></span><br><span class="line"><span class="javascript">                    type: <span class="string">&quot;POST&quot;</span>,                    <span class="comment">// 请求方式</span></span></span><br><span class="line"><span class="javascript">                    <span class="comment">// data: &quot;username=jack&amp;age=23&quot;,   // 请求参数类型1</span></span></span><br><span class="line"><span class="javascript">                    data: &#123;<span class="string">&quot;username&quot;</span>:<span class="string">&quot;jack&quot;</span>, <span class="string">&quot;age&quot;</span>:<span class="number">23</span>&#125;,     <span class="comment">// 请求参数类型2[json格式]</span></span></span><br><span class="line"><span class="javascript">                    success:<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;    <span class="comment">// data是响应消息数据</span></span></span><br><span class="line">                        alert(data);</span><br><span class="line"><span class="javascript">                    &#125;,                              <span class="comment">// 响应成功的回调函数</span></span></span><br><span class="line"><span class="javascript">                    error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        alert(<span class="string">&quot;出错了qaq&quot;</span>);</span></span><br><span class="line"><span class="javascript">                    &#125;,                              <span class="comment">// 响应出错后的回调函数</span></span></span><br><span class="line"><span class="javascript">                    dataType: <span class="string">&quot;text&quot;</span>                <span class="comment">// 设置接收到的响应数据的格式</span></span></span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;点击发送异步请求&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;fun();&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="GET请求类型：-get"><a href="#GET请求类型：-get" class="headerlink" title="GET请求类型：$.get()"></a>GET请求类型：<code>$.get()</code></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>JQuery实现AJAX的GET请求方式<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./js/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">//定义方法</span></span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span>  <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $.get(<span class="string">&#x27;/AJAX/ajaxServlet&#x27;</span>,&#123;<span class="attr">username</span>:<span class="string">&#x27;rose&#x27;</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line">                    alert(data);</span><br><span class="line"><span class="javascript">                &#125;, <span class="string">&#x27;text&#x27;</span>);</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            /*</span><br><span class="line"><span class="javascript">             $.get(url, data, callbackFunction, <span class="string">&#x27;dataType&#x27;</span>)的参数</span></span><br><span class="line">                 url  :  服务器地址</span><br><span class="line">                 data  ：  请求参数</span><br><span class="line">                 callbackFunction  ：  回调函数</span><br><span class="line">                 dataType  ：  设置响应数据类型</span><br><span class="line">          */</span><br><span class="line">        <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;发送异步请求&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;fun();&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="POST请求类型：-post"><a href="#POST请求类型：-post" class="headerlink" title="POST请求类型：$.post()"></a>POST请求类型：<code>$.post()</code></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>JQuery实现AJAX的GET请求方式<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./js/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">//定义方法</span></span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span>  <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $.post(<span class="string">&#x27;/AJAX/ajaxServlet&#x27;</span>,&#123;<span class="attr">username</span>:<span class="string">&#x27;lisi&#x27;</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line">                    alert(data);</span><br><span class="line"><span class="javascript">                &#125;, <span class="string">&#x27;text&#x27;</span>);</span></span><br><span class="line">            &#125;</span><br><span class="line">            /*</span><br><span class="line"><span class="javascript">             $.get(url, data, callbackFunction, <span class="string">&#x27;dataType&#x27;</span>)的参数</span></span><br><span class="line">                 url  :  服务器地址</span><br><span class="line">                 data  ：  请求参数</span><br><span class="line">                 callbackFunction  ：  回调函数</span><br><span class="line">                 dataType  ：  设置响应数据类型</span><br><span class="line">          */</span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;发送异步请求&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;fun();&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/13/Ajax/" data-id="cklqr5qi10002mcwn9bzoc4ey" data-title="Ajax" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/20/Maven/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Maven
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/13/XML/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">XML</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/MapReduce/">MapReduce</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/10/Hadoop/">Hadoop</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/HDFS/">HDFS</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

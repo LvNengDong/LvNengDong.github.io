@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>通用异常处理器 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在项目中出现异常常用的处理方法是try...catch或throw。但是如果直接将异常信息展示给客户端浏览器显然是不合适的，下面我们将介绍比较规范的异常处理的过程。 场景模拟向数据库做新增一件商品，需要接收如下参数： 12price：商品价格name：商品名称  然后对数据进行简单的校验，要求是：  价格不能为空，为空则数据不合法。 新增成功后，自动形成商品ID，然后随商品对象一起返回。  未出现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通用异常处理器">
+<meta property="og:url" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在项目中出现异常常用的处理方法是try...catch或throw。但是如果直接将异常信息展示给客户端浏览器显然是不合适的，下面我们将介绍比较规范的异常处理的过程。 场景模拟向数据库做新增一件商品，需要接收如下参数： 12price：商品价格name：商品名称  然后对数据进行简单的校验，要求是：  价格不能为空，为空则数据不合法。 新增成功后，自动形成商品ID，然后随商品对象一起返回。  未出现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126175637689.png">
+<meta property="og:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126175512201.png">
+<meta property="og:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126180849084.png">
+<meta property="og:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126183158148.png">
+<meta property="og:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126191922799.png">
+<meta property="og:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126192009153.png">
+<meta property="article:published_time" content="2020-11-26T12:04:03.000Z">
+<meta property="article:modified_time" content="2021-01-21T14:36:26.945Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126175637689.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-通用异常处理器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2020-11-26T12:04:03.000Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SpringMVC/">SpringMVC</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      通用异常处理器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在项目中出现异常常用的处理方法是<code>try...catch</code>或<code>throw</code>。但是如果直接将异常信息展示给客户端浏览器显然是不合适的，下面我们将介绍比较规范的异常处理的过程。</p>
+<h2 id="场景模拟"><a href="#场景模拟" class="headerlink" title="场景模拟"></a>场景模拟</h2><p>向数据库做新增一件商品，需要接收如下参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">price：商品价格</span><br><span class="line">name：商品名称</span><br></pre></td></tr></table></figure>
+
+<p>然后对数据进行简单的校验，要求是：</p>
+<ul>
+<li>价格不能为空，为空则数据不合法。</li>
+<li>新增成功后，自动形成商品ID，然后随商品对象一起返回。</li>
+</ul>
+<h2 id="未出现异常的情况"><a href="#未出现异常的情况" class="headerlink" title="未出现异常的情况"></a>未出现异常的情况</h2><ol>
+<li><p>初始化一个SpringBoot工程</p>
+</li>
+<li><p>实体类<code>Item</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.domian;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span>	<span class="comment">// Lombok</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Long price;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Controller层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.web;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/item&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ItemService itemService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Item <span class="title">saveItem</span><span class="params">(Item item)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> itemService.saveItem(item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Service层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemService</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">      * 模拟业务逻辑：新增商品成功后，自动形成商品ID，然后随商品对象一起返回</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Item <span class="title">saveItem</span><span class="params">(Item item)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> id = <span class="keyword">new</span> Random().nextInt(<span class="number">100</span>);</span><br><span class="line">        item.setId(id);</span><br><span class="line">        <span class="keyword">return</span> item;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>未出现异常时，前端页面提交新增商品的<strong>商品信息</strong>，后端把商品存到数据库中，成功后返回<strong>商品信息+商品ID</strong>。</p>
+</li>
+</ol>
+<hr>
+<h2 id="出现异常"><a href="#出现异常" class="headerlink" title="出现异常"></a>出现异常</h2><p>因为在程序运行过程中难以避免异常的发生，所以要增加异常处理逻辑。此处在Web层中增加了处理异常的逻辑。</p>
+<ol>
+<li><p>修改Web层的代码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.web;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/item&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ItemService itemService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span></span><br><span class="line">    <span class="comment">// ResponseEntity&lt;T&gt;中的泛型代表响应体</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;Item&gt; <span class="title">saveItem</span><span class="params">(Item item)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 校验价格</span></span><br><span class="line">        <span class="keyword">if</span> (item.getPrice() == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// Restful风格对于响应消息的格式有严格要求：必须返回 1)状态码 2）响应体。	</span></span><br><span class="line">            <span class="comment">// @ResponseBody 只负责响应体内容，而状态码在响应行中，这时候我们可以使用 ResponseEntity 来充当返回值对象</span></span><br><span class="line">            <span class="comment">// 如果是对象创建失败，且原因是请求参数有问题，应该返回响应状态码400.响应体为NULL</span></span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对象创建执行成功，返回响应状态码为201，响应体为Item对象</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED).body(itemService.saveItem(item));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>如果请求参数符合规范，返回的结果为：状态码+Item对象：<img src="%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126175637689.png"></li>
+<li>如果请求参数不符合规范，返回的结果为：状态码+NULL<img src="%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126175512201.png">显然，只返回响应状态，这样的异常处理对用户而言体验极差。</li>
+<li>如果设置响应体中的数据为“价格不能为空”，与返回值<code>ResponseEntity&lt;T&gt;</code>的泛型类型不匹配，编译直接无法通过。   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(<span class="string">&quot;价格不能为空&quot;</span>);    <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果将<code>ResponseEntity&lt;T&gt;</code>中的泛型类型指定为String类型可以完成该功能，但是这样一来，就不能顾名思义了，也不合适。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="通用异常处理"><a href="#通用异常处理" class="headerlink" title="通用异常处理"></a>通用异常处理</h2><ol>
+<li><p>既然不能通过<code>ResponseEntity&lt;T&gt;</code>完成想要的功能，我们就可以借助异常处理器。继续修改Web层的代码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.web;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/item&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ItemService itemService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span></span><br><span class="line">    <span class="comment">// ResponseEntity&lt;T&gt;中的泛型代表响应体</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;Item&gt; <span class="title">saveItem</span><span class="params">(Item item)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 校验价格</span></span><br><span class="line">        <span class="keyword">if</span> (item.getPrice() == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 抛出异常，异常类RuntimeException中的内容会被封装在响应体中</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;价格不能为空&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对象创建执行成功，返回响应状态码为201，响应体为Item对象</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED).body(itemService.saveItem(item));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>此时，出现异常的响应结果是：</p>
+<p><img src="%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126180849084.png"></p>
+<p>因为我们在出现异常的地方抛出了<code>RuntimeException</code>，那么编译器就会认为是服务器内部出现了问题，返回响应状态码是500，显然这是不合适的。</p>
+<p>SpringMVC默认配置了异常处理器，现在就是SpringMVC的异常处理器在帮助我们处理异常。但是，我们想要的结果是：异常不应该由SpringMVC处理，而是由我们自己处理，这就需要定义通用异常处理的逻辑。</p>
+</li>
+</ul>
+</li>
+<li><p>首先我们要拦截Web层抛出的所有异常（这是一种AOP的思想，面向切面编程）。但是不用我们自己去写拦截所有异常的方法，SpringMVC提供了<code>@ControllerAdvice</code>注解默认情况下可以自动拦截所有被<code>@Controller</code>注解修饰的类抛出的异常（即Web层的异常），被<code>@ControllerAdvice</code>修饰的类就是一个通知，可以在运行期增强被拦截到的异常。</p>
+</li>
+<li><p>拦截到异常之后，我们需要手动去处理异常。创建一个通用异常处理器类（本质上是一个<strong>通知</strong>）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.advice;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonExceptionHandler</span> </span>&#123;</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 该方法的返回值就是返回给浏览器的信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(RuntimeException.class)</span>	<span class="comment">// 该注解的作用是拦截指定类型的异常</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title">myExceptionHandler</span><span class="params">(RuntimeException e)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 拦截所有Web层异常，并在运行期对其进行增强</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>@ControllerAdvice</code>是SpringMVC中的注解，所以项目中事先需要引入SpringMVC的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>再次访问，得到的结果为：</p>
+</li>
+</ol>
+<p>  <img src="%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126183158148.png"></p>
+<hr>
+<h2 id="继续优化"><a href="#继续优化" class="headerlink" title="继续优化"></a>继续优化</h2><p>存在的问题：</p>
+<ol>
+<li>通用异常处理器中，状态码被写死了（硬编码）</li>
+<li>响应体消息只返回字符串过于简单</li>
+</ol>
+<p>解决方法：</p>
+<ol>
+<li><p>响应状态码应该在抛出异常的地方声明。即抛出异常的地方应该声明：1、状态码  2、响应消息message。<code>--&gt;</code> 自定义异常类</p>
+<blockquote>
+<p>不管是<code>Exception类</code>还是<code>RuntimeException类</code>，其构造方法都不能保存响应状态码，所以我们要想在出现异常的地方声明响应状态码，就必须自定义异常类来实现！！！</p>
+</blockquote>
+</li>
+<li><p>响应消息message直接在抛出异常的地方定义也不合适，因为不同的开发人员定义的异常说明可能不同，所以最好的方法是定义在一个枚举类型中，由开发人员去调用即可。</p>
+</li>
+</ol>
+<ol>
+<li><p>自定义异常类：MyException</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.exception;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 类中的属性</span></span><br><span class="line">    <span class="keyword">private</span> ExceptionEnum exceptionEnum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>定义一个枚举类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.enums;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将响应状态码和响应体消息都封装在枚举中，使用的时候直接调用即可。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Getter</span>     <span class="comment">// 提供get方法</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span>  </span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ExceptionEnum</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    PRICE_CANNOT_BE_NULL(<span class="number">400</span>, <span class="string">&quot;价格不能为空&quot;</span>);</span><br><span class="line">    <span class="comment">// 等价于private static final ExceptionEnum name1  = new ExceptionEnum(400, &quot;价格不能为空&quot;);相当于创建了一个对象</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 类中的属性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> statusCode;</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改拦截器</p>
+<ul>
+<li>拦截自定义异常类</li>
+<li>通过自定义异常类中得到枚举中定义的异常信息说明，分别作为响应状态码和响应体返回给浏览器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.advice;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 该方法的返回值就是返回给浏览器的信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ExceptionHandler</span>()注解的作用是限定拦截的异常的类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(MyException.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title">myExceptionHandler</span><span class="params">(MyException e)</span></span>&#123;</span><br><span class="line">        ExceptionEnum exceptionEnum = e.getExceptionEnum();</span><br><span class="line">        <span class="keyword">int</span> statusCode = exceptionEnum.getStatusCode();</span><br><span class="line">        String message = exceptionEnum.getMessage();</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(statusCode).body(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改Web层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.web;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/item&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ItemService itemService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span></span><br><span class="line">    <span class="comment">// ResponseEntity&lt;T&gt;中的泛型代表响应体</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;Item&gt; <span class="title">saveItem</span><span class="params">(Item item)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 校验价格</span></span><br><span class="line">        <span class="keyword">if</span> (item.getPrice() == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 抛出自定义异常，自定义异常中接收枚举类中的信息</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MyException(ExceptionEnum.PRICE_CANNOT_BE_NULL);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对象创建执行成功，返回响应状态码为201，响应体为Item对象</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED).body(itemService.saveItem(item));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在还存在的问题就是<strong>响应体</strong>过于简单，所以我们可以将响应体封装成一个复杂的对象返回。</p>
+</li>
+<li><p>定义一个类封装响应体信息，该类接收一个枚举类型，并会将枚举类型中的信息拿过来并加以丰富</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.vo;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 丰富响应体的内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionResult</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> status;</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">    <span class="keyword">private</span> Long timestamp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建一个构造函数，构造函数中接收来自ExceptionEnum的信息，并将枚举类中的信息初始化给当前类的属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExceptionResult</span><span class="params">(ExceptionEnum em)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.status = em.getStatusCode();</span><br><span class="line">        <span class="keyword">this</span>.message = em.getMessage();</span><br><span class="line">        <span class="keyword">this</span>.timestamp = System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置拦截器中的响应体的返回值即方法的返回类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test.advice;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 该方法的返回值就是返回给浏览器的信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ExceptionHandler</span>()注解的作用是限定拦截的异常的类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(MyException.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;ExceptionResult&gt; <span class="title">myExceptionHandler</span><span class="params">(MyException e)</span></span>&#123;</span><br><span class="line">        ExceptionEnum exceptionEnum = e.getExceptionEnum();</span><br><span class="line">        <span class="keyword">int</span> statusCode = exceptionEnum.getStatusCode();</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(statusCode).body(<span class="keyword">new</span> ExceptionResult(exceptionEnum));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>最终得到的结果如下：</p>
+<p><img src="%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126191922799.png"></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>整个项目的目录结构如下：</p>
+<p><img src="%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/image-20201126192009153.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/26/%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/" data-id="cklqr5qja002rmcwne4eo0a3b" data-title="通用异常处理器" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/30/Thymeleaf/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Thymeleaf
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/25/json%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8CJava%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">json字符串和Java对象之间的相互转换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/MapReduce/">MapReduce</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/10/Hadoop/">Hadoop</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/HDFS/">HDFS</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

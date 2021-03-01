@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>反射 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1    类的加载、连接和初始化系统可能在第一次使用某个类时加载该类，也可能采用预加载机制来加载某个类。 1.1    JVM和类当调用java命令运行某个Java程序时，该命令将会启动一个Java虚拟机进程，不管该Java进程有多么复杂，该程序启动了多少个线程，它们都处于Java虚拟机进程里。也就是说，同一个JVM的所有线程、所有变量都处于同一个进程里，它们都使用该JVM进程的内存区。    当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反射">
+<meta property="og:url" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1    类的加载、连接和初始化系统可能在第一次使用某个类时加载该类，也可能采用预加载机制来加载某个类。 1.1    JVM和类当调用java命令运行某个Java程序时，该命令将会启动一个Java虚拟机进程，不管该Java进程有多么复杂，该程序启动了多少个线程，它们都处于Java虚拟机进程里。也就是说，同一个JVM的所有线程、所有变量都处于同一个进程里，它们都使用该JVM进程的内存区。    当">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp">
+<meta property="article:published_time" content="2020-08-20T02:08:25.000Z">
+<meta property="article:modified_time" content="2020-12-23T14:08:54.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-反射" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/20/%E5%8F%8D%E5%B0%84/" class="article-date">
+  <time class="dt-published" datetime="2020-08-20T02:08:25.000Z" itemprop="datePublished">2020-08-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaSE/">JavaSE</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      反射
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-类的加载、连接和初始化"><a href="#1-类的加载、连接和初始化" class="headerlink" title="1    类的加载、连接和初始化"></a>1    类的加载、连接和初始化</h1><p>系统可能在第一次使用某个类时加载该类，也可能采用预加载机制来加载某个类。</p>
+<h2 id="1-1-JVM和类"><a href="#1-1-JVM和类" class="headerlink" title="1.1    JVM和类"></a>1.1    JVM和类</h2><p>当调用java命令运行某个Java程序时，该命令将会启动一个Java虚拟机<strong>进程</strong>，不管该Java进程有多么复杂，该程序启动了多少个<strong>线程</strong>，它们都处于Java虚拟机进程里。也就是说，同一个JVM的所有线程、所有变量都处于同一个进程里，它们都使用<strong>该JVM进程的内存区</strong>。    当系统出现以下几种情况时，JVM进程将被终止：</p>
+<ul>
+<li>程序运行到最后正常结束。</li>
+<li>程序执行过程中遇到了未捕捉的异常或错误而结束。</li>
+<li>程序运行到使用<code>System.exit()</code>或<code>Runtime.getRuntime().exit()</code>代码处结束程序。</li>
+<li>程序所在的平台强制结束了JVM进程。</li>
+</ul>
+<p>从上面的介绍可以看出，当Java程序运行结束时，JVM进程结束，该程序在内存中的状态将会丢失。下面以类的静态变量来说明这个问题。</p>
+<blockquote>
+<ol>
+<li>先定义一个包含静态变量的类。</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">7</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="2">
+<li>定义一个类创建A类的实例，并访问A对象的静态变量a。</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ATest1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        a.a++;</span><br><span class="line">        System.out.println(a.a);	<span class="comment">// 8</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="3">
+<li>下面程序也创建A对象，并访问其变量a的值</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ATest2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A b = <span class="keyword">new</span> A();</span><br><span class="line">        System.out.println(b.a);	<span class="comment">// 7</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        在ATest1.java程序中创建了A类的实例，并让该实例的静态变量a的值自增1，程序输出的结果为8，这是显而易见的。关键是运行第2个程序ATest2时，程序再次创建了A对象，并输出A对象静态变量a的值，此时a的值是多少呢？</p>
+<p>​        相信很多读者会毫不犹豫的认为是8，因为A类里面的a变量是静态变量，同一个类的所有实例的静态变量共享同一块内存区，因为第一次运行时改变了第一个A实例的a变量，所以第二次运行时第二个A实例的a变量也将受到影响。</p>
+<p>​        实际上结果依然是7，而不是8。这是因为ATest1和Atest2是两次运行JVM进程，第一次运行JVM结束后，它对A类所做的修改将全部丢失——第2次运行JVM时将再次初始化A类。两次运行的JVM程序处于两个不同的JVM进程中，两个JVM之间并不会共享数据。</p>
+<h2 id="1-2-类的加载"><a href="#1-2-类的加载" class="headerlink" title="1.2    类的加载"></a>1.2    类的加载</h2><p>​        当程序主动使用某个类时，如果该类还未被加载到内存中，则系统会通过<strong>加载、连接、初始化</strong>三个步骤来对该类进行初始化。正常情况下，JVM会<em>连续</em>完成这三个步骤，所以有时候也把这三个步骤统称为类加载或类初始化。</p>
+<p>​        实际上，<strong>类加载</strong>指的是将类的class文件读入内存，并为之创建一个<code>java.lang.Class</code>对象，也就是说，当程序中使用任何类时，系统都会为之创建一个<code>java.lang.Class</code>对象。</p>
+<p>​        类的加载由类加载器完成，类加载器通常由JVM提供，JVM提供的类加载器又被称为系统类加载器。除此之外，开发者可以通过继承<code>ClassLoader</code>类来创建自己的类加载器。类加载器是所有程序运行的基础。（将二进制文件加载进内存！！！）</p>
+<p>通过使用不同的类加载器，可以从不同来源加载类的二进制数据。通常有如下几种来源：</p>
+<ul>
+<li>从本地文件中加载class文件。</li>
+<li>从JAR包加载class文件。如JDBC编程中用到的数据库驱动类就放在JAR文件中，JVM可以直接才能够JAR文件中加载该class文件。</li>
+<li>通过网络加载class文件。</li>
+</ul>
+<p>类加载器通常无需等到“首次使用”该类时才加载该类，Java虚拟机允许系统预先的加载某些类。</p>
+<h2 id="1-3-类的连接"><a href="#1-3-类的连接" class="headerlink" title="1.3    类的连接"></a>1.3    类的连接</h2><p>​        当类被加载后，系统为之生一个对应的Class对象，接着会进入连接阶段，连接阶段负责把类的二进制数据合并到JRE中。类连接又可以分为如下3个阶段：</p>
+<ol>
+<li>验证：验证阶段用于检验被加载的类是否有正确的内部结构，是否和其它类协调一致。</li>
+<li>准备：类准备阶段则负责为类的静态变量分配内存，并设置默认初始值。</li>
+<li>解析：将类的二进制数据中的符号引用替换成直接引用。</li>
+</ol>
+<h2 id="1-4-类的初始化"><a href="#1-4-类的初始化" class="headerlink" title="1.4    类的初始化"></a>1.4    类的初始化</h2><p>​        在类的初始化阶段，虚拟机负责对类进行初始化，主要就是对类的静态变量进行初始化。在Java类中对静态变量指定初始化值的方式有2种：</p>
+<ol>
+<li>声明静态变量时指定初始值。</li>
+<li>使用静态代码块为静态变量指定初始值。</li>
+<li>如果不指定静态变量的值，int类型的数据默认采用0作为初始值。</li>
+</ol>
+<p>JVM初始化一个类包含如下几个步骤：</p>
+<ol>
+<li><p>假设这个类还没有被加载和连接，则程序先加载并连接该类。</p>
+</li>
+<li><p>假设该类中的直接父类还没有被初始化，则先初始化其直接父类。</p>
+<p>以此类推，所以JVM最先初始化的总是<code>java.lang.Object</code>类。</p>
+</li>
+<li><p>假设类中有初始化语句，则系统一次执行这些初始化语句。（如赋初始值等）</p>
+</li>
+</ol>
+<h3 id="1-4-1-类的初始化时机"><a href="#1-4-1-类的初始化时机" class="headerlink" title="1.4.1    类的初始化时机"></a>1.4.1    类的初始化时机</h3><p>当Java程序首次通过如下方式来使用某个类（或接口）时，系统就会初始化该类（或接口）。</p>
+<ol>
+<li>创建类的实例。包括：<ul>
+<li>使用new创建实例。</li>
+<li>通过反射来创建实例</li>
+<li>通过反序列化来创建实例</li>
+</ul>
+</li>
+<li>调用某个类的静态方法。</li>
+<li>访问某个类（或接口）的静态变量，或为该静态变量赋值。</li>
+<li>使用反射方式来创建某个类（或接口）对应的<code>java.lang.Class</code>对象。</li>
+<li>初始化某个类的子类。</li>
+</ol>
+<h4 id="Tip"><a href="#Tip" class="headerlink" title="Tip"></a>Tip</h4><p><strong>case1：</strong>对于一个final型的静态变量，如果该静态变量的值在编译时就可以确定夏磊，那么这个静态变量相当于“宏变量”。Java编译器会在编译时直接把这个类变量出现的地方替换成它的值，因此即使程序使用该静态变量，也不会导致该类的初始化。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String str = <span class="string">&quot;HelloWord&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(Test1.str);	<span class="comment">// 1️⃣</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="1、什么是反射"><a href="#1、什么是反射" class="headerlink" title="1、什么是反射"></a>1、什么是反射</h1><p>通过Java反射机制，可以在程序中访问已经装载到JVM中的Java对象的描述，实现访问、检测和修改描述Java对象本身信息的功能。</p>
+<blockquote>
+<p>Java中的反射，就是：在JVM处于运行状态时，</p>
+<ul>
+<li>对于任意一个类，都能知道这个类的所有属性和方法；</li>
+<li>对于任意一个对象，都能调用它的属性和方法</li>
+</ul>
+<p>这种<strong>动态获取类的信息和动态调用对象方法</strong>的功能称为Java语言的反射机制。</p>
+</blockquote>
+<p>之所以强调属性和方法是因为这是开发者最为关注的2个部分，实际上通过反射，不仅仅可以获取类的属性、方法，还可以获取类的父类、接口、包等信息。</p>
+<ul>
+<li><p><strong>静态调用</strong>：在<code>.java</code>文件中<strong>显式调用</strong>对象方法或获取类的信息。</p>
+</li>
+<li><p><strong>动态调用</strong>：在JVM运行时期，通过反射机制调用类/对象中的方法或获取类的信息。</p>
+<blockquote>
+<p>动态调用的好处：将编译期异常转移到运行期异常，降低耦合度。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="2、Java代码在计算机中经历的三个阶段"><a href="#2、Java代码在计算机中经历的三个阶段" class="headerlink" title="2、Java代码在计算机中经历的三个阶段"></a>2、Java代码在计算机中经历的三个阶段</h1><p><img src="%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp"></p>
+<h2 id="2-1-源代码阶段（Source）"><a href="#2-1-源代码阶段（Source）" class="headerlink" title="2.1.    源代码阶段（Source）"></a>2.1.    源代码阶段（Source）</h2><ol>
+<li>源代码阶段就是开发人员编写代码的阶段，我们可以定义一个Person类，这个类中包含：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">   	<span class="comment">// 1、成员变量：</span></span><br><span class="line">    <span class="keyword">private</span> String name;	</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="comment">// 2、构造方法：</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span></span>&#123;.....&#125;	</span><br><span class="line">	<span class="comment">// 3、普通方法： </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;&#125; </span><br><span class="line">    <span class="comment">// 4、其它</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>我们编写好代码之后，首先要被编译为<code>Person.class</code>二进制文件。这个<code>Person.class</code>文件中的内容一般分为以下几部分：</p>
+<ul>
+<li>成员变量：private String name;    private int age;</li>
+<li>构造方法：public Person(){…..}    </li>
+<li>普通方法： public void method(){}</li>
+<li>等等</li>
+</ul>
+<p>这一阶段的过程都在<strong>硬盘</strong>中进行，<code>Person.java</code>文件和<code>Person.class</code>文件并没有加载到内存中。</p>
+</li>
+</ol>
+<hr>
+<h2 id="2-2-类对象阶段（Class）-反射"><a href="#2-2-类对象阶段（Class）-反射" class="headerlink" title="2.2    类对象阶段（Class）[反射]"></a>2.2    类对象阶段（Class）[反射]</h2><ol>
+<li><p>由于计算机只能识别二进制码，所以实际上进入内存执行的文件是<code>Person.class</code>字节码文件。    <code>Person.class</code>字节码文件被<code>类加载器ClassLoader</code><strong>加载到内存中</strong>之后，就正式进入了第二阶段——Class类阶段。这个过程也叫做反射。</p>
+</li>
+<li><p><strong>反射：将类的各个组成部分封装为一个个对象</strong>。</p>
+<ul>
+<li><p>比如：</p>
+<p>将Person类的每个成员变量封装为<strong>Field对象</strong>，并存入Field[]数组中。</p>
+<p>将Person类的每个普通方法封装为<strong>Method对象</strong>，并存入Method[]数组中。</p>
+<p>将Person类的每个构造方法封装为<strong>Constructor对象</strong>，并存入Constructor[]数组中。</p>
+</li>
+</ul>
+<p>这一阶段是在<strong>内存</strong>中进行的。</p>
+<p>这一阶段<code>Person.class</code>整体仍然是一个对象，但是其中的成员变量、成员方法、普通方法等也分别被封装成了一个个的对象。</p>
+</li>
+<li><p>与Java反射相关的类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Class</code></td>
+<td align="center">代表类的实体，在运行的Java程序中表示类或接口</td>
+</tr>
+<tr>
+<td align="center"><code>Field</code></td>
+<td align="center">代表类的属性</td>
+</tr>
+<tr>
+<td align="center"><code>Method</code></td>
+<td align="center">代表类中的普通方法</td>
+</tr>
+<tr>
+<td align="center"><code>Constructor</code></td>
+<td align="center">代表类中的构造方法</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<hr>
+<h2 id="2-3-运行时阶段（Runtime）"><a href="#2-3-运行时阶段（Runtime）" class="headerlink" title="2.3    运行时阶段（Runtime）"></a>2.3    运行时阶段（Runtime）</h2><ul>
+<li>运行时阶段（Runtime）的主要功能就是：将Class类转换为实例对象。</li>
+<li>这一阶段也在内存中进行。</li>
+</ul>
+<hr>
+<h1 id="3、常用方法"><a href="#3、常用方法" class="headerlink" title="3、常用方法"></a>3、常用方法</h1><h2 id="3-1-获取Class对象的方法"><a href="#3-1-获取Class对象的方法" class="headerlink" title="3.1    获取Class对象的方法"></a>3.1    获取Class对象的方法</h2><ul>
+<li>获取的是加载进内存中的<code>Class对象</code>，而不是<code>.class文件</code>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">方法</th>
+<th align="center">说明</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center"><code>Class.forName(&quot;全限定类名&quot;)</code></td>
+<td align="center">将字节码文件加载进内存，返回Class对象</td>
+<td align="center">多用于配置文件。在配置文件中定义全限定类名，通过读取该配置文件，进而获得Class对象。[依赖jar包都为字节码文件]</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"><code>类名.class</code></td>
+<td align="center">通过类名获取Class对象</td>
+<td align="center">多用于参数的传递</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"><code>对象名.getClass()</code></td>
+<td align="center"><code>getClass()</code>方法是Object根类中的方法</td>
+<td align="center">多用于已知实例对象，获取Class对象。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>同一个字节码文件<code>即.class文件</code>，在一次程序运行的过程中，只会被加载一次。</li>
+<li>无论通过哪一种方式获取的<code>Class对象</code>都是同一个。</li>
+</ul>
+<h2 id="3-2-Class对象中的方法"><a href="#3-2-Class对象中的方法" class="headerlink" title="3.2    Class对象中的方法"></a>3.2    Class对象中的方法</h2><table>
+<thead>
+<tr>
+<th align="center">分类</th>
+<th align="center">方法</th>
+<th align="center">返回值</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">获取成员变量<strong>对象</strong></td>
+<td align="center"><code>getFields()</code></td>
+<td align="center"><code>Filed[]</code></td>
+<td align="center">获取所有public修饰的成员变量对象</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getfield(String name)</code></td>
+<td align="center"><code>Field</code></td>
+<td align="center">获取指定名称的、public修饰的成员变量对象</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getDeclaredFields()</code></td>
+<td align="center"><code>Filed[]</code></td>
+<td align="center">获取所有的成员变量对象，不考虑修饰符</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getDeclaredField(String name)</code></td>
+<td align="center"><code>Field</code></td>
+<td align="center">获取指定名称的成员变量对象</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">获取构造方法<strong>对象</strong></td>
+<td align="center"><code>getConstructors()</code></td>
+<td align="center"><code>Constructor&lt;?&gt;[]</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getConstructor(类&lt;?&gt;... parameterTypes)</code></td>
+<td align="center"><code>Constructor&lt;T&gt;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getDeclaredConstructors()</code></td>
+<td align="center"><code>Constructor&lt;?&gt;[]</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getDeclaredConstructor(类&lt;?&gt;... parameterTypes)</code></td>
+<td align="center"><code>Constructor&lt;T&gt;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">获取成员方法<strong>对象</strong></td>
+<td align="center"><code>getMethods()</code></td>
+<td align="center"><code>Method[]</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getMethod(String name, 类&lt;?&gt;... parameterTypes)</code></td>
+<td align="center"><code>Method</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getDeclaredMethods()</code></td>
+<td align="center"><code>Method[]</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getDeclaredMethod(String name, 类&lt;?&gt;... parameterTypes)</code></td>
+<td align="center"><code>Method</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">获取全类名</td>
+<td align="center"><code>getName()</code></td>
+<td align="center"><code>String</code></td>
+<td align="center">获取全类名</td>
+</tr>
+<tr>
+<td align="center">创建一个空参对象</td>
+<td align="center"><code>newInstance()</code></td>
+<td align="center"><code>Object</code></td>
+<td align="center">创建一个空参对象</td>
+</tr>
+<tr>
+<td align="center">返回该类的类加载器</td>
+<td align="center"><code>getClassLoader()</code></td>
+<td align="center"><code>ClassLoader</code></td>
+<td align="center">返回该类的类加载器</td>
+</tr>
+</tbody></table>
+<h2 id="3-3-其它方法"><a href="#3-3-其它方法" class="headerlink" title="3.3    其它方法"></a>3.3    其它方法</h2><h3 id="1-Field对象中的方法"><a href="#1-Field对象中的方法" class="headerlink" title="1.    Field对象中的方法"></a>1.    Field对象中的方法</h3><h3 id="2-Constructor对象中的方法"><a href="#2-Constructor对象中的方法" class="headerlink" title="2.    Constructor对象中的方法"></a>2.    Constructor对象中的方法</h3><h3 id="3-Method对象中的方法"><a href="#3-Method对象中的方法" class="headerlink" title="3.    Method对象中的方法"></a>3.    Method对象中的方法</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">方法</th>
+<th align="center">返回值</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Field对象中的方法</td>
+<td align="center"><code>set(Object obj, Object value)</code></td>
+<td align="center"><code>void</code></td>
+<td align="center">设置值</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>get(Object obj)</code></td>
+<td align="center">``</td>
+<td align="center">获取值</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>setAccessible(true)</code></td>
+<td align="center">``</td>
+<td align="center">忽略访问权限修饰符的安全检查【暴力反射】</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Constructor对象中的方法</td>
+<td align="center"><code>newInstance(Object... initargs)</code></td>
+<td align="center"><code>T</code></td>
+<td align="center">创建对象【如果使用空参数构造方法创建对象，操作可以简化：<code>Class对象.newInstance()</code>】</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>                      </code></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Method对象中的方法</td>
+<td align="center"><code>invoke(Object obj, Object... args)</code></td>
+<td align="center"><code>Object</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>getName()</code></td>
+<td align="center"><code>String</code></td>
+<td align="center">获取方法名</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="4-ClassLoader中的方法"><a href="#4-ClassLoader中的方法" class="headerlink" title="4.    ClassLoader中的方法"></a>4.    ClassLoader中的方法</h3><ul>
+<li><code>getResourceAsStream(String name)</code><ul>
+<li>读取指定资源，返回输入流</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/" data-id="cklqr5qix001wmcwn4ztz2754" data-title="反射" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/JavaSE%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84API/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaSE中常见的API
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/20/JDBC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JDBC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/MapReduce/">MapReduce</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/10/Hadoop/">Hadoop</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/HDFS/">HDFS</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
