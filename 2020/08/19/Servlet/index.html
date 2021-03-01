@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Servlet | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta name="description" content="1、概念  Servlet是JavaEE的规范之一。规范就是接口（定义了所有Servlet都必须实现的方法）。 Servlet是一个接口，该接口中有一个service()方法，用于编写处理请求的业务逻辑。 Servlet是运行在服务器上的一个小型Java程序，通过HTTP协议接收客户端发送过来的请求，处理后响应结果给客户端。 Servlet是JavaWeb三大组件之一。三大组件分别是： Servl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Servlet">
@@ -13,112 +27,202 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1、概念  Servlet是JavaEE的规范之一。规范就是接口（定义了所有Servlet都必须实现的方法）。 Servlet是一个接口，该接口中有一个service()方法，用于编写处理请求的业务逻辑。 Servlet是运行在服务器上的一个小型Java程序，通过HTTP协议接收客户端发送过来的请求，处理后响应结果给客户端。 Servlet是JavaWeb三大组件之一。三大组件分别是： Servl">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Servlet%E6%A6%82%E5%BF%B5.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200514203012448.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200515231635912-1589555959099.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200509183119002.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE1.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE2.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE3.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200521082525699.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200514205940867-1589557510733.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200509184656771.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200518180904346-1597651978164.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200518181231222-1597651978166.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200518161646638-1597652154012.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200519150806643-1597652154014.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200519154532869-1597652154015.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/image-20200519183919703-1597652154016.png">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Cookie%E5%8E%9F%E7%90%86.bmp">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Cookie%E6%A1%88%E4%BE%8B_%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4-1590030501999.bmp">
-<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet/Session%E5%8E%9F%E7%90%86.bmp">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet%E6%A6%82%E5%BF%B5.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200514203012448.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200515231635912-1589555959099.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200509183119002.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE1.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE2.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE3.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200521082525699.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200514205940867-1589557510733.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200509184656771.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200518180904346-1597651978164.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200518181231222-1597651978166.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200518161646638-1597652154012.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200519150806643-1597652154014.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200519154532869-1597652154015.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/image-20200519183919703-1597652154016.png">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Cookie%E5%8E%9F%E7%90%86.bmp">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Cookie%E6%A1%88%E4%BE%8B_%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4-1590030501999.bmp">
+<meta property="og:image" content="http://example.com/2020/08/19/Servlet/Session%E5%8E%9F%E7%90%86.bmp">
 <meta property="article:published_time" content="2020-08-19T01:07:15.000Z">
 <meta property="article:modified_time" content="2020-11-26T14:19:08.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/08/19/Servlet/Servlet/Servlet%E6%A6%82%E5%BF%B5.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+<meta name="twitter:image" content="http://example.com/2020/08/19/Servlet/Servlet%E6%A6%82%E5%BF%B5.png">
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<link rel="canonical" href="http://example.com/2020/08/19/Servlet/">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-  
-<meta name="generator" content="Hexo 5.4.0"></head>
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+  <title>Servlet | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
-</header>
+</div>
 
-      <div class="outer">
-        <section id="main"><article id="post-Servlet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/08/19/Servlet/" class="article-date">
-  <time class="dt-published" datetime="2020-08-19T01:07:15.000Z" itemprop="datePublished">2020-08-19</time>
-</a>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaWeb/">JavaWeb</a>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Servlet
-    </h1>
-  
 
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/19/Servlet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Servlet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-19 09:07:15" itemprop="dateCreated datePublished" datetime="2020-08-19T09:07:15+08:00">2020-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-26 22:19:08" itemprop="dateModified" datetime="2020-11-26T22:19:08+08:00">2020-11-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
         <h1 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h1><blockquote>
 <ul>
@@ -133,7 +237,7 @@
 </li>
 </ul>
 </blockquote>
-<p><img src="Servlet/Servlet%E6%A6%82%E5%BF%B5.png"></p>
+<p><img src="/2020/08/19/Servlet/Servlet%E6%A6%82%E5%BF%B5.png"></p>
 <h2 id="1-1、Servlet中路径的写法"><a href="#1-1、Servlet中路径的写法" class="headerlink" title="1.1、Servlet中路径的写法"></a>1.1、Servlet中路径的写法</h2><p><strong>相对路径</strong></p>
 <blockquote>
 <ol>
@@ -190,7 +294,7 @@
 </li>
 </ol>
 <hr>
-<h1 id="2、Servlet快速入门"><a href="#2、Servlet快速入门" class="headerlink" title="2、Servlet快速入门"></a>2、Servlet快速入门</h1><h2 id="2-1-项目结构"><a href="#2-1-项目结构" class="headerlink" title="2.1    项目结构"></a>2.1    项目结构</h2><p><img src="Servlet/image-20200514203012448.png"></p>
+<h1 id="2、Servlet快速入门"><a href="#2、Servlet快速入门" class="headerlink" title="2、Servlet快速入门"></a>2、Servlet快速入门</h1><h2 id="2-1-项目结构"><a href="#2-1-项目结构" class="headerlink" title="2.1    项目结构"></a>2.1    项目结构</h2><p><img src="/2020/08/19/Servlet/image-20200514203012448.png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* src	<span class="comment"># src目录存放coder编写的java代码</span></span><br><span class="line">* web	<span class="comment"># web目录专门用来存放web工程的资源文件。	比如：html，css，js文件等 </span></span><br><span class="line">  * WEB-INF	<span class="comment"># WEB-INF是一个受服务器保护的目录，浏览器无法直接访问到此目录中的内容。</span></span><br><span class="line">	* lib	<span class="comment"># lib目录用来存放第三方的jar包。[在Maven工程中无此目录]</span></span><br><span class="line">	* web.xml	<span class="comment"># web.xml是整个动态web工程的配置部署描述文件，可以在这里配置很多web工程的组件[Maven工程中仍然需要]		比如： Servlet程序、Filter过滤器、Listener监听器、Session超时等</span></span><br><span class="line">  * index.jsp	<span class="comment"># web服务器的默认首页</span></span><br></pre></td></tr></table></figure>
 
 
@@ -204,14 +308,14 @@
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置Servlet的访问地址--&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--在&lt;web-app&gt;标签中添加以下内容--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span>	<span class="comment">&lt;!--Servlet接口实现类的路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo01<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>     <span class="comment">&lt;!--Servlet实现类的别名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.web.servlet.Demo01_Servlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>    <span class="comment">&lt;!--Servlet实现类的全类名--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>    <span class="comment">&lt;!--配置Servlet程序的`访问路径`--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo01<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span> <span class="comment">&lt;!--别名的映射--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/demo01<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>  <span class="comment">&lt;!--配置访问路径--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">        `/` 表示绝对路径，在服务器解析的时候，表示地址为：http://IP地址:port/工程路径/</span></span><br><span class="line"><span class="comment">        所以 `/demo01` 就表示：http://IP地址:port/工程路径/demo01</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="Servlet/image-20200515231635912-1589555959099.png" alt="image-20200515231635912"></p>
+<p><img src="/2020/08/19/Servlet/image-20200515231635912-1589555959099.png" alt="image-20200515231635912"></p>
 <h3 id="2-2-2-注解方式-Servlet3-0"><a href="#2-2-2-注解方式-Servlet3-0" class="headerlink" title="2.2.2    注解方式[Servlet3.0+]"></a>2.2.2    注解方式[Servlet3.0+]</h3><ul>
 <li><p>好处：注解配置。可以代替<code>web.xml</code>配置文件。</p>
 </li>
 <li><p>步骤：</p>
 <ol>
 <li><p>创建JavaEE项目，选择Servlet3.0以上的版本，选择不创建web.xml。</p>
-<p><img src="Servlet/image-20200509183119002.png" alt="image-20200509183119002"></p>
+<p><img src="/2020/08/19/Servlet/image-20200509183119002.png" alt="image-20200509183119002"></p>
 </li>
 <li><p>定义一个类，实现Servlet接口</p>
 <ol>
@@ -220,16 +324,16 @@
 <li><p>在类上使用<code>@WebServlet</code>注解配置当前类的访问路径。</p>
 <ul>
 <li><p><code>@WebServlet(urlPatterns = &quot;/demo01&quot;)</code>    </p>
-<p><img src="Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE1.png"></p>
+<p><img src="/2020/08/19/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE1.png"></p>
 </li>
 <li><p><code>@WebServlet(value = &quot;/demo01&quot;)</code>        【简化版】</p>
 </li>
 </ul>
-<p><img src="Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE2.png"></p>
+<p><img src="/2020/08/19/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE2.png"></p>
 <ul>
 <li><code>@WebServlet(&quot;/demo01&quot;)</code>        【究极简化版】</li>
 </ul>
-<p><img src="Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE3.png"></p>
+<p><img src="/2020/08/19/Servlet/Servlet%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE3.png"></p>
 </li>
 </ol>
 </li>
@@ -244,7 +348,7 @@
 </ol>
 </li>
 </ul>
-<h4 id="2、修改Servlet模板配置"><a href="#2、修改Servlet模板配置" class="headerlink" title="2、修改Servlet模板配置"></a>2、修改Servlet模板配置</h4><p><img src="Servlet/image-20200521082525699.png" alt="image-20200521082525699"></p>
+<h4 id="2、修改Servlet模板配置"><a href="#2、修改Servlet模板配置" class="headerlink" title="2、修改Servlet模板配置"></a>2、修改Servlet模板配置</h4><p><img src="/2020/08/19/Servlet/image-20200521082525699.png" alt="image-20200521082525699"></p>
 <ul>
 <li>修改后每次不用自己去重新设置资源路径，会自动生成与类名相同的资源路径</li>
 </ul>
@@ -268,7 +372,7 @@
 </li>
 </ol>
 </blockquote>
-<p><img src="Servlet/image-20200514205940867-1589557510733.png" alt="image-20200514205940867"></p>
+<p><img src="/2020/08/19/Servlet/image-20200514205940867-1589557510733.png" alt="image-20200514205940867"></p>
 <h3 id="2-3-1、服务器端做的事："><a href="#2-3-1、服务器端做的事：" class="headerlink" title="2.3.1、服务器端做的事："></a>2.3.1、服务器端做的事：</h3><ol>
 <li>启动Tomcat。</li>
 <li>创建了一个对象：<code>HelloServlet对象</code>，这个对象实现了Servlet接口。并重写了service()方法。</li>
@@ -303,7 +407,7 @@
 <ul>
 <li>查看配置文件的路径：控制台日志信息<code>Using CATALINA_BASE</code></li>
 </ul>
-<p><img src="Servlet/image-20200509184656771.png" alt="image-20200509184656771"></p>
+<p><img src="/2020/08/19/Servlet/image-20200509184656771.png" alt="image-20200509184656771"></p>
 </li>
 <li><p>工作项目 和 TomCat部署的web项目</p>
 <ul>
@@ -314,12 +418,12 @@
 <li><p>断点调试：使用“小虫子”启动debug。</p>
 </li>
 <li><p>TomCat重新部署web项目（重新将工作项目打成war包）</p>
-<p><img src="Servlet/image-20200518180904346-1597651978164.png" alt="image-20200518180904346"></p>
-<p><img src="Servlet/image-20200518181231222-1597651978166.png" alt="image-20200518181231222"></p>
+<p><img src="/2020/08/19/Servlet/image-20200518180904346-1597651978164.png" alt="image-20200518180904346"></p>
+<p><img src="/2020/08/19/Servlet/image-20200518181231222-1597651978166.png" alt="image-20200518181231222"></p>
 </li>
 </ol>
 <hr>
-<h1 id="3、Servlet体系结构"><a href="#3、Servlet体系结构" class="headerlink" title="3、Servlet体系结构"></a>3、Servlet体系结构</h1><p><img src="Servlet/image-20200518161646638-1597652154012.png" alt="image-20200518161646638"></p>
+<h1 id="3、Servlet体系结构"><a href="#3、Servlet体系结构" class="headerlink" title="3、Servlet体系结构"></a>3、Servlet体系结构</h1><p><img src="/2020/08/19/Servlet/image-20200518161646638-1597652154012.png" alt="image-20200518161646638"></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> GenericServlet【类】：GenericServlet实现类Servlet接口。</span><br><span class="line"><span class="bullet">	*</span> 将Servlet接口中的其它方法做了默认空实现，只保留了service()方法等抽象方法。</span><br><span class="line"><span class="bullet">	*</span> 好处：Servlet接口中的其它不常用方法比如：init()、destroy()等可以不用在自定义的Servlet类中重写了，只需要在自定义的Servlet类中重写最常用的service()方法即可。非常用方法只在有需要时重写即可，简化了代码书写。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">2.</span> HttpServlet【类】：HttpServlet类继承了GenericServlet类。对HTTP协议中的GET/POST提交方式默认做了分发处理，简化了代码的书写。</span><br><span class="line"><span class="bullet">	*</span> 好处：</span><br><span class="line"><span class="code">		1.定义的Servlet类继承自HttpServlet。</span></span><br><span class="line"><span class="code">		2.只需要重写doGet()&amp;doPost()方法即可。</span></span><br><span class="line"><span class="code">		3.对应客户端浏览器两种最常见的提交方式GET/POST。</span></span><br></pre></td></tr></table></figure>
 
 
@@ -891,7 +995,7 @@
 </blockquote>
 <h5 id="3-1、为什么要使用请求转发？"><a href="#3-1、为什么要使用请求转发？" class="headerlink" title="3.1、为什么要使用请求转发？"></a>3.1、为什么要使用请求转发？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">客户端通过浏览器访问服务器资源； </span><br><span class="line">--&gt;&gt; </span><br><span class="line">在服务器内部，我们希望服务器是&quot;高内聚、低耦合&quot;的，尽量让每个类满足单一职责要求。	这种情况下，客户端要访问的资源就不可能只存储在一个类中，也就是说客户端一次请求所需要的资源需要在服务器的同一个工程下的多个类中获取。这时候就需要请求转发了；</span><br><span class="line">--&gt;&gt; </span><br><span class="line">请求转发规定了一块范围，这块范围内的所有数据可以共享。</span><br></pre></td></tr></table></figure>
 
-<p><img src="Servlet/image-20200519150806643-1597652154014.png" alt="image-20200519150806643"></p>
+<p><img src="/2020/08/19/Servlet/image-20200519150806643-1597652154014.png" alt="image-20200519150806643"></p>
 <h5 id="3-2、请求转发的特点"><a href="#3-2、请求转发的特点" class="headerlink" title="3.2、请求转发的特点"></a>3.2、请求转发的特点</h5><blockquote>
 <ul>
 <li>浏览器的地址栏路径不会发生变化。</li>
@@ -953,7 +1057,7 @@
 </ol>
 </li>
 </ul>
-<p><img src="Servlet/image-20200519154532869-1597652154015.png" alt="image-20200519154532869"></p>
+<p><img src="/2020/08/19/Servlet/image-20200519154532869-1597652154015.png" alt="image-20200519154532869"></p>
 <ul>
 <li><p>如果不使用<code>&lt;base&gt;</code>，经过转发器转发后，<code>c.html</code>返回首页的链接就会以转发器所在的<code>ForwardC.java</code>类的绝对路径为标准进行相对查找，这样找到的路径是不对的。</p>
 </li>
@@ -1087,8 +1191,8 @@
 </ul>
 </li>
 </ol>
-<h3 id="6-2-2-重定向-vs-转发"><a href="#6-2-2-重定向-vs-转发" class="headerlink" title="6.2.2    重定向 vs. 转发"></a>6.2.2    重定向 vs. 转发</h3><p><img src="Servlet/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp"></p>
-<p><img src="Servlet/image-20200519183919703-1597652154016.png" alt="image-20200519183919703"></p>
+<h3 id="6-2-2-重定向-vs-转发"><a href="#6-2-2-重定向-vs-转发" class="headerlink" title="6.2.2    重定向 vs. 转发"></a>6.2.2    重定向 vs. 转发</h3><p><img src="/2020/08/19/Servlet/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp"></p>
+<p><img src="/2020/08/19/Servlet/image-20200519183919703-1597652154016.png" alt="image-20200519183919703"></p>
 <ul>
 <li><p>重定向：<code>redirect</code></p>
 <ol>
@@ -1161,7 +1265,7 @@
 </blockquote>
 <h3 id="7-2-1-Cookie的实现原理"><a href="#7-2-1-Cookie的实现原理" class="headerlink" title="7.2.1    Cookie的实现原理"></a>7.2.1    Cookie的实现原理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、客户端首次访问服务器；</span><br><span class="line">--&gt;&gt;</span><br><span class="line"><span class="number">2</span>、服务器的响应消息中携带cookie，客户端将cookie保存到本地缓存中；</span><br><span class="line">--&gt;&gt;</span><br><span class="line"><span class="number">3</span>、在一次会话中，当客户端再次访问服务器时，请求消息中会携带cookie中的数据</span><br><span class="line">--&gt;&gt;</span><br><span class="line"><span class="number">4</span>、服务器解析客户端的请求消息，如果客户端需要的资源在cookie中存在，就不再重新分配该数据给客户端。</span><br></pre></td></tr></table></figure>
 
-<p><img src="Servlet/Cookie%E5%8E%9F%E7%90%86.bmp"></p>
+<p><img src="/2020/08/19/Servlet/Cookie%E5%8E%9F%E7%90%86.bmp"></p>
 <h4 id="1、Cookie信息如何保存到客户端缓存中？"><a href="#1、Cookie信息如何保存到客户端缓存中？" class="headerlink" title="1、Cookie信息如何保存到客户端缓存中？"></a>1、Cookie信息如何保存到客户端缓存中？</h4><ol>
 <li><p>客户端首次访问一个新的服务器，服务器会在响应消息中携带Cookie数据并将Cookie数据保存在客户端缓存中。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、Cookie信息被封装在响应头中。[响应头中的数据都是以键值对的形式存在的]</span><br><span class="line"></span><br><span class="line">2、HTTP格式：	set-cookie:&#123;key=value&#125;		# &#123;&#125;是为了阅读方便加上去的，下同</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>、HTTP协议中规定了：若客户端收到的响应头信息中含有set-cookie，就将该键对应的信息&#123;key=value&#125;保存到客户端浏览器的缓存中。</span><br></pre></td></tr></table></figure></li>
@@ -1308,7 +1412,7 @@
 <li>访问一个Servlet，如果是第一次访问，则提示：宁好，欢迎宁首次访问XSYU</li>
 <li>如果不是第一次访问，则提示：欢迎回来，宁上次的访问时间为：“显示时间字符串”</li>
 </ol>
-<p><img src="Servlet/Cookie%E6%A1%88%E4%BE%8B_%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4-1590030501999.bmp"></p>
+<p><img src="/2020/08/19/Servlet/Cookie%E6%A1%88%E4%BE%8B_%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4-1590030501999.bmp"></p>
 </li>
 <li><p>分析：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(当客户端浏览器请求服务器时，TomCat服务器判断请求头中是否有一个cookie名字叫lastTime[自定义的])&#123;</span><br><span class="line">    * 没有：证明浏览器是第一访问服务器</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="number">1.</span> 响应数据：宁好，欢迎宁首次访问XSYU</span><br><span class="line">            <span class="number">2.</span> 响应：将一个键值对lastTime=具体时间作为cookie响应给浏览器，</span><br><span class="line">            <span class="number">3.</span> 并持久化存储。</span><br><span class="line">    &#125; </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    * 有：证明浏览器不是第一次访问该服务器</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="number">1.</span> 获取请求消息中请求头中的cookie键值对中的值，</span><br><span class="line">            <span class="number">2.</span> 响应数据：再将该值显示在客户端浏览器页面上：欢迎回来，宁上次的访问时间为：...</span><br><span class="line">            <span class="number">3.</span> 更新cookie键值对lastTime=具体时间；</span><br><span class="line">            <span class="number">4.</span> 响应给浏览器，并持久化存储。</span><br><span class="line">    &#125;         </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -1342,7 +1446,7 @@
 <h3 id="7-3-2-Session原理"><a href="#7-3-2-Session原理" class="headerlink" title="7.3.2    Session原理"></a>7.3.2    Session原理</h3><h4 id="服务器如何确保在一次会话中，多次获取到的Session是同一个？"><a href="#服务器如何确保在一次会话中，多次获取到的Session是同一个？" class="headerlink" title="服务器如何确保在一次会话中，多次获取到的Session是同一个？"></a>服务器如何确保在一次会话中，多次获取到的Session是同一个？</h4><ul>
 <li>Session的实现是依赖于Cookie的。</li>
 </ul>
-<p><img src="Servlet/Session%E5%8E%9F%E7%90%86.bmp"></p>
+<p><img src="/2020/08/19/Servlet/Session%E5%8E%9F%E7%90%86.bmp"></p>
 <ol>
 <li><p>客户端首次访问服务器时：</p>
 <ol>
@@ -1418,155 +1522,195 @@
 <li>Session存储的数据较为安全，Cookie存储的数据相对不太安全</li>
 </ol>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/08/19/Servlet/" data-id="cklqr5qju0048mcwn1jp77875" data-title="Servlet" class="article-share-link">Share</a>
-      
-      
-      
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/18/Hexo-Gitee-GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="Hexo+Gitee/GitHub搭建个人博客">
+      <i class="fa fa-chevron-left"></i> Hexo+Gitee/GitHub搭建个人博客
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/20/JDBC/" rel="next" title="JDBC">
+      JDBC <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1、概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E3%80%81Servlet%E4%B8%AD%E8%B7%AF%E5%BE%84%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、Servlet中路径的写法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%AD%E6%96%9C%E6%9D%A0-%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99"><span class="nav-number">1.1.1.</span> <span class="nav-text">绝对路径中斜杠&#x2F;的使用规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81Servlet%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">2、Servlet快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1    项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AE%9E%E7%8E%B0Servlet%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.</span> <span class="nav-text">2.2    实现Servlet程序的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1    配置文件方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F-Servlet3-0"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2    注解方式[Servlet3.0+]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Servlet%E7%9A%84%E8%AE%BF%E9%97%AE%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">1、Servlet的访问路径配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9Servlet%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2、修改Servlet模板配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E3%80%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%9A"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1、服务器端做的事：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%9A"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2、客户端做的事：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3    执行原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-IDEA%E4%B8%8ETomCat%E7%9A%84%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4    IDEA与TomCat的相关配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81Servlet%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">3、Servlet体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Servlet%E8%AF%B7%E6%B1%82%E7%9A%84%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">3.1    Servlet请求的分发处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E7%9B%B4%E6%8E%A5%E5%AE%9E%E7%8E%B0Servlet%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%89%8B%E5%8A%A8%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1    直接实现Servlet接口，手动进行请求分发处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E7%BB%A7%E6%89%BFHttpServlet%E7%B1%BB%EF%BC%8C%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2    继承HttpServlet类，自动进行请求分发处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81Servlet%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">4.</span> <span class="nav-text">4、Servlet接口中的成员</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">4.1.</span> <span class="nav-text">4.1、Servlet的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81ServletConfig-%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">4.2、ServletConfig[类]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96ServletConfig"><span class="nav-number">4.2.1.</span> <span class="nav-text">1、获取ServletConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81ServletConfig%E7%B1%BB%E7%9A%84%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.2.</span> <span class="nav-text">2、ServletConfig类的三大作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-web-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.2.0.1.</span> <span class="nav-text">1    web.xml配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.2.0.2.</span> <span class="nav-text">2    具体方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-ServletContext-%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.3.</span> <span class="nav-text">4.3    ServletContext[接口]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1%E3%80%81%E5%9F%9F%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%EF%BC%89"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1、域对象（共享数据）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2%E3%80%81%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96ServletContext%EF%BC%9F"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2、如何获取ServletContext？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3%E3%80%81ServletContext%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3、ServletContext类的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MIME%E7%B1%BB%E5%9E%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">4.3.3.1.</span> <span class="nav-text">MIME类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.3.3.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81Http%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.</span> <span class="nav-text">5、Http协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81Servlet%E4%B8%AD%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-number">6.</span> <span class="nav-text">6、Servlet中的请求和响应</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Request"><span class="nav-number">6.1.</span> <span class="nav-text">6.1    Request</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-Request%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%A7%E6%89%BF%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.1.</span> <span class="nav-text">6.1.1    Request对象的继承结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-2-HttpServletRequest"><span class="nav-number">6.1.2.</span> <span class="nav-text">6.1.2    HttpServletRequest</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81HttpServletRequest%E7%B1%BB%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">1、HttpServletRequest类有什么作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81HttpServletRequest%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">2、HttpServletRequest类中的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.2.2.1.</span> <span class="nav-text">1、获取请求消息中的数据的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.2.2.2.</span> <span class="nav-text">2、修改请求消息中数据的方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">3、请求转发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%EF%BC%9F"><span class="nav-number">6.1.2.3.1.</span> <span class="nav-text">3.1、为什么要使用请求转发？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2%E3%80%81%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">6.1.2.3.2.</span> <span class="nav-text">3.2、请求转发的特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3%E3%80%81Request%E5%85%B1%E4%BA%AB%E5%9F%9F"><span class="nav-number">6.1.2.3.3.</span> <span class="nav-text">3.3、Request共享域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">6.1.2.3.4.</span> <span class="nav-text">3.4    请求转发的步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-lt-Base-gt-%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">6.1.2.3.5.</span> <span class="nav-text">3.5    &lt;Base&gt;标签的作用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Response"><span class="nav-number">6.2.</span> <span class="nav-text">6.2    Response</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-HttpServletResopnse"><span class="nav-number">6.2.1.</span> <span class="nav-text">6.2.1    HttpServletResopnse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E8%A1%8C"><span class="nav-number">6.2.1.1.</span> <span class="nav-text">1、通过Response设置响应行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E5%A4%B4"><span class="nav-number">6.2.1.2.</span> <span class="nav-text">2、通过Response设置响应头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E4%BD%93"><span class="nav-number">6.2.1.3.</span> <span class="nav-text">3、通过Response设置响应体</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E8%BE%93%E5%87%BA%E6%B5%81%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="nav-number">6.2.1.3.1.</span> <span class="nav-text">两个输出流的说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BE%93%E5%87%BA%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E7%9A%84%E4%B8%AD%E6%96%87%E6%95%B0%E6%8D%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">6.2.1.4.</span> <span class="nav-text">4、如何解决客户端输出到浏览器上的中文数据乱码问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-2-%E9%87%8D%E5%AE%9A%E5%90%91-vs-%E8%BD%AC%E5%8F%91"><span class="nav-number">6.2.2.</span> <span class="nav-text">6.2.2    重定向 vs. 转发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81%E4%BC%9A%E8%AF%9D"><span class="nav-number">7.</span> <span class="nav-text">7、会话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1%E3%80%81%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF"><span class="nav-number">7.1.</span> <span class="nav-text">7.1、会话技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-Cookie"><span class="nav-number">7.2.</span> <span class="nav-text">7.2    Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-Cookie%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.1.</span> <span class="nav-text">7.2.1    Cookie的实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Cookie%E4%BF%A1%E6%81%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%AD%EF%BC%9F"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">1、Cookie信息如何保存到客户端缓存中？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-Cookie%E5%85%A5%E9%97%A8"><span class="nav-number">7.2.2.</span> <span class="nav-text">7.2.2    Cookie入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%9F%BA%E7%A1%80%E6%A1%88%E4%BE%8B"><span class="nav-number">7.2.2.1.</span> <span class="nav-text">1、基础案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81Cookie%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">7.2.2.2.</span> <span class="nav-text">2、Cookie的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%80%E6%AC%A1%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E5%8F%91%E9%80%81%E5%A4%9A%E4%B8%AAcookie%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%9F"><span class="nav-number">7.2.2.2.1.</span> <span class="nav-text">1、服务器端一次可不可以发送多个cookie到客户端？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81cookie%E8%83%BD%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E4%BF%9D%E5%AD%98%E5%A4%9A%E9%95%BF%E6%97%B6%E9%97%B4%EF%BC%9F"><span class="nav-number">7.2.2.2.2.</span> <span class="nav-text">2、cookie能在浏览器中保存多长时间？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E3%80%81cookie%E8%83%BD%E4%B8%8D%E8%83%BD%E5%AD%98%E5%82%A8%E4%B8%AD%E6%96%87%EF%BC%9F"><span class="nav-number">7.2.2.2.3.</span> <span class="nav-text">3、cookie能不能存储中文？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4%E3%80%81cookie%E7%9A%84%E8%8E%B7%E5%8F%96-%E5%85%B1%E4%BA%AB-%E8%8C%83%E5%9B%B4%E6%9C%89%E5%A4%9A%E5%A4%A7%EF%BC%9F"><span class="nav-number">7.2.2.2.4.</span> <span class="nav-text">4、cookie的获取(共享)范围有多大？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Cookie%E7%9A%84%E7%89%B9%E7%82%B9-amp-%E4%BD%9C%E7%94%A8"><span class="nav-number">7.2.2.3.</span> <span class="nav-text">3、Cookie的特点&amp;作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E7%89%B9%E7%82%B9"><span class="nav-number">7.2.2.3.1.</span> <span class="nav-text">1.特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BD%9C%E7%94%A8"><span class="nav-number">7.2.2.3.2.</span> <span class="nav-text">2.作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4"><span class="nav-number">7.2.2.4.</span> <span class="nav-text">4、案例：记住上一次访问时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-Session"><span class="nav-number">7.3.</span> <span class="nav-text">7.3    Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-1-Session%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">7.3.1.</span> <span class="nav-text">7.3.1    Session快速入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-2-Session%E5%8E%9F%E7%90%86"><span class="nav-number">7.3.2.</span> <span class="nav-text">7.3.2    Session原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E5%9C%A8%E4%B8%80%E6%AC%A1%E4%BC%9A%E8%AF%9D%E4%B8%AD%EF%BC%8C%E5%A4%9A%E6%AC%A1%E8%8E%B7%E5%8F%96%E5%88%B0%E7%9A%84Session%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">服务器如何确保在一次会话中，多次获取到的Session是同一个？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-3-Session%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">7.3.3.</span> <span class="nav-text">7.3.3    Session的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%BD%93%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%B3%E9%97%AD%E5%90%8E%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%8D%E5%85%B3%E9%97%AD%EF%BC%8C%E4%B8%A4%E6%AC%A1%E8%8E%B7%E5%8F%96%E7%9A%84session%E6%98%AF%E5%90%A6%E4%B8%BA%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.3.1.</span> <span class="nav-text">1、当客户端关闭后，服务器端不关闭，两次获取的session是否为同一个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8D%E5%85%B3%E9%97%AD%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B3%E9%97%AD%E5%90%8E%E5%86%8D%E6%89%93%E5%BC%80%EF%BC%8C%E4%B8%A4%E6%AC%A1%E8%8E%B7%E5%8F%96%E7%9A%84session%E6%98%AF%E5%90%A6%E4%B8%BA%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.3.2.</span> <span class="nav-text">2、客户端不关闭，服务器关闭后再打开，两次获取的session是否为同一个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81session%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A2%AB%E9%94%80%E6%AF%81%EF%BC%9F"><span class="nav-number">7.3.3.3.</span> <span class="nav-text">3、session什么时候被销毁？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-4-Session%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">7.3.4.</span> <span class="nav-text">7.3.4    Session的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-5-Session-vs-Cookie"><span class="nav-number">7.3.5.</span> <span class="nav-text">7.3.5    Session .vs Cookie</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/08/20/JDBC/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          JDBC
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/08/18/Hexo-Gitee-GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hexo+Gitee/GitHub搭建个人博客</div>
-    </a>
-  
-</nav>
 
   
-</article>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
-    </div>
-  </div>
+<script src="/js/schemes/muse.js"></script>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-    </div>
-  </div>
+<script src="/js/next-boot.js"></script>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2021/02/19/MapReduce/">MapReduce</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/10/Hadoop/">Hadoop</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/08/HDFS/">HDFS</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
 
 
 
 
 
-  </div>
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>

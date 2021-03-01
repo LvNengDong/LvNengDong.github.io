@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hadoop | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta name="description" content="大数据 大数据（Big Data）：  大数据指无法在一定时间范围内用常规软件工具进行捕捉、管理和处理的数据集合。是需要新处理模式才能具有更强的决策力、洞察发现力和流程优化能力的海量、高增长率和多样化的信息资产。  多样化：传统的数据库如 MySQL 只能处理结构化的数据类型，而大数据不仅可以处理结构化的数据，还可以处理非结构化、半结构化的数据。   大数据技术&#x2F;大数据框架：  主要解决，海量数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop">
@@ -13,96 +27,186 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="大数据 大数据（Big Data）：  大数据指无法在一定时间范围内用常规软件工具进行捕捉、管理和处理的数据集合。是需要新处理模式才能具有更强的决策力、洞察发现力和流程优化能力的海量、高增长率和多样化的信息资产。  多样化：传统的数据库如 MySQL 只能处理结构化的数据类型，而大数据不仅可以处理结构化的数据，还可以处理非结构化、半结构化的数据。   大数据技术&#x2F;大数据框架：  主要解决，海量数据">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/Hadoop/image-20210210110619991.png">
-<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/Hadoop/image-20210210111631179.png">
-<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/Hadoop/image-20210210113413297.png">
-<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/Hadoop/image-20210210114157414.png">
+<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/image-20210210110619991.png">
+<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/image-20210210111631179.png">
+<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/image-20210210113413297.png">
+<meta property="og:image" content="http://example.com/2021/02/10/Hadoop/image-20210210114157414.png">
 <meta property="article:published_time" content="2021-02-10T02:49:09.000Z">
 <meta property="article:modified_time" content="2021-02-26T03:12:03.754Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/02/10/Hadoop/Hadoop/image-20210210110619991.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+<meta name="twitter:image" content="http://example.com/2021/02/10/Hadoop/image-20210210110619991.png">
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<link rel="canonical" href="http://example.com/2021/02/10/Hadoop/">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-  
-<meta name="generator" content="Hexo 5.4.0"></head>
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+  <title>Hadoop | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
-</header>
+</div>
 
-      <div class="outer">
-        <section id="main"><article id="post-Hadoop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/02/10/Hadoop/" class="article-date">
-  <time class="dt-published" datetime="2021-02-10T02:49:09.000Z" itemprop="datePublished">2021-02-10</time>
-</a>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Hadoop/">Hadoop</a>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Hadoop
-    </h1>
-  
 
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/10/Hadoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-10 10:49:09" itemprop="dateCreated datePublished" datetime="2021-02-10T10:49:09+08:00">2021-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-26 11:12:03" itemprop="dateModified" datetime="2021-02-26T11:12:03+08:00">2021-02-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
         <h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><blockquote>
 <p>大数据（Big Data）：</p>
@@ -141,7 +245,7 @@
 <li>狭义上来说，单指 Hadoop 技术。</li>
 <li>广义上来说，Hadoop 通常是指一个更广泛的概念——<strong>Hadoop 生态圈</strong></li>
 </ul>
-<p><img src="Hadoop/image-20210210110619991.png" alt="image-20210210110619991"></p>
+<p><img src="/2021/02/10/Hadoop/image-20210210110619991.png" alt="image-20210210110619991"></p>
 <hr>
 <h2 id="Hadoop-的优点（4高）"><a href="#Hadoop-的优点（4高）" class="headerlink" title="Hadoop 的优点（4高）"></a>Hadoop 的优点（4高）</h2><blockquote>
 <ol>
@@ -171,7 +275,7 @@
 <p>能够自动将失败的任务重新分配。</p>
 <p>Hadoop 在 Map 阶段会将大的任务分成若干个小的任务进行运算，如果在运算过程中某个小的任务因某些不可抗力因素发生失败，那么 Hadoop  就会重新分配一个线程来运行未成功的任务，直至成功。</p>
 <hr>
-<h2 id="Hadoop-中的组件"><a href="#Hadoop-中的组件" class="headerlink" title="Hadoop 中的组件"></a>Hadoop 中的组件</h2><p><img src="Hadoop/image-20210210111631179.png" alt="image-20210210111631179"></p>
+<h2 id="Hadoop-中的组件"><a href="#Hadoop-中的组件" class="headerlink" title="Hadoop 中的组件"></a>Hadoop 中的组件</h2><p><img src="/2021/02/10/Hadoop/image-20210210111631179.png" alt="image-20210210111631179"></p>
 <ul>
 <li>在 Hadoop1.x 时代，Hadoop 中的 MapReduce 同时处理业务逻辑运算和资源的调度，耦合性较大；</li>
 <li><strong>在Hadoop2.x时代，增加了 Yarn 。Yarn 只负责资源的调度，MapReduce 只负责运算。</strong></li>
@@ -289,7 +393,7 @@
 <p>比如：NodeManager 为 Job 的某个 Task 分配了 2 个 CPU 和 2G 内存的计算资源！</p>
 <p>为了防止当前 Task 在使用这些资源期间，被其他的 Task 抢占资源。 Hadoop 框架就会将这些计算资源，封装到一个 Container 中，在 Container 中的资源，会被暂时隔离，无法被其它进程所抢占。</p>
 <p>当前 Task 运行结束后，当前 Container 中的资源就会被释放！允许其它 task 来 使用！</p>
-<p><img src="Hadoop/image-20210210113413297.png" alt="image-20210210113413297"></p>
+<p><img src="/2021/02/10/Hadoop/image-20210210113413297.png" alt="image-20210210113413297"></p>
 <blockquote>
 <ol>
 <li>ResourceManager（RM）</li>
@@ -328,7 +432,7 @@
 </blockquote>
 <p>Container 是YARN中的资源抽象，它封装了某个节点上的多维度资源，<strong>如内存、CPU、磁盘、网络等</strong>。</p>
 <hr>
-<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="Hadoop/image-20210210114157414.png" alt="image-20210210114157414"></p>
+<h2 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h2><p><img src="/2021/02/10/Hadoop/image-20210210114157414.png" alt="image-20210210114157414"></p>
 <p>图中涉及的技术名词解释如下：</p>
 <ol>
 <li>Sqoop：Sqoop 是一款开源的工具，主要用于在 Hadoop、Hive 与传统的数据库（MySql）间进行数据的传递，可以将一个关系型数据库（例如 ：MySQL，Oracle 等）中的数据导进到 Hadoop 的 HDFS 中，也可以将 HDFS 的数据导进到关系型数据库中。</li>
@@ -511,155 +615,195 @@
 <p>一个集群中，每台机器的时间必须保证是同步的！</p>
 </blockquote>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/10/Hadoop/" data-id="cklqr5qjd002ymcwn7ixd364q" data-title="Hadoop" class="article-share-link">Share</a>
-      
-      
-      
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/08/HDFS/" rel="prev" title="HDFS">
+      <i class="fa fa-chevron-left"></i> HDFS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/19/MapReduce/" rel="next" title="MapReduce">
+      MapReduce <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">大数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop"><span class="nav-number">2.</span> <span class="nav-text">Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">Hadoop 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%884%E9%AB%98%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">Hadoop 的优点（4高）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">Hadoop 中的组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop-1-0"><span class="nav-number">2.3.1.</span> <span class="nav-text">Hadoop 1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop-2-0"><span class="nav-number">2.3.2.</span> <span class="nav-text">Hadoop 2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop-1-x-%E5%92%8C-Hadoop-2-x-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.3.</span> <span class="nav-text">Hadoop 1.x 和 Hadoop 2.x 的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS-%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="nav-number">2.4.</span> <span class="nav-text">HDFS 架构概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce-%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="nav-number">2.5.</span> <span class="nav-text">MapReduce 架构概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yarn-%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="nav-number">2.6.</span> <span class="nav-text">Yarn 架构概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E7%94%9F%E6%80%81%E4%BD%93%E7%B3%BB"><span class="nav-number">2.7.</span> <span class="nav-text">大数据技术生态体系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">Hadoop 的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.1.</span> <span class="nav-text">安装前的注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C-Hadoop"><span class="nav-number">3.2.</span> <span class="nav-text">使用普通用户操作 Hadoop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-%E7%9A%84%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.3.</span> <span class="nav-text">Hadoop 的目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-HDFS"><span class="nav-number">3.4.</span> <span class="nav-text">使用 HDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-MapReduce"><span class="nav-number">3.5.</span> <span class="nav-text">运行 MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.6.</span> <span class="nav-text">Hadoop 的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8-Hadoop-%E5%91%BD%E4%BB%A4%E6%97%B6"><span class="nav-number">3.7.</span> <span class="nav-text">在使用 Hadoop 命令时</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F-HDFS-%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">分布式 HDFS 配置总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8-YARN-%E4%B8%8A%E8%BF%90%E8%A1%8C-MR"><span class="nav-number">5.</span> <span class="nav-text">在 YARN 上运行 MR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">提交任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="nav-number">7.</span> <span class="nav-text">完全分布式集群的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%A7%84%E5%88%92"><span class="nav-number">7.1.</span> <span class="nav-text">进程规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%BE%A4%E8%B5%B7"><span class="nav-number">7.2.</span> <span class="nav-text">执行群起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E7%9A%84%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="nav-number">7.3.</span> <span class="nav-text">集群的时间同步</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/02/19/MapReduce/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          MapReduce
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/02/08/HDFS/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">HDFS</div>
-    </a>
-  
-</nav>
 
   
-</article>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaUtils/">JavaUtils</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">Java开发常用的工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis-Spring/">MyBatis, Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCould/">SpringCould</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">代码规范</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
-    </div>
-  </div>
+<script src="/js/schemes/muse.js"></script>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
-    </div>
-  </div>
+<script src="/js/next-boot.js"></script>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/JavaSE/" style="font-size: 10px;">JavaSE</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2021/02/19/MapReduce/">MapReduce</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/10/Hadoop/">Hadoop</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/08/HDFS/">HDFS</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/07/%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2/">参考博客</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/30/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">常用的工具类</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
 
 
 
 
 
-  </div>
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
