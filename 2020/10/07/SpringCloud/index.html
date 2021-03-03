@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,15 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-
-  <meta name="description" content="1、系统架构演变随着互联网的发展，网站应用的规模不断扩大。需求的激增，带来的是技术上的压力。系统架构也因此也不断的演进、升级、迭代。从单一应用，到垂直拆分，到分布式服务，到SOA，以及现在火热的微服务架构。  ​     1.1. 集中式架构当网站流量很小时，只需一个应用，就可以将所有功能都部署在一起，减少了部署节点和成本。 此时，用于简化增删改查工作量的数据访问框架(ORM)是影响项目开发的关键">
+<meta name="description" content="1、系统架构演变随着互联网的发展，网站应用的规模不断扩大。需求的激增，带来的是技术上的压力。系统架构也因此也不断的演进、升级、迭代。从单一应用，到垂直拆分，到分布式服务，到SOA，以及现在火热的微服务架构。  ​     1.1. 集中式架构当网站流量很小时，只需一个应用，就可以将所有功能都部署在一起，减少了部署节点和成本。 此时，用于简化增删改查工作量的数据访问框架(ORM)是影响项目开发的关键">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCould">
 <meta property="og:url" content="http://example.com/2020/10/07/SpringCloud/index.html">
@@ -84,10 +87,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/10/07/SpringCloud/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98.png">
 
+
 <link rel="canonical" href="http://example.com/2020/10/07/SpringCloud/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -96,60 +100,66 @@
     lang   : 'en'
   };
 </script>
-
-  <title>SpringCould | Hexo</title>
+<title>SpringCould | Hexo</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Hexo</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -162,46 +172,95 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
-
 
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98"><span class="nav-number">1.</span> <span class="nav-text">1、系统架构演变</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E9%9B%86%E4%B8%AD%E5%BC%8F%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 集中式架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%9E%82%E7%9B%B4%E6%8B%86%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">1.2.垂直拆分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.分布式服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%EF%BC%88SOA%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">1.4.服务治理（SOA）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.</span> <span class="nav-text">1.5.微服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">2、远程调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E3%80%81RPC"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2%E3%80%81HTTP"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E3%80%81%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、如何选择？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81HTTP%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">3、HTTP客户端工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1%E3%80%81HttpClient"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、HttpClient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1%E3%80%81%E4%BD%BF%E7%94%A8"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1、使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2%E3%80%81Json%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2、Json转换工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2%E3%80%81Spring%E7%9A%84RestTemplate"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、Spring的RestTemplate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81SpringCloud"><span class="nav-number">4.</span> <span class="nav-text">4、SpringCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">4.1、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81%E7%89%88%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">4.2、版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%85%A5%E9%97%A8"><span class="nav-number">5.</span> <span class="nav-text">5、微服务入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">5.1.</span> <span class="nav-text">5.1.服务提供者</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-1-Spring%E8%84%9A%E6%89%8B%E6%9E%B6%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.1.1.Spring脚手架创建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-2-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">5.1.2.</span> <span class="nav-text">5.1.2.编写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-3-%E5%90%AF%E5%8A%A8%E5%B9%B6%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">5.1.3.</span> <span class="nav-text">5.1.3.启动并测试：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E8%80%85"><span class="nav-number">5.2.</span> <span class="nav-text">5.2.服务调用者</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1.创建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">5.2.2.</span> <span class="nav-text">5.2.2.编写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">5.2.3.</span> <span class="nav-text">5.2.3.启动测试：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E6%9C%89%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">5.3.</span> <span class="nav-text">5.3.有没有问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81Eureka%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="nav-number">6.</span> <span class="nav-text">6、Eureka注册中心</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E5%8E%9F%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">Eureka原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E5%AE%9E%E8%B7%B5"><span class="nav-number">6.2.</span> <span class="nav-text">Eureka实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99EurekaServer"><span class="nav-number">6.2.1.</span> <span class="nav-text">编写EurekaServer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86user-service%E6%B3%A8%E5%86%8C%E5%88%B0Eureka"><span class="nav-number">6.2.2.</span> <span class="nav-text">将user-service注册到Eureka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%BB%8EEureka%E8%8E%B7%E5%8F%96%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.2.3.</span> <span class="nav-text">消费者从Eureka获取服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84Eureka-Server"><span class="nav-number">6.2.4.</span> <span class="nav-text">高可用的Eureka Server</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1Robbin"><span class="nav-number">7.</span> <span class="nav-text">7、负载均衡Robbin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E3%80%81Ribbon%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.1.</span> <span class="nav-text">2.1、Ribbon的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%90%AF%E5%8A%A8%E4%B8%A4%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B"><span class="nav-number">7.1.1.</span> <span class="nav-text">1、启动两个服务实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BC%80%E5%90%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">7.1.2.</span> <span class="nav-text">2、开启负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0%E8%B0%83%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">7.1.3.</span> <span class="nav-text">3、通过服务名称调用服务提供者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E4%BF%AE%E6%94%B9%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-number">7.2.</span> <span class="nav-text">2.2    修改负载均衡策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6"><span class="nav-number">7.3.</span> <span class="nav-text">2.2    重试机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8%E3%80%81Hystrix"><span class="nav-number">8.</span> <span class="nav-text">8、Hystrix</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-1%E3%80%81Hystrix%E5%8E%9F%E7%90%86"><span class="nav-number">8.1.</span> <span class="nav-text">8.1、Hystrix原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2%E3%80%81Hystrix%E5%AE%9E%E8%B7%B5"><span class="nav-number">8.2.</span> <span class="nav-text">8.2、Hystrix实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">8.2.1.</span> <span class="nav-text">1、引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BC%80%E5%90%AF%E7%86%94%E6%96%AD"><span class="nav-number">8.2.2.</span> <span class="nav-text">2、开启熔断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%94%B9%E9%80%A0%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">8.2.3.</span> <span class="nav-text">3、改造消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%94%B9%E9%80%A0%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">8.2.4.</span> <span class="nav-text">4、改造服务提供者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">8.2.5.</span> <span class="nav-text">5、启动测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E4%BC%98%E5%8C%96"><span class="nav-number">8.2.6.</span> <span class="nav-text">6、优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-3-Hystrix%E4%B8%8ERIbbon%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">8.3.</span> <span class="nav-text">8.3    Hystrix与RIbbon重试机制的冲突</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9%E3%80%81Feign"><span class="nav-number">9.</span> <span class="nav-text">9、Feign</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1%E3%80%81Feign%E4%BB%8B%E7%BB%8D"><span class="nav-number">9.1.</span> <span class="nav-text">9.1、Feign介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2%E3%80%81Feign%E5%AE%9E%E8%B7%B5"><span class="nav-number">9.2.</span> <span class="nav-text">9.2、Feign实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">9.2.1.</span> <span class="nav-text">1、导入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Feign%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">9.2.2.</span> <span class="nav-text">2、Feign的客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%BC%80%E5%90%AFFeign%E5%8A%9F%E8%83%BD"><span class="nav-number">9.2.3.</span> <span class="nav-text">3、开启Feign功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">9.2.4.</span> <span class="nav-text">4、启动测试：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3%E3%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">9.3.</span> <span class="nav-text">9.3、负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4%E3%80%81Hystix%E6%94%AF%E6%8C%81"><span class="nav-number">9.4.</span> <span class="nav-text">9.4、Hystix支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Feign%E4%B8%AD%E7%9A%84FallBack%E9%85%8D%E7%BD%AE"><span class="nav-number">9.4.1.</span> <span class="nav-text">Feign中的FallBack配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-5%E3%80%81%E8%AF%B7%E6%B1%82%E5%8E%8B%E7%BC%A9"><span class="nav-number">9.5.</span> <span class="nav-text">9.5、请求压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-6%E3%80%81%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="nav-number">9.6.</span> <span class="nav-text">9.6、日志级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10%E3%80%81%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3"><span class="nav-number">10.</span> <span class="nav-text">10、服务网关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zuul%E5%8E%9F%E7%90%86"><span class="nav-number">10.1.</span> <span class="nav-text">Zuul原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.2.</span> <span class="nav-text">路由规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="nav-number">10.2.1.</span> <span class="nav-text">面向服务的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E5%8C%96%E7%9A%84%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">10.2.1.1.</span> <span class="nav-text">1、简化的路由配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.2.1.2.</span> <span class="nav-text">2、默认的路由规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80"><span class="nav-number">10.2.1.3.</span> <span class="nav-text">3、路由前缀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">10.3.</span> <span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-amp-%E7%86%94%E6%96%AD"><span class="nav-number">10.4.</span> <span class="nav-text">负载均衡  &amp;  熔断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zuul%E5%AE%9E%E8%B7%B5"><span class="nav-number">10.5.</span> <span class="nav-text">Zuul实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">10.5.1.</span> <span class="nav-text">1、新建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%BC%96%E5%86%99%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="nav-number">10.5.2.</span> <span class="nav-text">2、编写启动类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E7%BC%96%E5%86%99%E9%85%8D%E7%BD%AE"><span class="nav-number">10.5.3.</span> <span class="nav-text">3、编写配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%BC%96%E5%86%99%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.5.4.</span> <span class="nav-text">4、编写路由规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-5-%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">10.5.5.</span> <span class="nav-text">3.3.5.启动测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="nav-number">10.6.</span> <span class="nav-text">3.4.面向服务的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-%E6%B7%BB%E5%8A%A0Eureka%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BE%9D%E8%B5%96"><span class="nav-number">10.6.1.</span> <span class="nav-text">3.4.1.添加Eureka客户端依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-%E5%BC%80%E5%90%AFEureka%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%8E%B0%E5%8A%9F%E8%83%BD"><span class="nav-number">10.6.2.</span> <span class="nav-text">3.4.2.开启Eureka客户端发现功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-3-%E6%B7%BB%E5%8A%A0Eureka%E9%85%8D%E7%BD%AE%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF"><span class="nav-number">10.6.3.</span> <span class="nav-text">3.4.3.添加Eureka配置，获取服务信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-4-%E4%BF%AE%E6%94%B9%E6%98%A0%E5%B0%84%E9%85%8D%E7%BD%AE%EF%BC%8C%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0%E8%8E%B7%E5%8F%96"><span class="nav-number">10.6.4.</span> <span class="nav-text">3.4.4.修改映射配置，通过服务名称获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-5-%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">10.6.5.</span> <span class="nav-text">3.4.5.启动测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E7%AE%80%E5%8C%96%E7%9A%84%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">10.7.</span> <span class="nav-text">3.5.简化的路由配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.8.</span> <span class="nav-text">3.6.默认的路由规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80"><span class="nav-number">10.9.</span> <span class="nav-text">3.7.路由前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">10.10.</span> <span class="nav-text">3.8.过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-1-ZuulFilter"><span class="nav-number">10.10.1.</span> <span class="nav-text">3.8.1.ZuulFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-2-%E8%BF%87%E6%BB%A4%E5%99%A8%E6%89%A7%E8%A1%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%9A"><span class="nav-number">10.10.2.</span> <span class="nav-text">3.8.2.过滤器执行生命周期：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-3-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">10.10.3.</span> <span class="nav-text">3.8.3.使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">10.11.</span> <span class="nav-text">3.9.自定义过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-1-%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8%E7%B1%BB"><span class="nav-number">10.11.1.</span> <span class="nav-text">3.9.1.定义过滤器类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-2-%E6%B5%8B%E8%AF%95"><span class="nav-number">10.11.2.</span> <span class="nav-text">3.9.2.测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E7%86%94%E6%96%AD"><span class="nav-number">10.12.</span> <span class="nav-text">3.10.负载均衡和熔断</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/07/SpringCloud/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -218,33 +277,35 @@
           SpringCould
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-10-07 22:09:31" itemprop="dateCreated datePublished" datetime="2020-10-07T22:09:31+08:00">2020-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-21 11:33:25" itemprop="dateModified" datetime="2021-01-21T11:33:25+08:00">2021-01-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringCould/" itemprop="url" rel="index"><span itemprop="name">SpringCould</span></a>
-                </span>
-            </span>
+      <time title="Created: 2020-10-07 22:09:31" itemprop="dateCreated datePublished" datetime="2020-10-07T22:09:31+08:00">2020-10-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-01-21 11:33:25" itemprop="dateModified" datetime="2021-01-21T11:33:25+08:00">2021-01-21</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringCould/" itemprop="url" rel="index"><span itemprop="name">SpringCould</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -253,8 +314,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h1 id="1、系统架构演变"><a href="#1、系统架构演变" class="headerlink" title="1、系统架构演变"></a>1、系统架构演变</h1><p>随着互联网的发展，网站应用的规模不断扩大。需求的激增，带来的是技术上的压力。系统架构也因此也不断的演进、升级、迭代。从单一应用，到垂直拆分，到分布式服务，到SOA，以及现在火热的微服务架构。</p>
 <p><img src="/2020/10/07/SpringCloud/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98.png"></p>
 <p>​    </p>
@@ -1150,33 +1209,31 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/" rel="prev" title="Java面试题精选">
-      <i class="fa fa-chevron-left"></i> Java面试题精选
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/" rel="next" title="MySql基础">
-      MySql基础 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/" rel="prev" title="Java面试题精选">
+                  <i class="fa fa-chevron-left"></i> Java面试题精选
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/" rel="next" title="MySql基础">
+                  MySql基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1185,7 +1242,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1194,85 +1251,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98"><span class="nav-number">1.</span> <span class="nav-text">1、系统架构演变</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E9%9B%86%E4%B8%AD%E5%BC%8F%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 集中式架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%9E%82%E7%9B%B4%E6%8B%86%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">1.2.垂直拆分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.分布式服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%EF%BC%88SOA%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">1.4.服务治理（SOA）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.</span> <span class="nav-text">1.5.微服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">2、远程调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E3%80%81RPC"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2%E3%80%81HTTP"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E3%80%81%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、如何选择？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81HTTP%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">3、HTTP客户端工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1%E3%80%81HttpClient"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、HttpClient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1%E3%80%81%E4%BD%BF%E7%94%A8"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1、使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2%E3%80%81Json%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2、Json转换工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2%E3%80%81Spring%E7%9A%84RestTemplate"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、Spring的RestTemplate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81SpringCloud"><span class="nav-number">4.</span> <span class="nav-text">4、SpringCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">4.1、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81%E7%89%88%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">4.2、版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%85%A5%E9%97%A8"><span class="nav-number">5.</span> <span class="nav-text">5、微服务入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">5.1.</span> <span class="nav-text">5.1.服务提供者</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-1-Spring%E8%84%9A%E6%89%8B%E6%9E%B6%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.1.1.Spring脚手架创建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-2-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">5.1.2.</span> <span class="nav-text">5.1.2.编写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-3-%E5%90%AF%E5%8A%A8%E5%B9%B6%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">5.1.3.</span> <span class="nav-text">5.1.3.启动并测试：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E8%80%85"><span class="nav-number">5.2.</span> <span class="nav-text">5.2.服务调用者</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1.创建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">5.2.2.</span> <span class="nav-text">5.2.2.编写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">5.2.3.</span> <span class="nav-text">5.2.3.启动测试：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E6%9C%89%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">5.3.</span> <span class="nav-text">5.3.有没有问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81Eureka%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="nav-number">6.</span> <span class="nav-text">6、Eureka注册中心</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E5%8E%9F%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">Eureka原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E5%AE%9E%E8%B7%B5"><span class="nav-number">6.2.</span> <span class="nav-text">Eureka实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99EurekaServer"><span class="nav-number">6.2.1.</span> <span class="nav-text">编写EurekaServer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86user-service%E6%B3%A8%E5%86%8C%E5%88%B0Eureka"><span class="nav-number">6.2.2.</span> <span class="nav-text">将user-service注册到Eureka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%BB%8EEureka%E8%8E%B7%E5%8F%96%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.2.3.</span> <span class="nav-text">消费者从Eureka获取服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84Eureka-Server"><span class="nav-number">6.2.4.</span> <span class="nav-text">高可用的Eureka Server</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1Robbin"><span class="nav-number">7.</span> <span class="nav-text">7、负载均衡Robbin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E3%80%81Ribbon%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.1.</span> <span class="nav-text">2.1、Ribbon的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%90%AF%E5%8A%A8%E4%B8%A4%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B"><span class="nav-number">7.1.1.</span> <span class="nav-text">1、启动两个服务实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BC%80%E5%90%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">7.1.2.</span> <span class="nav-text">2、开启负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0%E8%B0%83%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">7.1.3.</span> <span class="nav-text">3、通过服务名称调用服务提供者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E4%BF%AE%E6%94%B9%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-number">7.2.</span> <span class="nav-text">2.2    修改负载均衡策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6"><span class="nav-number">7.3.</span> <span class="nav-text">2.2    重试机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8%E3%80%81Hystrix"><span class="nav-number">8.</span> <span class="nav-text">8、Hystrix</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-1%E3%80%81Hystrix%E5%8E%9F%E7%90%86"><span class="nav-number">8.1.</span> <span class="nav-text">8.1、Hystrix原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2%E3%80%81Hystrix%E5%AE%9E%E8%B7%B5"><span class="nav-number">8.2.</span> <span class="nav-text">8.2、Hystrix实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">8.2.1.</span> <span class="nav-text">1、引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BC%80%E5%90%AF%E7%86%94%E6%96%AD"><span class="nav-number">8.2.2.</span> <span class="nav-text">2、开启熔断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%94%B9%E9%80%A0%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">8.2.3.</span> <span class="nav-text">3、改造消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%94%B9%E9%80%A0%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">8.2.4.</span> <span class="nav-text">4、改造服务提供者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">8.2.5.</span> <span class="nav-text">5、启动测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E4%BC%98%E5%8C%96"><span class="nav-number">8.2.6.</span> <span class="nav-text">6、优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-3-Hystrix%E4%B8%8ERIbbon%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">8.3.</span> <span class="nav-text">8.3    Hystrix与RIbbon重试机制的冲突</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9%E3%80%81Feign"><span class="nav-number">9.</span> <span class="nav-text">9、Feign</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1%E3%80%81Feign%E4%BB%8B%E7%BB%8D"><span class="nav-number">9.1.</span> <span class="nav-text">9.1、Feign介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2%E3%80%81Feign%E5%AE%9E%E8%B7%B5"><span class="nav-number">9.2.</span> <span class="nav-text">9.2、Feign实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">9.2.1.</span> <span class="nav-text">1、导入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Feign%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">9.2.2.</span> <span class="nav-text">2、Feign的客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%BC%80%E5%90%AFFeign%E5%8A%9F%E8%83%BD"><span class="nav-number">9.2.3.</span> <span class="nav-text">3、开启Feign功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">9.2.4.</span> <span class="nav-text">4、启动测试：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3%E3%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">9.3.</span> <span class="nav-text">9.3、负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4%E3%80%81Hystix%E6%94%AF%E6%8C%81"><span class="nav-number">9.4.</span> <span class="nav-text">9.4、Hystix支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Feign%E4%B8%AD%E7%9A%84FallBack%E9%85%8D%E7%BD%AE"><span class="nav-number">9.4.1.</span> <span class="nav-text">Feign中的FallBack配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-5%E3%80%81%E8%AF%B7%E6%B1%82%E5%8E%8B%E7%BC%A9"><span class="nav-number">9.5.</span> <span class="nav-text">9.5、请求压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-6%E3%80%81%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="nav-number">9.6.</span> <span class="nav-text">9.6、日志级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10%E3%80%81%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3"><span class="nav-number">10.</span> <span class="nav-text">10、服务网关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zuul%E5%8E%9F%E7%90%86"><span class="nav-number">10.1.</span> <span class="nav-text">Zuul原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.2.</span> <span class="nav-text">路由规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="nav-number">10.2.1.</span> <span class="nav-text">面向服务的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E5%8C%96%E7%9A%84%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">10.2.1.1.</span> <span class="nav-text">1、简化的路由配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.2.1.2.</span> <span class="nav-text">2、默认的路由规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80"><span class="nav-number">10.2.1.3.</span> <span class="nav-text">3、路由前缀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">10.3.</span> <span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-amp-%E7%86%94%E6%96%AD"><span class="nav-number">10.4.</span> <span class="nav-text">负载均衡  &amp;  熔断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zuul%E5%AE%9E%E8%B7%B5"><span class="nav-number">10.5.</span> <span class="nav-text">Zuul实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">10.5.1.</span> <span class="nav-text">1、新建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%BC%96%E5%86%99%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="nav-number">10.5.2.</span> <span class="nav-text">2、编写启动类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E7%BC%96%E5%86%99%E9%85%8D%E7%BD%AE"><span class="nav-number">10.5.3.</span> <span class="nav-text">3、编写配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%BC%96%E5%86%99%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.5.4.</span> <span class="nav-text">4、编写路由规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-5-%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">10.5.5.</span> <span class="nav-text">3.3.5.启动测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="nav-number">10.6.</span> <span class="nav-text">3.4.面向服务的路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-%E6%B7%BB%E5%8A%A0Eureka%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BE%9D%E8%B5%96"><span class="nav-number">10.6.1.</span> <span class="nav-text">3.4.1.添加Eureka客户端依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-%E5%BC%80%E5%90%AFEureka%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%8E%B0%E5%8A%9F%E8%83%BD"><span class="nav-number">10.6.2.</span> <span class="nav-text">3.4.2.开启Eureka客户端发现功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-3-%E6%B7%BB%E5%8A%A0Eureka%E9%85%8D%E7%BD%AE%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF"><span class="nav-number">10.6.3.</span> <span class="nav-text">3.4.3.添加Eureka配置，获取服务信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-4-%E4%BF%AE%E6%94%B9%E6%98%A0%E5%B0%84%E9%85%8D%E7%BD%AE%EF%BC%8C%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0%E8%8E%B7%E5%8F%96"><span class="nav-number">10.6.4.</span> <span class="nav-text">3.4.4.修改映射配置，通过服务名称获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-5-%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">10.6.5.</span> <span class="nav-text">3.4.5.启动测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E7%AE%80%E5%8C%96%E7%9A%84%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">10.7.</span> <span class="nav-text">3.5.简化的路由配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-number">10.8.</span> <span class="nav-text">3.6.默认的路由规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80"><span class="nav-number">10.9.</span> <span class="nav-text">3.7.路由前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">10.10.</span> <span class="nav-text">3.8.过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-1-ZuulFilter"><span class="nav-number">10.10.1.</span> <span class="nav-text">3.8.1.ZuulFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-2-%E8%BF%87%E6%BB%A4%E5%99%A8%E6%89%A7%E8%A1%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%9A"><span class="nav-number">10.10.2.</span> <span class="nav-text">3.8.2.过滤器执行生命周期：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-3-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">10.10.3.</span> <span class="nav-text">3.8.3.使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">10.11.</span> <span class="nav-text">3.9.自定义过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-1-%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8%E7%B1%BB"><span class="nav-number">10.11.1.</span> <span class="nav-text">3.9.1.定义过滤器类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-2-%E6%B5%8B%E8%AF%95"><span class="nav-number">10.11.2.</span> <span class="nav-text">3.9.2.测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E7%86%94%E6%96%AD"><span class="nav-number">10.12.</span> <span class="nav-text">3.10.负载均衡和熔断</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">66</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">20</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1280,36 +1271,19 @@
   </span>
   <span class="author" itemprop="copyrightHolder">John Doe</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
+  
 
 
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
 
 
 
@@ -1319,20 +1293,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

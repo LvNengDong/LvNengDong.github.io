@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,15 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-
-  <meta name="description" content="1、概念  Servlet是JavaEE的规范之一。规范就是接口（定义了所有Servlet都必须实现的方法）。 Servlet是一个接口，该接口中有一个service()方法，用于编写处理请求的业务逻辑。 Servlet是运行在服务器上的一个小型Java程序，通过HTTP协议接收客户端发送过来的请求，处理后响应结果给客户端。 Servlet是JavaWeb三大组件之一。三大组件分别是： Servl">
+<meta name="description" content="1、概念  Servlet是JavaEE的规范之一。规范就是接口（定义了所有Servlet都必须实现的方法）。 Servlet是一个接口，该接口中有一个service()方法，用于编写处理请求的业务逻辑。 Servlet是运行在服务器上的一个小型Java程序，通过HTTP协议接收客户端发送过来的请求，处理后响应结果给客户端。 Servlet是JavaWeb三大组件之一。三大组件分别是： Servl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Servlet">
 <meta property="og:url" content="http://example.com/2020/08/19/Servlet/index.html">
@@ -53,10 +56,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/08/19/Servlet/Servlet%E6%A6%82%E5%BF%B5.png">
 
+
 <link rel="canonical" href="http://example.com/2020/08/19/Servlet/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -65,60 +69,66 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Servlet | Hexo</title>
+<title>Servlet | Hexo</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Hexo</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -131,46 +141,95 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
-
 
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1、概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E3%80%81Servlet%E4%B8%AD%E8%B7%AF%E5%BE%84%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、Servlet中路径的写法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%AD%E6%96%9C%E6%9D%A0-%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99"><span class="nav-number">1.1.1.</span> <span class="nav-text">绝对路径中斜杠&#x2F;的使用规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81Servlet%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">2、Servlet快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1    项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AE%9E%E7%8E%B0Servlet%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.</span> <span class="nav-text">2.2    实现Servlet程序的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1    配置文件方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F-Servlet3-0"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2    注解方式[Servlet3.0+]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Servlet%E7%9A%84%E8%AE%BF%E9%97%AE%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">1、Servlet的访问路径配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9Servlet%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2、修改Servlet模板配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E3%80%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%9A"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1、服务器端做的事：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%9A"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2、客户端做的事：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3    执行原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-IDEA%E4%B8%8ETomCat%E7%9A%84%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4    IDEA与TomCat的相关配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81Servlet%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">3、Servlet体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Servlet%E8%AF%B7%E6%B1%82%E7%9A%84%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">3.1    Servlet请求的分发处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E7%9B%B4%E6%8E%A5%E5%AE%9E%E7%8E%B0Servlet%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%89%8B%E5%8A%A8%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1    直接实现Servlet接口，手动进行请求分发处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E7%BB%A7%E6%89%BFHttpServlet%E7%B1%BB%EF%BC%8C%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2    继承HttpServlet类，自动进行请求分发处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81Servlet%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">4.</span> <span class="nav-text">4、Servlet接口中的成员</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">4.1.</span> <span class="nav-text">4.1、Servlet的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81ServletConfig-%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">4.2、ServletConfig[类]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96ServletConfig"><span class="nav-number">4.2.1.</span> <span class="nav-text">1、获取ServletConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81ServletConfig%E7%B1%BB%E7%9A%84%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.2.</span> <span class="nav-text">2、ServletConfig类的三大作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-web-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.2.0.1.</span> <span class="nav-text">1    web.xml配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.2.0.2.</span> <span class="nav-text">2    具体方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-ServletContext-%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.3.</span> <span class="nav-text">4.3    ServletContext[接口]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1%E3%80%81%E5%9F%9F%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%EF%BC%89"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1、域对象（共享数据）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2%E3%80%81%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96ServletContext%EF%BC%9F"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2、如何获取ServletContext？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3%E3%80%81ServletContext%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3、ServletContext类的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MIME%E7%B1%BB%E5%9E%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">4.3.3.1.</span> <span class="nav-text">MIME类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.3.3.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81Http%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.</span> <span class="nav-text">5、Http协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81Servlet%E4%B8%AD%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-number">6.</span> <span class="nav-text">6、Servlet中的请求和响应</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Request"><span class="nav-number">6.1.</span> <span class="nav-text">6.1    Request</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-Request%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%A7%E6%89%BF%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.1.</span> <span class="nav-text">6.1.1    Request对象的继承结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-2-HttpServletRequest"><span class="nav-number">6.1.2.</span> <span class="nav-text">6.1.2    HttpServletRequest</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81HttpServletRequest%E7%B1%BB%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">1、HttpServletRequest类有什么作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81HttpServletRequest%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">2、HttpServletRequest类中的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.2.2.1.</span> <span class="nav-text">1、获取请求消息中的数据的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.2.2.2.</span> <span class="nav-text">2、修改请求消息中数据的方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">3、请求转发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%EF%BC%9F"><span class="nav-number">6.1.2.3.1.</span> <span class="nav-text">3.1、为什么要使用请求转发？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2%E3%80%81%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">6.1.2.3.2.</span> <span class="nav-text">3.2、请求转发的特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3%E3%80%81Request%E5%85%B1%E4%BA%AB%E5%9F%9F"><span class="nav-number">6.1.2.3.3.</span> <span class="nav-text">3.3、Request共享域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">6.1.2.3.4.</span> <span class="nav-text">3.4    请求转发的步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-lt-Base-gt-%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">6.1.2.3.5.</span> <span class="nav-text">3.5    &lt;Base&gt;标签的作用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Response"><span class="nav-number">6.2.</span> <span class="nav-text">6.2    Response</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-HttpServletResopnse"><span class="nav-number">6.2.1.</span> <span class="nav-text">6.2.1    HttpServletResopnse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E8%A1%8C"><span class="nav-number">6.2.1.1.</span> <span class="nav-text">1、通过Response设置响应行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E5%A4%B4"><span class="nav-number">6.2.1.2.</span> <span class="nav-text">2、通过Response设置响应头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E4%BD%93"><span class="nav-number">6.2.1.3.</span> <span class="nav-text">3、通过Response设置响应体</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E8%BE%93%E5%87%BA%E6%B5%81%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="nav-number">6.2.1.3.1.</span> <span class="nav-text">两个输出流的说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BE%93%E5%87%BA%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E7%9A%84%E4%B8%AD%E6%96%87%E6%95%B0%E6%8D%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">6.2.1.4.</span> <span class="nav-text">4、如何解决客户端输出到浏览器上的中文数据乱码问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-2-%E9%87%8D%E5%AE%9A%E5%90%91-vs-%E8%BD%AC%E5%8F%91"><span class="nav-number">6.2.2.</span> <span class="nav-text">6.2.2    重定向 vs. 转发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81%E4%BC%9A%E8%AF%9D"><span class="nav-number">7.</span> <span class="nav-text">7、会话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1%E3%80%81%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF"><span class="nav-number">7.1.</span> <span class="nav-text">7.1、会话技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-Cookie"><span class="nav-number">7.2.</span> <span class="nav-text">7.2    Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-Cookie%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.1.</span> <span class="nav-text">7.2.1    Cookie的实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Cookie%E4%BF%A1%E6%81%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%AD%EF%BC%9F"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">1、Cookie信息如何保存到客户端缓存中？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-Cookie%E5%85%A5%E9%97%A8"><span class="nav-number">7.2.2.</span> <span class="nav-text">7.2.2    Cookie入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%9F%BA%E7%A1%80%E6%A1%88%E4%BE%8B"><span class="nav-number">7.2.2.1.</span> <span class="nav-text">1、基础案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81Cookie%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">7.2.2.2.</span> <span class="nav-text">2、Cookie的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%80%E6%AC%A1%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E5%8F%91%E9%80%81%E5%A4%9A%E4%B8%AAcookie%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%9F"><span class="nav-number">7.2.2.2.1.</span> <span class="nav-text">1、服务器端一次可不可以发送多个cookie到客户端？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81cookie%E8%83%BD%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E4%BF%9D%E5%AD%98%E5%A4%9A%E9%95%BF%E6%97%B6%E9%97%B4%EF%BC%9F"><span class="nav-number">7.2.2.2.2.</span> <span class="nav-text">2、cookie能在浏览器中保存多长时间？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E3%80%81cookie%E8%83%BD%E4%B8%8D%E8%83%BD%E5%AD%98%E5%82%A8%E4%B8%AD%E6%96%87%EF%BC%9F"><span class="nav-number">7.2.2.2.3.</span> <span class="nav-text">3、cookie能不能存储中文？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4%E3%80%81cookie%E7%9A%84%E8%8E%B7%E5%8F%96-%E5%85%B1%E4%BA%AB-%E8%8C%83%E5%9B%B4%E6%9C%89%E5%A4%9A%E5%A4%A7%EF%BC%9F"><span class="nav-number">7.2.2.2.4.</span> <span class="nav-text">4、cookie的获取(共享)范围有多大？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Cookie%E7%9A%84%E7%89%B9%E7%82%B9-amp-%E4%BD%9C%E7%94%A8"><span class="nav-number">7.2.2.3.</span> <span class="nav-text">3、Cookie的特点&amp;作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E7%89%B9%E7%82%B9"><span class="nav-number">7.2.2.3.1.</span> <span class="nav-text">1.特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BD%9C%E7%94%A8"><span class="nav-number">7.2.2.3.2.</span> <span class="nav-text">2.作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4"><span class="nav-number">7.2.2.4.</span> <span class="nav-text">4、案例：记住上一次访问时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-Session"><span class="nav-number">7.3.</span> <span class="nav-text">7.3    Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-1-Session%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">7.3.1.</span> <span class="nav-text">7.3.1    Session快速入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-2-Session%E5%8E%9F%E7%90%86"><span class="nav-number">7.3.2.</span> <span class="nav-text">7.3.2    Session原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E5%9C%A8%E4%B8%80%E6%AC%A1%E4%BC%9A%E8%AF%9D%E4%B8%AD%EF%BC%8C%E5%A4%9A%E6%AC%A1%E8%8E%B7%E5%8F%96%E5%88%B0%E7%9A%84Session%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">服务器如何确保在一次会话中，多次获取到的Session是同一个？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-3-Session%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">7.3.3.</span> <span class="nav-text">7.3.3    Session的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%BD%93%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%B3%E9%97%AD%E5%90%8E%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%8D%E5%85%B3%E9%97%AD%EF%BC%8C%E4%B8%A4%E6%AC%A1%E8%8E%B7%E5%8F%96%E7%9A%84session%E6%98%AF%E5%90%A6%E4%B8%BA%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.3.1.</span> <span class="nav-text">1、当客户端关闭后，服务器端不关闭，两次获取的session是否为同一个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8D%E5%85%B3%E9%97%AD%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B3%E9%97%AD%E5%90%8E%E5%86%8D%E6%89%93%E5%BC%80%EF%BC%8C%E4%B8%A4%E6%AC%A1%E8%8E%B7%E5%8F%96%E7%9A%84session%E6%98%AF%E5%90%A6%E4%B8%BA%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.3.2.</span> <span class="nav-text">2、客户端不关闭，服务器关闭后再打开，两次获取的session是否为同一个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81session%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A2%AB%E9%94%80%E6%AF%81%EF%BC%9F"><span class="nav-number">7.3.3.3.</span> <span class="nav-text">3、session什么时候被销毁？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-4-Session%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">7.3.4.</span> <span class="nav-text">7.3.4    Session的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-5-Session-vs-Cookie"><span class="nav-number">7.3.5.</span> <span class="nav-text">7.3.5    Session .vs Cookie</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/19/Servlet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -187,33 +246,35 @@
           Servlet
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-08-19 09:07:15" itemprop="dateCreated datePublished" datetime="2020-08-19T09:07:15+08:00">2020-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 22:19:08" itemprop="dateModified" datetime="2020-11-26T22:19:08+08:00">2020-11-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
-                </span>
-            </span>
+      <time title="Created: 2020-08-19 09:07:15" itemprop="dateCreated datePublished" datetime="2020-08-19T09:07:15+08:00">2020-08-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-26 22:19:08" itemprop="dateModified" datetime="2020-11-26T22:19:08+08:00">2020-11-26</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -222,8 +283,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h1 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h1><blockquote>
 <ul>
 <li>Servlet是JavaEE的规范之一。规范就是接口（定义了所有Servlet都必须实现的方法）。</li>
@@ -1528,33 +1587,31 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/08/18/Hexo-Gitee-GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="Hexo+Gitee/GitHub搭建个人博客">
-      <i class="fa fa-chevron-left"></i> Hexo+Gitee/GitHub搭建个人博客
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/08/20/JDBC/" rel="next" title="JDBC">
-      JDBC <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/18/Hexo-Gitee-GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="Hexo+Gitee/GitHub搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> Hexo+Gitee/GitHub搭建个人博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/20/JDBC/" rel="next" title="JDBC">
+                  JDBC <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1563,7 +1620,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1572,85 +1629,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1、概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E3%80%81Servlet%E4%B8%AD%E8%B7%AF%E5%BE%84%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、Servlet中路径的写法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%AD%E6%96%9C%E6%9D%A0-%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99"><span class="nav-number">1.1.1.</span> <span class="nav-text">绝对路径中斜杠&#x2F;的使用规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81Servlet%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">2、Servlet快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1    项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AE%9E%E7%8E%B0Servlet%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.</span> <span class="nav-text">2.2    实现Servlet程序的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1    配置文件方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F-Servlet3-0"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2    注解方式[Servlet3.0+]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Servlet%E7%9A%84%E8%AE%BF%E9%97%AE%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">1、Servlet的访问路径配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9Servlet%E6%A8%A1%E6%9D%BF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2、修改Servlet模板配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E3%80%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%9A"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1、服务器端做的事：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%9A"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2、客户端做的事：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3    执行原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-IDEA%E4%B8%8ETomCat%E7%9A%84%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4    IDEA与TomCat的相关配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81Servlet%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">3、Servlet体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Servlet%E8%AF%B7%E6%B1%82%E7%9A%84%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">3.1    Servlet请求的分发处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E7%9B%B4%E6%8E%A5%E5%AE%9E%E7%8E%B0Servlet%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%89%8B%E5%8A%A8%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1    直接实现Servlet接口，手动进行请求分发处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E7%BB%A7%E6%89%BFHttpServlet%E7%B1%BB%EF%BC%8C%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E8%AF%B7%E6%B1%82%E5%88%86%E5%8F%91%E5%A4%84%E7%90%86"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2    继承HttpServlet类，自动进行请求分发处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81Servlet%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">4.</span> <span class="nav-text">4、Servlet接口中的成员</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">4.1.</span> <span class="nav-text">4.1、Servlet的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81ServletConfig-%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">4.2、ServletConfig[类]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96ServletConfig"><span class="nav-number">4.2.1.</span> <span class="nav-text">1、获取ServletConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81ServletConfig%E7%B1%BB%E7%9A%84%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.2.</span> <span class="nav-text">2、ServletConfig类的三大作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-web-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.2.0.1.</span> <span class="nav-text">1    web.xml配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.2.0.2.</span> <span class="nav-text">2    具体方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-ServletContext-%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.3.</span> <span class="nav-text">4.3    ServletContext[接口]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1%E3%80%81%E5%9F%9F%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%EF%BC%89"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1、域对象（共享数据）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2%E3%80%81%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96ServletContext%EF%BC%9F"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2、如何获取ServletContext？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3%E3%80%81ServletContext%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3、ServletContext类的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MIME%E7%B1%BB%E5%9E%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">4.3.3.1.</span> <span class="nav-text">MIME类型说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.3.3.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81Http%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.</span> <span class="nav-text">5、Http协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81Servlet%E4%B8%AD%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-number">6.</span> <span class="nav-text">6、Servlet中的请求和响应</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Request"><span class="nav-number">6.1.</span> <span class="nav-text">6.1    Request</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-Request%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%A7%E6%89%BF%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.1.</span> <span class="nav-text">6.1.1    Request对象的继承结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-2-HttpServletRequest"><span class="nav-number">6.1.2.</span> <span class="nav-text">6.1.2    HttpServletRequest</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81HttpServletRequest%E7%B1%BB%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">1、HttpServletRequest类有什么作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81HttpServletRequest%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">2、HttpServletRequest类中的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.2.2.1.</span> <span class="nav-text">1、获取请求消息中的数据的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.2.2.2.</span> <span class="nav-text">2、修改请求消息中数据的方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">3、请求转发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%EF%BC%9F"><span class="nav-number">6.1.2.3.1.</span> <span class="nav-text">3.1、为什么要使用请求转发？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2%E3%80%81%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">6.1.2.3.2.</span> <span class="nav-text">3.2、请求转发的特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3%E3%80%81Request%E5%85%B1%E4%BA%AB%E5%9F%9F"><span class="nav-number">6.1.2.3.3.</span> <span class="nav-text">3.3、Request共享域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">6.1.2.3.4.</span> <span class="nav-text">3.4    请求转发的步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-lt-Base-gt-%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">6.1.2.3.5.</span> <span class="nav-text">3.5    &lt;Base&gt;标签的作用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Response"><span class="nav-number">6.2.</span> <span class="nav-text">6.2    Response</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-HttpServletResopnse"><span class="nav-number">6.2.1.</span> <span class="nav-text">6.2.1    HttpServletResopnse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E8%A1%8C"><span class="nav-number">6.2.1.1.</span> <span class="nav-text">1、通过Response设置响应行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E5%A4%B4"><span class="nav-number">6.2.1.2.</span> <span class="nav-text">2、通过Response设置响应头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87Response%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E4%BD%93"><span class="nav-number">6.2.1.3.</span> <span class="nav-text">3、通过Response设置响应体</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E8%BE%93%E5%87%BA%E6%B5%81%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="nav-number">6.2.1.3.1.</span> <span class="nav-text">两个输出流的说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BE%93%E5%87%BA%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E7%9A%84%E4%B8%AD%E6%96%87%E6%95%B0%E6%8D%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">6.2.1.4.</span> <span class="nav-text">4、如何解决客户端输出到浏览器上的中文数据乱码问题？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-2-%E9%87%8D%E5%AE%9A%E5%90%91-vs-%E8%BD%AC%E5%8F%91"><span class="nav-number">6.2.2.</span> <span class="nav-text">6.2.2    重定向 vs. 转发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81%E4%BC%9A%E8%AF%9D"><span class="nav-number">7.</span> <span class="nav-text">7、会话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1%E3%80%81%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF"><span class="nav-number">7.1.</span> <span class="nav-text">7.1、会话技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-Cookie"><span class="nav-number">7.2.</span> <span class="nav-text">7.2    Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-Cookie%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.1.</span> <span class="nav-text">7.2.1    Cookie的实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Cookie%E4%BF%A1%E6%81%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%AD%EF%BC%9F"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">1、Cookie信息如何保存到客户端缓存中？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-Cookie%E5%85%A5%E9%97%A8"><span class="nav-number">7.2.2.</span> <span class="nav-text">7.2.2    Cookie入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%9F%BA%E7%A1%80%E6%A1%88%E4%BE%8B"><span class="nav-number">7.2.2.1.</span> <span class="nav-text">1、基础案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81Cookie%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">7.2.2.2.</span> <span class="nav-text">2、Cookie的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%80%E6%AC%A1%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E5%8F%91%E9%80%81%E5%A4%9A%E4%B8%AAcookie%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%9F"><span class="nav-number">7.2.2.2.1.</span> <span class="nav-text">1、服务器端一次可不可以发送多个cookie到客户端？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81cookie%E8%83%BD%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E4%BF%9D%E5%AD%98%E5%A4%9A%E9%95%BF%E6%97%B6%E9%97%B4%EF%BC%9F"><span class="nav-number">7.2.2.2.2.</span> <span class="nav-text">2、cookie能在浏览器中保存多长时间？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E3%80%81cookie%E8%83%BD%E4%B8%8D%E8%83%BD%E5%AD%98%E5%82%A8%E4%B8%AD%E6%96%87%EF%BC%9F"><span class="nav-number">7.2.2.2.3.</span> <span class="nav-text">3、cookie能不能存储中文？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4%E3%80%81cookie%E7%9A%84%E8%8E%B7%E5%8F%96-%E5%85%B1%E4%BA%AB-%E8%8C%83%E5%9B%B4%E6%9C%89%E5%A4%9A%E5%A4%A7%EF%BC%9F"><span class="nav-number">7.2.2.2.4.</span> <span class="nav-text">4、cookie的获取(共享)范围有多大？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Cookie%E7%9A%84%E7%89%B9%E7%82%B9-amp-%E4%BD%9C%E7%94%A8"><span class="nav-number">7.2.2.3.</span> <span class="nav-text">3、Cookie的特点&amp;作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E7%89%B9%E7%82%B9"><span class="nav-number">7.2.2.3.1.</span> <span class="nav-text">1.特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BD%9C%E7%94%A8"><span class="nav-number">7.2.2.3.2.</span> <span class="nav-text">2.作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4"><span class="nav-number">7.2.2.4.</span> <span class="nav-text">4、案例：记住上一次访问时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-Session"><span class="nav-number">7.3.</span> <span class="nav-text">7.3    Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-1-Session%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">7.3.1.</span> <span class="nav-text">7.3.1    Session快速入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-2-Session%E5%8E%9F%E7%90%86"><span class="nav-number">7.3.2.</span> <span class="nav-text">7.3.2    Session原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E5%9C%A8%E4%B8%80%E6%AC%A1%E4%BC%9A%E8%AF%9D%E4%B8%AD%EF%BC%8C%E5%A4%9A%E6%AC%A1%E8%8E%B7%E5%8F%96%E5%88%B0%E7%9A%84Session%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">服务器如何确保在一次会话中，多次获取到的Session是同一个？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-3-Session%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">7.3.3.</span> <span class="nav-text">7.3.3    Session的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%BD%93%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%B3%E9%97%AD%E5%90%8E%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%8D%E5%85%B3%E9%97%AD%EF%BC%8C%E4%B8%A4%E6%AC%A1%E8%8E%B7%E5%8F%96%E7%9A%84session%E6%98%AF%E5%90%A6%E4%B8%BA%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.3.1.</span> <span class="nav-text">1、当客户端关闭后，服务器端不关闭，两次获取的session是否为同一个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8D%E5%85%B3%E9%97%AD%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B3%E9%97%AD%E5%90%8E%E5%86%8D%E6%89%93%E5%BC%80%EF%BC%8C%E4%B8%A4%E6%AC%A1%E8%8E%B7%E5%8F%96%E7%9A%84session%E6%98%AF%E5%90%A6%E4%B8%BA%E5%90%8C%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="nav-number">7.3.3.2.</span> <span class="nav-text">2、客户端不关闭，服务器关闭后再打开，两次获取的session是否为同一个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81session%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A2%AB%E9%94%80%E6%AF%81%EF%BC%9F"><span class="nav-number">7.3.3.3.</span> <span class="nav-text">3、session什么时候被销毁？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-4-Session%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">7.3.4.</span> <span class="nav-text">7.3.4    Session的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-5-Session-vs-Cookie"><span class="nav-number">7.3.5.</span> <span class="nav-text">7.3.5    Session .vs Cookie</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">66</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">20</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1658,36 +1649,19 @@
   </span>
   <span class="author" itemprop="copyrightHolder">John Doe</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
+  
 
 
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
 
 
 
@@ -1697,20 +1671,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

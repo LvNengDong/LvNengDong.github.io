@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,15 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-
-  <meta name="description" content="修改Elasticsearch的配置文件：config&#x2F;elasticsearch.yml，增加以下两句命令： 12http.cors.enabled: true 		# 允许跨域访问http.cors.allow-origin: &quot;*&quot;		# 允许所有的请求跨域访问  此步为允许elasticsearch跨越访问，如果不安装后面的elasticsearch-head是可以不修">
+<meta name="description" content="修改Elasticsearch的配置文件：config&#x2F;elasticsearch.yml，增加以下两句命令： 12http.cors.enabled: true 		# 允许跨域访问http.cors.allow-origin: &quot;*&quot;		# 允许所有的请求跨域访问  此步为允许elasticsearch跨越访问，如果不安装后面的elasticsearch-head是可以不修">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch">
 <meta property="og:url" content="http://example.com/2020/12/13/Elasticsearch/index.html">
@@ -48,10 +51,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/12/13/Elasticsearch/ES%E4%B8%8EMySQL%E5%AF%B9%E6%AF%94%E5%9B%BE-1607853807418.png">
 
+
 <link rel="canonical" href="http://example.com/2020/12/13/Elasticsearch/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,60 +64,66 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Elasticsearch | Hexo</title>
+<title>Elasticsearch | Hexo</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Hexo</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -126,46 +136,95 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
-
 
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Elasticsearch的客户端操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch%E7%9A%84%E6%8E%A5%E5%8F%A3%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">ElasticSearch的接口语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE%E6%98%A0%E5%B0%84mapping"><span class="nav-number">2.1.1.</span> <span class="nav-text">创建索引同时设置映射mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%90%8E%E8%AE%BE%E7%BD%AEmapping"><span class="nav-number">2.1.2.</span> <span class="nav-text">创建索引后设置mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.3.</span> <span class="nav-text">删除索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E6%A1%A3"><span class="nav-number">2.1.4.</span> <span class="nav-text">创建文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.1.5.</span> <span class="nav-text">修改文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E6%A1%A3"><span class="nav-number">2.1.6.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E2%80%94%E2%80%94%E6%A0%B9%E6%8D%AEID%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.7.</span> <span class="nav-text">查询文档——根据ID查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E2%80%94%E2%80%94querystring%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.8.</span> <span class="nav-text">查询文档——querystring查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E2%80%94%E2%80%94term%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.9.</span> <span class="nav-text">查询文档——term查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.</span> <span class="nav-text">操作索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.1.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">查看索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">删除索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">映射配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%98%A0%E5%B0%84%E5%AD%97%E6%AE%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">创建映射字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.3.2.</span> <span class="nav-text">查看映射关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">2.4.</span> <span class="nav-text">数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE%E4%BF%AE%E6%94%B9"><span class="nav-number">2.4.1.</span> <span class="nav-text">新增数据修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">2.4.2.</span> <span class="nav-text">数据删除数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IK-%E5%88%86%E8%AF%8D%E5%99%A8%E5%92%8CElasticSearch%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">IK 分词器和ElasticSearch集成使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">IK分词器简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch%E9%9B%86%E6%88%90IK%E5%88%86%E8%AF%8D%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">ElasticSearch集成IK分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.1.</span> <span class="nav-text">IK分词器的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">3.2.2.</span> <span class="nav-text">IK分词器测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%B4%A2%E5%BC%95%E6%98%A0%E5%B0%84mapping"><span class="nav-number">3.3.</span> <span class="nav-text">修改索引映射mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-%E9%87%8D%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.1.</span> <span class="nav-text">5.4.1 重建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-%E5%86%8D%E6%AC%A1%E6%B5%8B%E8%AF%95queryString%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.3.2.</span> <span class="nav-text">5.4.2 再次测试queryString查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-3-%E5%86%8D%E6%AC%A1%E6%B5%8B%E8%AF%95term%E6%B5%8B%E8%AF%95"><span class="nav-number">3.3.3.</span> <span class="nav-text">5.4.3 再次测试term测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ElasticSearch%E5%9C%A8Java%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">ElasticSearch在Java中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B%EF%BC%8C%E5%AF%BC%E5%85%A5%E5%9D%90%E6%A0%87"><span class="nav-number">4.1.</span> <span class="nav-text">1.1 创建工程，导入坐标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95index"><span class="nav-number">4.2.</span> <span class="nav-text">1.2 创建索引index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%88%9B%E5%BB%BA%E6%98%A0%E5%B0%84mapping"><span class="nav-number">4.3.</span> <span class="nav-text">1.3 创建映射mapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3document"><span class="nav-number">4.4.</span> <span class="nav-text">1.4 建立文档document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3%EF%BC%88%E9%80%9A%E8%BF%87XContentBuilder%EF%BC%89"><span class="nav-number">4.4.1.</span> <span class="nav-text">1.4.1 建立文档（通过XContentBuilder）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3%EF%BC%88%E4%BD%BF%E7%94%A8Jackson%E8%BD%AC%E6%8D%A2%E5%AE%9E%E4%BD%93%EF%BC%89"><span class="nav-number">4.4.2.</span> <span class="nav-text">1.4.2 建立文档（使用Jackson转换实体）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C"><span class="nav-number">4.5.</span> <span class="nav-text">1.5 查询文档操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-1%E5%85%B3%E9%94%AE%E8%AF%8D%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.5.1.</span> <span class="nav-text">1.5.1关键词查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.5.2.</span> <span class="nav-text">2.5.2  字符串查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3ID%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3"><span class="nav-number">4.5.3.</span> <span class="nav-text">2.5.2 使用文档ID查询文档</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E5%88%86%E9%A1%B5%E6%93%8D%E4%BD%9C"><span class="nav-number">4.6.</span> <span class="nav-text">2.6 查询文档分页操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">4.6.1.</span> <span class="nav-text">2.6.1 批量插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.6.2.</span> <span class="nav-text">2.6.2 分页查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E9%AB%98%E4%BA%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">4.7.</span> <span class="nav-text">2.7 查询结果高亮操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA"><span class="nav-number">4.7.1.</span> <span class="nav-text">2.7.1 什么是高亮显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-2-%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA%E7%9A%84html%E5%88%86%E6%9E%90"><span class="nav-number">4.7.2.</span> <span class="nav-text">2.7.2 高亮显示的html分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-3-%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.7.3.</span> <span class="nav-text">2.7.3 高亮显示代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-Spring-Data-ElasticSearch-%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">第三章 Spring Data ElasticSearch 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Spring-Data-ElasticSearch%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 Spring Data ElasticSearch简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E4%BB%80%E4%B9%88%E6%98%AFSpring-Data"><span class="nav-number">5.1.1.</span> <span class="nav-text">3.1.1 什么是Spring Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E4%BB%80%E4%B9%88%E6%98%AFSpring-Data-ElasticSearch"><span class="nav-number">5.1.2.</span> <span class="nav-text">3.1.2 什么是Spring Data ElasticSearch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Spring-Data-ElasticSearch%E5%85%A5%E9%97%A8"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 Spring Data ElasticSearch入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Spring-Data-ElasticSearch%E7%9A%84%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 Spring Data ElasticSearch的常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95"><span class="nav-number">5.3.1.</span> <span class="nav-text">3.3.1 增删改查方法测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">5.3.2.</span> <span class="nav-text">3.3.2 常用查询命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95"><span class="nav-number">5.3.3.</span> <span class="nav-text">3.3.3 查询方法测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4%E4%BD%BF%E7%94%A8Elasticsearch%E7%9A%84%E5%8E%9F%E7%94%9F%E6%9F%A5%E8%AF%A2%E5%AF%B9%E8%B1%A1%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2%E3%80%82"><span class="nav-number">5.3.4.</span> <span class="nav-text">3.3.4使用Elasticsearch的原生查询对象进行查询。</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/13/Elasticsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,33 +241,35 @@
           Elasticsearch
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-12-13 17:38:54" itemprop="dateCreated datePublished" datetime="2020-12-13T17:38:54+08:00">2020-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-14 22:33:14" itemprop="dateModified" datetime="2020-12-14T22:33:14+08:00">2020-12-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ElasticSearch/" itemprop="url" rel="index"><span itemprop="name">ElasticSearch</span></a>
-                </span>
-            </span>
+      <time title="Created: 2020-12-13 17:38:54" itemprop="dateCreated datePublished" datetime="2020-12-13T17:38:54+08:00">2020-12-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-14 22:33:14" itemprop="dateModified" datetime="2020-12-14T22:33:14+08:00">2020-12-14</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ElasticSearch/" itemprop="url" rel="index"><span itemprop="name">ElasticSearch</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -217,8 +278,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>修改Elasticsearch的配置文件：<code>config/elasticsearch.yml</code>，增加以下两句命令：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http.cors.enabled:</span> <span class="literal">true</span> 		<span class="comment"># 允许跨域访问</span></span><br><span class="line"><span class="attr">http.cors.allow-origin:</span> <span class="string">&quot;*&quot;</span>		<span class="comment"># 允许所有的请求跨域访问</span></span><br></pre></td></tr></table></figure>
 
@@ -686,33 +745,31 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/12/09/Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/" rel="prev" title="Bean转换工具">
-      <i class="fa fa-chevron-left"></i> Bean转换工具
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/15/MyBatis%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81SQL/" rel="next" title="MyBatis中的动态SQL">
-      MyBatis中的动态SQL <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/09/Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/" rel="prev" title="Bean转换工具">
+                  <i class="fa fa-chevron-left"></i> Bean转换工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/15/MyBatis%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81SQL/" rel="next" title="MyBatis中的动态SQL">
+                  MyBatis中的动态SQL <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -721,7 +778,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -730,85 +787,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Elasticsearch的客户端操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch%E7%9A%84%E6%8E%A5%E5%8F%A3%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">ElasticSearch的接口语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE%E6%98%A0%E5%B0%84mapping"><span class="nav-number">2.1.1.</span> <span class="nav-text">创建索引同时设置映射mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%90%8E%E8%AE%BE%E7%BD%AEmapping"><span class="nav-number">2.1.2.</span> <span class="nav-text">创建索引后设置mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.3.</span> <span class="nav-text">删除索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E6%A1%A3"><span class="nav-number">2.1.4.</span> <span class="nav-text">创建文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.1.5.</span> <span class="nav-text">修改文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E6%A1%A3"><span class="nav-number">2.1.6.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E2%80%94%E2%80%94%E6%A0%B9%E6%8D%AEID%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.7.</span> <span class="nav-text">查询文档——根据ID查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E2%80%94%E2%80%94querystring%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.8.</span> <span class="nav-text">查询文档——querystring查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E2%80%94%E2%80%94term%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.9.</span> <span class="nav-text">查询文档——term查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.</span> <span class="nav-text">操作索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.1.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">查看索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">删除索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">映射配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%98%A0%E5%B0%84%E5%AD%97%E6%AE%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">创建映射字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.3.2.</span> <span class="nav-text">查看映射关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">2.4.</span> <span class="nav-text">数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE%E4%BF%AE%E6%94%B9"><span class="nav-number">2.4.1.</span> <span class="nav-text">新增数据修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">2.4.2.</span> <span class="nav-text">数据删除数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IK-%E5%88%86%E8%AF%8D%E5%99%A8%E5%92%8CElasticSearch%E9%9B%86%E6%88%90%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">IK 分词器和ElasticSearch集成使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">IK分词器简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch%E9%9B%86%E6%88%90IK%E5%88%86%E8%AF%8D%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">ElasticSearch集成IK分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.1.</span> <span class="nav-text">IK分词器的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">3.2.2.</span> <span class="nav-text">IK分词器测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%B4%A2%E5%BC%95%E6%98%A0%E5%B0%84mapping"><span class="nav-number">3.3.</span> <span class="nav-text">修改索引映射mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-%E9%87%8D%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.1.</span> <span class="nav-text">5.4.1 重建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-%E5%86%8D%E6%AC%A1%E6%B5%8B%E8%AF%95queryString%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.3.2.</span> <span class="nav-text">5.4.2 再次测试queryString查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-3-%E5%86%8D%E6%AC%A1%E6%B5%8B%E8%AF%95term%E6%B5%8B%E8%AF%95"><span class="nav-number">3.3.3.</span> <span class="nav-text">5.4.3 再次测试term测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ElasticSearch%E5%9C%A8Java%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">ElasticSearch在Java中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B%EF%BC%8C%E5%AF%BC%E5%85%A5%E5%9D%90%E6%A0%87"><span class="nav-number">4.1.</span> <span class="nav-text">1.1 创建工程，导入坐标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95index"><span class="nav-number">4.2.</span> <span class="nav-text">1.2 创建索引index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%88%9B%E5%BB%BA%E6%98%A0%E5%B0%84mapping"><span class="nav-number">4.3.</span> <span class="nav-text">1.3 创建映射mapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3document"><span class="nav-number">4.4.</span> <span class="nav-text">1.4 建立文档document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3%EF%BC%88%E9%80%9A%E8%BF%87XContentBuilder%EF%BC%89"><span class="nav-number">4.4.1.</span> <span class="nav-text">1.4.1 建立文档（通过XContentBuilder）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3%EF%BC%88%E4%BD%BF%E7%94%A8Jackson%E8%BD%AC%E6%8D%A2%E5%AE%9E%E4%BD%93%EF%BC%89"><span class="nav-number">4.4.2.</span> <span class="nav-text">1.4.2 建立文档（使用Jackson转换实体）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C"><span class="nav-number">4.5.</span> <span class="nav-text">1.5 查询文档操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-1%E5%85%B3%E9%94%AE%E8%AF%8D%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.5.1.</span> <span class="nav-text">1.5.1关键词查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.5.2.</span> <span class="nav-text">2.5.2  字符串查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3ID%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3"><span class="nav-number">4.5.3.</span> <span class="nav-text">2.5.2 使用文档ID查询文档</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3%E5%88%86%E9%A1%B5%E6%93%8D%E4%BD%9C"><span class="nav-number">4.6.</span> <span class="nav-text">2.6 查询文档分页操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">4.6.1.</span> <span class="nav-text">2.6.1 批量插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.6.2.</span> <span class="nav-text">2.6.2 分页查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E9%AB%98%E4%BA%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">4.7.</span> <span class="nav-text">2.7 查询结果高亮操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA"><span class="nav-number">4.7.1.</span> <span class="nav-text">2.7.1 什么是高亮显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-2-%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA%E7%9A%84html%E5%88%86%E6%9E%90"><span class="nav-number">4.7.2.</span> <span class="nav-text">2.7.2 高亮显示的html分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-3-%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.7.3.</span> <span class="nav-text">2.7.3 高亮显示代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-Spring-Data-ElasticSearch-%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">第三章 Spring Data ElasticSearch 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Spring-Data-ElasticSearch%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 Spring Data ElasticSearch简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E4%BB%80%E4%B9%88%E6%98%AFSpring-Data"><span class="nav-number">5.1.1.</span> <span class="nav-text">3.1.1 什么是Spring Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E4%BB%80%E4%B9%88%E6%98%AFSpring-Data-ElasticSearch"><span class="nav-number">5.1.2.</span> <span class="nav-text">3.1.2 什么是Spring Data ElasticSearch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Spring-Data-ElasticSearch%E5%85%A5%E9%97%A8"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 Spring Data ElasticSearch入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Spring-Data-ElasticSearch%E7%9A%84%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">5.3.</span> <span class="nav-text">3.3 Spring Data ElasticSearch的常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95"><span class="nav-number">5.3.1.</span> <span class="nav-text">3.3.1 增删改查方法测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">5.3.2.</span> <span class="nav-text">3.3.2 常用查询命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95%E6%B5%8B%E8%AF%95"><span class="nav-number">5.3.3.</span> <span class="nav-text">3.3.3 查询方法测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4%E4%BD%BF%E7%94%A8Elasticsearch%E7%9A%84%E5%8E%9F%E7%94%9F%E6%9F%A5%E8%AF%A2%E5%AF%B9%E8%B1%A1%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2%E3%80%82"><span class="nav-number">5.3.4.</span> <span class="nav-text">3.3.4使用Elasticsearch的原生查询对象进行查询。</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">66</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">20</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
-  </nav>
-</div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -816,36 +807,19 @@
   </span>
   <span class="author" itemprop="copyrightHolder">John Doe</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
+  
 
 
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
 
 
 
@@ -855,20 +829,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>
