@@ -31,7 +31,7 @@
 <meta property="og:description" content="MySQL 内置函数 MySQL 有很多内置的函数，以下列出了这些函数的说明。  MySQL 字符串函数   函数 描述 实例    ASCII(s) 返回字符串 s 的第一个字符的 ASCII 码。 返回 CustomerName 字段第一个字母的 ASCII 码：SELECT ASCII(CustomerName) AS NumCodeOfFirstChar FROM Customers;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-09T15:52:40.000Z">
-<meta property="article:modified_time" content="2021-03-09T15:54:26.308Z">
+<meta property="article:modified_time" content="2021-03-12T13:41:00.417Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -160,13 +160,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -232,17 +232,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2021-03-09 23:52:40 / Modified: 23:54:26" itemprop="dateCreated datePublished" datetime="2021-03-09T23:52:40+08:00">2021-03-09</time>
+      <time title="Created: 2021-03-09 23:52:40" itemprop="dateCreated datePublished" datetime="2021-03-09T23:52:40+08:00">2021-03-09</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-03-12 21:41:00" itemprop="dateModified" datetime="2021-03-12T21:41:00+08:00">2021-03-12</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+          <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
         </span>
     </span>
 
@@ -709,7 +715,7 @@
 </tr>
 <tr>
 <td align="left">EXTRACT(type FROM d)</td>
-<td align="left">从日期 d 中获取指定的值，type 指定返回的值。 type可取值为： MICROSECONDSECONDMINUTEHOURDAYWEEKMONTHQUARTERYEARSECOND_MICROSECONDMINUTE_MICROSECONDMINUTE_SECONDHOUR_MICROSECONDHOUR_SECONDHOUR_MINUTEDAY_MICROSECONDDAY_SECONDDAY_MINUTEDAY_HOURYEAR_MONTH</td>
+<td align="left">从日期 d 中获取指定的值，type 指定返回的值。 type可取值为： 见下文</td>
 <td align="left"><code>SELECT EXTRACT(MINUTE FROM &#39;2011-11-11 11:11:11&#39;)  -&gt; 11</code></td>
 </tr>
 <tr>
