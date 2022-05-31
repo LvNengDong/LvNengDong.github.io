@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Eureka    Eureka只是注册中心的一种；   目前常用的还有 Nacos   为什么要使用注册中心（Eureka能做什么）？   Before   在微服务架构中，服务提供者 对外提供服务，需要对外暴露自己的地址。 服务调用者需要记录服务提供者的地址来进行数据交互，将来地址出现变更，还需要及时更新。 这在服务数量较少的时候并不觉得有什么，如果一个项目中包含几十上百个微服务，此时如果还人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eureka">
+<meta property="og:url" content="http://example.com/2020/11/07/Eureka/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Eureka    Eureka只是注册中心的一种；   目前常用的还有 Nacos   为什么要使用注册中心（Eureka能做什么）？   Before   在微服务架构中，服务提供者 对外提供服务，需要对外暴露自己的地址。 服务调用者需要记录服务提供者的地址来进行数据交互，将来地址出现变更，还需要及时更新。 这在服务数量较少的时候并不觉得有什么，如果一个项目中包含几十上百个微服务，此时如果还人">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/1525618396076.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/1525617060656.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/1525617542081.png">
+<meta property="article:published_time" content="2020-11-07T13:52:34.000Z">
+<meta property="article:modified_time" content="2021-09-03T04:39:25.862Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/07/Eureka/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
+
+
+<link rel="canonical" href="http://example.com/2020/11/07/Eureka/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/11/07/Eureka/","path":"2020/11/07/Eureka/","title":"Eureka"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Eureka | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Eureka"><span class="nav-number">1.</span> <span class="nav-text">Eureka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%EF%BC%88Eureka%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%89%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用注册中心（Eureka能做什么）？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">Eureka架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E7%BB%84%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">Eureka组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka-Server%EF%BC%9A%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="nav-number">1.3.1.</span> <span class="nav-text">Eureka Server：服务注册中心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="nav-number">1.3.2.</span> <span class="nav-text">服务提供者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E8%80%85"><span class="nav-number">1.3.3.</span> <span class="nav-text">服务调用者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">1.4.</span> <span class="nav-text">Eureka中常见的配置信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">1.4.1.</span> <span class="nav-text">Eureka服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">1.4.2.</span> <span class="nav-text">Eureka客户端</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/07/Eureka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Eureka | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Eureka
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-11-07 21:52:34" itemprop="dateCreated datePublished" datetime="2020-11-07T21:52:34+08:00">2020-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-09-03 12:39:25" itemprop="dateModified" datetime="2021-09-03T12:39:25+08:00">2021-09-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringCould/" itemprop="url" rel="index"><span itemprop="name">SpringCould</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h1><blockquote>
+<ul>
+<li>  Eureka只是注册中心的一种；</li>
+<li>  目前常用的还有 Nacos</li>
+</ul>
+</blockquote>
+<h2 id="为什么要使用注册中心（Eureka能做什么）？"><a href="#为什么要使用注册中心（Eureka能做什么）？" class="headerlink" title="为什么要使用注册中心（Eureka能做什么）？"></a>为什么要使用注册中心（Eureka能做什么）？</h2><blockquote>
+<p>  <strong>Before</strong></p>
+</blockquote>
+<ul>
+<li>在微服务架构中，<code>服务提供者</code> 对外提供服务，需要对外暴露自己的地址。</li>
+<li><code>服务调用者</code>需要记录<code>服务提供者</code>的地址来进行数据交互，将来地址出现变更，还需要及时更新。</li>
+<li>这在服务数量较少的时候并不觉得有什么，如果一个项目中包含几十上百个微服务，此时如果还人为管理地址，将会非常麻烦。</li>
+</ul>
+<blockquote>
+<p>  <strong>After</strong></p>
+</blockquote>
+<ul>
+<li><code>Eureka</code>负责管理、记录<code>服务提供者</code>的信息。</li>
+<li><code>服务调用者</code>无需自己寻找服务，而是把自己的需求告诉<code>Eureka</code>，然后<code>Eureka</code>会把符合需求的服务的 IP 地址告诉<code>服务调用者</code>。</li>
+<li><code>服务提供者</code>与<code>Eureka</code>之间通过“心跳”机制进行监控，当某个服务提供方出现问题，Eureka自然会把它从服务列表中剔除。</li>
+<li>这就实现了服务的自动注册、发现、状态监控。</li>
+</ul>
+<blockquote>
+<p>  <strong>小总结</strong></p>
+</blockquote>
+<ul>
+<li>  注册中心就相当于一个总控，一个“中间人”，维护一张服务列表。没有注册中心之前，<code>服务提供者</code> 和 <code>服务调用者</code> 之间是直接联系的，所以 <code>服务调用者</code> 必须知道 <code>服务提供者</code> 的IP地址，当需要调用很多个服务的时候，记录 <code>服务提供者</code> 的 IP 地址本身就是一项非常复杂的工作。而有了总控（注册中心）后，<code>服务调用者</code> 只需要记住一个 IP 地址，即“总控”的 IP 地址，并定期的从“总控”拉取最新的服务列表，然后 <code>服务调用者</code> 就可以从服务列表中选择合适的 IP 地址去调用 <code>服务提供者</code> 进行业务请求了。</li>
+</ul>
+<hr>
+<h2 id="Eureka架构"><a href="#Eureka架构" class="headerlink" title="Eureka架构"></a>Eureka架构</h2><p><img src="Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png"></p>
+<blockquote>
+<p>Eureka架构中的三个核心角色</p>
+<ul>
+<li><p><strong>EurekaServer：服务注册中心</strong></p>
+<p>服务注册中心可以是单点的，也可以是一个集群，对外暴露自己的地址。</p>
+</li>
+<li><p><strong>服务提供者</strong></p>
+<p>启动后向<code>EurekaServer</code>注册自己的信息（包括地址、提供什么服务等），这些信息保存在<code>EurekaServer</code>的服务列表中。</p>
+</li>
+<li><p><strong>服务调用者</strong></p>
+<p><code>服务调用者</code>从<code>EurekaServer</code>拉取服务列表，从中获得每个<code>服务提供者</code>的信息。就可以知道要去哪里调用<code>服务提供者</code>，并且定义定期从<code>EurekaServer</code>中更新服务列表。</p>
+</li>
+<li><p><strong>心跳（续约）</strong></p>
+<p><code>服务提供者</code>定期通过HTTP方式向<code>EurekaServer</code>刷新自己的状态。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="Eureka组件"><a href="#Eureka组件" class="headerlink" title="Eureka组件"></a>Eureka组件</h2><h3 id="Eureka-Server：服务注册中心"><a href="#Eureka-Server：服务注册中心" class="headerlink" title="Eureka Server：服务注册中心"></a>Eureka Server：服务注册中心</h3><blockquote>
+<ul>
+<li>Eureka的服务端应用，提供服务注册（针对服务提供者）和发现（针对服务调用者）功能。</li>
+<li>EurekaServer可以是一个集群，形成高可用的Eureka中心。</li>
+</ul>
+</blockquote>
+<h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><ul>
+<li><strong>服务同步</strong>（EurekaServer）</li>
+</ul>
+<blockquote>
+<p>为了避免单点故障，我们一般会搭建一个Eureka集群，让多个EurekaServer之间也会互相注册为服务，当<code>服务提供者</code>注册到EurekaServer集群中的某个节点时，该节点会把服务器的信息同步给集群中的每个节点，从而实现<strong>数据同步</strong>。此时，无论客户端访问到EurekaServer集群中的哪一个节点，都可以获取到完整的服务列表信息。</p>
+</blockquote>
+<ul>
+<li><strong>失效剔除</strong>（EurekaServer）</li>
+</ul>
+<blockquote>
+<p>有些时候，我们的<code>服务提供者</code>并不一定会正常下线，可能因为内存溢出、网络故障等原因导致服务无法正常工作。Eureka Server需要将这样的服务剔除出服务列表。因此它会开启一个定时任务，每隔60秒对所有失效的服务（超过90秒未响应）进行剔除。</p>
+<p>可以通过<code>eureka.server.eviction-interval-timer-in-ms</code>参数对其进行修改，单位是毫秒，生产环境不要修改。</p>
+<p>这个会对我们开发带来极大的不变，你对服务重启，隔了60秒Eureka才反应过来。开发阶段可以适当减小。</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">  	<span class="attr">eviction-interval-timer-in-ms:</span> <span class="number">60</span><span class="string">*1000</span>	<span class="comment"># 失效剔除时间</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>自我保护</strong>（EurekaServer）</li>
+</ul>
+<p>我们关停一个服务，就会在Eureka面板看到一条警告：这是触发了Eureka的自我保护机制。</p>
+<p><img src="Eureka/1525618396076.png"></p>
+<blockquote>
+<p>当一个<code>服务提供者</code>未按时心跳续约时，Eureka会统计该服务实例最近15分钟心跳失败的比例是否超过了85%。在生产环境下，因为网络延迟等原因，心跳失败的比例很有可能超标，但此时直接把服务剔除并不妥当，因为服务可能没有宕机。Eureka就把当前实例的注册信心保护起来，不予剔除。生产环境下这很有用，保证了大多数服务依然可用。</p>
+<p>但是这给我们的开发带来了麻烦，因此开发阶段我们都会关闭自我保护模式：</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">  	<span class="attr">enable-self-preservation:</span> <span class="literal">false</span>	<span class="comment"># 关闭自我保护模式（缺省为true）</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="服务提供者"><a href="#服务提供者" class="headerlink" title="服务提供者"></a>服务提供者</h3><blockquote>
+<ul>
+<li><p>提供服务的应用，可以是SpringBoot应用，也可以是其它任意技术实现，只要对外提供Rest风格服务（接口）即可。</p>
+</li>
+<li><p>服务提供者要向EurekaServer注册服务，并且完成服务续约等工作。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h4><ul>
+<li><p><strong>服务注册</strong>（服务提供者）</p>
+<blockquote>
+<p><code>服务提供者</code>在启动时，会检测配置属性中的：<code>eureka.client.register-with-eureka=true</code>参数是否为true（默认为true）。如果值为true，则会向EurekaServer发起一个Rest请求，并携带自己的元数据信息。EurekaServer会把这些信息保存到一个双层的Map结构中，第一层Map的key就是服务名称，第二层Map的key是服务的实例ID。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p><strong>服务续约</strong>（服务提供者）</p>
+<blockquote>
+<p>在注册完成以后，<code>服务提供者</code>与<code>Eureka</code>之间会维持一个”心跳”（定时向EurekaServer发送Rest请求），告诉EurekaServer：“我还活着”。我们将这个过程称为<strong>服务续约（renew）</strong>。</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span> </span><br><span class="line">  	<span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">90</span>	<span class="comment"># 服务失效时间，默认为90s</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">30</span>	<span class="comment"># 服务续约时间，默认为30s</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>也就是说，默认情况下每个30秒服务会向注册中心发送一次心跳，证明自己还活着。如果超过90秒没有发送心跳，EurekaServer就会认为该服务宕机，会从服务列表中移除，这两个值在生产环境不要修改，默认即可。</p>
+<p>但是在开发时，这个值有点太长了，经常我们关掉一个服务，会发现Eureka依然认为服务在活着。所以我们在开发阶段可以适当调小。</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">10</span> <span class="comment"># 10秒即过期</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">5</span> <span class="comment"># 5秒一次心跳</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>实例ID</strong></p>
+<p>先来看一下服务状态信息：</p>
+<p>在Eureka监控页面，查看服务注册信息：</p>
+<p><img src="Eureka/1525617060656.png" alt="1525617060656"></p>
+<p>在status一列中，显示以下信息：</p>
+<ul>
+<li>UP(1)：代表现在是启动了1个服务器实例，没有形成集群</li>
+<li>DESKTOP-2MVEC12:user-service:8081：是实例的名称（instance-id），<ul>
+<li>默认格式是：<code>$&#123;hostname&#125; + $&#123;spring.application.name&#125; + $&#123;server.port&#125;</code></li>
+<li>instance-id是区分同一服务的不同实例的唯一标准，因此不能重复。</li>
+</ul>
+</li>
+</ul>
+<p>我们可以通过instance-id属性来修改它的构成：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">instance-id:</span> <span class="string">$&#123;spring.application.name&#125;:$&#123;server.port&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>重启服务再试试看：</p>
+<p><img src="Eureka/1525617542081.png" alt="1525617542081"></p>
+</li>
+</ul>
+<h3 id="服务调用者"><a href="#服务调用者" class="headerlink" title="服务调用者"></a>服务调用者</h3><blockquote>
+<p><code>服务调用者</code>从<code>服务注册中心</code>获取服务列表，从而得知每个 <code>服务提供者</code> 的信息，知道去哪里调用服务方。</p>
+</blockquote>
+<h4 id="功能-2"><a href="#功能-2" class="headerlink" title="功能"></a>功能</h4><ul>
+<li><strong>获取服务列表</strong>（服务消费者）</li>
+</ul>
+<blockquote>
+<p>当<code>服务消费者</code>启动时，会检测<code>eureka.client.fetch-registry=true</code>参数的值，如果为true（默认为true），则会从EurekaServer中拉取服务列表缓存在本地，并且每隔 30s 会重新获取最新的数据。我们可以通过下面的参数来进行修改：</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">  	<span class="attr">registry-fetch-interval-seconds:</span> <span class="number">30</span>		<span class="comment"># 默认值是30s</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>生产环境中，我们不需要修改这个值。</p>
+<p>但是为了开发环境下，能够快速得到服务的最新状态，我们可以将其设置小一点。</p>
+</blockquote>
+<hr>
+<h2 id="Eureka中常见的配置信息"><a href="#Eureka中常见的配置信息" class="headerlink" title="Eureka中常见的配置信息"></a>Eureka中常见的配置信息</h2><h3 id="Eureka服务端"><a href="#Eureka服务端" class="headerlink" title="Eureka服务端"></a>Eureka服务端</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10086</span> <span class="comment"># 当前服务的端口号</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span> <span class="comment"># 当前服务的名称（ID），会在Eureka中显示</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">	<span class="attr">register-with-eureka:</span> <span class="literal">false</span> <span class="comment"># 是否注册自己的信息到EurekaServer，默认是true</span></span><br><span class="line">	<span class="attr">fetch-registry:</span> <span class="literal">false</span> <span class="comment"># 是否拉取其它服务的信息，默认是true</span></span><br><span class="line">	<span class="attr">service-url:</span> <span class="comment"># EurekaServer的地址，现在是自己的地址，如果是集群，需要加上其它Server的地址。</span></span><br><span class="line">	  <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:$&#123;server.port&#125;/eureka</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Eureka客户端"><a href="#Eureka客户端" class="headerlink" title="Eureka客户端"></a>Eureka客户端</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8081</span>	<span class="comment"># 当前服务器的端口号</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">	<span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/mydb01</span></span><br><span class="line">	<span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">	<span class="attr">password:</span> <span class="number">123</span></span><br><span class="line">	<span class="attr">hikari:</span></span><br><span class="line">	  <span class="attr">maximum-pool-size:</span> <span class="number">20</span>		<span class="comment"># 最大连接池数量</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">	<span class="attr">name:</span> <span class="string">user-service</span> <span class="comment"># 应用名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">  <span class="attr">type-aliases-package:</span> <span class="string">com.leyou.userservice.pojo</span>	<span class="comment"># mybatis实体类包扫描并起别名[用于封装查询到的数据]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">	<span class="attr">service-url:</span> <span class="comment"># EurekaServer服务器的地址，多个地址以 [，] 隔开</span></span><br><span class="line">	  <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">	<span class="attr">prefer-ip-address:</span> <span class="literal">true</span> <span class="comment"># 当调用getHostname获取实例的hostname时，返回ip而不是host名称</span></span><br><span class="line">	<span class="attr">ip-address:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>   <span class="comment"># 指定自己的ip信息，不指定的话会自己寻找</span></span><br><span class="line">	<span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">90</span>	<span class="comment"># 默认值，服务失效时间</span></span><br><span class="line">	<span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">30</span>	<span class="comment"># 默认值，服务续约间隔时间</span></span><br><span class="line">	<span class="attr">registry-fetch-interval-seconds:</span> <span class="number">30</span> 	<span class="comment"># 默认值，注册列表拉取时间间隔</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">	<span class="attr">enable-self-preservation:</span> <span class="literal">false</span> <span class="comment"># 自我保护（缺省为打开）</span></span><br><span class="line">	<span class="attr">eviction-interval-timer-in-ms:</span> <span class="number">1000</span> <span class="comment"># 失效剔除（缺省为60*1000ms）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不用指定<code>register-with-eureka</code>和<code>fetch-registry</code>，因为默认是true。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/07/Hystrix/" rel="prev" title="Hystrix">
+                  <i class="fa fa-chevron-left"></i> Hystrix
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/07/Zuul/" rel="next" title="Zuul">
+                  Zuul <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

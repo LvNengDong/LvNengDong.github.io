@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="观察者模式；Observer Pattern  概念：定义对象间的一种一对多依赖关系，使得每次当一个对象发生状态改变时，其所有依赖的对象都能得到通知并执行状态改变后的逻辑。 观察者模式案例需求天气预报项目需求：   气象站实时将测量到的温度、天气、空气质量等数据以公告的形式发布出去，比如发布给第三方，如Sina、Baidu、Tencent等，对应的第三方在自己的平台上展示。  需要设计开放型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式——观察者模式">
+<meta property="og:url" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="观察者模式；Observer Pattern  概念：定义对象间的一种一对多依赖关系，使得每次当一个对象发生状态改变时，其所有依赖的对象都能得到通知并执行状态改变后的逻辑。 观察者模式案例需求天气预报项目需求：   气象站实时将测量到的温度、天气、空气质量等数据以公告的形式发布出去，比如发布给第三方，如Sina、Baidu、Tencent等，对应的第三方在自己的平台上展示。  需要设计开放型">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png">
+<meta property="article:published_time" content="2021-09-27T07:01:13.000Z">
+<meta property="article:modified_time" content="2021-10-30T07:55:52.535Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png">
+
+
+<link rel="canonical" href="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/","path":"2021/09/27/设计模式——观察者模式/","title":"设计模式——观察者模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>设计模式——观察者模式 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E6%A1%88%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">观察者模式案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%EF%BC%88%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">方案（观察者模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%80%9D%E8%B7%AF%E7%9A%84%E8%AE%BE%E8%AE%A1%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">推送思路的设计：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">3.3.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.4.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Subject-%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.4.1.</span> <span class="nav-text">Subject 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeatherData-%E7%B1%BB"><span class="nav-number">3.4.2.</span> <span class="nav-text">WeatherData 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer-%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.4.3.</span> <span class="nav-text">Observer 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sina-Tencent-Baidu-%E7%B1%BB"><span class="nav-number">3.4.4.</span> <span class="nav-text">Sina&#x2F;Tencent&#x2F;Baidu 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">3.4.5.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="设计模式——观察者模式 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式——观察者模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-09-27 15:01:13" itemprop="dateCreated datePublished" datetime="2021-09-27T15:01:13+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-30 15:55:52" itemprop="dateModified" datetime="2021-10-30T15:55:52+08:00">2021-10-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>  <strong>观察者模式；Observer Pattern</strong></p>
+</blockquote>
+<p><strong>概念</strong>：定义对象间的一种一对多依赖关系，使得每次当一个对象发生状态改变时，其所有<strong>依赖</strong>的对象都能得到通知并执行状态改变后的逻辑。</p>
+<h1 id="观察者模式案例"><a href="#观察者模式案例" class="headerlink" title="观察者模式案例"></a>观察者模式案例</h1><h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p><strong>天气预报项目需求：</strong></p>
+<ol>
+<li> 气象站实时将测量到的温度、天气、空气质量等数据以公告的形式发布出去，比如发布给第三方，如Sina、Baidu、Tencent等，对应的第三方在自己的平台上展示。</li>
+<li> 需要设计开放型的 API，使得第三方平台能接入气象站获取数据。</li>
+<li> 当气象站测量到的数据发生更新时，要能实时的通知给第三方。</li>
+</ol>
+<hr>
+<h1 id="方案（观察者模式）"><a href="#方案（观察者模式）" class="headerlink" title="方案（观察者模式）"></a>方案（观察者模式）</h1><h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>气象站发布数据，并将最新的数据同步到订阅了气象服务的多个第三方平台上，主要有两种解决思路：</p>
+<ol>
+<li><strong>push</strong>：<ul>
+<li>  由气象站发起，当天气数据发生变换时将最新数据推送给所有订阅了天气服务的第三方平台。</li>
+<li>  气象站使用一个 List 集合管理所有订阅天气服务的第三方平台，每当天气数据发生变化时，就遍历这个 List 将最新的数据推送给 List 中的每个第三方平台。</li>
+</ul>
+</li>
+<li><strong>pull</strong>：<ul>
+<li>  由第三方平台发起，每个第三方平台设置自己的定时器，定时拉取气象局提供的最新数据。</li>
+</ul>
+</li>
+</ol>
+<h2 id="推送思路的设计："><a href="#推送思路的设计：" class="headerlink" title="推送思路的设计："></a>推送思路的设计：</h2><ul>
+<li>  <strong>核心接口1：Subject接口</strong>，该接口最少需要声明 ①用户（观察者）注册、②注销 ③以及当气象站数据发生变化时通知所有用户 三个核心功能，具体的实现逻辑由其子类实现。</li>
+<li>  <strong>核心类1：</strong>该接口通过上述分析，我们可以初步设计一个 WeatherData 类来保存气象站测到的实时数据，该类需要实现 Subject 接口，并对外提供公共的 getXxx() 方法，第三方平台可以通过这些方法来获取相关天气信息。当气象台的数据发生变化时，气象站就会调用 <strong>setData()</strong> 方法去更新数据，并在该方法中继续调用 <strong>notifyAllObserver()</strong> 方法将最新的数据推送给所有订阅天气服务的观察者。</li>
+<li>  <strong>核心接口2：Observer接口</strong>，该接口中定义一个 <strong>update()</strong> 方法，Subject 对象推送最新数据时会触发该方法，对第三方平台的数据进行更新，具体逻辑由其子类实现。</li>
+<li>  <strong>核心类2：</strong>Sina、Tencent、Baidu 等第三方平台类，这些类必须实现 Observer 接口，在类中一般会有一个 <code>upodate()</code> 方法用于接收最新的实时数据，和一个 <code>show()</code> 方法用于数据的展示。</li>
+</ul>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png" alt="image-20211030114431359"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@startuml</span></span><br><span class="line"><span class="string">&#x27;https://plantuml.com/class-diagram</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Subject ..&gt; Observer</span></span><br><span class="line"><span class="string">Observer --o WeatherData</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">interface Subject</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    void registerObserver(Observer o)</span></span><br><span class="line"><span class="string">    void removeObserver()</span></span><br><span class="line"><span class="string">    void notifyAllObserver()</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">class WeatherData implements Subject</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    List&lt;Observer&gt; observerList</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">class Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    void update()</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">class Sina implements Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">class Tencent implements Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">class Baidu implements Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@enduml</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><ul>
+<li>  Subject 接口</li>
+<li>  WeatherData 类</li>
+<li>  Observer 接口</li>
+<li>  Sina/Tencent/Baidu 类</li>
+</ul>
+<h3 id="Subject-接口"><a href="#Subject-接口" class="headerlink" title="Subject 接口"></a>Subject 接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/29 21:46</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * “一对多” 中的 “一”</span></span><br><span class="line"><span class="comment"> * 主要包括以下几种功能：</span></span><br><span class="line"><span class="comment"> *  1、注册观察者（新增）</span></span><br><span class="line"><span class="comment"> *  2、注册观察者（新增）</span></span><br><span class="line"><span class="comment"> *  3、“一”中的数据发生变化时向所有注册过的用户发送通知</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Subject</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册观察者（新增）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">registerObserver</span><span class="params">(Observer observer)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除某个观察者（删除）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">removeObserver</span><span class="params">(Observer observer)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 核心对象中的数据发生变化时向通知所有注册过的观察者</span></span><br><span class="line"><span class="comment">     *  Tip：根据不同的需求，</span></span><br><span class="line"><span class="comment">     *      ①可以是让观察者来拉取数据，</span></span><br><span class="line"><span class="comment">     *      ②也可以是实施推送</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">notifyObservers</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="WeatherData-类"><a href="#WeatherData-类" class="headerlink" title="WeatherData 类"></a>WeatherData 类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/29 21:38</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 保存气象台测量的实时天气数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WeatherData</span> <span class="keyword">implements</span> <span class="title class_">Subject</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String temperature; <span class="comment">// 温度</span></span><br><span class="line">    <span class="keyword">private</span> String weather; <span class="comment">// 天气（晴/阴/雨）</span></span><br><span class="line">    <span class="keyword">private</span> String airQuality;  <span class="comment">// 空气质量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">WeatherData</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.observerList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Observer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于维护观察者列表</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Observer&gt; observerList;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册观察者 Observer（新增）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerObserver</span><span class="params">(Observer observer)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (observerList.contains(observer)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;该观察者已存在&quot;</span>);</span><br><span class="line">        observerList.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除某个观察者Observer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">removeObserver</span><span class="params">(Observer observer)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!observerList.contains(observer)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;该观察者不是一个合法的观察者&quot;</span>);</span><br><span class="line">        observerList.remove(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通知所有订阅服务的观察者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">notifyObservers</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (Observer observer : observerList) &#123;</span><br><span class="line">            observer.update(<span class="built_in">this</span>.temperature, <span class="built_in">this</span>.weather, <span class="built_in">this</span>.airQuality);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实时更新数据，并将实时数据推送给所有订阅了天气服务的第三方平台</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> temperature</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> weather</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> airQuality</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setData</span><span class="params">(String temperature, String weather, String airQuality)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 实时更新数据</span></span><br><span class="line">        <span class="built_in">this</span>.temperature = temperature;</span><br><span class="line">        <span class="built_in">this</span>.weather = weather;</span><br><span class="line">        <span class="built_in">this</span>.airQuality = airQuality;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将实时数据通知到所有订阅天气服务的第三方平台</span></span><br><span class="line">        <span class="built_in">this</span>.notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;Observer&gt; <span class="title function_">getObserverList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> observerList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setObserverList</span><span class="params">(List&lt;Observer&gt; observerList)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.observerList = observerList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getTemperature</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> temperature;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setTemperature</span><span class="params">(String temperature)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.temperature = temperature;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getWeather</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> weather;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setWeather</span><span class="params">(String weather)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.weather = weather;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getAirQuality</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> airQuality;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAirQuality</span><span class="params">(String airQuality)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.airQuality = airQuality;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Observer-接口"><a href="#Observer-接口" class="headerlink" title="Observer 接口"></a>Observer 接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/29 21:44</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 所有观察者的父接口（所有观察者都必须实现该接口）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(String temperature, String weather, String airQuality)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Sina-Tencent-Baidu-类"><a href="#Sina-Tencent-Baidu-类" class="headerlink" title="Sina/Tencent/Baidu 类"></a>Sina/Tencent/Baidu 类</h3><p><strong>Sina</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/30 11:09</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Sina</span> <span class="keyword">implements</span> <span class="title class_">Observer</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String temperature;</span><br><span class="line">    <span class="keyword">private</span> String weather;</span><br><span class="line">    <span class="keyword">private</span> String airQuality;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 该方法由气象站来调用，当气象站天气数据发生变化时，就会调用该方法推送最新的数据给第三方平台</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> temperature</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> weather</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> airQuality</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(String temperature, String weather, String airQuality)</span> &#123;</span><br><span class="line">        <span class="comment">// 同步气象站发布的实时天气数据</span></span><br><span class="line">        <span class="built_in">this</span>.temperature = temperature;</span><br><span class="line">        <span class="built_in">this</span>.weather = weather;</span><br><span class="line">        <span class="built_in">this</span>.airQuality = airQuality;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据展示</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;新浪天气（温度）&quot;</span> + <span class="built_in">this</span>.temperature);</span><br><span class="line">        System.out.println(<span class="string">&quot;新浪天气（天气）&quot;</span> + <span class="built_in">this</span>.weather);</span><br><span class="line">        System.out.println(<span class="string">&quot;新浪天气（空气质量）&quot;</span> + <span class="built_in">this</span>.airQuality);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Tencent</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/30 11:09</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Tencent</span> <span class="keyword">implements</span> <span class="title class_">Observer</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String temperature;</span><br><span class="line">    <span class="keyword">private</span> String weather;</span><br><span class="line">    <span class="keyword">private</span> String airQuality;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 该方法由气象站来调用，当气象站天气数据发生变化时，就会调用该方法推送最新的数据给第三方平台</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> temperature</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> weather</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> airQuality</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(String temperature, String weather, String airQuality)</span> &#123;</span><br><span class="line">        <span class="comment">// 同步气象站发布的实时天气数据</span></span><br><span class="line">        <span class="built_in">this</span>.temperature = temperature;</span><br><span class="line">        <span class="built_in">this</span>.weather = weather;</span><br><span class="line">        <span class="built_in">this</span>.airQuality = airQuality;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据展示</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;腾讯天气（温度）&quot;</span> + <span class="built_in">this</span>.temperature);</span><br><span class="line">        System.out.println(<span class="string">&quot;腾讯天气（天气）&quot;</span> + <span class="built_in">this</span>.weather);</span><br><span class="line">        System.out.println(<span class="string">&quot;腾讯天气（空气质量）&quot;</span> + <span class="built_in">this</span>.airQuality);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Baidu</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/30 11:09</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Baidu</span> <span class="keyword">implements</span> <span class="title class_">Observer</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String temperature;</span><br><span class="line">    <span class="keyword">private</span> String weather;</span><br><span class="line">    <span class="keyword">private</span> String airQuality;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 该方法由气象站来调用，当气象站天气数据发生变化时，就会调用该方法推送最新的数据给第三方平台</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> temperature</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> weather</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> airQuality</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(String temperature, String weather, String airQuality)</span> &#123;</span><br><span class="line">        <span class="comment">// 同步气象站发布的实时天气数据</span></span><br><span class="line">        <span class="built_in">this</span>.temperature = temperature;</span><br><span class="line">        <span class="built_in">this</span>.weather = weather;</span><br><span class="line">        <span class="built_in">this</span>.airQuality = airQuality;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据展示</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;百度天气（温度）&quot;</span> + <span class="built_in">this</span>.temperature);</span><br><span class="line">        System.out.println(<span class="string">&quot;百度天气（天气）&quot;</span> + <span class="built_in">this</span>.weather);</span><br><span class="line">        System.out.println(<span class="string">&quot;百度天气（空气质量）&quot;</span> + <span class="built_in">this</span>.airQuality);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.observer.simple;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/30 11:15</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestObserver</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">WeatherData</span> <span class="variable">weatherData</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">WeatherData</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 第三方平台订阅气象台的天气服务</span></span><br><span class="line">        <span class="type">Sina</span> <span class="variable">sina</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Sina</span>();</span><br><span class="line">        <span class="type">Tencent</span> <span class="variable">tencent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Tencent</span>();</span><br><span class="line">        <span class="type">Baidu</span> <span class="variable">baidu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Baidu</span>();</span><br><span class="line">        weatherData.registerObserver(sina);</span><br><span class="line">        weatherData.registerObserver(tencent);</span><br><span class="line">        weatherData.registerObserver(baidu);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Subject 实时更新数据</span></span><br><span class="line">        <span class="comment">// setData方法底层会自动同步最新数据给所有订阅了天气服务的第三方平台</span></span><br><span class="line">        weatherData.setData(<span class="string">&quot;25℃&quot;</span>, <span class="string">&quot;晴&quot;</span>, <span class="string">&quot;良&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 【测试】第三方平台展示数据测试</span></span><br><span class="line">        sina.show();</span><br><span class="line">        System.out.println(<span class="string">&quot;===================&quot;</span>);</span><br><span class="line">        tencent.show();</span><br><span class="line">        System.out.println(<span class="string">&quot;===================&quot;</span>);</span><br><span class="line">        baidu.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试结果展示：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    新浪天气（温度）25℃</span></span><br><span class="line"><span class="comment">    新浪天气（天气）晴</span></span><br><span class="line"><span class="comment">    新浪天气（空气质量）良</span></span><br><span class="line"><span class="comment">    ===================</span></span><br><span class="line"><span class="comment">    腾讯天气（温度）25℃</span></span><br><span class="line"><span class="comment">    腾讯天气（天气）晴</span></span><br><span class="line"><span class="comment">    腾讯天气（空气质量）良</span></span><br><span class="line"><span class="comment">    ===================</span></span><br><span class="line"><span class="comment">    百度天气（温度）25℃</span></span><br><span class="line"><span class="comment">    百度天气（天气）晴</span></span><br><span class="line"><span class="comment">    百度天气（空气质量）良</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/22/HashMap/" rel="prev" title="HashMap">
+                  <i class="fa fa-chevron-left"></i> HashMap
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/" rel="next" title="MySQL事务">
+                  MySQL事务 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="MapReduce 理论基础MapReduce 定义MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于Hadoop的数据分析应用”的核心框架。 MapReduce 核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，可以运行在一个Hadoop集群上。  MapReduce优缺点优点——简单缺点——慢 MapReduce 组件MapReduce 是一种编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce">
+<meta property="og:url" content="http://example.com/2021/02/19/MapReduce/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MapReduce 理论基础MapReduce 定义MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于Hadoop的数据分析应用”的核心框架。 MapReduce 核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，可以运行在一个Hadoop集群上。  MapReduce优缺点优点——简单缺点——慢 MapReduce 组件MapReduce 是一种编">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211126202235883.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202113216507.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202141842801.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202150116535.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211127120148703.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202172418064.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202170551898.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202173603095.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202202010080.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211203123841956.png">
+<meta property="article:published_time" content="2021-02-19T07:10:17.000Z">
+<meta property="article:modified_time" content="2021-12-14T11:23:26.934Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211126202235883.png">
+
+
+<link rel="canonical" href="http://example.com/2021/02/19/MapReduce/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/02/19/MapReduce/","path":"2021/02/19/MapReduce/","title":"MapReduce"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MapReduce | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MapReduce-%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">MapReduce 理论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce-%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">MapReduce 定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">MapReduce优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E2%80%94%E2%80%94%E7%AE%80%E5%8D%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">优点——简单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9%E2%80%94%E2%80%94%E6%85%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">缺点——慢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce-%E7%BB%84%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">MapReduce 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Job"><span class="nav-number">1.3.1.</span> <span class="nav-text">Job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MrAppMaster"><span class="nav-number">1.3.2.</span> <span class="nav-text">MrAppMaster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Task"><span class="nav-number">1.3.3.</span> <span class="nav-text">Task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partitioner%EF%BC%88%E5%88%86%E5%8C%BA%EF%BC%89"><span class="nav-number">1.3.4.</span> <span class="nav-text">Partitioner（分区）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">1.3.5.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce"><span class="nav-number">1.3.6.</span> <span class="nav-text">Reduce</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce-%E5%B8%B8%E7%94%A8API"><span class="nav-number">1.4.</span> <span class="nav-text">MapReduce 常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E9%98%B6%E6%AE%B5"><span class="nav-number">1.4.1.</span> <span class="nav-text">Map 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce%E9%98%B6%E6%AE%B5"><span class="nav-number">1.4.2.</span> <span class="nav-text">Reduce阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce-%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%E7%9A%84%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.4.3.</span> <span class="nav-text">MapReduce 处理数据的流程：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MapReduce-%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83"><span class="nav-number">2.</span> <span class="nav-text">MapReduce 编程规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81Mapper-%E9%98%B6%E6%AE%B5"><span class="nav-number">2.1.</span> <span class="nav-text">一、Mapper 阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Reducer-%E9%98%B6%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">二、Reducer 阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Driver"><span class="nav-number">2.3.</span> <span class="nav-text">三、Driver</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WordCount-%E6%A1%88%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">WordCount 案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WordCount-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">3.1.</span> <span class="nav-text">WordCount 案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%EF%BC%9A"><span class="nav-number">3.1.1.</span> <span class="nav-text">需求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E9%98%B6%E6%AE%B5-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">Map 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce-%E9%98%B6%E6%AE%B5"><span class="nav-number">3.1.3.</span> <span class="nav-text">Reduce 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce%E6%80%BB%E7%BB%93"><span class="nav-number">3.1.4.</span> <span class="nav-text">MapReduce总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WordCount%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98"><span class="nav-number">3.2.</span> <span class="nav-text">WordCount案例实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.1.</span> <span class="nav-text">一、准备数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">Hadoop 序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">4.1.</span> <span class="nav-text">什么是序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">4.2.</span> <span class="nav-text">为什么要序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8Java%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">4.3.</span> <span class="nav-text">为什么不用Java的序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.4.</span> <span class="nav-text">常用数据序列化类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-bean-%E5%AF%B9%E8%B1%A1%E4%BA%8B%E4%BB%B6%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A5%E5%8F%A3%EF%BC%88Writable%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">自定义 bean 对象事件序列化接口（Writable）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%93%8D"><span class="nav-number">4.6.</span> <span class="nav-text">序列化案例实操</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MapReduce-%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">MapReduce 框架原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%87%E7%89%87"><span class="nav-number">6.</span> <span class="nav-text">切片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FileInputFormat%E5%88%87%E7%89%87%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-input-getSplits-job"><span class="nav-number">6.1.</span> <span class="nav-text">FileInputFormat切片源码解析(input.getSplits(job))</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileInputFormat-%E7%9A%84%E5%88%87%E7%89%87%E7%AD%96%E7%95%A5%EF%BC%88%E9%BB%98%E8%AE%A4%E5%88%87%E7%89%87%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">FileInputFormat 的切片策略（默认切片策略）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%87%E5%92%8C%E5%9D%97%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">6.3.</span> <span class="nav-text">片和块的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CombineTextInputFormat%E5%88%87%E7%89%87%E6%9C%BA%E5%88%B6"><span class="nav-number">6.4.</span> <span class="nav-text">CombineTextInputFormat切片机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CombineTextInputFormat-%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%93%8D"><span class="nav-number">6.5.</span> <span class="nav-text">CombineTextInputFormat 案例实操</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#InputFormat-%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5"><span class="nav-number">7.</span> <span class="nav-text">InputFormat 数据输入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FileInputFormat-%E6%8E%A5%E5%8F%A3"><span class="nav-number">7.1.</span> <span class="nav-text">FileInputFormat 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileInputFormat-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-number">7.2.</span> <span class="nav-text">FileInputFormat 实现类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TextInputFormat"><span class="nav-number">7.2.1.</span> <span class="nav-text">TextInputFormat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NLineInputFormat"><span class="nav-number">7.2.2.</span> <span class="nav-text">NLineInputFormat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KeyValueTextInputFormat"><span class="nav-number">7.2.3.</span> <span class="nav-text">KeyValueTextInputFormat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CombineTextInputFormat"><span class="nav-number">7.2.4.</span> <span class="nav-text">CombineTextInputFormat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-InputFormat-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-number">7.2.5.</span> <span class="nav-text">自定义 InputFormat 实现类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.3.</span> <span class="nav-text">关键设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Job-%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">Job 提交流程阶段总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Job%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81"><span class="nav-number">8.1.</span> <span class="nav-text">Job提交流程源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.2.</span> <span class="nav-text">本地模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shuffle-%E6%9C%BA%E5%88%B6"><span class="nav-number">9.</span> <span class="nav-text">Shuffle 机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MapTask-%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">9.1.</span> <span class="nav-text">MapTask 工作机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partition-%E5%88%86%E5%8C%BA"><span class="nav-number">9.2.</span> <span class="nav-text">Partition 分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%93%8D"><span class="nav-number">9.2.1.</span> <span class="nav-text">案例实操</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WriteComparable-%E6%8E%92%E5%BA%8F"><span class="nav-number">9.3.</span> <span class="nav-text">WriteComparable 排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E6%A6%82%E8%BF%B0"><span class="nav-number">9.3.1.</span> <span class="nav-text">排序概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%88%86%E7%B1%BB"><span class="nav-number">9.3.2.</span> <span class="nav-text">排序分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F"><span class="nav-number">9.3.3.</span> <span class="nav-text">自定义排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combiner-%E5%90%88%E5%B9%B6"><span class="nav-number">9.4.</span> <span class="nav-text">Combiner 合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-Combiner-%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">9.4.1.</span> <span class="nav-text">自定义 Combiner 实现步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GroupingComparator%E5%88%86%E7%BB%84%EF%BC%88%E8%BE%85%E5%8A%A9%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="nav-number">9.5.</span> <span class="nav-text">GroupingComparator分组（辅助排序）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GroupingComparator%E5%88%86%E7%BB%84%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%93%8D"><span class="nav-number">9.5.1.</span> <span class="nav-text">GroupingComparator分组案例实操</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/MapReduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MapReduce | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MapReduce
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-19 15:10:17" itemprop="dateCreated datePublished" datetime="2021-02-19T15:10:17+08:00">2021-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-12-14 19:23:26" itemprop="dateModified" datetime="2021-12-14T19:23:26+08:00">2021-12-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="MapReduce-理论基础"><a href="#MapReduce-理论基础" class="headerlink" title="MapReduce 理论基础"></a>MapReduce 理论基础</h1><h2 id="MapReduce-定义"><a href="#MapReduce-定义" class="headerlink" title="MapReduce 定义"></a>MapReduce 定义</h2><p>MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于Hadoop的数据分析应用”的核心框架。</p>
+<p>MapReduce 核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，可以运行在一个Hadoop集群上。</p>
+<hr>
+<h2 id="MapReduce优缺点"><a href="#MapReduce优缺点" class="headerlink" title="MapReduce优缺点"></a>MapReduce优缺点</h2><h3 id="优点——简单"><a href="#优点——简单" class="headerlink" title="优点——简单"></a>优点——简单</h3><h3 id="缺点——慢"><a href="#缺点——慢" class="headerlink" title="缺点——慢"></a>缺点——慢</h3><hr>
+<h2 id="MapReduce-组件"><a href="#MapReduce-组件" class="headerlink" title="MapReduce 组件"></a>MapReduce 组件</h2><p>MapReduce 是一种编程思想，符合这种编程思想的程序就可以叫做 MapReduce 程序。</p>
+<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p><strong>Job</strong>（作业）：一个符合 MapReduce 编程规范的程序就是一个 Job，Job 其实就是一段可以运行的静态代码。</p>
+<hr>
+<h3 id="MrAppMaster"><a href="#MrAppMaster" class="headerlink" title="MrAppMaster"></a>MrAppMaster</h3><p><strong>MrAppMaster</strong>：MrAppMaster 是一个进程。在分布式环境下运行 Job 时，会先启动一个 MRAppMaster 进程，这个进程就主要负责 Job 中程序运行过程中执行状态的监控，容错，和 ResourceManager 申请资源，提交 Task 等。</p>
+<hr>
+<h3 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h3><p><strong>Task</strong>：Task 也是一个进程，负责 Job 任务的计算。</p>
+<ul>
+<li>  MapTask：负责 Map 阶段程序计算的 Task 称为 MapTask。</li>
+<li>  ReduceTask：负责 Reduce 阶段程序计算的 Task 称为 ReduceTask。</li>
+</ul>
+<hr>
+<h3 id="Partitioner（分区）"><a href="#Partitioner（分区）" class="headerlink" title="Partitioner（分区）"></a>Partitioner（分区）</h3><p>Partitioner（分区器）负责在 Mapper 将数据写出时，为每组 <code>&lt;keyout-valueout&gt;</code> 打上标记，保存在不同的分区中。</p>
+<p>如果 Map 阶段的数据保存在多个分区中，在 Reduce 阶段，一个 ReduceTask 只需处理一个分区的数据即可。</p>
+<hr>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map 阶段是 MapReduce 程序运行的第一个阶段。</p>
+<p>Map 阶段会将输入的数据进行切分，将一份大数据切分为若干小部分，切分后每个部分称为一<strong>片（split）</strong>，每片数据会交给一个MapTask 进程进行计算。</p>
+<p>在一个 MapReduce 程序的 Map 阶段，会启动 N 个 MapTask 进程并行运算。</p>
+<ul>
+<li>  N 取决于切片（split）数，一般会为每一个 split 都分配一个 Task。</li>
+</ul>
+<hr>
+<h3 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h3><p>Reduce 阶段是 MapReduce 程序运行的第二个阶段。</p>
+<p>Reduce 阶段的目的是将 Map 阶段每个 MapTask 计算后的结果进行合并汇总，得到最终结果。</p>
+<p>Reduce 阶段是可选的，也就是说一个 MapReduce 程序运行时可以没有 Reduce 阶段。</p>
+<p>一个 Job 可以通过设置，启动 N 个 ReduceTask，这些 ReduceTask 也是并行运行的，每个 ReduceTask 最终都会产生一个结果。</p>
+<hr>
+<h2 id="MapReduce-常用API"><a href="#MapReduce-常用API" class="headerlink" title="MapReduce 常用API"></a>MapReduce 常用API</h2><p>Hadoop 是用 Java 实现的，在 MapReduce 程序运行过程中，会创建一些实例对象，其中一些重要的<strong>基类</strong>对象如下：</p>
+<h3 id="Map-阶段"><a href="#Map-阶段" class="headerlink" title="Map 阶段"></a>Map 阶段</h3><ol>
+<li><p> <strong>Mapper</strong>：map阶段的核心对象</p>
+</li>
+<li><p><strong>InputFormat</strong>：用于处理指定格式的输入数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MapReduce 规范规定程序运行时必须指定一个输入目录，一个输出目录。</span><br><span class="line">InputFormat 限定了输入目录中文件的格式。</span><br><span class="line">	1、如果是普通文件，可以使用 FileInputFormat 实现类；</span><br><span class="line">	2、如果是SequeceFile文件（hadoop提供的一种文件格式），可以使用 SequnceFileInputFormat 实现类；</span><br><span class="line">	3、如果处理的数据在数据库中，需要使用 DBInputFormat 实现类</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>RecordReader</strong>：记录读取器</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RecordReader 负责从输入目录文件中，读取数据，读取后封装为一组键值对记录。</span><br><span class="line">因为 MapReduce 只能处理&lt;K,V&gt;数据</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="Reduce阶段"><a href="#Reduce阶段" class="headerlink" title="Reduce阶段"></a>Reduce阶段</h3><ol>
+<li><p> <strong>Reducer</strong>：reduce 阶段的核心对象</p>
+</li>
+<li><p><strong>OutPutFormat</strong>：用于处理输出数据的格式</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OutPutFormat 用于指定 MapReduce 处理后的结果，要以什么样的文件格式写出。</span><br><span class="line">	1、如果想将结果写出到一个普通文件中，可以使用 FileOutputFormat；</span><br><span class="line">	2、如果想将结果写出到数据库中，可以使用 DBOutPutFormat；</span><br><span class="line">	4、如果想将结果写出到 SequeceFile 中，可以使用 SequnceFileOutputFormat</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>RecordWriter</strong>：记录写出器</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RecordWriter 将处理的结果以什么样的格式，写出到输出文件中。</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="MapReduce-处理数据的流程："><a href="#MapReduce-处理数据的流程：" class="headerlink" title="MapReduce 处理数据的流程："></a>MapReduce 处理数据的流程：</h3><ol>
+<li> <code>InputFormat</code> 调用 <code>RecordReader</code>，读取输入目录下的文件中的数据，并将数据封装为 <code>&lt;keyin, valuein&gt;</code> 对象；</li>
+<li> 将封装好的 <code>&lt;keyin, valuein&gt;</code> 对象，交给 <code>Mapper.map()</code>处理 <code>--&gt;</code> 将处理的结果写出到 <code>&lt;keyout, valueout&gt;</code> 对象中；</li>
+<li> 将<code>&lt;keyout, valueout&gt;</code> 对象序列化到磁盘中存储；</li>
+<li> <code>ReduceTask</code> 进程创建 <code>Reducer</code> 对象，使用 <code>Reducer.reduce()</code> 处理 Mapper 写出的 <code>&lt;keyout, valueout&gt;</code> 对象；</li>
+<li> <code>OutPutFormat</code> 调用 <code>RecordWriter</code>，将 <code>Reducer</code> 处理后的 <code>&lt;keyout, valueout&gt;</code> 对象写出到文件中。</li>
+</ol>
+<hr>
+<h1 id="MapReduce-编程规范"><a href="#MapReduce-编程规范" class="headerlink" title="MapReduce 编程规范"></a>MapReduce 编程规范</h1><p>用户编写的程序分成三个部分：Mapper、Reducer 和 Driver</p>
+<h2 id="一、Mapper-阶段"><a href="#一、Mapper-阶段" class="headerlink" title="一、Mapper 阶段"></a>一、Mapper 阶段</h2><ol>
+<li><p>用户自定义的 Mapper 要继承 <code>org.apache.hadoop.mapreduce.Mapper</code></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Mapper</span>&lt;KEYIN, VALUEIN, KEYOUT, VALUEOUT&gt; &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p> Mapper 的输入数据是 KV 对的形式（KV 的类型可自定义）</p>
+</li>
+<li><p> Mapper 的业务逻辑写在 <code>map()</code> 方法中</p>
+</li>
+<li><p> Mapper 的输出数据是 KV 对的形式（KV 的类型可自定义）</p>
+</li>
+<li><p> <code>map()</code> 方法（MapTask 进程）会对每个 <code>&lt;K, V&gt;</code> 都调用一次。</p>
+</li>
+</ol>
+<hr>
+<h2 id="二、Reducer-阶段"><a href="#二、Reducer-阶段" class="headerlink" title="二、Reducer 阶段"></a>二、Reducer 阶段</h2><ol>
+<li><p>用户自定义的 Reducer 要继承 <code>org.apache.hadoop.mapreduce.Reducer</code></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Reducer</span>&lt;KEYIN,VALUEIN,KEYOUT,VALUEOUT&gt; &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p> Reducer 的输入数据类型对应 Mapper 的输出数据类型，也是 KV</p>
+</li>
+<li><p> Reducer 的输出数据是 KV 对的形式（KV 的类型可自定义）</p>
+</li>
+<li><p> Reducer 的业务逻辑写在 <code>reduce()</code> 方法中</p>
+</li>
+<li><p> ReduceTask 进程对每一组相同 K 的 <code>&lt;K, V&gt;</code> 组调用一次 <code>reduce()</code> 方法。</p>
+</li>
+</ol>
+<hr>
+<h2 id="三、Driver"><a href="#三、Driver" class="headerlink" title="三、Driver"></a>三、Driver</h2><p><strong>Driver 就相当于 Yarn 的客户端，用于提交 Job 到 Yarn 中。</strong></p>
+<hr>
+<h1 id="WordCount-案例"><a href="#WordCount-案例" class="headerlink" title="WordCount 案例"></a>WordCount 案例</h1><h2 id="WordCount-案例分析"><a href="#WordCount-案例分析" class="headerlink" title="WordCount 案例分析"></a>WordCount 案例分析</h2><p><img src="MapReduce/image-20211126202235883.png" alt="image-20211126202235883"></p>
+<p><img src="MapReduce/image-20211202113216507.png" alt="image-20211202113216507"></p>
+<h3 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h3><p>在 HDFS 的 <code>/hello</code> 目录下存在两个文件，现在要求统计两个文件中不同单词的数量，并要求将 <code>a-p</code> 开头的单词放入到一个结果文件中，<code>q-z</code> 开头的单词放入到另一个结果文件中。    </p>
+<ul>
+<li><p><code>/hello/a.txt    200M</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hello,hi,hadoop</span><br><span class="line">hive,hadoop,hive,</span><br><span class="line">zoo,spark,wow</span><br><span class="line">zoo,spark,wow</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p><code>/hello/b.txt    100M</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello,hi,hadoop</span><br><span class="line">zoo,spark,wow</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Map-阶段-1"><a href="#Map-阶段-1" class="headerlink" title="Map 阶段"></a>Map 阶段</h3><p>Map 阶段：运行多个 MapTask 进程，将大数据切分成若干份小数据，每个 MapTask 进程处理一部分数据，并输出阶段性的结果。</p>
+<ol>
+<li><p>数据切片（split）：默认的切分策略是以文件为单位，以 block 的大小为单个片的大小进行切片。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/hello/a.txt	200M</span><br><span class="line">/hello/b.txt	100M</span><br><span class="line"></span><br><span class="line">现在我们有2个文件，默认块的大小是128M，所以split的大小也为128M。</span><br><span class="line">所以我们需要对文件 a.txt 进行切片，切分后的结果为：</span><br><span class="line">	split0: /hello/a.txt,0-128M</span><br><span class="line">	split1: /hello/a.txt,128M-200M</span><br><span class="line">对于文件 b.txt，其大小小于128M，所以不需要再进行切片了，直接保存在一个单独的split上；</span><br><span class="line">	split2: /hello/b.txt,0M-100M</span><br></pre></td></tr></table></figure></li>
+<li><p>由于目前我们有 3 个 split，所以启动 3 个 MapTask 进程执行任务，每个 MapTask 进程负责处理一个 split 上的数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">split0: /hello/a.txt,0-128M--------MapTask1</span><br><span class="line">split1: /hello/a.txt,128M-200M--------MapTask2</span><br><span class="line">split2: /hello/b.txt,0M-100M--------MapTask3</span><br></pre></td></tr></table></figure></li>
+<li><p>读取数据阶段。</p>
+<p> 在 MapReduce 中，所有的数据必须封装为 <code>&lt;K, V&gt;</code> 形式，所以 MapTask1、2、3 分别都会创建一个 <code>InputFormat</code> 对象（默认实现类为 <code>TextInputFormat</code>），每个 <code>InputFormat</code> 对象再创建一个依赖对象 <code>RecordReader</code>（默认实现类为 <code>LineRecordReader</code>），<code>RecordReader</code> 负责读取 split 中的数据，并封装成 <code>&lt;K, V&gt;</code> 格式。</p>
+<p> <code>LineRecordReader</code>：以文件中的当前行的偏移量（offset ）为 key，当前行的内容为 value，将文件内容封装成一个个<code>&lt;K,V&gt;</code>对象。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">举例：a.txt</span><br><span class="line"><span class="comment"># (k，v) &lt;---&gt; (偏移量，内容)</span></span><br><span class="line">hello,hi,hadoop-----&gt;(<span class="number">0</span>, (hello,hi,hadoop))</span><br><span class="line">hive,hadoop,hive-----&gt;(<span class="number">20</span>, (hive,hadoop,hive))</span><br><span class="line">zoo,spark,wow-----&gt;(<span class="number">30</span>, (zoo,spark,wow))</span><br><span class="line">zoo,spark,wow-----&gt;(<span class="number">40</span>, (zoo,spark,wow))</span><br></pre></td></tr></table></figure></li>
+<li><p><code>map()</code>方法</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">map() 是 Map 阶段的核心处理逻辑。 </span><br><span class="line">在单词统计中，map() 会被循环调用，对输入的每个&lt;K,V&gt;对象都进行处理！</span><br><span class="line">    输入：(0, (hello,hi,hadoop))</span><br><span class="line">    输出：(hello,1),(hi,1),(hadoop,1)</span><br><span class="line"></span><br><span class="line">    输入：(20, (hive,hadoop,hive))</span><br><span class="line">    输出：(hive,1),(hadoop,1),(hive,1)  </span><br><span class="line"></span><br><span class="line">    输入：(30, (zoo,spark,wow))</span><br><span class="line">    输出：(zoo,1),(spark,1),(wow,1)  </span><br><span class="line"></span><br><span class="line">    输入：(40, (zoo,spark,wow))</span><br><span class="line">    输出：(zoo,1),(spark,1),(wow,1) </span><br></pre></td></tr></table></figure></li>
+<li><p>根据需求，我们需要生成两个结果文件，将 <code>a-p</code> 开头的单词放入到一个结果文件中，<code>q-z</code> 开头的单词放入到另一个结果文件中。所以，我们需要将 MapTask 输出的记录进行<strong>分区</strong>，将 <code>a-p</code> 开头的单词放入到一个区，<code>q-z</code> 开头的单词放入到另一个区，这就需要在Mapper 输出结果后，调用 Partitioner，对 Mapper 输出的 <code>key-value</code> 进行分区，在分区过程中默认会将结果按照字典顺序排序。为了分别处理这两个区的数据，我们也会启动两个 ReduceTask ，每个 ReduceTask 负责处理一个分区中的数据。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">分区规则： </span><br><span class="line">	a-p开头的单词放入到一个区；q-z开头的单词放入到另一个区</span><br><span class="line"></span><br><span class="line">MapTask1：	<span class="comment">// MapTask1 的处理结果分别放入两个区，同理，MapTask2、3也一样，将处理结果输出到两个区中 </span></span><br><span class="line"><span class="number">0</span>号区：  (hadoop,<span class="number">1</span>)，(hadoop,<span class="number">1</span>)，(hello,<span class="number">1</span>),(hi,<span class="number">1</span>),(hive,<span class="number">1</span>),(hive,<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span>号区：  (spark,<span class="number">1</span>),(spark,<span class="number">1</span>),(wow,<span class="number">1</span>) ，(wow,<span class="number">1</span>),(zoo,<span class="number">1</span>)(zoo,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">MapTask2:		   </span><br><span class="line"><span class="number">0</span>号区： ...</span><br><span class="line"><span class="number">1</span>号区： ...</span><br><span class="line"></span><br><span class="line">MapTask3:		   </span><br><span class="line"><span class="number">0</span>号区： (hadoop,<span class="number">1</span>),(hello,<span class="number">1</span>),(hi,<span class="number">1</span>),	<span class="comment">// 分区后的数据按key的字典顺序排列</span></span><br><span class="line"><span class="number">1</span>号区： (spark,<span class="number">1</span>),(wow,<span class="number">1</span>),(zoo,<span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="Reduce-阶段"><a href="#Reduce-阶段" class="headerlink" title="Reduce 阶段"></a>Reduce 阶段</h3><ol>
+<li><p><strong>copy</strong>：<code>ReduceTask</code> 进程启动后，会启动 <strong>shuffle</strong> 进程，从 MapTask 进程中拷贝相应分区的数据。比如：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ReduceTask1: 只负责0号区</span><br><span class="line">	将3个MapTask生成的保存在0号区数据全部拷贝到ReduceTask1所在的机器！</span><br><span class="line">        (hadoop,1)，(hadoop,1)，(hello,1),(hi,1),(hive,1),(hive,1)</span><br><span class="line">        (hadoop,1),(hello,1),(hi,1),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ReduceTask2: 只负责1号区</span><br><span class="line">	将3个MapTask生成的保存在1号区数据全部拷贝到ReduceTask2所在的机器！</span><br><span class="line">        (spark,1),(spark,1),(wow,1) ，(wow,1),(zoo,1)(zoo,1)</span><br><span class="line">        (spark,1),(wow,1),(zoo,1)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p><strong>sort</strong>：排序</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReduceTask1: 将从0号区拷贝到本地机器上的数据进行排序：</span><br><span class="line">	(hadoop,1)，(hadoop,1)，(hadoop,1),(hello,1),(hello,1),(hi,1),(hi,1),(hive,1),(hive,1)</span><br><span class="line">ReduceTask2: 将从1号区拷贝到本地机器上的数据进行排序：</span><br><span class="line">	(spark,1),(spark,1),(spark,1),(wow,1) ，(wow,1),(wow,1),(zoo,1),(zoo,1)(zoo,1)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>reduce</strong></p>
+<p> <code>ReduceTask进程 --&gt; 创建Reducer对象 --&gt; 调用reduce()方法(一次读入一组数据)</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">何为一组数据: key相同的为一组数据</span><br><span class="line">ReduceTask1----&gt;Reducer-----&gt;reduce(一次读入一组数据)</span><br><span class="line">	输入： (hadoop,1)，(hadoop,1)，(hadoop,1)</span><br><span class="line">	输出： (hadoop,3)</span><br><span class="line"></span><br><span class="line">	输入： (hello,1),(hello,1)</span><br><span class="line">	输出： (hello,2)</span><br><span class="line">	</span><br><span class="line">	输入： (hi,1),(hi,1)</span><br><span class="line">	输出： (hi,2)</span><br><span class="line">	</span><br><span class="line">	输入：(hive,1),(hive,1)</span><br><span class="line">	输出：(hive,2)</span><br><span class="line">	</span><br><span class="line">ReduceTask2----&gt;Reducer-----&gt;reduce(一次读入一组数据)</span><br><span class="line">	输入： (spark,1),(spark,1),(spark,1)</span><br><span class="line">	输出： (spark,3)</span><br><span class="line">	</span><br><span class="line">	输入： (wow,1) ，(wow,1),(wow,1)</span><br><span class="line">	输出： (wow,3)</span><br><span class="line"></span><br><span class="line">	输入：(zoo,1),(zoo,1)(zoo,1)</span><br><span class="line">	输出：(zoo,3)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>调用 <code>OutPutFormat</code> 中的 <code>RecordWriter</code> 将 <code>Reducer</code> 输出的记录落盘</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ReduceTask1----&gt;OutPutFormat（默认使用TextOutPutFormat）------&gt;RecordWriter（默认使用LineRecoreWriter）</span><br><span class="line">    LineRecoreWriter会将一个&lt;K,V&gt;写出为一行，key和alue之间使用\t分割</span><br><span class="line">    在输出目录中，生成文件part-r-0000</span><br><span class="line">        hadoop	3</span><br><span class="line">        hello	2</span><br><span class="line">        hi	2</span><br><span class="line">        hive	2</span><br><span class="line"></span><br><span class="line">ReduceTask2----&gt;OutPutFormat（默认TextOutPutFormat）------&gt;RecordWriter（LineRecoreWriter）</span><br><span class="line">    LineRecoreWriter会将一个&lt;K,V&gt;写出为一行，key和alue之间使用\t分割</span><br><span class="line">    在输出目录中，生成文件part-r-0001</span><br><span class="line">        spark	3</span><br><span class="line">        wow	3</span><br><span class="line">        zoo	3</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="MapReduce总结"><a href="#MapReduce总结" class="headerlink" title="MapReduce总结"></a>MapReduce总结</h3><ul>
+<li><p>Map阶段(MapTask)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">切片(Split)-----读取数据(Read)-------交给Mapper处理(Map)------分区和排序(sort)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Reduce阶段(ReduceTask)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">拷贝数据(copy)------排序(sort)-----合并(reduce)-----写出(write)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="WordCount案例实战"><a href="#WordCount案例实战" class="headerlink" title="WordCount案例实战"></a>WordCount案例实战</h2><h3 id="一、准备数据"><a href="#一、准备数据" class="headerlink" title="一、准备数据"></a>一、准备数据</h3><p><strong>注意：</strong></p>
+<ul>
+<li>  准备的数据的格式必须是文本</li>
+<li>  编码必须是<code>utf-8无bom</code></li>
+</ul>
+<p><img src="MapReduce/image-20211202141842801.png" alt="image-20211202141842801"></p>
+<hr>
+<h1 id="Hadoop-序列化"><a href="#Hadoop-序列化" class="headerlink" title="Hadoop 序列化"></a>Hadoop 序列化</h1><h2 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h2><ul>
+<li>  <strong>序列化</strong>就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储（持久化）和网络传输。</li>
+<li>  <strong>反序列化</strong>就是将收到字节序列（或其他数据传输协议）或者是硬盘的持久化数据，转换成内存中的对象。</li>
+</ul>
+<hr>
+<h2 id="为什么要序列化"><a href="#为什么要序列化" class="headerlink" title="为什么要序列化"></a>为什么要序列化</h2><p>一般来说，“活的”对象只存在于内存中，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。然而序列化可以存储“活的”对象，可以将“活的”对象发送到远程计算机。</p>
+<hr>
+<h2 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h2><p>Java 的序列化是一个重量级的序列化框架（Serializable），一个对象被序列化后，会附带很多额外的信息（各种校验信息，Header，继承体系等），不便于在网络中高效传输。所以，Hadoop 自己开发了一套轻量级的序列化机制（Writable）。</p>
+<p><strong>Hadoop 序列化特点：</strong></p>
+<ol>
+<li> 紧凑：高效使用存储空间。</li>
+<li> 快速：读写数据的额外开销小。</li>
+<li> 可扩展：随着通信协议的升级而可升级</li>
+<li> 互操作：支持多语言的交互</li>
+</ol>
+<hr>
+<h2 id="常用数据序列化类型"><a href="#常用数据序列化类型" class="headerlink" title="常用数据序列化类型"></a>常用数据序列化类型</h2><blockquote>
+<p>  常用的数据类型对应的 Hadoop 数据序列化类型</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Java类型</th>
+<th>Hadoop Writable类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>BooleanWritable</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>ByteWritable</td>
+</tr>
+<tr>
+<td>int</td>
+<td>IntWritable</td>
+</tr>
+<tr>
+<td>float</td>
+<td>FloatWritable</td>
+</tr>
+<tr>
+<td>long</td>
+<td>LongWritable</td>
+</tr>
+<tr>
+<td>double</td>
+<td>DoubleWritable</td>
+</tr>
+<tr>
+<td>String</td>
+<td>Text</td>
+</tr>
+<tr>
+<td>map</td>
+<td>MapWritable</td>
+</tr>
+<tr>
+<td>array</td>
+<td>ArrayWritable</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="自定义-bean-对象事件序列化接口（Writable）"><a href="#自定义-bean-对象事件序列化接口（Writable）" class="headerlink" title="自定义 bean 对象事件序列化接口（Writable）"></a>自定义 bean 对象事件序列化接口（Writable）</h2><p>自定义的 bean 对象如果想要序列化传输，就必须实现序列化接口。具体的操作步骤如下 7 步：</p>
+<ol>
+<li><p> 实现 <code>Writable</code> 接口</p>
+</li>
+<li><p>反序列化时，需要反射调用 bean 对象的空参构造函数，所以自定义的 bean 对象必须提供空参构造函数。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">FlowBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>重写序列化方法</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	out.writeLong(upFlow);</span><br><span class="line">	out.writeLong(downFlow);</span><br><span class="line">	out.writeLong(sumFlow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>重写反序列化方法</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	upFlow = in.readLong();</span><br><span class="line">	downFlow = in.readLong();</span><br><span class="line">	sumFlow = in.readLong();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p> 注意反序列化方法中参数的顺序要与序列化方法中参数的顺序完全一致</p>
+</li>
+<li><p> 要想把结果显示在文件中，需要重写 <code>toString()</code> 方法</p>
+</li>
+<li><p>如果需要将自定义的 bean 对象作为 key 传输，则还需要实现 Comparable 接口，因为 MapReduce 中的 Shuffle 过程要求 key 必须能排序。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(FlowBean o)</span> &#123;</span><br><span class="line">    <span class="comment">// 倒序排列，从大到小</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.sumFlow &gt; o.getSumFlow() ? -<span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="序列化案例实操"><a href="#序列化案例实操" class="headerlink" title="序列化案例实操"></a>序列化案例实操</h2><p><strong>一、需求</strong></p>
+<p>统计每一个手机号耗费的总上行流量、下行流量、总流量</p>
+<p>（1）输入数据</p>
+<p>（2）输入数据格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">7	13560436666		120.196.100.99		1116	954		 200  </span><br><span class="line">id   手机号码     	 网络ip             上行流量  下行流量   网络状态码  </span><br></pre></td></tr></table></figure>
+
+<p>（3）期望输出数据格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">13560436666      1116         954            2070  </span><br><span class="line">手机号码        上行流量     下行流量         总流量  </span><br></pre></td></tr></table></figure>
+
+<p><img src="MapReduce/image-20211202150116535.png" alt="image-20211202150116535"></p>
+<hr>
+<h1 id="MapReduce-框架原理"><a href="#MapReduce-框架原理" class="headerlink" title="MapReduce 框架原理"></a>MapReduce 框架原理</h1><p><img src="MapReduce/image-20211127120148703.png" alt="image-20211127120148703"></p>
+<hr>
+<h1 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h1><h2 id="FileInputFormat切片源码解析-input-getSplits-job"><a href="#FileInputFormat切片源码解析-input-getSplits-job" class="headerlink" title="FileInputFormat切片源码解析(input.getSplits(job))"></a>FileInputFormat切片源码解析(input.getSplits(job))</h2><p><img src="MapReduce/image-20211202172418064.png" alt="image-20211202172418064"></p>
+<h2 id="FileInputFormat-的切片策略（默认切片策略）"><a href="#FileInputFormat-的切片策略（默认切片策略）" class="headerlink" title="FileInputFormat 的切片策略（默认切片策略）"></a>FileInputFormat 的切片策略（默认切片策略）</h2><ul>
+<li><strong>切片策略</strong><ol>
+<li> 首先获取当前输入目录中的所有文件；</li>
+<li> 以文件为单位进行切片，如果文件是空文件，默认创建一个空的切片（split）。</li>
+<li> 如果文件不为空，要先判断文件是否可切片（非压缩文件都可切，压缩文件只有Bzip2格式可切）。</li>
+<li> 如果文件不可切，将整个文件作为一片</li>
+<li>如果文件可切，先获取事先设置的每片的大小（默认等于 Block 的大小），再按照文件的内容长度进行循环切片。<ul>
+<li>  如果 <code>待切片内容长度/每片大小 &gt; 1.1</code>，则先切去一片，再用剩余的文件大小作为待切片内容，循环判断；</li>
+<li>  如果 <code>待切片内容长度/每片大小 &lt;= 1.1</code>，将剩余的所有内容整个作为 1 片。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong>案例分析</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">（1）输入目录中共有两个文件</span><br><span class="line">	file1.txt	320M</span><br><span class="line">	file2.txt	130M</span><br><span class="line">	</span><br><span class="line">（2）经过 FileInputFormat 切片后，形成的切片信息如下：</span><br><span class="line">	file1.txt.split1 --- 0~128M</span><br><span class="line">	file1.txt.split2 --- 128~256M</span><br><span class="line">	file1.txt.split3 --- 256~320M</span><br><span class="line">	file2.txt.split1 --- 0~130M</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="片和块的关系"><a href="#片和块的关系" class="headerlink" title="片和块的关系"></a><strong>片和块的关系</strong></h2><ul>
+<li>  片（Split）：切片（Split）的过程发生在内存中，在运算 MapReduce 程序时，由于每个 MapTask 会负责一个 split 的运算，所以会临时的将某个目录下的所有文件划分为若干 split。但是实际上每个 split 中的数据还是以 block 的形式存储在 HDFS 中的。</li>
+<li>  块（Block）：在向 HDFS 中写文件时，文件中的内容以 block 为单位存储。块是实际的物理存在。</li>
+<li>  MapTask 在读取切片的内容时，需要根据切片的 metainfo ，获取到当前切片属于文件的哪部分，再根据此信息去寻找对应的块，读取数据。</li>
+</ul>
+<p><strong>建议：</strong></p>
+<p><img src="MapReduce/image-20211202170551898.png" alt="image-20211202170551898"></p>
+<ul>
+<li><p>片大小最好等于块大小。</p>
+<blockquote>
+<p>  因为每个片都会启动一个对应的 MapTask 进程，每个 MapTask 进程只能运行在一台服务器上，如果片大小不等于块大小，比如片大小为100M，块大小为128M，那么一个 MapTask 进程就可能要跨节点加载数据，这时产生的网络IO和磁盘IO代价是非常大的。如果片大小等于块大小，就不会出现跨节点加载数据的过程，可以节省网络IO的时间。</p>
+</blockquote>
+</li>
+<li><p>  MapReduce 程序速度慢的原因在于执行时，会频繁发生磁盘 IO 和网络 IO。比如在 map 阶段，需要先将磁盘中的文件读取到内存中进行运算，运算结束后还需要将阶段性的运算结果写出到磁盘上；这个运算结果还可能需要通过网络传输到集群中的其它节点上进行 reduce 阶段的运算，reduce 阶段同样需要把磁盘上的文件（map 阶段的运算结果文件）加载到内存中运算，运算结束后再将运算结果写出到磁盘上。</p>
+</li>
+<li><p>  将片大小设置为和块大小一致，可以最大限度减少因为切片带来的磁盘 IO 和网络 IO。</p>
+</li>
+</ul>
+<hr>
+<p><img src="MapReduce/image-20211202173603095.png" alt="image-20211202173603095"></p>
+<hr>
+<h2 id="CombineTextInputFormat切片机制"><a href="#CombineTextInputFormat切片机制" class="headerlink" title="CombineTextInputFormat切片机制"></a>CombineTextInputFormat切片机制</h2><p>框架默认的TextInputformat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask，这样如果有大量小文件，就会产生大量的MapTask，处理效率极其低下。</p>
+<p><strong>一、应用场景：</strong></p>
+<p><code>CombineTextInputFormat</code> 用于小文件过多的场景，它可以将多个小文件从逻辑上规划到一个切片中，这样，多个小文件就可以交给一个MapTask处理。</p>
+<p><strong>二、虚拟存储切片最大值设置</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CombineTextInputFormat.setMaxInputSplitSize(job, <span class="number">4194304</span>);	<span class="comment">// 4m</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  虚拟存储切片最大值设置可以根据实际的小文件大小情况来设置具体的值。</li>
+</ul>
+<p><strong>三、切片机制</strong></p>
+<p>生成切片过程包括：<strong>虚拟存储过程</strong>和<strong>切片过程</strong>两部分。</p>
+<ol>
+<li><p><strong>虚拟存储过程：</strong></p>
+<ul>
+<li>  （a）将输入目录下所有文件按照文件名称字典顺序一次读入，记录文件大小，并累加计算所有文件的总长度。</li>
+<li>  （b）根据是否设置 <code>setMaxInputSplitSize</code> 值，将每个文件划分成一个一个 <code>setMaxInputSplitSize</code> 值大小的文件。</li>
+<li>  （c）注意：当剩余数据大小超过 <code>setMaxInputSplitSize</code> 值且不大于2倍 <code>setMaxInputSplitSize</code> 值，此时将文件均分成2个虚拟存储块（防止出现太小切片）。</li>
+<li>  例如 <code>setMaxInputSplitSize</code> 值为4M，最后文件剩余的大小为4.02M，如果按照4M逻辑划分，就会出现0.02M的小的虚拟存储文件，所以将剩余的4.02M文件切分成（2.01M和2.01M）两个文件。</li>
+</ul>
+</li>
+<li><p><strong>切片过程：</strong></p>
+<ul>
+<li><p>  （a）判断虚拟存储的文件大小是否大于 <code>setMaxInputSplitSize</code> 值，大于等于则单独形成一个切片。</p>
+</li>
+<li><p>  （b）如果不大于则跟下一个虚拟存储文件进行合并，共同形成一个切片。</p>
+</li>
+<li><p>（c）测试举例：有4个小文件大小分别为1.7M、5.1M、3.4M以及6.8M这四个小文件，则虚拟存储之后形成6个文件块，大小分别为：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.7M，（2.55M、2.55M），3.4M以及（3.4M、3.4M）</span><br><span class="line"></span><br><span class="line">最终会形成3个切片，大小分别为：</span><br><span class="line"></span><br><span class="line">（1.7+2.55）M，（2.55+3.4）M，（3.4+3.4）M</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="CombineTextInputFormat-案例实操"><a href="#CombineTextInputFormat-案例实操" class="headerlink" title="CombineTextInputFormat 案例实操"></a>CombineTextInputFormat 案例实操</h2><ol>
+<li><p>需求</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将输入的大量小文件合并成一个切片统一处理。</span><br><span class="line"></span><br><span class="line">（1）输入数据</span><br><span class="line">	准备4个小文件</span><br><span class="line">（2）期望</span><br><span class="line">	期望一个切片处理4个文件</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="InputFormat-数据输入"><a href="#InputFormat-数据输入" class="headerlink" title="InputFormat 数据输入"></a>InputFormat 数据输入</h1><h2 id="FileInputFormat-接口"><a href="#FileInputFormat-接口" class="headerlink" title="FileInputFormat 接口"></a>FileInputFormat 接口</h2><p>MapReduce 任务的输入文件一般都存储在 HDFS 里面。常见的输入文件格式包括：<strong>基于行的日志文件、二进制格式文件等</strong>。这些文件一般会很大，达到数十GB，甚至更大。那么MapReduce是如何读取这些数据的呢？下面我们首先学习 FileInputFormat 接口。</p>
+<p>FileInputFormat 常见的接口实现类包括：</p>
+<ul>
+<li>  TextInputFormat</li>
+<li>  KeyValueTextInputFormat</li>
+<li>  NLineInputFormat</li>
+<li>  CombineTextInputFormat</li>
+<li>  自定义 InputFormat </li>
+</ul>
+<hr>
+<h2 id="FileInputFormat-实现类"><a href="#FileInputFormat-实现类" class="headerlink" title="FileInputFormat 实现类"></a>FileInputFormat 实现类</h2><h3 id="TextInputFormat"><a href="#TextInputFormat" class="headerlink" title="TextInputFormat"></a>TextInputFormat</h3><ul>
+<li><p>  使用场景：TextInputFormat 是默认的 InputFormat，常用于输入目录中全是文本文件的场景。</p>
+</li>
+<li><p>  切片策略：使用默认的切片策略。</p>
+</li>
+<li><p>RecordReader：使用的实现类是<code>LineRecordReader</code>，一次处理一行数据，以行头的偏移量为 key，该行内容作为 value。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LineRecordReader</span><br><span class="line">	LongWritable key	<span class="comment">// 存储该行在整个文件中的起始字节偏移量	</span></span><br><span class="line">	Text value	<span class="comment">// 该行的内容</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="NLineInputFormat"><a href="#NLineInputFormat" class="headerlink" title="NLineInputFormat"></a>NLineInputFormat</h3><ul>
+<li><p>  使用场景：常用于输入目录中全是文本文件的场景。适合一行的内容特别多，在 Map 阶段 map() 的处理逻辑非常负责，可以根据行数自定义切片的大小。</p>
+</li>
+<li><p>  切片策略：以文件为单位，每 N 行作为一个切片。</p>
+</li>
+<li><p>RecordReader：使用的实现类是<code>LineRecordReader</code>，一次处理一行数据，以行头的偏移量为 key，该行内容作为 value。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LineRecordReader</span><br><span class="line">	LongWritable key</span><br><span class="line">	Text value</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="KeyValueTextInputFormat"><a href="#KeyValueTextInputFormat" class="headerlink" title="KeyValueTextInputFormat"></a>KeyValueTextInputFormat</h3><ul>
+<li><p>  使用场景：常用于输入目录中全是文本文件的场景。使用分隔字符，将每一行的内容分割为 key 和 value。如果没有找到分隔符，则以当前行的内容作为 key，value 为空串。默认的分隔符为 <code>\t</code>，可以通过参数<code>mapreduce.input.keyvaluelinerecordreader.key.value.separator</code> 显式指定分隔符。</p>
+</li>
+<li><p>  切片策略：使用默认的切片策略。</p>
+</li>
+<li><p>RecordReader：使用的实现类是 <code>KeyValueLineRecordReader</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">KeyValueLineRecordReader</span><br><span class="line">    Text key	分隔符之前的内容</span><br><span class="line">    Text value	分隔符之后的内容</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="CombineTextInputFormat"><a href="#CombineTextInputFormat" class="headerlink" title="CombineTextInputFormat"></a>CombineTextInputFormat</h3><p>框架默认的 <code>TextInputformat</code> 切片机制是以文件为单位，在文件内按照块大小对文件进行切片。也就是说不管文件多小，都会是一个单独的切片，都会交给一个 MapTask，这样如果有大量小文件，就会产生大量的 MapTask，处理效率极其低下。</p>
+<ul>
+<li><p>  应用场景：<code>CombineTextInputFormat</code> 改变了传统的切片方式，它将多个小文件划分到一个切片中，这样多个小文件就可以交给一个 MapTask 处理，适合小文件较多的场景。</p>
+</li>
+<li><p>  切片策略：多个小文件划分到一个切片中。根据 maxSize 对每个文件进行逻辑切片，切分为若干 part，将多个 part 组合，直到超过 maxSize，这些 part 作为一个切片。1hu</p>
+</li>
+<li><p>RecordReader：使用的实现类是<code>LineRecordReader</code>，一次处理一行数据，以行头的偏移量为 key，该行内容作为 value。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LineRecordReader</span><br><span class="line">	LongWritable key</span><br><span class="line">	Text value</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="自定义-InputFormat-实现类"><a href="#自定义-InputFormat-实现类" class="headerlink" title="自定义 InputFormat 实现类"></a>自定义 InputFormat 实现类</h3><p>在开发中，Hadoop 框架自带的 InputFormat 类型并不能满足所有的应用场景，有时还需要通过自定义 InputFormat 来解决实际问题。</p>
+<p>无论是 HDFS 还是 MapReduce，在处理小文件时效率都非常低，但又难免面临处理大量小文件的场景，此时，就需要有相应解决方案。可以自定义 InputFormat 实现小文件的合并。</p>
+<p><strong>一、需求</strong></p>
+<p>将多个小文件合并成一个 <code>SequenceFile</code> 文件（SequenceFile 文件是 Hadoop 用来存储二进制形式的 <code>key-value</code> 对的文件格式），SequenceFile 里面存储着多个文件，存储的形式为：<code>文件路径+文件名 = key</code>，<code>文件内容=value</code>。</p>
+<p><img src="MapReduce/image-20211202202010080.png" alt="image-20211202202010080"></p>
+<p><strong>二、需求分析</strong></p>
+<ol>
+<li>自定义一个类继承 FileInputFormat<ul>
+<li>  （1）重写 <code>isSplitable()</code> 方法，返回 false 表示单个文件不可被切片</li>
+<li>  （2）重写 <code>createRecordReader()</code> 方法，返回自定义的 RecordReader 对象。</li>
+</ul>
+</li>
+<li>重写 RecordReader，实现一次读取一个完整的文件并按照一定的规则封装为<code>&lt;K,V&gt;</code>对象<ul>
+<li>  （1）采用 IO 流一次读取一个完整的文件输出到 value 中。（因为设置了文件不可被切片，所以每次都会读取一整个文件封装到 value 中）</li>
+<li>  （2）获取 <code>文件路径信息+名称</code>，作为 key </li>
+</ul>
+</li>
+<li> 默认的输出格式是 <code>TextOutputFormat</code>（文本的输出格式），由于我们要将文件输出为 <code>SequenceFile</code> 文件，所以需要将最终的输出格式设置为<code>SequnceFileOutputFormat</code></li>
+</ol>
+<p><strong>三、程序实现</strong></p>
+<hr>
+<h2 id="关键设置"><a href="#关键设置" class="headerlink" title="关键设置"></a>关键设置</h2><p>如何设置 MapTask 的数量？</p>
+<ul>
+<li>  MapTask 的数量，人为设置是无效的，只能由切片数来决定。</li>
+</ul>
+<h1 id="Job-提交流程阶段总结"><a href="#Job-提交流程阶段总结" class="headerlink" title="Job 提交流程阶段总结"></a>Job 提交流程阶段总结</h1><h2 id="Job提交流程源码"><a href="#Job提交流程源码" class="headerlink" title="Job提交流程源码"></a>Job提交流程源码</h2><blockquote>
+<p>  Job提交流程源码详解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提交job</span></span><br><span class="line">waitForCompletion()</span><br><span class="line"></span><br><span class="line"><span class="comment">// --&gt;</span></span><br><span class="line">submit();</span><br><span class="line"></span><br><span class="line"><span class="comment">// --&gt;</span></span><br><span class="line"><span class="comment">// 1、建立连接</span></span><br><span class="line">connect();  </span><br><span class="line">    <span class="comment">// （1）加载配置，创建提交Job的代理</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Cluster</span>(getConfiguration());</span><br><span class="line">    <span class="comment">// （2）判断是本地yarn还是远程</span></span><br><span class="line">    initialize(jobTrackAddr, conf); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、提交job</span></span><br><span class="line">submitter.submitJobInternal(Job.<span class="built_in">this</span>, cluster)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// （1）创建给集群提交数据的Stag路径</span></span><br><span class="line">  <span class="type">Path</span> <span class="variable">jobStagingArea</span> <span class="operator">=</span> JobSubmissionFiles.getStagingDir(cluster, conf);</span><br><span class="line">  <span class="comment">// （2）获取jobId ，并创建Job路径</span></span><br><span class="line">  <span class="type">JobID</span> <span class="variable">jobId</span> <span class="operator">=</span> submitClient.getNewJobID();</span><br><span class="line">  <span class="comment">// （3）拷贝jar包到集群</span></span><br><span class="line">  copyAndConfigureFiles(job, submitJobDir);  </span><br><span class="line">  rUploader.uploadFiles(job, jobSubmitDir);</span><br><span class="line">  <span class="comment">// （4）计算切片，生成切片规划文件</span></span><br><span class="line">  writeSplits(job, submitJobDir);</span><br><span class="line">  maps = writeNewSplits(job, jobSubmitDir);</span><br><span class="line">  input.getSplits(job);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// （5）向Stag路径写XML配置文件</span></span><br><span class="line">  writeConf(conf, submitJobFile);</span><br><span class="line">  conf.writeXml(out);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// （6）提交Job,返回提交状态</span></span><br><span class="line">  status = submitClient.submitJob(jobId, submitJobDir.toString(), job.getCredentials());</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="本地模式"><a href="#本地模式" class="headerlink" title="本地模式"></a>本地模式</h2><p>一、准备阶段</p>
+<p>运行 <code>Job.waitForCompletion()</code>，先使用 JobSubmitter 提交 Job，在提交之前，会在 Job 的作业目录中生成以下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">job.split: 当前Job的切片信息，有几个切片对象</span><br><span class="line">job.splitmetainfo: 切片对象的属性信息</span><br><span class="line">job.xml: job所有的属性配置</span><br></pre></td></tr></table></figure>
+
+
+
+<p>二、提交阶段</p>
+<ol>
+<li><p>LocalJobRunner 进行提交</p>
+<ul>
+<li>  创建一个 LocalJobRunner.job()</li>
+<li>  <code>Job.start()</code>   启动线程</li>
+</ul>
+</li>
+<li><p>Map 阶段</p>
+<ul>
+<li>  采用线程池提交多个MapTaskRunable线程！</li>
+<li>  每个MapTaskRunable线程上，实例化一个MapTask对象！</li>
+<li>  每个MapTask对象，实例化一个Mapper!</li>
+<li>  Mapper.run()</li>
+<li>  线程运行结束，会在线程的作业目录中生成 file.out文件，保存MapTask输出的所有的key-value!</li>
+</ul>
+</li>
+<li><p>Reduce 阶段</p>
+<ul>
+<li>  采用线程池提交多个ReduceTaskRunable线程！</li>
+<li>  每个ReduceTaskRunable线程上，实例化一个ReduceTask对象！</li>
+<li>  每个ReduceTask对象，实例化一个Reduce!</li>
+<li>  reducer.run()</li>
+<li>  线程运行结束，会在输出目录中生成 part-r-000x 文件，保存 ReduceTask 输出的所有的key-value!</li>
+</ul>
+<p>  阶段定义： </p>
+<ul>
+<li>  copy：使用 shuffle 线程拷贝 MapTask 对应分区中的数据！</li>
+<li>  sort: 将拷贝的所有的分区的数据汇总后，排序</li>
+<li>  reduce：对排好序的数据，进行合并！</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="Shuffle-机制"><a href="#Shuffle-机制" class="headerlink" title="Shuffle 机制"></a>Shuffle 机制</h1><p>MapReduce 为了确保 Reducer 阶段每个输入数据都是按 key 排序的，会执行多次排序的过程，这个阶段被称为 Shuffle 阶段。</p>
+<p>从 Mapper 出去到 Reducer 接收之前全部都是 Shuffle 的范围。</p>
+<h2 id="MapTask-工作机制"><a href="#MapTask-工作机制" class="headerlink" title="MapTask 工作机制"></a>MapTask 工作机制</h2><p><img src="MapReduce/image-20211203123841956.png" alt="image-20211203123841956"></p>
+<p><strong>一、MapTask 的两个阶段（官方定义）</strong></p>
+<p>MapTask 的执行过程大致可分为两个阶段：</p>
+<ol>
+<li> map 阶段：<code>Mapper.map()</code> 方法中在执行 <code>context.write(keyout, valueout)</code> 之前都属于 map 阶段；</li>
+<li> sort 阶段：只有当存在 ReduceTask 时才会有 sort 阶段</li>
+</ol>
+<p><code>Mapper#map()</code> 方法是一个会循环执行的方法，在该方法中会调用 <code>context.write(keyout, valueout)</code> 方法将当前次处理的 <code>&lt;keyout. valueout&gt;</code> 写出到磁盘上。当然写出到磁盘上是最终目的，在真正执行的时候，肯定是先把一个个键值对对象先保存到一个缓冲区中，等到缓冲区快满的时候再写出到磁盘上。</p>
+<p>每条记录在写入缓冲区时，会先调用<strong>分区器（Partitioner）</strong>为当前记录分配一个区号。</p>
+<p>缓冲区中记录的顺序是按照进入缓冲区的先后时间来排序的，也就是说进入的越早，分配到的索引（index）就越小，第一个进入缓冲区的记录分配到的 index 就是 0，之后依次自增。</p>
+<p>缓冲区也是一块内存，对于其中的每条记录，寻址方式就是偏移量。从缓冲区内存的开始位置起（偏移量从0开始），每条记录 key 的偏移量记为 <code>keystart</code>，值的偏移量记为 <code>valuestart</code>。</p>
+<p>缓冲区中每条记录的数据格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">索引（序号）	分区号		 key偏移量		value偏移量	key的值	  value的值</span><br><span class="line">index		partition	keystart	  valuestart	  key		  value 		unsued</span><br></pre></td></tr></table></figure>
+
+<p>缓冲区有两个线程，一个为收集线程，收集线程负责将Mapper写出的<code>&lt;K,V&gt;</code> 记录收集到缓冲区。另一个为溢写线程，溢写线程会在缓冲区已经占满了80%时被唤醒，唤醒后负责将缓冲区收集的数据溢写到磁盘。</p>
+<p>一旦缓冲区满足了溢写条件后，会先对缓冲区中的所有数据进行一次排序。排序是按照 key 进行升序排序（数字大小升序或字典升序）。排序时，只对索引进行排序，而不会真实移动数据的位置。</p>
+<p>排序完成之后，接下来就需要对数据进行溢写，溢写数据的时候会按照分区将数据写出到不同的区。每次溢写都会生成一个临时文件 <code>spillx.out</code>，在一次 MapReduce 中，可能会发生多次溢写（因为每次缓冲区快满的时候就会溢写一次），生成多个临时文件。当 map 阶段执行结束时，缓冲区中的最后一批数据会执行一次 flush（即使缓冲区没有达到要溢写的阈值）。</p>
+<p>溢写结束后，会对生成的所有临时文件 <code>spillx.out</code> 执行一次 merge，将多个临时文件合并成一个最终结果。合并时，会将同一个分区的临时文件进行汇总，汇总后再进行排序，由于此时单个临时文件已经是有序的了，所以汇总之后的排序算法采用的是归并排序。在最终结果中，每个分区中的 <code>&lt;K,V&gt;</code> 记录都是有序的，并且会将最终文件写到 MapTask 所在机器磁盘上的某个文件中。等待 ReduceTask 的 Shuffle 线程来拷贝数据。</p>
+<blockquote>
+<p>  <strong>细节部分</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">① 先分区</span><br><span class="line"></span><br><span class="line">② 每次溢写前，都需要对缓冲区中的数据进行排序。</span><br><span class="line">	排序时，只排索引，不移动数据</span><br><span class="line">	使用的排序算法是快速排序</span><br><span class="line"></span><br><span class="line">③ 合并多个溢写临时文件为最终的文件时，先汇总后排序，排序算法使用归并排序</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="Partition-分区"><a href="#Partition-分区" class="headerlink" title="Partition 分区"></a>Partition 分区</h2><p><strong>一、问题引出</strong></p>
+<p>要求<strong>将统计结果按照条件输出到不同的文件中</strong>（分区），比如：将统计结果按照手机归属地不同省份输出到不同文件中。</p>
+<p>二、默认 Partition 分区</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashPartitioner</span>&lt;K2, V2&gt; <span class="keyword">implements</span> <span class="title class_">Partitioner</span>&lt;K2, V2&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPartition</span><span class="params">(K2 key, V2 value, <span class="type">int</span> numReduceTasks)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (key.hashCode() &amp; <span class="number">2147483647</span>) % numReduceTasks;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  默认分区是根据 key 的 hashCode 对 ReduceTasks 个数取模得到的。</li>
+</ul>
+<p><strong>三、自定义 Partition 步骤</strong></p>
+<ol>
+<li><p>自定义实现类继承 Partitioner，重写 <code>getPartition</code> 方法</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyPartitioner</span> <span class="keyword">extends</span> <span class="title class_">Partitioner</span>&lt;Text, FlowBean&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPartition</span><span class="params">(Text text, FlowBean flowBean, <span class="type">int</span> numPartitions)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO 控制分区的代码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>在 Job 驱动中，将分区器置换为自定义的 Partitioner</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.setPartitionerClass(MyPartitioner.class);</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>自定义 Partition 后，要根据自定义 Partitioner 的逻辑设置相应数量的 ReduceTask</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.setNumReduceTasks(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>四、小总结</strong></p>
+<ol>
+<li> 如果 <code>ReduceTask的数量 &gt; getPartition的结果数</code>，则会多产生几个空的输出文件 <code>part-r-000xx</code>；</li>
+<li> 如果 <code>1 &lt; ReduceTask的数量 &lt; getPartitioner的结果数</code>，则会有一部分数据无处安放，会抛出 Exception；</li>
+<li> 如果 <code>ReduceTask的数量=1</code>，则不管 MapTask 端输出多少个分区文件，最终结果都会交给这一个 ReduceTask，最终也就只会产生一个结果文件 <code>part-r-0000</code>。</li>
+</ol>
+<hr>
+<h3 id="案例实操"><a href="#案例实操" class="headerlink" title="案例实操"></a>案例实操</h3><hr>
+<h2 id="WriteComparable-排序"><a href="#WriteComparable-排序" class="headerlink" title="WriteComparable 排序"></a>WriteComparable 排序</h2><h3 id="排序概述"><a href="#排序概述" class="headerlink" title="排序概述"></a>排序概述</h3><p>排序是 MapReduce 框架中最重要的操作之一。</p>
+<p>MapTask 和 ReduceTask 均会对数据按照 key 进行排序。该操作属于 Hadoop 的默认行为。任何应用程序中的数据均会被排序，而不管逻辑上是否需要。</p>
+<p>默认排序方式是按照字典顺序排序，且实现该排序的方法是快速排序。</p>
+<p>对于 MapTask，它会将处理的结果暂时放到一个缓冲区中，当缓冲区使用率达到一定阈值后（溢写阈值），再对缓冲区中的数据进行一次排序，并将这些有序数据写到磁盘上，而当数据处理完毕后，它会对磁盘上所有文件进行一次合并，以将这些文件合并成一个大的有序文件。</p>
+<p>对于 ReduceTask，它从每个 MapTask 所在的服务器上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则放到磁盘上，否则放到内存中。如果磁盘上文件数目达到一定阈值，则进行一次合并以生成一个更大的文件；如果内存中文件大小或数目超过一定阈值，则进行一次合并后将数据写到磁盘上。当所有数据拷贝完毕后，ReduceTask 统一对内存和磁盘上的所有数据进行一次归并排序。</p>
+<hr>
+<h3 id="排序分类"><a href="#排序分类" class="headerlink" title="排序分类"></a>排序分类</h3><p>一、部分排序</p>
+<p>MapReduce 根据输入记录的键对数据集排序，保证输出的每个文件内部有序。</p>
+<p>二、全排序</p>
+<p>最终输出结果只有一个文件，且文件内部有序。实现方式是只设置一个 ReduceTask。但该方法在处理大型文件时效率极低，因为一台机器处理所有文件，完全丧失了 MapReduce 所提供的并行架构。</p>
+<p>三、辅助排序</p>
+<p>四、二次排序</p>
+<hr>
+<h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><p><strong>一、原理</strong></p>
+<p>bean 对象实现 <code>WritableComparable</code> 接口，重写接口中的 <code>compareTo</code> 方法，就可以实现自定义排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(FlowBean o)</span> &#123;</span><br><span class="line">	<span class="comment">// 倒序排列，从大到小</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>.sumFlow &gt; o.getSumFlow() ? -<span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="Combiner-合并"><a href="#Combiner-合并" class="headerlink" title="Combiner 合并"></a>Combiner 合并</h2><ol>
+<li> Combiner 是 MR 程序中 Mapper 和 Reducer 之外的另一种组件；</li>
+<li> Combiner 组件的父类就是 Reducer；</li>
+<li>Combiner 和 Reducer 的区别在于运行的位置：<ul>
+<li>  Reducer 是在 reduce 阶段调用，Combiner 是在 shuffle 阶段调用；</li>
+<li>  Combiner 是在每一个 MapTask 所在的节点运行；</li>
+<li>  Reducer 是接收全局所有 Mapper 的输出结果。</li>
+<li>  Combiner 和 Reducer 本质上都是 Reducer 类，作用都是对有相同 key 的 <code>&lt;K,V&gt;</code> 进行合并。 </li>
+</ul>
+</li>
+<li> Combiner 的意义就是对每一个 MapTask 的输出结果进行局部汇总，以减少网络传输量。</li>
+<li> Combiner 能够应用的前提是不影响最终的业务逻辑，而且，Combiner 的输出 <code>&lt;K,V&gt;</code> 应该和 Reducer 的输入 <code>&lt;K,V&gt;</code> 类型对应起来。</li>
+</ol>
+<h3 id="自定义-Combiner-实现步骤"><a href="#自定义-Combiner-实现步骤" class="headerlink" title="自定义 Combiner 实现步骤"></a>自定义 Combiner 实现步骤</h3><ol>
+<li><p>自定义一个 Combiner 继承 Reducer，重写 reduce 方法</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCombiner</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 汇总操作</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(IntWritable v :values)&#123;</span><br><span class="line">			count += v.get();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写出</span></span><br><span class="line">        context.write(key, <span class="keyword">new</span> <span class="title class_">IntWritable</span>(count));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>在 Job 驱动类中设置</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.setCombinerClass(MyCombiner.class);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="GroupingComparator分组（辅助排序）"><a href="#GroupingComparator分组（辅助排序）" class="headerlink" title="GroupingComparator分组（辅助排序）"></a>GroupingComparator分组（辅助排序）</h2><p>对Reduce阶段的数据根据某一个或几个字段进行分组。</p>
+<h3 id="GroupingComparator分组案例实操"><a href="#GroupingComparator分组案例实操" class="headerlink" title="GroupingComparator分组案例实操"></a>GroupingComparator分组案例实操</h3><hr>
+<p>移动计算而不是移动数据【目的：减少磁盘IO和网络IO】</p>
+<blockquote>
+<p>  Shuffle 阶段数据发生了关键的变化：</p>
+</blockquote>
+<ol>
+<li> 从 Mapper 出去的 &lt;K，V&gt; 值是无序的，而到了 Reducer 中数据则是有分组的。 也就是说，在 Shuffle 阶段会将数据整理、分组。</li>
+<li> Mapper 出来的数据是无序的，在 Shuffle 阶段首先对数据进行排序，排完序之后，相等的数据就挨在一起了，再进行分组就相对容易了。</li>
+<li>排序方法：快排 + 归并<ul>
+<li>  对于快速排序来说，需要将所有的数据全部加载进内存中然后再进行比较；但是对于大数据而言，显然是不合理的。所以会先将大数据的切分，对每一块数据进行快排。</li>
+<li>  然后再将多个有序块再进行归并排序。</li>
+</ul>
+</li>
+<li> 数据会被分片（逻辑上），每一个片对应一个 MapTask 。每个 MapTask 都会进行排序，最终形成一个归并排序后的有序数据块，这些数据块最终又会汇总到一个 Reducer 中。Reducer 在拿到多个有序文件后，再进行一次归并让多个有序文件变成一个有序文件，最终输入到 Reducer 中。</li>
+<li> 这就是 Shuffle 阶段如何把数据进行排序、分组的过程。</li>
+</ol>
+<ul>
+<li>三次排序：<ol>
+<li> 快排</li>
+<li> 归并</li>
+<li> 再次归并</li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/02/10/Hadoop/" rel="prev" title="Hadoop理论基础">
+                  <i class="fa fa-chevron-left"></i> Hadoop理论基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/01/Docker/" rel="next" title="Docker">
+                  Docker <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

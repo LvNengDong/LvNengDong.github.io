@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Vim 的设计目的是解放鼠标，用键盘完成所有的操作。 Vim模式转换想用好 Vim，先要理解 Vim 的模式转换。Vim 常用的模式有4种：   普通模式：Vim 启动后的默认模式，用来移动光标、删除文本、覆盖输入文本、恢复操作、粘贴文本等等。  插入模式：输入 i 或 a 进入插入模式，在这个模式下敲击键盘会向文字缓冲区增加文字，相等于普通编辑器的编辑模式。  可视模式：选择文本，可以行选、块选">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim必知必会">
+<meta property="og:url" content="http://example.com/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Vim 的设计目的是解放鼠标，用键盘完成所有的操作。 Vim模式转换想用好 Vim，先要理解 Vim 的模式转换。Vim 常用的模式有4种：   普通模式：Vim 启动后的默认模式，用来移动光标、删除文本、覆盖输入文本、恢复操作、粘贴文本等等。  插入模式：输入 i 或 a 进入插入模式，在这个模式下敲击键盘会向文字缓冲区增加文字，相等于普通编辑器的编辑模式。  可视模式：选择文本，可以行选、块选">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/image-20210204110521292.png">
+<meta property="article:published_time" content="2022-01-26T14:55:16.000Z">
+<meta property="article:modified_time" content="2022-01-27T02:15:36.930Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/image-20210204110521292.png">
+
+
+<link rel="canonical" href="http://example.com/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/","path":"2022/01/26/Vim必知必会/","title":"Vim必知必会"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vim必知必会 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim%E6%A8%A1%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">Vim模式转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">3.1    一般模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">3.2    编辑模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">3.3    命令模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E6%A8%A1%E5%BC%8F%E9%97%B4%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.4.</span> <span class="nav-text">3.4    模式间转换</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vim必知必会 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vim必知必会
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-01-26 22:55:16" itemprop="dateCreated datePublished" datetime="2022-01-26T22:55:16+08:00">2022-01-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-27 10:15:36" itemprop="dateModified" datetime="2022-01-27T10:15:36+08:00">2022-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vim/" itemprop="url" rel="index"><span itemprop="name">Vim</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Vim 的设计目的是解放鼠标，用键盘完成所有的操作。</p>
+<h1 id="Vim模式转换"><a href="#Vim模式转换" class="headerlink" title="Vim模式转换"></a>Vim模式转换</h1><p>想用好 Vim，先要理解 Vim 的模式转换。Vim 常用的模式有4种：</p>
+<ol>
+<li> <strong>普通模式</strong>：Vim 启动后的默认模式，用来移动光标、删除文本、覆盖输入文本、恢复操作、粘贴文本等等。</li>
+<li> <strong>插入模式</strong>：输入 i 或 a 进入插入模式，在这个模式下敲击键盘会向文字缓冲区增加文字，相等于普通编辑器的编辑模式。</li>
+<li> <strong>可视模式</strong>：选择文本，可以行选、块选和依次选择，选择后可以进行复制、删除、排序等操作。</li>
+<li><strong>命令模式</strong>：执行内部和外部命令，通过 <code>“:” “/” “?” “:!”</code> 可以进入命令模式，分别对应的是：<ul>
+<li>  <code>:</code>  执行内部命令</li>
+<li>  <code>/</code>  向上搜索</li>
+<li>  <code>?</code>  向下搜索</li>
+<li>  <code>:!</code>  执行外部命令</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-1-一般模式"><a href="#3-1-一般模式" class="headerlink" title="3.1    一般模式"></a>3.1    一般模式</h2><p>以 <code>vi/vim</code> 打开一个文档就直接进入一般模式了（这是<strong>默认的模式</strong>）。在这个模式中， 你可以使用『上下左右』按键来移动光标，你可以使用『删除字符』或『删除整行』来处理档案内容， 也可以使用『复制、粘贴』来处理你的文件数据。</p>
+<blockquote>
+<p>常用语法</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">语法</th>
+<th>功能描述</th>
+<th align="center">Demo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>yy</code></td>
+<td><strong>复制</strong>光标所在行（包括空行）</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>y数字y</code></td>
+<td>复制一段（从光标所在的行开始复制几行[空行也算一行]）</td>
+<td align="center"><code>y3y</code>：复制3行</td>
+</tr>
+<tr>
+<td align="center"><code> p </code></td>
+<td>从光标所在行开始进行<strong>粘贴</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> u </code></td>
+<td><strong>撤销上一步</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> dd </code></td>
+<td><strong>删除</strong>光标所在行</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> d数字d </code></td>
+<td>删除光标（含）后多少行</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> x </code></td>
+<td>删除一个字母，相当于del，<strong>向后删</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> X </code></td>
+<td>删除一个字母，相当于Backspace，向前删</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> yw </code></td>
+<td>复制一个词</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> dw </code></td>
+<td>删除一个词</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> ^ </code></td>
+<td><strong>移动到行头</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> $ </code></td>
+<td><strong>移动到行尾</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>  gg</code>或者<code>1+G  </code></td>
+<td><strong>移动到页头</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code> G </code></td>
+<td><strong>移动到页尾</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>数字+G</code>（先输入数字，在按G）</td>
+<td><strong>移动到目标行</strong></td>
+<td align="center"><code>6G</code>：移动到第6行</td>
+</tr>
+</tbody></table>
+<h2 id="3-2-编辑模式"><a href="#3-2-编辑模式" class="headerlink" title="3.2    编辑模式"></a>3.2    编辑模式</h2><p><strong>在一般模式中可以进行删除、复制、粘贴等的动作，但是无法编辑文件内容</strong>！要等到你按下<code>『i, I, o, O, a, A』</code>等任何一个字母之后才会进入编辑模式。</p>
+<p>通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或 REPLACE』的字样，此时才可以进行编辑。而如果要回到一般模式时， 则必须要按下『Esc』键退出编辑模式。</p>
+<blockquote>
+<ol>
+<li>进入编辑模式</li>
+</ol>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">按键</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code> i </code></td>
+<td align="left"><strong>当前光标前</strong></td>
+</tr>
+<tr>
+<td align="center"><code> a </code></td>
+<td align="left">当前光标后</td>
+</tr>
+<tr>
+<td align="center"><code> o </code></td>
+<td align="left"><strong>当前光标行的下一行</strong></td>
+</tr>
+<tr>
+<td align="center"><code> I </code></td>
+<td align="left">光标所在行最前</td>
+</tr>
+<tr>
+<td align="center"><code> A </code></td>
+<td align="left">光标所在行最后</td>
+</tr>
+<tr>
+<td align="center"><code> O </code></td>
+<td align="left">当前光标行的上一行</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ol start="2">
+<li>退出编辑模式</li>
+</ol>
+</blockquote>
+<ul>
+<li>按<code>『Esc』</code>键</li>
+</ul>
+<h2 id="3-3-命令模式"><a href="#3-3-命令模式" class="headerlink" title="3.3    命令模式"></a>3.3    命令模式</h2><p>在<strong>一般模式</strong>当中，输入<code>『 :  /  ?』</code>3个中的任何一个按钮，就可以将光标移动到最底下那一行。</p>
+<p>在这个模式当中， 可以提供你『搜寻资料』的动作，而读取、存盘、大量取代字符、离开 vi 、显示行号等动作也是在此模式中实现的。</p>
+<blockquote>
+<ol>
+<li>基本语法</li>
+</ol>
+</blockquote>
+<p>表1-3</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code> :w </code></td>
+<td><strong>保存</strong></td>
+</tr>
+<tr>
+<td align="center"><code> :q </code></td>
+<td><strong>退出</strong></td>
+</tr>
+<tr>
+<td align="center"><code> :! </code></td>
+<td><strong>强制执行</strong></td>
+</tr>
+<tr>
+<td align="center"><code> : %s/old字符/new字符 </code></td>
+<td><strong>批量替换</strong></td>
+</tr>
+<tr>
+<td align="center"><code> / 要查找的词 </code></td>
+<td>n 查找下一个，N 往上查找</td>
+</tr>
+<tr>
+<td align="center"><code> ? 要查找的词 </code></td>
+<td>n是查找上一个，N是往下查找</td>
+</tr>
+<tr>
+<td align="center"><code> :set nu </code></td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td align="center"><code> :set nonu </code></td>
+<td>关闭行号</td>
+</tr>
+<tr>
+<td align="center"><code>ZZ </code></td>
+<td><strong>没有修改文件直接退出，如果修改了文件保存后退</strong>  <strong>去除高亮显示</strong></td>
+</tr>
+<tr>
+<td align="center"><code>:nohl</code></td>
+<td>去除高亮显示。在进行查找操作之后查找到的此会被高亮显示。<code>[no highlight]</code></td>
+</tr>
+</tbody></table>
+<h2 id="3-4-模式间转换"><a href="#3-4-模式间转换" class="headerlink" title="3.4    模式间转换"></a>3.4    模式间转换</h2><p><img src="Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/image-20210204110521292.png" alt="image-20210204110521292"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/25/Azkaban/" rel="prev" title="Azkaban">
+                  <i class="fa fa-chevron-left"></i> Azkaban
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/27/Starter%E8%AF%A6%E8%A7%A3/" rel="next" title="Starter详解">
+                  Starter详解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

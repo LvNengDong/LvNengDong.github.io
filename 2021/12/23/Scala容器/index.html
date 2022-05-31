@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Scala 数组数组是用来存储定长的同类型元素的容器。 以下是 Scala 数组声明的语法格式： 12345var z:Array[String] &#x3D; new Array[String](3)或var z &#x3D; new Array[String](3)  以上语法中，z 声明一个字符串类型的数组，数组长度为 3 ，可存储 3 个元素。我们可以为每个元素设置值，并通过索引来访问每个元素，如下所示： 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala容器">
+<meta property="og:url" content="http://example.com/2021/12/23/Scala%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Scala 数组数组是用来存储定长的同类型元素的容器。 以下是 Scala 数组声明的语法格式： 12345var z:Array[String] &#x3D; new Array[String](3)或var z &#x3D; new Array[String](3)  以上语法中，z 声明一个字符串类型的数组，数组长度为 3 ，可存储 3 个元素。我们可以为每个元素设置值，并通过索引来访问每个元素，如下所示： 1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/12/23/Scala%E5%AE%B9%E5%99%A8/Scala%E5%AE%B9%E5%99%A8/image-20211210144455768.png">
+<meta property="article:published_time" content="2021-12-23T06:33:48.000Z">
+<meta property="article:modified_time" content="2021-12-23T07:14:41.569Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/12/23/Scala%E5%AE%B9%E5%99%A8/Scala%E5%AE%B9%E5%99%A8/image-20211210144455768.png">
+
+
+<link rel="canonical" href="http://example.com/2021/12/23/Scala%E5%AE%B9%E5%99%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/12/23/Scala%E5%AE%B9%E5%99%A8/","path":"2021/12/23/Scala容器/","title":"Scala容器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Scala容器 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">Scala 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.</span> <span class="nav-text">不可变数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.</span> <span class="nav-text">可变数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%95%B0%E7%BB%84%E4%B8%8E%E5%8F%AF%E5%8F%98%E6%95%B0%E7%BB%84%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">不可变数组与可变数组的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.4.</span> <span class="nav-text">多维数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-%E9%9B%86%E5%90%88-Collection"><span class="nav-number">2.</span> <span class="nav-text">Scala 集合(Collection)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E5%88%86%E7%B1%BB%E4%B8%80"><span class="nav-number">2.1.</span> <span class="nav-text">集合分类一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E7%AE%80%E4%BB%8B"><span class="nav-number">2.2.</span> <span class="nav-text">集合简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seq%E9%9B%86%E5%90%88%EF%BC%88List%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">Seq集合（List）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98-List"><span class="nav-number">2.3.1.</span> <span class="nav-text">不可变 List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98-ListBuffer"><span class="nav-number">2.3.2.</span> <span class="nav-text">可变 ListBuffer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-%E9%9B%86%E5%90%88"><span class="nav-number">2.4.</span> <span class="nav-text">Map 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98-Map"><span class="nav-number">2.4.1.</span> <span class="nav-text">不可变 Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98Map"><span class="nav-number">2.4.2.</span> <span class="nav-text">可变Map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E7%BB%84"><span class="nav-number">2.5.</span> <span class="nav-text">元组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">集合常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">3.1.</span> <span class="nav-text">基本属性和常用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8D%E7%94%9F%E9%9B%86%E5%90%88"><span class="nav-number">3.2.</span> <span class="nav-text">衍生集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%AE%A1%E7%AE%97%E5%88%9D%E7%BA%A7%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">集合计算初级函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%AE%A1%E7%AE%97%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">集合计算高级函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce"><span class="nav-number">3.4.1.</span> <span class="nav-text">Reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fold"><span class="nav-number">3.4.2.</span> <span class="nav-text">Fold</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">3.4.3.</span> <span class="nav-text">排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E5%92%8C-Scala-%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.5.</span> <span class="nav-text">Java 和 Scala 容器的互相转换</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/23/Scala%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Scala容器 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scala容器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-12-23 14:33:48 / Modified: 15:14:41" itemprop="dateCreated datePublished" datetime="2021-12-23T14:33:48+08:00">2021-12-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Scala/" itemprop="url" rel="index"><span itemprop="name">Scala</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Scala-数组"><a href="#Scala-数组" class="headerlink" title="Scala 数组"></a>Scala 数组</h1><p>数组是用来存储<strong>定长</strong>的<strong>同类型元素</strong>的容器。</p>
+<p>以下是 Scala 数组声明的语法格式：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> z:<span class="type">Array</span>[<span class="type">String</span>] = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">String</span>](<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">或</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> z = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">String</span>](<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>以上语法中，<code>z</code> 声明一个字符串类型的数组，数组长度为 3 ，可存储 3 个元素。我们可以为每个元素设置值，并通过索引来访问每个元素，如下所示：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z(<span class="number">0</span>) = <span class="string">&quot;Runoob&quot;</span>; z(<span class="number">1</span>) = <span class="string">&quot;Baidu&quot;</span>; z(<span class="number">2</span>) = <span class="string">&quot;Google&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们也可以使用以下方式来定义一个数组：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> z = <span class="type">Array</span>(<span class="string">&quot;Runoob&quot;</span>, <span class="string">&quot;Baidu&quot;</span>, <span class="string">&quot;Google&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="不可变数组"><a href="#不可变数组" class="headerlink" title="不可变数组"></a>不可变数组</h2><ol>
+<li><p>第一种方式定义数组(定长数组)</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> arr1 = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">（<span class="number">1</span>）<span class="keyword">new</span>是关键字</span><br><span class="line">（<span class="number">2</span>）[<span class="type">Int</span>]是泛型，如果希望存放任意数据类型，则指定<span class="type">Any</span></span><br><span class="line">（<span class="number">3</span>）(<span class="number">10</span>)，表示数组的大小，确定后就不可以变化</span><br></pre></td></tr></table></figure></li>
+<li><p>案例实操</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）数组定义</span></span><br><span class="line">        <span class="keyword">val</span> arr01 = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">4</span>)</span><br><span class="line">        println(arr01.length) <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）数组赋值</span></span><br><span class="line">        <span class="comment">//（2.1）修改某个元素的值</span></span><br><span class="line">        arr01(<span class="number">3</span>) = <span class="number">10</span></span><br><span class="line">        <span class="comment">//（2.2）采用方法的形式给数组赋值</span></span><br><span class="line">        arr01.update(<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）遍历数组</span></span><br><span class="line">        <span class="comment">//（3.1）查看数组</span></span><br><span class="line">        println(arr01.mkString(<span class="string">&quot;,&quot;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3.2）普通遍历</span></span><br><span class="line">        <span class="keyword">for</span> (i &lt;- arr01) &#123;</span><br><span class="line">            println(i)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3.3）简化遍历</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">printx</span></span>(elem:<span class="type">Int</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">            println(elem)</span><br><span class="line">        &#125;</span><br><span class="line">        arr01.foreach(printx)</span><br><span class="line">        <span class="comment">// arr01.foreach((x)=&gt;&#123;println(x)&#125;)</span></span><br><span class="line">        <span class="comment">// arr01.foreach(println(_))</span></span><br><span class="line">        arr01.foreach(println)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）增加元素（由于创建的是不可变数组，增加元素，其实是产生新的数组）</span></span><br><span class="line">        println(arr01)</span><br><span class="line">        <span class="keyword">val</span> ints: <span class="type">Array</span>[<span class="type">Int</span>] = arr01 :+ <span class="number">5</span></span><br><span class="line">        println(ints)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>第二种方式定义数组</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> arr1 = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">（<span class="number">1</span>）在定义数组时，直接赋值</span><br><span class="line">（<span class="number">2</span>）底层使用apply方法创建数组对象</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>案例实操</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">        <span class="keyword">var</span> arr02 = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="string">&quot;bobo&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> (i &lt;- arr02) &#123;</span><br><span class="line">            println(i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="可变数组"><a href="#可变数组" class="headerlink" title="可变数组"></a>可变数组</h2><p>定义变长数组</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> arr01 = <span class="type">ArrayBuffer</span>[<span class="type">Any</span>](<span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">（<span class="number">1</span>）[<span class="type">Any</span>]存放任意数据类型</span><br><span class="line">（<span class="number">2</span>）(<span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>)初始化好的三个元素</span><br><span class="line">（<span class="number">3</span>）<span class="type">ArrayBuffer</span>需要引入scala.collection.mutable.<span class="type">ArrayBuffer</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>Demo</strong></p>
+<ol>
+<li> <code>ArrayBuffer</code> 是有序的集合</li>
+<li> 增加元素使用的是 <code>append()</code> 方法，支持可变参数</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestArrayBuffer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）创建并赋值可变数组</span></span><br><span class="line">        <span class="keyword">val</span> arr01 = <span class="type">ArrayBuffer</span>[<span class="type">Any</span>](<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）遍历数组</span></span><br><span class="line">        <span class="keyword">for</span> (i &lt;- arr01) &#123;</span><br><span class="line">            println(i)</span><br><span class="line">        &#125;</span><br><span class="line">        println(arr01.length) <span class="comment">// 3</span></span><br><span class="line">        println(<span class="string">&quot;arr01.hash=&quot;</span> + arr01.hashCode())</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）增加元素</span></span><br><span class="line">        <span class="comment">//（3.1）追加数据</span></span><br><span class="line">        arr01.+=(<span class="number">4</span>)</span><br><span class="line">        <span class="comment">//（3.2）向数组最后追加数据</span></span><br><span class="line">        arr01.append(<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">        <span class="comment">//（3.3）向指定的位置插入数据</span></span><br><span class="line">        arr01.insert(<span class="number">0</span>,<span class="number">7</span>,<span class="number">8</span>)</span><br><span class="line">        println(<span class="string">&quot;arr01.hash=&quot;</span> + arr01.hashCode())</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）修改元素</span></span><br><span class="line">        arr01(<span class="number">1</span>) = <span class="number">9</span> <span class="comment">//修改第2个元素的值</span></span><br><span class="line">        println(<span class="string">&quot;--------------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (i &lt;- arr01) &#123;</span><br><span class="line">            println(i)</span><br><span class="line">        &#125;</span><br><span class="line">        println(arr01.length) <span class="comment">// 5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="不可变数组与可变数组的转换"><a href="#不可变数组与可变数组的转换" class="headerlink" title="不可变数组与可变数组的转换"></a>不可变数组与可变数组的转换</h2><p><strong>说明</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr1.toBuffer <span class="comment">//不可长数组转可变数组</span></span><br><span class="line"></span><br><span class="line">arr2.toArray <span class="comment">//可变数组转不可变数组</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <code>arr2.toArray</code> 返回结果才是一个不可变数组，arr2 本身没有变化</li>
+<li>  <code>arr1.toBuffer</code> 返回结果才是一个可变数组，arr1 本身没有变化</li>
+</ul>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestArrayBuffer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）创建一个空的可变数组</span></span><br><span class="line">        <span class="keyword">val</span> arr2 = <span class="type">ArrayBuffer</span>[<span class="type">Int</span>]()</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）追加值</span></span><br><span class="line">        arr2.append(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">        println(arr2) <span class="comment">// 1,2,3</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）ArrayBuffer ==&gt; Array</span></span><br><span class="line">        <span class="comment">//（3.1）arr2.toArray 返回的结果是一个新的定长数组集合</span></span><br><span class="line">        <span class="comment">//（3.2）arr2它没有变化</span></span><br><span class="line">        <span class="keyword">val</span> newArr = arr2.toArray</span><br><span class="line">        println(newArr)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）Array ===&gt; ArrayBuffer</span></span><br><span class="line">        <span class="comment">//（4.1）newArr.toBuffer 返回一个变长数组 newArr2</span></span><br><span class="line">        <span class="comment">//（4.2）newArr 没有任何变化，依然是定长数组</span></span><br><span class="line">        <span class="keyword">val</span> newArr2 = newArr.toBuffer</span><br><span class="line">        newArr2.append(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line">        println(newArr2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><p>多维数组定义</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> arr = <span class="type">Array</span>.ofDim[<span class="type">Double</span>](<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>说明：二维数组中有三个一维数组，每个一维数组中有四个元素</p>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DimArray</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）创建了一个二维数组, 有三个元素，每个元素是，含有4个元素一维数组()</span></span><br><span class="line">        <span class="keyword">val</span> arr = <span class="type">Array</span>.ofDim[<span class="type">Int</span>](<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">        arr(<span class="number">1</span>)(<span class="number">2</span>) = <span class="number">88</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）遍历二维数组</span></span><br><span class="line">        <span class="keyword">for</span> (i &lt;- arr) &#123; <span class="comment">//i 就是一维数组</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (j &lt;- i) &#123;</span><br><span class="line">                print(j + <span class="string">&quot; &quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            println()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h1 id="Scala-集合-Collection"><a href="#Scala-集合-Collection" class="headerlink" title="Scala 集合(Collection)"></a>Scala 集合(Collection)</h1><h2 id="集合分类一"><a href="#集合分类一" class="headerlink" title="集合分类一"></a>集合分类一</h2><p>Scala 集合分为<strong>可变集合</strong>和<strong>不可变集合</strong>。</p>
+<p>可变集合可以被更新或扩展。这意味着你可以修改，添加，移除一个集合的元素。</p>
+<p>而不可变集合永远不会改变。不过，你仍然可以模拟添加，移除或更新操作。但是这些操作将在每一种情况下都返回一个新的集合，而不是改变原来的集合。</p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="left">集合及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-lists.html">Scala List(列表)</a><br>List 的特征是其元素以线性方式存储，集合中可以存放重复对象。<br>参考 <a target="_blank" rel="noopener" href="http://www.scala-lang.org/api/current/scala/collection/immutable/List.html">API文档</a></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-sets.html">Scala Set(集合)</a><br/>Set是最简单的一种集合。集合中的对象不按特定的方式排序，并且没有重复对象。<br/>参考 <a target="_blank" rel="noopener" href="http://www.scala-lang.org/api/current/scala/collection/immutable/Set.html">API文档</a></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-maps.html">Scala Map(映射)</a><br/>Map 是一种把键对象和值对象映射的集合，它的每一个元素都包含一对键对象和值对象。<br/>参考 <a target="_blank" rel="noopener" href="http://www.scala-lang.org/api/current/scala/collection/immutable/Map.html">API文档</a></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-tuples.html">Scala 元组</a><br/>元组是不同类型的值的集合</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-options.html">Scala Option</a><br/>Option[T] 表示有可能包含值的容器，也可能不包含值。</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-iterators.html">Scala Iterator（迭代器）</a><br/>迭代器不是一个容器，更确切的说是逐一访问容器内元素的方法。</td>
+</tr>
+</tbody></table>
+<h2 id="集合简介"><a href="#集合简介" class="headerlink" title="集合简介"></a>集合简介</h2><p><strong>说明</strong></p>
+<ol>
+<li><p> Scala 的集合有三大类：序列 Seq、集 Set、映射 Map，所有的集合都扩展自 Iterable 特质。</p>
+</li>
+<li><p>对于几乎所有的集合类，Scala 都同时提供了<strong>可变</strong>和<strong>不可变</strong>的版本，分别位于以下两个包</p>
+<ul>
+<li>  不可变集合：<code>scala.collection.immutable</code></li>
+<li>可变集合：<code>scala.collection.mutable</code></li>
+</ul>
+</li>
+</ol>
+<p>2）案例实操</p>
+<p>​    （1）Scala不可变集合，就是指该集合对象不可修改，每次修改就会返回一个新对象，而不会对原对象进行修改。</p>
+<p>（2）可变集合，就是这个集合可以直接对原对象进行修改，而不会返回新的对象。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//不可变List</span></span><br><span class="line">        <span class="keyword">val</span> immutableList: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//对不可变List进行修改，在头部添加一个元素0</span></span><br><span class="line">        <span class="keyword">val</span> newImmutableList: <span class="type">List</span>[<span class="type">Int</span>] = <span class="number">0</span> +: immutableList</span><br><span class="line"></span><br><span class="line">        println(immutableList)</span><br><span class="line"></span><br><span class="line">        println(newImmutableList)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//可变List</span></span><br><span class="line">        <span class="keyword">val</span> mutableList: <span class="type">ListBuffer</span>[<span class="type">Int</span>] = <span class="type">ListBuffer</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//对可变List进行修改，在头部添加一个元素0</span></span><br><span class="line">        <span class="keyword">val</span> newMutableList: <span class="type">ListBuffer</span>[<span class="type">Int</span>] = <span class="number">0</span> +=: mutableList</span><br><span class="line"></span><br><span class="line">        println(mutableList)</span><br><span class="line">        println(newMutableList)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// += 可以理解为类似原地修改</span></span><br><span class="line"><span class="comment">// + 可以理解为新增，但不是在原地修改</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h2 id="Seq集合（List）"><a href="#Seq集合（List）" class="headerlink" title="Seq集合（List）"></a>Seq集合（List）</h2><h3 id="不可变-List"><a href="#不可变-List" class="headerlink" title="不可变 List"></a>不可变 List</h3><p><strong>说明</strong></p>
+<ul>
+<li>  <code>List</code> 默认为不可变集合</li>
+<li>  创建一个 <code>List</code>（数据有顺序，可重复）</li>
+<li>  遍历 <code>List</code></li>
+<li>  <code>List</code> 增加数据</li>
+<li>  集合间合并：将一个整体拆成一个一个的个体，称为<strong>扁平化</strong></li>
+<li>  取指定数据</li>
+<li>  空集合 <code>Nil</code></li>
+</ul>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）List默认为不可变集合</span></span><br><span class="line">        <span class="comment">//（2）创建一个List（数据有顺序，可重复）</span></span><br><span class="line">        <span class="keyword">val</span> list: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（7）空集合Nil</span></span><br><span class="line">        <span class="keyword">val</span> list5 = <span class="number">1</span>::<span class="number">2</span>::<span class="number">3</span>::<span class="number">4</span>::<span class="type">Nil</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）List增加数据</span></span><br><span class="line">        <span class="comment">//（4.1）::的运算规则从右向左</span></span><br><span class="line">        <span class="comment">//val list1 = 5::list</span></span><br><span class="line">        <span class="keyword">val</span> list1 = <span class="number">7</span>::<span class="number">6</span>::<span class="number">5</span>::list</span><br><span class="line">        <span class="comment">//（4.2）添加到第一个元素位置</span></span><br><span class="line">        <span class="keyword">val</span> list2 = list.+:(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（5）集合间合并：将一个整体拆成一个一个的个体，称为扁平化</span></span><br><span class="line">        <span class="keyword">val</span> list3 = <span class="type">List</span>(<span class="number">8</span>,<span class="number">9</span>)</span><br><span class="line">        <span class="comment">//val list4 = list3::list1</span></span><br><span class="line">        <span class="keyword">val</span> list4 = list3:::list1</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（6）取指定数据</span></span><br><span class="line">        println(list(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）遍历List</span></span><br><span class="line">        <span class="comment">//list.foreach(println)</span></span><br><span class="line">        <span class="comment">//list1.foreach(println)</span></span><br><span class="line">        <span class="comment">//list3.foreach(println)</span></span><br><span class="line">        <span class="comment">//list4.foreach(println)</span></span><br><span class="line">        list5.foreach(println)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="可变-ListBuffer"><a href="#可变-ListBuffer" class="headerlink" title="可变 ListBuffer"></a>可变 ListBuffer</h3><p><strong>说明</strong></p>
+<ol>
+<li> 创建一个可变集合 <code>ListBuffer</code></li>
+<li> 向集合中添加数据</li>
+<li> 打印集合数据</li>
+</ol>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">ListBuffer</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）创建一个可变集合</span></span><br><span class="line">        <span class="keyword">val</span> buffer = <span class="type">ListBuffer</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）向集合中添加数据</span></span><br><span class="line">        buffer.+=(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）打印集合数据</span></span><br><span class="line">        buffer.foreach(println)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="Map-集合"><a href="#Map-集合" class="headerlink" title="Map 集合"></a>Map 集合</h2><p><strong>Scala 中不可变的 Map 是有序的，可变的 Map 是无序的</strong>。</p>
+<h3 id="不可变-Map"><a href="#不可变-Map" class="headerlink" title="不可变 Map"></a>不可变 Map</h3><p><strong>说明</strong></p>
+<ol>
+<li> 创建不可变集合 <code>Map</code></li>
+<li> 循环打印</li>
+<li> 访问数据</li>
+<li> 如果key不存在，返回0</li>
+</ol>
+<p><strong>二、案例实操</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestMap</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">        <span class="comment">// Map</span></span><br><span class="line">        <span class="comment">//（1）创建不可变集合Map</span></span><br><span class="line">        <span class="keyword">val</span> map = <span class="type">Map</span>( <span class="string">&quot;a&quot;</span>-&gt;<span class="number">1</span>, <span class="string">&quot;b&quot;</span>-&gt;<span class="number">2</span>, <span class="string">&quot;c&quot;</span>-&gt;<span class="number">3</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）访问数据</span></span><br><span class="line">        <span class="keyword">for</span> (key &lt;- map.keys) &#123;</span><br><span class="line">            <span class="comment">// 使用get访问map集合的数据，会返回特殊类型Option(选项):有值（Some），无值(None)</span></span><br><span class="line">            <span class="keyword">val</span> option: <span class="type">Option</span>[<span class="type">Int</span>] = map.get(key)</span><br><span class="line">            <span class="keyword">val</span> value: <span class="type">Int</span> = option.get</span><br><span class="line">            println(elem + <span class="string">&quot;=&quot;</span> + value)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）如果key不存在，返回0</span></span><br><span class="line">        println(map.get(<span class="string">&quot;d&quot;</span>).getOrElse(<span class="number">0</span>))</span><br><span class="line">        println(map.getOrElse(<span class="string">&quot;d&quot;</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）循环打印</span></span><br><span class="line">        map.foreach((entry)=&gt;&#123;println(entry)&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="可变Map"><a href="#可变Map" class="headerlink" title="可变Map"></a>可变Map</h3><p><strong>说明</strong></p>
+<ol>
+<li> 创建可变集合</li>
+<li> 打印集合</li>
+<li> 向集合增加数据</li>
+<li> 删除数据</li>
+<li> 修改数据</li>
+</ol>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestMap2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）创建可变集合</span></span><br><span class="line">        <span class="keyword">val</span> map = mutable.<span class="type">Map</span>( <span class="string">&quot;a&quot;</span>-&gt;<span class="number">1</span>, <span class="string">&quot;b&quot;</span>-&gt;<span class="number">2</span>, <span class="string">&quot;c&quot;</span>-&gt;<span class="number">3</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）向集合增加数据</span></span><br><span class="line">        map.+=(<span class="string">&quot;d&quot;</span>-&gt;<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将数值4添加到集合，并把集合中原值1返回</span></span><br><span class="line">        <span class="keyword">val</span> maybeInt: <span class="type">Option</span>[<span class="type">Int</span>] = map.put(<span class="string">&quot;a&quot;</span>, <span class="number">4</span>)</span><br><span class="line">        println(maybeInt.getOrElse(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）删除数据</span></span><br><span class="line">        map.-=(<span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（5）修改数据</span></span><br><span class="line">        map.update(<span class="string">&quot;d&quot;</span>,<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）打印集合</span></span><br><span class="line">        map.foreach((kv)=&gt;&#123;println(kv)&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p><strong>说明</strong></p>
+<p>元组也是可以理解为一个容器，可以存放各种相同或不同类型的数据。说的简单点，就是将多个无关的数据封装为一个整体，称为元组。</p>
+<p><strong>注意：</strong>元组中最大只能有22个元素。</p>
+<p><strong>Demo：</strong></p>
+<ol>
+<li> 声明元组的方式：<code>(元素1，元素2，元素3)</code></li>
+<li> 访问元组</li>
+<li> <code>Map</code> 中的键值对其实就是元组，只不过元组的元素个数为 2，称之为对偶</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestTuple</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）声明元组的方式：(元素1，元素2，元素3)</span></span><br><span class="line">        <span class="keyword">val</span> tuple: (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Boolean</span>) = (<span class="number">40</span>, <span class="string">&quot;bobo&quot;</span>, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）访问元组</span></span><br><span class="line">        <span class="comment">//（2.1）通过元素的顺序进行访问，调用方式：顺序号</span></span><br><span class="line">        println(tuple<span class="number">.1</span>)</span><br><span class="line">        println(tuple<span class="number">.2</span>)</span><br><span class="line">        println(tuple<span class="number">.3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2.2）通过索引访问数据</span></span><br><span class="line">        println(tuple.productElement(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2.3）通过迭代器访问数据</span></span><br><span class="line">        <span class="keyword">for</span> (elem &lt;- tuple.productIterator) &#123;</span><br><span class="line">            println(elem)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）Map中的键值对其实就是元组,只不过元组的元素个数为2，称之为对偶</span></span><br><span class="line">        <span class="keyword">val</span> map = <span class="type">Map</span>(<span class="string">&quot;a&quot;</span>-&gt;<span class="number">1</span>, <span class="string">&quot;b&quot;</span>-&gt;<span class="number">2</span>, <span class="string">&quot;c&quot;</span>-&gt;<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        map.foreach(tuple=&gt;&#123;println(tuple<span class="number">.1</span> + <span class="string">&quot;=&quot;</span> + tuple<span class="number">.2</span>)&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h1 id="集合常用函数"><a href="#集合常用函数" class="headerlink" title="集合常用函数"></a>集合常用函数</h1><h2 id="基本属性和常用操作"><a href="#基本属性和常用操作" class="headerlink" title="基本属性和常用操作"></a>基本属性和常用操作</h2><p><strong>说明</strong></p>
+<ol>
+<li> 获取集合长度</li>
+<li> 获取集合大小</li>
+<li> 循环遍历</li>
+<li> 迭代器</li>
+<li> 生成字符串</li>
+<li> 是否包含</li>
+</ol>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> list: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）获取集合长度</span></span><br><span class="line">        println(list.length)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）获取集合大小</span></span><br><span class="line">        println(list.size)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）循环遍历</span></span><br><span class="line">        list.foreach(println)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）迭代器</span></span><br><span class="line">        <span class="keyword">for</span> (elem &lt;- list.iterator) &#123;</span><br><span class="line">            println(elem)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（5）生成字符串</span></span><br><span class="line">        println(list.mkString(<span class="string">&quot;,&quot;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（6）是否包含</span></span><br><span class="line">        println(list.contains(<span class="number">3</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="衍生集合"><a href="#衍生集合" class="headerlink" title="衍生集合"></a>衍生集合</h2><p><strong>说明</strong></p>
+<ol>
+<li> 获取集合的头部元素 <code>head</code> </li>
+<li> 获取去掉首部元素后的子集合</li>
+<li> 集合最后一个数据 <code>last</code></li>
+<li> 获取去掉尾部元素后的子集合</li>
+<li> 反转</li>
+<li> 取前（后）n 个元素 <code>take</code></li>
+<li> 去掉前（后）n 个元素 <code>drop</code></li>
+<li> 并集</li>
+<li> 交集</li>
+<li> 差集</li>
+<li> <strong>拉链</strong></li>
+<li> <strong>滑窗</strong></li>
+</ol>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> list1: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line">        <span class="keyword">val</span> list2: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）获取集合的头部元素</span></span><br><span class="line">        println(list1.head)</span><br><span class="line">        <span class="comment">//（3）集合的尾部元素</span></span><br><span class="line">        println(list1.last)</span><br><span class="line">        <span class="comment">//（2）获取去掉首部元素后的子集合</span></span><br><span class="line">        println(list1.tail)</span><br><span class="line">        <span class="comment">//（4）获取去掉尾部元素后的子集合</span></span><br><span class="line">        println(list1.init)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//（5）反转</span></span><br><span class="line">        println(list1.reverse)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（6）取前（后）n个元素</span></span><br><span class="line">        println(list1.take(<span class="number">3</span>))</span><br><span class="line">        println(list1.takeRight(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（7）去掉前（后）n个元素</span></span><br><span class="line">        println(list1.drop(<span class="number">3</span>))</span><br><span class="line">        println(list1.dropRight(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（8）并集</span></span><br><span class="line">        println(list1.union(list2))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（9）交集</span></span><br><span class="line">        println(list1.intersect(list2))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（10）差集</span></span><br><span class="line">        println(list1.diff(list2))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（11）拉链 注:如果两个集合的元素个数不相等，那么会将同等数量的数据进行拉链，多余的数据省略不用</span></span><br><span class="line">        println(list1.zip(list2))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（12）滑窗</span></span><br><span class="line">        list1.sliding(<span class="number">2</span>, <span class="number">5</span>).foreach(println)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="集合计算初级函数"><a href="#集合计算初级函数" class="headerlink" title="集合计算初级函数"></a>集合计算初级函数</h2><p><strong>说明</strong></p>
+<ol>
+<li> 求和</li>
+<li> 求乘积</li>
+<li> 最大值</li>
+<li> 最小值</li>
+<li> 排序</li>
+</ol>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> list: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">5</span>, <span class="number">-3</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">-7</span>, <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）求和</span></span><br><span class="line">        println(list.sum)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）求乘积</span></span><br><span class="line">        println(list.product)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）最大值</span></span><br><span class="line">        println(list.max)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）最小值</span></span><br><span class="line">        println(list.min)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（5）排序</span></span><br><span class="line">        <span class="comment">// （5.1）按照元素大小排序</span></span><br><span class="line">        println(list.sortBy(x =&gt; x))  <span class="comment">// 正序</span></span><br><span class="line">        println(list.sortBy(x =&gt; -x)) <span class="comment">// 倒序</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// （5.2）按照元素的绝对值大小排序</span></span><br><span class="line">        println(list.sortBy(x =&gt; x.abs))</span><br><span class="line"></span><br><span class="line">        <span class="comment">// （5.3）按元素大小升序排序</span></span><br><span class="line">        println(list.sortWith((x, y) =&gt; x &lt; y))</span><br><span class="line"></span><br><span class="line">        <span class="comment">// （5.4）按元素大小降序排序</span></span><br><span class="line">        println(list.sortWith((x, y) =&gt; x &gt; y))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="集合计算高级函数"><a href="#集合计算高级函数" class="headerlink" title="集合计算高级函数"></a>集合计算高级函数</h2><p><img src="Scala%E5%AE%B9%E5%99%A8/image-20211210144455768.png" alt="image-20211210144455768"></p>
+<p><strong>说明</strong></p>
+<ol>
+<li> 过滤：<code>filter</code></li>
+<li> 映射：<code>map</code></li>
+<li> 扁平化：<code>flatten</code></li>
+<li> 扁平化+映射：<code>flatMap</code> 【注：<code>flatMap</code> 相当于先进行 <code>map</code> 操作，再进行 <code>flatten</code> 操作】   </li>
+<li>简化（规约）：<code>reduce</code><ul>
+<li>  <code>reduceLeft</code>：等价于 <code>reduce</code>，表示从左向右进行聚合</li>
+<li>  <code>reduceRight</code>：从右向左进行聚合</li>
+</ul>
+</li>
+<li> 分组：<code>groupBy</code></li>
+<li> 折叠：<code>Fold</code></li>
+</ol>
+<blockquote>
+<p>  map 和 foreach 的区别</p>
+</blockquote>
+<p><code>map</code> 拥有返回值，而 <code>foreach</code> 没有返回值</p>
+<p>实操</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> list: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)</span><br><span class="line">        <span class="keyword">val</span> nestedList: <span class="type">List</span>[<span class="type">List</span>[<span class="type">Int</span>]] = <span class="type">List</span>(<span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), <span class="type">List</span>(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>), <span class="type">List</span>(<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>))</span><br><span class="line">        <span class="keyword">val</span> wordList: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;hello atguigu&quot;</span>, <span class="string">&quot;hello scala&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（1）过滤</span></span><br><span class="line">        println(list.filter(x =&gt; x % <span class="number">2</span> == <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（2）转化/映射</span></span><br><span class="line">        println(list.map(x =&gt; x + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//（3）扁平化</span></span><br><span class="line">        println(nestedList.flatten)	<span class="comment">// 输出结果为：List(1, 2, 3, 4, 5, 6, 7, 8, 9)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//（4）扁平化+映射 注：flatMap相当于先进行map操作，在进行flatten操作</span></span><br><span class="line">        println(wordList.flatMap(x =&gt; x.split(<span class="string">&quot; &quot;</span>)))</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">			&quot;hello world&quot;, &quot;hello atguigu&quot;, &quot;hello scala&quot;</span></span><br><span class="line"><span class="comment">			==&gt; map</span></span><br><span class="line"><span class="comment">            [</span></span><br><span class="line"><span class="comment">            	[hello, world], </span></span><br><span class="line"><span class="comment">            	[hello, atguigu], </span></span><br><span class="line"><span class="comment">            	[hello, scala]</span></span><br><span class="line"><span class="comment">            ]</span></span><br><span class="line"><span class="comment">            ==&gt; flatten</span></span><br><span class="line"><span class="comment">            [hello, world, hello, atguigu, hello, scala]</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">        <span class="comment">//（5）分组</span></span><br><span class="line">        println(list.groupBy(x =&gt; x % <span class="number">2</span>))	<span class="comment">// 输出结果为：Map(false -&gt; List(1, 3, 5, 7, 9), true -&gt; List(2, 4, 6, 8))</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h3><p><code>Reduce</code> 简化（规约）：通过指定的逻辑将集合中的数据进行聚合，从而减少数据，最终获取结果。</p>
+<p><strong>Demo</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestReduce</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将数据两两结合，实现运算规则</span></span><br><span class="line">        <span class="keyword">val</span> i: <span class="type">Int</span> = list.reduce( (x,y) =&gt; x-y )</span><br><span class="line">        println(<span class="string">&quot;i = &quot;</span> + i)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从源码的角度，reduce底层调用的其实就是reduceLeft</span></span><br><span class="line">        <span class="comment">//val i1 = list.reduceLeft((x,y) =&gt; x-y)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ((4-3)-2-1) = -2</span></span><br><span class="line">        <span class="keyword">val</span> i2 = list.reduceRight((x,y) =&gt; x-y)</span><br><span class="line">        println(i2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="Fold"><a href="#Fold" class="headerlink" title="Fold"></a>Fold</h3><p><code>Fold</code> 折叠：化简的一种特殊情况。</p>
+<p><strong>Demo01</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestFold</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// fold方法使用了函数柯里化，存在两个参数列表</span></span><br><span class="line">        <span class="comment">// 第一个参数列表为 ： 零值（初始值）</span></span><br><span class="line">        <span class="comment">// 第二个参数列表为：</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// fold 底层其实为 foldLeft</span></span><br><span class="line">        <span class="keyword">val</span> i = list.foldLeft(<span class="number">1</span>)((x,y)=&gt;x-y)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> i1 = list.foldRight(<span class="number">10</span>)((x,y)=&gt;x-y)</span><br><span class="line"></span><br><span class="line">        println(i)</span><br><span class="line">        println(i1)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>Demo02</strong>：两个集合合并</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestFold</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 两个Map的数据合并</span></span><br><span class="line">        <span class="keyword">val</span> map1 = mutable.<span class="type">Map</span>(<span class="string">&quot;a&quot;</span>-&gt;<span class="number">1</span>, <span class="string">&quot;b&quot;</span>-&gt;<span class="number">2</span>, <span class="string">&quot;c&quot;</span>-&gt;<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">val</span> map2 = mutable.<span class="type">Map</span>(<span class="string">&quot;a&quot;</span>-&gt;<span class="number">4</span>, <span class="string">&quot;b&quot;</span>-&gt;<span class="number">5</span>, <span class="string">&quot;d&quot;</span>-&gt;<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> map3: mutable.<span class="type">Map</span>[<span class="type">String</span>, <span class="type">Int</span>] = map2.foldLeft(map1) &#123;</span><br><span class="line">            (map, kv) =&gt; &#123;</span><br><span class="line">                <span class="keyword">val</span> k = kv._1</span><br><span class="line">                <span class="keyword">val</span> v = kv._2</span><br><span class="line"></span><br><span class="line">                map(k) = map.getOrElse(k, <span class="number">0</span>) + v</span><br><span class="line"></span><br><span class="line">                map</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        println(map3)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>在 scala 中，不管是可变集合还是不可变集合，都是返回一个新的排好序的集合。原集合不会发生变化。默认升序</p>
+<hr>
+<p><strong>不可变</strong></p>
+<p><code>:+</code>：一般用于给不可变的集合追加元素（尾插）</p>
+<p><code>:+</code>：一般用于给不可变的集合开头插入元素（头插）</p>
+<p><strong>可变</strong></p>
+<p><code>+=</code>：一般用于可变集合，表示尾插</p>
+<p><code>:+=</code>：一般用于可变集合，表示头插</p>
+<p><code>++=</code>：把等号后面的元素合并到前面的集合中</p>
+<p><code>冒号挨着的对象就是方法的调用主体。</code></p>
+<p><code>-=</code>：删除满足条件的第一个元素</p>
+<p><code>--=</code>：移出两个结合中的交集元素，（只移出一次）</p>
+<p><strong>通用</strong></p>
+<p><code>++</code>：合并两个集合 </p>
+<p><strong>链表:List</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span></span><br><span class="line"></span><br><span class="line">空链表：</span><br><span class="line">	<span class="type">Nil</span></span><br><span class="line">	<span class="type">List</span>[<span class="type">Int</span>]()</span><br><span class="line"></span><br><span class="line">添加元素（专用）</span><br><span class="line">	:: 	添加元素</span><br><span class="line">	::: 合并两个<span class="type">List</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>Set</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">并集：</span><br><span class="line">	set1 ++ set2</span><br><span class="line">	set1 | set2</span><br><span class="line">	set1 union set2</span><br><span class="line"></span><br><span class="line">交集</span><br><span class="line">	set1 &amp; set2</span><br><span class="line">	set1 intersect set2</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">差集</span><br><span class="line">	set1 &amp;~ set2</span><br><span class="line">	set1 -- set2</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="Java-和-Scala-容器的互相转换"><a href="#Java-和-Scala-容器的互相转换" class="headerlink" title="Java 和 Scala 容器的互相转换"></a>Java 和 Scala 容器的互相转换</h2><p>我们知道在 Scala 中可以引入 Java 的 API，但是如果引入 Java 的 API，那么部分的 Scala 特性就不能正常使用了。比如我们创建一个 Java 的 ArrayList ，那么就不能使用 <code>+=</code> 或者 <code>ints.foreach(println)</code> 等来处理这个集合。为了解决这种问题，我们可以通过引入 <code>scala.collection.JavaConversions._</code> 来实现 Java 和 Scala 中对应 API 的自动互相转换，这样就可以无缝使用两种语言的语法了。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">J2s</span></span>&#123;</span><br><span class="line">  <span class="keyword">import</span> scala.collection.<span class="type">JavaConversions</span>._		<span class="comment">// 引入J2S转换包，这个包中包含了许多隐式转换，可以完成Java集合和Scala集合的互转</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> ints = <span class="keyword">new</span> util.<span class="type">ArrayList</span>[<span class="type">Int</span>]()</span><br><span class="line"></span><br><span class="line">    ints.add(<span class="number">1</span>) <span class="comment">// Java语法</span></span><br><span class="line">    ints.add(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    ints += <span class="number">3</span> <span class="comment">// scala 语法</span></span><br><span class="line">    ints.foreach(println)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/22/Scala%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" rel="prev" title="Scala模式匹配">
+                  <i class="fa fa-chevron-left"></i> Scala模式匹配
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/26/Spark-MLlib/" rel="next" title="Spark_MLlib">
+                  Spark_MLlib <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

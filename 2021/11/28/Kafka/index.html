@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="消息队列消息队列的应用场景   异步处理  消息队列的两种模式点对点模式特点：   一对一，  消费者主动从消费队列中拉取数据，  MQ 会自动把消费者已经收到的消息清除。【因为每条 message 只存在一个消费者】  流程：     生产者 Producer 生产消息发送到 MessageQueue 中，然后消费者 Consumer 从 MQ 中取出并且消费消息。  消息被消费以后，Consu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka">
+<meta property="og:url" content="http://example.com/2021/11/28/Kafka/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="消息队列消息队列的应用场景   异步处理  消息队列的两种模式点对点模式特点：   一对一，  消费者主动从消费队列中拉取数据，  MQ 会自动把消费者已经收到的消息清除。【因为每条 message 只存在一个消费者】  流程：     生产者 Producer 生产消息发送到 MessageQueue 中，然后消费者 Consumer 从 MQ 中取出并且消费消息。  消息被消费以后，Consu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128204651428.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128205611922.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128213939763.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128213950934.png">
+<meta property="article:published_time" content="2021-11-28T12:33:27.000Z">
+<meta property="article:modified_time" content="2021-11-29T03:21:19.466Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128204651428.png">
+
+
+<link rel="canonical" href="http://example.com/2021/11/28/Kafka/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/11/28/Kafka/","path":"2021/11/28/Kafka/","title":"Kafka"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kafka | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">消息队列的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">消息队列的两种模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">点对点模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">发布&#x2F;订阅模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">Kafka 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">3.</span> <span class="nav-text">Kafka核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Broker"><span class="nav-number">3.1.</span> <span class="nav-text">Broker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Topic"><span class="nav-number">3.2.</span> <span class="nav-text">Topic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partition"><span class="nav-number">3.3.</span> <span class="nav-text">Partition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Offset"><span class="nav-number">3.4.</span> <span class="nav-text">Offset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">3.5.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%AF%E6%9C%AC%E6%9C%BA%E5%88%B6"><span class="nav-number">3.6.</span> <span class="nav-text">副本机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Producer"><span class="nav-number">3.7.</span> <span class="nav-text">Producer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consumer"><span class="nav-number">3.8.</span> <span class="nav-text">Consumer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consumer-Group"><span class="nav-number">3.9.</span> <span class="nav-text">Consumer Group</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/28/Kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kafka | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kafka
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-11-28 20:33:27" itemprop="dateCreated datePublished" datetime="2021-11-28T20:33:27+08:00">2021-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-11-29 11:21:19" itemprop="dateModified" datetime="2021-11-29T11:21:19+08:00">2021-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h1><h2 id="消息队列的应用场景"><a href="#消息队列的应用场景" class="headerlink" title="消息队列的应用场景"></a>消息队列的应用场景</h2><ul>
+<li>  异步处理</li>
+</ul>
+<h2 id="消息队列的两种模式"><a href="#消息队列的两种模式" class="headerlink" title="消息队列的两种模式"></a>消息队列的两种模式</h2><h3 id="点对点模式"><a href="#点对点模式" class="headerlink" title="点对点模式"></a>点对点模式</h3><p><strong>特点：</strong></p>
+<ol>
+<li> 一对一，</li>
+<li> 消费者主动从消费队列中拉取数据，</li>
+<li> MQ 会自动把消费者已经收到的消息清除。【因为每条 message 只存在一个消费者】</li>
+</ol>
+<p><strong>流程：</strong></p>
+<img src="Kafka/image-20211128204651428.png" alt="image-20211128204651428" style="zoom:150%;" />
+
+<ol>
+<li> 生产者 Producer 生产消息发送到 MessageQueue 中，然后消费者 Consumer 从 MQ 中取出并且消费消息。</li>
+<li> 消息被消费以后，Consumer 会向 MQ 发送确认，当 MQ 收到确认后，就会自动从 queue 中删除该条消息。所以消息消费者不可能消费到已经被消费的消息。</li>
+</ol>
+<p><strong>说明：</strong></p>
+<p>在点对点模式下，MQ 支持存在多个消费者，但是对某一个消息而言，只会存在一个消费者可以消费该条消息。</p>
+<hr>
+<h3 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布/订阅模式"></a>发布/订阅模式</h3><p><strong>特点：</strong></p>
+<ul>
+<li>  一对多，</li>
+<li>  消费者消费数据之后不会清除消息【因为每条 message 可能存在多个消费者，所以该条 message 的删除时机是不确定的，一般是在消息队列满了之后由开发人员自行设置删除策略的】</li>
+</ul>
+<p><strong>流程：</strong></p>
+<p>消息生产者 Producer 将消息发布到 Topic 中，同时有多个消费者 Consumer（订阅）消费该消息。和点对点方式不同，发布到 Topic 的消息会被所有订阅者消费。</p>
+<p> <img src="Kafka/image-20211128205611922.png" alt="image-20211128205611922"></p>
+<hr>
+<h1 id="Kafka-简介"><a href="#Kafka-简介" class="headerlink" title="Kafka 简介"></a>Kafka 简介</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>Kafka 是一个分布式的基于<strong>发布/订阅模式</strong>的消息队列（Message Queue），主要应用于大数据实时处理领域。</p>
+<p>Kafka 是一个分布式的数据流式传输平台。在流式计算中，Kafka 一般用来缓存数据，Spark 通过消费 Kafka 中的数据来进行计算。</p>
+<ol>
+<li> Apache Kafka 是由 Scala 语言编写的，Scala 语言编译后的文件可以运行在 JVM 虚拟机上。</li>
+<li> Kafka 的目标是为处理<strong>实时数据</strong>提供一个统一、高通量、低等待的平台。</li>
+<li> Kafka 是一个分布式消息队列。</li>
+<li> Kafka 保存消息时会根据消息的 Topic 进行归类。</li>
+<li> Kafka 集群由多个 kafka 实例组成，每个实例（server）称为 <strong>broker</strong>。</li>
+<li> 无论是 kafka 集群，还是 consumer 都依赖于 <strong>zookeeper</strong> 集群保存一些meta信息，来保证系统可用性。</li>
+</ol>
+<hr>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>作为一个数据流式传输平台，kafka有以下三大特点：</p>
+<ol>
+<li> 类似于消息队列和商业的消息系统，kafka 提供对流式数据的发布和订阅</li>
+<li> kafka 提供一种<strong>持久</strong>的<strong>容错</strong>的方式存储流式数据【持久：支持持久化。容错：采用多副本机制支持容错】</li>
+<li> kafka 拥有良好的性能，可以近实时地处理流式数据</li>
+</ol>
+<p>基于以上三种特点，kafka 在以下两种应用之间流行：</p>
+<ol>
+<li> 需要在多个应用和系统间建立高可靠的实时数据通道</li>
+<li> 一些需要实时传输数据及及时计算的应用</li>
+</ol>
+<p>此外，kafka 还有以下特点：</p>
+<ul>
+<li>  Kafka 集群将数据按照类别记录存储，这种类别在 kafka 中称为主题（Topic）</li>
+<li>  每条记录由一个键，一个值和一个时间戳组成</li>
+</ul>
+<hr>
+<h1 id="Kafka核心概念"><a href="#Kafka核心概念" class="headerlink" title="Kafka核心概念"></a>Kafka核心概念</h1><h2 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h2><blockquote>
+<p>  <code>broker，代理</code></p>
+</blockquote>
+<p>Kafka 集群中的每台服务器都是 broker，一个集群由多个 broker 组成。</p>
+<hr>
+<h2 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h2><p>Topic 就是数据的主题，kafka 建议将不同的数据存放在不同的 Topic 中。</p>
+<p>Topic 是对于数据的逻辑分类，即一个 Topic 的数据可以分布式存储在不同 broker 上。</p>
+<p>一个 Topic 可以拥有一个或者多个消费者来订阅它的数据。</p>
+<p>Topic 可以类比为数据库中的库。</p>
+<hr>
+<h2 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h2><p>Partition 是对数据的物理分区，每个 Topic 中的数据可以存储在多个分区上。通过分区的设计，Topic 可以不断进行扩展，即一个 Topic 的多个分区分布式存储在多个 broker 上。</p>
+<p>此外通过分区还可以让一个 Topic 中的数据被多个 consumer 并行的进行消费。</p>
+<p>Kafka 只能保证一个 partition 中的消息顺序地发给 consumer，不保证一个 topic 的整体（多个partition间）的顺序。</p>
+<p>分区可以类比为数据库中的表。</p>
+<hr>
+<h2 id="Offset"><a href="#Offset" class="headerlink" title="Offset"></a>Offset</h2><p>Partition 是 Kafka 中数据的存储的物理单位，每个分区中的数据会按照写入的时间顺序按顺序保存，这个顺序是通过一个称之为 <code>offset</code> 的 id 来唯一标识的，因此也可以认为offset是有序且不可变的。</p>
+<p>数据会按照时间顺序被不断第追加到分区中的一个结构化的 commit log中。每个分区中存储的记录都是有序的，且顺序不可变。</p>
+<p>在每个消费者端，会唯一保存的元数据是 <code>offset（偏移量）</code>，即消费在 log 中的位置（消费者消费到了第几条数据），偏移量由消费者控制。通常在读取记录后，消费者会以线性的方式增加偏移量，但是实际上，由于这个位置由消费者控制，所以消费者可以采用任何顺序来消费记录。例如，一个消费者可以重置到一个旧的偏移量，从而重新处理过去的数据；也可以跳过最近的记录，从”现在”开始消费。</p>
+<p>这些细节说明 Kafka 消费者是非常廉价的——消费者的增加和减少，对集群或者其他消费者没有多大的影响。比如，你可以使用命令行工具，对一些 topic 内容执行 tail 操作，并不会影响已存在的消费者消费数据。</p>
+<blockquote>
+<p>  图1 Topic拓扑结构</p>
+</blockquote>
+<p> <img src="Kafka/image-20211128213939763.png" alt="image-20211128213939763"></p>
+<blockquote>
+<p>  图2 数据流</p>
+</blockquote>
+<p><img src="Kafka/image-20211128213950934.png" alt="image-20211128213950934"></p>
+<hr>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p>Kafka 集群会保留所有发布的记录，无论它们是否已被消费。</p>
+<p>如果想要删除发布记录，可以通过配置保留期限参数来控制。举个例子，如果保留策略设置为2天，一条记录发布后两天内，可以随时被消费，两天过后这条记录会被清除并释放磁盘空间。</p>
+<p>Kafka 的性能和数据大小无关，所以长时间存储数据没有什么问题。</p>
+<hr>
+<h2 id="副本机制"><a href="#副本机制" class="headerlink" title="副本机制"></a>副本机制</h2><p>Kafka 通过副本机制来保证高可用。</p>
+<p>日志的分区 partition （分布）在Kafka集群的服务器上。每个服务器在处理数据和请求时，共享这些分区。每一个分区都会在已配置的服务器上进行备份，确保容错性。</p>
+<p>每个分区都有一台 server 作为 “leader”，零台或者多台 server 作为 follwers。leader server 处理一切对 partition （分区）的读写请求，而 follwers 只需被动的同步 leader 上的数据。当 leader 宕机了，followers 中的一台服务器会自动成为新的 leader。通过这种机制，既可以保证数据有多个副本，也实现了一个高可用的机制！</p>
+<p>基于安全考虑，每个分区的Leader和follower一般会错在在不同的broker!</p>
+<h2 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h2><p>消息生产者，就是向 <code>kafka broker</code> 发消息的客户端，生产者负责将消息分配到 topic 的指定 partition（分区）中。</p>
+<h2 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h2><p>消息消费者，向 <code>kafka broker</code> 取消息的客户端。每个消费者都要维护自己读取数据的 offset。</p>
+<p>0.9 之前的低版本 kafka 将 offset 保存在 Zookeeper 中，0.9及之后保存在 Kafka 的 <code>__consumer_offsets</code> 主题中。</p>
+<hr>
+<h2 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h2><p>每个消费者都会使用一个消费组名称来进行标识。同一个组中的不同的消费者实例，可以分布在多个进程或多个机器上！</p>
+<p>如果所有的消费者实例在同一消费组中，消息记录会负载平衡到每一个消费者实例（单播）。即每个消费者可以同时读取一个topic的不同分区！</p>
+<p>如果所有的消费者实例在不同的消费组中，每条消息记录会广播到所有的消费者进程(广播)。</p>
+<p>如果需要实现广播，只要每个consumer有一个独立的组就可以了。要实现单播只要所有的consumer在同一个组。</p>
+<p>一个topic可以有多个consumer group。topic的消息会复制（不是真的复制，是概念上的）到所有的CG，但每个partion只会把消息发给该CG中的一个consumer。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/" rel="prev" title="HttpServletRequest和HttpServletResponse">
+                  <i class="fa fa-chevron-left"></i> HttpServletRequest和HttpServletResponse
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/29/ZooKeeper/" rel="next" title="ZooKeeper">
+                  ZooKeeper <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

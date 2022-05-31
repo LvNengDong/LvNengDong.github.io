@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前置知识    位运算基础   HashMap 特点特点   存取无序的；  线程不安全；  key，value 都可以为 null  数据结构    JDK8 之前，HashMap 是由 数组+链表 组成的，数组是 HashMap 的主体，链表则是为了解决哈希冲突而存在的。   从 JDK8 开始，解决哈希冲突的策略由链表变为了链表+红黑树，当链表长度大于阈值（默认为8）并且当前数组长度大于64">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap">
+<meta property="og:url" content="http://example.com/2021/09/22/HashMap/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前置知识    位运算基础   HashMap 特点特点   存取无序的；  线程不安全；  key，value 都可以为 null  数据结构    JDK8 之前，HashMap 是由 数组+链表 组成的，数组是 HashMap 的主体，链表则是为了解决哈希冲突而存在的。   从 JDK8 开始，解决哈希冲突的策略由链表变为了链表+红黑树，当链表长度大于阈值（默认为8）并且当前数组长度大于64">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/09/22/HashMap/HashMap/image-20211025234552648.png">
+<meta property="og:image" content="http://example.com/2021/09/22/HashMap/HashMap/image-20211026102557636.png">
+<meta property="article:published_time" content="2021-09-22T10:00:49.000Z">
+<meta property="article:modified_time" content="2021-10-26T07:59:41.886Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/09/22/HashMap/HashMap/image-20211025234552648.png">
+
+
+<link rel="canonical" href="http://example.com/2021/09/22/HashMap/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/09/22/HashMap/","path":"2021/09/22/HashMap/","title":"HashMap"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>HashMap | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap-%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">HashMap 特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">1.1.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">HashMap 存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-amp-A-1"><span class="nav-number">2.1.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap-%E6%BA%90%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">HashMap 源码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">3.1.</span> <span class="nav-text">HashMap 类中的成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.1.</span> <span class="nav-text">成员变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-amp-A-2"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.2.</span> <span class="nav-text">构造方法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/22/HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="HashMap | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HashMap
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-09-22 18:00:49" itemprop="dateCreated datePublished" datetime="2021-09-22T18:00:49+08:00">2021-09-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-26 15:59:41" itemprop="dateModified" datetime="2021-10-26T15:59:41+08:00">2021-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">集合</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>前置知识</strong></p>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2021/08/17/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算基础</a></li>
+</ul>
+<hr>
+<h1 id="HashMap-特点"><a href="#HashMap-特点" class="headerlink" title="HashMap 特点"></a>HashMap 特点</h1><p><strong>特点</strong></p>
+<ol>
+<li> 存取无序的；</li>
+<li> 线程不安全；</li>
+<li> key，value 都可以为 null</li>
+</ol>
+<p><strong>数据结构</strong></p>
+<ul>
+<li>  JDK8 之前，HashMap 是由 <strong>数组+链表</strong> 组成的，数组是 HashMap 的主体，链表则是为了解决哈希冲突而存在的。</li>
+<li>  从 JDK8 开始，解决哈希冲突的策略由<strong>链表</strong>变为了<strong>链表+红黑树</strong>，当<strong>链表长度大于阈值（默认为8）并且当前数组长度大于64</strong>时，此时哈希桶上的所有数据改为用红黑树存储。</li>
+</ul>
+<blockquote>
+<p>  补充：当链表长度长度大于阈值但是数组长度小于 64 时，此时并不会将链表变为红黑树，而是选择对数组进行扩容。</p>
+</blockquote>
+<ul>
+<li>  当数组长度比较小时，在发生 Hash 冲突后应尽量避免使用红黑树结构，在这种情况下将链表变为红黑树结构，反而会降低效率，因为红黑树需要通过变色、左旋、右旋等操作来保持黑节点平衡。同时，当数组长度小于 64 时，搜索时间相对要快一些。当链表长度大于阈值并且数组长度大于 64 时，链表转换为红黑树，查找效率更高一些。</li>
+</ul>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><blockquote>
+<ol>
+<li> HashMap 底层数据结构为什么从链表转换为红黑树？</li>
+</ol>
+</blockquote>
+<p>JDK8 之前 HashMap 的底层实现是 <code>数组+链表</code>，当 HashMap 中有大量的元素都存放到同一个桶中时，这个桶下就会有一条长长的链表，这个时候 HashMap 就相当于一个单链表，假如单链表有 n 个元素，遍历的时间复杂度就是 **O(n)**。</p>
+<p>针对这种情况，JDK8 中引入了 红黑树来优化这个问题（红黑树中查找的时间复杂度为 **O(logn)**）。并且只有当链表长度达到 8 并且数组长度大于 64 时，才转换为红黑树。而当链表长度很小的时候，即使遍历整个链表速度也非常快，只有当链表长度大于一定阈值后，遍历查询的性能才会发生下降，这时候才需要通过将链表转换为红黑树来提高查询效率。</p>
+<blockquote>
+<ol start="2">
+<li> 为什么链表转换为红黑树的阈值是8？</li>
+</ol>
+</blockquote>
+<h1 id="HashMap-存储过程"><a href="#HashMap-存储过程" class="headerlink" title="HashMap 存储过程"></a>HashMap 存储过程</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/10/13 19:18</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        HashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;海绵宝宝&quot;</span>, <span class="number">6</span>);</span><br><span class="line">        map.put(<span class="string">&quot;派大星&quot;</span>, <span class="number">8</span>);</span><br><span class="line">        map.put(<span class="string">&quot;蟹老板&quot;</span>, <span class="number">23</span>);</span><br><span class="line">        map.put(<span class="string">&quot;章鱼哥&quot;</span>, <span class="number">35</span>);</span><br><span class="line">        map.put(<span class="string">&quot;海绵宝宝&quot;</span>, <span class="number">8</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>创建 HashMap 对象</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  执行 <code>new HashMap&lt;&gt;()</code> 语句，在 JDK8 之前是在底层创建了一个长度为 16 的一维数组 <strong>Entry[] table</strong>；</li>
+<li>  但是从 JDK8 开始，并没有在执行 <code>new HashMap&lt;&gt;()</code> 语句时就创建数组对象，而是直接引用了一个类初始化阶段就已经创建好的空的 HashMap 对象，直到首次调用 <strong>put()</strong> 方法时，才会在底层创建长度为 16 的 <strong>Node[] table</strong> 数组对象。</li>
+</ul>
+</li>
+<li><p>添加元素</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;海绵宝宝&quot;</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  向 <strong>table</strong> 数组中存储数据 <code>(&quot;海绵宝宝&quot;, 6)</code>，首先会调用 <code>String#hashCode()</code> 方法计算出 “海绵宝宝” 的 hashCode 值，此 hashCode 值经过某种算法计算后，得到该 Node 对象在 table 数组中存放的位置（即桶位置），如果此位置上数据为空，直接插入 Node 对象到数组中，添加元素成功。假设此时计算得到的桶位置下标为2。</li>
+</ul>
+</li>
+<li><p>继续添加元素</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;派大星&quot;</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  继续向 <strong>table</strong> 数组中添加数据 <code>map.put(&quot;派大星&quot;, 8)</code>，如果根据 “派大星” 的 hashCode 和当前数组长度计算出的桶位置也为 2，那么此时会继续比较 “海绵宝宝” 和 “派大星” 的 hashCode，如果不相等，会在该桶位置上新建一个链表节点来存储 Node 对象 <code>(&quot;派大星&quot;, 8)</code>。</li>
+</ul>
+</li>
+<li><p>覆盖元素</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;海绵宝宝&quot;</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>假设向 <strong>table</strong> 数组中存储数据 <code>(&quot;海绵宝宝&quot;, 8)</code>，根据 key 的 hashCode 和当前数组长度计算出的桶位置是 2，但是此时数组中下标 2 的位置上已经有了数据，接下来会比较后添加元素的 hashCode 和已存在元素的 hashCode 是否相等，如果相同，使用  <code>equals()</code> 方法继续比较后添加元素 key 与已存在元素的 key 是否相同。如果 <code>equals()</code> 方法返回 false，证明新添加的元素在 HashMap 中不存在，则向链表（或红黑树）中添加元素；如果 <code>equals()</code> 方法返回 true，则证明新添加的元素在 HashMap 中已存在，用后添加元素的 value 值覆盖已存在元素的 value 值。</li>
+</ul>
+</li>
+</ol>
+<p><img src="HashMap/image-20211025234552648.png" alt="image-20211025234552648"></p>
+<p><strong>说明：</strong></p>
+<ul>
+<li>  size 表示 HashMap 中 Node 对象实时数量，如果添加元素后 Node 对象的个数大于 threshold，也会触发数组的扩容机制。</li>
+<li>**threshold(临界值) = capacity(容量) × loadFactory(加载因子) **。这个值是当前已占用数组长度的最大值。size 超过这个值就会触发扩容（resize）机制，扩容后数组的长度变为原来的两倍。<ul>
+<li>  HashMap 并不追求把整个 table 数组完全填满之后才进行扩容，因为这样可能会导致链表（或红黑树）上的 Node 对象很多，一般情况下只要数组中的元素个数大于 threshold，就可以认为数组中的使用率已经很高了，可以进行扩容了。如果一味地追求数组填满之后再进行扩容，可能存在剩下一到两个空位置始终没有元素填充进来，反而会有大量元素挂在了链表（或红黑树）后面，导致链表（或红黑树）中的节点变得非常多，反而会影响插叙效率。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Q-amp-A-1"><a href="#Q-amp-A-1" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><blockquote>
+<ol>
+<li> <strong>在 JDK8 中如何根据 hashCode 计算出 Node 要保存的桶位置（下标）？除了这个还有哪些实现方式？</strong></li>
+</ol>
+</blockquote>
+<p>对 <code>Node&lt;K, V&gt;</code> 对象的 key 的 hashCode 做哈希操作：①无符号右移16位  ②异或运算</p>
+<ul>
+<li>  优点：效率高</li>
+</ul>
+<p><strong>其它实现方式：</strong></p>
+<p>平方取中法、除留余数法、伪随机数法</p>
+<p>其余三种方式效率较低，在 Java 中位运算的效率较高。</p>
+<blockquote>
+<ol start="2">
+<li> 当两个对象的 hashCode 相等时会怎么样？</li>
+</ol>
+</blockquote>
+<p>当两个对象的 hashCode 相等时，根据该 hashCode 计算出的哈希值也必然相同，那么显然会发生哈希碰撞；发生了哈希碰撞之后首先会比较两个 key 对象的 hashCode 是否相等，在本题中是显然的；当 hashCode 相等后，接着使用 <code>equals()</code> 方法比较两个 key 对象是否相等，若不相等则将新的 Node 对象添加到链表（或红黑树）上，若相等则用新的 Node 节点中的 value 去覆盖旧的 Node 节点中的 value 值。</p>
+<ul>
+<li>  在将 Node 添加到链表中时，如果满足条件还会发生链表到红黑树的转换。</li>
+</ul>
+<hr>
+<h1 id="HashMap-源码"><a href="#HashMap-源码" class="headerlink" title="HashMap 源码"></a>HashMap 源码</h1><h2 id="HashMap-类中的成员"><a href="#HashMap-类中的成员" class="headerlink" title="HashMap 类中的成员"></a>HashMap 类中的成员</h2><h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><ol>
+<li><p>序列化版本号</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">362498820763181265L</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>数组的初始化容量（必须是 2 的 n 次幂）</strong></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认初始容量是16（1&amp;lt;&amp;lt;4 == 16）</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_INITIAL_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &amp;lt;&amp;lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br></pre></td></tr></table></figure></li>
+<li><p>table 数组的最大容量</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>默认的负载因子，默认值是 0.75</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>链表转换为红黑树的门槛</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当桶(bucket)上的结点数大于这个值时会转成红黑树</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">8</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>当链表的值小于6则会从红黑树转回链表</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当桶(bucket)上的结点数小于这个值时树转链表</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">UNTREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">6</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>桶中链表结构转化为红黑树对应的数组长度最小的值</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_TREEIFY_CAPACITY</span> <span class="operator">=</span> <span class="number">64</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>table 用来初始化(必须是二的n次幂)(重点)</strong></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存储元素的数组</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;</span><br></pre></td></tr></table></figure></li>
+<li><p>用来存放缓存</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存放具体元素的集合</span></span><br><span class="line"><span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>HashMap中存放元素的个数</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存放元素的个数，注意这个不等于数组的长度。size为HashMap中K-V的实时数量，不是数组table的长度。</span></span><br><span class="line"><span class="keyword">transient</span> <span class="type">int</span> size;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>用来记录HashMap的修改次数</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每次扩容和更改map结构的计数器</span></span><br><span class="line"><span class="keyword">transient</span> <span class="type">int</span> modCount;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>用来调整大小下一个容量的值计算方式为(容量*负载因子)</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 临界值 当实际大小(容量*负载因子)超过临界值时，会进行扩容</span></span><br><span class="line"><span class="type">int</span> threshold;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p><strong>哈希表的加载因子(重点)</strong></p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载因子</span></span><br><span class="line"><span class="keyword">final</span> <span class="type">float</span> loadFactor;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Q-amp-A-2"><a href="#Q-amp-A-2" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><blockquote>
+<p>  <strong>Q1：HashMap 中 table 数组的初始容量为什么必须是 2 的 n 次幂？</strong></p>
+<p>  <strong>Q2：如果输入值不是 2 的幂比如 10 会怎么样？</strong></p>
+</blockquote>
+<p><strong>A1：</strong></p>
+<ul>
+<li>  在向 HashMap 中添加一个元素的时候，需要根据 <code>Node&lt;K, V&gt;</code> 中 key 的 hashCode 计算一个 hash 值，来确定 Node 对象在数组中的具体位置。HashMap 为了存取高效，需要尽量减少哈希冲突，也就是要把数据尽量分配均匀，每个哈希桶上的元素数量要大致相同，这个实现依赖于具体的 Hash 算法。</li>
+<li>  这个算法实际上就是取模，<code>hashCode%length</code>，只不过计算机中位运算的效率要远大于取余运算，所以在源码中做了一些优化，用位运算代替取余运算，而实际上 <code>hashCode%length</code> 可以等于 **hashCode&amp;(length-1)**，而等于的充要条件就是数组长度 length 必须是 2 的 n 次幂。</li>
+</ul>
+<p><strong>小结：</strong></p>
+<ul>
+<li>  我们在根据 key 的哈希值确定桶位置时，如果数组长度 length 为 2 的 n 次幂，可以保证数据较为均匀的插入，如果 length 不是 2 的 n 次幂，可能数组的一些位置永远不会插入数据，造成数据空间的浪费和加大哈希冲突的概率。</li>
+<li>  另一方面，一般我们可能会想到通过取余操作 % 来确定位置，这样虽然也可以，只不过性能不如与（&amp;）运算。而且当 n = 2^n 时，<code>hashCode&amp;(length-1) == hashCode%length</code>。</li>
+<li>  因此，HashMap 中 table 数组容量为 2 的 n 次幂的原因就是为了使数据能均匀分布，减少哈希碰撞。因为哈希碰撞发生的次数越多，代表数组中一个桶位置的元素数量越多，这样会减低 HashMap 的性能。</li>
+</ul>
+<p><strong>Q2：</strong></p>
+<ul>
+<li><p>  如果创建 HashMap 时，手动指定 table 数组的长度为 10，而不是 <code>2^n</code>，HashMap 会通过位移运算和或运算得到一个大于给定长度的最小的 <code>2^n</code> 的值。比如给定数组长度为 10，就会得到大于 10 的最小 <code>2^n</code> 的值 16，也就是说此时创建的 table 数组的长度是 16。</p>
+</li>
+<li><p>源码分析：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建长度为 10 的 HashMap</span></span><br><span class="line">HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ==&gt; 跳转到：HashMap的单参构造方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);	<span class="comment">// DEFAULT_LOAD_FACTOR 是默认加载因子</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ==&gt; 跳转到：HashMap的双参构造方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    <span class="comment">// 若给定初始化容量小于0直接抛出异常</span></span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Illegal initial capacity: &quot;</span> +</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    <span class="comment">// 若给定容量大于MAXIMUM_CAPACITY按MAXIMUM_CAPACITY处理</span></span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="comment">// 加载因子校验</span></span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Illegal load factor: &quot;</span> +</span><br><span class="line">                                           loadFactor);</span><br><span class="line">    <span class="built_in">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="built_in">this</span>.threshold = tableSizeFor(initialCapacity);	<span class="comment">// 计算table数组的容量，并赋值给threshold</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ==&gt; 跳转到：tableSizeFor 方法</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据给定的初始值计算出数组容量，数组容量必然是2^n</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">tableSizeFor</span><span class="params">(<span class="type">int</span> cap)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> cap - <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>说明：</strong>根据源码可以看到，当在实例化 HashMap 时，如果给定了 initialCapacity（假设是10），最终会调用 <strong>tableSizeFor(int cap)</strong> 方法来计算 table 数组的真实容量，最终得到的结果是一个大于 10 的最小的 <code>2^n</code> 的值，在这里也就是 16。下面来分析这个算法：</p>
+<ol>
+<li><p>首先，对 cap 进行 -1 操作，<code>int n = cap - 1</code></p>
+<blockquote>
+<p>  为什么要对 cap 进行 -1 操作？</p>
+</blockquote>
+<p> 这是为了防止，cap 已经是 <code>2^n</code>。如果 cap 已经是 <code>2^n</code>，理论上此时数组的容量就应该是 cap，但是如果没有对 cap 进行 -1 操作，直接使用无符号右移运算，则最终得到的 cap 的容量是 <code>cap*2</code>，显然是不符合要求的；而如果执行了 -1 操作，那么最终得到的容量就是 cap，符合要求。</p>
+</li>
+<li><p> 如果 n 经过 cap-1 后结果是 0，则经过几次无符号右移后最终结果仍是 0，最后返回的 capacity 是 1。</p>
+</li>
+<li><p>当 cap = 10时，n=9</p>
+<ul>
+<li><p>第一次右移</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; <span class="number">1</span>	<span class="comment">// ①先进行右移运算 ②再进行或运算</span></span><br><span class="line"></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001001</span>	 	<span class="comment">// 9</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000100</span>		<span class="comment">// 无符号右移一位 ==&gt; 4</span></span><br><span class="line">------------------------------------------	</span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001101</span>		<span class="comment">// 进行或运算 9|4 ==&gt; 13</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>第二次右移：n=13</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; <span class="number">2</span>	</span><br><span class="line"></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001101</span>	 	<span class="comment">// 13</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000011</span>		<span class="comment">// 无符号右移2位 ==&gt; 3</span></span><br><span class="line">------------------------------------------	</span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001111</span>		<span class="comment">// 进行或运算 13|3 ==&gt; 15</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>第三次右移：n=15</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; <span class="number">4</span>;	<span class="comment">// n=15</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001111</span>		<span class="comment">// 15</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span>		<span class="comment">// 无符号右移4位 ==&gt; 0</span></span><br><span class="line">------------------------------------------	</span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001111</span>		<span class="comment">// 进行或运算 15|3 ==&gt; 15</span></span><br></pre></td></tr></table></figure></li>
+<li><p>第四次右移、第五次右移</p>
+<p>  当 n 被扩展到 <code>2^n-1</code> 时，再进行右移运算也不会改变 n 的值，最终返回 capacity 容量时，用 n+1 就能得到 <code>2^n</code>。</p>
+<p>  <img src="HashMap/image-20211026102557636.png" alt="image-20211026102557636"></p>
+</li>
+</ul>
+</li>
+<li><p>注意：得到的这个 capacity 最终被赋值给了 threshold</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.threshold = tableSizeFor(initialCapacity);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>  <strong>Q3：为什么 Map 桶中节点个数超过8才转为红黑树？</strong></p>
+</blockquote>
+<ol>
+<li><p> <strong>从空间上考虑</strong>。因为树的节点大约是链表节点的两倍，所以我们只有在哈希桶中包含足够的节点时才会使用树节点。</p>
+</li>
+<li><p>并且当 hashCode 的离散性很好的时候，红黑树模型使用到的概率非常小，因为数据均匀分布在每个 Bucket 中，很少有 Bucket 中链表的长度会达到阈值。但是在随机 hashCode 的情况下，离散型就可能会变差，然而 JDK 又不能阻止用户实现这种不好的哈希算法，因此就可能导致不均匀的数据分布。不过理想情况下随机 hashCode 算法下的所有 Bucket 中的节点分布频率都会遵循泊松分布，我们可以看到，一个Bucket 中链表长度达到 8 个元素的概率为 0.00000006，几乎是不可能事件，所以，之所以选择 8 是由概率学决定的</p>
+<blockquote>
+<p>  泊松分布</p>
+</blockquote>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0: 0.60653066</span><br><span class="line">1: 0.30326533</span><br><span class="line">2: 0.07581633</span><br><span class="line">3: 0.01263606</span><br><span class="line">4: 0.00157952</span><br><span class="line">5: 0.00015795</span><br><span class="line">6: 0.00001316</span><br><span class="line">7: 0.00000094</span><br><span class="line">8: 0.00000006</span><br></pre></td></tr></table></figure>
+
+</li>
+<li></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashMap</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;K,V&gt;, Cloneable, Serializable &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 数组的默认容量 */</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_INITIAL_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/** 数组的最大容量 */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 加载因子*/</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The bin count threshold for using a tree rather than list for a</span></span><br><span class="line"><span class="comment">     * bin.  Bins are converted to trees when adding an element to a</span></span><br><span class="line"><span class="comment">     * bin with at least this many nodes. The value must be greater</span></span><br><span class="line"><span class="comment">     * than 2 and should be at least 8 to mesh with assumptions in</span></span><br><span class="line"><span class="comment">     * tree removal about conversion back to plain bins upon</span></span><br><span class="line"><span class="comment">     * shrinkage.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The bin count threshold for untreeifying a (split) bin during a</span></span><br><span class="line"><span class="comment">     * resize operation. Should be less than TREEIFY_THRESHOLD, and at</span></span><br><span class="line"><span class="comment">     * most 6 to mesh with shrinkage detection under removal.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">UNTREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The smallest table capacity for which bins may be treeified.</span></span><br><span class="line"><span class="comment">     * (Otherwise the table is resized if too many nodes in a bin.)</span></span><br><span class="line"><span class="comment">     * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts</span></span><br><span class="line"><span class="comment">     * between resizing and treeification thresholds.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_TREEIFY_CAPACITY</span> <span class="operator">=</span> <span class="number">64</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** HashMap 中的数组 */</span></span><br><span class="line">    <span class="keyword">transient</span> Node&lt;K,V&gt;[] table;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Holds cached entrySet(). Note that AbstractMap fields are used</span></span><br><span class="line"><span class="comment">     * for keySet() and values().</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** HashMap 中节点元素的个数*/</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="type">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The number of times this HashMap has been structurally modified</span></span><br><span class="line"><span class="comment">     * Structural modifications are those that change the number of mappings in</span></span><br><span class="line"><span class="comment">     * the HashMap or otherwise modify its internal structure (e.g.,</span></span><br><span class="line"><span class="comment">     * rehash).  This field is used to make iterators on Collection-views of</span></span><br><span class="line"><span class="comment">     * the HashMap fail-fast.  (See ConcurrentModificationException).</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="type">int</span> modCount;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 阈值 */</span></span><br><span class="line">    <span class="type">int</span> threshold;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The load factor for the hash table.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@serial</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">float</span> loadFactor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 作用：用传入的值对 HashMap 中的值进行赋值操作</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> initialCapacity	数组容量</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> loadFactor	加载因子</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 【校验】</span></span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Illegal initial capacity: &quot;</span> +</span><br><span class="line">                                           initialCapacity); <span class="comment">// 数组容量小于 0 抛出异常</span></span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY; <span class="comment">// 数组容量大于 MAXIMUM_CAPACITY 也抛出异常</span></span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor)) <span class="comment">// 要求加载因子必须小于0 或者必须是数字</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Illegal load factor: &quot;</span> +</span><br><span class="line">                                           loadFactor);</span><br><span class="line">    <span class="built_in">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="built_in">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Returns a power of two size for the given target capacity.</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">tableSizeFor</span><span class="params">(<span class="type">int</span> cap)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> cap - <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/17/LeetCode-198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/" rel="prev" title="LeetCode_198_打家劫舍">
+                  <i class="fa fa-chevron-left"></i> LeetCode_198_打家劫舍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式——观察者模式">
+                  设计模式——观察者模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

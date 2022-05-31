@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第 7 章    函数7.1    函数分类在 Hive 中，按照函数的来源可以将函数分为两类：   系统函数  自定义函数  系统函数：用户自定义函数： 遵守 hive 函数接口的要求，自定义一个函数类；  将函数类打成jar包，保存在 Hive 的 lib 目录下，或者保存在 HIVE_HOME&#x2F;auxlib 目录下  auxlib 目录是用来存放 hive 可以加载的第三方 jar 包的目录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive（下）">
+<meta property="og:url" content="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第 7 章    函数7.1    函数分类在 Hive 中，按照函数的来源可以将函数分为两类：   系统函数  自定义函数  系统函数：用户自定义函数： 遵守 hive 函数接口的要求，自定义一个函数类；  将函数类打成jar包，保存在 Hive 的 lib 目录下，或者保存在 HIVE_HOME&#x2F;auxlib 目录下  auxlib 目录是用来存放 hive 可以加载的第三方 jar 包的目录">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image002.jpg">
+<meta property="og:image" content="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image004.jpg">
+<meta property="og:image" content="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image006.jpg">
+<meta property="article:published_time" content="2021-12-20T13:10:26.000Z">
+<meta property="article:modified_time" content="2021-12-22T01:38:28.615Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image002.jpg">
+
+
+<link rel="canonical" href="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/","path":"2021/12/20/Hive（下）/","title":"Hive（下）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hive（下） | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-7-%E7%AB%A0-%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">第 7 章    函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E5%87%BD%E6%95%B0%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">7.1    函数分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">系统函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">用户自定义函数：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E6%9F%A5%E7%9C%8B%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">7.1    查看函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">常用日期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%96%E6%95%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">常用取整函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">常用字符串操作函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.4.</span> <span class="nav-text">常用集合操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">系统函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NVL"><span class="nav-number">1.4.1.</span> <span class="nav-text">NVL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat"><span class="nav-number">1.4.2.</span> <span class="nav-text">concat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat-ws"><span class="nav-number">1.4.3.</span> <span class="nav-text">concat_ws</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.4.</span> <span class="nav-text">判断函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CASE%E2%80%A6WHEN"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">CASE…WHEN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">if 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-7-2-%E8%A1%8C%E8%BD%AC%E5%88%97"><span class="nav-number">1.4.5.</span> <span class="nav-text">6.7.2    行转列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%BD%AC%E8%A1%8C"><span class="nav-number">1.4.6.</span> <span class="nav-text">列转行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.7.</span> <span class="nav-text">窗口函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.8.</span> <span class="nav-text">排名函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">7.2 自定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E5%88%86%E7%B1%BB%EF%BC%88%E6%8C%89%E7%85%A7%E7%89%B9%E5%BE%81%E5%88%86%E7%B1%BB%EF%BC%89%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">用户自定义函数分类（按照特征分类）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E5%9C%B0%E5%9D%80"><span class="nav-number">1.5.2.</span> <span class="nav-text">官方文档地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E7%BC%96%E7%A8%8B%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="nav-number">1.5.3.</span> <span class="nav-text">自定义函数编程步骤：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-%E8%87%AA%E5%AE%9A%E4%B9%89-UDF-%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">7.3 自定义 UDF 函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-8-%E7%AB%A0-%E5%8E%8B%E7%BC%A9%E5%92%8C%E5%AD%98%E5%82%A8"><span class="nav-number">2.</span> <span class="nav-text">第 8 章    压缩和存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-1-Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E6%94%AF%E6%8C%81Snappy%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.1.</span> <span class="nav-text">8.1 Hadoop源码编译支持Snappy压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-1-%E8%B5%84%E6%BA%90%E5%87%86%E5%A4%87"><span class="nav-number">2.1.1.</span> <span class="nav-text">8.1.1 资源准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-2-jar%E5%8C%85%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.2.</span> <span class="nav-text">8.1.2 jar包安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-3-%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81"><span class="nav-number">2.1.3.</span> <span class="nav-text">8.1.3 编译源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2-Hadoop%E5%8E%8B%E7%BC%A9%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">8.2 Hadoop压缩配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-1-MR%E6%94%AF%E6%8C%81%E7%9A%84%E5%8E%8B%E7%BC%A9%E7%BC%96%E7%A0%81"><span class="nav-number">2.2.1.</span> <span class="nav-text">8.2.1 MR支持的压缩编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-2-%E5%8E%8B%E7%BC%A9%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.</span> <span class="nav-text">8.2.2 压缩参数配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-3-%E5%BC%80%E5%90%AFMap%E8%BE%93%E5%87%BA%E9%98%B6%E6%AE%B5%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.3.</span> <span class="nav-text">8.3 开启Map输出阶段压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-4-%E5%BC%80%E5%90%AFReduce%E8%BE%93%E5%87%BA%E9%98%B6%E6%AE%B5%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.4.</span> <span class="nav-text">8.4 开启Reduce输出阶段压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-5-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">8.5 文件存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-1-%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8%E5%92%8C%E8%A1%8C%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="nav-number">2.5.1.</span> <span class="nav-text">8.5.1 列式存储和行式存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-2-TextFile%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.5.2.</span> <span class="nav-text">8.5.2 TextFile格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-3-Orc%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.5.3.</span> <span class="nav-text">8.5.3 Orc格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-4-Parquet%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.5.4.</span> <span class="nav-text">8.5.4 Parquet格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-5-%E4%B8%BB%E6%B5%81%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94%E5%AE%9E%E9%AA%8C"><span class="nav-number">2.5.5.</span> <span class="nav-text">8.5.5 主流文件存储格式对比实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-6-%E5%AD%98%E5%82%A8%E5%92%8C%E5%8E%8B%E7%BC%A9%E7%BB%93%E5%90%88"><span class="nav-number">2.6.</span> <span class="nav-text">8.6 存储和压缩结合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-1-%E4%BF%AE%E6%94%B9Hadoop%E9%9B%86%E7%BE%A4%E5%85%B7%E6%9C%89Snappy%E5%8E%8B%E7%BC%A9%E6%96%B9%E5%BC%8F"><span class="nav-number">2.6.1.</span> <span class="nav-text">8.6.1 修改Hadoop集群具有Snappy压缩方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-2-%E6%B5%8B%E8%AF%95%E5%AD%98%E5%82%A8%E5%92%8C%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.6.2.</span> <span class="nav-text">8.6.2 测试存储和压缩</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/20/Hive%EF%BC%88%E4%B8%8B%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hive（下） | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hive（下）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-12-20 21:10:26" itemprop="dateCreated datePublished" datetime="2021-12-20T21:10:26+08:00">2021-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-12-22 09:38:28" itemprop="dateModified" datetime="2021-12-22T09:38:28+08:00">2021-12-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第-7-章-函数"><a href="#第-7-章-函数" class="headerlink" title="第 7 章    函数"></a>第 7 章    函数</h1><h2 id="7-1-函数分类"><a href="#7-1-函数分类" class="headerlink" title="7.1    函数分类"></a>7.1    函数分类</h2><p>在 Hive 中，按照函数的来源可以将函数分为两类：</p>
+<ol>
+<li> 系统函数</li>
+<li> 自定义函数</li>
+</ol>
+<h3 id="系统函数："><a href="#系统函数：" class="headerlink" title="系统函数："></a>系统函数：</h3><h3 id="用户自定义函数："><a href="#用户自定义函数：" class="headerlink" title="用户自定义函数："></a>用户自定义函数：</h3><ol>
+<li><p>遵守 hive 函数接口的要求，自定义一个函数类；</p>
+</li>
+<li><p>将函数类打成jar包，保存在 Hive 的 lib 目录下，或者保存在 <code>HIVE_HOME/auxlib</code> 目录下</p>
+<ul>
+<li>auxlib 目录是用来存放 hive 可以加载的第三方 jar 包的目录</li>
+<li>Hive 在启动时会加载该目录下的 jar 包，提供额外的第三方功能</li>
+</ul>
+</li>
+<li><p>创建一个函数，让这个函数和 jar 中的函数类关联</p>
+</li>
+<li><p>使用函数</p>
+</li>
+</ol>
+<p>因为在 Hive 中可以实现自定义的函数，所以函数有库的概念，当然系统提供的函数可以在任意库下使用。</p>
+<h2 id="7-1-查看函数"><a href="#7-1-查看函数" class="headerlink" title="7.1    查看函数"></a>7.1    查看函数</h2><ol>
+<li><p>查看当前库中的所有函数</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; show functions;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看函数的用法</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; desc function upper;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看函数的用法（详情）</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; desc function extended upper;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><h3 id="常用日期函数"><a href="#常用日期函数" class="headerlink" title="常用日期函数"></a>常用日期函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">	hive默认解析的时间格式必须是： 2019-11-24 08:09:10</span><br><span class="line">unix_timestamp:返回当前或指定时间的时间戳（日期=&gt;时间戳）</span><br><span class="line">from_unixtime：将时间戳转为日期格式（时间戳=&gt;日期）</span><br><span class="line">current_date：当前日期</span><br><span class="line">current_timestamp：当前的日期加时间</span><br><span class="line">* to_date：抽取日期部分</span><br><span class="line">year：获取年</span><br><span class="line">month：获取月</span><br><span class="line">day：获取日</span><br><span class="line">hour：获取时</span><br><span class="line">minute：获取分</span><br><span class="line">second：获取秒</span><br><span class="line">weekofyear：当前时间是一年中的第几周</span><br><span class="line">dayofmonth：当前时间是一个月中的第几天</span><br><span class="line">* months_between： 两个日期间的月份，前-后</span><br><span class="line">* add_months：日期加减月</span><br><span class="line">* datediff：两个日期相差的天数，前-后</span><br><span class="line">* date_add：日期加天数</span><br><span class="line">* date_sub：日期减天数</span><br><span class="line">* last_day：日期的当月的最后一天</span><br><span class="line"></span><br><span class="line">date_format格式化日期   date_format( 2019-11-24 08:09:10,&#x27;yyyy-MM&#x27;) mn</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="常用取整函数"><a href="#常用取整函数" class="headerlink" title="常用取整函数"></a>常用取整函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">round： 四舍五入</span><br><span class="line">ceil：  向上取整</span><br><span class="line">floor： 向下取整</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="常用字符串操作函数"><a href="#常用字符串操作函数" class="headerlink" title="常用字符串操作函数"></a>常用字符串操作函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">upper： 转大写</span><br><span class="line">lower： 转小写</span><br><span class="line">length： 长度</span><br><span class="line">* trim：  前后去空格</span><br><span class="line">lpad： 向左补齐，到指定长度</span><br><span class="line">rpad：  向右补齐，到指定长度</span><br><span class="line">* regexp_replace： SELECT regexp_replace(&#x27;100-200&#x27;, &#x27;(\d+)&#x27;, &#x27;num&#x27;)=&#x27;num-num</span><br><span class="line">	使用正则表达式匹配目标字符串，匹配成功后替换！</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="常用集合操作"><a href="#常用集合操作" class="headerlink" title="常用集合操作"></a>常用集合操作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">size： 集合（map和list）中元素的个数</span><br><span class="line">map_keys： 返回map中的key</span><br><span class="line">map_values: 返回map中的value</span><br><span class="line">* array_contains: 判断array中是否包含某个元素</span><br><span class="line">sort_array： 将array中的元素排序</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="系统函数"><a href="#系统函数" class="headerlink" title="系统函数"></a>系统函数</h2><h3 id="NVL"><a href="#NVL" class="headerlink" title="NVL"></a>NVL</h3><ol>
+<li> 语法： <code>NVL( str1, replace_with)</code></li>
+<li> 说明：判断 <code>str1</code> 是否为 <code>NULL</code>，如果不为 <code>NULL</code> 则 返回原值，如果为 <code>NULL</code> 则返回 <code>replace_with</code> 的值。</li>
+<li>使用场景：<ul>
+<li>  ① 将 <code>NULL</code> 值替换为默认值</li>
+<li>  ② 在使用一些统计函数时，如果统计函数会忽略 <code>NULL</code> 值，则使用该函数对 <code>NULL</code> 进行替换。（对于一些统计函数，例如 <code>avg()</code>，如果某一行的值为 <code>NULL</code>，在统计平均值时就会忽略该行，导致总行数减少，统计到的值自然也是不准确的。为了解决这个问题，一般会用 0 值代替 <code>NULL</code>）</li>
+</ul>
+</li>
+</ol>
+<p><strong>Demo</strong></p>
+<p>数据准备：采用员工表</p>
+<p><code>emp.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">7369	SMITH	CLERK	7902	1980-12-17	800.00		20</span><br><span class="line">7499	ALLEN	SALESMAN	7698	1981-2-20	1600.00	300.00	30</span><br><span class="line">7521	WARD	SALESMAN	7698	1981-2-22	1250.00	500.00	30</span><br><span class="line">7566	JONES	MANAGER	7839	1981-4-2	2975.00		20</span><br><span class="line">7654	MARTIN	SALESMAN	7698	1981-9-28	1250.00	1400.00	30</span><br><span class="line">7698	BLAKE	MANAGER	7839	1981-5-1	2850.00		30</span><br><span class="line">7782	CLARK	MANAGER	7839	1981-6-9	2450.00		10</span><br><span class="line">7788	SCOTT	ANALYST	7566	1987-4-19	3000.00		20</span><br><span class="line">7839	KING	PRESIDENT		1981-11-17	5000.00		10</span><br><span class="line">7844	TURNER	SALESMAN	7698	1981-9-8	1500.00	0.00	30</span><br><span class="line">7876	ADAMS	CLERK	7788	1987-5-23	1100.00		20</span><br><span class="line">7900	JAMES	CLERK	7698	1981-12-3	950.00		30</span><br><span class="line">7902	FORD	ANALYST	7566	1981-12-3	3000.00		20</span><br><span class="line">7934	MILLER	CLERK	7782	1982-1-23	1300.00		10</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol>
+<li><p>查询：如果员工的 <code>comm</code> 为 NULL，则用 <code>-1</code> 代替</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select nvl(comm,-1) from emp;</span><br><span class="line">OK</span><br><span class="line">_c0</span><br><span class="line">20.0</span><br><span class="line">300.0</span><br><span class="line">500.0</span><br><span class="line">-1.0</span><br><span class="line">1400.0</span><br><span class="line">-1.0</span><br><span class="line">-1.0</span><br><span class="line">-1.0</span><br><span class="line">-1.0</span><br><span class="line">0.0</span><br><span class="line">-1.0</span><br><span class="line">-1.0</span><br><span class="line">-1.0</span><br><span class="line">-1.0</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>查询：如果员工的 <code>comm</code> 为 <code>NULL</code>，则用领导 <code>id</code> 代替</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select nvl(comm,mgr) from emp;</span><br><span class="line">OK</span><br><span class="line">_c0</span><br><span class="line">20.0</span><br><span class="line">300.0</span><br><span class="line">500.0</span><br><span class="line">7839.0</span><br><span class="line">1400.0</span><br><span class="line">7839.0</span><br><span class="line">7839.0</span><br><span class="line">7566.0</span><br><span class="line">NULL</span><br><span class="line">0.0</span><br><span class="line">7788.0</span><br><span class="line">7698.0</span><br><span class="line">7566.0</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><ol>
+<li> 语法： <code>concat(str1, str2, ... strN)</code></li>
+<li> 说明：字符串拼接。</li>
+<li> 注意事项：一旦参数中存在一个字符串为 NULL，则返回 NULL</li>
+</ol>
+<hr>
+<h3 id="concat-ws"><a href="#concat-ws" class="headerlink" title="concat_ws"></a>concat_ws</h3><ol>
+<li><p> 语法：<code>concat_ws(separator, [string | array(string)]+)</code></p>
+</li>
+<li><p> 说明：拼接字符串或者字符串数组，并以指定的分隔符分隔。</p>
+</li>
+<li><p>Demo：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT concat_ws(&#x27;.&#x27;, &#x27;www&#x27;, array(&#x27;facebook&#x27;, &#x27;com&#x27;)) FROM src LIMIT 1;</span><br><span class="line"></span><br><span class="line">&#x27;www.facebook.com&#x27;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="判断函数"><a href="#判断函数" class="headerlink" title="判断函数"></a>判断函数</h3><h4 id="CASE…WHEN"><a href="#CASE…WHEN" class="headerlink" title="CASE…WHEN"></a>CASE…WHEN</h4><ol>
+<li><p>语法：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CASE 列名 </span><br><span class="line">	WHEN value1 THEN value2</span><br><span class="line">	WHEN value3 THEN value4</span><br><span class="line">	...</span><br><span class="line">	else valueN</span><br><span class="line">	end</span><br><span class="line">	;</span><br><span class="line"># 说明：</span><br><span class="line">#	1、对于该列的字段来说，如果 字段=value1，就返回 value2；</span><br><span class="line">#	如果 字段=value3，就返回 value4；可以有多个；</span><br><span class="line">#	2、如果找不到对应值，则返回 valueN</span><br><span class="line">#	3、最后以 end 结尾</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="if-函数"><a href="#if-函数" class="headerlink" title="if 函数"></a>if 函数</h4><ol>
+<li><p>语法：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(判断表达式, value1, value2        )</span><br><span class="line"></span><br><span class="line"># 说明：</span><br><span class="line">#	表达式返回一个 Boolean 值，如果该值为 true，则返回 value1，否则返回 value2</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p><strong>一、数据准备</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">name</th>
+<th align="center">dept_id</th>
+<th align="center">sex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">悟空</td>
+<td align="center">A</td>
+<td align="center">男</td>
+</tr>
+<tr>
+<td align="center">大海</td>
+<td align="center">A</td>
+<td align="center">男</td>
+</tr>
+<tr>
+<td align="center">宋宋</td>
+<td align="center">B</td>
+<td align="center">男</td>
+</tr>
+<tr>
+<td align="center">凤姐</td>
+<td align="center">A</td>
+<td align="center">女</td>
+</tr>
+<tr>
+<td align="center">婷姐</td>
+<td align="center">B</td>
+<td align="center">女</td>
+</tr>
+<tr>
+<td align="center">婷婷</td>
+<td align="center">B</td>
+<td align="center">女</td>
+</tr>
+</tbody></table>
+<p><strong>二、需求：</strong></p>
+<p>求出各个部门的男女各有多少人。结果应该如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 部门	男生人数	女生人数</span><br><span class="line">A	2	1</span><br><span class="line">B	1	2</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>三、创建本地 <code>emp_sex.txt</code>，导入数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 datas]$ vim emp_sex.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">悟空	A	男</span><br><span class="line">大海	A	男</span><br><span class="line">宋宋	B	男</span><br><span class="line">凤姐	A	女</span><br><span class="line">婷姐	B	女</span><br><span class="line">婷婷	B	女</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p><strong>四、创建 <code>hive</code> 表并导入数据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 1、创建 Hive 表</span><br><span class="line">create table emp_sex</span><br><span class="line">	(</span><br><span class="line">        name string, </span><br><span class="line">        dept_id string, </span><br><span class="line">        sex string</span><br><span class="line">    ) </span><br><span class="line">row format delimited fields terminated by &quot;\t&quot;;</span><br><span class="line"></span><br><span class="line"># 2、导入数据</span><br><span class="line">load data local inpath &#x27;/opt/module/datas/emp_sex.txt&#x27; into table emp_sex;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>五、按需求查询数据</strong></p>
+<ul>
+<li>  分析</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 部门	男生人数	女生人数</span><br><span class="line">A	2	1</span><br><span class="line">B	1	2</span><br><span class="line"></span><br><span class="line">select * from emp_sex</span><br><span class="line">group by dept_id;</span><br><span class="line"></span><br><span class="line">要得到每个部门的男生和女生人数，需要按照部门将所有员工划分成两部分</span><br><span class="line">        悟空	A	男</span><br><span class="line">        大海	A	男</span><br><span class="line">        凤姐	A	女</span><br><span class="line"></span><br><span class="line">        宋宋	B	男</span><br><span class="line">        婷姐	B	女</span><br><span class="line">        婷婷	B	女</span><br><span class="line"></span><br><span class="line">在分组前，要分别得到男生人数和女生人数，可以通过两个子查询来实现</span><br><span class="line"># 得到男生的人数</span><br><span class="line">select count(*) as male_count, dept_id from emp_sex</span><br><span class="line">where sex=&quot;男&quot;</span><br><span class="line">group by dept_id;</span><br><span class="line"></span><br><span class="line"># 得到女生的人数</span><br><span class="line">select count(*) as female_count, dept_id from emp_sex</span><br><span class="line">where sex=&quot;女&quot;</span><br><span class="line">group by dept_id;</span><br><span class="line"></span><br><span class="line"># 将上面两个结果拼接起来</span><br><span class="line">select t1.dept_id, male_count, female_count</span><br><span class="line">from</span><br><span class="line">(</span><br><span class="line">    select count(*) as male_count, dept_id from emp_sex</span><br><span class="line">	where sex=&quot;男&quot;</span><br><span class="line">	group by dept_id</span><br><span class="line">) t1,</span><br><span class="line">(</span><br><span class="line">    select count(*) as female_count, dept_id from emp_sex</span><br><span class="line">    where sex=&quot;女&quot;</span><br><span class="line">    group by dept_id</span><br><span class="line">) t2</span><br><span class="line">where t1.dept_id = t2.dept_id</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>优化</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">  dept_id,</span><br><span class="line">  sum(case sex when &#x27;男&#x27; then 1 else 0 end) male_count,</span><br><span class="line">  sum(case sex when &#x27;女&#x27; then 1 else 0 end) female_count</span><br><span class="line">from </span><br><span class="line">  emp_sex</span><br><span class="line">group by</span><br><span class="line">  dept_id;</span><br><span class="line">  </span><br><span class="line"># sum 函数是在 group by 之后执行</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h3 id="6-7-2-行转列"><a href="#6-7-2-行转列" class="headerlink" title="6.7.2    行转列"></a>6.7.2    行转列</h3><p><strong>行转列：</strong> <code>一列N行 ==&gt; 一列一行</code></p>
+<p><strong>一、相关函数说明</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONCAT(string A/col, string B/col...)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  返回输入字符串拼接后的结果，支持任意个输入字符串</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONCAT_WS(separator, str1, str2,...)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  它是一个特殊形式的 <code>CONCAT()</code>。第一个参数剩余参数间的分隔符。分隔符可以是与剩余参数一样的字符串。如果分隔符是 NULL，返回值也将为 NULL。这个函数会跳过分隔符参数后的任何 NULL 和空字符串。分隔符将被加到被连接的字符串之间;</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLLECT_SET(col)</span><br><span class="line"># 返回一个去重的 Set 集合</span><br><span class="line"># col 列名</span><br><span class="line"># 作用：将此列的所有记录封装到一个 Set 集合中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  函数只接受基本数据类型，它的主要作用是将某字段的值进行去重汇总，产生 <code>array</code> 类型字段。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLLECT_LIST(col)</span><br><span class="line"># 返回一个 List 集合，允许重复</span><br><span class="line"># col 列名</span><br><span class="line"># 作用：将此列的所有记录封装到一个 List 集合中</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>数据准备</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>constellation</th>
+<th>blood_type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>孙悟空</td>
+<td>白羊座</td>
+<td>A</td>
+</tr>
+<tr>
+<td>大海</td>
+<td>射手座</td>
+<td>A</td>
+</tr>
+<tr>
+<td>宋宋</td>
+<td>白羊座</td>
+<td>B</td>
+</tr>
+<tr>
+<td>猪八戒</td>
+<td>白羊座</td>
+<td>A</td>
+</tr>
+<tr>
+<td>凤姐</td>
+<td>射手座</td>
+<td>A</td>
+</tr>
+</tbody></table>
+<p><strong>需求</strong></p>
+<p>把星座和血型一样的人归类到一起。结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">射手座,A            大海|凤姐</span><br><span class="line">白羊座,A            孙悟空|猪八戒</span><br><span class="line">白羊座,B            宋宋</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 1、按照 星座 和 血型 两个条件对数据进行分组</span><br><span class="line">select concat(constellation, &quot;,&quot;, blood_type)</span><br><span class="line">from person_info</span><br><span class="line">group by constellation, blood_type;</span><br><span class="line"></span><br><span class="line"># 临时结果：得到三个分组</span><br><span class="line">射手座,A</span><br><span class="line">白羊座,A</span><br><span class="line">白羊座,B</span><br><span class="line"></span><br><span class="line"># 2、把分组内的 name 数据（可能有多条）（一列N行）封装成一列一行</span><br><span class="line">select concat(constellation, &quot;,&quot;, blood_type) as cb, CONCAT_WS(&quot;|&quot;, COLLECT_LIST(name)) as nameSet</span><br><span class="line">from person_info</span><br><span class="line">group by constellation, blood_type;</span><br><span class="line"></span><br><span class="line"># select 后面只能使用分组后的字段，及聚集函数。COLLECT_LIST()函数也是一个聚集函数</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol>
+<li><p>创建本地 <code>person_info.txt</code>，导入数据</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 datas]$ vim person_info.txt</span><br><span class="line"></span><br><span class="line">孙悟空	白羊座	A</span><br><span class="line">大海	射手座	A</span><br><span class="line">宋宋	白羊座	B</span><br><span class="line">猪八戒	白羊座	A</span><br><span class="line">凤姐	射手座	A</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>创建 <code>Hive</code> 表并导入数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 创建 Hive 表</span><br><span class="line">create table person_info</span><br><span class="line">(</span><br><span class="line">    name string, </span><br><span class="line">    constellation string, </span><br><span class="line">    blood_type string</span><br><span class="line">) </span><br><span class="line">row format delimited fields terminated by &quot;\t&quot;;</span><br><span class="line"></span><br><span class="line"># 导入数据</span><br><span class="line">load data local inpath &quot;/opt/module/datas/person_info.txt&quot; into table person_info;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>按需求查询数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select concat(constellation, &quot;,&quot;, blood_type) as cb, CONCAT_WS(&quot;|&quot;, COLLECT_LIST(name)) as nameSet</span><br><span class="line">from person_info</span><br><span class="line">group by constellation, blood_type;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="列转行"><a href="#列转行" class="headerlink" title="列转行"></a>列转行</h3><p><strong>列转行：</strong><code>一行一列 ==&gt; 一行N列</code></p>
+<p><strong>常见函数：</strong></p>
+<ol>
+<li><p>函数说明</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">EXPLODE(col)：</span><br><span class="line"># 作用：将 Array 类型的参数拆分为 1 列 N 行，或将 Map 类型的参数拆分成 2 列 N 行。</span><br><span class="line"># col：列名，要求参数类型只能是 Array 类型或 Map 类型</span><br><span class="line"># EXPLODE 属于 UDTF，UDTF 在使用时，不能和其它表达式一起出现在 select 子句后，即 UDTF 只能单独出现在 select 子句后。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 侧写</span><br><span class="line">LATERAL VIEW	</span><br><span class="line"></span><br><span class="line"># 用法</span><br><span class="line">LATERAL VIEW udtf(expression) tableAlias AS columnAlias</span><br><span class="line"># tableAlias 临时表名</span><br><span class="line"># columnAlias	临时列名</span><br><span class="line"></span><br><span class="line"># 解释</span><br><span class="line">用于和split, explode等UDTF一起使用，它能够将一列数据拆成多行数据，在此基础上可以对拆分后的数据进行聚合。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>数据准备</p>
+<table>
+<thead>
+<tr>
+<th>movie</th>
+<th>category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>《疑犯追踪》</td>
+<td>悬疑,动作,科幻,剧情</td>
+</tr>
+<tr>
+<td>《Lie  to me》</td>
+<td>悬疑,警匪,动作,心理,剧情</td>
+</tr>
+<tr>
+<td>《战狼2》</td>
+<td>战争,动作,灾难</td>
+</tr>
+</tbody></table>
+<p>需求：将电影分类中的数组数据展开。结果如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 期望结果</span></span><br><span class="line"></span><br><span class="line">《疑犯追踪》	悬疑</span><br><span class="line">《疑犯追踪》	动作</span><br><span class="line">《疑犯追踪》	科幻</span><br><span class="line">《疑犯追踪》	剧情</span><br><span class="line">《Lie <span class="keyword">to</span> me》	悬疑</span><br><span class="line">《Lie <span class="keyword">to</span> me》	警匪</span><br><span class="line">《Lie <span class="keyword">to</span> me》	动作</span><br><span class="line">《Lie <span class="keyword">to</span> me》	心理</span><br><span class="line">《Lie <span class="keyword">to</span> me》	剧情</span><br><span class="line">《战狼<span class="number">2</span>》	战争</span><br><span class="line">《战狼<span class="number">2</span>》	动作</span><br><span class="line">《战狼<span class="number">2</span>》	灾难</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">在原始数据中，category 是数组类型数据，可以将数组中的元素都拆出来，再与对应的电影名称做笛卡尔积。</span><br><span class="line"></span><br><span class="line"># 1、把集合转为多个元素</span><br><span class="line">select explode(category)</span><br><span class="line">from movie_info;</span><br><span class="line"></span><br><span class="line"># 2、将第一步的查询结果作为一张临时表，再与 movie_info 表进行关联</span><br><span class="line">select </span><br><span class="line">from movie_info</span><br><span class="line">join</span><br><span class="line">select explode(category)</span><br><span class="line">from movie_info</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"># 3、需要将 explode 拆分后的一列N行，在逻辑上依然视为一列一行。和 movie_info 做表关联。这个行为在 Hive 中叫做侧写（lateral view）</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>实现</strong></p>
+<ol>
+<li><p>创建本地 <code>movie.txt</code>，导入数据</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 datas]$ vim movie.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件内容</span></span><br><span class="line">《疑犯追踪》	悬疑,动作,科幻,剧情</span><br><span class="line">《Lie to me》	悬疑,警匪,动作,心理,剧情</span><br><span class="line">《战狼2》	战争,动作,灾难</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>创建 <code>hive</code> 表，并导入数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 创建 hive 表</span><br><span class="line">create table movie_info</span><br><span class="line">(</span><br><span class="line">    movie string, </span><br><span class="line">    category array&lt;string&gt;</span><br><span class="line">) </span><br><span class="line">row format delimited fields terminated by &quot;\t&quot;</span><br><span class="line">collection items terminated by &quot;,&quot;;</span><br><span class="line"></span><br><span class="line"># 导入数据</span><br><span class="line">load data local inpath &quot;/opt/module/datas/movie.txt&quot; into table movie_info;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>按需求查询数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">    movie,</span><br><span class="line">    category_name</span><br><span class="line">from </span><br><span class="line">    movie_info lateral view explode(category) table_tmp as category_name;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h3><p>窗口函数：窗口 + 函数</p>
+<ul>
+<li>  窗口：函数运行时计算的数据集的范围</li>
+<li>  函数：运行的函数</li>
+</ul>
+<p>注意：不是所有的函数在运行时都可以通过改变窗口的大小，来控制计算的数据集的范围。</p>
+<p>格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">函数名 <span class="keyword">over</span>( <span class="keyword">partition</span> <span class="keyword">by</span> 字段, <span class="keyword">order</span> <span class="keyword">by</span> 字段, window_clause) </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol>
+<li><p>相关函数说明</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">OVER()：指定分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变而变化</span><br><span class="line"></span><br><span class="line">CURRENT ROW：当前行</span><br><span class="line">n PRECEDING：往前n行数据</span><br><span class="line">n FOLLOWING：往后n行数据</span><br><span class="line">UNBOUNDED：起点，UNBOUNDED PRECEDING 表示从前面的起点， UNBOUNDED FOLLOWING表示到后面的终点</span><br><span class="line"></span><br><span class="line">LAG(col, n)：往前第n行数据</span><br><span class="line"></span><br><span class="line">LEAD(col, n)：往后第n行数据</span><br><span class="line"></span><br><span class="line">NTILE(n)：把有序分区中的行分发到指定数据的组中，各个组有编号，编号从1开始，对于每一行，NTILE返回此行所属的组的编号。注意：n必须为int类型。</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>数据准备</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># name，orderdate，cost</span><br><span class="line">jack,2017-01-01,10</span><br><span class="line">tony,2017-01-02,15</span><br><span class="line">jack,2017-02-03,23</span><br><span class="line">tony,2017-01-04,29</span><br><span class="line">jack,2017-01-05,46</span><br><span class="line">jack,2017-04-06,42</span><br><span class="line">tony,2017-01-07,50</span><br><span class="line">jack,2017-01-08,55</span><br><span class="line">mart,2017-04-08,62</span><br><span class="line">mart,2017-04-09,68</span><br><span class="line">neil,2017-05-10,12</span><br><span class="line">mart,2017-04-11,75</span><br><span class="line">neil,2017-06-12,80</span><br><span class="line">mart,2017-04-13,94</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>需求：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（1）查询在2017年4月份购买过商品的顾客及总人数</span><br><span class="line">（2）查询顾客的购买明细及月购买总额</span><br><span class="line">（3）上述的场景,要将cost按照日期进行累加</span><br><span class="line">（4）查询顾客上次的购买时间</span><br><span class="line">（5）查询前20%时间的订单信息</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>实现：</strong></p>
+<ol>
+<li><p>创建本地 <code>business.txt</code>，导入数据</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 datas]$ vim business.txt</span><br></pre></td></tr></table></figure></li>
+<li><p>创建 <code>hive</code> 表并导入数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 创建 business 表</span><br><span class="line">create table business</span><br><span class="line">(</span><br><span class="line">    name string, </span><br><span class="line">    orderdate string,</span><br><span class="line">    cost int</span><br><span class="line">) </span><br><span class="line">ROW FORMAT DELIMITED FIELDS TERMINATED BY &#x27;,&#x27;;</span><br><span class="line"></span><br><span class="line"># 导入数据</span><br><span class="line">load data local inpath &quot;/opt/module/datas/business.txt&quot; into table business;</span><br></pre></td></tr></table></figure></li>
+<li><p>按需求查询数据</p>
+<ul>
+<li>  （1）查询在2017年4月份购买过的顾客及总人数</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select name, count(*) over() </span><br><span class="line">from business </span><br><span class="line">where substring(orderdate,1,7) = &#x27;2017-04&#x27; </span><br><span class="line">group by name;</span><br><span class="line"></span><br><span class="line"># count() 函数用于分组后，统计每个组内所有的数据</span><br><span class="line"># count(*) over() 添加窗口函数，统计分组后临时表的个数</span><br><span class="line"># group by 用于去重，一个用户多次购物不会增加人数</span><br><span class="line"># substring()	作用：截取字符串，从第一位开始，截取7位</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  （2）查询顾客的购买明细及月购买总额</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select name, orderdate, cost, sum(cost) over(partition by month(orderdate)) </span><br><span class="line">from business;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  （3）上述的场景,要将 <code>cost</code> 按照日期进行累加</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select name,orderdate,cost, </span><br><span class="line">sum(cost) over() as sample1,--所有行相加 </span><br><span class="line">sum(cost) over(partition by name) as sample2,--按name分组，组内数据相加 </span><br><span class="line">sum(cost) over(partition by name order by orderdate) as sample3,--按name分组，组内数据累加 </span><br><span class="line">sum(cost) over(partition by name order by orderdate rows between UNBOUNDED PRECEDING and current row ) as sample4 ,--和sample3一样,由起点到当前行的聚合 </span><br><span class="line">sum(cost) over(partition by name order by orderdate rows between 1 PRECEDING and current row) as sample5, --当前行和前面一行做聚合 </span><br><span class="line">sum(cost) over(partition by name order by orderdate rows between 1 PRECEDING AND 1 FOLLOWING ) as sample6,--当前行和前边一行及后面一行 </span><br><span class="line">sum(cost) over(partition by name order by orderdate rows between current row and UNBOUNDED FOLLOWING ) as sample7 --当前行及后面所有行 </span><br><span class="line">from business;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  （4）查询顾客上次的购买时间</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select name,orderdate,cost, </span><br><span class="line">lag(orderdate,1,&#x27;1900-01-01&#x27;) over(partition by name order by orderdate ) as time1, lag(orderdate,2) over (partition by name order by orderdate) as time2 </span><br><span class="line">from business;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  （5）查询前 <code>20%</code> 时间的订单信息</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select * from </span><br><span class="line">(</span><br><span class="line">    select name,orderdate,cost, ntile(5) over(order by orderdate) sorted</span><br><span class="line">    from business</span><br><span class="line">) t</span><br><span class="line">where sorted = 1;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="排名函数"><a href="#排名函数" class="headerlink" title="排名函数"></a>排名函数</h3><p><strong>常用的排名函数</strong></p>
+<ol>
+<li><p><code>RANK()</code>    排序相同时会重复（允许并列），总数不会变</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 1 3 3 5</span><br></pre></td></tr></table></figure></li>
+<li><p><code>DENSE_RANK()</code>    排序相同时会重复，总数会减少</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 1 2 2 3</span><br></pre></td></tr></table></figure></li>
+<li><p><code>ROW_NUMBER()</code>    会根据顺序计算。就是行号</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>数据准备</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">name</th>
+<th align="center">subject</th>
+<th align="center">score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">孙悟空</td>
+<td align="center">语文</td>
+<td align="center">87</td>
+</tr>
+<tr>
+<td align="center">孙悟空</td>
+<td align="center">数学</td>
+<td align="center">95</td>
+</tr>
+<tr>
+<td align="center">孙悟空</td>
+<td align="center">英语</td>
+<td align="center">68</td>
+</tr>
+<tr>
+<td align="center">大海</td>
+<td align="center">语文</td>
+<td align="center">94</td>
+</tr>
+<tr>
+<td align="center">大海</td>
+<td align="center">数学</td>
+<td align="center">56</td>
+</tr>
+<tr>
+<td align="center">大海</td>
+<td align="center">英语</td>
+<td align="center">84</td>
+</tr>
+<tr>
+<td align="center">宋宋</td>
+<td align="center">语文</td>
+<td align="center">64</td>
+</tr>
+<tr>
+<td align="center">宋宋</td>
+<td align="center">数学</td>
+<td align="center">86</td>
+</tr>
+<tr>
+<td align="center">宋宋</td>
+<td align="center">英语</td>
+<td align="center">84</td>
+</tr>
+<tr>
+<td align="center">婷婷</td>
+<td align="center">语文</td>
+<td align="center">65</td>
+</tr>
+<tr>
+<td align="center">婷婷</td>
+<td align="center">数学</td>
+<td align="center">85</td>
+</tr>
+<tr>
+<td align="center">婷婷</td>
+<td align="center">英语</td>
+<td align="center">78</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">孙悟空	语文	87</span><br><span class="line">孙悟空	数学	95</span><br><span class="line">孙悟空	英语	68</span><br><span class="line">大海	语文	94</span><br><span class="line">大海	数学	56</span><br><span class="line">大海	英语	84</span><br><span class="line">宋宋	语文	64</span><br><span class="line">宋宋	数学	86</span><br><span class="line">宋宋	英语	84</span><br><span class="line">婷婷	语文	65</span><br><span class="line">婷婷	数学	85</span><br><span class="line">婷婷	英语	78</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>需求：计算每门学科成绩排名。</p>
+<p><strong>实现：</strong></p>
+<ol>
+<li><p>创建本地 <code>score.txt</code>，导入数据</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 datas]$ vim score.txt</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>创建 <code>Hive</code> 表并导入数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table score</span><br><span class="line">(</span><br><span class="line">    name string,</span><br><span class="line">    subject string, </span><br><span class="line">    score int</span><br><span class="line">) </span><br><span class="line">row format delimited fields terminated by &quot;\t&quot;;</span><br><span class="line">load data local inpath &#x27;/opt/module/datas/score.txt&#x27; into table score;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>按需求查询数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">	name,</span><br><span class="line">	subject,</span><br><span class="line">	score,</span><br><span class="line">rank() over(partition by subject order by score desc) rp,</span><br><span class="line">dense_rank() over(partition by subject order by score desc) drp,</span><br><span class="line">row_number() over(partition by subject order by score desc) rmp</span><br><span class="line">from score;</span><br><span class="line"># 排名前一般需要先排序</span><br><span class="line"></span><br><span class="line"># 查询结果</span><br><span class="line">name    subject score   rp      drp     rmp</span><br><span class="line">孙悟空  数学    95      1       1       1</span><br><span class="line">宋宋    数学    86      2       2       2</span><br><span class="line">婷婷    数学    85      3       3       3</span><br><span class="line">大海    数学    56      4       4       4</span><br><span class="line">宋宋    英语    84      1       1       1</span><br><span class="line">大海    英语    84      1       1       2</span><br><span class="line">婷婷    英语    78      3       2       3</span><br><span class="line">孙悟空  英语    68      4       3       4</span><br><span class="line">大海    语文    94      1       1       1</span><br><span class="line">孙悟空  语文    87      2       2       2</span><br><span class="line">婷婷    语文    65      3       3       3</span><br><span class="line">宋宋    语文    64      4       4       4</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>练习</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 按照科目进行排名</span><br><span class="line"></span><br><span class="line">// 给每个学生的总分进行排名</span><br><span class="line"></span><br><span class="line">// 只查询每个科目的成绩的前2名</span><br><span class="line"></span><br><span class="line">// 查询学生成绩，并显示当前科目最高分</span><br><span class="line"></span><br><span class="line">// 查询学生成绩，并显示当前科目最低分</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h2 id="7-2-自定义函数"><a href="#7-2-自定义函数" class="headerlink" title="7.2 自定义函数"></a>7.2 自定义函数</h2><ul>
+<li>  <code>Hive</code> 提供了一些内置函数，比如 <code>max/min</code> 等，但是数量有限，所以 <code>Hive</code> 提供了用户自定义函数的功能，用户可以通过 <code>UDF</code> 实现自定义函数。</li>
+<li>  UDF：User-defined Function</li>
+</ul>
+<h3 id="用户自定义函数分类（按照特征分类）："><a href="#用户自定义函数分类（按照特征分类）：" class="headerlink" title="用户自定义函数分类（按照特征分类）："></a>用户自定义函数分类（按照特征分类）：</h3><ol>
+<li><p><strong>UDF（User-Defined-Function）</strong></p>
+<ul>
+<li>  一进一出。输入单个参数，返回单个结果</li>
+</ul>
+</li>
+<li><p><strong>UDAF（User-Defined Aggregation Function）</strong>：用户定义的表聚集函数</p>
+<ul>
+<li>  聚集函数，多进一出</li>
+<li>  类似于：<code>count/max/min</code></li>
+</ul>
+</li>
+<li><p><strong>UDTF（User-Defined Table-Generating Functions）</strong>：用户定义的表生成函数</p>
+<ul>
+<li>   一进多出</li>
+<li>  类似于：<code>lateral view explore()</code></li>
+</ul>
+<p> ​      </p>
+</li>
+</ol>
+<h3 id="官方文档地址"><a href="#官方文档地址" class="headerlink" title="官方文档地址"></a>官方文档地址</h3><p><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HivePlugins">https://cwiki.apache.org/confluence/display/Hive/HivePlugins</a></p>
+<h3 id="自定义函数编程步骤："><a href="#自定义函数编程步骤：" class="headerlink" title="自定义函数编程步骤："></a>自定义函数编程步骤：</h3><ol>
+<li><p> 继承 <code>org.apache.hadoop.hive.ql.UDF</code></p>
+</li>
+<li><p> 实现 <code>evaluate</code> 函数；<code>evaluate</code> 函数支持重载；</p>
+</li>
+<li><p>在 <code>Hive</code> 的命令行窗口创建函数</p>
+<ul>
+<li><p>添加 <code>jar</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add jar linux_jar_path</span><br></pre></td></tr></table></figure></li>
+<li><p>创建 <code>function</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create [temporary] function [dbname.]function_name AS class_name;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在 <code>hive</code> 的命令行窗口删除函数</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Drop [temporary] function [if exists] [dbname.]function_name;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>  <code>UDF</code> 必须要有返回类型，可以返回 <code>null</code>，但是返回类型不能为 <code>void</code>；</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="7-3-自定义-UDF-函数"><a href="#7-3-自定义-UDF-函数" class="headerlink" title="7.3 自定义 UDF 函数"></a>7.3 自定义 UDF 函数</h2><ol>
+<li><p>创建一个 <code>Maven</code> 工程，并导入依赖</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.hive/hive-exec --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hive<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hive-exec<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>创建一个类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.hive;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hive.ql.exec.UDF;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Lower</span> <span class="keyword">extends</span> <span class="title class_">UDF</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">evaluate</span> <span class="params">(<span class="keyword">final</span> String s)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (s == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> s.toLowerCase();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p> 打成 <code>jar</code> 包上传到服务器 <code>/opt/module/jars/udf.jar</code></p>
+</li>
+<li><p>将 <code>jar</code> 包添加到 <code>hive</code> 的 <code>classpath</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; add jar /opt/module/datas/udf.jar;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建临时函数与开发好的 <code>java class</code> 关联</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; create temporary function mylower as &quot;com.atguigu.hive.Lower&quot;;</span><br></pre></td></tr></table></figure></li>
+<li><p>即可在 <code>hql</code> 中使用自定义的函数 <code>strip</code> </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select ename, mylower(ename) lowername from emp;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="第-8-章-压缩和存储"><a href="#第-8-章-压缩和存储" class="headerlink" title="第 8 章    压缩和存储"></a>第 8 章    压缩和存储</h1><h2 id="8-1-Hadoop源码编译支持Snappy压缩"><a href="#8-1-Hadoop源码编译支持Snappy压缩" class="headerlink" title="8.1 Hadoop源码编译支持Snappy压缩"></a>8.1 Hadoop源码编译支持Snappy压缩</h2><h3 id="8-1-1-资源准备"><a href="#8-1-1-资源准备" class="headerlink" title="8.1.1 资源准备"></a>8.1.1 资源准备</h3><p>1．CentOS联网 </p>
+<p>配置CentOS能连接外网。Linux虚拟机ping <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 是畅通的</p>
+<p>注意：采用root角色编译，减少文件夹权限出现问题</p>
+<p>2．jar包准备(hadoop源码、JDK8 、maven、protobuf)</p>
+<p>（1）hadoop-2.7.2-src.tar.gz</p>
+<p>（2）jdk-8u144-linux-x64.tar.gz</p>
+<p>（3）snappy-1.1.3.tar.gz</p>
+<p>（4）apache-maven-3.0.5-bin.tar.gz</p>
+<p>（5）protobuf-2.5.0.tar.gz</p>
+<h3 id="8-1-2-jar包安装"><a href="#8-1-2-jar包安装" class="headerlink" title="8.1.2 jar包安装"></a>8.1.2 jar包安装</h3><p>注意：所有操作必须在root用户下完成</p>
+<p>1．JDK解压、配置环境变量JAVA_HOME和PATH，验证<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/javase">java</a>-version(如下都需要验证是否配置成功)</p>
+<p>[root@hadoop101 software] # tar -zxf jdk-8u144-linux-x64.tar.gz -C /opt/module/</p>
+<p>[root@hadoop101 software]# vi /etc/profile</p>
+<p>  #JAVA_HOME  export  JAVA_HOME=/opt/module/jdk1.8.0_144  export  PATH=$PATH:$JAVA_HOME/bin  </p>
+<p>[root@hadoop101 software]#source /etc/profile</p>
+<p>验证命令：java -version</p>
+<p>2．Maven解压、配置  MAVEN_HOME和PATH</p>
+<p>[root@hadoop101 software]# tar -zxvf apache-maven-3.0.5-bin.tar.gz -C /opt/module/</p>
+<p>[root@hadoop101 apache-maven-3.0.5]# vi /etc/profile</p>
+<p>  #MAVEN_HOME  export  MAVEN_HOME=/opt/module/apache-maven-3.0.5  export  PATH=$PATH:$MAVEN_HOME/bin  </p>
+<p>[root@hadoop101 software]#source /etc/profile</p>
+<p>验证命令：mvn -version</p>
+<h3 id="8-1-3-编译源码"><a href="#8-1-3-编译源码" class="headerlink" title="8.1.3 编译源码"></a>8.1.3 编译源码</h3><p>1．准备编译环境</p>
+<p>[root@hadoop101 software]# yum install svn</p>
+<p>[root@hadoop101 software]# yum install autoconf automake libtool cmake</p>
+<p>[root@hadoop101 software]# yum install ncurses-devel</p>
+<p>[root@hadoop101 software]# yum install openssl-devel</p>
+<p>[root@hadoop101 software]# yum install gcc*</p>
+<p>2．编译安装snappy</p>
+<p>[root@hadoop101 software]# tar -zxvf snappy-1.1.3.tar.gz -C /opt/module/</p>
+<p>[root@hadoop101 module]# cd snappy-1.1.3/</p>
+<p>[root@hadoop101 snappy-1.1.3]# ./configure</p>
+<p>[root@hadoop101 snappy-1.1.3]# make</p>
+<p>[root@hadoop101 snappy-1.1.3]# make install</p>
+<p># 查看snappy库文件</p>
+<p>[root@hadoop101 snappy-1.1.3]# ls -lh /usr/local/lib |grep snappy</p>
+<p>3．编译安装protobuf</p>
+<p>[root@hadoop101 software]# tar -zxvf protobuf-2.5.0.tar.gz -C /opt/module/</p>
+<p>[root@hadoop101 module]# cd protobuf-2.5.0/</p>
+<p>[root@hadoop101 protobuf-2.5.0]# ./configure </p>
+<p>[root@hadoop101 protobuf-2.5.0]# make </p>
+<p>[root@hadoop101 protobuf-2.5.0]# make install</p>
+<p># 查看protobuf版本以测试是否安装成功<br> [root@hadoop101 protobuf-2.5.0]# protoc –version</p>
+<p>4．编译hadoop native</p>
+<p>[root@hadoop101 software]# tar -zxvf hadoop-2.7.2-src.tar.gz</p>
+<p>[root@hadoop101 software]# cd hadoop-2.7.2-src/</p>
+<p>[root@hadoop101 software]# mvn clean package -DskipTests -Pdist,native -Dtar -Dsnappy.lib=/usr/local/lib -Dbundle.snappy</p>
+<p>执行成功后，/opt/software/hadoop-2.7.2-src/hadoop-dist/target/<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/hadoop">hadoop</a>-2.7.2.tar.gz即为新生成的支持snappy压缩的二进制安装包。</p>
+<h2 id="8-2-Hadoop压缩配置"><a href="#8-2-Hadoop压缩配置" class="headerlink" title="8.2 Hadoop压缩配置"></a>8.2 Hadoop压缩配置</h2><h3 id="8-2-1-MR支持的压缩编码"><a href="#8-2-1-MR支持的压缩编码" class="headerlink" title="8.2.1 MR支持的压缩编码"></a>8.2.1 MR支持的压缩编码</h3><p>表6-8</p>
+<table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>工具</th>
+<th>算法</th>
+<th>文件扩展名</th>
+<th>是否可切分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEFAULT</td>
+<td>无</td>
+<td>DEFAULT</td>
+<td>.deflate</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Gzip</td>
+<td>gzip</td>
+<td>DEFAULT</td>
+<td>.gz</td>
+<td>否</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>.bz2</td>
+<td>是</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>lzop</td>
+<td>LZO</td>
+<td>.lzo</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>无</td>
+<td>Snappy</td>
+<td>.snappy</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<p>为了支持多种压缩/解压缩算法，Hadoop引入了编码/解码器，如下表所示：</p>
+<p>表6-9</p>
+<table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>对应的编码/解码器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEFLATE</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec</td>
+</tr>
+<tr>
+<td>gzip</td>
+<td>org.apache.hadoop.io.compress.GzipCodec</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>org.apache.hadoop.io.compress.BZip2Codec</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>com.hadoop.compression.lzo.LzopCodec</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>org.apache.hadoop.io.compress.SnappyCodec</td>
+</tr>
+</tbody></table>
+<p>压缩性能的比较：</p>
+<p>表6-10</p>
+<table>
+<thead>
+<tr>
+<th>压缩算法</th>
+<th>原始文件大小</th>
+<th>压缩文件大小</th>
+<th>压缩速度</th>
+<th>解压速度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>gzip</td>
+<td>8.3GB</td>
+<td>1.8GB</td>
+<td>17.5MB/s</td>
+<td>58MB/s</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>8.3GB</td>
+<td>1.1GB</td>
+<td>2.4MB/s</td>
+<td>9.5MB/s</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>8.3GB</td>
+<td>2.9GB</td>
+<td>49.3MB/s</td>
+<td>74.6MB/s</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="http://google.github.io/snappy/">http://google.github.io/snappy/</a></p>
+<p>On a single core of a Core i7 processor in 64-bit mode, Snappy compresses at about 250 MB/sec or more and decompresses at about 500 MB/sec or more.</p>
+<h3 id="8-2-2-压缩参数配置"><a href="#8-2-2-压缩参数配置" class="headerlink" title="8.2.2 压缩参数配置"></a>8.2.2 压缩参数配置</h3><p>要在Hadoop中启用压缩，可以配置如下参数（mapred-site.xml文件中）：</p>
+<p>表6-11</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>阶段</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>io.compression.codecs    （在core-site.xml中配置）</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec,  org.apache.hadoop.io.compress.GzipCodec,  org.apache.hadoop.io.compress.BZip2Codec,  org.apache.hadoop.io.compress.Lz4Codec</td>
+<td>输入压缩</td>
+<td>Hadoop使用文件扩展名判断是否支持某种编解码器</td>
+</tr>
+<tr>
+<td>mapreduce.map.output.compress</td>
+<td>false</td>
+<td>mapper输出</td>
+<td>这个参数设为true启用压缩</td>
+</tr>
+<tr>
+<td>mapreduce.map.output.compress.codec</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec</td>
+<td>mapper输出</td>
+<td>使用LZO、LZ4或snappy编解码器在此阶段压缩数据</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress</td>
+<td>false</td>
+<td>reducer输出</td>
+<td>这个参数设为true启用压缩</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress.codec</td>
+<td>org.apache.hadoop.io.compress.  DefaultCodec</td>
+<td>reducer输出</td>
+<td>使用标准工具或者编解码器，如gzip和bzip2</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress.type</td>
+<td>RECORD</td>
+<td>reducer输出</td>
+<td>SequenceFile输出使用的压缩类型：NONE和BLOCK</td>
+</tr>
+</tbody></table>
+<h2 id="8-3-开启Map输出阶段压缩"><a href="#8-3-开启Map输出阶段压缩" class="headerlink" title="8.3 开启Map输出阶段压缩"></a>8.3 开启Map输出阶段压缩</h2><p>开启map输出阶段压缩可以减少job中map和Reduce task间数据传输量。具体配置如下：</p>
+<p><strong>案例实操：</strong></p>
+<p>1．开启hive中间传输数据压缩功能</p>
+<p>hive (default)&gt;set hive.exec.compress.intermediate=true;</p>
+<p>2．开启mapreduce中map输出压缩功能</p>
+<p>hive (default)&gt;set mapreduce.map.output.compress=true;</p>
+<p>3．设置mapreduce中map输出数据的压缩方式</p>
+<p>hive (default)&gt;set mapreduce.map.output.compress.codec=</p>
+<p> org.apache.hadoop.io.compress.SnappyCodec;</p>
+<p>4．执行查询语句</p>
+<p>  hive (default)&gt; select count(ename) name from emp;</p>
+<h2 id="8-4-开启Reduce输出阶段压缩"><a href="#8-4-开启Reduce输出阶段压缩" class="headerlink" title="8.4 开启Reduce输出阶段压缩"></a>8.4 开启Reduce输出阶段压缩</h2><p>当Hive将输出写入到表中时，输出内容同样可以进行压缩。属性hive.exec.compress.output控制着这个功能。用户可能需要保持默认设置文件中的默认值false，这样默认的输出就是非压缩的纯文本文件了。用户可以通过在查询语句或执行脚本中设置这个值为true，来开启输出结果压缩功能。</p>
+<p><strong>案例实操：</strong></p>
+<p>1．开启hive最终输出数据压缩功能</p>
+<p>hive (default)&gt;set hive.exec.compress.output=true;</p>
+<p>2．开启mapreduce最终输出数据压缩</p>
+<p>hive (default)&gt;set mapreduce.output.fileoutputformat.compress=true;</p>
+<p>3．设置mapreduce最终数据输出压缩方式</p>
+<p>hive (default)&gt; set mapreduce.output.fileoutputformat.compress.codec =</p>
+<p> org.apache.hadoop.io.compress.SnappyCodec;</p>
+<p>4．设置mapreduce最终数据输出压缩为块压缩</p>
+<p>hive (default)&gt; set mapreduce.output.fileoutputformat.compress.type=BLOCK;</p>
+<p>5．测试一下输出结果是否是压缩文件</p>
+<p>hive (default)&gt; insert overwrite local directory</p>
+<p> ‘/opt/module/datas/distribute-result’ select * from emp distribute by deptno sort by empno desc;</p>
+<h2 id="8-5-文件存储格式"><a href="#8-5-文件存储格式" class="headerlink" title="8.5 文件存储格式"></a>8.5 文件存储格式</h2><p>Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p>
+<h3 id="8-5-1-列式存储和行式存储"><a href="#8-5-1-列式存储和行式存储" class="headerlink" title="8.5.1 列式存储和行式存储"></a>8.5.1 列式存储和行式存储</h3><p><img src="Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image002.jpg" alt="img"></p>
+<p>图6-10 列式存储和行式存储</p>
+<p>如图6-10所示左边为逻辑表，右边第一个为行式存储，第二个为列式存储。</p>
+<p>1．行存储的特点</p>
+<p>查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p>
+<p>2．列存储的特点</p>
+<p>因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每个字段的数据类型一定是相同的，列式存储可以针对性的设计更好的设计压缩算法。</p>
+<p>TEXTFILE和SEQUENCEFILE的存储格式都是基于行存储的；</p>
+<p>ORC和PARQUET是基于列式存储的。</p>
+<h3 id="8-5-2-TextFile格式"><a href="#8-5-2-TextFile格式" class="headerlink" title="8.5.2 TextFile格式"></a>8.5.2 TextFile格式</h3><p>默认格式，数据不做压缩，磁盘开销大，数据解析开销大。可结合Gzip、Bzip2使用，但使用Gzip这种方式，hive不会对数据进行切分，从而无法对数据进行并行操作。</p>
+<h3 id="8-5-3-Orc格式"><a href="#8-5-3-Orc格式" class="headerlink" title="8.5.3 Orc格式"></a>8.5.3 Orc格式</h3><p>Orc (Optimized Row Columnar)是Hive 0.11版里引入的新的存储格式。</p>
+<p>如图6-11所示可以看到每个Orc文件由1个或多个stripe组成，每个stripe250MB大小，这个Stripe实际相当于RowGroup概念，不过大小由4MB-&gt;250MB，这样应该能提升顺序读的吞吐率。每个Stripe里有三部分组成，分别是Index Data，Row Data，Stripe Footer：</p>
+<p><img src="Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image004.jpg" alt="img"></p>
+<p>图6-11 Orc格式</p>
+<p>​    1）Index Data：一个轻量级的index，默认是每隔1W行做一个索引。这里做的索引应该只是记录某行的各字段在Row Data中的offset。</p>
+<p>   2）Row Data：存的是具体的数据，先取部分行，然后对这些行按列进行存储。对每个列进行了编码，分成多个Stream来存储。</p>
+<p>​    3）Stripe Footer：存的是各个Stream的类型，长度等信息。</p>
+<p>每个文件有一个File Footer，这里面存的是每个Stripe的行数，每个Column的数据类型信息等；每个文件的尾部是一个PostScript，这里面记录了整个文件的压缩类型以及FileFooter的长度信息等。在读取文件时，会seek到文件尾部读PostScript，从里面解析到File Footer长度，再读FileFooter，从里面解析到各个Stripe信息，再读各个Stripe，即从后往前读。</p>
+<h3 id="8-5-4-Parquet格式"><a href="#8-5-4-Parquet格式" class="headerlink" title="8.5.4 Parquet格式"></a>8.5.4 Parquet格式</h3><p>Parquet是面向分析型业务的列式存储格式，由Twitter和Cloudera合作开发，2015年5月从Apache的孵化器里毕业成为Apache顶级项目。</p>
+<p>Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。</p>
+<p>通常情况下，在存储Parquet数据的时候会按照Block大小设置行组的大小，由于一般情况下每一个Mapper任务处理数据的最小单位是一个Block，这样可以把每一个行组由一个Mapper任务处理，增大任务执行并行度。Parquet文件的格式如图6-12所示。</p>
+<p><img src="Hive%EF%BC%88%E4%B8%8B%EF%BC%89/clip_image006.jpg" alt="Parquet文件格式"></p>
+<p>图6-12 Parquet格式</p>
+<p>上图展示了一个Parquet文件的内容，一个文件中可以存储多个行组，文件的首位都是该文件的Magic Code，用于校验它是否是一个Parquet文件，Footer length记录了文件元数据的大小，通过该值和文件长度可以计算出元数据的偏移量，文件的元数据中包括每一个行组的元数据信息和该文件存储数据的Schema信息。除了文件中每一个行组的元数据，每一页的开始都会存储该页的元数据，在Parquet中，有三种类型的页：数据页、字典页和索引页。数据页用于存储当前行组中该列的值，字典页存储该列值的编码字典，每一个列块中最多包含一个字典页，索引页用来存储当前行组下该列的索引，目前Parquet中还不支持索引页。</p>
+<h3 id="8-5-5-主流文件存储格式对比实验"><a href="#8-5-5-主流文件存储格式对比实验" class="headerlink" title="8.5.5 主流文件存储格式对比实验"></a>8.5.5 主流文件存储格式对比实验</h3><p>从存储文件的压缩比和查询速度两个角度对比。</p>
+<p><strong>存储文件的压缩比测试：</strong></p>
+<p>\1.   测试数据</p>
+<p>2．TextFile</p>
+<p>（1）创建表，存储数据格式为TEXTFILE</p>
+<p>  create  table log_text (  track_time  string,  url  string,  session_id  string,  referer  string,  ip  string,  end_user_id  string,  city_id  string  )  row  format delimited fields terminated by ‘\t’  stored  as textfile ;  </p>
+<p>（2）向表中加载数据</p>
+<p>  hive  (default)&gt; load data local inpath ‘/opt/module/datas/log.data’ into table  log_text ;  </p>
+<p>（3）查看表中数据大小</p>
+<p>  hive  (default)&gt; dfs -du -h /user/hive/warehouse/log_text;  </p>
+<p>18.1 M /user/hive/warehouse/log_text/log.data</p>
+<p>3．ORC</p>
+<p>​    （1）创建表，存储数据格式为ORC</p>
+<p>  create  table log_orc(  track_time  string,  url  string,  session_id  string,  referer  string,  ip  string,  end_user_id  string,  city_id  string  )  row  format delimited fields terminated by ‘\t’  stored  as orc ;  </p>
+<p>（2）向表中加载数据</p>
+<p>  hive  (default)&gt; insert into table log_orc select * from log_text ;  </p>
+<p>（3）查看表中数据大小</p>
+<p>  hive  (default)&gt; dfs -du -h /user/hive/warehouse/log_orc/ ;  </p>
+<p>2.8 M /user/hive/warehouse/log_orc/000000_0</p>
+<p>4．Parquet</p>
+<p>（1）创建表，存储数据格式为parquet</p>
+<p>  create  table log_parquet(  track_time  string,  url  string,  session_id  string,  referer  string,  ip  string,  end_user_id  string,  city_id  string  )  row  format delimited fields terminated by ‘\t’  stored  as parquet ;    </p>
+<p>（2）向表中加载数据</p>
+<p>  hive  (default)&gt; insert into table log_parquet select * from log_text ;  </p>
+<p>（3）查看表中数据大小</p>
+<p>  hive  (default)&gt; dfs -du -h /user/hive/warehouse/log_parquet/ ;  </p>
+<p>13.1 M  /user/hive/warehouse/log_parquet/000000_0</p>
+<p>存储文件的压缩比总结：</p>
+<p>ORC &gt; Parquet &gt; textFile</p>
+<p><strong>存储文件的查询速度测试：</strong></p>
+<p>1．TextFile</p>
+<p>hive (default)&gt; select count(*) from log_text;</p>
+<p>_c0</p>
+<p>100000</p>
+<p>Time taken: 21.54 seconds, Fetched: 1 row(s)</p>
+<p>Time taken: 21.08 seconds, Fetched: 1 row(s)</p>
+<p>Time taken: 19.298 seconds, Fetched: 1 row(s)</p>
+<p>2．ORC</p>
+<p>hive (default)&gt; select count(*) from log_orc;</p>
+<p>_c0</p>
+<p>100000</p>
+<p>Time taken: 20.867 seconds, Fetched: 1 row(s)</p>
+<p>Time taken: 22.667 seconds, Fetched: 1 row(s)</p>
+<p>Time taken: 18.36 seconds, Fetched: 1 row(s)</p>
+<p>3．Parquet</p>
+<p>hive (default)&gt; select count(*) from log_parquet;</p>
+<p>_c0</p>
+<p>100000</p>
+<p>Time taken: 22.922 seconds, Fetched: 1 row(s)</p>
+<p>Time taken: 21.074 seconds, Fetched: 1 row(s)</p>
+<p>Time taken: 18.384 seconds, Fetched: 1 row(s)</p>
+<p>存储文件的查询速度总结：查询速度相近。</p>
+<h2 id="8-6-存储和压缩结合"><a href="#8-6-存储和压缩结合" class="headerlink" title="8.6 存储和压缩结合"></a>8.6 存储和压缩结合</h2><h3 id="8-6-1-修改Hadoop集群具有Snappy压缩方式"><a href="#8-6-1-修改Hadoop集群具有Snappy压缩方式" class="headerlink" title="8.6.1 修改Hadoop集群具有Snappy压缩方式"></a>8.6.1 修改Hadoop集群具有Snappy压缩方式</h3><p>1．查看hadoop checknative命令使用</p>
+<p>[atguigu@hadoop104 hadoop-2.7.2]$ hadoop</p>
+<p>​    checknative [-a|-h] check native hadoop and compression libraries availability</p>
+<p>2．查看hadoop支持的压缩方式</p>
+<p> [atguigu@hadoop104 hadoop-2.7.2]$ hadoop checknative</p>
+<p>17/12/24 20:32:52 WARN bzip2.Bzip2Factory: Failed to load/initialize native-bzip2 library system-native, will use pure-Java version</p>
+<p>17/12/24 20:32:52 INFO zlib.ZlibFactory: Successfully loaded &amp; initialized native-zlib library</p>
+<p>Native library checking:</p>
+<p>hadoop: true /opt/module/hadoop-2.7.2/lib/native/libhadoop.so</p>
+<p>zlib:  true /lib64/libz.so.1</p>
+<p>snappy: false </p>
+<p>lz4:   true revision:99</p>
+<p>bzip2:  false</p>
+<p>3．将编译好的支持Snappy压缩的hadoop-2.7.2.tar.gz包导入到hadoop102的/opt/software中</p>
+<p>4．解压hadoop-2.7.2.tar.gz到当前路径</p>
+<p>[atguigu@hadoop102 software]$ tar -zxvf hadoop-2.7.2.tar.gz</p>
+<p>5．进入到/opt/software/hadoop-2.7.2/lib/native路径可以看到支持Snappy压缩的动态链接库</p>
+<p>[atguigu@hadoop102 native]$ pwd</p>
+<p>/opt/software/hadoop-2.7.2/lib/native</p>
+<p>[atguigu@hadoop102 native]$ ll</p>
+<p>-rw-r–r–. 1 atguigu atguigu 472950 9月  1 10:19 libsnappy.a</p>
+<p>-rwxr-xr-x. 1 atguigu atguigu   955 9月  1 10:19 libsnappy.la</p>
+<p>lrwxrwxrwx. 1 atguigu atguigu   18 12月 24 20:39 libsnappy.so -&gt; libsnappy.so.1.3.0</p>
+<p>lrwxrwxrwx. 1 atguigu atguigu   18 12月 24 20:39 libsnappy.so.1 -&gt; libsnappy.so.1.3.0</p>
+<p>-rwxr-xr-x. 1 atguigu atguigu 228177 9月  1 10:19 libsnappy.so.1.3.0</p>
+<p>6．拷贝/opt/software/hadoop-2.7.2/lib/native里面的所有内容到开发集群的/opt/module/hadoop-2.7.2/lib/native路径上</p>
+<p>[atguigu@hadoop102 native]$ cp ../native/* /opt/module/hadoop-2.7.2/lib/native/</p>
+<p>7．分发集群</p>
+<p>[atguigu@hadoop102 lib]$ xsync native/</p>
+<p>8．再次查看hadoop支持的压缩类型</p>
+<p>[atguigu@hadoop102 hadoop-2.7.2]$ hadoop checknative</p>
+<p>17/12/24 20:45:02 WARN bzip2.Bzip2Factory: Failed to load/initialize native-bzip2 library system-native, will use pure-Java version</p>
+<p>17/12/24 20:45:02 INFO zlib.ZlibFactory: Successfully loaded &amp; initialized native-zlib library</p>
+<p>Native library checking:</p>
+<p>hadoop: true /opt/module/hadoop-2.7.2/lib/native/libhadoop.so</p>
+<p>zlib:  true /lib64/libz.so.1</p>
+<p>snappy: true /opt/module/hadoop-2.7.2/lib/native/libsnappy.so.1</p>
+<p>lz4:   true revision:99</p>
+<p>bzip2:  false</p>
+<p>9．重新启动hadoop集群和hive</p>
+<h3 id="8-6-2-测试存储和压缩"><a href="#8-6-2-测试存储和压缩" class="headerlink" title="8.6.2 测试存储和压缩"></a>8.6.2 测试存储和压缩</h3><p>官网：<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC</a></p>
+<p>ORC存储方式的压缩：</p>
+<p>表6-12</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>orc.compress</td>
+<td>ZLIB</td>
+<td>high level compression (one of NONE, ZLIB,  SNAPPY)</td>
+</tr>
+<tr>
+<td>orc.compress.size</td>
+<td>262,144</td>
+<td>number of bytes in each compression chunk</td>
+</tr>
+<tr>
+<td>orc.stripe.size</td>
+<td>67,108,864</td>
+<td>number of bytes in each stripe</td>
+</tr>
+<tr>
+<td>orc.row.index.stride</td>
+<td>10,000</td>
+<td>number of rows between index entries (must be  &gt;= 1000)</td>
+</tr>
+<tr>
+<td>orc.create.index</td>
+<td>true</td>
+<td>whether to create row indexes</td>
+</tr>
+<tr>
+<td>orc.bloom.filter.columns</td>
+<td>“”</td>
+<td>comma separated list of column names for which  bloom filter should be created</td>
+</tr>
+<tr>
+<td>orc.bloom.filter.fpp</td>
+<td>0.05</td>
+<td>false positive probability for bloom filter  (must &gt;0.0 and &lt;1.0)</td>
+</tr>
+</tbody></table>
+<p>1．创建一个非压缩的的ORC存储方式</p>
+<p>​    （1）建表语句</p>
+<p>  create  table log_orc_none(  track_time  string,  url  string,  session_id  string,  referer  string,  ip  string,  end_user_id  string,  city_id  string  )  row  format delimited fields terminated by ‘\t’  stored  as orc tblproperties (“orc.compress”=”NONE”);  </p>
+<p>​    （2）插入数据</p>
+<p>  hive  (default)&gt; insert into table log_orc_none select * from log_text ;  </p>
+<p>​    （3）查看插入后数据</p>
+<p>  hive  (default)&gt; dfs -du -h /user/hive/warehouse/log_orc_none/ ;  </p>
+<p>7.7 M /user/hive/warehouse/log_orc_none/000000_0</p>
+<p>2．创建一个SNAPPY压缩的ORC存储方式</p>
+<p>​    （1）建表语句</p>
+<p>  create table log_orc_snappy(  track_time string,  url string,  session_id string,  referer string,  ip string,  end_user_id string,  city_id string  )  row format delimited fields terminated by ‘\t’  stored as orc tblproperties  (“orc.compress”=”SNAPPY”);  </p>
+<p>​    （2）插入数据</p>
+<p>  hive  (default)&gt; insert into table log_orc_snappy select * from log_text ;  </p>
+<p>​    （3）查看插入后数据</p>
+<p>  hive  (default)&gt; dfs -du -h /user/hive/warehouse/log_orc_snappy/ ;  </p>
+<p>3.8 M  /user/hive/warehouse/log_orc_snappy/000000_0</p>
+<p>3．上一节中默认创建的ORC存储方式，导入数据后的大小为</p>
+<p>2.8 M /user/hive/warehouse/log_orc/000000_0</p>
+<p>比Snappy压缩的还小。原因是orc存储文件默认采用ZLIB压缩。比snappy压缩的小。</p>
+<p>4．存储方式和压缩总结</p>
+<p>在实际的项目开发当中，hive表的数据存储格式一般选择：orc或parquet。压缩方式一般选择snappy，lzo。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/17/Hive%E5%AE%89%E8%A3%85/" rel="prev" title="Hive安装">
+                  <i class="fa fa-chevron-left"></i> Hive安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/21/SparkSQL%E5%AE%9E%E6%88%98/" rel="next" title="SparkSQL实战">
+                  SparkSQL实战 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

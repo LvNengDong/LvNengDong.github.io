@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="MySQL 架构1.1    MySQL逻辑架构MySQL 可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎的架构上，插件式的存储引擎架构将查询处理和其它的系统任务以及数据的存储提取相分离。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。其主要逻辑架构可分为四层，从上到下分别是：     连接层   服务层   引擎层   存储层     1.1.1    连接层   连接层主要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL高级">
+<meta property="og:url" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL 架构1.1    MySQL逻辑架构MySQL 可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎的架构上，插件式的存储引擎架构将查询处理和其它的系统任务以及数据的存储提取相分离。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。其主要逻辑架构可分为四层，从上到下分别是：     连接层   服务层   引擎层   存储层     1.1.1    连接层   连接层主要">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/1411859-20180617124155105-273948974.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/1411859-20180617123859211-1860022440.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210723163415302.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210724120203199.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210724120245430.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210814164014357.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210814175705485.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210814180055407.png">
+<meta property="og:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/image-20210814172920328.png">
+<meta property="article:published_time" content="2021-07-23T07:24:27.000Z">
+<meta property="article:modified_time" content="2021-10-06T06:24:47.615Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/MySQL%E9%AB%98%E7%BA%A7/1411859-20180617124155105-273948974.png">
+
+
+<link rel="canonical" href="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/","path":"2021/07/23/MySQL高级/","title":"MySQL高级"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL高级 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">MySQL 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-MySQL%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1.1    MySQL逻辑架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1    连接层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-%E6%9C%8D%E5%8A%A1%E5%B1%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2    服务层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Management-Serveices-amp-Utilities%EF%BC%9A%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1、Management Serveices &amp; Utilities：系统管理控制工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81SQL-Interface%EF%BC%9ASQL-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2、SQL Interface：SQL 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Parser%EF%BC%9A%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3、Parser：解析器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81Optimizer%EF%BC%9A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">4、Optimizer：查询优化器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81Cache%E5%92%8CBuffer%EF%BC%9A%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">5、Cache和Buffer：查询缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-%E5%BC%95%E6%93%8E%E5%B1%82"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3    引擎层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-4-%E5%AD%98%E5%82%A8%E5%B1%82"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.4    存储层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.2.</span> <span class="nav-text">1.2    存储引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%A4%A7%E8%87%B4%E6%9F%A5%E8%AF%A2%E6%B5%81%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">1.3    大致查询流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL-%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">SQL 的执行顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Join%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">Join图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.1.</span> <span class="nav-text">3.1    内连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.2.</span> <span class="nav-text">3.2    左外连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5%E6%89%A9%E5%B1%95"><span class="nav-number">3.3.</span> <span class="nav-text">3.3    左外连接扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.4.</span> <span class="nav-text">3.4    右外连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5%E6%89%A9%E5%B1%95"><span class="nav-number">3.5.</span> <span class="nav-text">3.5    右外连接扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.6.</span> <span class="nav-text">3.6    全外连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5%E6%89%A9%E5%B1%95"><span class="nav-number">3.7.</span> <span class="nav-text">3.7    全外连接扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="nav-number">3.8.</span> <span class="nav-text">注意：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E9%94%81%E6%9C%BA%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">MySQL 锁机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">性能分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%EF%BC%88MySQL-%E9%9B%86%E7%BE%A4%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">主从复制（MySQL 集群）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">分库分表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F"><span class="nav-number">8.1.</span> <span class="nav-text">为什么要进行分库分表？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%87%8F%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F"><span class="nav-number">8.2.</span> <span class="nav-text">多大数据量需要进行分库分表？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">8.3.</span> <span class="nav-text">分库分表的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E7%89%87"><span class="nav-number">8.3.1.</span> <span class="nav-text">垂直分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E7%89%87"><span class="nav-number">8.3.2.</span> <span class="nav-text">水平分片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E%EF%BC%8CSQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-number">8.4.</span> <span class="nav-text">分库分表后，SQL语句的执行流程是怎样的？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MySQL高级 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL高级
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-07-23 15:24:27" itemprop="dateCreated datePublished" datetime="2021-07-23T15:24:27+08:00">2021-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-06 14:24:47" itemprop="dateModified" datetime="2021-10-06T14:24:47+08:00">2021-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="MySQL-架构"><a href="#MySQL-架构" class="headerlink" title="MySQL 架构"></a>MySQL 架构</h1><h2 id="1-1-MySQL逻辑架构"><a href="#1-1-MySQL逻辑架构" class="headerlink" title="1.1    MySQL逻辑架构"></a>1.1    MySQL逻辑架构</h2><p>MySQL 可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎的架构上，<strong>插件式的存储引擎架构</strong>将查询处理和其它的系统任务以及数据的存储提取相分离。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。其主要逻辑架构可分为四层，从上到下分别是：</p>
+<blockquote>
+<ol>
+<li>  <strong>连接层</strong></li>
+<li>  <strong>服务层</strong></li>
+<li>  <strong>引擎层</strong></li>
+<li>  <strong>存储层</strong></li>
+</ol>
+</blockquote>
+<p><img src="MySQL%E9%AB%98%E7%BA%A7/1411859-20180617124155105-273948974.png" alt="img"></p>
+<p><img src="MySQL%E9%AB%98%E7%BA%A7/1411859-20180617123859211-1860022440.png" alt="img"></p>
+<h3 id="1-1-1-连接层"><a href="#1-1-1-连接层" class="headerlink" title="1.1.1    连接层"></a>1.1.1    连接层</h3><ul>
+<li>  <strong>连接层主要处理客户端与 MySQL 服务端的连接、授权认证、连接安全等问题</strong>。包含本地 socket 通信和大多数基于客户端/服务端工具实现的网络通信。</li>
+<li>  主要完成一些类似于连接处理、授权认证、及相关的安全方案。同样在该层上可以实现基于 SSL 的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</li>
+<li>  在该层上<strong>引入了线程池的概念</strong>，为通过认证安全接入的客户端提供线程。</li>
+</ul>
+<hr>
+<h3 id="1-1-2-服务层"><a href="#1-1-2-服务层" class="headerlink" title="1.1.2    服务层"></a>1.1.2    服务层</h3><table>
+<thead>
+<tr>
+<th>名字</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Management Serveices &amp; Utilities</strong></td>
+<td>系统管理和控制工具</td>
+</tr>
+<tr>
+<td><strong>SQL Interface</strong></td>
+<td>SQL 接口。接受用户的SQL 命令，并且返回用户需要查询的结果。</td>
+</tr>
+<tr>
+<td><strong>Parser</strong></td>
+<td>解析器。SQL 命令传递到解析器的时候会被解析器验证和解析</td>
+</tr>
+<tr>
+<td><strong>Optimizer</strong></td>
+<td>查询优化器。SQL 语句在查询之前会使用查询优化器对查询进行优化。</td>
+</tr>
+<tr>
+<td><strong>Cache 和Buffer</strong></td>
+<td>查询缓存。</td>
+</tr>
+</tbody></table>
+<h4 id="1、Management-Serveices-amp-Utilities：系统管理控制工具"><a href="#1、Management-Serveices-amp-Utilities：系统管理控制工具" class="headerlink" title="1、Management Serveices &amp; Utilities：系统管理控制工具"></a>1、Management Serveices &amp; Utilities：系统管理控制工具</h4><p>可以看做是类似于 Hadoop 中的 Zookeeper，或者是 SpringCloud 中的配置中心，主要作用是协调整管理个系统的各个模块。</p>
+<hr>
+<h4 id="2、SQL-Interface：SQL-接口"><a href="#2、SQL-Interface：SQL-接口" class="headerlink" title="2、SQL Interface：SQL 接口"></a>2、SQL Interface：SQL 接口</h4><p>类似于 MVC 三层架构中的 Controller 层，只是负责接收请求和返回最终的结果，具体的业务逻辑交给更底层的服务去做。比如 <code>select ... from ...</code> 就会调用 SQL Interface。</p>
+<hr>
+<h4 id="3、Parser：解析器"><a href="#3、Parser：解析器" class="headerlink" title="3、Parser：解析器"></a>3、Parser：解析器</h4><p>SQL Interface 中的 SQL 命令传递到解析器的时候会被解析器验证和解析。主要功能有：</p>
+<ul>
+<li>  <strong>验证</strong>：对接收的 SQL 语句进行语义和语法的分析，如果在分解构成中遇到错误，那么就说明这个 SQL 语句是不合理的，验证失败，不继续网下执行，直接抛出错误。</li>
+<li>  <strong>解析</strong>：如果验证成功，则根据语义和语法，将 SQL 语句划分为不同的操作类型，然后进行针对性的转发到后续步骤。比如查询语句就转发到查询对应的服务，更新操作就转发到更新对应的服务。</li>
+</ul>
+<hr>
+<h4 id="4、Optimizer：查询优化器"><a href="#4、Optimizer：查询优化器" class="headerlink" title="4、Optimizer：查询优化器"></a>4、Optimizer：查询优化器</h4><ul>
+<li>  SQL 语句在查询之前会使用查询优化器对查询进行优化。就是优化客户端请求的 SQL 语句，根据客户端请求的 SQL 语句，和数据库中的一些统计信息，在一系列算法的基础上进行分析，得出一个最优的策略，告诉后面的程序如何执行这个 SQL 语句。（机器认为最优的数据检索方式，但 BDA 不一定认为是最优的）</li>
+<li>  查询优化器就类似于指令重排，对于开发人员来说，写一条 SQL 可能自我感觉良好，性能天下第一，但是对于底层机器来说，它有自己的优化标准，经过查询优化器优化后的 SQL 语句的执行顺序并不一定与开发人员设计的 SQL 执行顺序相同。</li>
+<li>  当客户端向 MySQL 服务器请求一条 SQL ，命令解析器模块完成请求分类，区别出是 SELECT 并转发给 MySQL_Query_Qptimizer 时， MySQL_Query_Qptimizer 首先会对整条 SQL 进行优化，处理掉一些常量表达式的预算，直接转换成常量值。并对 SQL 中的查询条件进行简化和转换，如去掉一些无用或显而易见的条件、结构调整等。</li>
+</ul>
+<hr>
+<h4 id="5、Cache和Buffer：查询缓存"><a href="#5、Cache和Buffer：查询缓存" class="headerlink" title="5、Cache和Buffer：查询缓存"></a>5、Cache和Buffer：查询缓存</h4><p>如果查询缓存有命中的查询结果，查询语句就可以直接去查询缓存中取数据。这个缓存机制是由一系列小缓存组成的。比如表缓存，记录缓存，key 缓存，权限缓存等。</p>
+<hr>
+<h3 id="1-1-3-引擎层"><a href="#1-1-3-引擎层" class="headerlink" title="1.1.3    引擎层"></a>1.1.3    引擎层</h3><ul>
+<li>  存储引擎主要负责数据存储和提取，存储引擎不会去解析 sql，不同存储引擎之间不会通讯，只会简单地响应上层服务器的请求。</li>
+<li>  存储引擎真正的负责了 MySQL 中数据的存储和提取，服务器通过 API 与存储引擎进行通信。</li>
+<li>  存储引擎接口模块可以说是 MySQL 数据库中最有特色的一点了。目前各种数据库产品中，基本上只有 MySQL 可以实现其底层<strong>数据存储引擎的插件式管理</strong>。这个模块实际上只是 一个抽象类，但正是因为它成功地将各种数据处理高度抽象化，才成就了今天 MySQL <strong>可插拔存储引擎的特色</strong>。</li>
+<li>  可插拔的存储引擎的实现，让 MySQL 在处理不同的业务逻辑时，可以根据实际应用场景选择效率尽可能高的存储引擎。这就是 MySQL 相较于其它同类数据库产品的最大优势。</li>
+<li>  注意：<strong>存储引擎是基于表的，而不是数据库</strong>。</li>
+</ul>
+<hr>
+<h3 id="1-1-4-存储层"><a href="#1-1-4-存储层" class="headerlink" title="1.1.4    存储层"></a>1.1.4    存储层</h3><p>数据存储层，主要是将数据存储在硬件层面的文件系统上，并与存储引擎交互。</p>
+<hr>
+<h2 id="1-2-存储引擎"><a href="#1-2-存储引擎" class="headerlink" title="1.2    存储引擎"></a>1.2    存储引擎</h2><blockquote>
+<p>  <strong>如何查看 MySQL 支持的存储引擎</strong></p>
+</blockquote>
+<p><img src="MySQL%E9%AB%98%E7%BA%A7/image-20210723163415302.png" alt="image-20210723163415302"></p>
+<blockquote>
+<p>  <strong>MyISAM vs. InnoDB</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">对比项</th>
+<th align="center">MyISAM</th>
+<th align="center">InnoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">主/外键</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="center">事务</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="center">行/表锁</td>
+<td align="center">表锁</td>
+<td align="center">行锁</td>
+</tr>
+<tr>
+<td align="center">索引</td>
+<td align="center">非聚簇索引</td>
+<td align="center">聚簇索引</td>
+</tr>
+<tr>
+<td align="center">表空间</td>
+<td align="center">小</td>
+<td align="center">大</td>
+</tr>
+<tr>
+<td align="center">行数统计</td>
+<td align="center">MyISAM保存表的具体行数</td>
+<td align="center">InnoDB保存表的具体行数</td>
+</tr>
+<tr>
+<td align="center">关注点</td>
+<td align="center">性能</td>
+<td align="center">事务</td>
+</tr>
+</tbody></table>
+<ul>
+<li>  <strong>行锁</strong>：操作时只锁某一行，不会对其它行产生影响。<strong>适合高并发的操作</strong>。</li>
+<li>  <strong>表锁</strong>：即使只操作一条记录也会锁住整张表，不适合高并发的操作。【这是 MyISAM 被逐渐淘汰的主要原因之一】</li>
+<li>  既缓存索引又缓存真实数据对内存要求高，而内存大小对性能有着决定性的影响，已使用的内存越大，性能就越差。</li>
+</ul>
+<hr>
+<h2 id="1-3-大致查询流程"><a href="#1-3-大致查询流程" class="headerlink" title="1.3    大致查询流程"></a>1.3    大致查询流程</h2><p>MySQL 查询的流程大致是：</p>
+<ol>
+<li> MySQL 客户端通过协议与 MySQL 服务器建连接；</li>
+<li> 发送查询语句，先查询缓存，如果命中，直接返回结果；</li>
+<li>否则进行语句解析，也就是说，在解析查询之前，服务器会先访问查询缓存（Query Cache）——它存储了 SQL 语句以及<br> 相应的查询结果集。</li>
+<li> 如果某个查询结果已经位于缓存中，服务器就不会再对 SQL 语句进行解析、优化、以及执行。它仅仅将缓存中的结果返回给用户即可，这将大大提高系统的性能。</li>
+</ol>
+<hr>
+<h1 id="SQL-的执行顺序"><a href="#SQL-的执行顺序" class="headerlink" title="SQL 的执行顺序"></a>SQL 的执行顺序</h1><p>随着 MySQL 版本的更新换代，其优化器也在不断的升级，优化器会根据同一条 SQL 语句的不同执行顺序产生的性能消耗不同而动<br>态调整执行顺序。下面是比较常见的一种的查询顺序：</p>
+<blockquote>
+<p>  <strong>SQL语句</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">  <span class="operator">&lt;</span> select_list <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">  <span class="operator">&lt;</span> left_table <span class="operator">&gt;</span> </span><br><span class="line"><span class="operator">&lt;</span> join_type <span class="operator">&gt;</span> <span class="keyword">JOIN</span> </span><br><span class="line">  <span class="operator">&lt;</span> right_table <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">ON</span> </span><br><span class="line">  <span class="operator">&lt;</span> join_condition <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">  <span class="operator">&lt;</span> where_condition <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> </span><br><span class="line">  <span class="operator">&lt;</span> group_by_list <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">HAVING</span></span><br><span class="line">  <span class="operator">&lt;</span> having_condition <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">  <span class="operator">&lt;</span> order_by_condition <span class="operator">&gt;</span> </span><br><span class="line">LIMIT </span><br><span class="line">  <span class="operator">&lt;</span> limit_number <span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>  <strong>底层执行顺序</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span>  <span class="operator">&lt;</span> left_table <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">ON</span>  <span class="operator">&lt;</span> join_condition <span class="operator">&gt;</span> </span><br><span class="line"><span class="operator">&lt;</span> join_type <span class="operator">&gt;</span> <span class="keyword">JOIN</span> <span class="operator">&lt;</span> right_table <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">WHERE</span> <span class="operator">&lt;</span> where_condition <span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="operator">&lt;</span> group_by_list <span class="operator">&gt;</span> </span><br><span class="line"><span class="keyword">HAVING</span> <span class="operator">&lt;</span> having_condition <span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">&lt;</span> select_list <span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="operator">&lt;</span> order_by_condition <span class="operator">&gt;</span></span><br><span class="line">LIMIT <span class="operator">&lt;</span> limit_number <span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="MySQL%E9%AB%98%E7%BA%A7/image-20210724120203199.png" alt="image-20210724120203199"></p>
+<h1 id="Join图"><a href="#Join图" class="headerlink" title="Join图"></a>Join图</h1><p>基础的 Join 关系有 4 种：</p>
+<blockquote>
+<ol>
+<li> 内连接</li>
+<li> 左外连接</li>
+<li> 右外连接</li>
+<li> 全外连接</li>
+</ol>
+</blockquote>
+<p>由此演化出来的常见的 Join 关系有 7 种，如图所示：</p>
+<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210724120245430.png" alt="image-20210724120245430" style="zoom:100%;" />
+
+
+
+
+
+<h2 id="3-1-内连接"><a href="#3-1-内连接" class="headerlink" title="3.1    内连接"></a>3.1    内连接</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="3-2-左外连接"><a href="#3-2-左外连接" class="headerlink" title="3.2    左外连接"></a>3.2    左外连接</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key;</span><br></pre></td></tr></table></figure>
+
+<p>左外连接保存 LEFT_TABLE（这里是 tb_A） 中的全部记录，对于 tb_A 中存在而 tb_B 中不存在的记录，则用 null 填充。所以查询结果中可能会存在这样一类记录。</p>
+<table>
+<thead>
+<tr>
+<th align="center">A.id</th>
+<th align="center">A.name</th>
+<th align="center">B.id</th>
+<th align="center">B.dep</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">10</td>
+<td align="center">余则成</td>
+<td align="center">NULL</td>
+<td align="center">NULL</td>
+<td align="center">（A独有）</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">王大治</td>
+<td align="center">5</td>
+<td align="center">体育部</td>
+<td align="center">（A、B共有）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-3-左外连接扩展"><a href="#3-3-左外连接扩展" class="headerlink" title="3.3    左外连接扩展"></a>3.3    左外连接扩展</h2><p>在左外连接的基础上，只选择左表独有的数据。（即对于两表的公共数据不要）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key</span><br><span class="line"><span class="keyword">WHERE</span> B.KEY <span class="keyword">IS</span> <span class="keyword">NULL</span> ;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="3-4-右外连接"><a href="#3-4-右外连接" class="headerlink" title="3.4    右外连接"></a>3.4    右外连接</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key;</span><br></pre></td></tr></table></figure>
+
+<p>右外连接保存 RIGHT_TABLE（这里是 tb_B） 中的全部记录，对于 tb_B 中存在而 tb_A 中不存在的记录，则用 NULL 填充。所以查询结果中可能会存在这样一类记录。</p>
+<table>
+<thead>
+<tr>
+<th align="center">A.id</th>
+<th align="center">A.name</th>
+<th align="center">B.id</th>
+<th align="center">B.dep</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">NULL</td>
+<td align="center">NULL</td>
+<td align="center">7</td>
+<td align="center">“市场部”</td>
+<td align="center">B独有</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">王大治</td>
+<td align="center">5</td>
+<td align="center">体育部</td>
+<td align="center">（A、B共有）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-5-右外连接扩展"><a href="#3-5-右外连接扩展" class="headerlink" title="3.5    右外连接扩展"></a>3.5    右外连接扩展</h2><p>在右外连接的基础上，只选择右表独有的数据。（即对于两表的公共数据不要）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key</span><br><span class="line"><span class="keyword">WHERE</span> A.KEY <span class="keyword">IS</span> <span class="keyword">NULL</span> ;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="3-6-全外连接"><a href="#3-6-全外连接" class="headerlink" title="3.6    全外连接"></a>3.6    全外连接</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">FULL</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key;</span><br></pre></td></tr></table></figure>
+
+<p>全外连接会保存 LEFT_TABLE 和 RIGHT_TABLE 中共有的数据和独有的数据。查询结果的类型如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">A.id</th>
+<th align="center">A.name</th>
+<th align="center">B.id</th>
+<th align="center">B.dep</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">NULL</td>
+<td align="center">NULL</td>
+<td align="center">7</td>
+<td align="center">“市场部”</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">“余则成”</td>
+<td align="center">NULL</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="center">“派大星”</td>
+<td align="center">4</td>
+<td align="center">“营销部”</td>
+</tr>
+</tbody></table>
+<h2 id="3-7-全外连接扩展"><a href="#3-7-全外连接扩展" class="headerlink" title="3.7    全外连接扩展"></a>3.7    全外连接扩展</h2><p>在全外连接的基础上，只选择左表和右表独有的部分记录。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> tb_A A </span><br><span class="line"><span class="keyword">FULL</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> tb_B B</span><br><span class="line"><span class="keyword">ON</span> A.key <span class="operator">=</span> B.key;</span><br><span class="line"><span class="keyword">WHERE</span> A.key <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">OR</span> B.key <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p><strong>MySQL 不支持 FULL OUTER JOIN 查询</strong>（Oracle 支持），但是 ，所以 MySQL 中要想实现同样的效果，需要使用 <strong>union</strong> 关键字。</p>
+<ul>
+<li>  UNION 操作符用于合并两个或多个 SELECT 语句的结果。</li>
+<li>  UNION 内部的每个 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 SELECT 语句中的列的顺序必须相同。</li>
+<li>  默认地，UNION 操作符选取不同的值（默认去重）。如果允许重复的值，请使用 UNION ALL。</li>
+</ul>
+<hr>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ul>
+<li>  超链接：<a href="">MySQL索引</a></li>
+</ul>
+<hr>
+<h1 id="MySQL-锁机制"><a href="#MySQL-锁机制" class="headerlink" title="MySQL 锁机制"></a>MySQL 锁机制</h1><ul>
+<li>  超链接：<a href="">MySQL锁机制</a></li>
+</ul>
+<hr>
+<h1 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h1><blockquote>
+<p>  <strong>SQL 性能下降的表现</strong>：</p>
+</blockquote>
+<ol>
+<li> 执行时间长</li>
+<li> 等待时间长</li>
+</ol>
+<blockquote>
+<p>  <strong>SQL 性能下降的原因：</strong></p>
+</blockquote>
+<ol>
+<li> SQL 语句写得烂</li>
+<li> 索引失效</li>
+<li> 关联查询太多join（设计缺陷或不得已的需求）【某些业务涉及的表太多，需要关联查询太多】</li>
+<li> 服务器调优及各个参数设置不合理（缓存、线程数等）</li>
+<li> ….</li>
+</ol>
+<blockquote>
+<p>  <strong>MySQL 的常见瓶颈</strong></p>
+</blockquote>
+<ol>
+<li> <strong>CPU</strong>：CPU 在饱和的时候一般发生在数据装入内存或从磁盘上读取数据的时候。</li>
+<li> <strong>IO</strong>：磁盘 IO 瓶颈发生在装入数据远大于内存容量的时候。</li>
+<li> <strong>服务器硬件的性能瓶颈</strong>：top，free，iostat 和 vmstat 来查看系统的性能状态。</li>
+</ol>
+<hr>
+<h1 id="主从复制（MySQL-集群）"><a href="#主从复制（MySQL-集群）" class="headerlink" title="主从复制（MySQL 集群）"></a>主从复制（MySQL 集群）</h1><img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814164014357.png" alt="image-20210814164014357" style="zoom: 50%;" />
+
+<blockquote>
+<p>  <strong>一主多从</strong></p>
+</blockquote>
+<ul>
+<li>  主节点用来执行写操作，从节点用于执行读操作</li>
+<li>  所有在主节点上执行的写操作，都会被写入主节点的日志文件 <strong>Binary_log</strong> 中；</li>
+<li>  从节点通过 IO 读取到主节点的日志文件，复制到 <strong>Relay_log</strong> 中，然后由当前备机执行日志文件，即可完成从机数据的同步。</li>
+</ul>
+<blockquote>
+<p>  <strong>读写分离：</strong></p>
+</blockquote>
+<ul>
+<li>  因为 MySQL 只会将主节点的 <code>Binary_log</code> 文件同步到从节点，而不会反过来同步。因此也就引出了读写分离的问题。</li>
+<li>  如果要保证主从节点间的数据一致，<strong>写操作就只能发生在主节点</strong>，而读操作可以在集群中的任意节点上进行。</li>
+</ul>
+<hr>
+<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><h2 id="为什么要进行分库分表？"><a href="#为什么要进行分库分表？" class="headerlink" title="为什么要进行分库分表？"></a>为什么要进行分库分表？</h2><p>当单张表中的数据量过大时，整体的查询效率就会降低得非常明显。这时为了提升查询效率，就要将一个表中的数据分散到多个数据库的多个表中。</p>
+<h2 id="多大数据量需要进行分库分表？"><a href="#多大数据量需要进行分库分表？" class="headerlink" title="多大数据量需要进行分库分表？"></a>多大数据量需要进行分库分表？</h2><p>阿里开发手册中建议：一个表的数据量超过 500W 条或者数据文件超过 2G，就要考虑进行分库分表了。</p>
+<h2 id="分库分表的方式"><a href="#分库分表的方式" class="headerlink" title="分库分表的方式"></a>分库分表的方式</h2><ul>
+<li>  分库分表包括<strong>分库</strong>和<strong>分表</strong>两个部分，而这两个部分统称为<strong>数据分片</strong>，其目的都是将数据拆分成不同的存储单元。</li>
+<li>  另外，从拆分的角度上，可以划分为<strong>垂直分片</strong>和<strong>水平分片</strong>。</li>
+</ul>
+<h3 id="垂直分片"><a href="#垂直分片" class="headerlink" title="垂直分片"></a>垂直分片</h3><ul>
+<li>  按照业务来对数据进行分片，又称为纵向分片。它的核心理念就是专库专用。</li>
+<li>  在拆分之前，一个数据库由多张数据表组成，每张表对应不同的业务，而拆分之后，则是按照业务将表归类，分布到不同的数据库或表中，从而将压力分散至不同的数据库或表。</li>
+<li>  例如：下图将用户表和订单表垂直分片到不同的数据库。</li>
+</ul>
+<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814175705485.png" alt="image-20210814175705485" style="zoom:50%;" />
+
+<p>垂直分片往往需要对架构和设计进行调整。通常来讲，是来不及应对业务需求快速变化的。而且，也无法真正地解决单点数据库的性能瓶颈。垂直分片可以缓解数据量和访问量带来的问题，但无法根治。如果垂直分片之后，表中的数据量依然超过单节点所能承受的阈值，则需要水平分片来进一步处理。</p>
+<h3 id="水平分片"><a href="#水平分片" class="headerlink" title="水平分片"></a>水平分片</h3><ul>
+<li>  水平分片又称为横向分片。</li>
+<li>  相对于垂直分片，它不再将数据根据业务逻辑分类，而是通过某几个字段，根据某种规则将数据分散到多个库或表中，每个分片仅包含数据的一部分。</li>
+<li>  水平分片从理论上突破了单击数据量处理的瓶颈，并且扩展相对自由，是分库分表的标准解决方案</li>
+<li>  如下图所示，根据取余的策略，将一张表中的数据分散到了两张表中保存。</li>
+</ul>
+<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814180055407.png" alt="image-20210814180055407" style="zoom:50%;" />
+
+
+
+
+
+<blockquote>
+<p>  <strong>常用的水平分片的策略：</strong></p>
+</blockquote>
+<p><strong>取模：</strong></p>
+<ul>
+<li>  优点：均匀存放数据。</li>
+<li>  缺点：扩容非常麻烦</li>
+</ul>
+<p><strong>按范围划分：</strong>比如，一个月分一个库。</p>
+<ul>
+<li>  优点：比较容易扩容，</li>
+<li>  缺点：数据分布不够均匀。对于大部分的行业来讲，存在淡季和旺季，淡季数据量较少，单独占一个库过于奢侈，旺季数据量大，可能会出现一个库存不在。</li>
+</ul>
+<h2 id="分库分表后，SQL语句的执行流程是怎样的？"><a href="#分库分表后，SQL语句的执行流程是怎样的？" class="headerlink" title="分库分表后，SQL语句的执行流程是怎样的？"></a>分库分表后，SQL语句的执行流程是怎样的？</h2><blockquote>
+<p>  <strong>分库分表后的执行流程</strong></p>
+</blockquote>
+<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814172920328.png" alt="image-20210814172920328" style="zoom:50%;" />
+
+<p>分布分表后，在执行查询语句时，由于查询语句中使用的是逻辑上的表，但是在分库分表后，逻辑上的表结构实际存储在多个库的多个表中。</p>
+<ol>
+<li> 在执行 SQL 语句时，首先依然需要解析器解析和查询优化；</li>
+<li> 但是在查询时，由于数据保存在多张表中，所以需要进行 SQL 路由，根据查询条件去不同库的表中查询；</li>
+<li> 这时候需要使用到真实的库名称和表名称，所以会有一步 SQL 改写的过程，将逻辑上的 SQL 语句改写成一条或多条真正要去执行查询的 SQL 语句，然后再执行查询；</li>
+<li> 得到查询结果后，可能查询结果来自多个库的多张表，所以还需要将这多个结果进行归并，最后才能得到一个唯一的结果返回给客户端。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/" rel="prev" title="MySQL索引">
+                  <i class="fa fa-chevron-left"></i> MySQL索引
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/07/25/%E7%AE%97%E6%B3%95/" rel="next" title="算法">
+                  算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

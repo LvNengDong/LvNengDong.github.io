@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="官网地址：https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;  ZooKeeper 理论基础ZooKeeper 工作机制从设计模式角度来理解，Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 将会负责将变化通知那些已注册并订阅服务的观察者。 ZooKeeper 特点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZooKeeper">
+<meta property="og:url" content="http://example.com/2021/11/29/ZooKeeper/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="官网地址：https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;  ZooKeeper 理论基础ZooKeeper 工作机制从设计模式角度来理解，Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 将会负责将变化通知那些已注册并订阅服务的观察者。 ZooKeeper 特点">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211129222922413.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211201102045752.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211201195906285.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211202102918703.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211213115812008.png">
+<meta property="article:published_time" content="2021-11-29T13:37:18.000Z">
+<meta property="article:modified_time" content="2021-12-13T07:55:18.603Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211129222922413.png">
+
+
+<link rel="canonical" href="http://example.com/2021/11/29/ZooKeeper/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/11/29/ZooKeeper/","path":"2021/11/29/ZooKeeper/","title":"ZooKeeper"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ZooKeeper | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper-%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">ZooKeeper 理论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper-%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">ZooKeeper 工作机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper-%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">ZooKeeper 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">ZooKeeper 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-vs-%E7%A1%AC%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">1.4.1.</span> <span class="nav-text">软负载均衡 vs. 硬负载均衡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper-%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">ZooKeeper 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">2.1.</span> <span class="nav-text">安装前准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.1.</span> <span class="nav-text">JDK 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.2.</span> <span class="nav-text">安装包选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%EF%BC%88Linux%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">本地模式安装部署（Linux系统）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">ZK 配置文件分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.</span> <span class="nav-text">分布式安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZK-%E9%9B%86%E7%BE%A4%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.4.1.</span> <span class="nav-text">ZK 集群的特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZK-Shell-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">ZK Shell 客户端操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84-Shell-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%91%BD%E4%BB%A4"><span class="nav-number">3.0.1.</span> <span class="nav-text">常见的 Shell 客户端命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E7%8A%B6%E6%80%81%E5%92%8C%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.0.2.</span> <span class="nav-text">节点的状态和节点类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZK-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">ZK 内部原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">监听器原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">选举机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">4.3.</span> <span class="nav-text">写数据流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZK-Java%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">ZK Java客户端操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAMaven%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">5.1.</span> <span class="nav-text">创建Maven项目，导入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-%E6%B5%8B%E8%AF%95"><span class="nav-number">5.2.</span> <span class="nav-text">API 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-ZooKeeper%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">5.2.1.</span> <span class="nav-text">创建 ZooKeeper客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%87%BA%E7%8E%B0%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">5.2.2.</span> <span class="nav-text">可能会出现的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">5.2.3.</span> <span class="nav-text">创建子节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%90%E8%8A%82%E7%82%B9%E5%B9%B6%E7%9B%91%E5%90%AC%E8%8A%82%E7%82%B9%E5%8F%98%E5%8C%96"><span class="nav-number">5.2.4.</span> <span class="nav-text">获取子节点并监听节点变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD-ZNode-%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">5.2.5.</span> <span class="nav-text">判断 ZNode 是否存在</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-JavaAPI-%E8%AE%BE%E7%BD%AE%E8%A7%82%E5%AF%9F%E8%80%85"><span class="nav-number">5.3.</span> <span class="nav-text">使用 JavaAPI 设置观察者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E7%BB%AD%E7%9B%91%E5%90%AC"><span class="nav-number">5.4.</span> <span class="nav-text">持续监听</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E5%8A%A8%E6%80%81%E4%B8%8A%E4%B8%8B%E7%BA%BF%E6%A1%88%E4%BE%8B"><span class="nav-number">5.5.</span> <span class="nav-text">监听服务器节点动态上下线案例</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/29/ZooKeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ZooKeeper | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ZooKeeper
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-11-29 21:37:18" itemprop="dateCreated datePublished" datetime="2021-11-29T21:37:18+08:00">2021-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-12-13 15:55:18" itemprop="dateModified" datetime="2021-12-13T15:55:18+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Zookeeper/" itemprop="url" rel="index"><span itemprop="name">Zookeeper</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>  官网地址：<a target="_blank" rel="noopener" href="https://zookeeper.apache.org/">https://zookeeper.apache.org/</a></p>
+</blockquote>
+<h1 id="ZooKeeper-理论基础"><a href="#ZooKeeper-理论基础" class="headerlink" title="ZooKeeper 理论基础"></a>ZooKeeper 理论基础</h1><h2 id="ZooKeeper-工作机制"><a href="#ZooKeeper-工作机制" class="headerlink" title="ZooKeeper 工作机制"></a>ZooKeeper 工作机制</h2><p>从设计模式角度来理解，Zookeeper 是一个基于观察者模式的分布式<strong>服务管理</strong>框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 将会负责将变化通知那些已注册并订阅服务的观察者。</p>
+<h2 id="ZooKeeper-特点"><a href="#ZooKeeper-特点" class="headerlink" title="ZooKeeper 特点"></a>ZooKeeper 特点</h2><ol>
+<li> Zookeeper 是由一个 Leader（领导者）和多个 Follower（跟随者）组成的集群。</li>
+<li> 在 ZK 集群中，只要有半数以上节点存活，集群就能正常提供服务。所以 ZK 集群一般会安装奇数台服务器。比如 8 个节点的集群只有 4 个节点存活就不能正常运行，而 7 个节点的集群只需要 4 个节点存活就能正常运行。</li>
+<li> 全局数据一致：每个服务器节点保存一份相同的数据副本，Client 无论连接到哪个节点数据都是一致的。</li>
+<li> 更新请求顺序执行：来自同一个 Client 的更新请求按其发送顺序依次执行。</li>
+<li> 数据更新原子性：一次数据更新要么成功，要么失败。</li>
+<li> 实时性：在一定时间范围内，Client 能读到最新数据。</li>
+</ol>
+<h2 id="ZooKeeper-数据结构"><a href="#ZooKeeper-数据结构" class="headerlink" title="ZooKeeper 数据结构"></a>ZooKeeper 数据结构</h2><p>ZooKeeper 的数据结构有点类似于 Linux，整体是一个文件系统，可以看作是一棵树，从根路径<code>/</code> 出发可以到达任意位置。</p>
+<p>每个节点称为一个 <strong>ZNode</strong>。每个 ZNode 默认能够存储 1MB 的数据，每个 ZNode 都可以通过其路径唯一标识。</p>
+<p><img src="ZooKeeper/image-20211129222922413.png" alt="image-20211129222922413"></p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>ZooKeeper 提供的服务包括：统一命名服务、统一配置管理、统一集群管理、服务器节点动态上下线、软负载均衡等。</p>
+<h3 id="软负载均衡-vs-硬负载均衡"><a href="#软负载均衡-vs-硬负载均衡" class="headerlink" title="软负载均衡 vs. 硬负载均衡"></a>软负载均衡 vs. 硬负载均衡</h3><p><strong>软负载均衡</strong>是指，假设集群中现有 3 台机器，A 机器承担了 60% 的流量，B 机器承担了 30% 的流量，C 机器只承担了 10% 的流量，即集群中功能相同的 3 台机器的负载不均衡，为了让负载能均衡一点，接下来的大部分请求就都会被分配到 C 机器上进行处理。所谓的软负载均衡，就是在软件层面，通过一些算法，让集群中多台机器承担的流量尽可能地相近。</p>
+<p>而<strong>硬负载均衡</strong>则是在硬件上的突破，即如果某台机器承担的流量非常大，那么就新增一台机器去分担它的流量，达到负载均衡的目的。</p>
+<hr>
+<h1 id="ZooKeeper-安装"><a href="#ZooKeeper-安装" class="headerlink" title="ZooKeeper 安装"></a>ZooKeeper 安装</h1><h2 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h2><h3 id="JDK-环境"><a href="#JDK-环境" class="headerlink" title="JDK 环境"></a>JDK 环境</h3><p>由于 ZooKeeper 是基于 Java 开发的，所以在安装 ZooKeeper 前必须保证当前计算机上已经安装了 JDK，并配置了 JAVA_HOME 环境变量。</p>
+<hr>
+<h3 id="安装包选择"><a href="#安装包选择" class="headerlink" title="安装包选择"></a>安装包选择</h3><p><strong>问题描述：</strong><br>在安装 <code>zookeeper-3.5.7</code> 时，已经在 <code>conf</code> 文件夹下拷贝并重命名了一份 <code>zoo.cfg</code> 文件，结果在执行 <code>bin</code> 目录下的 <code>zkServer.sh</code> 脚本时依然启动失败，查看日志中的错误信息，提示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找不到或无法加载主类 org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br></pre></td></tr></table></figure>
+
+<p><strong>原因分析：</strong></p>
+<ul>
+<li>  使用的是未编译的 jar 包。</li>
+<li>  注：ZooKeeper 从 3.5 版本开始，命名就发生了改变，如果是 <code>apache-zookeeper-3.5.5.tar.gz</code> 这种命名的，都是未编译的，而 <code>apache-zookeeper-3.5.5-bin.tar.gz</code> 这种命名的，才是已编译的包。</li>
+</ul>
+<p><strong>解决方案：</strong></p>
+<ul>
+<li>  重新下载 <code>apache-zookeeper-3.5.5-bin.tar.gz</code> 包，然后解压使用。</li>
+</ul>
+<hr>
+<h2 id="本地模式安装部署（Linux系统）"><a href="#本地模式安装部署（Linux系统）" class="headerlink" title="本地模式安装部署（Linux系统）"></a>本地模式安装部署（Linux系统）</h2><ol>
+<li><p>拷贝 ZooKeeper 安装包<code>（apache-zookeeper-3.5.7-bin-bin.tar.gz）</code>到 Linux 系统下的指定目录<code>(/opt/software)</code>中。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ ll</span><br><span class="line">总用量 375040</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong   3130819 11月 30 11:09 apache-zookeeper-3.5.7-bin-bin.tar.gz	<span class="comment"># ZooKeeper安装包</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将安装包解压到 <code>/opt/module</code> 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxvf apache-zookeeper-3.5.7-bin-bin.tar.gz -C ../module/</span><br></pre></td></tr></table></figure></li>
+<li><p>ZooKeeper 目录简析</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll</span><br><span class="line">总用量 32</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   232 2月  10 2020 bin	<span class="comment"># 保存运行ZooKeeper的脚本文件</span></span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong    77 2月   7 2020 conf	<span class="comment"># 配置文件目录</span></span><br><span class="line">drwxr-xr-x. 5 lvnengdong lvnengdong  4096 2月  10 2020 docs</span><br><span class="line">drwxrwxr-x. 2 lvnengdong lvnengdong  4096 11月 30 12:02 lib</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 11358 9月  13 2018 LICENSE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   432 2月  10 2020 NOTICE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1560 2月   7 2020 README.md</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1347 2月   7 2020 README_packaging.txt</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p><code>bin</code> 目录简析</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll bin</span><br><span class="line">总用量 56</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  232 5月   4 2018 README.txt</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2067 2月   7 2020 zkCleanup.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1158 2月  10 2020 zkCli.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1621 2月   7 2020 zkCli.sh	<span class="comment"># 启动ZK客户端</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1766 2月   7 2020 zkEnv.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3690 1月  31 2020 zkEnv.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1286 1月  31 2020 zkServer.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4573 2月   7 2020 zkServer-initialize.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 9386 2月   7 2020 zkServer.sh	<span class="comment"># 启动ZK服务器端</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  996 10月  3 2019 zkTxnLogToolkit.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1385 2月   7 2020 zkTxnLogToolkit.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>尝试启动 ZooKeeper 服务器端</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line"><span class="built_in">mkdir</span>: 无法创建目录<span class="string">&quot;&quot;</span>: 没有那个文件或目录</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  异常分析：ZK 启动时要加载 <code>/conf/zoo.cfg</code> 配置文件，而我们当前的服务器上并没有创建这个配置文件，所以我们需要去创建这个配置文件。</li>
+</ul>
+</li>
+<li><p>修改配置文件</p>
+<ul>
+<li><p>在 <code>conf</code> 目录下有一个文件叫做 <code>zoo_sample.cfg</code>，这是一个配置文件的模板，我们可以复制其副本为 <code>zoo.cfg</code>，作为 ZK 启动时加载的配置文件，在这个基础上进行自定义修改。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ <span class="built_in">cd</span> conf/</span><br><span class="line">[lvnengdong@hadoop102 conf]$ ll</span><br><span class="line">总用量 12</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  535 5月   4 2018 configuration.xsl</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 2712 2月   7 2020 log4j.properties</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  922 2月   7 2020 zoo_sample.cfg</span><br></pre></td></tr></table></figure></li>
+<li><p>拷贝配置文件</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ <span class="built_in">cp</span> zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure></li>
+<li><p>修改配置文件 <code>zoo.cfg</code>【配置文件分析见下文】</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ vim zoo.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 dataDir 属性为：</span></span><br><span class="line">dataDir=/opt/module/apache-zookeeper-3.5.7-bin-bin/data</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>创建 <code>/opt/module/apache-zookeeper-3.5.7-bin/data</code>目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ <span class="built_in">mkdir</span> data</span><br></pre></td></tr></table></figure></li>
+<li><p>再次尝试启动 ZK</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh --<span class="built_in">help</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动ZK</span></span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>查看是否启动成功</p>
+<ul>
+<li><p>JPS</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ jps</span><br><span class="line">80707 QuorumPeerMain</span><br></pre></td></tr></table></figure></li>
+<li><p>执行 <code>zkServer.sh status</code> 脚本查看 ZK 的状态</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: standalone	<span class="comment"># 单机模式</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="ZK-配置文件分析"><a href="#ZK-配置文件分析" class="headerlink" title="ZK 配置文件分析"></a>ZK 配置文件分析</h2><p><strong>zoo.cfg</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The number of milliseconds of each tick</span></span><br><span class="line"><span class="comment"># Zookeeper服务器与客户端的心跳间隔时间，单位毫秒。</span></span><br><span class="line"><span class="comment"># 即默认每 2000ms 客户端与服务器端进行一次心跳</span></span><br><span class="line"><span class="comment"># “心跳”是Zookeeper中使用的基本时间单位</span></span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"><span class="comment"># The number of ticks that the initial </span></span><br><span class="line"><span class="comment"># synchronization phase can take</span></span><br><span class="line"><span class="comment"># 集群中的Follower与Leader之间初始连接时能容忍的</span></span><br><span class="line"><span class="comment"># 最多心跳次数（tickTime的数量），用它来限定集群中的</span></span><br><span class="line"><span class="comment"># Zookeeper服务器连接到Leader的时限。</span></span><br><span class="line"><span class="comment"># 人话：也就是说ZK集群中的Follower在刚启动时需要从Leader中</span></span><br><span class="line"><span class="comment"># 同步数据，同步数据耗时最长不能超过10次心跳（默认），</span></span><br><span class="line"><span class="comment"># 如果超过了就抛出异常</span></span><br><span class="line">initLimit=10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># The number of ticks that can pass between </span></span><br><span class="line"><span class="comment"># sending a request and getting an acknowledgement</span></span><br><span class="line"><span class="comment"># 集群中Leader与Follower之间的最大响应时间单位，假如响应</span></span><br><span class="line"><span class="comment"># 时间超过5次心跳，Leader就认为Follwer已经死掉了，就会从</span></span><br><span class="line"><span class="comment"># 服务器列表中删除Follwer。</span></span><br><span class="line">syncLimit=5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># the directory where the snapshot is stored.</span></span><br><span class="line"><span class="comment"># do not use /tmp for storage, /tmp here is just </span></span><br><span class="line"><span class="comment"># example sakes.</span></span><br><span class="line"><span class="comment"># ZK集群保存数据的目录。</span></span><br><span class="line"><span class="comment"># 建议不要使用 /tmp 目录，因为在Linux中临时文件目录会被定期清理</span></span><br><span class="line">dataDir=/tmp/zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># the port at which the clients will connect</span></span><br><span class="line"><span class="comment"># 客户端要连接的端口，也就是ZK服务器端进程的端口号</span></span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line"><span class="comment"># the maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="comment"># 最大客户端连接数（需要使用时可以将注释放开）</span></span><br><span class="line"><span class="comment">#maxClientCnxns=60</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="comment"># 在 dataDir 目录中保留的不同版本的快照数量（需要使用时可以将注释放开）</span></span><br><span class="line"><span class="comment">#autopurge.snapRetainCount=3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to &quot;0&quot; to disable auto purge feature</span></span><br><span class="line"><span class="comment"># 清除任务间隔时间(小时)</span></span><br><span class="line"><span class="comment"># 设置为 “0” 表示禁用自动清除功能</span></span><br><span class="line"><span class="comment">#autopurge.purgeInterval=1</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="分布式安装部署"><a href="#分布式安装部署" class="headerlink" title="分布式安装部署"></a>分布式安装部署</h2><h3 id="ZK-集群的特点"><a href="#ZK-集群的特点" class="headerlink" title="ZK 集群的特点"></a>ZK 集群的特点</h3><ol>
+<li> ZK 集群中包含一个 Leader 和多个 Follower。Leader 负责发起投票和决议，更新系统状态；Follower 用于接收客户端请求并向客户端返回结果，在选举 Leader 的过程中参与投票。</li>
+<li> ZK 集群实现了主从复制，但没有实现读写分离。</li>
+<li> Follower 在掉线后，重新上线后首先需要同步数据。</li>
+</ol>
+<ol>
+<li><p><strong>集群规划</strong></p>
+<p> 在 hadoop102、hadoop103 和 hadoop104 三个节点上部署 Zookeeper。</p>
+</li>
+<li><p><strong>解压安装</strong></p>
+<p> （1）解压 Zookeeper 安装包到 <code>/opt/module/</code> 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxvf apache-zookeeper-3.5.7-bin -C /opt/module/</span><br></pre></td></tr></table></figure>
+
+<p> （2）同步 <code>/opt/module/apache-zookeeper-3.5.7-bin</code> 目录内容到hadoop103、hadoop104</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ xsync /opt/module/apache-zookeeper-3.5.7-bin/</span><br><span class="line"><span class="comment"># xsync是将某个文件分发到集群中所有机器上的脚本</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>配置服务器编号</strong></p>
+<p> （1）在 <code>/opt/module/apache-zookeeper-3.5.7-bin/</code> 目录下创建 <code>data</code> 目录，并在该目录下创建一个 <code>myid</code> 文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ <span class="built_in">mkdir</span> -p data</span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ <span class="built_in">touch</span> ./data/myid</span><br></pre></td></tr></table></figure>
+
+<p> （2）编辑 <code>myid</code> 文件，在文件中添加当前服务器节点的编号（这个编号只是为了用于标识当前的服务器，可以是任意值，只要不重复即可）</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># myid文件的内容</span></span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p> （3）拷贝配置好的 zookeeper 到其他机器上，并分别在hadoop103、hadoop104上修改 myid 文件中内容为3、4</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ xsync data/</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>配置zoo.cfg文件</strong></p>
+<p> （1）重命名 <code>/opt/module/apache-zookeeper-3.5.7-bin/conf</code> 这个目录下的 <code>zoo_sample.cfg</code> 为 <code>zoo.cfg</code></p>
+<p> （2）修改 <code>zoo.cfg</code> 文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、修改数据存储路径配置</span></span><br><span class="line">dataDir=/opt/module/apache-zookeeper-3.5.7-bin/data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、增加如下配置</span></span><br><span class="line"><span class="comment">#######################cluster##########################</span></span><br><span class="line">server.2=hadoop102:2888:3888</span><br><span class="line">server.3=hadoop103:2888:3888</span><br><span class="line">server.4=hadoop104:2888:3888</span><br></pre></td></tr></table></figure>
+
+<p> （3）同步zoo.cfg配置文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ xsync ./conf/zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p> （4）配置参数解读</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.A=B:C:D</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  A 是一个数字，表示服务器编号，即当前服务器是第几号服务器。集群模式下配置一个文件 <code>myid</code>，这个文件在 <code>dataDir</code> 目录下，这个文件里面有一个数据就是 A 的值，Zookeeper 启动时读取此文件，拿到服务器编号与 <code>zoo.cfg</code> 里面的配置信息比较，从而判断当前服务器的相关信息。</li>
+<li>  B 是当前服务器的地址。</li>
+<li>  C 是当前服务器与集群中的 Leader 进行数据交换时使用的端口。</li>
+<li>D 是万一集群中的 Leader 服务器挂了，那么 C 就无法继续使用了，这时需要一个端口来进行重新选举新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口。</li>
+</ul>
+</li>
+<li><p><strong>集群操作</strong></p>
+<p> （1）分别启动三个节点上的 ZooKeeper</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh start</span><br><span class="line">[lvnengdong@hadoop103 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh start</span><br><span class="line">[lvnengdong@hadoop104 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh start</span><br></pre></td></tr></table></figure>
+
+<p> （2）查看ZK线程状态</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ xcall jps</span><br><span class="line">要执行的命令是jps</span><br><span class="line">---------------------hadoop102-----------------</span><br><span class="line">70690 Jps</span><br><span class="line">73576 QuorumPeerMain</span><br><span class="line">---------------------hadoop103-----------------</span><br><span class="line">116029 Jps</span><br><span class="line">115086 QuorumPeerMain</span><br><span class="line">---------------------hadoop104-----------------</span><br><span class="line">110019 Jps</span><br><span class="line">109931 QuorumPeerMain</span><br></pre></td></tr></table></figure>
+
+<p> （3）查看 ZK 集群状态</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop104 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: leader	<span class="comment"># hadoop104节点被选举为leader</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[lvnengdong@hadoop103 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: follower	<span class="comment"># hadoop103和102节点都是follower</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="ZK-Shell-客户端操作"><a href="#ZK-Shell-客户端操作" class="headerlink" title="ZK Shell 客户端操作"></a>ZK Shell 客户端操作</h1><ol>
+<li><p>启动 ZK 客户端（启动客户端前必须先启动 ZK 服务器端）</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkCli.sh -server localhost:2181</span><br><span class="line"></span><br><span class="line"><span class="comment"># 命令分析</span></span><br><span class="line">bin/zkCli.sh -server localhost:2181</span><br><span class="line">[脚本名称] -server [ZK服务器地址:端口号]</span><br><span class="line"><span class="comment"># 如果不加 `-server localhost:2181`，默认走的就是 localhost:2181 这个地址，</span></span><br><span class="line"><span class="comment"># 如果你自己的ZK服务不是这个地址，在启动ZK客户端时一定要显式指定ZK服务器端的通讯地址</span></span><br><span class="line"><span class="comment"># ZK服务器集群中的任一节点都可以处理请求，所以Client将请求发送到集群中的任一节点都是OK的</span></span><br></pre></td></tr></table></figure></li>
+<li><p>查看帮助文档</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] <span class="built_in">help</span></span><br><span class="line">ZooKeeper -server host:port cmd args</span><br><span class="line">	addauth scheme auth</span><br><span class="line">	close <span class="comment"># 退出客户端，并关闭session</span></span><br><span class="line">	config [-c] [-w] [-s]</span><br><span class="line">	connect host:port</span><br><span class="line">	create [-s] [-e] [-c] [-t ttl] path [data] [acl]	<span class="comment"># 增</span></span><br><span class="line">	delete [-v version] path	<span class="comment"># 删</span></span><br><span class="line">	deleteall path	<span class="comment"># 删</span></span><br><span class="line">	delquota [-n|-b] path</span><br><span class="line">	get [-s] [-w] path	<span class="comment"># 查</span></span><br><span class="line">	getAcl [-s] path</span><br><span class="line">	<span class="built_in">history</span> </span><br><span class="line">	listquota path	<span class="comment"># 查</span></span><br><span class="line">	<span class="built_in">ls</span> [-s] [-w] [-R] path	<span class="comment"># 查</span></span><br><span class="line">	ls2 path [watch]</span><br><span class="line">	printwatches on|off</span><br><span class="line">	quit <span class="comment"># 退出客户端，但不关闭session</span></span><br><span class="line">	reconfig [-s] [-v version] [[-file path] | [-members serverID=host:port1:port2;port3[,...]*]] | [-add serverId=host:port1:port2;port3[,...]]* [-remove serverId[,...]*]</span><br><span class="line">	redo cmdno	</span><br><span class="line">	removewatches path [-c|-d|-a] [-l]</span><br><span class="line">	rmr path	<span class="comment"># 删</span></span><br><span class="line">	<span class="built_in">set</span> [-s] [-v version] path data	<span class="comment"># 改</span></span><br><span class="line">	setAcl [-s] [-v version] [-R] path acl</span><br><span class="line">	setquota -n|-b val path</span><br><span class="line">	<span class="built_in">stat</span> [-w] path	<span class="comment"># 查</span></span><br><span class="line">	<span class="built_in">sync</span> path</span><br><span class="line"></span><br><span class="line"><span class="comment">#============================================================</span></span><br><span class="line">-w	表示注册监听，不带-w默认不会注册为监听器</span><br></pre></td></tr></table></figure></li>
+<li><p>查看当前 znode 中所包含的内容</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] <span class="built_in">ls</span> /</span><br><span class="line">[zookeeper]</span><br></pre></td></tr></table></figure></li>
+<li><p>查看当前节点详细数据</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] <span class="built_in">ls</span> -s /</span><br><span class="line">[zookeeper]cZxid = 0x0</span><br><span class="line">ctime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">mZxid = 0x0</span><br><span class="line">mtime = Thu Jan 01 08:00:00 CST 1970</span><br><span class="line">pZxid = 0x0</span><br><span class="line">cversion = -1</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 0</span><br><span class="line">numChildren = 1</span><br></pre></td></tr></table></figure></li>
+<li><p>分别创建2个普通节点</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] create /my_node1 <span class="string">&quot;hello&quot;</span></span><br><span class="line">Created /my_node1</span><br><span class="line">[zk: localhost:2181(CONNECTED) 3] create /my_node2 <span class="string">&quot;hi&quot;</span></span><br><span class="line">Created /my_node2</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>获得节点的值</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 4] get /my_node1</span><br><span class="line">hello1</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>创建<strong>临时</strong>节点</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 5] create -e /tmp <span class="string">&quot;This is a temporary node&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>（1）在当前客户端是可以看到的</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 9] <span class="built_in">ls</span> /</span><br><span class="line">[my_node1, my_node2, tmp, zookeeper]</span><br></pre></td></tr></table></figure></li>
+<li><p>（2）退出当前客户端后再重启客户端</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 10] quit</span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkCli.sh -server localhost:2181</span><br></pre></td></tr></table></figure></li>
+<li><p>（3）再次查看发现该临时节点已经被删除了</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] <span class="built_in">ls</span> /</span><br><span class="line">[my_node1, my_node2, zookeeper]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="常见的-Shell-客户端命令"><a href="#常见的-Shell-客户端命令" class="headerlink" title="常见的 Shell 客户端命令"></a>常见的 Shell 客户端命令</h3><table>
+<thead>
+<tr>
+<th>命令基本语法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help</code></td>
+<td>显示所有操作命令</td>
+</tr>
+<tr>
+<td><code>ls path</code></td>
+<td>使用 ls 命令来查看当前znode的子节点  -w 监听子节点变化  -s  附加次级信息</td>
+</tr>
+<tr>
+<td><code>create</code></td>
+<td>普通创建  -s 含有序列  -e 临时（重启或者超时消失）</td>
+</tr>
+<tr>
+<td><code>get path</code></td>
+<td>获得节点的值  -w 监听节点内容变化  -s  附加次级信息</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td>设置节点的具体值</td>
+</tr>
+<tr>
+<td><code>stat</code></td>
+<td>查看节点状态</td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td>删除节点</td>
+</tr>
+<tr>
+<td><code>deleteall</code></td>
+<td>递归删除节点</td>
+</tr>
+</tbody></table>
+<h3 id="节点的状态和节点类型"><a href="#节点的状态和节点类型" class="headerlink" title="节点的状态和节点类型"></a>节点的状态和节点类型</h3><p>查看当前节点详细数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 2] <span class="built_in">ls</span> -s /my_node1</span><br><span class="line">[]cZxid = 0x6	</span><br><span class="line">ctime = Tue Nov 30 21:30:35 CST 2021</span><br><span class="line">mZxid = 0x6</span><br><span class="line">mtime = Tue Nov 30 21:30:35 CST 2021</span><br><span class="line">pZxid = 0x6</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 6</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>  <code>c：create</code></li>
+<li>  <code>Z：ZooKeeper</code></li>
+<li>  <code>x：事务</code></li>
+<li>  <code>m：modify，修改</code></li>
+<li>  <code>p：parent</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>  <code>cZxid</code>：创建该 ZooKeeper 节点时事务的 id（事务id是一个十六进制的数）。</li>
+<li>  <code>ctime</code>：该 ZK 节点的创建时间</li>
+<li>  <code>mZxid</code>：该 ZK 节点在修改时的事务 id</li>
+<li>  <code>mtime</code>：该 ZK 节点的修改时间</li>
+<li>  <code>pZxid</code>：当前节点中最新发生的创建子节点事务的 id。</li>
+<li>  <code>cversion</code>：</li>
+<li>  <code>dataVersion</code>：数据版本，当前节点中的数据发生变化后，该版本号就 +1。一般用于乐观锁。</li>
+<li>  <code>aclVersion</code>：权限控制相关，每当节点的权限发生变化后，该版本号就 +1。</li>
+<li>  <code>ephemeralOwner</code> ：该节点是否是一个临时节点。<code>0x0</code>表示当前节点是一个永久节点，非0表示当前节点是一个临时节点</li>
+<li>  <code>numChildren</code>：当前节点的子节点个数</li>
+</ul>
+<h1 id="ZK-内部原理"><a href="#ZK-内部原理" class="headerlink" title="ZK 内部原理"></a>ZK 内部原理</h1><h2 id="监听器原理"><a href="#监听器原理" class="headerlink" title="监听器原理"></a>监听器原理</h2><p><img src="ZooKeeper/image-20211201102045752.png" alt="image-20211201102045752"></p>
+<ol>
+<li> 首先在 Main() 线程中创建 ZK 客户端；</li>
+<li> ZK 客户端创建后会维护两个线程 <strong>Listener</strong> 和 <strong>connect</strong>，一个负责与 ZK 服务端进行网络连接通信（connect），一个负责监听（Listener）。</li>
+<li> 客户端通过 connect 线程向 ZK 集群发送注册监听请求，比如 <code>getChildren(&quot;/&quot;, true)</code>，这个请求的含义是获取根目录 <code>/</code> 下的所有子节点，第二个 boolean 类型的参数表示是否注册成为监听器，true 表示注册成为监听器，这时 ZK 集群就会把客户端的 <code>ip、port、监听的path、以及客户端的名字等信息</code> 全部记录起来，当客户端监听的 <code>path</code> 发生变化时，就会通知客户端。</li>
+<li> 对于服务器端而言，ZK 集群会将新注册的监听事件添加到监听器列表中，当监听列表中的监听事件被触发时（也就是监听路径下的数据或目录结构发生了变化），就会将变化情况发送给客户端的 Listener 线程。</li>
+<li> Listener 线程内部再调用 <code>process()</code> 方法进行相应的处理。</li>
+</ol>
+<p><strong>常见的监听：</strong></p>
+<ol>
+<li><p>监听节点数据的变化</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get path[watch]</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>监听子节点增减的变化</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> path[watch]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>注意：</strong></p>
+<ul>
+<li>  观察者只是单次有效的。</li>
+</ul>
+<hr>
+<h2 id="选举机制"><a href="#选举机制" class="headerlink" title="选举机制"></a>选举机制</h2><p><strong>半数机制：</strong>只有当集群中半数<strong>以上</strong>的机器存活时，集群才可用。</p>
+<p>ZooKeeper 虽然没有在配置文件中指定 Master 和 Slaver，但是 ZK 集群在运行时只能有一个节点为 Leader，其余节点均为 Follower，这个 Leader 是 ZK 运行时通过内部选举机制产生的。</p>
+<p>下面以一个简单的例子来说明选举 Leader 的过程：</p>
+<p>假设有五台服务器组成的 Zookeeper 集群，它们的 id 为从1~5，同时它们都是新建的，没有历史数据，在存放数据量这一点上，都是一样的。假设这些服务器按照 id 从小到大<strong>依次启动</strong>，来看看会发生什么。</p>
+<p><img src="ZooKeeper/image-20211201195906285.png" alt="image-20211201195906285"></p>
+<ol>
+<li> <code>Server1</code> 率先启动，发起一次选举，并且投自己一票（默认每个服务器投票时都会优先选自己）。此时集群中只有一台机器，<code>Server1</code> 得到一票，但是总票数小于3票，不够半数以上，选举无法完成，服务器保持 Looking 状态。</li>
+<li> <code>Server2</code> 启动，再发起一次选举。<code>Server1</code> 和 <code>Server2</code> 首先分别投自己一票并交换选举信息。此时<code>Server1</code> 发现<code>Server2</code> 的ID比自己目前投票推举的服务器id大，更改选票为推举<code>Server2</code> 。此时<code>Server1</code> 得 0 票，<code>Server2</code> 得 2 票，没有半数以上的结果。选举无法完成。服务器1、2状态保持 Looking。</li>
+<li> <code>Server3</code> 启动，发起一次选举，此时<code>Server1</code> 和 <code>Server2</code> 在交换完选票信息后都会更改选票为 <code>Server3</code> 。此次投票结束后：<code>Server1</code> 为0票，<code>Server2</code> 为0票，<code>Server3</code> 为3票，此时 <code>Server3</code>  的票数已经超过半数，<code>Server3</code> 当选为 Leader，服务器1、2更改状态为 Following，<code>Server3</code> 更改状态为 Leading。</li>
+<li> <code>Server4</code> 启动，发起一次选举，此时服务器1、2、3已经不是 Looking 状态，不会更改选票信息。交换选票信息结果：服务器3为3票，服务器4为1票，此时服务器4服从多数，更改选票信息为服务器3，并更改状态为Following。</li>
+<li> 服务器5启动，同服务器4一样当小弟。</li>
+</ol>
+<hr>
+<h2 id="写数据流程"><a href="#写数据流程" class="headerlink" title="写数据流程"></a>写数据流程</h2><p><img src="ZooKeeper/image-20211202102918703.png" alt="image-20211202102918703"></p>
+<p>ZooKeeper 并没有实现读写分离。</p>
+<ol>
+<li> Client 向 ZK 集群中的 <code>Server1</code> 发送写请求，如果 <code>Server1</code> 不是 Leader，那么 <code>Server1</code> 首先会把接收到的请求进一步转发给 Leader。</li>
+<li> Leader 会将写请求广播到集群中的每个节点，各个节点都会将这个写请求加入到待写队列，并向 Leader 发送写成功的 ACK。</li>
+<li> 当 Leader 收到半数以上节点的成功信息，就说明该写操作可以执行成功。Leader 会继续向各个节点发送提交信息，各个 Server 收到该消息后会落实待写队列中的写请求，此时写成功。如果 Leader 没有收到半数以上的成功信息，各个节点中待写队列中对应的数据在一定时间后会被清除。</li>
+<li> <code>Server1</code> 会进一步通知 Client 数据写成功了，这时候就认为整个写操作成功。</li>
+</ol>
+<hr>
+<h1 id="ZK-Java客户端操作"><a href="#ZK-Java客户端操作" class="headerlink" title="ZK Java客户端操作"></a>ZK Java客户端操作</h1><h2 id="创建Maven项目，导入依赖"><a href="#创建Maven项目，导入依赖" class="headerlink" title="创建Maven项目，导入依赖"></a>创建Maven项目，导入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="API-测试"><a href="#API-测试" class="headerlink" title="API 测试"></a>API 测试</h2><h3 id="创建-ZooKeeper客户端"><a href="#创建-ZooKeeper客户端" class="headerlink" title="创建 ZooKeeper客户端"></a>创建 ZooKeeper客户端</h3><p><strong>源码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> connectString ZK集群的地址</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sessionTimeout client与ZK集群间的session的超时时间 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> watcher 观察者实例</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ZooKeeper</span><span class="params">(String connectString, <span class="type">int</span> sessionTimeout, Watcher watcher)</span></span><br><span class="line">    <span class="keyword">throws</span> IOException</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">this</span>(connectString, sessionTimeout, watcher, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ZKTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式：`IP地址:端口号`，如果ZK是一个集群，多个地址之间用逗号隔开</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">connectString</span> <span class="operator">=</span> <span class="string">&quot;hadoop101:2181, hadoop102:2181,&quot;</span>;</span><br><span class="line">    <span class="comment">// session的超时时间（单位：ms）</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">sessionTimeout</span> <span class="operator">=</span> <span class="number">10000</span>;</span><br><span class="line">    <span class="comment">// 观察者实例，一旦watcher观察的path发生了变更，服务端就会通知客户端，客户端收到通知后就会自动调用process()方法</span></span><br><span class="line">    <span class="type">Watcher</span> <span class="variable">watcher</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">ZooKeeper</span> <span class="variable">zkClient</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 创建ZK客户端对象</span></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 创建一个ZK客户端对象，创建 zkClient 需要依赖 connectString, sessionTimeout, watcher</span></span><br><span class="line">        zkClient = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(connectString, sessionTimeout, watcher);</span><br><span class="line">        System.out.println(zkClient);</span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);	<span class="comment">// 主动让ZKClient睡眠一段时间，保证TCP连接可以成功建立</span></span><br><span class="line">        System.out.println(<span class="string">&quot;init&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 使用完毕后释放 zkClient</span></span><br><span class="line">    <span class="meta">@AfterEach</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="keyword">if</span> (zkClient != <span class="literal">null</span>)&#123;</span><br><span class="line">            zkClient.close();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;end&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="可能会出现的异常"><a href="#可能会出现的异常" class="headerlink" title="可能会出现的异常"></a>可能会出现的异常</h3><p>在创建了一个客户端对象后，就可以通过这个客户端对象去调用对应的 API 查看 ZK 中的一些信息了，但是在测试环境中，我们一般需要在创建完客户端之后等待几秒再去调用其它的 API。因为 <code>new ZooKeeper()</code> 语句只是创建出了一个 ZKClient 实例，只是建立了客户端与服务端之间的会话，但是此时 TCP 连接可能还未建立完成，如果这时向 ZooKeeper 集群发出操作命令的话就可能出现连接丢失异常，虽然这种概率相对较小。</p>
+<p>所以一般情况下创建完 ZKClient 实例后，我们需要等待几秒钟再去执行其它操作就不会出问题了。</p>
+<h3 id="创建子节点"><a href="#创建子节点" class="headerlink" title="创建子节点"></a>创建子节点</h3><p><strong>源码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> path 节点的位置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data[] 节点中的数据，以 byte[] 数组存储</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> acl 权限列表</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> createMode 节点的类型</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">create</span><span class="params">(<span class="keyword">final</span> String path, <span class="type">byte</span> data[], List&lt;ACL&gt; acl,CreateMode createMode)</span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">create</span><span class="params">()</span> <span class="keyword">throws</span> KeeperException, InterruptedException, IOException &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> <span class="string">&quot;/idea&quot;</span>;</span><br><span class="line">    <span class="type">byte</span>[] data = <span class="string">&quot;HelloZooKeeper&quot;</span>.getBytes();</span><br><span class="line">    List&lt;ACL&gt; acl = ZooDefs.Ids.OPEN_ACL_UNSAFE;    <span class="comment">// 这是一个枚举类，从中选择了最高权限`OPEN_ACL_UNSAFE`赋值给acl</span></span><br><span class="line">    <span class="type">CreateMode</span> <span class="variable">createMode</span> <span class="operator">=</span> CreateMode.PERSISTENT;  <span class="comment">// 也是一个枚举类，这里选择了节点类型为永久节点</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> zkClient.create(path, data, acl, createMode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="获取子节点并监听节点变化"><a href="#获取子节点并监听节点变化" class="headerlink" title="获取子节点并监听节点变化"></a>获取子节点并监听节点变化</h3><p><strong>源码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">	getChildren方法用于查看当前ZNode下的所有节点，</span></span><br><span class="line"><span class="comment">	调用该方法时可以传递一个监听器 watcher 对象，</span></span><br><span class="line"><span class="comment">	如果传递了 watcher 对象，在监听路径下的数据发生了</span></span><br><span class="line"><span class="comment">	变化时，服务器（ZK集群）就会回调watcher对象的process()方法。</span></span><br><span class="line"><span class="comment">	这个监听器对象可以使用创建ZK客户端时创建的对象，也可以重新定义</span></span><br><span class="line"><span class="comment">	一个新的监听器对象。</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	该方法存在多个重载方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">	如果第二个参数传递一个 Boolean 类型的值，如果为true监听器对象就会</span></span><br><span class="line"><span class="comment">	自动注册成为ZKClient创建时指定的监听器，如果为 false 监听器对象就</span></span><br><span class="line"><span class="comment">	为 null，表示不需要监听路径path</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> List&lt;String&gt; <span class="title function_">getChildren</span><span class="params">(String path, <span class="type">boolean</span> watch)</span></span><br><span class="line">    <span class="keyword">throws</span> KeeperException, InterruptedException &#123;</span><br><span class="line">    <span class="keyword">return</span> getChildren(path, watch ? watchManager.defaultWatcher : <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果想要使用自定义的监听器，也可以直接传入一个监听器对象</span></span><br><span class="line"><span class="keyword">public</span> List&lt;String&gt; <span class="title function_">getChildren</span><span class="params">(<span class="keyword">final</span> String path, Watcher watcher)</span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ls</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">ls</span><span class="params">()</span> <span class="keyword">throws</span> KeeperException, InterruptedException, IOException &#123;</span><br><span class="line">   </span><br><span class="line">    System.out.println(zkClient);</span><br><span class="line">    List&lt;String&gt; children = zkClient.getChildren(<span class="string">&quot;/&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">    System.out.println(children);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="判断-ZNode-是否存在"><a href="#判断-ZNode-是否存在" class="headerlink" title="判断 ZNode 是否存在"></a>判断 ZNode 是否存在</h3><p><strong>源码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 ZKClient 的监听器</span></span><br><span class="line"><span class="keyword">public</span> Stat <span class="title function_">exists</span><span class="params">(String path, <span class="type">boolean</span> watch)</span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用自定义的监听器，返回结果直接回调给观察者</span></span><br><span class="line"><span class="keyword">public</span> Stat <span class="title function_">exists</span><span class="params">(<span class="keyword">final</span> String path, Watcher watcher)</span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>测试</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exist</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">ZooKeeper</span> <span class="variable">zkClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(connectString, sessionTimeout, watcher);</span><br><span class="line">    <span class="type">Stat</span> <span class="variable">stat</span> <span class="operator">=</span> zkClient.exists(<span class="string">&quot;/idea&quot;</span>, <span class="literal">false</span>);</span><br><span class="line">    System.out.println(stat == <span class="literal">null</span> ? <span class="string">&quot;不存在&quot;</span> : <span class="string">&quot;存在&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="使用-JavaAPI-设置观察者"><a href="#使用-JavaAPI-设置观察者" class="headerlink" title="使用 JavaAPI 设置观察者"></a>使用 JavaAPI 设置观察者</h2><p>在 ZK 提供的客户端 API 中，有一些可以设置观察者，有一些不能设置观察者。我们以部分方法为例展示观察者模式的使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testObserver</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="comment">// 由connect线程调用</span></span><br><span class="line">    zkClient = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(connectString, sessionTimeout, watcher);</span><br><span class="line"></span><br><span class="line">    List&lt;String&gt; list = zkClient.getChildren(<span class="string">&quot;/&quot;</span>, <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">        <span class="comment">// 由Listener线程调用</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line">            <span class="comment">// 当 `/` 路径下的内容发生变化时，就会触发该方法</span></span><br><span class="line">            System.out.println(<span class="string">&quot;路径==&quot;</span> + event.getPath() + <span class="string">&quot;===发生了变化&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为了保证客户端能收到回调信息，ZKClient进程要一直运行，不能关闭</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;我还活着&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，当 ZK 中根目录 <code>/</code> 下的内容发生变化时，就会触发回调，客户端的回调函数 <code>process()</code> 方法就会被执行。</p>
+<p><strong>注意：</strong>一般情况下，我们不会使用 ZKClient 中默认的监听器，因为让多种不同的操作执行同一个监听器的逻辑是不合理的，一般情况下我们会针对每种情况都设置自己的监听器。</p>
+<hr>
+<h2 id="持续监听"><a href="#持续监听" class="headerlink" title="持续监听"></a>持续监听</h2><p>在 ZK 中，观察者默认模式是<strong>单次有效</strong>的，也就是说，当监听路径下的内容第一次发生改变时，会触发监听事件，但是当监听事件触发过之后，该路径下的内容再次发生变化时就不会触发监听事件了。如果想要每次内容发生变化时都触发监听事件，就需要设置持续监听。</p>
+<p><strong>持续监听原理：</strong></p>
+<ol>
+<li> ZKClient 在向服务器发送请求时，可以设置一个观察者 watcher；</li>
+<li> 当 ZKClient 监听的路径发生变化时，服务器会调用 ZKClient 的回调方法 <code>process()</code></li>
+<li> 如果我们想要实现持续监听功能的话，只需要在 <code>process()</code> 中重新向 ZK 服务器发送监听请求并设置一个新的监听器就可以了。</li>
+</ol>
+<p><strong>错误写法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 持续监听【错误写法】</span></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testObserving</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       <span class="comment">// 由connect线程调用</span></span><br><span class="line">       List&lt;String&gt; list = zkClient.getChildren(<span class="string">&quot;/&quot;</span>, <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">           <span class="comment">// 由Listener线程调用</span></span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line">               <span class="comment">// 当 `/` 路径下的内容发生变化时，就会触发该方法</span></span><br><span class="line">               System.out.println(<span class="string">&quot;路径==&quot;</span> + event.getPath() + <span class="string">&quot;===发生了变化&quot;</span>);</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   <span class="comment">// 递归调用，重新设置观察者</span></span><br><span class="line">                   testObserving();</span><br><span class="line">               &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 为了保证客户端能收到回调信息，ZKClient进程要一直运行，不能关闭</span></span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">           Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">           System.out.println(<span class="string">&quot;我还活着&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来分析一下上面这段代码：</p>
+<ul>
+<li>  当 <code>/</code> 路径下的内容发生变化时，就会触发回调函数 <code>process()</code> 方法执行，在该方法中会递归地调用 <code>testObserving()</code> 方法，进行重新向 ZK 服务器发送一个带有新的观察者的请求。</li>
+<li>  看起来一切都很美好，持续监听的功能也能够实现。但是这段代码在实际运行时并不能得到想要的结果。</li>
+</ul>
+<p>原因如下：</p>
+<ol>
+<li> 第一次调用 <code>testObserving()</code> 方法的线程是 connect 线程，在本例中也就是 main 线程，为了保证客户端能够收到回调信息，main线程会一直保持运行。</li>
+<li> 但是 <code>process()</code> 方法是由 Listener 线程执行的，也就是说第二次调用 <code>testObserving()</code> 方法是由 Listener 线程执行的，那么 Listener 线程在执行到第 22 行的时候，就会陷入死循环。</li>
+<li> ZK 服务器端数据发生变化时需要通知 Listener 线程来执行 <code>process()</code> 方法，而此时的 Listener 线程陷入了死循环中，也就是说无法收到服务器的回调，自然也就无法继续执行 <code>process()</code> 方法了，所以上面的代码并不能实现持续监听的效果。</li>
+</ol>
+<p><strong>正确写法：</strong></p>
+<p>想要解决上面的问题，我们只要让 Listen 线程不陷入死循环就可以解决了。</p>
+<p>解决方法很简单，只需要把包含 Listener 线程的方法单独抽取到一个独立方法中就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 持续监听【正确写法】</span></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testObserving</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       observing();</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 为了保证客户端能收到回调信息，ZKClient进程要一直运行，不能关闭</span></span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">           Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">           System.out.println(<span class="string">&quot;我还活着&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">observing</span><span class="params">()</span> <span class="keyword">throws</span> KeeperException, InterruptedException &#123;</span><br><span class="line">       <span class="comment">// 由connect线程调用</span></span><br><span class="line">       zkClient.getChildren(<span class="string">&quot;/&quot;</span>, <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">           <span class="comment">// 由Listener线程调用</span></span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line">               <span class="comment">// 当 `/` 路径下的内容发生变化时，就会触发该方法</span></span><br><span class="line">               System.out.println(<span class="string">&quot;路径==&quot;</span> + event.getPath() + <span class="string">&quot;===发生了变化&quot;</span>);</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   <span class="comment">// 递归调用，重新设置观察者</span></span><br><span class="line">                   testObserving();</span><br><span class="line">               &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="监听服务器节点动态上下线案例"><a href="#监听服务器节点动态上下线案例" class="headerlink" title="监听服务器节点动态上下线案例"></a>监听服务器节点动态上下线案例</h2><p><strong>需求</strong>：某分布式系统中，有多台节点，可以动态上下线，要求任意一台客户端都能实时感知到主节点服务器的上下线。</p>
+<p><strong>需求分析</strong></p>
+<ol>
+<li> 想要客户端能动态监控服务器节点的上线、下线，那么要求服务器节点一定不能是永久节点，对于永久节点来说，一旦创建了就会被持久化，即使下线了在 ZK 集群中也不会失去这个节点的信息。所以需要把服务器节点设置称为临时节点，这样当服务器上/下线的时候，ZK 集群就会动态的创建/删除节点。</li>
+</ol>
+<p><img src="ZooKeeper/image-20211213115812008.png" alt="image-20211213115812008"></p>
+<p><strong>具体实现</strong></p>
+<ol>
+<li><p>先在集群上创建 <code>servers</code> 节点</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 5] create /servers &quot;servers&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>服务器端向 Zookeeper 注册的代码</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.zoo_keeper_demo.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/13 12:06</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 服务器节点</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 需求：</span></span><br><span class="line"><span class="comment"> *      每次启动后，在执行自己的核心业务之前，需要先向ZK集群注册一个临时节点，</span></span><br><span class="line"><span class="comment"> *      并向临时节点中保存一些关键信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式：`IP地址:端口号`，如果ZK是一个集群，多个地址之间用逗号隔开</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">connectString</span> <span class="operator">=</span> <span class="string">&quot;hadoop102:2181, hadoop103:2181,&quot;</span>;</span><br><span class="line">    <span class="comment">// session的超时时间（单位：ms）</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">sessionTimeout</span> <span class="operator">=</span> <span class="number">10000</span>;</span><br><span class="line">    <span class="comment">// 监听器线程对象，一旦watcher观察的path发生了变更，服务端就会通知客户端，客户端收到通知后就会自动调用process()方法</span></span><br><span class="line">    <span class="type">Watcher</span> <span class="variable">watcher</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">basePath</span> <span class="operator">=</span> <span class="string">&quot;/servers&quot;</span>;</span><br><span class="line">    <span class="type">ZooKeeper</span> <span class="variable">zkClient</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化客户端对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 创建一个ZK客户端对象</span></span><br><span class="line">        zkClient = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(connectString, sessionTimeout, watcher);</span><br><span class="line">        System.out.println(zkClient);</span><br><span class="line">        System.out.println(<span class="string">&quot;init&quot;</span>);</span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;创建ZKClient成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用zkClient在ZK集群上为Server注册临时节点，</span></span><br><span class="line"><span class="comment">     * 并向临时节点中保存一些关键信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">register</span><span class="params">(String info)</span> <span class="keyword">throws</span> KeeperException, InterruptedException &#123;</span><br><span class="line">        <span class="comment">// 创建带有序号的临时节点</span></span><br><span class="line">        <span class="comment">// 创建出来的节点类似于： /servers/server1;    /servers/server2 这种</span></span><br><span class="line">        zkClient.create(basePath+<span class="string">&quot;/server&quot;</span>, info.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);</span><br><span class="line">        System.out.println(<span class="string">&quot;注册节点成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Server节点其它的业务功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doOthers</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="comment">// 让Server持续运行</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;working....&quot;</span>);</span><br><span class="line">            Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Server</span> <span class="variable">server</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Server</span>();</span><br><span class="line">        <span class="comment">// 创建ZK客户端对象</span></span><br><span class="line">        server.init();</span><br><span class="line">        <span class="comment">// 将Server节点注册到ZK中</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">info</span> <span class="operator">=</span> <span class="string">&quot;我是Sever1，我的库存服务节点&quot;</span>;</span><br><span class="line">        server.register(info);</span><br><span class="line">        <span class="comment">// Server执行其它的业务功能</span></span><br><span class="line">        server.doOthers();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>客户端代向 Zookeeper 监听服务器上下线情况的代码</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.zoo_keeper_demo.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.KeeperException;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.WatchedEvent;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.Watcher;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.ZooKeeper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/13 15:42</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 从ZK集群持续监听Server节点的变化，一旦有变化，重新获取Server进程的信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式：`IP地址:端口号`，如果ZK是一个集群，多个地址之间用逗号隔开</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">connectString</span> <span class="operator">=</span> <span class="string">&quot;hadoop102:2181, hadoop103:2181,&quot;</span>;</span><br><span class="line">    <span class="comment">// session的超时时间（单位：ms）</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">sessionTimeout</span> <span class="operator">=</span> <span class="number">10000</span>;</span><br><span class="line">    <span class="comment">// 监听器线程对象，一旦watcher观察的path发生了变更，服务端就会通知客户端，客户端收到通知后就会自动调用process()方法</span></span><br><span class="line">    <span class="type">Watcher</span> <span class="variable">watcher</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">basePath</span> <span class="operator">=</span> <span class="string">&quot;/servers&quot;</span>;</span><br><span class="line">    <span class="type">ZooKeeper</span> <span class="variable">zkClient</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化客户端对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 创建一个ZK客户端对象</span></span><br><span class="line">        zkClient = <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(connectString, sessionTimeout, watcher);</span><br><span class="line">        System.out.println(zkClient);</span><br><span class="line">        System.out.println(<span class="string">&quot;init&quot;</span>);</span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;创建ZKClient成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 持续监听当前启动的Server进程有哪些，获取到Server进程的信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;String&gt; <span class="title function_">getInfo</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        ArrayList&lt;String&gt; info = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; children = zkClient.getChildren(basePath, <span class="keyword">new</span> <span class="title class_">Watcher</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">process</span><span class="params">(WatchedEvent event)</span> &#123;</span><br><span class="line">                System.out.println(event.getPath() + <span class="string">&quot;路径下发生了以下事件&quot;</span> + event.getType());</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 递归，持续监听</span></span><br><span class="line">                    getInfo();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取每个节点（server）中保存的信息</span></span><br><span class="line">        <span class="keyword">for</span> (String child : children) &#123;</span><br><span class="line">            <span class="type">byte</span>[] data = zkClient.getData(basePath + <span class="string">&quot;/&quot;</span> + child, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">            info.add(<span class="keyword">new</span> <span class="title class_">String</span>(data));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;最新读到的信息是:&quot;</span> + info);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 其它业务功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doOthers</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="comment">// 让Client持续运行</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;working....&quot;</span>);</span><br><span class="line">            Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Client</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Client</span>();</span><br><span class="line">        <span class="comment">// 同样首先也要先创建ZKClient，并向ZK集群注册监听事件</span></span><br><span class="line">        client.init();</span><br><span class="line">        <span class="comment">// 获取数据</span></span><br><span class="line">        client.getInfo();</span><br><span class="line">        <span class="comment">// client 的其它工作（保持client不会关闭）</span></span><br><span class="line">        client.doOthers();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/28/Kafka/" rel="prev" title="Kafka">
+                  <i class="fa fa-chevron-left"></i> Kafka
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/04/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="next" title="装饰器模式">
+                  装饰器模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

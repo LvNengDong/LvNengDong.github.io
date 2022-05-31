@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="集成通用Mapper 对象关系映射 配置介绍 代码生成器 扩展通用接口 Example用法 其它配置和用法  1、集成通用Mapper1.1    Java编码方式1.2    和Spring集成1.3    和SpringBoot集成 和MyBatis一样，SpringBoot集成通用Mapper和的方式可分为2种：  @Mapper注解 @MapperScan注解的手动配置   1.3.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通用Mapper的详解">
+<meta property="og:url" content="http://example.com/2020/09/07/%E9%80%9A%E7%94%A8Mapper%E7%9A%84%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="集成通用Mapper 对象关系映射 配置介绍 代码生成器 扩展通用接口 Example用法 其它配置和用法  1、集成通用Mapper1.1    Java编码方式1.2    和Spring集成1.3    和SpringBoot集成 和MyBatis一样，SpringBoot集成通用Mapper和的方式可分为2种：  @Mapper注解 @MapperScan注解的手动配置   1.3.1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-07T02:35:42.000Z">
+<meta property="article:modified_time" content="2021-01-22T12:32:29.286Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/09/07/%E9%80%9A%E7%94%A8Mapper%E7%9A%84%E8%AF%A6%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/09/07/%E9%80%9A%E7%94%A8Mapper%E7%9A%84%E8%AF%A6%E8%A7%A3/","path":"2020/09/07/通用Mapper的详解/","title":"通用Mapper的详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>通用Mapper的详解 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E9%9B%86%E6%88%90%E9%80%9A%E7%94%A8Mapper"><span class="nav-number">1.</span> <span class="nav-text">1、集成通用Mapper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Java%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1    Java编码方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%92%8CSpring%E9%9B%86%E6%88%90"><span class="nav-number">1.2.</span> <span class="nav-text">1.2    和Spring集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%92%8CSpringBoot%E9%9B%86%E6%88%90"><span class="nav-number">1.3.</span> <span class="nav-text">1.3    和SpringBoot集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-Mapper"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1    @Mapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-MapperScan"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2    @MapperScan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3    实现步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84"><span class="nav-number">2.</span> <span class="nav-text">2、对象关系映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8"><span class="nav-number">2.1.</span> <span class="nav-text">2.1    简单入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%A0%E5%B0%84"><span class="nav-number">2.2.</span> <span class="nav-text">2.2    数据库映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-NameStyle%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1    @NameStyle注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-Table%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2    @Table注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-Column%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3    @Column注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-ColumnType%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.2.4    @ColumnType注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-5-Transient%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.5.</span> <span class="nav-text">2.2.5    @Transient注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-6-Id%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.6.</span> <span class="nav-text">2.2.6    @Id注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-7-KeySql%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.7.</span> <span class="nav-text">2.2.7    @KeySql注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-8-GenerateValue%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.8.</span> <span class="nav-text">2.2.8    @GenerateValue注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-9-Version%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.9.</span> <span class="nav-text">2.2.9    @Version注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-10-RegisterMapper%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.2.10.</span> <span class="nav-text">2.2.10    @RegisterMapper注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E4%B8%BB%E9%94%AE%E7%AD%96%E7%95%A5"><span class="nav-number">2.3.</span> <span class="nav-text">2.3    主键策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-JDBC%E6%94%AF%E6%8C%81%E9%80%9A%E8%BF%87getGeneratedValue%E6%96%B9%E6%B3%95%E5%8F%96%E5%9B%9E%E4%B8%BB%E9%94%AE%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1    JDBC支持通过getGeneratedValue方法取回主键的情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">2.4.</span> <span class="nav-text">2.4    乐观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%85%A8%E5%B1%80%E4%B8%BB%E9%94%AE"><span class="nav-number">2.5.</span> <span class="nav-text">2.5    全局主键</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/07/%E9%80%9A%E7%94%A8Mapper%E7%9A%84%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="通用Mapper的详解 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通用Mapper的详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-09-07 10:35:42" itemprop="dateCreated datePublished" datetime="2020-09-07T10:35:42+08:00">2020-09-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-01-22 20:32:29" itemprop="dateModified" datetime="2021-01-22T20:32:29+08:00">2021-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MyBatis/" itemprop="url" rel="index"><span itemprop="name">MyBatis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ol>
+<li>集成通用Mapper</li>
+<li>对象关系映射</li>
+<li>配置介绍</li>
+<li>代码生成器</li>
+<li>扩展通用接口</li>
+<li>Example用法</li>
+<li>其它配置和用法</li>
+</ol>
+<h1 id="1、集成通用Mapper"><a href="#1、集成通用Mapper" class="headerlink" title="1、集成通用Mapper"></a>1、集成通用Mapper</h1><h2 id="1-1-Java编码方式"><a href="#1-1-Java编码方式" class="headerlink" title="1.1    Java编码方式"></a>1.1    Java编码方式</h2><h2 id="1-2-和Spring集成"><a href="#1-2-和Spring集成" class="headerlink" title="1.2    和Spring集成"></a>1.2    和Spring集成</h2><h2 id="1-3-和SpringBoot集成"><a href="#1-3-和SpringBoot集成" class="headerlink" title="1.3    和SpringBoot集成"></a>1.3    和SpringBoot集成</h2><blockquote>
+<p>和MyBatis一样，SpringBoot集成通用Mapper和的方式可分为2种：</p>
+<ol>
+<li><code>@Mapper</code>注解</li>
+<li><code>@MapperScan</code>注解的手动配置</li>
+</ol>
+</blockquote>
+<h3 id="1-3-1-Mapper"><a href="#1-3-1-Mapper" class="headerlink" title="1.3.1    @Mapper"></a>1.3.1    @Mapper</h3><blockquote>
+<p><strong>如果没有使用<code>@MapperScan</code>注解，就必须在Mapper/Dao接口上添加<code>@Mapper</code>注解，否则Spring容器无法判断扫描装配哪些接口。</strong></p>
+</blockquote>
+<h3 id="1-3-2-MapperScan"><a href="#1-3-2-MapperScan" class="headerlink" title="1.3.2    @MapperScan"></a>1.3.2    @MapperScan</h3><blockquote>
+<p><strong>或者可以在带有<code>@Configuration</code>的类上添加<code>@MapperScan</code>注解</strong>，或直接配置到SpringBoot的启动类上，如：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tk</span>.mybatis.spring.annotation.MapperScan(basePackages = <span class="string">&quot;扫描包&quot;</span>)</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SampleMapperApplication</span> <span class="keyword">implements</span> <span class="title class_">CommandLineRunner</span> &#123;</span><br></pre></td></tr></table></figure>
+
+<p><em>Tip：与SpringBoot整合MyBatis不同的是：通用Mapper使用<code>tk.mybatis.spring.annotation.MapperScan</code>包下的<code>@MapperScan</code>注解，MyBatis的<code>org.mybatis.spring.annotation.MapperScan</code>包下的<code>@MapperScan</code>注解。</em></p>
+<h3 id="1-3-3-实现步骤"><a href="#1-3-3-实现步骤" class="headerlink" title="1.3.3    实现步骤"></a>1.3.3    实现步骤</h3><ol>
+<li><p>创建项目，添加通用Mapper依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>tk.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>版本号<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用<code>@Mapper/@MapperScan</code>注解</p>
+</li>
+<li><p>如果需要覆盖通用Mapper的默认配置，可以在<code>application.yml</code>文件中进行。如：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mapper:</span></span><br><span class="line">  <span class="attr">mappers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">tk.mybatis.mapper.common.Mapper</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">tk.mybatis.mapper.common.Mapper2</span></span><br><span class="line">  <span class="attr">notEmpty:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="2、对象关系映射"><a href="#2、对象关系映射" class="headerlink" title="2、对象关系映射"></a>2、对象关系映射</h1><h2 id="2-1-简单入门"><a href="#2-1-简单入门" class="headerlink" title="2.1    简单入门"></a>2.1    简单入门</h2><ol>
+<li><p>数据库表（MySQL）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `country` (</span><br><span class="line">    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &#x27;主键&#x27;,</span><br><span class="line">    `countryname` varchar(255) DEFAULT NULL COMMENT &#x27;名称&#x27;,</span><br><span class="line">    `countrycode` varchar(255) DEFAULT NULL COMMENT &#x27;代码&#x27;,</span><br><span class="line">    PRIMARY KEY (`Id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=10011 DEFAULT CHARSET=utf8 COMMENT=&#x27;国家信息&#x27;;</span><br></pre></td></tr></table></figure></li>
+<li><p>对应的Java实体类型如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Country</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String  countryname;</span><br><span class="line">    <span class="keyword">private</span> String  countrycode;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//省略 getter 和 setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最简单的情况下，数据库中的字段名和是JavaBean中的属性名是完全相同的，可以直接产生一一映射关系，只需要添加一个<code>@Id</code>注解标记当前属性为主键数据库中的主键字段即可。</p>
+<blockquote>
+<p><strong>Tip：如果实体类中没有一个标记为<code>@Id</code>的字段，当你使用带有<code>ByPrimaryKey</code>的方法时，所有的字段会作为联合主键来使用。</strong></p>
+</blockquote>
+</li>
+<li><p>通用Mapper接口提供了大量已封装好的方法，我们自定义的Mapper接口只需要继承该接口就能调用这些方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tk.mybatis.mapper.common.Mapper;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	前提：该接口必须实现 @Mapper 或 @MapperScan  注解</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CountryMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Country&gt; &#123;	<span class="comment">// 继承通用Mapper接口必须指定接口的泛型类型是与数据库表对应的实体类的类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通用Mapper接口中常见的方法：</p>
+<ul>
+<li><code>selectOne</code></li>
+<li><code>select</code></li>
+<li><code>selectAll</code></li>
+<li><code>selectCount</code></li>
+<li><code>selectByPrimaryKey</code></li>
+<li><code>...</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>使用该接口的类对象调用接口中的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取 countryMapper 对象，并调用 selectAll 方法</span></span><br><span class="line">List&lt;Country&gt; countries = countryMapper.selectAll();</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据主键查询</span></span><br><span class="line"><span class="type">Country</span> <span class="variable">country</span> <span class="operator">=</span> countryMapper.selectByPrimaryKey(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者使用对象传参，适用于1个字段或者多个字段联合主键使用。通用Mapper的会把对象中的所有非空属性联合起来作为一个主键查询</span></span><br><span class="line"><span class="type">Country</span> <span class="variable">query</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Country</span>();</span><br><span class="line">query.setId(<span class="number">1</span>);</span><br><span class="line">country = countryMapper.selectByPrimaryKey(query);</span><br></pre></td></tr></table></figure></li>
+<li><p>如果想要自定义操作数据库的方法，可以直接在<code>CountryMapper</code>中增加。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Select;</span><br><span class="line"><span class="keyword">import</span> tk.mybatis.mapper.common.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CountryMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Country&gt; &#123;</span><br><span class="line">    <span class="meta">@Select(&quot;select * from country where countryname = #&#123;countryname&#125;&quot;)</span></span><br><span class="line">    Country <span class="title function_">selectByCountryName</span><span class="params">(String countryname)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="2-2-数据库映射"><a href="#2-2-数据库映射" class="headerlink" title="2.2    数据库映射"></a>2.2    数据库映射</h2><blockquote>
+<p>在2.1中看到的是最简单的情况，实际使用过程中也不会更复杂，下面是更详细的映射配置。</p>
+</blockquote>
+<ul>
+<li><p>通用Mapper中，默认情况下是将实体类字段按照<strong>驼峰转下划线</strong>的形式与数据库表中的列名进行映射。</p>
+<p>如：实体类的<code>userName</code>可以映射到表的<code>user_name</code>上。</p>
+<p>如果想要修改默认的转换方式，可以在后续的配置中，修改<code>style</code>全局配置；</p>
+<p>也可以使用通用Mapper提供的一些注解进行修改。</p>
+</li>
+</ul>
+<h3 id="2-2-1-NameStyle注解"><a href="#2-2-1-NameStyle注解" class="headerlink" title="2.2.1    @NameStyle注解"></a>2.2.1    <code>@NameStyle</code>注解</h3><ul>
+<li><p>这个注解可以在类上进行配置，优先级高于对应的<code>style</code>全局配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">normal,                     <span class="comment">//原值</span></span><br><span class="line">camelhump,                  <span class="comment">//驼峰转下划线</span></span><br><span class="line">uppercase,                  <span class="comment">//转换为大写</span></span><br><span class="line">lowercase,                  <span class="comment">//转换为小写</span></span><br><span class="line">camelhumpAndUppercase,      <span class="comment">//驼峰转下划线大写形式</span></span><br><span class="line">camelhumpAndLowercase,      <span class="comment">//驼峰转下划线小写形式</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用时，直接在类上配置即可。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NameStyle(Style.camelhumpAndUppercase)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Country</span></span><br></pre></td></tr></table></figure>
+
+<p>配置该注解后，对该类和其中的字段进行转换时，会将形如<code>userName</code>的字段转换为表中的<code>user_name</code>字段。</p>
+</li>
+</ul>
+<h3 id="2-2-2-Table注解"><a href="#2-2-2-Table注解" class="headerlink" title="2.2.2    @Table注解"></a>2.2.2    <code>@Table</code>注解</h3><ul>
+<li><p><code>@Table</code>注解可以配置<code>name</code>、<code>catalog</code>和<code>schema</code>三个属性，配置<code>name</code>属性后，直接使用提供的表名，不再根据实体类名进行转换。其它的2个属性中，同时配置时，<code>catalog</code>优先级高于<code>scheam</code>，也就是说只有<code>catalog</code>会生效。</p>
+</li>
+<li><p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Table(name = &quot;sys_user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span></span><br></pre></td></tr></table></figure>
+
+<p>将<code>User</code>实体类映射到<code>sys_user</code>表。</p>
+</li>
+</ul>
+<h3 id="2-2-3-Column注解"><a href="#2-2-3-Column注解" class="headerlink" title="2.2.3    @Column注解"></a>2.2.3    <code>@Column</code>注解</h3><ul>
+<li><p><code>@Colum</code>注解支持<code>name</code>、<code>insertable</code>和<code>updateable</code>3个属性。</p>
+<p><code>name</code>配置映射的列名。</p>
+<p><code>insertable</code>对提供的<code>insert</code>方法有效，如果设置为<code>false</code>后就不会出现在SQL中。</p>
+<p><code>updateable</code>对提供的<code>update</code>方法有效，如果设置为<code>false</code>后就不会出现在SQL中。</p>
+</li>
+<li><p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Column(name = &quot;user_name&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
+
+<p>直接映射<code>name</code>到<code>user_name</code>。</p>
+</li>
+</ul>
+<h3 id="2-2-4-ColumnType注解"><a href="#2-2-4-ColumnType注解" class="headerlink" title="2.2.4    @ColumnType注解"></a>2.2.4    <code>@ColumnType</code>注解</h3><ul>
+<li><p>这个注解提供的<code>column</code>属性和<code>@Column</code>中的<code>name</code>作用相同，但是<code>@Column</code>的优先级更高。除了<code>name</code>属性外，这个注解主要提供了<code>jdbcType</code>属性和<code>typeHandler</code>属性。</p>
+<p><code>jdbcType</code>用于设置特殊数据库类型时指定数据库中的<code>jdbcType</code>。</p>
+<p><code>typeHandler</code>用于设置特殊类型处理器，常见的是枚举。</p>
+</li>
+<li><p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ColumnType(</span></span><br><span class="line"><span class="meta">        column = &quot;countryname&quot;,</span></span><br><span class="line"><span class="meta">        jdbcType = JdbcType.VARCHAR,</span></span><br><span class="line"><span class="meta">        typeHandler = StringTypeHandler.class)</span></span><br><span class="line"><span class="keyword">private</span> String  countryname;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-2-5-Transient注解"><a href="#2-2-5-Transient注解" class="headerlink" title="2.2.5    @Transient注解"></a>2.2.5    <code>@Transient</code>注解</h3><ul>
+<li><p>一般情况下，实体中的字段和数据库中的字段是一一对应的，但是有时候我们会在实体类中定义一些额外的属性并希望这些属性不会与数据库表中的字段产生映射，这种情况下，就需要使用<code>@Transient</code>注解来告诉通用Mapper这不是表中的字段。</p>
+</li>
+<li><p>默认情况下，只有简单类型会被自动认为是表中的字段（可以通过配置中的<code>useSimpleType</code>控制）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 这里说的简单类型不包含Java中的8种类基本型：</span><br><span class="line">byte、short、int、long、float、double、char、boolean</span><br><span class="line"> 这是因为在类中，基本类型会有默认值，而MyBatis中经常会要判断属性值是否为空，所以不要在类中使用基本类型，否则会遇到莫名其妙的错误。</span><br><span class="line"> 如果要使用基本类型的数据，应该使用其包装类。	</span><br></pre></td></tr></table></figure>
+
+<p>对于类中的复杂对象，以及<code>Map</code>、<code>List</code>等属性不需要配置这个注解。</p>
+<p>对于枚举类型作为数据库字段的情况，需要看配置中的<code>enumAsSimpleType</code>参数</p>
+</li>
+<li><p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transient</span></span><br><span class="line"><span class="keyword">private</span> String otherThings; <span class="comment">//非数据库表中字段</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-2-6-Id注解"><a href="#2-2-6-Id注解" class="headerlink" title="2.2.6    @Id注解"></a>2.2.6    <code>@Id</code>注解</h3><ul>
+<li><p>上面的几个注解都涉及到映射。<code>@Id</code>注解和映射无关，它是一个特殊的标记，用于标识数据库中的主键字段。</p>
+</li>
+<li><p>正常情况下，一个实体类中至少需要一个标记<code>@Id</code>注解的字段，存在联合主键时可以标记多个。</p>
+</li>
+<li><p>如果表中没有主键，类中就可以不标记。</p>
+</li>
+<li><p>当类中没有存在标记了<code>@Id</code>注解的字段时，你可以理解为类中的所有字段是联合主键。使用所有的<code>ByPrimaryKey</code>相关的方法时，有<code>where</code>条件的地方，会将所有列作为条件。</p>
+</li>
+<li><p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="keyword">private</span> Integer id;</span><br></pre></td></tr></table></figure>
+
+<p>或联合主键：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="keyword">private</span> Integer userId;</span><br><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="keyword">private</span> Integer roleId;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-2-7-KeySql注解"><a href="#2-2-7-KeySql注解" class="headerlink" title="2.2.7    @KeySql注解"></a>2.2.7    <code>@KeySql</code>注解</h3><ul>
+<li>主键策略注解，用于配置如何生成主键。</li>
+<li>这是通用Mapper的自定义注解，该注解的目的就是替换<code>@GenerateValue</code>注解。</li>
+<li>详见<strong>2.3主键策略</strong>。</li>
+</ul>
+<h3 id="2-2-8-GenerateValue注解"><a href="#2-2-8-GenerateValue注解" class="headerlink" title="2.2.8    @GenerateValue注解"></a>2.2.8    <code>@GenerateValue</code>注解</h3><ul>
+<li>主键策略注解，用于配置如何生成主键。</li>
+<li>不同数据库的配置不同，详见<strong>2.3主键策略</strong>。</li>
+</ul>
+<h3 id="2-2-9-Version注解"><a href="#2-2-9-Version注解" class="headerlink" title="2.2.9    @Version注解"></a>2.2.9    <code>@Version</code>注解</h3><ul>
+<li><code>@Version</code>是实现乐观锁的一个注解，大多数人都不需要。</li>
+<li>详见<strong>2.4乐观锁</strong>。</li>
+</ul>
+<h3 id="2-2-10-RegisterMapper注解"><a href="#2-2-10-RegisterMapper注解" class="headerlink" title="2.2.10    @RegisterMapper注解"></a>2.2.10    <code>@RegisterMapper</code>注解</h3><ul>
+<li>为了解决通用Mapper中最常见的一个错误而增加的注解标记，该注解仅用于开发用用接口，不是实体类上使用的，这里和其它注解一起介绍了。</li>
+<li>4.0 版本提供的所有通用接口上都标记了该注解，因此自带的通用接口时，不需要配置 <code>mappers</code> 参数，该注解的具体用法会在 <strong>第五章 扩展通用接口</strong> 中介绍。</li>
+</ul>
+<hr>
+<h2 id="2-3-主键策略"><a href="#2-3-主键策略" class="headerlink" title="2.3    主键策略"></a>2.3    主键策略</h2><p>​    在2.2中介绍了所有其它注解的作用和用法，由于主键策略比较复杂，单独用一节来阐述。</p>
+<p>​    首先主键策略和数据库关系很大，有些数据库支持主键自增，而有些数据库只能通过序列来获得主键。</p>
+<p>​    新增的<code>@KeySql</code>注解用于替换<code>@GeneratedValue</code>注解，因此<code>@KeySql</code>能以更简单的方式实现原来的功能。下面的示例都先使用<code>@KeySql</code>进行配置，然后再使用<code>@GeneratedValue</code>，大家可以自行选择。</p>
+<h3 id="2-3-1-JDBC支持通过getGeneratedValue方法取回主键的情况"><a href="#2-3-1-JDBC支持通过getGeneratedValue方法取回主键的情况" class="headerlink" title="2.3.1    JDBC支持通过getGeneratedValue方法取回主键的情况"></a>2.3.1    JDBC支持通过<code>getGeneratedValue</code>方法取回主键的情况</h3><ul>
+<li><p>这种情况首先需要数据库支持自增长，其次数据库提供的JDBC支持<code>getGeneratedKeys</code>方法。</p>
+</li>
+<li><p>常见的如MySql、SqlServer支持这种模式。</p>
+</li>
+<li><p>这种情况下，配置主键策略最简单。用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="meta">@KeySql(useGeneratedKeys = true)</span></span><br><span class="line"><span class="keyword">private</span> Long id;</span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Id</span></span><br><span class="line"><span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line"><span class="keyword">private</span> Long id;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>SqlServer中使用时，需要设置<code>id</code>的<code>insertable=false</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-4-乐观锁"><a href="#2-4-乐观锁" class="headerlink" title="2.4    乐观锁"></a>2.4    乐观锁</h2><h2 id="2-5-全局主键"><a href="#2-5-全局主键" class="headerlink" title="2.5    全局主键"></a>2.5    全局主键</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/28/SpringMVC/" rel="prev" title="SpringMVC">
+                  <i class="fa fa-chevron-left"></i> SpringMVC
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/14/Java%E4%B8%ADComparable%E6%8E%A5%E5%8F%A3%E5%92%8CComparator%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="Java比较器">
+                  Java比较器 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

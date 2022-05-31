@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1    Bean转换工具在开发中经常会遇到一种问题就是：从Dao层拿到的DO实体类对象如下，比如我们从数据库中查出的User实体类包含以下属性： 1234567891011@Setter@Getter@ToStringpublic class UserDo &amp;#123;    private Integer id;    private String name;    private Integ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bean转换工具">
+<meta property="og:url" content="http://example.com/2020/12/09/Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1    Bean转换工具在开发中经常会遇到一种问题就是：从Dao层拿到的DO实体类对象如下，比如我们从数据库中查出的User实体类包含以下属性： 1234567891011@Setter@Getter@ToStringpublic class UserDo &amp;#123;    private Integer id;    private String name;    private Integ">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-09T14:28:40.000Z">
+<meta property="article:modified_time" content="2021-04-06T15:58:12.936Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/12/09/Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/12/09/Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/","path":"2020/12/09/Bean转换工具/","title":"Bean转换工具"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Bean转换工具 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">1    Bean转换工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Dozer"><span class="nav-number">2.</span> <span class="nav-text">2    Dozer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Dozer%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.</span> <span class="nav-text">2.1    Dozer简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.</span> <span class="nav-text">2.2    使用步骤</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/09/Bean%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Bean转换工具 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Bean转换工具
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-09 22:28:40" itemprop="dateCreated datePublished" datetime="2020-12-09T22:28:40+08:00">2020-12-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-04-06 23:58:12" itemprop="dateModified" datetime="2021-04-06T23:58:12+08:00">2021-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">开发日记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-Bean转换工具"><a href="#1-Bean转换工具" class="headerlink" title="1    Bean转换工具"></a>1    Bean转换工具</h1><p>在开发中经常会遇到一种问题就是：从Dao层拿到的DO实体类对象如下，比如我们从数据库中查出的User实体类包含以下属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="keyword">private</span> Integer isDeleted;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是我们服务需要返回给前端的VO实体类要包含以下属性，多出了2个额外字段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="keyword">private</span> Integer isDeleted;</span><br><span class="line">    <span class="keyword">private</span> String nickName;	<span class="comment">// 额外字段1</span></span><br><span class="line">    <span class="keyword">private</span> Date birthday;		<span class="comment">// 额外字段2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显然，VO中包含了DO中的大多数属性，但是并没有完全重合，所以我们最终在返回实体类对象给前端时<strong>必然要把DO对象转换为VO对象</strong>，常规的做法是：</p>
+<ul>
+<li>先new一个Vo对象，然后调用set方法将Do对象的属性逐一添加进去，最后再用set方法添加Vo特有的属性，但是这种方法很不方便。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test09;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TransformDemo</span> &#123;</span><br><span class="line">    <span class="comment">// 模拟从数据库中得到的Do对象</span></span><br><span class="line">    <span class="keyword">public</span> UserDo <span class="title function_">getUserDo</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">UserDo</span> <span class="variable">userDo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDo</span>();</span><br><span class="line">        userDo.setId(<span class="number">1</span>);</span><br><span class="line">        userDo.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        userDo.setAge(<span class="number">19</span>);</span><br><span class="line">        userDo.setGender(<span class="string">&quot;男&quot;</span>);</span><br><span class="line">        userDo.setIsDeleted(<span class="number">1</span>);     <span class="comment">// 是否删除，1是0否</span></span><br><span class="line">        <span class="keyword">return</span> userDo;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 常规方法实现Bean对象之间的转换：Do-&gt;Vo</span></span><br><span class="line">    <span class="keyword">public</span> UserVo <span class="title function_">transformDoToVo</span><span class="params">(UserDo userDo)</span>&#123;</span><br><span class="line">        <span class="type">UserVo</span> <span class="variable">userVo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserVo</span>();</span><br><span class="line">        userVo.setId(userDo.getId());</span><br><span class="line">        userVo.setName(userDo.getName());</span><br><span class="line">        userVo.setAge(userDo.getAge());</span><br><span class="line">        userVo.setGender(userDo.getGender());</span><br><span class="line">        userVo.setIsDeleted(userDo.getIsDeleted());</span><br><span class="line">        userVo.setNickName(<span class="string">&quot;法外狂徒&quot;</span>);</span><br><span class="line">        userVo.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        <span class="keyword">return</span> userVo;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 测试类</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testTransform</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">UserDo</span> <span class="variable">userDo</span> <span class="operator">=</span> <span class="built_in">this</span>.getUserDo();</span><br><span class="line">        <span class="type">UserVo</span> <span class="variable">userVo</span> <span class="operator">=</span> <span class="built_in">this</span>.transformDoToVo(userDo);</span><br><span class="line">        System.out.println(userDo);</span><br><span class="line">        System.out.println(userVo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们可以观察到，DO和VO之间有大量重复的字段，我们可以利用这一特点快速的将DO转换为VO。</li>
+</ul>
+<blockquote>
+<p>下面会介绍一款常用的Bean转换工具：<strong>Dozer</strong></p>
+</blockquote>
+<hr>
+<h1 id="2-Dozer"><a href="#2-Dozer" class="headerlink" title="2    Dozer"></a>2    Dozer</h1><h2 id="2-1-Dozer简介"><a href="#2-1-Dozer简介" class="headerlink" title="2.1    Dozer简介"></a>2.1    Dozer简介</h2><p>Dozer是<code>JavaBean -&gt; JavaBean</code>的映射器，它采用递归的方式将一个对象中的数据复制到另一个对象。支持：</p>
+<blockquote>
+<ul>
+<li>简单属性映射</li>
+<li>复杂类型映射</li>
+<li>双向映射</li>
+<li>隐式显式映射</li>
+<li>递归映射</li>
+<li>…</li>
+</ul>
+</blockquote>
+<p>Dozer不仅支持属性名称之间的映射，还支持在类型之间自动转换。大多数的转换方案都是开箱即用的。</p>
+<ol>
+<li>自定映射规则：根据两个实体类中同名的属性进行映射。类似于MyBatis的XML的自动映射规则。</li>
+<li>手动配置映射规则：如果无法进行自动映射（比如在两个实体类中使用属性名映射时对应字段的名称不同），还可以通过XML配置文件的形式配置手动映射规则。类似于在MyBatis的配置文件中配置ResultMap。</li>
+</ol>
+<h2 id="2-2-使用步骤"><a href="#2-2-使用步骤" class="headerlink" title="2.2    使用步骤"></a>2.2    使用步骤</h2><blockquote>
+<ol>
+<li>导入Dozer依赖</li>
+</ol>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.sf.dozer<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dozer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="2">
+<li>自定义BeanMapper工具类</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanMapper</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 持有Dozer单例, 避免重复创建DozerMapper消耗资源.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">DozerBeanMapper</span> <span class="variable">dozer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DozerBeanMapper</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 普通对象转换 比如: DO -&gt; VO</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: [source 源对象, destinationClass 目标对象class]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: T</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">map</span><span class="params">(Object source, Class&lt;T&gt; destinationClass)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dozer.map(source, destinationClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * List转换 比如: List&lt;DO&gt; -&gt; List&lt;VO&gt;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>: [sourceList 源对象List, destinationClass 目标对象class]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: java.util.List&lt;T&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; List&lt;T&gt; <span class="title function_">mapList</span><span class="params">(Collection sourceList, Class&lt;T&gt; destinationClass)</span> &#123;</span><br><span class="line">        List&lt;T&gt; destinationList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">        <span class="keyword">if</span> (sourceList == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> destinationList;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Object sourceObject : sourceList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (sourceObject != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="type">T</span> <span class="variable">destinationObject</span> <span class="operator">=</span> dozer.map(sourceObject, destinationClass);</span><br><span class="line">                destinationList.add(destinationObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> destinationList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 基于Dozer将对象A的值拷贝到对象B中.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">copy</span><span class="params">(Object source, Object destinationObject)</span> &#123;</span><br><span class="line">        dozer.map(source, destinationObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="3">
+<li>BeanMapper的使用</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.test09;</span><br><span class="line"><span class="keyword">import</span> cn.xsyu.test09.util.BeanMapper;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DozerBeanMapperTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> UserDo <span class="title function_">getUserDo</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">UserDo</span> <span class="variable">userDo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDo</span>();</span><br><span class="line">        userDo.setId(<span class="number">1</span>);</span><br><span class="line">        userDo.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        userDo.setAge(<span class="number">19</span>);</span><br><span class="line">        userDo.setGender(<span class="string">&quot;男&quot;</span>);</span><br><span class="line">        userDo.setIsDeleted(<span class="number">1</span>);     <span class="comment">// 是否删除，1是0否</span></span><br><span class="line">        <span class="keyword">return</span> userDo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDozer</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">UserDo</span> <span class="variable">userDo</span> <span class="operator">=</span> <span class="built_in">this</span>.getUserDo();</span><br><span class="line">        System.out.println(userDo);</span><br><span class="line"></span><br><span class="line">        <span class="type">UserVo</span> <span class="variable">userVo</span> <span class="operator">=</span> BeanMapper.map(userDo, UserVo.class);</span><br><span class="line">        userVo.setNickName(<span class="string">&quot;法外狂徒&quot;</span>);</span><br><span class="line">        userVo.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        System.out.println(userVo);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  UserDo(id=1, name=张三, age=19, gender=男, isDeleted=1)</span></span><br><span class="line"><span class="comment">  UserVo(id=1, name=张三, age=19, gender=男, isDeleted=1, nickName=法外狂徒, birthday=Wed Dec 09 21:57:17 CST 2020)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/08/%E9%9A%8F%E7%AC%94/" rel="prev" title="随笔">
+                  <i class="fa fa-chevron-left"></i> 随笔
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/13/Elasticsearch/" rel="next" title="Elasticsearch">
+                  Elasticsearch <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

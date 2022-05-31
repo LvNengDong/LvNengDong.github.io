@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="大纲本篇文章的内容是关于 Spring IoC 的一个整体的概述，主要通过一些具体的例子来展示 Spring IoC 是怎样使用的。至于更底层、更详细的诸如源码分析等内容，之后将会在更加细微的章节展开说明。 那么本篇文章要将的大致内容如下，你可以先快速浏览一下：    Spring IoC 依赖查找  Spring IoC 依赖注入  Spring IoC 依赖来源  Spring IoC 配置元">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-IoC容器概述">
+<meta property="og:url" content="http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="大纲本篇文章的内容是关于 Spring IoC 的一个整体的概述，主要通过一些具体的例子来展示 Spring IoC 是怎样使用的。至于更底层、更详细的诸如源码分析等内容，之后将会在更加细微的章节展开说明。 那么本篇文章要将的大致内容如下，你可以先快速浏览一下：    Spring IoC 依赖查找  Spring IoC 依赖注入  Spring IoC 依赖来源  Spring IoC 配置元">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/image-20220330201508443.png">
+<meta property="article:published_time" content="2022-03-30T08:46:26.000Z">
+<meta property="article:modified_time" content="2022-04-01T02:53:36.827Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/image-20220330201508443.png">
+
+
+<link rel="canonical" href="http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/","path":"2022/03/30/Spring-IoC容器概述/","title":"Spring-IoC容器概述"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring-IoC容器概述 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E7%BA%B2"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-IoC-%E4%BE%9D%E8%B5%96%E6%9F%A5%E6%89%BE"><span class="nav-number">2.</span> <span class="nav-text">Spring IoC 依赖查找</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E6%A0%B9%E6%8D%AE-Bean-%E5%90%8D%E7%A7%B0%E6%9F%A5%E6%89%BE"><span class="nav-number">2.1.</span> <span class="nav-text">1、根据 Bean 名称查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E3%80%81%E5%AE%9E%E6%97%B6%E6%9F%A5%E6%89%BE"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1、实时查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2%E3%80%81%E5%BB%B6%E8%BF%9F%E6%9F%A5%E6%89%BE"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2、延迟查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%A0%B9%E6%8D%AE-Bean-%E7%B1%BB%E5%9E%8B%E6%9F%A5%E6%89%BE"><span class="nav-number">2.2.</span> <span class="nav-text">2、根据 Bean 类型查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1%E3%80%81%E6%A0%B9%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9F%A5%E6%89%BE%E5%8D%95%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1、根据类型查找单个对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E3%80%81%E6%A0%B9%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9F%A5%E6%89%BE%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2、根据类型查找多个对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%A0%B9%E6%8D%AE-Bean%E5%90%8D%E7%A7%B0-%E7%B1%BB%E5%9E%8B-%E6%9F%A5%E6%89%BE"><span class="nav-number">2.3.</span> <span class="nav-text">3、根据 Bean名称+类型 查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%A0%B9%E6%8D%AE-Java-%E6%B3%A8%E8%A7%A3%E6%9F%A5%E6%89%BE"><span class="nav-number">2.4.</span> <span class="nav-text">4、根据 Java 注解查找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-IoC-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">Spring IoC 依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E7%BA%B2-1"><span class="nav-number">3.1.</span> <span class="nav-text">大纲</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring-IoC容器概述 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring-IoC容器概述
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-30 16:46:26" itemprop="dateCreated datePublished" datetime="2022-03-30T16:46:26+08:00">2022-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-01 10:53:36" itemprop="dateModified" datetime="2022-04-01T10:53:36+08:00">2022-04-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/IoC/" itemprop="url" rel="index"><span itemprop="name">IoC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><p>本篇文章的内容是关于 Spring IoC 的一个整体的概述，主要通过一些具体的例子来展示 Spring IoC 是怎样使用的。至于更底层、更详细的诸如源码分析等内容，之后将会在更加细微的章节展开说明。</p>
+<p>那么本篇文章要将的大致内容如下，你可以先快速浏览一下：</p>
+<blockquote>
+<ol>
+<li> Spring IoC 依赖查找</li>
+<li> Spring IoC 依赖注入</li>
+<li> Spring IoC 依赖来源</li>
+<li> Spring IoC 配置元信息</li>
+<li> Spring 应用上下文</li>
+<li> 使用 Spring IoC 容器</li>
+<li> Spring IoC 容器声明周期</li>
+<li> 面试题精选</li>
+</ol>
+</blockquote>
+<p>我们可以对上面罗列出来的这些内容先进行一下简单的分类。</p>
+<p>首先，我们可以把 IoC 分为依赖、配置、和容器三部分。其中，依赖又可细分为 依赖查找、依赖注入、依赖来源、配置元信息管理 四部分。</p>
+<p>其次，我们要学习 Spring 应用上下文是什么，Spring 容器是什么，以及具体使用时如何在这二者间进行取舍，到底谁才是真正的底层 IoC 容器，谁才是面向程序的 IoC 容器。</p>
+<p>最后呢，我们会分析一下 Spring IoC 里面一些核心对象的基本的生命周期。为后续文章进行源码分析奠定一个基础。</p>
+<h1 id="Spring-IoC-依赖查找"><a href="#Spring-IoC-依赖查找" class="headerlink" title="Spring IoC 依赖查找"></a>Spring IoC 依赖查找</h1><blockquote>
+<p>  开篇词：依赖注入还不够吗？依赖查找的价值到底在哪儿？</p>
+</blockquote>
+<p>我们知道，Spring 中 IoC 的主要实现方式有两种：依赖注入和依赖查找。</p>
+<p>其中，依赖查找的主要实现方式有以下这些：</p>
+<ul>
+<li>根据 Bean 名称查找<ul>
+<li>  实时查找</li>
+<li>  延迟查找</li>
+</ul>
+</li>
+<li>根据 Bean 类型查找<ul>
+<li>  单个 Bean 对象</li>
+<li>  多个 Bean 对象（集合）</li>
+</ul>
+</li>
+<li>  根据 <code>Bean名称+类型</code> 查找</li>
+<li>根据 Java 注解查找<ul>
+<li>  单个 Bean 对象</li>
+<li>  多个 Bean 对象（集合）</li>
+</ul>
+</li>
+</ul>
+<p>我们可以试着猜想一下为什么要这样分类，熟悉 Spring 的小伙伴一定知道，在 Spring 上下文中，Bean 的名称是唯一的，这里的名称我们可以理解为 “id”，在下文中如无特别说明，一律可以将名称视为“id”。</p>
+<p>显然，由于 Bean 的名称是唯一的，所以 “根据 Bean 名称” 和 “根据 Bean名称+类型” 进行依赖查找得到的一定是单个实例，那么就没有必要采用集合的实现方式。</p>
+<p>同理可得，“根据 Bean 类型” 或者 “根据 Java 注解” 进行的依赖查找，在一个上下文中，一个 Bean 类型对应的实例可能有多个，一个 Java 注解也可以用在多个类上，所以这两种依赖查找的方式又可分为找到一个 Bean 和找到多个 Bean 两种。</p>
+<p>接下来，我将对这些依赖查找的实现方式进行逐一展示。</p>
+<h2 id="1、根据-Bean-名称查找"><a href="#1、根据-Bean-名称查找" class="headerlink" title="1、根据 Bean 名称查找"></a>1、根据 Bean 名称查找</h2><p>通过 Bean 的名称进行依赖查找在 Spring 中被称为一种“鉴定”。</p>
+<p>虽然名称在一个上下文中必须是唯一的，但这时候又会涉及到另一个问题，那就是：一个 Spring 应用里只有一个上下文吗？答案是否定的！对于一个 Spring 应用中包含多个上下文的情况，我们暂不讨论。我们先来看一下单个上下文环境中，通过 Bean 名称查找的依赖查找方式。</p>
+<p>首先，对于“根据名称查找”，我们有两种方式，一种方式叫实时查找————即马上查找，马上索得。另外一种方式是延迟查找。</p>
+<p>如果你有一定的 Spring 基础，那么你一定知道在 Spring 里有一个“延迟加载的 Bean”，那和这个东西是不是一码事呢？答案是否定的。这里讲的延迟查找是通过另外一种途径方式去实现的。 </p>
+<p>那么，接下来，我们就通过具体的代码演示，来看看这两种依赖查找的实现方式。</p>
+<h3 id="1-1、实时查找"><a href="#1-1、实时查找" class="headerlink" title="1.1、实时查找"></a>1.1、实时查找</h3><p>在正式编写核心代码前，我们要先进行一些准备工作，这些工作包括：</p>
+<ol>
+<li><p>创建一个 Maven 工程，并引入相关的依赖。由于我们目前只想使用依赖查找相关的功能，所以只需引入 Spring IoC 的核心依赖 <code>spring-context</code> 即可。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring IoC 核心依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>一般来讲，我们最常见的 IoC 容器的实现方式是通过加载 XML 文件，所以我们需要创建一个 XML 文件用于保存容器对象的元信息，并引入相关的约束（约束的格式可直接从 Spring 官网复制）。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>&gt;</span>  </span><br><span class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- more bean definitions go here --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>创建一些实体类用于后续的测试。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 省略 getter/setter/toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>接下来，我们正式进入核心代码的编写。</p>
+<ol>
+<li><p> 首先创建一个类 DependencyLookupDemo 用于编写依赖查找相关的代码。</p>
+</li>
+<li><p>在 XML 文件中配置 User 对象的属性。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;章鱼哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在 DependencyLookupDemo 中创建上下文，并加载指定配置文件。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DependencyLookupDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 配置 XML 配置文件</span></span><br><span class="line">        <span class="comment">// 启动 Spring 应用上下文</span></span><br><span class="line">        <span class="type">BeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;META-INF/dependency-lookup-context.xml&quot;</span>);</span><br><span class="line">        <span class="comment">// 实时查找</span></span><br><span class="line">        lookupInRealTime(beanFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>接下来就可以根据 XML 文件中配置的 user 的名称来查找它的实例对象了。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupInRealTime</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User) beanFactory.getBean(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;根据id查找 - 实时查找：&quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据id查找 - 实时查找：User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>我们来看一下上面这两行代码，你会发现 getBean() 方法返回的对象是一个 Object 类型，而不是 User 类型。</p>
+<p>所以，很多早期的书中都会通过上面这种形式将 Object 强转为 User 类型。这是因为 Spring3 之前使用的是 JDK5，JDK5 是不支持泛型的，所以我们只能使用这种强制转型的方式。</p>
+<h3 id="1-2、延迟查找"><a href="#1-2、延迟查找" class="headerlink" title="1.2、延迟查找"></a>1.2、延迟查找</h3><p>接下来我们继续来看“延迟查找”，同样在按名称查找的条件下，延迟查找会用到另外一个类————ObjectFactory。</p>
+<p>提起 ObjectFactory，这就涉及到了另外一个常见的面试题：Spring 中，ObjectFactory、BeanFactory 和 FactoryBean 之间的区别和联系？当然这个问题不是今天的重点，我们暂且不谈，先回到本节内容。</p>
+<p>ObjectFactory 是一个接口，从字面意思上理解，它是一个工厂类（接口）。从作用上来讲，ObjectFactory 接口中只有一个方法 getObject()，它的作用是“Return an instance of the object managed by this factory（返回一个工厂管理的对象实例。）”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ObjectFactory</span>&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return an instance (possibly shared or independent)</span></span><br><span class="line"><span class="comment">	 * of the object managed by this factory.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the resulting instance</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> BeansException in case of creation errors</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	T <span class="title function_">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不知道你有没有发现，这个接口中只是声明了返回一个对象实例，但压根没有说返回哪一个实例。也就是说这个接口其实啥也没说。</p>
+<p>所以说，该接口的实现类重写该方法后，可以是“根据名称返回对象实例”，也可以是“根据类型返回对象实例”，这是不固定的，只要返回的是一个对象实例即可。</p>
+<p>实际上，我们要讲的“延迟加载”就是通过实现 ObjectFactory 接口，重写 getObject() 方法实现“根据名称获取对象”的。</p>
+<p>当然，这和我们传统的 CRUD 业务开发中使用的接口习惯有点不一样。我们在业务开发中，一般会在接口中的抽象方法上声明入参，但不声明业务逻辑。而我们可以看到 ObjectFactory 接口中的 getObject() 方法，它既没有声明入参，也没有声明业务逻辑。</p>
+<p>实现“延迟加载”真正业务逻辑的类是 ObjectFactory 接口的一个实现类————ObjectFactoryCreatingFactoryBean。</p>
+<p>我们可以看到，在该实现类中重写了 getObject() 方法，实现了“根据名称获取对象”的功能，但其实底层真正执行的还是 <code>beanFactory.getBean(this.targetBeanName)</code>，即通过 targetBeanName 属性来获得 bean。和上面的“根据 Bean 名称实时查找”没有什么两样，而 targetBeanName 我们也可以在 XML 中通过 ObjectFactoryCreatingFactoryBean 的属性配置。所以说“延迟查找”和“实时查找”相比，只是多了一个中间商（但它不赚差价）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectFactoryCreatingFactoryBean</span> <span class="keyword">extends</span> <span class="title class_">AbstractFactoryBean</span>&lt;ObjectFactory&lt;Object&gt;&gt; &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> String targetBeanName;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TargetBeanObjectFactory</span> <span class="keyword">implements</span> <span class="title class_">ObjectFactory</span>&lt;Object&gt;, Serializable &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> BeanFactory beanFactory;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> String targetBeanName;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">TargetBeanObjectFactory</span><span class="params">(BeanFactory beanFactory, String targetBeanName)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.beanFactory = beanFactory;</span><br><span class="line">			<span class="built_in">this</span>.targetBeanName = targetBeanName;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="keyword">public</span> Object <span class="title function_">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span>.beanFactory.getBean(<span class="built_in">this</span>.targetBeanName); <span class="comment">// 与我们通过自定义的 BeanFactory 获取对象没有两样</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们就通过代码来实现一下 ObjectFactory 的延迟加载。</p>
+<ul>
+<li>  首先，我们需要把 ObjectFactory 的实现类 ObjectFactoryCreatingFactoryBean 配置到XML文件中；</li>
+<li>  其次，我们还要设置实现类的 targetBeanName 属性，让其与 user 关联（最终形成 <code>targetBeanName -&gt; user -&gt; ioc.overview.domain.User</code> 的三级关联关系，当然你可以略过中间的关联，只看头和尾即可）。</li>
+<li>  这样，我们在代码中就可以直接使用 ObjectFactory 的 getObject() 方法获取对象了。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;章鱼哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;objectFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;targetBeanName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;user&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupInLazy</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    ObjectFactory&lt;User&gt; objectFactory = (ObjectFactory&lt;User&gt;) beanFactory.getBean(<span class="string">&quot;objectFactory&quot;</span>);</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> objectFactory.getObject();</span><br><span class="line">    System.out.println(<span class="string">&quot;根据id查找 - 延迟查找：&quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据id查找 - 延迟查找：User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其实，所谓的延迟加载并不神奇，就是多了一个中转站，让 objectFactory 去调用 beanFactory 来加载 bean，而不是直接使用 beanFactory 去加载 bean。</p>
+<p>也就是说，当我得到 objectFactory 的时候，并不会马上初始化 “user” 这个 bean，只有在调用 objectFactory.getObject() 方法的时候，才会去调用 beanFactory 真正地加载 “user” 对应的 bean。</p>
+<p>【TODO】老实说，目前我还并没有真正理解这个 ObjectFactory 的在实际应用中的意义在哪里，保持学习，继续研究。</p>
+<h2 id="2、根据-Bean-类型查找"><a href="#2、根据-Bean-类型查找" class="headerlink" title="2、根据 Bean 类型查找"></a>2、根据 Bean 类型查找</h2><p>依赖查找的第二种类型就是通过 Bean 的类型来查找 Bean 对象，既然是根据类型查找，那我们理所应当地应该想到：可能只找到一个对象，也可能找到了多个对象。</p>
+<p>对于只找到一个对象，我们直接用对象本身的类型来接收即可，但对于找到了多个对象，如果还采用这种方式的话，显然程序会出错。因为我们不能用单个对象的数据类型来保存多个对象。举个例子就是，如果容器中 User 类对应的实例只有一个，那么可以直接用 User user 这种方式来保存；但如果容器中 User 类对应的实例存在多个，那前面那种保存方式显然就不适合了。对于这种情况，Spring 提供了三种解决方案：</p>
+<ul>
+<li><p>  （1）我们可以通过集合类型，比如 <code>List&lt;User&gt; users</code> 这样的方式来接收。</p>
+</li>
+<li><p>  （2）我们还可以通过增加筛选条件，比如，在根据 Bean 类型查找的基础上，再进行一轮筛选，根据 Bean 名称继续筛选。这样，得到的实例就能保证一定只有一个，我们还可以按照 User user 的方式来接收。</p>
+</li>
+<li><p>（3）第三种就是，在 XML 中的 <code>&lt;bean&gt;</code> 标签中，设置属性 <code>primary=&quot;true&quot;</code>。比如，在 XML 配置了三个 User 类的实例，user1，user2，user3，我们可以选择其中一个（如 user2），为其加上 <code>primary=&quot;true&quot;</code> 这个属性，那么 Spring 在查找到容器中包含多个同样类型的 User 对象后，只会返回 user2 对象，</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;章鱼哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span> <span class="attr">primary</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;痞老板&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user3&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;派大星&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>对于按照类型查找，我们可以通过 BeanFactory 中 getBean() 的重载方法来实现按类型查找实例。对于其中那些包含泛型的方法，它们都应该是从 Spring3.0 之后才开始投入使用的，因为 Spring3.0 支持 JDK5 版本，而 JDK5 开始才支持使用泛型。</p>
+<img src="Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/image-20220330201508443.png" alt="image-20220330201508443" style="zoom:67%;" />
+
+
+
+
+
+<h3 id="2-1、根据类型查找单个对象"><a href="#2-1、根据类型查找单个对象" class="headerlink" title="2.1、根据类型查找单个对象"></a>2.1、根据类型查找单个对象</h3><p>根据类型查找单个对象的使用方式非常简单，代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupByType</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> beanFactory.getBean(User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;根据类型查找 - 实时查找：&quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据类型查找 - 实时查找：User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
+
+<p>但是根据类型查找有个缺点就是：上下文中某个类型的对象可能不只一个，如果使用按照类型查找，且使用的是按照类型查找单个对象的方法，就会导致程序无法识别而报错。具体的我们可以试一下。</p>
+<ol>
+<li><p>我们首先在 XML 文件中新配置一个对象 user2。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;痞老板&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p> 然后重新调用 lookupByType 方法，就会出现如下报错信息：<code>No qualifying bean of type &#39;ioc.overview.domain.User&#39; available: expected single matching bean but found 2: user,user2</code></p>
+</li>
+</ol>
+<p>也就是说，如果上下文中同一类型的对象有多个，就只能使用下面要讲的，根据类型查找多个对象的方法。或者通过 类型+名称 这样的双重筛选方式达到最终返回的结果只有一个的效果。</p>
+<h3 id="2-2、根据类型查找多个对象"><a href="#2-2、根据类型查找多个对象" class="headerlink" title="2.2、根据类型查找多个对象"></a>2.2、根据类型查找多个对象</h3><p>使用“根据类型查找多个对象”时，首先需要将 beanFactory 转换为 ListableBeanFactory 类型，之后再使用 ListableBeanFactory 中的 getBeansOfType() 方法获取多个对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupCollectionByType</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ListableBeanFactory)&#123;</span><br><span class="line">        <span class="type">ListableBeanFactory</span> <span class="variable">listableBeanFactory</span> <span class="operator">=</span> (ListableBeanFactory) beanFactory;</span><br><span class="line">        Map&lt;String, User&gt; users = listableBeanFactory.getBeansOfType(User.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;查到的所有的 User 集合对象：&quot;</span> + users);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">查到的所有的 User 对象：&#123;user=User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;, user2=User&#123;id=2, name=&#x27;痞老板&#x27;&#125;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，多个对象以双列集合的形式保存，key 即为 bean 的名称，value 是实例对象的内容。</p>
+<h2 id="3、根据-Bean名称-类型-查找"><a href="#3、根据-Bean名称-类型-查找" class="headerlink" title="3、根据 Bean名称+类型 查找"></a>3、根据 Bean名称+类型 查找</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupByTypeAndId</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user2</span> <span class="operator">=</span> beanFactory.getBean(<span class="string">&quot;user2&quot;</span>, User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;根据`类型+名称`查找 - 实时查找：&quot;</span> + user2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据`类型+名称`查找 - 实时查找：User&#123;id=2, name=&#x27;痞老板&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="4、根据-Java-注解查找"><a href="#4、根据-Java-注解查找" class="headerlink" title="4、根据 Java 注解查找"></a>4、根据 Java 注解查找</h2><p>最后一种方式是“通过 Java 注解的方式来查找实例对象”，比如说，你的某些类上标了注解，这时候我们通过注解的方式来进行依赖查询，就可以将包含找到所有包含注解的实例对象。</p>
+<p>当然，查找到的实例对象也分为单个和多个两种，单个直接用对象的类型接收，多个 Bean 用 <code>Collection&lt;T&gt;</code> 类型接收。</p>
+<p>我们直接来看代码。</p>
+<p>首先，我们新增一个 SpuerUser 类继承自 User 类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Super</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperUser</span> <span class="keyword">extends</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">	<span class="comment">// 省略 getter/setter/toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本质上讲，User 和 SuperUser 都是用户，为了增加它们之间区分度，我们来编写一个 Annotation 注解对 SuperUser 进行声明。<code>@Super</code> 注解的内容如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span> <span class="comment">// 注解的标注范围</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span> <span class="comment">// 运行时生效</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Super &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，在 SuperUser 类上声明 <code>@Super</code> 注解。此时，代码中标准的 User 类没有注解，SuperUser 类含有一个  <code>@Super</code> 注解。</p>
+<p>这时我们再在 XML 文件中添加一个 SuperUser 的 bean，并设置继承 user 的信息。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;superuser&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.SuperUser&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;user&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;address&quot;</span> <span class="attr">value</span>=<span class="string">&quot;比奇堡&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在我们再执行以下代码，发现输出结果中只包含标有 <code>@Super</code> 注解的 Bean 对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupByAnnotationType</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ListableBeanFactory)&#123;</span><br><span class="line">        <span class="type">ListableBeanFactory</span> <span class="variable">listableBeanFactory</span> <span class="operator">=</span> (ListableBeanFactory) beanFactory;</span><br><span class="line">        Map&lt;String, Object&gt; users = listableBeanFactory.getBeansWithAnnotation(Super.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;查找标注 @Super 注解的所有 User 对象：&quot;</span> + users);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">查找标注 @Super 注解的所有 User 对象：&#123;superuser=SuperUser&#123;address=&#x27;比奇堡&#x27;&#125; User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h1 id="Spring-IoC-依赖注入"><a href="#Spring-IoC-依赖注入" class="headerlink" title="Spring IoC 依赖注入"></a>Spring IoC 依赖注入</h1><h2 id="大纲-1"><a href="#大纲-1" class="headerlink" title="大纲"></a>大纲</h2><blockquote>
+<ol>
+<li> 根据 Bean 名称注入</li>
+<li>根据 Bean 类型注入<ul>
+<li>  2.1 单个 Bean 对象</li>
+<li>  2.2 多个 Bean 对象（集合）</li>
+</ul>
+</li>
+<li> 注入容器内建 Bean 对象</li>
+<li> 注入非 Bean 对象</li>
+<li>注入类型<ul>
+<li>  5.1、实时注入</li>
+<li>  5.2、延迟注入</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException &#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>.startupShutdownMonitor) &#123; <span class="comment">// 加锁</span></span><br><span class="line">        <span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">        prepareRefresh(); <span class="comment">// 启动前的准备工作</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">        <span class="type">ConfigurableListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> obtainFreshBeanFactory(); <span class="comment">// 得到 beanFactory 实例</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">        prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">            postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">            invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">            registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize message source for this context.</span></span><br><span class="line">            initMessageSource();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">            initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">            onRefresh();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">            registerListeners();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">            finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">            finishRefresh();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">            <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line">                            <span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">            destroyBeans();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line">            cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Propagate exception to caller.</span></span><br><span class="line">            <span class="keyword">throw</span> ex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line">            <span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">            resetCommonCaches();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" rel="prev" title="Vue组件化开发">
+                  <i class="fa fa-chevron-left"></i> Vue组件化开发
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/01/Spring-Bean%E5%9F%BA%E7%A1%80/" rel="next" title="Spring-Bean基础">
+                  Spring-Bean基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

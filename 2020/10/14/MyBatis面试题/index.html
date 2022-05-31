@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="#&amp;#123;&amp;#125;和$&amp;#123;&amp;#125;的区别是什么？ #&amp;#123;&amp;#125;是预编译处理，$&amp;#123;&amp;#125;是字符串替换。  Mybatis 在处理#&amp;#123;&amp;#125;时，会将sql中的#&amp;#123;&amp;#125;替换为?号，调用PreparedStatement 的set()方法来赋值； Mybatis 在处理$&amp;#123;&amp;#125;时，就是直接把$&amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis面试题">
+<meta property="og:url" content="http://example.com/2020/10/14/MyBatis%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#&amp;#123;&amp;#125;和$&amp;#123;&amp;#125;的区别是什么？ #&amp;#123;&amp;#125;是预编译处理，$&amp;#123;&amp;#125;是字符串替换。  Mybatis 在处理#&amp;#123;&amp;#125;时，会将sql中的#&amp;#123;&amp;#125;替换为?号，调用PreparedStatement 的set()方法来赋值； Mybatis 在处理$&amp;#123;&amp;#125;时，就是直接把$&amp;#123">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-14T13:51:25.000Z">
+<meta property="article:modified_time" content="2020-10-14T13:53:36.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/10/14/MyBatis%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/10/14/MyBatis%E9%9D%A2%E8%AF%95%E9%A2%98/","path":"2020/10/14/MyBatis面试题/","title":"MyBatis面试题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MyBatis面试题 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/14/MyBatis%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MyBatis面试题 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MyBatis面试题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-10-14 21:51:25 / Modified: 21:53:36" itemprop="dateCreated datePublished" datetime="2020-10-14T21:51:25+08:00">2020-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MyBatis/" itemprop="url" rel="index"><span itemprop="name">MyBatis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ol>
+<li><p><strong><code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</strong></p>
+<p><code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
+<ul>
+<li>Mybatis 在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用<code>PreparedStatement</code> 的<code>set()</code>方法来赋值；</li>
+<li>Mybatis 在处理<code>$&#123;&#125;</code>时，就是直接把<code>$&#123;&#125;</code>替换成变量的值，也就是说有可能在这一步进行SQL注入。</li>
+<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL 注入，提高系统安全性。</li>
+</ul>
+</li>
+<li><p><strong>通常一个Xml 映射文件，都会写一个Dao 接口与之对应，请问，这个Dao 接口的工作原理是什么？Dao 接口里的方法，参数不同时，方法能重载吗？</strong></p>
+<p>​    Dao接口的全限定类名，就是映射文件中<code>MappedStatement</code>的<code>namespace</code>的值，接口的方法名，就是映射文件中<code>MappedStatement</code>的<code>id</code>值，接口方法内的参数，就是传递给sql 的参数。<code>Mapper</code>接口是没有实现类的，当调用接口方法时，<code>接口全限名+方法名</code>拼接字符串作为key 值，可唯一定位一个<code>MappedStatement</code>。举例：<code>com.mybatis3.mappers.StudentDao.findStudentById</code>，可以唯一找到<code>namespace </code>为<code>com.mybatis3.mappers.StudentDao</code> 下面<code>id = findStudentById</code> 的<code>MappedStatement</code>。在Mybatis 中，每一个<code>&lt;select&gt;、&lt;insert&gt;、&lt;update&gt;、&lt;delete&gt;</code>标签，都会被解析为一个<code>MappedStatement</code>对象。<br>​    <em>Dao 接口里的方法，是不能重载的，因为每一个<code>全限名+方法名</code>的拼接字符串需要映射一个唯一的<code>MappedStatement</code>。</em><br>​    Dao 接口的工作原理是JDK 动态代理，Mybatis 运行时会使用JDK 动态代理为Dao接口生成代理proxy 对象， 代理对象proxy 会拦截接口方法， 转而执行MappedStatement 所代表的sql，然后将sql 执行结果返回。</p>
+</li>
+<li><p><strong>Mybatis 是如何进行分页的？分页插件的原理是什么？</strong></p>
+<p>​    Mybatis 使用<code>RowBounds</code> 对象进行分页，它是针对<code>ResultSet</code> 结果集执行的内存分页，而非物理分页，可以在sql 内直接书写带有物理分页的参数来完成物理分页功能，也可以使用分页插件来完成物理分页。分页插件的基本原理是使用Mybatis 提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的sql，然后重写sql，根据dialect 方言，添加对应的物理分<br>页语句和物理分页参数。</p>
+</li>
+<li><p><strong>Mybatis 是如何将sql 执行结果封装为目标对象并返回的？都有哪些映射形式？</strong></p>
+<ul>
+<li><p>在Java中完成：</p>
+<ol>
+<li>使用<code>&lt;resultType&gt;</code>标签，前提是JavaBean类中的属性和数据库中表的列名一致。</li>
+<li>使用<code>&lt;resultMap&gt;</code>标签，逐一定义数据库中表的列名和JavaBean类中的属性名之间的映射关系。</li>
+</ol>
+</li>
+<li><p>在数据库中完成：</p>
+<p>​    使用SQL的别名功能，将列名的别名改为为JavaBean对象的属性名，比如在数据库中设置<code>T_NAME AS NAME</code>，JavaBean对象属性名一般是<code>name</code>，小写，但是列名不区分大小写，Mybatis 会忽略列名大小写，智能找到与之对应对象属性名。</p>
+</li>
+</ul>
+<p>​    有了列名与属性名的映射关系后，Mybatis 通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回，那些找不到映射关系的属性，是无法完成赋值的。</p>
+</li>
+<li><p><strong>Xml 映射文件中，除了常见的<code>select|insert|update|delete</code>标签之外，还有哪些标签？</strong></p>
+<p>​    还有很多其他的标签， 加上动态sql 的9 个标签，<code>trim|where|set|foreach|if|choose|when|otherwise|bind</code> 等。</p>
+</li>
+<li><p><strong>简述Mybatis 的插件运行原理，以及如何编写一个插件？</strong></p>
+<p>​    Mybatis 仅可以编写针对<code>ParameterHandler 、ResultSetHandler 、StatementHandler、Executor</code> 这4 种接口的插件，Mybatis 使用JDK 的动态代理，为需要拦截的接口生成代理对象以实现接口方法拦截功能，每当执行这4 种接口对象<br>的方法时，就会进入拦截方法，具体就是<code>InvocationHandler</code> 的<code>invoke()</code>方法，当然，只会拦截那些你指定需要拦截的方法。实现Mybatis 的<code>Interceptor接口</code>并复写<code>intercept()</code>方法，然后在给插件编写注解，指定要拦截哪一个接口的哪些方法即可，记住，还需要在配置文件中配置你编写的插件。</p>
+</li>
+<li><p><strong>一级、二级缓存</strong></p>
+<ul>
+<li>一级缓存: 基于PerpetualCache 的HashMap 本地缓存， 其存储作用域为Session，当Session flush 或close 之后，该Session 中的所有Cache 就将清空。</li>
+<li>二级缓存与一级缓存其机制相同，默认也是采用<code>PerpetualCache</code>，HashMap 存储， 不同在于其存储作用域为Mapper(Namespace)， 并且可自定义存储源， 如Ehcache。要开启二级缓存，你需要在你的SQL 映射文件中添加一行：<code>&lt;cache/&gt;</code>。</li>
+<li>对于缓存数据更新机制， 当某一个作用域( 一级缓存Session/ 二级缓存Namespaces)的进行了C/U/D 操作后，默认该作用域下所有select 中的缓存将被clear。</li>
+</ul>
+</li>
+<li><p><strong>Mybatis 是否支持延迟加载？如果支持，它的实现原理是什么？</strong></p>
+<p>​    Mybatis 仅支持<code>association</code>关联对象和<code>collection</code>关联集合对象的延迟加载，<code>association</code> 指的就是一对一，<code>collection</code> 指的就是一对多查询。在Mybatis 配置文件中，可以配置是否启用延迟加载<code>lazyLoadingEnabled=true|false</code>。<br>​    它的原理是，使用CGLIB 创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用a.getB().getName()，拦截器invoke()方法发现a.getB()是null值，那么就会单独发送事先保存好的查询关联B 对象的sql，把B 查询上来，然后调<br>用a.setB(b)，于是a 的对象b 属性就有值了，接着完成a.getB().getName()方法的调用。这就是延迟加载的基本原理。</p>
+</li>
+<li><p><strong>Mybatis 映射文件中，如果A 标签通过<code>include</code>引用了B 标签的内容，请问，B 标签能否定义在A 标签的后面，还是说必须定义在A 标签的前面？</strong></p>
+<p>​    虽然Mybatis 解析Xml 映射文件是按照顺序解析的，但是，被引用的B 标签依然<strong>可以定义在任何地方</strong>，Mybatis 都可以正确识别。<br>​    原理是，Mybatis 解析A 标签，发现A 标签引用了B 标签，但是B 标签尚未解析到，尚不存在，此时，Mybatis 会将A 标签标记为未解析状态，然后继续解析余下的标签（包含B 标签），待所有标签解析完毕，Mybatis 会重新解析那些被标记为未解析的标签，此时再解析A 标签时，B 标签已经存在，A 标签也就可以正常解析完成了。</p>
+</li>
+<li><p><strong>简述Mybatis 的Xml 映射文件和Mybatis 内部数据结构之间的映射关系？</strong></p>
+<p>​    Mybatis 将所有Xml 配置信息都封装到All-In-One 重量级对象Configuration 内部。在Xml 映射文件中，<code>&lt;parameterMap&gt;</code>标签会被解析为ParameterMap 对象，其每个子元素会被解析为ParameterMapping 对象。<code>&lt;resultMap&gt;</code>标签会被解析<code>ResultMap</code> 对象，其每个子元素会被解析为ResultMapping 对象。每一个<code>&lt;select&gt;、&lt;insert&gt;、&lt;update&gt;、&lt;delete&gt;</code>标签均会被解析为MappedStatement 对象，标签内的sql 会被解析为BoundSql 对象。</p>
+</li>
+<li></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/" rel="prev" title="IO流">
+                  <i class="fa fa-chevron-left"></i> IO流
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/28/Linux/" rel="next" title="Linux">
+                  Linux <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

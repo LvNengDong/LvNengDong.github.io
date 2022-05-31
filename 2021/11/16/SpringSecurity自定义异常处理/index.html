@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1.    SpringSecurity 中的异常SpringSecurity 中的异常主要分为两大类：    一类是认证异常，   另一类是授权相关的异常。  1.1    AuthenticationExceptionAuthenticationException 是在用户认证的时候出现错误时抛出的异常。主要的子类如图：  如上图所示，系统用户不存在，被锁定，凭证失效，密码错误等认证过程中出现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringSecurity自定义异常处理">
+<meta property="og:url" content="http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.    SpringSecurity 中的异常SpringSecurity 中的异常主要分为两大类：    一类是认证异常，   另一类是授权相关的异常。  1.1    AuthenticationExceptionAuthenticationException 是在用户认证的时候出现错误时抛出的异常。主要的子类如图：  如上图所示，系统用户不存在，被锁定，凭证失效，密码错误等认证过程中出现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/20191107000837154.png">
+<meta property="og:image" content="http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/20191107000837430.png">
+<meta property="article:published_time" content="2021-11-16T05:41:28.000Z">
+<meta property="article:modified_time" content="2021-11-16T08:41:39.488Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/20191107000837154.png">
+
+
+<link rel="canonical" href="http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/","path":"2021/11/16/SpringSecurity自定义异常处理/","title":"SpringSecurity自定义异常处理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SpringSecurity自定义异常处理 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-SpringSecurity-%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.</span> <span class="nav-text">1.    SpringSecurity 中的异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-AuthenticationException"><span class="nav-number">1.1.</span> <span class="nav-text">1.1    AuthenticationException</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-AccessDeniedException"><span class="nav-number">1.2.</span> <span class="nav-text">1.2    AccessDeniedException</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-HTTP-%E7%8A%B6%E6%80%81%E5%AF%B9%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E7%9A%84%E8%A7%84%E5%AE%9A"><span class="nav-number">2.</span> <span class="nav-text">2. HTTP 状态对认证授权的规定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-401-%E6%9C%AA%E6%8E%88%E6%9D%83%E7%8A%B6%E6%80%81"><span class="nav-number">2.1.</span> <span class="nav-text">2.1    401 未授权状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-403-%E8%A2%AB%E6%8B%92%E7%BB%9D%E7%8A%B6%E6%80%81"><span class="nav-number">2.2.</span> <span class="nav-text">2.2    403 被拒绝状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Spring-Security-%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">3.    Spring Security 中的异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%AE%9E%E7%8E%B0-AuthenticationEntryPoint"><span class="nav-number">3.1.</span> <span class="nav-text">3.1    实现 AuthenticationEntryPoint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E5%AE%9E%E7%8E%B0-AccessDeniedHandler"><span class="nav-number">3.2.</span> <span class="nav-text">3.2    实现 AccessDeniedHandler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.</span> <span class="nav-text">3.3    配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%AE%9E%E6%88%98"><span class="nav-number">4.</span> <span class="nav-text">4.    实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%E4%B8%8E%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">4.1.</span> <span class="nav-text">1、自定义的异常处理器与全局异常处理器的冲突</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/16/SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SpringSecurity自定义异常处理 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringSecurity自定义异常处理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-11-16 13:41:28 / Modified: 16:41:39" itemprop="dateCreated datePublished" datetime="2021-11-16T13:41:28+08:00">2021-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringSecurity/" itemprop="url" rel="index"><span itemprop="name">SpringSecurity</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-SpringSecurity-中的异常"><a href="#1-SpringSecurity-中的异常" class="headerlink" title="1.    SpringSecurity 中的异常"></a>1.    SpringSecurity 中的异常</h1><p>SpringSecurity 中的异常主要分为两大类：</p>
+<ul>
+<li>  一类是<strong>认证异常</strong>，</li>
+<li>  另一类是<strong>授权相关的异常</strong>。</li>
+</ul>
+<h2 id="1-1-AuthenticationException"><a href="#1-1-AuthenticationException" class="headerlink" title="1.1    AuthenticationException"></a>1.1    AuthenticationException</h2><p><code>AuthenticationException</code> 是在用户认证的时候出现错误时抛出的异常。主要的子类如图：</p>
+<p><img src="SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/20191107000837154.png" alt="AuthenticationException.png"></p>
+<p>如上图所示，系统用户不存在，被锁定，凭证失效，密码错误等认证过程中出现的异常都由 <code>AuthenticationException</code> 处理。</p>
+<h2 id="1-2-AccessDeniedException"><a href="#1-2-AccessDeniedException" class="headerlink" title="1.2    AccessDeniedException"></a>1.2    AccessDeniedException</h2><p><code>AccessDeniedException</code> 主要是指用户在访问受保护资源时被拒绝而抛出的异常。与 <code>AuthenticationException</code> 一样它也提供了一些具体的子类。如下图：</p>
+<p><img src="SpringSecurity%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/20191107000837430.png" alt="AccessDeniedException.png"></p>
+<p><code>AccessDeniedException</code> 的子类比较少，主要是 <code>CSRF</code> 相关的异常和授权服务异常。</p>
+<hr>
+<h1 id="2-HTTP-状态对认证授权的规定"><a href="#2-HTTP-状态对认证授权的规定" class="headerlink" title="2. HTTP 状态对认证授权的规定"></a>2. HTTP 状态对认证授权的规定</h1><p>HTTP 协议对认证授权的响应结果也有规定。</p>
+<h2 id="2-1-401-未授权状态"><a href="#2-1-401-未授权状态" class="headerlink" title="2.1    401 未授权状态"></a>2.1    401 未授权状态</h2><ul>
+<li>  <strong>HTTP 401 错误 - 未授权(Unauthorized)</strong></li>
+</ul>
+<p>一般来说该错误消息表明您首先需要登录（输入有效的用户名和密码）。 如果你刚刚输入这些信息，立刻就看到一个 <code>401</code> 错误，就意味着，无论出于何种原因您的用户名和密码其中之一或两者都无效（输入有误，用户名暂时停用，账户被锁定，凭证失效等）。总之就是认证失败了。其实正好对应我们上面的 <code>AuthenticationException</code> 。</p>
+<h2 id="2-2-403-被拒绝状态"><a href="#2-2-403-被拒绝状态" class="headerlink" title="2.2    403 被拒绝状态"></a>2.2    403 被拒绝状态</h2><ul>
+<li>  <strong>HTTP 403 错误 - 被禁止(Forbidden)</strong></li>
+</ul>
+<p>出现该错误表明您在访问受限资源时没有得到许可。服务器理解了本次请求但是拒绝执行该任务，该请求不该重发给服务器。并且服务器想让客户端知道为什么没有权限访问特定的资源，服务器应该在返回的信息中描述拒绝的理由。一般实践中我们会比较模糊的表明原因。 该错误对应了我们上面的 <code>AccessDeniedException</code> 。</p>
+<hr>
+<h1 id="3-Spring-Security-中的异常处理"><a href="#3-Spring-Security-中的异常处理" class="headerlink" title="3.    Spring Security 中的异常处理"></a>3.    Spring Security 中的异常处理</h1><p>在 <strong>Spring Security</strong> 中，通过：</p>
+<ul>
+<li>  <strong>AuthenticationEntryPoint</strong> 该类用来统一处理 <code>AuthenticationException</code> 异常</li>
+<li>  <strong>AccessDeniedHandler</strong> 该类用来统一处理 <code>AccessDeniedException</code> 异常</li>
+</ul>
+<p>我们只要<strong>①实现</strong>并<strong>②配置</strong>这两个异常处理类即可实现对 <strong>SpringSecurity</strong> 认证授权相关的异常进行统一的自定义处理。</p>
+<p>SpringSecurity 的默认只兼容单机版本（即前后端不分离），默认情况下出现异常后会跳转到一个异常页面。但是在前后端分离的项目中，当出现异常后应该将异常信息以 <code>json</code> 数据的格式响应给前端，所以我们需要：①自定义异常处理类，②并将自定义的异常处理类设置到 SpringSecurity 中去覆盖 SpringSecurity 默认的异常处理类。</p>
+<hr>
+<h2 id="3-1-实现-AuthenticationEntryPoint"><a href="#3-1-实现-AuthenticationEntryPoint" class="headerlink" title="3.1    实现 AuthenticationEntryPoint"></a>3.1    实现 AuthenticationEntryPoint</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.AuthenticationException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.web.AuthenticationEntryPoint;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleAuthenticationEntryPoint</span> <span class="keyword">implements</span> <span class="title class_">AuthenticationEntryPoint</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">commence</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//todo your business</span></span><br><span class="line">        HashMap&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">        map.put(<span class="string">&quot;uri&quot;</span>, request.getRequestURI());</span><br><span class="line">        map.put(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;认证失败&quot;</span>);</span><br><span class="line">        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span><br><span class="line">        response.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        response.setContentType(MediaType.APPLICATION_JSON_VALUE);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">objectMapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">resBody</span> <span class="operator">=</span> objectMapper.writeValueAsString(map);</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">printWriter</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">        printWriter.print(resBody);</span><br><span class="line">        printWriter.flush();</span><br><span class="line">        printWriter.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-实现-AccessDeniedHandler"><a href="#3-2-实现-AccessDeniedHandler" class="headerlink" title="3.2    实现 AccessDeniedHandler"></a>3.2    实现 AccessDeniedHandler</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.access.AccessDeniedException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.web.access.AccessDeniedHandler;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleAccessDeniedHandler</span> <span class="keyword">implements</span> <span class="title class_">AccessDeniedHandler</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">        <span class="comment">//todo your business</span></span><br><span class="line">        HashMap&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">        map.put(<span class="string">&quot;uri&quot;</span>, request.getRequestURI());</span><br><span class="line">        map.put(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;认证失败&quot;</span>);</span><br><span class="line">        response.setStatus(HttpServletResponse.SC_FORBIDDEN);</span><br><span class="line">        response.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        response.setContentType(MediaType.APPLICATION_JSON_VALUE);</span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">objectMapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">resBody</span> <span class="operator">=</span> objectMapper.writeValueAsString(map);</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">printWriter</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">        printWriter.print(resBody);</span><br><span class="line">        printWriter.flush();</span><br><span class="line">        printWriter.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="3-3-配置"><a href="#3-3-配置" class="headerlink" title="3.3    配置"></a>3.3    配置</h2><p>实现了上述两个接口后，我们只需要在 <code>WebSecurityConfigurerAdapter</code> 的 <code>configure(HttpSecurity http)</code> 方法中配置这两个自定义异常类对象即可。相关的配置片段如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.exceptionHandling()</span><br><span class="line">    .accessDeniedHandler(<span class="keyword">new</span> <span class="title class_">SimpleAccessDeniedHandler</span>())	<span class="comment">// 配置权限不足的异常处理器</span></span><br><span class="line">    .authenticationEntryPoint(<span class="keyword">new</span> <span class="title class_">SimpleAuthenticationEntryPoint</span>())	<span class="comment">// 配置认证失败的异常处理器</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h1 id="4-实战"><a href="#4-实战" class="headerlink" title="4.    实战"></a>4.    实战</h1><h2 id="1、自定义的异常处理器与全局异常处理器的冲突"><a href="#1、自定义的异常处理器与全局异常处理器的冲突" class="headerlink" title="1、自定义的异常处理器与全局异常处理器的冲突"></a>1、自定义的异常处理器与全局异常处理器的冲突</h2><p>一般在我们的项目中，我们都会配置一个全局异常处理类，这个类可以拦截系统抛出的所有异常。我们来看一下我们当前项目中的全局异常处理类。</p>
+<blockquote>
+<p>  <strong>全局异常处理类</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.cq.common.cxception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xsyu.cq.common.result.Result;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ControllerAdvice;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/11/4 22:21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 全局异常处理器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonExceptionHandler</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ExceptionHandler(&#123;Exception.class&#125;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">error</span><span class="params">(Exception e)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Result.fail(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(CQException.class)</span>    <span class="comment">// 该注解的作用是拦截指定类型的异常</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">error</span><span class="params">(CQException e)</span>&#123;</span><br><span class="line">        <span class="comment">// 拦截所有抛出的CQException异常，并在运行期对其进行增强</span></span><br><span class="line">        <span class="type">Integer</span> <span class="variable">code</span> <span class="operator">=</span> e.getCode();</span><br><span class="line">        <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> e.getMessage();</span><br><span class="line">        <span class="keyword">return</span> Result.build(code, message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，在这个全局异常拦截器中，有一个方法 <code>error</code> 拦截的异常类型是 <strong>Exception.class</strong>，也就是说该过滤器会拦截项目中抛出的所有异常。所以如果我们在全局异常处理器中拦截了所有 Exception 类型的异常，那么我们在上一章节配置的自定义异常处理器就会失效，因为系统抛出的异常被全局异常处理器“截胡”了。针对这种情况，我们主要有两种解决方案：</p>
+<ul>
+<li>  <strong>方案一：</strong></li>
+</ul>
+<p>注释掉拦截 <strong>Exception</strong> 类型异常的的异常处理器。</p>
+<ul>
+<li>  <strong>方案二：</strong></li>
+</ul>
+<p>在该异常处理器中声明具体的针对 <code>AuthenticationException</code> 和 <code>AccessDeniedException</code> 异常的异常处理方法，这两个异常处理方法的优先级会更高。即把上一章节处理异常的方法转移到全局异常处理器中。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/04/SpringSecurity/" rel="prev" title="SpringSecurity">
+                  <i class="fa fa-chevron-left"></i> SpringSecurity
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/16/HBase/" rel="next" title="HBase">
+                  HBase <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

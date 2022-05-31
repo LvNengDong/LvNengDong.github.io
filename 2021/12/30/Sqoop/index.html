@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第 1 章    Sqoop简介Sqoop 是一款开源的 ETL 工具，主要用于在 Hadoop(Hive) 与传统的数据库 (mysql、oracle...) 之间进行数据的传递，可以将一个关系型数据库（例如：MySQL，Oracle，Postgres 等）中的数据导进到 Hadoop 的 HDFS 中，也可以将 HDFS 的数据导进到关系型数据库中。 Sqoop 项目开始于2009年，最早是作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sqoop">
+<meta property="og:url" content="http://example.com/2021/12/30/Sqoop/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第 1 章    Sqoop简介Sqoop 是一款开源的 ETL 工具，主要用于在 Hadoop(Hive) 与传统的数据库 (mysql、oracle...) 之间进行数据的传递，可以将一个关系型数据库（例如：MySQL，Oracle，Postgres 等）中的数据导进到 Hadoop 的 HDFS 中，也可以将 HDFS 的数据导进到关系型数据库中。 Sqoop 项目开始于2009年，最早是作">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/12/30/Sqoop/Sqoop/image-20211230191616906.png">
+<meta property="article:published_time" content="2021-12-30T04:22:49.000Z">
+<meta property="article:modified_time" content="2022-05-22T02:34:19.842Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/12/30/Sqoop/Sqoop/image-20211230191616906.png">
+
+
+<link rel="canonical" href="http://example.com/2021/12/30/Sqoop/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/12/30/Sqoop/","path":"2021/12/30/Sqoop/","title":"Sqoop"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Sqoop | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-1-%E7%AB%A0-Sqoop%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">第 1 章    Sqoop简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-2-%E7%AB%A0-Sqoop-%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">第 2 章    Sqoop 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-3-%E7%AB%A0-Sqoop%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">第 3 章    Sqoop安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%8B%E8%BD%BD%E5%B9%B6%E8%A7%A3%E5%8E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">3.1    下载并解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%8B%B7%E8%B4%9D-JDBC-%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.3.</span> <span class="nav-text">3.3    拷贝 JDBC 驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E9%AA%8C%E8%AF%81-Sqoop"><span class="nav-number">3.4.</span> <span class="nav-text">3.4    验证 Sqoop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E6%B5%8B%E8%AF%95-Sqoop-%E6%98%AF%E5%90%A6%E8%83%BD%E5%A4%9F%E6%88%90%E5%8A%9F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 测试 Sqoop 是否能够成功连接数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC4%E7%AB%A0-Sqoop-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">第4章 Sqoop 的简单使用案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 导入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-RDBMS-gt-HDFS"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 RDBMS &#x3D;&gt; HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%85%A8%E8%A1%A8%E5%AF%BC%E5%85%A5"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">1、全表导入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%AF%BC%E5%85%A5%E6%8C%87%E5%AE%9A%E5%88%97-columns"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">2、导入指定列 --columns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%AF%BC%E5%85%A5%E6%8C%87%E5%AE%9A%E8%A1%8C-where"><span class="nav-number">4.1.1.3.</span> <span class="nav-text">3、导入指定行 --where</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E6%9F%A5%E8%AF%A2%E5%AF%BC%E5%85%A5"><span class="nav-number">4.1.1.4.</span> <span class="nav-text">6、查询导入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-RDBMS-gt-Hive"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 RDBMS &#x3D;&#x3D;&gt; Hive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-3-RDBMS-gt-Hbase"><span class="nav-number">4.1.3.</span> <span class="nav-text">4.1.3    RDBMS &#x3D;&#x3D;&gt; Hbase</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">4.2.</span> <span class="nav-text">4.2    导出数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-HIVE-HDFS-gt-RDBMS"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1    HIVE&#x2F;HDFS &#x3D;&#x3D;&gt; RDBMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-Sqoop-%E5%AF%BC%E5%87%BA%E9%81%87%E5%88%B0%E9%87%8D%E5%A4%8D%E4%B8%BB%E9%94%AE"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2    Sqoop 导出遇到重复主键</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E8%84%9A%E6%9C%AC%E6%89%93%E5%8C%85"><span class="nav-number">4.3.</span> <span class="nav-text">4.3    脚本打包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC5%E7%AB%A0-Sqoop-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">第5章 Sqoop 常用命令及参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="nav-number">5.2.</span> <span class="nav-text">5.2    命令&amp;参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1    公用参数：数据库连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9Aimport"><span class="nav-number">5.2.2.</span> <span class="nav-text">5.2.2    公用参数：import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9Aexport"><span class="nav-number">5.2.3.</span> <span class="nav-text">5.2.3 公用参数：export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-4-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9Ahive"><span class="nav-number">5.2.4.</span> <span class="nav-text">5.2.4    公用参数：hive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-5-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Aimport"><span class="nav-number">5.2.5.</span> <span class="nav-text">5.2.5    命令&amp;参数：import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-6-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Aexport"><span class="nav-number">5.2.6.</span> <span class="nav-text">5.2.6    命令&amp;参数：export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-7-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Acodegen"><span class="nav-number">5.2.7.</span> <span class="nav-text">5.2.7    命令&amp;参数：codegen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-8-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Acreate-hive-table"><span class="nav-number">5.2.8.</span> <span class="nav-text">5.2.8    命令&amp;参数：create-hive-table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-9-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Aeval"><span class="nav-number">5.2.9.</span> <span class="nav-text">5.2.9    命令&amp;参数：eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-10-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Aimport-all-tables"><span class="nav-number">5.2.10.</span> <span class="nav-text">5.2.10    命令&amp;参数：import-all-tables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-11-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Ajob"><span class="nav-number">5.2.11.</span> <span class="nav-text">5.2.11    命令&amp;参数：job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-12-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Alist-databases"><span class="nav-number">5.2.12.</span> <span class="nav-text">5.2.12 命令&amp;参数：list-databases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-13-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Alist-tables"><span class="nav-number">5.2.13.</span> <span class="nav-text">5.2.13    命令&amp;参数：list-tables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-14-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Amerge"><span class="nav-number">5.2.14.</span> <span class="nav-text">5.2.14    命令&amp;参数：merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-15-%E5%91%BD%E4%BB%A4-amp-%E5%8F%82%E6%95%B0%EF%BC%9Ametastore"><span class="nav-number">5.2.15.</span> <span class="nav-text">5.2.15    命令&amp;参数：metastore</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/30/Sqoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Sqoop | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Sqoop
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-12-30 12:22:49" itemprop="dateCreated datePublished" datetime="2021-12-30T12:22:49+08:00">2021-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-22 10:34:19" itemprop="dateModified" datetime="2022-05-22T10:34:19+08:00">2022-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Sqoop/" itemprop="url" rel="index"><span itemprop="name">Sqoop</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第-1-章-Sqoop简介"><a href="#第-1-章-Sqoop简介" class="headerlink" title="第 1 章    Sqoop简介"></a>第 1 章    Sqoop简介</h1><p><code>Sqoop</code> 是一款开源的 ETL 工具，主要用于在 <code>Hadoop(Hive)</code> 与传统的数据库 <code>(mysql、oracle...)</code> 之间进行数据的传递，可以将一个关系型数据库（例如：<code>MySQL，Oracle，Postgres</code> 等）中的数据导进到 <code>Hadoop</code> 的 <code>HDFS</code> 中，也可以将 <code>HDFS</code> 的数据导进到关系型数据库中。</p>
+<p><code>Sqoop</code> 项目开始于2009年，最早是作为 <code>Hadoop</code> 的一个第三方模块存在，后来为了让使用者能够快速部署，也为了让开发人员能够更快速的迭代开发，<code>Sqoop</code> 独立成为一个 <code>Apache</code> 项目。</p>
+<p><code>Sqoop2</code> 的最新版本是 <code>1.99.7</code>。请注意，2 与 1 不兼容，且特征不完整，它并不打算用于生产部署。</p>
+<hr>
+<h1 id="第-2-章-Sqoop-原理"><a href="#第-2-章-Sqoop-原理" class="headerlink" title="第 2 章    Sqoop 原理"></a>第 2 章    Sqoop 原理</h1><p>将导入或导出命令翻译成 <code>mapreduce</code> 程序来实现。</p>
+<p>在翻译出的 <code>mapreduce</code> 中主要是对 <code>inputformat</code> 和 <code>outputformat</code> 进行定制。</p>
+<hr>
+<h1 id="第-3-章-Sqoop安装"><a href="#第-3-章-Sqoop安装" class="headerlink" title="第 3 章    Sqoop安装"></a>第 3 章    Sqoop安装</h1><p>安装 <code>Sqoop</code> 的前提是已经具备 <code>Java</code> 和 <code>Hadoop</code> 的环境。</p>
+<h2 id="3-1-下载并解压"><a href="#3-1-下载并解压" class="headerlink" title="3.1    下载并解压"></a>3.1    下载并解压</h2><ol>
+<li><p> 下载地址：<a target="_blank" rel="noopener" href="http://mirrors.hust.edu.cn/apache/sqoop/1.4.6/">http://mirrors.hust.edu.cn/apache/sqoop/1.4.6/</a></p>
+</li>
+<li><p> 上传安装包 <code>sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz</code> 到虚拟机中</p>
+</li>
+<li><p>解压 <code>sqoop</code> 安装包到指定目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxf sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz -C /opt/module/</span><br></pre></td></tr></table></figure></li>
+<li><p>将 <code>sqoop-1.4.6.bin__hadoop-2.0.4-alpha</code> 重命名为 <code>sqoop</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 module]$ <span class="built_in">mv</span> sqoop-1.4.6.bin__hadoop-2.0.4-alpha/ sqoop</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="3-2-修改配置文件"><a href="#3-2-修改配置文件" class="headerlink" title="3.2 修改配置文件"></a>3.2 修改配置文件</h2><p><code>Sqoop</code> 的配置文件与大多数大数据框架类似，在 <code>sqoop</code> 根目录下的 <code>conf</code> 目录中。</p>
+<ol>
+<li><p><strong>重命名配置文件</strong></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ <span class="built_in">mv</span> sqoop-env-template.sh sqoop-env.sh</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>修改配置文件</strong><code>sqoop-env.sh</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># HADOOP_HOME</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line"><span class="built_in">export</span> HADOOP_MAPRED_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line"></span><br><span class="line"><span class="comment"># HIVE_HOME</span></span><br><span class="line"><span class="built_in">export</span> HIVE_HOME=/opt/module/hive</span><br><span class="line"></span><br><span class="line"><span class="comment"># ZOOKEEPER_HOME</span></span><br><span class="line"><span class="built_in">export</span> ZOOKEEPER_HOME=/opt/module/zookeeper-3.4.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># ZOOCFGDIR</span></span><br><span class="line"><span class="built_in">export</span> ZOOCFGDIR=/opt/module/zookeeper-3.4.10/conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># HBASE_HOME</span></span><br><span class="line"><span class="built_in">export</span> HBASE_HOME=/opt/module/hbase-1.3.1</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="3-3-拷贝-JDBC-驱动"><a href="#3-3-拷贝-JDBC-驱动" class="headerlink" title="3.3    拷贝 JDBC 驱动"></a>3.3    拷贝 JDBC 驱动</h2><ol>
+<li><p>拷贝 <code>jdbc</code> 驱动到 <code>sqoop</code> 的 <code>lib</code> 目录下(<code>JDBC</code> 驱动在 <code>MySQL</code> 的安装目录下)</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mysql-connector-java-5.1.27]$ <span class="built_in">cp</span> mysql-connector-java-5.1.27-bin.jar /opt/module/sqoop/lib/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>因为要通过 Sqoop 将 MySQL 中的数据导入到 HDFS 中，所以 Sqoop 就相当于 MySQL 的一个客户端，自然就需要将 MySQL 的 JDBC 驱动导入到 Sqoop 的 <code>lib</code> 目录下了。</p>
+<hr>
+<h2 id="3-4-验证-Sqoop"><a href="#3-4-验证-Sqoop" class="headerlink" title="3.4    验证 Sqoop"></a>3.4    验证 Sqoop</h2><ol>
+<li><p>我们可以通过某一个命令来验证 <code>sqoop</code> 配置是否正确：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop <span class="built_in">help</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sqoop]$ bin/sqoop <span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 出现一些Warning警告（警告信息已省略），并伴随着帮助命令的输出：</span></span><br><span class="line"></span><br><span class="line">Available commands:</span><br><span class="line">  codegen            Generate code to interact with database records</span><br><span class="line">  create-hive-table  Import a table definition into Hive</span><br><span class="line">  <span class="built_in">eval</span>               Evaluate a SQL statement and display the results</span><br><span class="line">  <span class="built_in">export</span>             Export an HDFS directory to a database table</span><br><span class="line">  <span class="built_in">help</span>               List available commands</span><br><span class="line">  import             Import a table from a database to HDFS</span><br><span class="line">  import-all-tables  Import tables from a database to HDFS</span><br><span class="line">  import-mainframe   Import datasets from a mainframe server to HDFS</span><br><span class="line">  job                Work with saved <span class="built_in">jobs</span></span><br><span class="line">  list-databases     List available databases on a server</span><br><span class="line">  list-tables        List available tables <span class="keyword">in</span> a database</span><br><span class="line">  merge              Merge results of incremental imports</span><br><span class="line">  metastore          Run a standalone Sqoop metastore</span><br><span class="line">  version            Display version information</span><br><span class="line"></span><br><span class="line">See <span class="string">&#x27;sqoop help COMMAND&#x27;</span> <span class="keyword">for</span> information on a specific <span class="built_in">command</span>.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="3-5-测试-Sqoop-是否能够成功连接数据库"><a href="#3-5-测试-Sqoop-是否能够成功连接数据库" class="headerlink" title="3.5 测试 Sqoop 是否能够成功连接数据库"></a>3.5 测试 Sqoop 是否能够成功连接数据库</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 展示当前连接管理的所有的数据库</span></span><br><span class="line">[lvnengdong@hadoop102 sqoop]$ bin/sqoop \</span><br><span class="line">list-databases \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/ \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 出现如下输出（数据库列表）：</span></span><br><span class="line">information_schema</span><br><span class="line">metastore</span><br><span class="line">mysql</span><br><span class="line">performance_schema</span><br><span class="line">rdd</span><br><span class="line">sys</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h1 id="第4章-Sqoop-的简单使用案例"><a href="#第4章-Sqoop-的简单使用案例" class="headerlink" title="第4章 Sqoop 的简单使用案例"></a>第4章 Sqoop 的简单使用案例</h1><h2 id="4-1-导入数据"><a href="#4-1-导入数据" class="headerlink" title="4.1 导入数据"></a>4.1 导入数据</h2><p>在 Sqoop 中，<strong>导入</strong> 指的是：从非大数据集群(RDBMS)向大数据集群(HDFS，HIVE，HBASE)中传输数据。</p>
+<p>导入使用 <code>import</code> 关键字。</p>
+<h3 id="4-1-1-RDBMS-gt-HDFS"><a href="#4-1-1-RDBMS-gt-HDFS" class="headerlink" title="4.1.1 RDBMS =&gt; HDFS"></a>4.1.1 RDBMS =&gt; HDFS</h3><ol>
+<li><p> 确定 MySQL 服务开启正常</p>
+</li>
+<li><p>在 MySQL 中新建一张表并插入一些数据</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 建库</span><br><span class="line">CREATE DATABASE `sqoop_test`;</span><br><span class="line"></span><br><span class="line"># 建表</span><br><span class="line">CREATE TABLE emp (</span><br><span class="line">  id INT (4) PRIMARY KEY NOT NULL AUTO_INCREMENT,</span><br><span class="line">  NAME VARCHAR (255),</span><br><span class="line">  sex VARCHAR (255)</span><br><span class="line">) ;</span><br><span class="line"></span><br><span class="line"># 插入数据</span><br><span class="line">INSERT INTO emp(NAME, sex) VALUES(&#x27;Thomas&#x27;, &#x27;Male&#x27;);</span><br><span class="line">INSERT INTO emp(NAME, sex) VALUES(&#x27;Catalina&#x27;, &#x27;FeMale&#x27;);</span><br><span class="line">INSERT INTO emp(NAME, sex) VALUES(&#x27;zs&#x27;, &#x27;Male&#x27;);</span><br><span class="line">INSERT INTO emp(NAME, sex) VALUES(&#x27;ls&#x27;, &#x27;Male&#x27;);</span><br><span class="line">INSERT INTO emp(NAME, sex) VALUES(&#x27;ww&#x27;, &#x27;FeMale&#x27;);</span><br></pre></td></tr></table></figure></li>
+<li><p>导入数据</p>
+<ul>
+<li>  全表导入：默认</li>
+<li>  导入指定列 <code>--columns</code></li>
+<li>  导入指定行 <code>--where</code></li>
+<li>  查询导入</li>
+</ul>
+</li>
+</ol>
+<h4 id="1、全表导入"><a href="#1、全表导入" class="headerlink" title="1、全表导入"></a>1、全表导入</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># \ 代表在shell窗口中换行</span></span><br><span class="line">[lvnengdong@hadoop102 sqoop]$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp \</span><br><span class="line">--target-dir /sqoop_test \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--num-mappers 2 \</span><br><span class="line">--split-by <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>解析：</strong></p>
+<ol>
+<li><p>从哪儿来</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \	<span class="comment"># 数据库的URL </span></span><br><span class="line">--username root \	<span class="comment"># 账号</span></span><br><span class="line">--password 123456 \	<span class="comment"># 密码</span></span><br><span class="line">--table emp \	<span class="comment"># 源数据表名</span></span><br></pre></td></tr></table></figure></li>
+<li><p>到哪儿去</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--target-dir /sqoop_test \	<span class="comment"># 目的路径（HDFS下的路径）</span></span><br><span class="line">--delete-target-dir \</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、这两行命令一般是成对出现的</span></span><br><span class="line"><span class="comment"># 2、Sqoop `导入/导出`的功能底层是通过 MapReduce 实现的，在 MapReduce 中，要求输出目录必须事先不存在，</span></span><br><span class="line"><span class="comment"># 如果事先存在，在程序执行时就会抛出异常。在 Sqoop 为了避免这个异常，可以通过设置 `--delete-target-dir`，</span></span><br><span class="line"><span class="comment"># 这条命令的作用是如果目标目录事先已经存在了，则删除掉它。</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>怎么去（规则）</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \	<span class="comment"># 导入到 HDFS 上时，MySQL 中的字段使用 `/t` 作为分隔符 </span></span><br><span class="line">--num-mappers 2 \	<span class="comment"># 设置几个 MapTask 来运行程序</span></span><br><span class="line">--split-by <span class="built_in">id</span>	<span class="comment"># 在上一行设置了2个MapTask，自然就需要将数据切分，该行的含义是：基于 id 列，将数据切分为2片，这个参数只有在 `--num-mappers` 参数大于1时才需要指定。如果数据不需要切分该参数是无意义的。	</span></span><br><span class="line"><span class="comment"># 选择的列最好不要有 null 值，否则 null 值所在的行记录是不会被导入的</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>在 HDFS 上查看导入结果：</strong></p>
+<p><img src="Sqoop/image-20211230191616906.png" alt="image-20211230191616906"></p>
+<h4 id="2、导入指定列-columns"><a href="#2、导入指定列-columns" class="headerlink" title="2、导入指定列 --columns"></a>2、导入指定列 <code>--columns</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sqoop]$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp \</span><br><span class="line">--columns <span class="built_in">id</span>,name \		<span class="comment"># 导入指定列（只导入 id 和 name 列）</span></span><br><span class="line">--target-dir /sqoop_test \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--num-mappers 2 \</span><br><span class="line">--split-by <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="3、导入指定行-where"><a href="#3、导入指定行-where" class="headerlink" title="3、导入指定行 --where"></a>3、导入指定行 <code>--where</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sqoop]$ bin/sqoop import \</span><br><span class="line">&gt; --connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">&gt; --username root \</span><br><span class="line">&gt; --password 123456 \</span><br><span class="line">&gt; --table emp \</span><br><span class="line">&gt; --<span class="built_in">where</span> <span class="string">&#x27;id &gt;= 1 and id &lt;= 3&#x27;</span> \	<span class="comment"># 导入指定行</span></span><br><span class="line">&gt; --target-dir /sqoop_test \</span><br><span class="line">&gt; --delete-target-dir \</span><br><span class="line">&gt; --fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">&gt; --num-mappers 2 \</span><br><span class="line">&gt; --split-by <span class="built_in">id</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="6、查询导入"><a href="#6、查询导入" class="headerlink" title="6、查询导入"></a>6、查询导入</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sqoop]$ bin/sqoop import \</span><br><span class="line">&gt; --connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">&gt; --username root \</span><br><span class="line">&gt; --password 123456 \</span><br><span class="line">&gt; --query <span class="string">&quot;select * from emp where \$CONDITIONS and id &lt;= 3&quot;</span> \	<span class="comment"># 查询导入</span></span><br><span class="line">&gt; --target-dir /sqoop_test \</span><br><span class="line">&gt; --delete-target-dir \</span><br><span class="line">&gt; --fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">&gt; --num-mappers 2 \</span><br><span class="line">&gt; --split-by <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>  如果使用了 <code>--query</code>，就不能再使用 <code>--table、--where、--columns</code> 了</li>
+<li>  只要使用 <code>--query</code>，就必须添加 <code>$CONDITIONS</code>。<code>(must contain &#39;$CONDITIONS&#39; in WHERE clause)</code></li>
+<li>  如果 <code>--query </code>后使用的是双引号，则 <code>$CONDITIONS</code> 前必须加转义符，防止 <code>shell</code> 识别为自己的变量。</li>
+</ul>
+<hr>
+<h3 id="4-1-2-RDBMS-gt-Hive"><a href="#4-1-2-RDBMS-gt-Hive" class="headerlink" title="4.1.2 RDBMS ==&gt; Hive"></a>4.1.2 <code>RDBMS ==&gt; Hive</code></h3><p>将 MySQL 中的数据导入的 Hive 的过程分为两步：</p>
+<ul>
+<li>  第一步将数据导入到 <code>HDFS</code>，默认的临时目录是 <code>/user/lvnengdong/表名</code></li>
+<li>  第二步将导入到 <code>HDFS</code> 的数据迁移到 <code>Hive</code> 仓库。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table emp_hive</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \	<span class="comment"># 显式指定将MySQL中的数据导入到 Hive</span></span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \	<span class="comment"># 是否以 overwrite 的方式导入</span></span><br><span class="line">--hive-table emp_hive	<span class="comment"># 要导入的 Hive 表的名称，若表实现不存在会自动建表</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>连接 Hive，查看数据是否上传成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select * from emp_hive;</span><br><span class="line">OK</span><br><span class="line">emp_hive.id	emp_hive.name	emp_hive.sex</span><br><span class="line">1	Thomas	Male</span><br><span class="line">2	Catalina	FeMale</span><br><span class="line">3	zs	Male</span><br><span class="line">4	ls	Male</span><br><span class="line">5	ww	FeMale</span><br><span class="line">Time taken: 1.032 seconds, Fetched: 5 row(s)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<hr>
+<h3 id="4-1-3-RDBMS-gt-Hbase"><a href="#4-1-3-RDBMS-gt-Hbase" class="headerlink" title="4.1.3    RDBMS ==&gt; Hbase"></a>4.1.3    <code>RDBMS ==&gt; Hbase</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp \</span><br><span class="line">--<span class="built_in">where</span> <span class="string">&#x27;id &lt;= 5&#x27;</span> \</span><br><span class="line">--hbase-create-table \</span><br><span class="line">--hbase-table <span class="string">&quot;hive_hbase&quot;</span> \</span><br><span class="line">--hbase-row-key <span class="string">&quot;id&quot;</span> \</span><br><span class="line">--column-family <span class="string">&quot;info&quot;</span> \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--split-by <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong><code>sqoop1.4.6</code> 只支持 <code>HBase1.0.1 </code>之前的版本的自动创建 <code>HBase</code> 表的功能</p>
+<p><strong>解决方案：</strong>手动创建 <code>HBase</code> 表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase&gt; create &#x27;hive_hbase&#x27;,&#x27;info&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>HBase</code> 中 <code>scan</code> 这张表得到如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase&gt; scan &#x27;hive_hbase&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="4-2-导出数据"><a href="#4-2-导出数据" class="headerlink" title="4.2    导出数据"></a>4.2    导出数据</h2><p>在 <code>Sqoop</code> 中，<strong>导出</strong>指的是：从大数据集群<code>(HDFS，HIVE)</code>向非大数据集群<code>(RDBMS)</code>中传输数据。</p>
+<p>导出使用 <code>export</code> 关键字。</p>
+<h3 id="4-2-1-HIVE-HDFS-gt-RDBMS"><a href="#4-2-1-HIVE-HDFS-gt-RDBMS" class="headerlink" title="4.2.1    HIVE/HDFS ==&gt; RDBMS"></a>4.2.1    <code>HIVE/HDFS ==&gt; RDBMS</code></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp_new \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--export-dir /sqoop_test \</span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>解释</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/sqoop_test \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table emp_new \	<span class="comment"># 要导出到 MySQL 的哪张表中</span></span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--export-dir /sqoop_test \	<span class="comment"># HDFS上文件的源路径</span></span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span>	<span class="comment"># 待导出数据的分隔符</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong><code>MySQL</code> 中如果表不存在，不会自动创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE emp_new LIKE emp;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h3 id="4-2-2-Sqoop-导出遇到重复主键"><a href="#4-2-2-Sqoop-导出遇到重复主键" class="headerlink" title="4.2.2    Sqoop 导出遇到重复主键"></a>4.2.2    Sqoop 导出遇到重复主键</h3><p>在 <code>MySQL</code> 中，主键是唯一的，如果在插入数据时发现主键重复，则会抛出异常。但是 <code>MySQL</code> 给我们提供了另外一种策略，就是当主键重复时，使用 <code>update</code> 操作来代替 <code>insert</code> 操作，这样即使主键重复也不会报错，而是使用新数据覆盖旧数据。该形式的写法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 当主键重复时，使用新值覆盖旧值</span><br><span class="line">INSERT INTO emp_new </span><br><span class="line">VALUES (3, &quot;张三&quot;, &quot;男&quot;) </span><br><span class="line">ON DUPLICATE KEY UPDATE ;	</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 当主键重复时，使用新值覆盖旧值，并且仅修改部分列的值</span><br><span class="line">INSERT INTO emp_new VALUES </span><br><span class="line">(3, &quot;张三&quot;, &quot;???&quot;) </span><br><span class="line">ON DUPLICATE KEY UPDATE </span><br><span class="line">sex=VALUES(sex)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>默认情况下，<code>Sqoop</code> 在导出数据到 <code>MySQL</code> 中时，会将每一条数据翻译成 MySQL 中的 <code>insert</code> 语句插入到 MySQL 数据库中。如果此时 MySQL 表结构中存在一些主键约束或唯一约束，并且表中已经有了一部分数据，那么新的数据在插入到 MySQL 表中时，就可能会触犯约束条件，导致插入失败。</p>
+<p>默认情况下，<code>export</code> 适用于向一张空白表中导出数据的场景。每一条要导出的记录，都会转换为 MySQL 中的 <code>insert</code> 语句执行。</p>
+<p>如果要导入的表中已经有数据了，此时可以指定 <code>--update-key</code> 参数，使用该参数后，将不再执行 <code>insert</code> 操作，而是只会执行 <code>update</code> 操作。但是这又会带来另一个问题，即此时只会更新重复的数据，不重复的数据是无法导入的。</p>
+<p>如果希望遇到重复的数据就 <code>insert</code>，不重复的数据就 <code>update</code>，可以使用 <code>--update-key</code> 结合 <code>--update-mode=allowinsert </code> 使用。此时当主键不重复时执行 <code>insert</code> 操作，当发生主键重复时，会将<code>新增操作(insert)</code>转变为<code>更新操作(update)</code>执行；。</p>
+<p> <code>--update-mode</code> 属性的默认值是 <code>updateonly</code>，即 <code>--update-mode=updateonly</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在导出时，基于哪一列来判断数据是否重复</span></span><br><span class="line">--update-key</span><br><span class="line"></span><br><span class="line"><span class="comment"># .eg</span></span><br><span class="line">--update-key <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="4-3-脚本打包"><a href="#4-3-脚本打包" class="headerlink" title="4.3    脚本打包"></a>4.3    脚本打包</h2><p>使用 <code>opt</code> 格式的文件打包 <code>sqoop</code> 命令，然后执行</p>
+<ol>
+<li><p>创建一个 <code>.opt</code> 文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> opt</span><br><span class="line">$ <span class="built_in">touch</span> opt/job_mysql2hdfs.opt</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>编写 <code>sqoop</code> 脚本</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ vim opt/job_mysql2hdfs.opt</span><br><span class="line"></span><br><span class="line">import</span><br><span class="line">--connect</span><br><span class="line">jdbc:mysql://hadoop102:3306/company</span><br><span class="line">--username</span><br><span class="line">root</span><br><span class="line">--password</span><br><span class="line">123456</span><br><span class="line">--table</span><br><span class="line">staff</span><br><span class="line">--target-dir</span><br><span class="line">/company3</span><br><span class="line">--delete-target-dir</span><br><span class="line">--num-mappers</span><br><span class="line">1</span><br><span class="line">--fields-terminated-by</span><br><span class="line"><span class="string">&quot;\t&quot;</span></span><br><span class="line">--split-by</span><br><span class="line"><span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>执行该脚本</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/sqoop --options-file opt/job_mysql2hdfs.opt</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="第5章-Sqoop-常用命令及参数"><a href="#第5章-Sqoop-常用命令及参数" class="headerlink" title="第5章 Sqoop 常用命令及参数"></a>第5章 Sqoop 常用命令及参数</h1><h2 id="5-1-常用命令"><a href="#5-1-常用命令" class="headerlink" title="5.1 常用命令"></a>5.1 常用命令</h2><p>这里给大家列出来了一部分 <code>Sqoop</code> 操作时的常用参数，以供参考，需要深入学习的可以参看对应类的源代码。</p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>命令</th>
+<th>类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>import</code></td>
+<td><code>ImportTool</code></td>
+<td>将数据导入到集群</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>export</code></td>
+<td><code>ExportTool</code></td>
+<td>将集群数据导出</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>codegen</code></td>
+<td><code>CodeGenTool</code></td>
+<td>获取数据库中某张表数据生成 Java 并打包 Jar</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>create-hive-table</code></td>
+<td><code>CreateHiveTableTool</code></td>
+<td>创建 Hive 表</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>eval</code></td>
+<td><code>EvalSqlTool</code></td>
+<td>查看 SQL 执行结果</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>import-all-tables</code></td>
+<td><code>ImportAllTablesTool</code></td>
+<td>导入某个数据库下所有表到 HDFS 中</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>job</code></td>
+<td><code>JobTool</code></td>
+<td>用来生成一个 sqoop 的任务，生成后，该任务<br>并不执行，除非使用命令执行该任务。</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>list-databases</code></td>
+<td><code>ListDatabasesTool</code></td>
+<td>列出所有数据库名</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td><code>list-tables</code></td>
+<td><code>ListTablesTool</code></td>
+<td>列出某个数据库下所有表</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><code>merge</code></td>
+<td><code>MergeTool</code></td>
+<td>将 HDFS 中不同目录下面的数据合并在一起，并存放在指定的目录中</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td><code>metastore</code></td>
+<td><code>MetastoreTool</code></td>
+<td>记录 <code>sqoop job</code> 的元数据信息，如果不启动 <code>metastore</code> 实例，<br>则默认的元数据存储目录为 <code>~/.sqoop</code>，如果要更改存储目录，<br>可以在配置文件 <code>sqoop-site.xml</code> 中进行更改</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td><code>help</code></td>
+<td><code>HelpTool</code></td>
+<td>打印 sqoop 帮助信息</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td><code>version</code></td>
+<td><code>VersionTool</code></td>
+<td>打印 sqoop 版本信息</td>
+</tr>
+</tbody></table>
+<h2 id="5-2-命令-amp-参数详解"><a href="#5-2-命令-amp-参数详解" class="headerlink" title="5.2    命令&amp;参数详解"></a>5.2    命令&amp;参数详解</h2><p>刚才列举了一些 <code>Sqoop</code> 的常用命令，对于不同的命令，有不同的参数，让我们来一一列举说明。</p>
+<p>首先来我们来介绍一下公用的参数，所谓公用参数，就是大多数命令都支持的参数。</p>
+<h3 id="5-2-1-公用参数：数据库连接"><a href="#5-2-1-公用参数：数据库连接" class="headerlink" title="5.2.1    公用参数：数据库连接"></a>5.2.1    公用参数：数据库连接</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left"><code>--connect</code></td>
+<td align="left">连接关系型数据库的URL</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left"><code>--connection-manager</code></td>
+<td align="left">指定要使用的连接管理类</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left"><code>--driver</code></td>
+<td align="left">Hadoop 根目录</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left"><code>--help</code></td>
+<td align="left">打印帮助信息</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left"><code>--password</code></td>
+<td align="left">连接数据库的密码</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left"><code>--username</code></td>
+<td align="left">连接数据库的用户名</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="left"><code>--verbose</code></td>
+<td align="left">在控制台打印出详细信息</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-2-公用参数：import"><a href="#5-2-2-公用参数：import" class="headerlink" title="5.2.2    公用参数：import"></a>5.2.2    公用参数：import</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left"><code>--enclosed-by &lt;char&gt;</code></td>
+<td align="left">给字段值前加上指定的字符</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left"><code>--escaped-by &lt;char&gt;</code></td>
+<td align="left">对字段中的双引号加转义符</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left"><code>--fields-terminated-by &lt;char&gt;</code></td>
+<td align="left">设定每个字段是以什么符号作为结束，默认为逗号</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left"><code>--lines-terminated-by  &lt;char&gt;</code></td>
+<td align="left">设定每行记录之间的分隔符，默认是 <code>\n</code></td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left"><code>--mysql-delimiters</code></td>
+<td align="left">MySQL 默认的分隔符设置，字段之间以逗号 <code>,</code> 分隔，<br>行之间以 <code>\n</code> 分隔，默认转义符是 <code>\</code>，字段值以单引号 <code>‘ ’</code>包裹</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left"><code>--optionally-enclosed-by &lt;char&gt;</code></td>
+<td align="left">给带有双引号或单引号的字段值前后加上指定字符。</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-3-公用参数：export"><a href="#5-2-3-公用参数：export" class="headerlink" title="5.2.3 公用参数：export"></a>5.2.3 公用参数：export</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--input-enclosed-by &lt;char&gt;</code></td>
+<td>对字段值前后加上指定字符</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--input-escaped-by &lt;char&gt;</code></td>
+<td>对含有转移符的字段做转义处理</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--input-fields-terminated-by &lt;char&gt;</code></td>
+<td>字段之间的分隔符</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--input-lines-terminated-by &lt;char&gt;</code></td>
+<td>行之间的分隔符</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--input-optionally-enclosed-by &lt;char&gt;</code></td>
+<td>给带有双引号或单引号的字段前后加上指定字符</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--update-key &lt;col-name&gt;</code></td>
+<td>更新时参考的列</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--update-mode &lt;mode&gt;</code></td>
+<td>更新模式，可选参数 <code>[updateonly, allowinsert]</code></td>
+</tr>
+</tbody></table>
+<h3 id="5-2-4-公用参数：hive"><a href="#5-2-4-公用参数：hive" class="headerlink" title="5.2.4    公用参数：hive"></a>5.2.4    公用参数：hive</h3><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--hive-delims-replacement &lt;arg&gt;</code></td>
+<td>用自定义的字符串替换掉数据中的 <code>\r\n</code> 和 <code>\013 \010</code> 等字符</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--hive-drop-import-delims</code></td>
+<td>在导入数据到 <code>Hive</code> 时，去掉数据中的 <code>\r\n\013\010</code> 这样的字符</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--map-column-hive  &lt;arg&gt;</code></td>
+<td>生成 <code>Hive</code> 表时，可以更改生成字段的数据类型</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--hive-partition-key</code></td>
+<td>创建分区，后面直接跟分区名，分区字段的默认类型为 <code>string</code></td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--hive-partition-value &lt;v&gt;</code></td>
+<td>导入数据时，指定某个分区的值</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--hive-home &lt;dir&gt;</code></td>
+<td><code>Hive</code> 的安装目录，可以通过该参数覆盖之前默认配置的目录</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--hive-import</code></td>
+<td>将数据从关系数据库中导入到 <code>Hive</code> 表中</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>--hive-overwrite</code></td>
+<td>覆盖掉在 <code>Hive</code> 表中已经存在的数据</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td><code>--create-hive-table</code></td>
+<td>默认是 <code>false</code>，即如果目标表已经存在了，那么创建任务失败</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><code>--hive-table</code></td>
+<td>后面接要创建的 <code>hive</code> 表，默认使用 <code>MySQL</code> 的表名</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td><code>--table</code></td>
+<td>指定关系数据库的表名</td>
+</tr>
+</tbody></table>
+<hr>
+<p>公用参数介绍完之后，我们来按照命令介绍命令对应的特有参数。</p>
+<h3 id="5-2-5-命令-amp-参数：import"><a href="#5-2-5-命令-amp-参数：import" class="headerlink" title="5.2.5    命令&amp;参数：import"></a>5.2.5    命令&amp;参数：import</h3><p>将关系型数据库中的数据导入到 <code>HDFS(包括Hive，HBase)</code> 中，如果导入的是 <code>Hive</code>，那么当 <code>Hive</code> 中没有对应表时，则自动创建。</p>
+<p><strong>一、命令：</strong></p>
+<p>eg：导入数据到 <code>hive</code> 中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff \</span><br><span class="line">--hive-import</span><br></pre></td></tr></table></figure>
+
+
+
+<p>eg：增量导入数据到 <code>hive</code> 中，<code>mode=append</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># append导入：</span></span><br><span class="line"></span><br><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--target-dir /user/hive/warehouse/staff_hive \</span><br><span class="line">--check-column <span class="built_in">id</span> \</span><br><span class="line">--incremental append \	<span class="comment"># 增量导入</span></span><br><span class="line">--last-value 3</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <strong>提示：</strong><code>append</code> 不能与 <code>--hive</code> 等参数同时使用</li>
+<li>  Append mode for hive imports is not yet supported. Please remove the parameter –append-mode</li>
+</ul>
+<p>eg：增量导入数据到 <code>hdfs</code> 中，<code>mode=lastmodified</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先在 mysql 中建表并插入几条数据：</span></span><br><span class="line">mysql&gt; </span><br><span class="line">	create table company.staff_timestamp(</span><br><span class="line">		<span class="built_in">id</span> int(4), </span><br><span class="line">		name varchar(255), </span><br><span class="line">		sex varchar(255), </span><br><span class="line">		last_modified timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into company.staff_timestamp (<span class="built_in">id</span>, name, sex) values(1, <span class="string">&#x27;AAA&#x27;</span>, <span class="string">&#x27;female&#x27;</span>);</span><br><span class="line">mysql&gt; insert into company.staff_timestamp (<span class="built_in">id</span>, name, sex) values(2, <span class="string">&#x27;BBB&#x27;</span>, <span class="string">&#x27;female&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先导入一部分数据：</span></span><br><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff_timestamp \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--m 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再增量导入一部分数据：</span></span><br><span class="line">mysql&gt; insert into company.staff_timestamp (<span class="built_in">id</span>, name, sex) values(3, <span class="string">&#x27;CCC&#x27;</span>, <span class="string">&#x27;female&#x27;</span>);</span><br><span class="line">$ bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff_timestamp \</span><br><span class="line">--check-column last_modified \</span><br><span class="line">--incremental lastmodified \</span><br><span class="line">--last-value <span class="string">&quot;2017-09-28 22:20:38&quot;</span> \</span><br><span class="line">--m 1 \</span><br><span class="line">--append</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>提示：</strong><ol>
+<li> 使用 <code>lastmodified</code> 方式导入数据要指定增量数据是要 <code>--append</code>（追加）还是要 <code>--merge-key</code>（合并）</li>
+<li> <code>last-value</code> 指定的值是会包含于增量导入的数据中</li>
+</ol>
+</li>
+</ul>
+<p><strong>二、参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--append</code></td>
+<td>将数据追加到 HDFS 中已经存在的 DataSet 中。如果使用该参数，<br/>sqoop 会把数据先导入到临时文件目录，再合并</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--as-avrodatafile</code></td>
+<td>将数据导入到一个 <code>Avro</code> 数据文件中</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--as-sequencefile</code></td>
+<td>将数据导入到一个 <code>sequence</code> 文件中</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--as-textfile</code></td>
+<td>将数据导入到一个普通文本文件中</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--boundary-query  &lt;statement&gt;</code></td>
+<td>边界查询，导入的数据为该参数的值（一条sql语句）所执行的结果<br/>区间内的数据</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--columns &lt;col1, col2,  col3&gt;</code></td>
+<td>指定要导入的字段</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--direct</code></td>
+<td>直接导入模式，使用的是关系数据库自带的导入导出工具，以便加快<br/>导入导出过程</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>--direct-split-size</code></td>
+<td>在使用上面 direct 直接导入的基础上，对导入的流按字节分块，即达<br/>到该阈值就产生一个新的文件</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td><code>--inline-lob-limit</code></td>
+<td>设定大对象数据类型的最大值</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><code>--m</code> 或 <code>–num-mappers</code></td>
+<td>启动 N 个 map 来并行导入数据，默认 4 个</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td><code>--query</code>或 <code>--e &lt;statement&gt;</code></td>
+<td>将查询结果的数据导入，使用时必须伴随参 <code>--target-dir，--hive-table</code>，<br/>如果查询中有 where 条件，则条件后必须加上 <code>$CONDITIONS</code> 关键字</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td><code>--split-by &lt;column-name&gt;</code></td>
+<td>按照某一列来切分表的工作单元，不能与–autoreset-to-one-mapper连用<br/>（请参考官方文档</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td><code>--table &lt;table-name&gt;</code></td>
+<td>关系数据库的表名</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td><code>--target-dir &lt;dir&gt;</code></td>
+<td>指定 HDFS 路径</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td><code>--warehouse-dir &lt;dir&gt;</code></td>
+<td>与<code>14</code>参数不能同时使用，导入数据到 HDFS 时指定的目录</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td><code>--where</code></td>
+<td>从关系数据库导入数据时的查询条件</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td><code>--z</code>或<code>--compress</code></td>
+<td>允许压缩</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td><code>--compression-codec</code></td>
+<td>指定 hadoop 压缩编码类，默认为<code>gzip(Use Hadoop codec  default gzip)</code></td>
+</tr>
+<tr>
+<td align="center">19</td>
+<td><code>--null-string  &lt;null-string&gt;</code></td>
+<td><code>string</code> 类型的列如果 <code>null</code>，替换为指定字符串</td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td><code>--null-non-string  &lt;null-string&gt;</code></td>
+<td>非 <code>string</code> 类型的列如果 <code>null</code>，替换为指定字符串</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td><code>--check-column &lt;col&gt;</code></td>
+<td>作为增量导入判断的列名</td>
+</tr>
+<tr>
+<td align="center">22</td>
+<td><code>--incremental &lt;mode&gt;</code></td>
+<td><code>mode:append</code> 或 <code>lastmodified</code></td>
+</tr>
+<tr>
+<td align="center">23</td>
+<td><code>--last-value &lt;value&gt;</code></td>
+<td>指定某一个值，用于标记增量导入的位置</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="5-2-6-命令-amp-参数：export"><a href="#5-2-6-命令-amp-参数：export" class="headerlink" title="5.2.6    命令&amp;参数：export"></a>5.2.6    命令&amp;参数：export</h3><p>从<code>HDFS（包括Hive和HBase）</code>中奖数据导出到关系型数据库中。</p>
+<p><strong>命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff \</span><br><span class="line">--export-dir /user/company \</span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--num-mappers 1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--direct</code></td>
+<td align="left">利用数据库自带的导入导出工具，以便于提高效率</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--export-dir  &lt;dir&gt;</code></td>
+<td align="left">存放数据的 HDFS 的源目录</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>-m</code> 或 <code>--num-mappers &lt;n&gt;</code></td>
+<td align="left">启动 N 个 map 来并行导入数据，默认4个</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--table &lt;table-name&gt;</code></td>
+<td align="left">指定导出到哪个 <code>RDBMS</code> 中的表</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--update-key  &lt;col-name&gt;</code></td>
+<td align="left">对某一列的字段进行更新操作</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--update-mode  &lt;mode&gt;</code></td>
+<td align="left"><code>updateonly</code>(默认)  <code>allowinsert</code></td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--input-null-string  &lt;null-string&gt;</code></td>
+<td align="left">请参考 import 该类似参数说明</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>--input-null-non-string  &lt;null-string&gt;</code></td>
+<td align="left">请参考 import 该类似参数说明</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td><code>--staging-table  &lt;staging-table-name&gt;</code></td>
+<td align="left">创建一张临时表，用于存放所有事务的结果，然后<br>将所有事务结果一次性导入到目标表中，防止错误</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><code>--clear-staging-table</code></td>
+<td align="left">如果第 9 个参数非空，则可以在导出操作执行前，清空临时事务结果表</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-7-命令-amp-参数：codegen"><a href="#5-2-7-命令-amp-参数：codegen" class="headerlink" title="5.2.7    命令&amp;参数：codegen"></a>5.2.7    命令&amp;参数：codegen</h3><p>将关系型数据库中的表映射为一个 Java 类，在该类中有各列对应的各个字段。</p>
+<p>eg：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop codegen \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff \</span><br><span class="line">--bindir /home/admin/Desktop/staff \</span><br><span class="line">--class-name Staff \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--bindir &lt;dir&gt;</code></td>
+<td>指定生成的 Java 文件、编译成的 class 文件及将生成文件打包为<br/> <code>jar</code> 的文件输出路径</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--class-name &lt;name&gt;</code></td>
+<td>设定生成的 Java 文件指定的名称</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--outdir &lt;dir&gt;</code></td>
+<td>生成 Java 文件存放的路径</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--package-name  &lt;name&gt;</code></td>
+<td>包名，如 <code>com.z</code>，就会生成<code>com</code>和<code>z</code>两级目录</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--input-null-non-string &lt;null-str&gt;</code></td>
+<td>在生成的 Java 文件中，可以将 <code>null</code> 字符串或者不存在的字符串<br/>设置为想要设定的值（例如空字符串）</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--input-null-string  &lt;null-str&gt;</code></td>
+<td>将 <code>null</code> 字符串替换成想要替换的值（一般与 5 同时使用）</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--map-column-java &lt;arg&gt;</code></td>
+<td>数据库字段在生成的 Java 文件中会映射成各种属性，且默认的数据<br/>类型与数据库类型保持对应关系。该参数可以改变默认类型，例如：<br/><code>--map-column-java  id=long, name=String</code></td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>--null-non-string  &lt;null-str&gt;</code></td>
+<td>在生成 Java 文件时，可以将不存在或者 <code>null</code> 的字符串设置为其他值</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td><code>--null-string &lt;null-str&gt;</code></td>
+<td>在生成 Java 文件时，将 <code>null</code> 字符串设置为其他值（一般与8同时使用）</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><code>--table &lt;table-name&gt;</code></td>
+<td>对应关系数据库中的表名，生成的 Java 文件中的各个属性与该表的各<br/>个字段一一对应</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="5-2-8-命令-amp-参数：create-hive-table"><a href="#5-2-8-命令-amp-参数：create-hive-table" class="headerlink" title="5.2.8    命令&amp;参数：create-hive-table"></a>5.2.8    命令&amp;参数：create-hive-table</h3><p>生成与关系数据库表结构对应的 <code>Hive</code> 表结构。</p>
+<p><strong>命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop create-hive-table \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff \</span><br><span class="line">--hive-table hive_staff</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>--hive-home  &lt;dir&gt;</code></td>
+<td><code>Hive</code> 的安装目录，可以通过该参数覆盖掉默认的 <code>Hive</code> 目录</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>--hive-overwrite</code></td>
+<td>覆盖掉在 <code>Hive</code> 表中已经存在的数据</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>--create-hive-table</code></td>
+<td>默认是 <code>false</code>，如果目标表已经存在了，那么创建任务会失败</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>--hive-table</code></td>
+<td>后面接要创建的 <code>hive</code> 表</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>--table</code></td>
+<td>指定关系数据库的表名</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="5-2-9-命令-amp-参数：eval"><a href="#5-2-9-命令-amp-参数：eval" class="headerlink" title="5.2.9    命令&amp;参数：eval"></a>5.2.9    命令&amp;参数：eval</h3><p>可以快速的使用 SQL 语句对关系型数据库进行操作，经常用于在 <code>import</code> 数据之前，了解一下 SQL 语句是否正确，数据是否正常，并可以将结果显示在控制台。</p>
+<p><strong>命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop <span class="built_in">eval</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--query <span class="string">&quot;SELECT * FROM staff&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--query或--e</code></td>
+<td>后跟查询的 SQL 语句</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="5-2-10-命令-amp-参数：import-all-tables"><a href="#5-2-10-命令-amp-参数：import-all-tables" class="headerlink" title="5.2.10    命令&amp;参数：import-all-tables"></a>5.2.10    命令&amp;参数：import-all-tables</h3><p>可以将 <code>RDBMS</code> 中的所有表导入到 <code>HDFS</code> 中，每一个表都对应一个 <code>HDFS</code> 目录</p>
+<p><strong>命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import-all-tables \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--warehouse-dir /all_tables</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--as-avrodatafile</code></td>
+<td>这些参数的含义均和 <code>import</code>对应的含义一致</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--as-sequencefile</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--as-textfile</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--direct</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--direct-split-size  &lt;n&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--inline-lob-limit  &lt;n&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--m</code> 或 <code>—num-mappers  &lt;n&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>--warehouse-dir  &lt;dir&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td><code>-z</code> 或 <code>--compress</code></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><code>--compression-codec</code></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="5-2-11-命令-amp-参数：job"><a href="#5-2-11-命令-amp-参数：job" class="headerlink" title="5.2.11    命令&amp;参数：job"></a>5.2.11    命令&amp;参数：job</h3><p>用来生成一个 <code>sqoop</code> 任务，生成后不会立即执行，需要手动执行。</p>
+<p><strong>命令：</strong></p>
+<p>eg：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop job \</span><br><span class="line"> --create myjob -- import-all-tables \</span><br><span class="line"> --connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line"> --username root \</span><br><span class="line"> --password 123456</span><br><span class="line">$ bin/sqoop job \</span><br><span class="line">--list</span><br><span class="line">$ bin/sqoop job \</span><br><span class="line">--<span class="built_in">exec</span> myjob</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>提示：<ol>
+<li> 注意 <code>import-all-tables</code> 和它左边的 <code>--</code> 之间有一个空格</li>
+<li> 如果需要连接 <code>metastore</code>，则 <code>--meta-connect jdbc:hsqldb:hsql://linux01:16000/sqoop</code></li>
+</ol>
+</li>
+</ul>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--create  &lt;job-id&gt;</code></td>
+<td>创建 <code>job</code> 参数</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--delete  &lt;job-id&gt;</code></td>
+<td>删除一个 <code>job</code></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--exec  &lt;job-id&gt;</code></td>
+<td>执行一个 <code>job</code></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--help</code></td>
+<td>显示 <code>job</code> 帮助</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--list</code></td>
+<td>显示 <code>job</code> 列表</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--meta-connect  &lt;jdbc-uri&gt;</code></td>
+<td>用来连接 <code>metastore</code> 服务</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td><code>--show  &lt;job-id&gt;</code></td>
+<td>显示一个 <code>job</code> 的信息</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td><code>--verbose</code></td>
+<td>打印命令运行时的详细信息</td>
+</tr>
+</tbody></table>
+<p><strong>提示：</strong>在执行一个 <code>job</code> 时，如果需要手动输入数据库密码，可以做如下优化</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>sqoop.metastore.client.record.password<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>If true, allow saved passwords in the metastore.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="5-2-12-命令-amp-参数：list-databases"><a href="#5-2-12-命令-amp-参数：list-databases" class="headerlink" title="5.2.12 命令&amp;参数：list-databases"></a>5.2.12 命令&amp;参数：list-databases</h3><p><strong>命令：</strong>  </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  bin/sqoop list-databases \  --connect jdbc:mysql://hadoop102:3306/  \  --username root \  --password 123456</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数：</strong>与公用参数一样</p>
+<hr>
+<h3 id="5-2-13-命令-amp-参数：list-tables"><a href="#5-2-13-命令-amp-参数：list-tables" class="headerlink" title="5.2.13    命令&amp;参数：list-tables"></a>5.2.13    命令&amp;参数：list-tables</h3><p><strong>命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  bin/sqoop list-tables \  --connect jdbc:mysql://hadoop102:3306/company  \  --username root \  --password 123456</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数：</strong>与公用参数一样</p>
+<hr>
+<h3 id="5-2-14-命令-amp-参数：merge"><a href="#5-2-14-命令-amp-参数：merge" class="headerlink" title="5.2.14    命令&amp;参数：merge"></a>5.2.14    命令&amp;参数：merge</h3><p><strong>作用：</strong>将 <code>HDFS</code> 中不同目录下面的数据合并在一起并放入指定目录中。</p>
+<p><strong>数据环境：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">new_staff</span><br><span class="line">1	AAA	male</span><br><span class="line">2	BBB	male</span><br><span class="line">3	CCC	male</span><br><span class="line">4	DDD	male</span><br><span class="line">old_staff</span><br><span class="line">1	AAA	female</span><br><span class="line">2	CCC	female</span><br><span class="line">3	BBB	female</span><br><span class="line">6	DDD	female</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <strong>提示：</strong>上述数据的列之间的分隔符应该为 <code>\t</code>，行与行之间的分割符为 <code>\n</code>，如果直接复制，请检查。</li>
+</ul>
+<p><strong>命令：</strong></p>
+<p>eg：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建JavaBean：</span></span><br><span class="line">$ bin/sqoop codegen \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/company \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table staff \</span><br><span class="line">--bindir /home/admin/Desktop/staff \</span><br><span class="line">--class-name Staff \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始合并：</span></span><br><span class="line">$ bin/sqoop merge \</span><br><span class="line">--new-data /test/new/ \</span><br><span class="line">--onto /test/old/ \</span><br><span class="line">--target-dir /test/merged \</span><br><span class="line">--jar-file /home/admin/Desktop/staff/Staff.jar \</span><br><span class="line">--class-name Staff \</span><br><span class="line">--merge-key <span class="built_in">id</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果：</span></span><br><span class="line">1	AAA	MALE</span><br><span class="line">2	BBB	MALE</span><br><span class="line">3	CCC	MALE</span><br><span class="line">4	DDD	MALE</span><br><span class="line">6	DDD	FEMALE</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><code>--new-data &lt;path&gt;</code></td>
+<td>HDFS  中待合并数据的目录，合并后在新的数据集中保留</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><code>--onto &lt;path&gt;</code></td>
+<td>HDFS 合并后，重复的部分在新的数据集中被覆盖</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><code>--merge-key  &lt;col&gt;</code></td>
+<td>合并键，一般是主键ID</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><code>--jar-file  &lt;file&gt;</code></td>
+<td>合并时引入的 <code>jar</code> 包，该 <code>jar</code> 包是通过 <code>Codegen</code> 工具生成的 <code>jar</code> 包</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><code>--class-name  &lt;class&gt;</code></td>
+<td>对应的表名或对象名，该 <code>class</code> 类是包含在 <code>jar</code> 包中的</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td><code>--target-dir  &lt;path&gt;</code></td>
+<td>合并后的数据在 HDFS 里存放的目录</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="5-2-15-命令-amp-参数：metastore"><a href="#5-2-15-命令-amp-参数：metastore" class="headerlink" title="5.2.15    命令&amp;参数：metastore"></a>5.2.15    命令&amp;参数：metastore</h3><p>记录了 <code>Sqoop job</code> 的元数据信息，如果不启动该服务，那么默认 <code>job</code> 元数据的存储目录为 <code>~/.sqoop</code>，可在 <code>sqoop-site.xml</code> 中修改。</p>
+<p><strong>命令：</strong></p>
+<p>eg：启动 <code>sqoop</code> 的 <code>metastore</code> 服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop metastore</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center"><code>--shutdown</code></td>
+<td>关闭 <code>metastore</code></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/26/Spark-MLlib/" rel="prev" title="Spark_MLlib">
+                  <i class="fa fa-chevron-left"></i> Spark_MLlib
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" rel="next" title="数据仓库">
+                  数据仓库 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

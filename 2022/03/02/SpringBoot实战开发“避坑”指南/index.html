@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="T1：@ComponentScan 扫描的是类而不是接口​    在SpringBoot项目中，我们习惯在启动类上使用 @SpringBootApplication 注解完成全自动的一站式配置。 @SpringBootApplication 注解包含了一个子注解 @ComponentScan，这个注解的默认作用是扫描当前主类及其子包下的所有类并将其注入到容器中。这里要注意的一个点是“类”，也就是说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实战开发“避坑”指南">
+<meta property="og:url" content="http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="T1：@ComponentScan 扫描的是类而不是接口​    在SpringBoot项目中，我们习惯在启动类上使用 @SpringBootApplication 注解完成全自动的一站式配置。 @SpringBootApplication 注解包含了一个子注解 @ComponentScan，这个注解的默认作用是扫描当前主类及其子包下的所有类并将其注入到容器中。这里要注意的一个点是“类”，也就是说">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302201437977.png">
+<meta property="og:image" content="http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302203035084.png">
+<meta property="article:published_time" content="2022-03-02T12:05:15.000Z">
+<meta property="article:modified_time" content="2022-03-02T13:12:44.314Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302201437977.png">
+
+
+<link rel="canonical" href="http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/","path":"2022/03/02/SpringBoot实战开发“避坑”指南/","title":"SpringBoot实战开发“避坑”指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SpringBoot实战开发“避坑”指南 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1%EF%BC%9A-ComponentScan-%E6%89%AB%E6%8F%8F%E7%9A%84%E6%98%AF%E7%B1%BB%E8%80%8C%E4%B8%8D%E6%98%AF%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">T1：@ComponentScan 扫描的是类而不是接口</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SpringBoot实战开发“避坑”指南 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot实战开发“避坑”指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-03-02 20:05:15 / Modified: 21:12:44" itemprop="dateCreated datePublished" datetime="2022-03-02T20:05:15+08:00">2022-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot/%E5%AE%9E%E6%88%98/" itemprop="url" rel="index"><span itemprop="name">实战</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="T1：-ComponentScan-扫描的是类而不是接口"><a href="#T1：-ComponentScan-扫描的是类而不是接口" class="headerlink" title="T1：@ComponentScan 扫描的是类而不是接口"></a>T1：@ComponentScan 扫描的是类而不是接口</h1><p>​    在SpringBoot项目中，我们习惯在启动类上使用 <code>@SpringBootApplication</code> 注解完成全自动的一站式配置。 <code>@SpringBootApplication</code> 注解包含了一个子注解 <code>@ComponentScan</code>，这个注解的默认作用是扫描当前主类及其子包下的所有类并将其注入到容器中。这里要注意的一个点是“类”，也就是说它只负责扫描类，而不负责扫描接口。如果我们在启动类的一个子包如 controller 包中定义一个<strong>接口</strong> TestController，再启动项目试一试，就会抛出如下错误：</p>
+<ol>
+<li><p>在 controller 包下创建一个接口 TestDao</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.gulimall.member.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/3/2 19:23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TestDao</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>在另一个 controller 中引用这个对象</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;member/member&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MemberController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TestDao testDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>启动项目时抛出如下错误：TestDao对象找不到</p>
+<p> <img src="SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302201437977.png" alt="image-20220302201437977"></p>
+</li>
+<li><p>如果我们把 TestDao 的类型改为 “class”，发现项目又可以正常启动了</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.gulimall.member.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/3/2 19:23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestDao</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>​    从这个例子我们可以得出，<code>@ComponentScan</code> 扫描的是类而不是接口。那么这一错误在哪些场景下容易出现呢？其实只要扫描的包下存在接口就都可能会遇到这种情况。就我个人目前的使用情况来看，主要有两种：一是在 MyBatis 中，二是在 Spring Cloud 项目总使用 Feign 时。</p>
+<ol>
+<li> 在 MyBatis 中，因为 mapper 包下都是一些接口，如果使用 <code>@ComponentScan</code> 注解，那么在必然无法将接口的实现类注入到Spring容器中。这也是为什么使用 MyBatis 时必须要在配置类上额外添加 <code>@MapperScan(&quot;xxx.xxx.dao&quot;)</code> 注解的原因，添加该注解后，就可以将指定包下的接口的实现类以接口类型添加到容器中，在依赖注入时直接使用接口类型就可以找到对应的实现类。</li>
+<li> 在 Spring Cloud 项目中使用 Feign 进行远程调用时也是类似的场景，由于 feign 包下保存的都是一些接口，所以同样需要在配置类中添加 <code>@EnableFeignClients(basePackages = &quot;xxx.feign&quot;)</code> 注解指定接口所在的位置，其原理于 MyBatis 类似。</li>
+</ol>
+<ul>
+<li>  <strong>配置类示例：</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.gulimall.member;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.client.discovery.EnableDiscoveryClient;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.openfeign.EnableFeignClients;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableFeignClients(basePackages = &quot;com.example.gulimall.member.feign&quot;)</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.example.gulimall.member.dao&quot;)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GulimallMemberApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(GulimallMemberApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  dao包和feign包内成员展示（都是接口）</li>
+</ul>
+<img src="SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302203035084.png" alt="image-20220302203035084" style="zoom:50%;" />
+
+
+
+<p><strong>总结：</strong> <code>@ComponentScan</code> 注解只扫描“类”而不扫描“接口”，如果想要让接口以接口的类型自动加入Spring容器，一般需要通过额外的注解来实现，比如 MyBatis 的 <code>@MapperScan(basePackages = &quot;xxx&quot;)</code> 或 Feign 的 <code>@EnableFeignClients(basePackages = &quot;xxx&quot;)</code></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/21/%E6%AF%95%E8%AE%BE%E7%9B%B8%E5%85%B3/" rel="prev" title="毕设相关">
+                  <i class="fa fa-chevron-left"></i> 毕设相关
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="next" title="HTTP实验环境搭建">
+                  HTTP实验环境搭建 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

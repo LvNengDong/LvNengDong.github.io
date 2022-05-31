@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第1章 Azkaban 概论1.1 为什么需要工作流调度系统 一个完整的数据分析系统通常都是由大量任务单元组成：  Shell 脚本程序，Java 程序，MapReduce 程序、Hive 脚本等。   各任务单元之间存在时间先后及前后依赖关系   为了很好地组织起这样的复杂执行计划，需要一个工作流调度系统来调度执行；     1.2 常见工作流调度系统  简单的任务调度：直接使用 Linux 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azkaban">
+<meta property="og:url" content="http://example.com/2022/01/25/Azkaban/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第1章 Azkaban 概论1.1 为什么需要工作流调度系统 一个完整的数据分析系统通常都是由大量任务单元组成：  Shell 脚本程序，Java 程序，MapReduce 程序、Hive 脚本等。   各任务单元之间存在时间先后及前后依赖关系   为了很好地组织起这样的复杂执行计划，需要一个工作流调度系统来调度执行；     1.2 常见工作流调度系统  简单的任务调度：直接使用 Linux 的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220125123407206.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220125221413005.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220125224154284.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126113158617.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126113351345.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126113713009.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114313834.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114348471.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114415573.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114436888.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114528652.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114707764.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126135606672.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126143304512.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126144747392.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126145022109.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126150931478.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126151515522.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126151608652.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126152050666.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126173205145.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126195508740.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126201013836.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126114348471.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126202504516.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126202910617.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126202653520.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126205853007.png">
+<meta property="og:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220126210010690.png">
+<meta property="article:published_time" content="2022-01-25T04:31:25.000Z">
+<meta property="article:modified_time" content="2022-01-26T14:21:49.641Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/25/Azkaban/Azkaban/image-20220125123407206.png">
+
+
+<link rel="canonical" href="http://example.com/2022/01/25/Azkaban/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/01/25/Azkaban/","path":"2022/01/25/Azkaban/","title":"Azkaban"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Azkaban | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC1%E7%AB%A0-Azkaban-%E6%A6%82%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">第1章 Azkaban 概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%B0%83%E5%BA%A6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 为什么需要工作流调度系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%B8%B8%E8%A7%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%B0%83%E5%BA%A6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 常见工作流调度系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Azkaban-%E4%B8%8EOozie-%E5%AF%B9%E6%AF%94"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Azkaban 与Oozie 对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC2%E7%AB%A0-Azkaban-%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">第2章 Azkaban 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Azkaban-%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Azkaban 基本架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Azkaban-%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Azkaban 部署模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 集群模式安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E9%9B%86%E7%BE%A4%E8%A7%84%E5%88%92"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 集群规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E4%B8%8A%E4%BC%A0tar%E5%8C%85"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 上传tar包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E9%85%8D%E7%BD%AE-MySQL"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3 配置 MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-%E9%85%8D%E7%BD%AE-Executor-Server"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4 配置 Executor Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5-%E9%85%8D%E7%BD%AE-Web-Server"><span class="nav-number">2.3.5.</span> <span class="nav-text">2.3.5 配置 Web Server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Work-Flow-%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Work Flow 入门案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-HelloWorld-%E6%A1%88%E4%BE%8B"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.4.1 HelloWorld 案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.4.2 配置文件编写规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-%E4%BD%9C%E4%B8%9A%E4%BE%9D%E8%B5%96%E6%A1%88%E4%BE%8B"><span class="nav-number">2.4.3.</span> <span class="nav-text">2.4.3 作业依赖案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-4-%E8%87%AA%E5%8A%A8%E5%A4%B1%E8%B4%A5%E9%87%8D%E8%AF%95%E6%A1%88%E4%BE%8B"><span class="nav-number">2.4.4.</span> <span class="nav-text">2.4.4 自动失败重试案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-5-%E6%89%8B%E5%8A%A8%E5%A4%B1%E8%B4%A5%E9%87%8D%E8%AF%95%E6%A1%88%E4%BE%8B"><span class="nav-number">2.4.5.</span> <span class="nav-text">2.4.5 手动失败重试案例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC3%E7%AB%A0-Azkaban-%E8%BF%9B%E9%98%B6"><span class="nav-number">3.</span> <span class="nav-text">第3章 Azkaban 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Azkaban%E6%94%AF%E6%8C%81%E7%9A%84%E4%BB%BB%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Azkaban支持的任务类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-JavaProcess-%E4%BD%9C%E4%B8%9A%E7%B1%BB%E5%9E%8B%E6%A1%88%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 JavaProcess 作业类型案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%9D%A1%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 条件工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8F%82%E6%95%B0%E6%A1%88%E4%BE%8B"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 运行时参数案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">一、基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%94%AF%E6%8C%81%E7%9A%84%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%9A"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">二、支持的条件运算符：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%A1%88%E4%BE%8B"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">三、案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-%E9%A2%84%E5%AE%9A%E4%B9%89%E5%AE%8F%E6%A1%88%E4%BE%8B"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 预定义宏案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C%E6%A1%88%E4%BE%8B"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 定时执行案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E9%82%AE%E4%BB%B6%E6%8A%A5%E8%AD%A6%E6%A1%88%E4%BE%8B"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 邮件报警案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E7%94%B5%E8%AF%9D%E6%8A%A5%E8%AD%A6%E6%A1%88%E4%BE%8B"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 电话报警案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-Azkaban%E7%9A%84%E5%A4%9AExecutor%E6%A8%A1%E5%BC%8F%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 Azkaban的多Executor模式注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC4%E7%AB%A0-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">第4章 参考资料</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Azkaban-%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Azkaban 完整配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-YAML-%E8%AF%AD%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 YAML 语法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/25/Azkaban/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Azkaban | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Azkaban
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-01-25 12:31:25" itemprop="dateCreated datePublished" datetime="2022-01-25T12:31:25+08:00">2022-01-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-26 22:21:49" itemprop="dateModified" datetime="2022-01-26T22:21:49+08:00">2022-01-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Azkaban/" itemprop="url" rel="index"><span itemprop="name">Azkaban</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第1章-Azkaban-概论"><a href="#第1章-Azkaban-概论" class="headerlink" title="第1章 Azkaban 概论"></a>第1章 Azkaban 概论</h1><h2 id="1-1-为什么需要工作流调度系统"><a href="#1-1-为什么需要工作流调度系统" class="headerlink" title="1.1 为什么需要工作流调度系统"></a>1.1 为什么需要工作流调度系统</h2><ol>
+<li><p>一个完整的数据分析系统通常都是由大量任务单元组成：</p>
+<p> Shell 脚本程序，Java 程序，MapReduce 程序、Hive 脚本等。</p>
+</li>
+<li><p> 各任务单元之间存在时间先后及前后依赖关系</p>
+</li>
+<li><p> 为了很好地组织起这样的复杂执行计划，需要一个工作流调度系统来调度执行；</p>
+</li>
+</ol>
+<p><img src="Azkaban/image-20220125123407206.png" alt="image-20220125123407206"></p>
+<hr>
+<h2 id="1-2-常见工作流调度系统"><a href="#1-2-常见工作流调度系统" class="headerlink" title="1.2 常见工作流调度系统"></a>1.2 常见工作流调度系统</h2><ol>
+<li> 简单的任务调度：直接使用 Linux 的 Crontab 来定义；</li>
+<li> 复杂的任务调度：开发调度平台或使用现成的开源调度系统，比如 Ooize、Azkaban、Airflow、DolphinScheduler 等。</li>
+</ol>
+<hr>
+<h2 id="1-3-Azkaban-与Oozie-对比"><a href="#1-3-Azkaban-与Oozie-对比" class="headerlink" title="1.3 Azkaban 与Oozie 对比"></a>1.3 Azkaban 与Oozie 对比</h2><p>总体来说，Ooize 相比 Azkaban 是一个重量级的任务调度系统，功能全面，但配置使用也更复杂。如果可以不在意某些功能的缺失，轻量级调度器 Azkaban 是很不错的候选对象。</p>
+<hr>
+<h1 id="第2章-Azkaban-入门"><a href="#第2章-Azkaban-入门" class="headerlink" title="第2章 Azkaban 入门"></a>第2章 Azkaban 入门</h1><h2 id="2-1-Azkaban-基本架构"><a href="#2-1-Azkaban-基本架构" class="headerlink" title="2.1 Azkaban 基本架构"></a>2.1 Azkaban 基本架构</h2><ol>
+<li><strong>Azkaban Web Server</strong><ul>
+<li>  项目管理/用户管理/权限管理</li>
+<li>  任务的定时和触发</li>
+<li>  UI界面</li>
+</ul>
+</li>
+<li><strong>Azkaban Executor Server</strong><ul>
+<li>  具体任务的执行</li>
+</ul>
+</li>
+<li><strong>MySQL</strong><ul>
+<li>  存储工作流程配置、定时规则、以及任务的执行状态等数据</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-2-Azkaban-部署模式"><a href="#2-2-Azkaban-部署模式" class="headerlink" title="2.2 Azkaban 部署模式"></a>2.2 Azkaban 部署模式</h2><ol>
+<li> <strong>单机模式</strong>：Web Server 和 Executor Server 部署在同一个服务器节点上。</li>
+<li> <strong>集群模式</strong>：Web Server 和 Executor Server 分别位于不同的服务器节点上。集群模式支持部署多个 Executor Server 节点，起到负载均衡和容灾的作用。</li>
+</ol>
+<h2 id="2-3-集群模式安装"><a href="#2-3-集群模式安装" class="headerlink" title="2.3 集群模式安装"></a>2.3 集群模式安装</h2><h3 id="2-3-1-集群规划"><a href="#2-3-1-集群规划" class="headerlink" title="2.3.1 集群规划"></a>2.3.1 集群规划</h3><table>
+<thead>
+<tr>
+<th>服务器节点</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hadoop102</td>
+<td>Web Server/Executor Server</td>
+</tr>
+<tr>
+<td>Hadoop103</td>
+<td>Executor Server</td>
+</tr>
+<tr>
+<td>Hadoop104</td>
+<td>Executor Server</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-2-上传tar包"><a href="#2-3-2-上传tar包" class="headerlink" title="2.3.2 上传tar包"></a>2.3.2 上传tar包</h3><ol>
+<li><p>将 <code>azkaban-db-3.84.4.tar.gz</code>、 <code>azkaban-exec-server-3.84.4.tar.gz</code>、 <code>azkaban-web-server-3.84.4.tar.gz</code> 上传到 hadoop102 的 <code>opt/software/azkaban</code> 路径下。</p>
+<ul>
+<li>   <code>azkaban-exec-server.*</code> 是 Web Server 的安装包；</li>
+<li>  <code>azkaban-web-server.*</code> 是 Executor Server 的安装包；</li>
+<li>  <code>azkaban-db.*</code>：Azkaban 在运行时会用到 MySQL，需要提前在 MySQL 中创建好 Azkaban 所用到的库和表，该压缩包就是一个 SQL 脚本文件，里面是对应的建库和建表语句。 </li>
+</ul>
+</li>
+<li><p>新建 <code>/opt/module/azkaban</code> 目录，并将所有 tar 包解压到该目录下。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 module]$ tar -zxvf /opt/software/azkaban/azkaban-db-3.84.4.tar.gz -C /opt/module/azkaban/</span><br><span class="line"></span><br><span class="line">[lvnengdong@hadoop102 module]$ tar -zxvf /opt/software/azkaban/azkaban-exec-server-3.84.4.tar.gz -C /opt/module/azkaban/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[lvnengdong@hadoop102 module]$ tar -zxvf /opt/software/azkaban/azkaban-web-server-3.84.4.tar.gz -C /opt/module/azkaban/</span><br></pre></td></tr></table></figure></li>
+<li><p>进入到 <code>opt/module/azkaban</code> 目录，依次修改名称</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 azkaban]$ <span class="built_in">mv</span> azkaban-exec-server-3.84.4/ azkaban-exec</span><br><span class="line">[lvnengdong@hadoop102 azkaban]$ <span class="built_in">mv</span> azkaban-web-server-3.84.4/ azkaban-web</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-3-3-配置-MySQL"><a href="#2-3-3-配置-MySQL" class="headerlink" title="2.3.3 配置 MySQL"></a>2.3.3 配置 MySQL</h3><ol>
+<li><p> 正常安装 MySQL。</p>
+</li>
+<li><p>启动MySQL服务 ==&gt; 登录MySQL ==&gt; 创建 azkaban 数据库</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、启动MySQL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、登录MySQL</span></span><br><span class="line">[lvnengdong@hadoop102 azkaban]$ mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3、创建 azkaban 数据库</span></span><br><span class="line">mysql&gt; create database azkaban;	</span><br></pre></td></tr></table></figure></li>
+<li><p>创建 azkaban 用户并赋予权限（如果直接使用 root 用户操作可以跳过这一步）</p>
+<ul>
+<li><p>设置密码有效长度 4 位及以上</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global validate_password_length=4;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置密码策略最低级别</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global validate_password_policy=0;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建 azkaban 用户，任何主机都可以访问 azkaban ，密码是 123456</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER &#x27;azkaban&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27;;</span><br></pre></td></tr></table></figure></li>
+<li><p>赋予 azkaban 用户增删改查权限</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT SELECT,INSERT,UPDATE,DELETE ON azkaban.* to &#x27;azkaban&#x27;@&#x27;%&#x27; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>执行解压后的数据库脚本文件，创建对应的数据库表，完成后退出 MySQL</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use azkaban;</span><br><span class="line"></span><br><span class="line"># 执行脚本文件</span><br><span class="line">mysql&gt; source /opt/module/azkaban/azkaban-db-3.84.4/create-all-sql-3.84.4.sql</span><br><span class="line"></span><br><span class="line">mysql&gt; quit;</span><br></pre></td></tr></table></figure></li>
+<li><p>更改 MySQL 包大小，防止 Azkaban 连接 MySQL 阻塞</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 etc]$ sudo vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+
+<p> 在在 <strong>[mysqld]</strong> 下面加一行 <strong>max_allowed_packet=1024M</strong>，该参数限制了 MySQL Client 向 MySQL Server 单次发送数据包大小的上限，默认为 1M，超过该值就会陷入阻塞。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">max_allowed_packet=1024M</span><br></pre></td></tr></table></figure></li>
+<li><p>重启 MySQL</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 etc]$ sudo systemctl restart mysqld</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="2-3-4-配置-Executor-Server"><a href="#2-3-4-配置-Executor-Server" class="headerlink" title="2.3.4 配置 Executor Server"></a>2.3.4 配置 Executor Server</h3><p>Azkaban Executor Server 负责处理工作流和作业的实际执行。</p>
+<ol>
+<li><p>编辑 <code>azkaban.properties</code> 配置文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 /]$ vim /opt/module/azkaban/azkaban-exec/conf/azkaban.properties</span><br></pre></td></tr></table></figure>
+
+<p> 修改部分属性：</p>
+ <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认时区</span></span><br><span class="line"><span class="attr">default.timezone.id</span>=<span class="string">Asia/Shanghai</span></span><br><span class="line"><span class="comment"># Web Server 的 URL</span></span><br><span class="line"><span class="attr">azkaban.webserver.url</span>=<span class="string">http://hadoop102:8081</span></span><br><span class="line"><span class="comment"># 设置 executor 为固定端口（新添加）</span></span><br><span class="line"><span class="attr">executor.port</span>=<span class="string">12321</span></span><br><span class="line"><span class="comment"># MySQL相关配置</span></span><br><span class="line"><span class="attr">database.type</span>=<span class="string">mysql</span></span><br><span class="line"><span class="attr">mysql.port</span>=<span class="string">3306</span></span><br><span class="line"><span class="attr">mysql.host</span> =<span class="string">hadoop 102</span></span><br><span class="line"><span class="attr">mysql.database</span>=<span class="string">azkaban</span></span><br><span class="line"><span class="attr">mysql.user</span>=<span class="string">azkaban</span></span><br><span class="line"><span class="attr">mysql.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="attr">mysql.numconnections</span>=<span class="string">100</span></span><br></pre></td></tr></table></figure></li>
+<li><p>同步 <code>azkaban-exec</code> 到所有节点</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 /]$ xsync /opt/module/azkaban/azkaban-exec/</span><br></pre></td></tr></table></figure></li>
+<li><p>进入到 <code>opt/module/azkaban/azkaban-exec</code> 路径，分别在三台机器上启动 Executor<br> Server</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 azkaban-exec]$ bin/start-exec.sh</span><br><span class="line">[lvnengdong@hadoop103 azkaban-exec]$ bin/start-exec.sh</span><br><span class="line">[lvnengdong@hadoop104 azkaban-exec]$ bin/start-exec.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  注意：如果在 <code>/opt/module/azkaban/azkaban-exec</code> 目录下出现 <code>executor.port</code> 文件，说明启动成功</li>
+<li>  或者从 MySQL 的 azkaban 数据库的 executors 表中查询元数据信息，也能看到 Executor Server  节点信息。</li>
+</ul>
+<p> <img src="Azkaban/image-20220125221413005.png" alt="image-20220125221413005"></p>
+<blockquote>
+<p>  表中字段的含义：</p>
+<ul>
+<li>  port：端口号</li>
+<li>  active：激活状态，0为未激活，1为已激活。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Executor Server 启动后还不能正常工作，还需要进行激活。激活步骤：向 Executor Server 提供的激活服务发送 GET 请求即可。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hadoop102</span></span><br><span class="line">[lvnengdong@hadoop102 azkaban-exec]$ curl -G <span class="string">&quot;hadoop102:12321/executor?action=activate&quot;</span> &amp;&amp; <span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Hadoop103</span></span><br><span class="line">[lvnengdong@hadoop103 azkaban-exec]$ curl -G <span class="string">&quot;hadoop103:12321/executor?action=activate&quot;</span> &amp;&amp; <span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Hadoop104</span></span><br><span class="line">[lvnengdong@hadoop104 azkaban-exec]$ curl -G <span class="string">&quot;hadoop104:12321/executor?action=activate&quot;</span> &amp;&amp; <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+
+<p> 若三台机器都出现提示：<code>&#123;&quot;status&quot;:&quot;success&quot;&#125;</code>，则表示激活成功。</p>
+</li>
+</ol>
+<hr>
+<h3 id="2-3-5-配置-Web-Server"><a href="#2-3-5-配置-Web-Server" class="headerlink" title="2.3.5 配置 Web Server"></a>2.3.5 配置 Web Server</h3><p>Azkaban Web Server 主要负责：项目管理，身份验证，计划和执行触发。</p>
+<ol>
+<li><p>编辑配置文件：<code>azkaban.properties</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 azkaban]$ vim /opt/module/ azkaban</span><br><span class="line">web /conf/azkaban.properties</span><br></pre></td></tr></table></figure>
+
+<p> 修改如下属性</p>
+ <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default.timezone.id</span>=<span class="string">Asia/Shanghai</span></span><br><span class="line"><span class="attr">database.type</span>=<span class="string">mysql</span></span><br><span class="line"><span class="attr">mysql.port</span>=<span class="string">3306</span></span><br><span class="line"><span class="attr">mysql.host</span> =<span class="string">hadoop102</span></span><br><span class="line"><span class="attr">mysql.database</span>=<span class="string">azkaban</span></span><br><span class="line"><span class="attr">mysql.user</span>=<span class="string">azkaban</span></span><br><span class="line"><span class="attr">mysql.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="attr">mysql.numconnections</span>=<span class="string">100</span></span><br><span class="line"><span class="attr">azkaban.executorselector.filters</span>=<span class="string">StaticRemainingFlowSize,CpuStatus</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  azkaban.executorselector.filters 属性说明：该属性只在有多个 Executor 的情况下生效。当存在多个 Executor 时，具体某个任务由哪个 Executor 执行由任务调度策略决定。 </p>
+<ul>
+<li>  StaticRemainingFlowSize：该策略是基于正在排队的任务数，哪个 Executor 当前的任务数最少优先拾取新任务。</li>
+<li>  CpuStatus：根据 CPU 占用情况拾取任务，剩余性能更多的优先拾取任务。</li>
+<li>  MinimumFreeMemory：根据内存占用情况拾取任务，剩余内存更多的优先拾取任务。默认情况下，当服务器节点的剩余内存不足 6G 时就不再拾取任务，所以在测试环境下，必须将 MinimumFreeMemory 删除掉，否则它会认为集群资源不够而不执行任务。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>修改 <code>azkaban-users.xml</code> 文件，添加 lvnengdong 用户</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 azkaban-exec]$ vim /opt/module/azkaban/azkaban-web/conf/azkaban-users.xml</span><br></pre></td></tr></table></figure>
+
+<p> 修改文件内容为：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">azkaban-users</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">user</span> <span class="attr">groups</span>=<span class="string">&quot;azkaban&quot;</span> <span class="attr">password</span>=<span class="string">&quot;azkaban&quot;</span> <span class="attr">roles</span>=<span class="string">&quot;admin&quot;</span> <span class="attr">username</span>=<span class="string">&quot;azkaban&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">user</span> <span class="attr">password</span>=<span class="string">&quot;metrics&quot;</span> <span class="attr">roles</span>=<span class="string">&quot;metrics&quot;</span> <span class="attr">username</span>=<span class="string">&quot;metrics&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 新增一个自定义用户 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">user</span> <span class="attr">password</span>=<span class="string">&quot;123456&quot;</span> <span class="attr">roles</span>=<span class="string">&quot;admin&quot;</span> <span class="attr">username</span>=<span class="string">&quot;lvnengdong&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">role</span> <span class="attr">name</span>=<span class="string">&quot;admin&quot;</span> <span class="attr">permissions</span>=<span class="string">&quot;ADMIN&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">role</span> <span class="attr">name</span>=<span class="string">&quot;metrics&quot;</span> <span class="attr">permissions</span>=<span class="string">&quot;METRICS&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">azkaban-users</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>进入到 hadoop102 的 <code>/opt/module/azkaban/azkaban-web</code> 路径， 启动 Web Server 服务</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 azkaban-web]$ bin/start-web.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 JPS 查看启动状态</span></span><br><span class="line">[lvnengdong@hadoop102 azkaban-web]$ jps</span><br><span class="line">15379 AzkabanWebServer</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>访问 <a target="_blank" rel="noopener" href="http://hadoop102:8081/">http://hadoop102:8081</a> ，并使用 lvnengdong 用户登陆</p>
+<p> <img src="Azkaban/image-20220125224154284.png" alt="image-20220125224154284"></p>
+</li>
+</ol>
+<hr>
+<h2 id="2-4-Work-Flow-入门案例"><a href="#2-4-Work-Flow-入门案例" class="headerlink" title="2.4 Work Flow 入门案例"></a>2.4 Work Flow 入门案例</h2><h3 id="2-4-1-HelloWorld-案例"><a href="#2-4-1-HelloWorld-案例" class="headerlink" title="2.4.1 HelloWorld 案例"></a>2.4.1 HelloWorld 案例</h3><ol>
+<li><p>创建描述工作流程的文件</p>
+<ul>
+<li><p>在 Windows 环境下，新建 <code>my_first_demo.project</code> 文件，编辑内容如下：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">azkaban-flow-version: 2.0</span><br></pre></td></tr></table></figure></li>
+<li><p>新建 <code>my_first_demo.flow</code> 文件，编辑内容如下：</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span> </span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;Hello World&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol>
+<li> Name：job名称</li>
+<li> Type：job类型。command 表示待执行的job的方式为命令</li>
+<li> config：job配置</li>
+</ol>
+</blockquote>
+</li>
+<li><p>  将 <code>my_first_demo.project</code> 和 <code>my_first_demo.flow</code> 文件压缩到一个 zip 文件中，文件名称必须是英文，我这里起名为 ``my_first_demo.zip`。该压缩包就是工作流程的描述文件。</p>
+</li>
+</ul>
+</li>
+<li><p>在 WebServer 新建项目： <a target="_blank" rel="noopener" href="http://hadoop102:8081/index">http://hadoop102:8081/index</a></p>
+<p> <img src="Azkaban/image-20220126113158617.png" alt="image-20220126113158617"></p>
+</li>
+<li><p>给项目命名、添加项目描述</p>
+<p> <img src="Azkaban/image-20220126113351345.png" alt="image-20220126113351345"></p>
+</li>
+<li><p>创建项目成功后，上传工作流程的描述文件zip</p>
+<p> <img src="Azkaban/image-20220126113713009.png" alt="image-20220126113713009"></p>
+<p> Azkaban 在上传 zip 包时会校验描述文件的语法格式，只有在语法无误的情况下才能上传成功。也就是说，如果上传成功了，那么语法一定是正确的。</p>
+</li>
+<li><p>上传成功后，执行任务流</p>
+<p> <img src="Azkaban/image-20220126114313834.png" alt="image-20220126114313834"></p>
+<ul>
+<li>  工作流程图：当前流程只有一个Job，即JobA</li>
+</ul>
+<p> <img src="Azkaban/image-20220126114348471.png" alt="image-20220126114348471"></p>
+<blockquote>
+<ul>
+<li>  Execute：当前 Job 会立即执行且只执行一次</li>
+<li>  Schedule：定时调度</li>
+</ul>
+</blockquote>
+<ul>
+<li>  以 Excute 的方式执行</li>
+</ul>
+<p> <img src="Azkaban/image-20220126114415573.png" alt="image-20220126114415573"></p>
+<p> <img src="Azkaban/image-20220126114436888.png" alt="image-20220126114436888"></p>
+</li>
+<li><p>在日志中，查看运行结果</p>
+<p> <img src="Azkaban/image-20220126114528652.png" alt="image-20220126114528652"></p>
+<p> <img src="Azkaban/image-20220126114707764.png" alt="image-20220126114707764"></p>
+</li>
+</ol>
+<hr>
+<h3 id="2-4-2-配置文件编写规则"><a href="#2-4-2-配置文件编写规则" class="headerlink" title="2.4.2 配置文件编写规则"></a>2.4.2 配置文件编写规则</h3><ul>
+<li><p><code>xxx.project</code>：固定写法，声明 azkaban-flow 的版本。在1.0版本中使用 properties，在2.0版本中使用 yaml。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">azkaban-flow-version: &#123;1.0 | 2.0&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>xxx.flow</code>：用于描述具体工作流程的配置文件。支持 properties 和 yaml 两种语法格式，azkaban-flow 1.0 支持的是 properties 语法，2.0 支持的是 yaml 语法格式。</p>
+</li>
+</ul>
+<hr>
+<h3 id="2-4-3-作业依赖案例"><a href="#2-4-3-作业依赖案例" class="headerlink" title="2.4.3 作业依赖案例"></a>2.4.3 作业依赖案例</h3><p><strong>需求：</strong>JobA 和 JobB 执行完了，才能执行 JobC</p>
+<p><strong>具体步骤：</strong></p>
+<ol>
+<li><p>创建工作流描述文件</p>
+<ul>
+<li><p>  拷贝 <code>my_first_demo.project</code> 文件重命名为 <code>my_second_demo.project</code></p>
+</li>
+<li><p>新建 <code>my_second_demo.flow</code> 文件，编辑内容如下：</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobC</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="comment"># jobC 依赖 jobA 和 jobB</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">jobA</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">jobB</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;I am JobC&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;I am JobA&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobB</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;I am JobB&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  在 yaml 中，<code>-</code> 表示数组中的一个元素</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p> 将两个工作流描述文件压缩成 zip 包</p>
+</li>
+<li><p>在 Web Server 中：新建项目 ==&gt; 上传flow ==&gt; 执行flow</p>
+<p> 工作流程图：jobA 和 jobB 都执行完成之后，才能执行 jobC</p>
+<p> <img src="Azkaban/image-20220126135606672.png" alt="image-20220126135606672"></p>
+<p> 通过时间线我们可以看到，jobA 和 jobB 是并行执行的，而 jobC 则是在 jobA 和 jobB 执行完成之后才执行的。</p>
+<p> <img src="Azkaban/image-20220126143304512.png" alt="image-20220126143304512"></p>
+</li>
+</ol>
+<hr>
+<h3 id="2-4-4-自动失败重试案例"><a href="#2-4-4-自动失败重试案例" class="headerlink" title="2.4.4 自动失败重试案例"></a>2.4.4 自动失败重试案例</h3><p><strong>语法：</strong></p>
+<p>在 node.config 属性下增加以下两个配置参数即可。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">xxx</span></span><br><span class="line">      <span class="comment"># 重试次数</span></span><br><span class="line">      <span class="attr">retries:</span> <span class="number">3</span></span><br><span class="line">      <span class="comment"># 每次重试的时间间隔（单位：ms）</span></span><br><span class="line">      <span class="attr">retry.backoff:</span> <span class="number">5000</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>需求：</strong>如果执行任务失败，自动重试 3 次，重试的时间间隔 10000ms</p>
+<p><strong>具体步骤：</strong></p>
+<ol>
+<li><p> 执行上面的工作流，因为 command 是一个不存在的命令，所以必然会执行失败。</p>
+</li>
+<li><p>查看 Job 执行的时间线，发现该任务单元总共执行了四次，重试了三次后宣布失败。</p>
+<p> <img src="Azkaban/image-20220126144747392.png" alt="image-20220126144747392"></p>
+<p> 查看日志也能发现总共执行了四次</p>
+<p> <img src="Azkaban/image-20220126145022109.png" alt="image-20220126145022109"></p>
+</li>
+</ol>
+<hr>
+<h3 id="2-4-5-手动失败重试案例"><a href="#2-4-5-手动失败重试案例" class="headerlink" title="2.4.5 手动失败重试案例"></a>2.4.5 手动失败重试案例</h3><p><strong>是什么：</strong>某个工作流程执行成功乐一部分，在失败后手动重试时，把已完成的 Job 跳过，从上次失败的 Job 开始重新执行。</p>
+<p><strong>需求：</strong>JobA =&gt; JobB（依赖于 A）=&gt; JobC =&gt; JobD =&gt; JobE =&gt; JobF。生产环境下，任何 Job 都有可能挂掉，可以根据需求执行想要执行的 Job。</p>
+<p><strong>具体步骤：</strong></p>
+<ol>
+<li><p>编写工作流描述文件：<code>four.flow</code> </p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobA.&quot;</span></span><br><span class="line">    </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobB.&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobC</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobC.&quot;</span></span><br><span class="line">      </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobD</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobC</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobD.&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobE</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobD</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobE.&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobF</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobE</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobF.&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>打包 =&gt; 上传 =&gt; 生成工作流程图</p>
+<p> <img src="Azkaban/image-20220126150931478.png" alt="image-20220126150931478"></p>
+</li>
+<li><p>手动失败重试。</p>
+<p> <strong>方式一</strong>：<code>History =&gt; Flow =&gt; Prepare Execution</code>：自动跳过成功的 Job，从上次失败的 Job 开始重新执行 Flow。 </p>
+<p> <img src="Azkaban/image-20220126151515522.png" alt="image-20220126151515522"></p>
+<p> <img src="Azkaban/image-20220126151608652.png" alt="image-20220126151608652"></p>
+<p> <strong>方式二：</strong>手动忽略。在执行 Flow 之前手动选择不希望执行的 Job 进行忽略。</p>
+<p> <img src="Azkaban/image-20220126152050666.png" alt="image-20220126152050666"></p>
+</li>
+</ol>
+<hr>
+<h1 id="第3章-Azkaban-进阶"><a href="#第3章-Azkaban-进阶" class="headerlink" title="第3章 Azkaban 进阶"></a>第3章 Azkaban 进阶</h1><blockquote>
+<ol>
+<li> Azkaban支持的任务类型：</li>
+<li> 条件工作流</li>
+<li> 定时执行</li>
+<li> 邮件报警/电话报警</li>
+</ol>
+</blockquote>
+<h2 id="3-1-Azkaban支持的任务类型"><a href="#3-1-Azkaban支持的任务类型" class="headerlink" title="3.1 Azkaban支持的任务类型"></a>3.1 Azkaban支持的任务类型</h2><p>任务类型是 Job 的一个描述信息，在配置文件中使用 <code>node.type</code> 属性来指定。Azkaban 内置了两种任务类型：</p>
+<ol>
+<li> <strong>command</strong>：将 Job 编写成 shell 命令或脚本，通过执行 shell 命令来执行 Job。</li>
+<li> <strong>JavaProcess</strong>：将 Job 封装成一个 Java 程序，通过执行 Java 进程来执行 Job。</li>
+</ol>
+<p>在大数据开发中，绝大多数的 Job 都可以使用 command 来完成，包括 HQL、MapReduce、Spark任务、Flink任务等都可以封装到一个 shell 脚本中。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">jobA</span></span><br><span class="line">    <span class="attr">type:</span>  &#123;<span class="string">command</span> <span class="string">|</span> <span class="string">javaprocess</span> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="3-2-JavaProcess-作业类型案例"><a href="#3-2-JavaProcess-作业类型案例" class="headerlink" title="3.2 JavaProcess 作业类型案例"></a>3.2 JavaProcess 作业类型案例</h2><p>JavaProcess 类型可以运行一个自定义主类方法，<code>type</code> 类型为 <code>javaprocess</code>，可用的子配置信息有：</p>
+<ul>
+<li>  <strong>Xms</strong>：最小的堆内存</li>
+<li>  <strong>Xmx</strong>：最大的堆内存</li>
+<li>  <strong>classpath</strong>：jar包所在路径。<strong>类路径可以省略，缺省值是 .flow 文件的当前路径</strong>。所以说如果 jar 包与 .flow 文件处于同一级目录下，可以不用显式指定该值。</li>
+<li>  <strong>java.class</strong>：jar包中主类（包含 Main 方法的类）的全限定类名。</li>
+<li>  <strong>main.args</strong>：main方法的参数。多个参数之间用空格分隔。</li>
+</ul>
+<p><strong>案例：</strong></p>
+<ol>
+<li><p> 新建一个 maven 项目，命名为 azkaban。</p>
+</li>
+<li><p>创建 AzTest 类</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/26 17:21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AzTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Azkaban JavaProcess Test！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p> 打成jar包：<code>azkaban-1.0-SNAPSHOT.jar</code> </p>
+</li>
+<li><p>新建 <code>test_java.flow</code></p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test_java</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">javaprocess</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">Xms:</span> <span class="string">128M</span></span><br><span class="line">      <span class="attr">Xmx:</span> <span class="string">128M</span></span><br><span class="line">      <span class="attr">java.class:</span> <span class="string">com.example.AzTest</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p> 将 Jar 包、 flow 文件和 project 文件压缩为 javatest.zip</p>
+</li>
+<li><p>创建项目 =&gt; 上传 javatest.zip =&gt; 执行作业 =&gt; 观察结果</p>
+<p> <img src="Azkaban/image-20220126173205145.png" alt="image-20220126173205145"></p>
+</li>
+</ol>
+<hr>
+<h2 id="3-3-条件工作流"><a href="#3-3-条件工作流" class="headerlink" title="3.3 条件工作流"></a>3.3 条件工作流</h2><p>条件工作流允许用户自定义执行条件来决定是否运行某些 Job。</p>
+<p>条件可以由当前 Job 的父 Job 输出的运行时参数构成，也可以使用预定义宏。在这些条件下，用户可以在确定 Job 执行逻辑时获得更大的灵活性。例如，只要父 Job 之一成功，就可以运行当前 Job。</p>
+<blockquote>
+<ul>
+<li>  父Job的运行时参数：比如 jobB 依赖于 jobA，jobB 是否执行取决于 jobA 执行完成后输出的参数，这就叫做父Job输出的运行时参数。</li>
+<li>  预定义宏：预定义宏是指 Azkaban 内置的一些判断条件表达式。</li>
+</ul>
+</blockquote>
+<h3 id="3-3-1-运行时参数案例"><a href="#3-3-1-运行时参数案例" class="headerlink" title="3.3.1 运行时参数案例"></a>3.3.1 运行时参数案例</h3><h4 id="一、基本原理"><a href="#一、基本原理" class="headerlink" title="一、基本原理"></a>一、基本原理</h4><ol>
+<li><p> 父 Job 将输出参数写入 <strong>JOB_OUTPUT_PROP_FILE</strong> 环境变量所指向的文件。</p>
+</li>
+<li><p>子 Job 使用 <code>$&#123;jobName:param&#125;</code> 来获取文件中父 Job 输出的参数并定义执行条件。</p>
+<blockquote>
+<p>  每个 Job 对应会生成一个文件，子 Job 可以通过 <strong>父Job名+参数名</strong> 获取父 Job 文件中对应参数的值。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="二、支持的条件运算符："><a href="#二、支持的条件运算符：" class="headerlink" title="二、支持的条件运算符："></a>二、支持的条件运算符：</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>==</code></td>
+<td align="left">等于</td>
+</tr>
+<tr>
+<td align="center"><code>!=</code></td>
+<td align="left">不等于</td>
+</tr>
+<tr>
+<td align="center"><code>&gt;</code></td>
+<td align="left">大于</td>
+</tr>
+<tr>
+<td align="center"><code>&gt;=</code></td>
+<td align="left">大于等于</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;</code></td>
+<td align="left">小于</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;=</code></td>
+<td align="left">小于等于</td>
+</tr>
+<tr>
+<td align="center"><code>&amp;&amp;</code></td>
+<td align="left">与</td>
+</tr>
+<tr>
+<td align="center">`</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>!</code></td>
+<td align="left">非</td>
+</tr>
+</tbody></table>
+<h4 id="三、案例"><a href="#三、案例" class="headerlink" title="三、案例"></a>三、案例</h4><p><strong>需求：</strong></p>
+<ul>
+<li>  JobA 执行一个 shell 脚本。</li>
+<li>  JobB 执行一个 shell 脚本，但 JobB 不需要每天都执行，而只需要每个周一执行。</li>
+</ul>
+<p><strong>实现：</strong></p>
+<ol>
+<li><p>新建 JobA.sh</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;do JobA&quot;</span></span><br><span class="line"><span class="comment"># 输出当前日期是周几</span></span><br><span class="line">wk=`<span class="built_in">date</span> +%w`</span><br><span class="line"><span class="comment"># 将 wk 写出到指定目录下的文件中</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&#123;\&quot;wk\&quot;:<span class="variable">$wk</span>&#125;&quot;</span> &gt; <span class="variable">$JOB_OUTPUT_PROP_FILE</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>新建 JobB.sh</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;do JobB&quot;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>新建 <code>condition.flow</code></p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">     <span class="attr">command:</span> <span class="string">sh</span> <span class="string">JobA.sh</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">sh</span> <span class="string">JobB.sh</span></span><br><span class="line">    <span class="comment"># 拿到 JobA.wk 变量，只有值等于1的时候才执行JobB</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">$&#123;JobA:wk&#125;</span> <span class="string">==</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li><p> 将 JobA.sh、JobB.sh、condition.flow 和 azkaban.project 打包成 condition.zip</p>
+</li>
+<li><p> 创建 condition 项目 =&gt; 上传 condition.zip文件 =&gt; 执行作业 =&gt; 观察结果</p>
+</li>
+<li><p>按照我们设定的条件， JobB 会根据当日日期决定是否执行。</p>
+ <img src="Azkaban/image-20220126195508740.png" alt="image-20220126195508740" style="zoom:50%;" /></li>
+</ol>
+<hr>
+<h3 id="3-3-2-预定义宏案例"><a href="#3-3-2-预定义宏案例" class="headerlink" title="3.3.2 预定义宏案例"></a>3.3.2 预定义宏案例</h3><p>Azkaban 中预置了几个特殊的判断条件，称为预定义宏。</p>
+<p>预定义宏会根据所有父 Job 的完成情况进行判断，再决定是否执行。可用的预定义宏有：</p>
+<ol>
+<li><p> <strong>all_success</strong>：表示父 Job 全部成功才执行(默认执行逻辑)</p>
+</li>
+<li><p><strong>all_done</strong>：表示父 Job 全部完成才执行。</p>
+<blockquote>
+<p>  “完成”是指：不管父Job是否成功，只要执行结束了子Job就可以执行。</p>
+</blockquote>
+</li>
+<li><p> <strong>all_failed</strong>：表示父 Job 全部失败才执行</p>
+</li>
+<li><p> <strong>one_success</strong>：表示父 Job 只要成功一个就执行</p>
+</li>
+<li><p> <strong>one_failed</strong>：表示父 Job 至少一个失败才执行</p>
+</li>
+</ol>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p><strong>需求：</strong></p>
+<ul>
+<li>  JobA 执行一个 shell 脚本</li>
+<li>  JobB 执行一个 shell 脚本</li>
+<li>  JobC 执行一个 shell 脚本，要求 JobA、 JobB 中至少有一个成功才执行 JobC</li>
+</ul>
+<p><strong>实现：</strong></p>
+<ol>
+<li><p>新建 JobA.sh</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;do JobA&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>  新建 JobC.sh</p>
+</li>
+</ol>
+<pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;do JobC&quot;</span></span><br></pre></td></tr></table></figure>
+</code></pre>
+<ol start="3">
+<li><p> 无需创建 JobB.sh，因为 A 和 B 只要有一个成功 C 就可以执行了。</p>
+</li>
+<li><p>新建 macro.flow</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">sh</span> <span class="string">JobA.sh</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">sh</span> <span class="string">JobB.sh</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobC</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobA</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">sh</span> <span class="string">JobC.sh</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">one_success</span></span><br></pre></td></tr></table></figure></li>
+<li><p> JobA.sh、JobC.sh、macro.flow、azkaban.project 文件打包成 macro.zip。</p>
+</li>
+<li><p>创建 macro 项目 =&gt; 上传 macro.zip文件 =&gt; 执行作业 =&gt; 观察结果</p>
+ <img src="Azkaban/image-20220126201013836.png" alt="image-20220126201013836" style="zoom:67%;" />
+
+<p> 表示 JobA 执行成功，JobB 执行失败，但是 JobC 执行成功。</p>
+</li>
+</ol>
+<hr>
+<h3 id="3-3-3-定时执行案例"><a href="#3-3-3-定时执行案例" class="headerlink" title="3.3.3 定时执行案例"></a>3.3.3 定时执行案例</h3><p><strong>需求：</strong>JobA 每间隔 2 分钟执行一次。</p>
+<p><strong>实现：</strong></p>
+<ol>
+<li><p>Azkaban 可以定时执行工作流。在执行工作流时候，选择左下角 <code>Schedule</code></p>
+<p> <img src="Azkaban/image-20220126114348471.png" alt="image-20220126114348471"></p>
+</li>
+<li><p>右上角注意时区是上海，然后在左面填写具体执行事件，填写的方法和 Linux 中使用 crontab 配置定时任务规则一致。</p>
+ <img src="Azkaban/image-20220126202504516.png" alt="image-20220126202504516" style="zoom:80%;" /></li>
+<li><p>观察结果</p>
+<p> 时间间隔为每两分钟执行一次。</p>
+<p> <img src="Azkaban/image-20220126202910617.png" alt="image-20220126202910617"></p>
+</li>
+<li><p>删除定时调度。</p>
+<p> 点击 remove Schedule 即可删除当前任务的调度规则。</p>
+<p> <img src="Azkaban/image-20220126202653520.png" alt="image-20220126202653520"></p>
+</li>
+</ol>
+<hr>
+<h2 id="3-4-邮件报警案例"><a href="#3-4-邮件报警案例" class="headerlink" title="3.4 邮件报警案例"></a>3.4 邮件报警案例</h2><p>TODO…</p>
+<h2 id="3-5-电话报警案例"><a href="#3-5-电话报警案例" class="headerlink" title="3.5 电话报警案例"></a>3.5 电话报警案例</h2><p>TODO…</p>
+<hr>
+<h2 id="3-6-Azkaban的多Executor模式注意事项"><a href="#3-6-Azkaban的多Executor模式注意事项" class="headerlink" title="3.6 Azkaban的多Executor模式注意事项"></a>3.6 Azkaban的多Executor模式注意事项</h2><p>Azkaban 的多 Executor 模式是指：在集群中多个节点部署 Executor。在这种模式下，Azkaban Web Server 会根据策略，选取其中一个 Executor 去执行任务。</p>
+<p><strong>场景模拟：</strong></p>
+<p>假设集群中有3台机器，Hadoop102，Hadoop103 和 Hadoop104，三个节点都安装了 Executor，现有一脚本 test.sh 存储在 Hadoop102 上，通过 Azkaban 调用 Executor 执行一个工作流，该 Flow 执行时依赖 test.sh 脚本。这种情况下，该 Flow 可能会执行成功，也可能会执行失败，因为脚本文件只存在于 Hadoop102 上，如果执行 Flow 时恰好是由 Hadoop102 上的 Executor 拾取到了任务，那么可以执行成功，如果由另外两台机器上的 Executor 拾取到了任务，显然会执行失败。 </p>
+<ol>
+<li><p>在 Hadoop102 上创建 test.sh 脚本</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 tmp]$ vim test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  脚本内容</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> hello</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  给脚本文件增加执行权限</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 tmp]$ <span class="built_in">chmod</span> 777 test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  测试脚本能否正常执行</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 tmp]$ /tmp/test.sh </span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>编写 test.flow</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">testJob</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="comment"># 使用在Hadoop102下的绝对路径执行 test.sh 脚本</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">/tmp/test.sh</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p> 将 test.flow、azkaban.project 文件压缩成 test.zip</p>
+</li>
+<li><p> 创建 test 项目 =&gt; 上传 test.zip文件 =&gt; 执行作业 =&gt; 观察结果 =&gt; 结果可能成功，也可能失败。</p>
+</li>
+</ol>
+<p><strong>解决策略：</strong></p>
+<p>为确保所选的 Executor 能够准确的执行任务 ，我们须在以下两种方案中任选其一 ，推荐使用方案二。</p>
+<p><strong>方案一：</strong>指定特定的 Executor(比如：hadoop102)去执行任务。</p>
+<ol>
+<li><p>在 MySQL 中 azkaban 数据库 executors 表中，查询 hadoop102 上的 Executor 的 id。</p>
+<p> <img src="Azkaban/image-20220126205853007.png" alt="image-20220126205853007"></p>
+</li>
+<li><p>在执行工作流程时加入 <code>useExecutor</code> 属性，如下</p>
+<p> <img src="Azkaban/image-20220126210010690.png" alt="image-20220126210010690"></p>
+</li>
+<li><p> 执行成功！</p>
+</li>
+</ol>
+<p><strong>方案二：</strong>将执行所需的脚本和应用分发到 Executor 所在的所有节点上。</p>
+<hr>
+<h1 id="第4章-参考资料"><a href="#第4章-参考资料" class="headerlink" title="第4章 参考资料"></a>第4章 参考资料</h1><h2 id="4-1-Azkaban-完整配置"><a href="#4-1-Azkaban-完整配置" class="headerlink" title="4.1 Azkaban 完整配置"></a>4.1 Azkaban 完整配置</h2><p>官网文档：<a target="_blank" rel="noopener" href="https://azkaban.readthedocs.io/en/latest/configuration.html">https://azkaban.readthedocs.io/en/latest/configuration.html</a></p>
+<h2 id="4-2-YAML-语法"><a href="#4-2-YAML-语法" class="headerlink" title="4.2 YAML 语法"></a>4.2 YAML 语法</h2><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2016/07/yaml.html">https://www.ruanyifeng.com/blog/2016/07/yaml.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/18/MySQL-%E5%8F%98%E9%87%8F%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="prev" title="MySQL-变量与流程控制">
+                  <i class="fa fa-chevron-left"></i> MySQL-变量与流程控制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/" rel="next" title="Vim必知必会">
+                  Vim必知必会 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

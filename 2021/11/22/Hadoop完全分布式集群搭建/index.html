@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="完全分布式集群的搭建（重点）是什么？Hadoop 中各个组件（HDFS、Yarn等）的各个进程（HDFS 的 NameNode 和 DataNode；Yarn 的ResourceManager 和 DataManager 等）分布在多台机器上运行。 进程规划进程规划原则：   核心进程尽量分散。  同质进程尽量分散。  12345678解析：    1、核心进程尽量分散：        在 Had">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop完全分布式集群搭建">
+<meta property="og:url" content="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="完全分布式集群的搭建（重点）是什么？Hadoop 中各个组件（HDFS、Yarn等）的各个进程（HDFS 的 NameNode 和 DataNode；Yarn 的ResourceManager 和 DataManager 等）分布在多台机器上运行。 进程规划进程规划原则：   核心进程尽量分散。  同质进程尽量分散。  12345678解析：    1、核心进程尽量分散：        在 Had">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123121936190.png">
+<meta property="og:image" content="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123122829328.png">
+<meta property="og:image" content="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123173615772.png">
+<meta property="og:image" content="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123172955343.png">
+<meta property="article:published_time" content="2021-11-22T13:21:29.000Z">
+<meta property="article:modified_time" content="2022-02-16T02:36:51.427Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123121936190.png">
+
+
+<link rel="canonical" href="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/","path":"2021/11/22/Hadoop完全分布式集群搭建/","title":"Hadoop完全分布式集群搭建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hadoop完全分布式集群搭建 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">完全分布式集群的搭建（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%A7%84%E5%88%92"><span class="nav-number">1.1.</span> <span class="nav-text">进程规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%BE%A4%E8%B5%B7"><span class="nav-number">1.2.</span> <span class="nav-text">执行群起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E7%9A%84%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="nav-number">1.3.</span> <span class="nav-text">集群的时间同步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scp"><span class="nav-number">2.1.</span> <span class="nav-text">scp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rsync"><span class="nav-number">2.2.</span> <span class="nav-text">rsync</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">SSH 免密登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E8%84%9A%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">编写数据同步脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E8%A7%84%E5%88%92"><span class="nav-number">5.1.</span> <span class="nav-text">1、集群部署规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E9%9B%86%E7%BE%A4"><span class="nav-number">5.2.</span> <span class="nav-text">2、配置集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.1.</span> <span class="nav-text">核心配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.2.</span> <span class="nav-text">HDFS配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YARN%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.3.</span> <span class="nav-text">YARN配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.4.</span> <span class="nav-text">MapReduce配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E9%9B%86%E7%BE%A4%E4%B8%8A%E5%88%86%E5%8F%91%E9%85%8D%E7%BD%AE%E5%A5%BD%E7%9A%84Hadoop%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.5.</span> <span class="nav-text">在集群上分发配置好的Hadoop配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E9%9B%86%E7%BE%A4%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8%E4%B8%8A%E9%83%BD%E9%85%8D%E7%BD%AEJAVA-HOME%E5%92%8CHADOOP-HOME-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">5.2.6.</span> <span class="nav-text">在集群中的每一台机器上都配置JAVA_HOME和HADOOP_HOME 环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E9%9B%86%E7%BE%A4%E5%8D%95%E7%82%B9%E5%90%AF%E5%8A%A8"><span class="nav-number">5.3.</span> <span class="nav-text">3、集群单点启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E9%9B%86%E7%BE%A4%E7%BE%A4%E8%B5%B7"><span class="nav-number">5.4.</span> <span class="nav-text">4、集群群起</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BE%A4%E8%B5%B7%E8%84%9A%E6%9C%AC"><span class="nav-number">5.4.1.</span> <span class="nav-text">配置群起脚本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-Hadoop"><span class="nav-number">6.</span> <span class="nav-text">启动 Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-HDFS"><span class="nav-number">6.1.</span> <span class="nav-text">启动 HDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-Yarn"><span class="nav-number">6.2.</span> <span class="nav-text">启动 Yarn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%E8%83%BD%E5%90%A6%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C"><span class="nav-number">6.3.</span> <span class="nav-text">测试集群能否正常运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E7%BE%A4%E8%B5%B7"><span class="nav-number">7.</span> <span class="nav-text">集群群起</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BE%A4%E8%B5%B7%E8%84%9A%E6%9C%AC%E7%9A%84%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-number">7.1.</span> <span class="nav-text">群起脚本的执行原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%BE%A4%E8%B5%B7%E8%84%9A%E6%9C%AC%E7%9A%84%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">执行群起脚本的前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">7.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8E%86%E5%8F%B2%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">8.</span> <span class="nav-text">配置历史日志服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E7%9A%84%E8%81%9A%E9%9B%86"><span class="nav-number">9.</span> <span class="nav-text">配置日志的聚集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="nav-number">9.1.</span> <span class="nav-text">测试：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="nav-number">10.</span> <span class="nav-text">集群时间同步</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/22/Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hadoop完全分布式集群搭建 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop完全分布式集群搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-11-22 21:21:29" itemprop="dateCreated datePublished" datetime="2021-11-22T21:21:29+08:00">2021-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-02-16 10:36:51" itemprop="dateModified" datetime="2022-02-16T10:36:51+08:00">2022-02-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="完全分布式集群的搭建（重点）"><a href="#完全分布式集群的搭建（重点）" class="headerlink" title="完全分布式集群的搭建（重点）"></a>完全分布式集群的搭建（重点）</h1><p><strong>是什么？</strong>Hadoop 中各个组件（HDFS、Yarn等）的各个进程（HDFS 的 NameNode 和 DataNode；Yarn 的ResourceManager 和 DataManager 等）分布在多台机器上运行。</p>
+<h2 id="进程规划"><a href="#进程规划" class="headerlink" title="进程规划"></a>进程规划</h2><p>进程规划原则：</p>
+<ol>
+<li> 核心进程尽量分散。</li>
+<li> 同质进程尽量分散。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">解析：</span><br><span class="line">    1、核心进程尽量分散：</span><br><span class="line">        在 Hadoop 集群中，HDFS 中的 NM 和 YARN 中的 RM 都属于核心进程，一个集群中只能有一个。    </span><br><span class="line">        对于这些进程来说，一旦集群中的某个节点上的机器突然宕机，整个集群就会立即停止运转，所以我们在进程规划时尽量会把 NM 和 RM 分配到不同的节点上，这样能有效的避免单点故障。</span><br><span class="line">        </span><br><span class="line">    2、同质进程尽量分散：</span><br><span class="line">        所谓同质进程，就是指 运行某两个进程需求的相同或类似的资源。</span><br><span class="line">        比如 NN 和 2NN ，在运行时都需要分配大量的内存空间，所以我们一般把这两个进程分配到不同的节点上去，这样可以提高内存资源的利用率。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="执行群起"><a href="#执行群起" class="headerlink" title="执行群起"></a>执行群起</h2><ul>
+<li>  <code>start-dfs.sh</code> 命令可以在集群中的任意一台机器上执行。</li>
+<li>  <code>start-yarn.sh</code> 如果在没有配置 RM 的机器上执行，那么不会启动 RM，只能启动 NM！</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Tip：</span><br><span class="line">    1、建议所有的群起脚本都在 RM 所在的机器上执行！</span><br><span class="line">    2、只需要配置 RM 所在的机器到集群中其它机器的 SSH 免密登录即可。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  在执行群起脚本时，默认读取当前机器中的 <code>$HADOOP_HOME/etc/hadoop/slaves</code> 文件，所以要在该文件中配置当前集群中所有的主机IP地址。</li>
+</ul>
+<h2 id="集群的时间同步"><a href="#集群的时间同步" class="headerlink" title="集群的时间同步"></a>集群的时间同步</h2><blockquote>
+<p>  一个集群中，每台机器的时间必须保证是同步的！</p>
+</blockquote>
+<hr>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><p><strong>scp（secure copy）：安全拷贝</strong></p>
+<p><strong>作用：</strong></p>
+<ul>
+<li>  <code>scp</code> 可以实现服务器与服务器之间的数据拷贝。（from server1 to server2）</li>
+</ul>
+<p><strong>特点：</strong></p>
+<ul>
+<li>  <code>scp</code> 命令执行的是全量复制，每次复制时都会把一份完整的源文件重新复制拷贝到目的文件夹中。如果经常需要执行增量复制的话，<code>scp</code> 命令就不太合适了。</li>
+<li>  正常情况下，一个文件第一次从A机器拷贝到B机器需要执行一次全量复制，但是当A机器中该文件数据发生变化后，下一次复制只需执行一次增量复制就可以了。但是如果使用 <code>scp</code> 命令的话，每次执行的都是全量复制。</li>
+</ul>
+<p><strong>基本语法</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r 源文件属主A@主机名1:path1    目标文件属主B@主机名2:path2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <strong>作用：</strong>在主机1上，使用 A 用户读取 <code>path1</code> 的文件，再使用用户B登录到主机2上，在主机2的 <code>path2</code> 路径执行写入操作。</li>
+<li>  <code>-r</code>：递归，如果要拷贝的是一个目录，且目录还有其它文件，就一定要使用递归。</li>
+<li><strong>要求：</strong><ol>
+<li> 主机名1上的用户名A对 <code>path1</code> 有读权限</li>
+<li> 主机名2上的用户名B对 <code>path2</code> 有写权限</li>
+</ol>
+</li>
+<li>  <strong>小技巧</strong>：如果从本机执行读取或写入，<code>用户名B@主机名2:</code> 可以省略！</li>
+</ul>
+<p><strong>测试</strong></p>
+<ol>
+<li><p> 在 hadoop102 的 <code>/opt/module/</code> 目录下有一个 testUpload 文件，其属主是用户 <code>lvnengdong</code></p>
+</li>
+<li><p>现在在 hadoop103 上执行命令，将 hadoop102 上的文件 <code>/opt/module/testUpload</code> 拷贝到 hadoop103 的 <code>/opt/module/</code> 目录下，执行的脚本为：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 etc]$ scp -r lvnengdong@hadoop102:/opt/module/testUpload /opt/module/</span><br><span class="line">testUpload             									100%   19    12.9KB/s   00:00 </span><br></pre></td></tr></table></figure></li>
+<li><p> 在 hadoop103 上查看是否拷贝成功。</p>
+</li>
+</ol>
+<hr>
+<h2 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h2><p><strong>rsync（remote sync）    远程同步</strong></p>
+<p><strong>作用 &amp; 特点：</strong></p>
+<ul>
+<li>  <code>rsync</code> 也用于执行多个服务器间数据的拷贝，但是该命令采用的是<strong>增量复制</strong>策略。</li>
+<li>  增量复制的原理是对比文件的修改时间，只同步修改时间不一致的文件。</li>
+</ul>
+<p><strong>基本语法：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -rvlt 源文件属主A@主机名1:path1    目标文件属主B@主机名2:path2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <strong>作用：</strong>在主机1上，使用 A 用户读取 <code>path1</code> 的文件，再使用用户B登录到主机2上，在主机2的 <code>path2</code> 路径执行写入操作。但是由于 <code>rsync</code> 命令只支持将本机的文件或目录同步到其它机器上，所以 <code>源文件属主A@主机名1:</code> 就可以省略，一般命令写为：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -rvlt path1  目标文件属主B@主机名2:path2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>选项参数</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-r:	 递归，复制目录时使用</span><br><span class="line">-v： 显示复制的过程</span><br><span class="line">-l:  即使是软连接，也会将软连接同步</span><br><span class="line">-t:  基于文件的修改时间进行对比，只同步发生变化的文件</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>注意事项：</strong></p>
+<ol>
+<li> 只能将本机的文件同步到其他机器！</li>
+<li> 如果 <code>path1</code> 是个目录，目录以 <code>/</code> 结尾，表示只会同步目录中的内容，不会同步目录本身；如果目录不以 <code>/</code> 结尾，不进会同步目录中的内容，也会同步目录本身！</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="SSH-免密登录"><a href="#SSH-免密登录" class="headerlink" title="SSH 免密登录"></a>SSH 免密登录</h1><p>举例：  A机器的a用户，希望在A机器上，使用b用户的身份登录到B机器！（A机器上的A用户，使用b用户远程连接到B机器）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line"></span><br><span class="line">ssh-keygen  生成秘钥的指令 </span><br><span class="line">-t rsa	-t表示指定生成的算法  rsa 是一种算法</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h1 id="编写数据同步脚本"><a href="#编写数据同步脚本" class="headerlink" title="编写数据同步脚本"></a>编写数据同步脚本</h1><ol>
+<li><p> <strong>需求：</strong>循环复制文件到所有节点的相同目录下</p>
+</li>
+<li><p><strong>分析</strong>：</p>
+<ul>
+<li><p><code>rsync</code> 命令原始拷贝：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync  -rvl     /opt/module  		 root@hadoop103:/opt/</span><br></pre></td></tr></table></figure></li>
+<li><p>期望脚本：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xsync 要同步的文件名称</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p> <strong>说明：</strong>在 <code>/home/&#123;用户名&#125;/bin</code> 这个目录下存放的脚本，用户可以在系统任何地方直接执行。</p>
+</li>
+<li><p><strong>脚本实现</strong></p>
+<ol>
+<li><p>在 <code>/home/&#123;用户名&#125;</code> 目录下创建 <code>bin</code> 目录，并在 <code>bin</code> 目录下创建脚本文件 <code>xsync</code> ，脚本文件内容如下：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#1 获取输入参数个数，如果没有参数，直接退出</span></span><br><span class="line">pcount=<span class="variable">$#</span></span><br><span class="line"><span class="keyword">if</span>((pcount==0)); <span class="keyword">then</span></span><br><span class="line"><span class="built_in">echo</span> no args;</span><br><span class="line"><span class="built_in">exit</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2 获取文件名称</span></span><br><span class="line">p1=<span class="variable">$1</span></span><br><span class="line">fname=`<span class="built_in">basename</span> <span class="variable">$p1</span>`</span><br><span class="line"><span class="built_in">echo</span> fname=<span class="variable">$fname</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3 获取上级目录到绝对路径</span></span><br><span class="line">pdir=`<span class="built_in">cd</span> -P $(<span class="built_in">dirname</span> <span class="variable">$p1</span>); <span class="built_in">pwd</span>`</span><br><span class="line"><span class="built_in">echo</span> pdir=<span class="variable">$pdir</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#4 获取当前用户名称</span></span><br><span class="line">user=`<span class="built_in">whoami</span>`</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 循环</span></span><br><span class="line"><span class="keyword">for</span>((host=103; host&lt;105; host++)); <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">echo</span> ------------------- hadoop<span class="variable">$host</span> --------------</span><br><span class="line">        rsync -rvl <span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="variable">$user</span>@hadoop<span class="variable">$host</span>:<span class="variable">$pdir</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
+<li><p>修改脚本文件 <code>xsync</code> 具有执行权限</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 ~]$ <span class="built_in">chmod</span> 777 xsync</span><br></pre></td></tr></table></figure></li>
+<li><p>调用脚本形式：<code>xsync 文件名称</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 ~]$ xsync /home/lvnengdong/bin</span><br><span class="line"><span class="comment"># 将 /bin 目录及其子目录或文件分发到集群中的其它机器上</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p> <strong>注意：</strong>如果将 <code>xsync</code> 放到 <code>/home/atguigu/bin</code> 目录下仍然不能实现全局使用，可以将 <code>xsync</code> 移动到 <code>/usr/local/bin</code> 目录下。</p>
+</li>
+</ol>
+<hr>
+<h1 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h1><h2 id="1、集群部署规划"><a href="#1、集群部署规划" class="headerlink" title="1、集群部署规划"></a>1、集群部署规划</h2><table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">HDFS</td>
+<td align="left">NameNode<br>DataNode</td>
+<td>DataNode</td>
+<td>SecondaryNameNode<br>DataNode</td>
+</tr>
+<tr>
+<td align="left">YARN</td>
+<td align="left">NodeManager<br>Jobhistory</td>
+<td>ResourceManager<br>NodeManager</td>
+<td>NodeManager</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2、配置集群"><a href="#2、配置集群" class="headerlink" title="2、配置集群"></a>2、配置集群</h2><h3 id="核心配置文件"><a href="#核心配置文件" class="headerlink" title="核心配置文件"></a>核心配置文件</h3><p><strong>core-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定HDFS中NameNode的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop102:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 指定Hadoop运行时产生文件的存储目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/module/hadoop-2.7.2/data/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="HDFS配置文件"><a href="#HDFS配置文件" class="headerlink" title="HDFS配置文件"></a>HDFS配置文件</h3><p><strong>hdfs-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 副本数量（默认配置就是3.所以可以无需在自定义的配置文件中重写）--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 指定Hadoop辅助节点（2nn）的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop104:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="YARN配置文件"><a href="#YARN配置文件" class="headerlink" title="YARN配置文件"></a>YARN配置文件</h3><p><strong>yarn-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- reducer获取数据的方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 指定YARN的ResourceManager的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop103<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="MapReduce配置文件"><a href="#MapReduce配置文件" class="headerlink" title="MapReduce配置文件"></a>MapReduce配置文件</h3><p><strong>mapred-site.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定mr运行在yarn上 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="在集群上分发配置好的Hadoop配置文件"><a href="#在集群上分发配置好的Hadoop配置文件" class="headerlink" title="在集群上分发配置好的Hadoop配置文件"></a>在集群上分发配置好的Hadoop配置文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xsync /opt/module/hadoop-2.7.2/</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="在集群中的每一台机器上都配置JAVA-HOME和HADOOP-HOME-环境变量"><a href="#在集群中的每一台机器上都配置JAVA-HOME和HADOOP-HOME-环境变量" class="headerlink" title="在集群中的每一台机器上都配置JAVA_HOME和HADOOP_HOME 环境变量"></a>在集群中的每一台机器上都配置JAVA_HOME和HADOOP_HOME 环境变量</h3><hr>
+<h2 id="3、集群单点启动"><a href="#3、集群单点启动" class="headerlink" title="3、集群单点启动"></a>3、集群单点启动</h2><h2 id="4、集群群起"><a href="#4、集群群起" class="headerlink" title="4、集群群起"></a>4、集群群起</h2><h3 id="配置群起脚本"><a href="#配置群起脚本" class="headerlink" title="配置群起脚本"></a>配置群起脚本</h3><p><strong>作用：</strong>在集群中的所有机器上批量执行同一条命令</p>
+<ol>
+<li><p>在当前用户的家目录<code>~</code>下的 <code>bin</code> 目录下创建一个 <code>xcall</code> 脚本文件，文件内容如下：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 在集群中的所有机器上批量执行同一条命令</span></span><br><span class="line"><span class="keyword">if</span>((<span class="variable">$#</span>==0))</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> 请输入您要操作的命令！</span><br><span class="line">	<span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> 要执行的命令是$*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环执行此命令</span></span><br><span class="line"><span class="keyword">for</span>((i=102;i&lt;=104;i++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> ---------------------hadoop<span class="variable">$i</span>-----------------</span><br><span class="line">	ssh hadoop<span class="variable">$i</span> $*</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
+<li><p>修改脚本文件 <code>xsync</code> 具有执行权限</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 ~]$ <span class="built_in">chmod</span> 777 xsync</span><br></pre></td></tr></table></figure></li>
+<li><p>测试脚本执行效果</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ xcall jps</span><br><span class="line">要执行的命令是jps</span><br><span class="line">---------------------hadoop102-----------------</span><br><span class="line">34660 Jps</span><br><span class="line">---------------------hadoop103-----------------</span><br><span class="line">7595 Jps</span><br><span class="line">---------------------hadoop104-----------------</span><br><span class="line">26590 Jps</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>将该脚本文件分发到集群的所有节点上</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ xsync ./xcall </span><br><span class="line">==================== hadoop102 ====================</span><br><span class="line">sending incremental file list</span><br><span class="line"></span><br><span class="line">sent 68 bytes  received 12 bytes  53.33 bytes/sec</span><br><span class="line">total size is 295  speedup is 3.69</span><br><span class="line">==================== hadoop103 ====================</span><br><span class="line">sending incremental file list</span><br><span class="line">xcall</span><br><span class="line"></span><br><span class="line">sent 410 bytes  received 35 bytes  890.00 bytes/sec</span><br><span class="line">total size is 295  speedup is 0.66</span><br><span class="line">==================== hadoop104 ====================</span><br><span class="line">sending incremental file list</span><br><span class="line">xcall</span><br><span class="line"></span><br><span class="line">sent 410 bytes  received 35 bytes  890.00 bytes/sec</span><br><span class="line">total size is 295  speedup is 0.66</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="启动-Hadoop"><a href="#启动-Hadoop" class="headerlink" title="启动 Hadoop"></a>启动 Hadoop</h1><h2 id="启动-HDFS"><a href="#启动-HDFS" class="headerlink" title="启动 HDFS"></a>启动 HDFS</h2><ol>
+<li><p>启动 NameNode</p>
+<ul>
+<li><p>如果 NameNode 是第一次启动，需要在 NameNode 所在的节点上先执行格式化。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ hadoop namenode -format</span><br></pre></td></tr></table></figure></li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 namenode</span></span><br><span class="line">[lvnengdong@hadoop102 bin]$ hadoop-daemon.sh start namenode</span><br></pre></td></tr></table></figure></li>
+<li><p>启动 DataNode</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop-daemon.sh start namenode</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>测试</strong></p>
+<ol>
+<li><p> 在 hadoop102 上启动 NameNode</p>
+</li>
+<li><p> 在 hadoop102 上启动 DataNode</p>
+</li>
+<li><p> 在 hadoop103 上启动 DataNode</p>
+</li>
+<li><p>在 hadoop104 上启动 DataNode</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 hadoop102 上启动 NameNode</span></span><br><span class="line">[lvnengdong@hadoop102 bin]$ hadoop-daemon.sh start namenode</span><br><span class="line"></span><br><span class="line"><span class="comment"># 群起 DataNode</span></span><br><span class="line">[lvnengdong@hadoop102 bin]$ xcall hadoop-daemon.sh start datanode</span><br></pre></td></tr></table></figure></li>
+<li><p>查看结果</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ xcall jps</span><br><span class="line">要执行的命令是jps</span><br><span class="line">---------------------hadoop102-----------------</span><br><span class="line">52104 NameNode</span><br><span class="line">59609 Jps</span><br><span class="line">57549 DataNode</span><br><span class="line">---------------------hadoop103-----------------</span><br><span class="line">33104 Jps</span><br><span class="line">31189 DataNode</span><br><span class="line">---------------------hadoop104-----------------</span><br><span class="line">27345 Jps</span><br><span class="line">27148 DataNode</span><br><span class="line">[lvnengdong@hadoop102 bin]$ </span><br></pre></td></tr></table></figure></li>
+<li><p>在 hadoop104 上启动 2nn</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop104 ~]$ hadoop-daemon.sh start secondarynamenode</span><br></pre></td></tr></table></figure></li>
+<li><p>通过浏览器<code>http://hadoop102:50070</code>查看，三个 DataNode 都已经成功启动了</p>
+<p> <img src="Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123121936190.png" alt="image-20211123121936190"></p>
+</li>
+</ol>
+<hr>
+<h2 id="启动-Yarn"><a href="#启动-Yarn" class="headerlink" title="启动 Yarn"></a>启动 Yarn</h2><p>Yarn 由 ResourceManager 和 DataManager 组成。我们规划在 Hadoop103 上启动 ResourceManager，在每个节点上都启动一个 DataManager。 </p>
+<ol>
+<li><p>在 Hadoop103 启动一个 ResourceManager</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 ~]$ yarn-daemon.sh start resourcemanager</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>在每台服务器都启动一个DataManager </p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 ~]$ xcall yarn-daemon.sh start nodemanager</span><br></pre></td></tr></table></figure></li>
+<li><p>查看</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 ~]$ xcall jps</span><br><span class="line">要执行的命令是jps</span><br><span class="line">---------------------hadoop102-----------------</span><br><span class="line">88133 NodeManager</span><br><span class="line">52104 NameNode</span><br><span class="line">89115 Jps</span><br><span class="line">57549 DataNode</span><br><span class="line">---------------------hadoop103-----------------</span><br><span class="line">62512 NodeManager</span><br><span class="line">31189 DataNode</span><br><span class="line">60693 ResourceManager</span><br><span class="line">63484 Jps</span><br><span class="line">---------------------hadoop104-----------------</span><br><span class="line">28049 Jps</span><br><span class="line">27148 DataNode</span><br><span class="line">27484 SecondaryNameNode</span><br><span class="line">27871 NodeManager</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>通过浏览器 <code>http://hadoop103:8088/</code> 查看</p>
+<p> <img src="Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123122829328.png" alt="image-20211123122829328"></p>
+</li>
+</ol>
+<h2 id="测试集群能否正常运行"><a href="#测试集群能否正常运行" class="headerlink" title="测试集群能否正常运行"></a>测试集群能否正常运行</h2><ol>
+<li><p>在 HDFS 文件系统下创建一个目录 <code>/wcinput</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ hadoop fs -<span class="built_in">mkdir</span> /wcinput</span><br></pre></td></tr></table></figure></li>
+<li><p>然后随便上传一个测试文件到 <code>/wcinput</code> 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ hadoop fs -put xcall /wcinput</span><br></pre></td></tr></table></figure></li>
+<li><p> 可以证明分布式 HDFS 是 OK 的。</p>
+</li>
+<li><p>再运行一个 MapReduce 程序来测试 Yarn 能否正常运行。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 bin]$ <span class="built_in">cd</span> /opt/module/hadoop-2.7.2/share/hadoop/mapreduce/</span><br><span class="line">[lvnengdong@hadoop102 mapreduce]$ hadoop jar hadoop-mapreduce-examples-2.7.2.jar wordcount /wcinput /wcoutput</span><br></pre></td></tr></table></figure></li>
+<li><p> 通过网页查看 Yarn 也是可以正常执行的。</p>
+</li>
+</ol>
+<hr>
+<h1 id="集群群起"><a href="#集群群起" class="headerlink" title="集群群起"></a>集群群起</h1><p>上一章节启动 Hadoop 的方式是逐个启动进程来实现的，但是 Hadoop 也为我们提供了群起集群的脚本，保存在 <code>$HADOOP_HOME/sbin</code> 目录下。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sbin]$ ll <span class="variable">$HADOOP_HOME</span>/sbin</span><br><span class="line">总用量 120</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2752 5月  22 2017 distribute-exclude.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 6452 5月  22 2017 hadoop-daemon.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1360 5月  22 2017 hadoop-daemons.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1427 5月  22 2017 hdfs-config.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2291 5月  22 2017 httpfs.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3128 5月  22 2017 kms.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4080 5月  22 2017 mr-jobhistory-daemon.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1648 5月  22 2017 refresh-namenodes.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2145 5月  22 2017 slaves.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1471 5月  22 2017 start-all.sh	<span class="comment"># 群起脚本</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1128 5月  22 2017 start-balancer.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3734 5月  22 2017 start-dfs.sh	<span class="comment"># 只启动dfs集群</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1357 5月  22 2017 start-secure-dns.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1347 5月  22 2017 start-yarn.sh	<span class="comment"># 只启动yarn集群</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1462 5月  22 2017 stop-all.sh	<span class="comment"># 群关脚本</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1179 5月  22 2017 stop-balancer.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3206 5月  22 2017 stop-dfs.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1340 5月  22 2017 stop-secure-dns.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1340 5月  22 2017 stop-yarn.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4295 5月  22 2017 yarn-daemon.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1353 5月  22 2017 yarn-daemons.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="群起脚本的执行原理"><a href="#群起脚本的执行原理" class="headerlink" title="群起脚本的执行原理"></a>群起脚本的执行原理</h2><p>Hadoop 为我们提供的群起脚本的执行原理是：</p>
+<ol>
+<li> 读取当前机器下的 <code>$HADOOP_HOME/etc/hadoop/slaves</code> 文件，获取集群中所有节点的 IP 地址</li>
+<li> 循环执行 <code>ssh IP地址 xxx-daemon.sh start xxx</code> 来启动各种 NameNode、DataNode、ResourceManager、NodeManager 等各种进程。</li>
+</ol>
+<h2 id="执行群起脚本的前提条件"><a href="#执行群起脚本的前提条件" class="headerlink" title="执行群起脚本的前提条件"></a>执行群起脚本的前提条件</h2><p>所以如果想要执行群起脚本的话，</p>
+<ol>
+<li> 首先需要将集群中所有节点的主机名（已经做过IP地址映射了）配置到 <code>$HADOOP_HOME/etc/hadoop/slaves</code> 文件中；</li>
+<li> 因为群起脚本中执行的 SSH 操作，所以还需要保证当前机器到集群中的其它机器已经配置了 SSH 免密登录。</li>
+<li> 因为群里脚本执行的属于 SSH 的 <strong>NonLogin</strong> 登录，所以还需要保证集群中所有用户的家目录 <code>~</code> 下的 <code>./bashrc</code> 文件中，已经配置了 <code>source /etc/profile</code> 属性。</li>
+</ol>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>在 Hadoop103 配置 <code>$HADOOP_HOME/etc/hadoop/slaves</code> 文件 </p>
+<ol>
+<li><p>修改<code>$HADOOP_HOME/etc/hadoop/slaves</code> 文件 </p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sbin]$ vim <span class="variable">$HADOOP_HOME</span>/etc/hadoop/slaves</span><br></pre></td></tr></table></figure></li>
+<li><p> 删除文件中原先的内容 localhost</p>
+</li>
+<li><p>将集群中的主机名配置到该文件中</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hadoop102</span><br><span class="line">hadoop103</span><br><span class="line">hadoop104</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>  <code>start-all.sh</code> 命令，其实在底层分别调用了 <code>start-dfs.sh</code> 和 <code>start-yarn.sh</code> 命令</li>
+<li>  在集群中的任意一台机器上调用 <code>start-dfs.sh</code> 命令，都可以启动 HDFS 中的所有进程。</li>
+<li>  但是对于 <code>start-yarn.sh</code> ，如果在非 ResourceManager 所在的机器上调用，可以启动所有的 NodeManager，但是不会启动 ResourceManager。同理，群停命令 <code>stop-yarn.sh</code> 命令也一样。</li>
+<li>  <strong>建议：</strong>1️⃣只需要配置 ResourceManager 所在机器到其它机器的 SSH 免密登录即可。2️⃣只在 ResourceManager 所在的机器上执行群起和群停脚本。3️⃣自定义的 <code>xsync</code> 和 <code>xcall</code> 脚本只放在 ResourceManager 所在的机器即可。</li>
+</ul>
+<hr>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li><p>当前 Hadoop 集群（HDFS 和 Yarn）都处于启动状态，先测试一下群停</p>
+<ul>
+<li>  停止所有 yarn 相关的进程</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sbin]$ stop-yarn.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>停止所有 dfs 进程</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 sbin]$ stop-dfs.sh</span><br><span class="line">Stopping namenodes on [hadoop102]</span><br><span class="line">hadoop102: stopping namenode</span><br><span class="line">hadoop103: stopping datanode</span><br><span class="line">hadoop102: stopping datanode</span><br><span class="line">hadoop104: stopping datanode</span><br><span class="line">Stopping secondary namenodes [hadoop104]</span><br><span class="line">hadoop104: stopping secondarynamenode</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+<li><p>测试群起</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 ~]$ start-all.sh</span><br><span class="line">This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh</span><br><span class="line">Starting namenodes on [hadoop102]</span><br><span class="line">hadoop102: starting namenode, logging to /opt/module/hadoop-2.7.2/logs/hadoop-lvnengdong-namenode-hadoop102.out</span><br><span class="line">hadoop102: starting datanode, logging to /opt/module/hadoop-2.7.2/logs/hadoop-lvnengdong-datanode-hadoop102.out</span><br><span class="line">hadoop103: starting datanode, logging to /opt/module/hadoop-2.7.2/logs/hadoop-lvnengdong-datanode-hadoop103.out</span><br><span class="line">hadoop104: starting datanode, logging to /opt/module/hadoop-2.7.2/logs/hadoop-lvnengdong-datanode-hadoop104.out</span><br><span class="line">Starting secondary namenodes [hadoop104]</span><br><span class="line">hadoop104: starting secondarynamenode, logging to /opt/module/hadoop-2.7.2/logs/hadoop-lvnengdong-secondarynamenode-hadoop104.out</span><br><span class="line">starting yarn daemons</span><br><span class="line">starting resourcemanager, logging to /opt/module/hadoop-2.7.2/logs/yarn-lvnengdong-resourcemanager-hadoop102.out</span><br><span class="line">hadoop103: starting nodemanager, logging to /opt/module/hadoop-2.7.2/logs/yarn-lvnengdong-nodemanager-hadoop103.out</span><br><span class="line">hadoop104: starting nodemanager, logging to /opt/module/hadoop-2.7.2/logs/yarn-lvnengdong-nodemanager-hadoop104.out</span><br><span class="line">hadoop102: starting nodemanager, logging to /opt/module/hadoop-2.7.2/logs/yarn-lvnengdong-nodemanager-hadoop102.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="配置历史日志服务器"><a href="#配置历史日志服务器" class="headerlink" title="配置历史日志服务器"></a>配置历史日志服务器</h1><p>Yarn 在启动后，主要作用是分配资源进行计算。相关程序在计算的过程中，不管是成功还是失败，都会产生一些日志数据。这些日志数据保存在专门的历史日志服务器中，配置历史服务器的步骤如下：</p>
+<ol>
+<li><p>配置 <code>mapred-site.xml</code>，在该文件里面增加如下配置：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 表示将MapReduce在运行时产生的日志数据交给 hadoop102:10020 进程来处理 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop102:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 表示可以通过浏览器上访问 hadoop102:19888 来查看历史日志服务器上的数据 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop102:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--第三方框架使用yarn计算的日志聚集功能 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.log.server.url<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>http://hadoop102:19888/jobhistory/logs<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将更新后的配置文件分发到整个集群</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ xsync ./hadoop-2.7.2/</span><br></pre></td></tr></table></figure></li>
+<li><p>启动历史服务器</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure></li>
+<li><p>查看历史服务器是否启动</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ jps</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>查看 JobHistory</p>
+<p> <code>http://hadoop102:19888/jobhistory</code></p>
+<p> <img src="Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123173615772.png" alt="image-20211123173615772"></p>
+</li>
+</ol>
+<hr>
+<h1 id="配置日志的聚集"><a href="#配置日志的聚集" class="headerlink" title="配置日志的聚集"></a>配置日志的聚集</h1><p>在上一章我们已经配置好了历史日志服务器，并且可以通过历史日志服务器的IP地址来查看历史日志信息，但是每次都通过 IP 地址查看历史日志信息是非常不方便的。</p>
+<p>在 Yarn 的 ResourceManager 界面上有一个超链接可以直接跳转到历史日志服务器，这个链接默认是不生效的，只有配置了 <code>yarn-site.xml</code> 后，才可以通过这个超链接直接跳转到历史日志服务界面。</p>
+<p><img src="Hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211123172955343.png" alt="image-20211123172955343"></p>
+<ol>
+<li><p>配置 <code>yarn-site.xml</code></p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 开启日志聚集功能（通过RM跳转到历史日志服务器） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.log-aggregation-enable<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 设置日志保留时间为7天 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.log-aggregation.retain-seconds<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>604800<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将配置信息分发到集群中的各个节点上</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 module]$ xsync ./hadoop-2.7.2/</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p> 注意：修改配置文件后，需要重启 NodeManager 、ResourceManager 和 HistoryManager 等，重新加载配置文件。</p>
+</li>
+</ol>
+<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><ol>
+<li><p> 停止 NodeManager、ResourceManager、NameNode、DataNode、HistoryManager</p>
+</li>
+<li><p>启动 NodeManager、ResourceManager、NameNode、DataNode、</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 module]$ start-all.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>启动 HistoryManager</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 module]$ mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure></li>
+<li><p>测试：执行 wordcount 程序</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop103 mapreduce]$ <span class="built_in">cd</span> /opt/module/hadoop-2.7.2/share/hadoop/mapreduce/</span><br><span class="line">[lvnengdong@hadoop103 mapreduce]$ hadoop jar hadoop-mapreduce-examples-2.7.2.jar wordcount /wcinput /wcoutput2</span><br></pre></td></tr></table></figure></li>
+<li><p> 测试通过网页跳转，OK。</p>
+</li>
+</ol>
+<hr>
+<h1 id="集群时间同步"><a href="#集群时间同步" class="headerlink" title="集群时间同步"></a>集群时间同步</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" rel="prev" title="Hadoop集群搭建">
+                  <i class="fa fa-chevron-left"></i> Hadoop集群搭建
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/" rel="next" title="HttpServletRequest和HttpServletResponse">
+                  HttpServletRequest和HttpServletResponse <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

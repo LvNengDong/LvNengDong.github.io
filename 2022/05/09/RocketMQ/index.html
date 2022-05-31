@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="RocketMQ概述RocketMQ简介    官网地址：https:&#x2F;&#x2F;rocketmq.apache.org&#x2F;   RocketMQ 是一个统一消息引擎、轻量级数据处理平台。   RocketMQ 是一款阿里巴巴开源的消息中间件。2016年11月28日，阿里巴巴向 Apache 基金会捐赠了 RocketMQ，成为 Apache 孵化项目。2017年9月25日，Apache 宣布 Rocket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ">
+<meta property="og:url" content="http://example.com/2022/05/09/RocketMQ/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="RocketMQ概述RocketMQ简介    官网地址：https:&#x2F;&#x2F;rocketmq.apache.org&#x2F;   RocketMQ 是一个统一消息引擎、轻量级数据处理平台。   RocketMQ 是一款阿里巴巴开源的消息中间件。2016年11月28日，阿里巴巴向 Apache 基金会捐赠了 RocketMQ，成为 Apache 孵化项目。2017年9月25日，Apache 宣布 Rocket">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220511082821184.png">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220509183545154.png">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E5%8C%BA.svg">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220511094229752.png">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220511101230750.png">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220511111742454.png">
+<meta property="og:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220511112033543.png">
+<meta property="article:published_time" content="2022-05-09T06:19:15.000Z">
+<meta property="article:modified_time" content="2022-05-11T12:32:24.406Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/05/09/RocketMQ/RocketMQ/image-20220511082821184.png">
+
+
+<link rel="canonical" href="http://example.com/2022/05/09/RocketMQ/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/05/09/RocketMQ/","path":"2022/05/09/RocketMQ/","title":"RocketMQ"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RocketMQ | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RocketMQ%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">RocketMQ概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RocketMQ%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">RocketMQ简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RocketMQ%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">RocketMQ发展历程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RocketMQ%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">RocketMQ理论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%B6%88%E6%81%AF%EF%BC%88Message%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">1、消息（Message）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%B8%BB%E9%A2%98%EF%BC%88Topic%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">2、主题（Topic）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%A0%87%E7%AD%BE%EF%BC%88Tag%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">3、标签（Tag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%98%9F%E5%88%97%EF%BC%88Queue%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">4、队列（Queue）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%92%E5%88%86Partition%EF%BC%9F"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">为什么划分Partition？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%89%87%EF%BC%88Sharing%EF%BC%89"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">分片（Sharing）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E6%B6%88%E6%81%AF%E6%A0%87%E8%AF%86%EF%BC%88MessageId-Key%EF%BC%89"><span class="nav-number">2.1.5.</span> <span class="nav-text">5、消息标识（MessageId&#x2F;Key）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Producer"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、Producer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Consumer"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、Consumer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Name-Server"><span class="nav-number">2.2.3.</span> <span class="nav-text">3、Name Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E6%B3%A8%E5%86%8C"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">路由注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%89%94%E9%99%A4"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">路由剔除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%8F%91%E7%8E%B0"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">路由发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AFNameServer%E9%80%89%E6%8B%A9%E7%AD%96%E7%95%A5"><span class="nav-number">2.2.3.5.</span> <span class="nav-text">客户端NameServer选择策略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81Broker"><span class="nav-number">2.2.4.</span> <span class="nav-text">4、Broker</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/RocketMQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RocketMQ | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RocketMQ
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-09 14:19:15" itemprop="dateCreated datePublished" datetime="2022-05-09T14:19:15+08:00">2022-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-11 20:32:24" itemprop="dateModified" datetime="2022-05-11T20:32:24+08:00">2022-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MQ/" itemprop="url" rel="index"><span itemprop="name">MQ</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MQ/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="RocketMQ概述"><a href="#RocketMQ概述" class="headerlink" title="RocketMQ概述"></a>RocketMQ概述</h1><h2 id="RocketMQ简介"><a href="#RocketMQ简介" class="headerlink" title="RocketMQ简介"></a>RocketMQ简介</h2><p><img src="RocketMQ/image-20220511082821184.png" alt="image-20220511082821184"></p>
+<ul>
+<li>  官网地址：<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/">https://rocketmq.apache.org/</a></li>
+<li>  RocketMQ 是一个统一消息引擎、轻量级数据处理平台。</li>
+<li>  RocketMQ 是一款阿里巴巴开源的消息中间件。2016年11月28日，阿里巴巴向 Apache 基金会捐赠了 RocketMQ，成为 Apache 孵化项目。2017年9月25日，Apache 宣布 RocketMQ 孵化成为 Apache 顶级项目（TLP），成为国内首个互联网中间件在 Apache 上的顶级项目。</li>
+</ul>
+<h2 id="RocketMQ发展历程"><a href="#RocketMQ发展历程" class="headerlink" title="RocketMQ发展历程"></a>RocketMQ发展历程</h2><img src="RocketMQ/image-20220509183545154.png" alt="image-20220509183545154"  />
+
+<ul>
+<li>  2007年，阿里开启“五彩石项目”，Notify 作为项目中的<strong>交易核心消息流转系统</strong>应运而生。Notify 系统是 RocketMQ 的雏形。</li>
+<li>  2010年，B2B 大规模使用 ActiveMQ 作为阿里的消息内核，阿里急需一个具有<strong>海量堆积能力</strong>的消息系统。</li>
+<li>  2011年初，Kafka 开源。淘宝中间件团队在对 Kafka 进行了深入研究后，开发出了一款新的 MQ——MetaQ。</li>
+<li>  2012年，MetaQ 发展到了 v3.0 版本，并在它的基础上进行了进一步的抽象，形成了 RocketMQ，然后对其进行了开源。</li>
+<li>  2015年，阿里在 RocketMQ 的基础上，又推出了一款专门针对阿里云上用户的消息系统 Aliware MQ。</li>
+<li>  2016年双十一，RocketMQ 承载了<strong>万亿级</strong>消息的流转，跨越了一个新的里程碑。11月28日，阿里巴巴向 Apache 基金会捐赠了 RocketMQ，成为 Apache 孵化项目。</li>
+<li>  2017年9月25日，Apache 宣布 RocketMQ 孵化称为 Apache 顶级项目（TLP），成为国内首个互联网中间件在 Apache 上的顶级项目。</li>
+</ul>
+<hr>
+<h1 id="RocketMQ理论基础"><a href="#RocketMQ理论基础" class="headerlink" title="RocketMQ理论基础"></a>RocketMQ理论基础</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1、消息（Message）"><a href="#1、消息（Message）" class="headerlink" title="1、消息（Message）"></a>1、消息（Message）</h3><p>消息（Message）是指：消息系统所传输信息的物理载体，生产和消费数据的最小单位，每条消息必须属于一个主题。</p>
+<h3 id="2、主题（Topic）"><a href="#2、主题（Topic）" class="headerlink" title="2、主题（Topic）"></a>2、主题（Topic）</h3><p>主题（Topic）表示一类消息的集合。每个主题包含若干条消息，每条消息只能属于一个主题。主题是 RocketMQ 中进行消息订阅的基本单位。</p>
+<ul>
+<li>  topic：message =&gt; 1：n</li>
+<li>  message：topic =&gt; 1：1</li>
+</ul>
+<p>一个生产者可以同时向 MQ 发送多种 Topic 的消息；而一个消费者只对某种特定的 Topic 感兴趣，即只可以订阅和消费一种 Topic 的消息。</p>
+<ul>
+<li>  producer：topic =&gt; 1：n</li>
+<li>  consumer：topic =&gt; 1：1</li>
+</ul>
+<h3 id="3、标签（Tag）"><a href="#3、标签（Tag）" class="headerlink" title="3、标签（Tag）"></a>3、标签（Tag）</h3><p>为消息设置的标签，用于同一主题下区分不同类型的消息。</p>
+<p>来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同的标签。标签能够有效地保持代码的清晰度和连贯性，并优化 RocketMQ 提供的查询系统。消费者可以根据 Tag 实现对不同子主题的不同消费逻辑，实现更好的扩展性。</p>
+<p><strong>例子：</strong></p>
+<p>Topic 是消息的一级分类，Tag 是消息的二级分类。</p>
+<p>生产者：</p>
+<ul>
+<li>Topic=货物<ul>
+<li>  Tag=上海</li>
+<li>  Tag=江苏</li>
+<li>  Tag=南京</li>
+</ul>
+</li>
+</ul>
+<p>消费者：</p>
+<ul>
+<li>  Topic=货物，Tag=上海</li>
+<li>  Topic=货物，Tag=上海|浙江</li>
+<li>  Topic=货物，Tag=*</li>
+</ul>
+<h3 id="4、队列（Queue）"><a href="#4、队列（Queue）" class="headerlink" title="4、队列（Queue）"></a>4、队列（Queue）</h3><p>MQ 中存储消息的物理实体。一个 Topic 中的消息可以存放在多个 Queue 中，每个 Queue 中存放的就是该 Topic 的消息。</p>
+<blockquote>
+<p>  <strong>Tip</strong></p>
+<p>  RocketMQ 中的 Queue 又被称为 Partition（分区）。</p>
+<p>  分区（Partition）的概念源自于 Kafka。Kafka 中没有 Queue（队列）的概念，只有 Partition。</p>
+</blockquote>
+<h4 id="为什么划分Partition？"><a href="#为什么划分Partition？" class="headerlink" title="为什么划分Partition？"></a>为什么划分Partition？</h4><p>一个 Topic 的 Queue 中的消息同一时间只允许一个消费者组中的一个消费者消费，不允许一个消费者组中的多个消费者同时消费。但是不同消费者组中的消费者可以同时消费一条消息。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否可行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一条消息同时被一个消费者组中的一个消费者消费。</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>一条消息同时被一个消费者组中的多个消费者消费。</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>一条消息同时被不同消费者组中的多个消费者消费。</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>一个消费者组中的一个消费者同时消费多条消息。</td>
+<td>✔</td>
+</tr>
+</tbody></table>
+<p><img src="RocketMQ/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E5%8C%BA.svg" alt="为什么分区"></p>
+<p>举个例子就是：</p>
+<ul>
+<li>  如果不划分分区（即可视为只有一个分区），且生产者生产消息的速度大于消费者，那么就会有大量的待处理消息滞留在唯一的一个分区中。而且一个分区同时只能被一个消费者消费，这就会造成大量的请求消息得不到处理。</li>
+<li>  为了解决这个问题，RocketMQ/Kafka 引入了“分区”的概念。如上图所示，将一个 Topic 中的消息保存在 3 个分区中，每个消费者消费一个分区，同时最多可支持 3 个消费者消费，大大加快了消息的消费速度，解决了消息堆积的问题。</li>
+</ul>
+<p>从 MQ 的角度来看，一个消费者组只代表一个消费者。建立消费者组的目的是提高消费速度。</p>
+<h4 id="分片（Sharing）"><a href="#分片（Sharing）" class="headerlink" title="分片（Sharing）"></a>分片（Sharing）</h4><p>在 RocketMQ 中还有一个概念就是<strong>分片（Sharding）</strong>。分片不同于分区，在 RocketMQ 中，分片指的是存放相应 Topic 的 Broker。每个分片中会创建相应数量的分区（即 Queue），每个 Queue 的大小都是相同的。</p>
+<p><img src="RocketMQ/image-20220511094229752.png" alt="image-20220511094229752"></p>
+<p>Broker 可以简单理解为“物理主机”。</p>
+<p>如上图所示，就可以简单理解为：TopicA 中的消息保存在三台服务器上，每台服务器上的所有消息被称为一个分片，每个分片又划分了多个分区（Queue/Partition）来保存消息。</p>
+<h3 id="5、消息标识（MessageId-Key）"><a href="#5、消息标识（MessageId-Key）" class="headerlink" title="5、消息标识（MessageId/Key）"></a>5、消息标识（MessageId/Key）</h3><p>RocketMQ 中每个消息拥有“唯一”的 MessageId，且可以携带具有业务标识的 Key，以方便对消息的查询。不过需要注意的是，MessageId 有两个：在生产者 send() 消息时会自动生成一个 MessageId（msgId）；当消息到达 Broker 后，Broker 也会自动生成一个 MessageId（offsetMsgId）。msgId、offsetMsgId 与 Key 都被称为消息标识。</p>
+<blockquote>
+<p>  “唯一”其实会发生重复。</p>
+</blockquote>
+<ul>
+<li><p>msgId：由 producer 端生成，其生成规则为：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">producerIp + 进程pid + MessageClientIDSetter类的ClassLoader的hashCode + 当前时间 + AutomicInteger自增计数器</span><br></pre></td></tr></table></figure></li>
+<li><p>offsetMsgId：由 broker 端生成，其生成规则为：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brokerIp + 物理分区的offset（Queue中的偏移量）</span><br></pre></td></tr></table></figure></li>
+<li><p>  key：由用户指定的业务相关的唯一标识。</p>
+</li>
+</ul>
+<hr>
+<h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><p><img src="RocketMQ/image-20220511101230750.png" alt="image-20220511101230750"></p>
+<p>RocketMQ 的架构分为四部分构成。</p>
+<h3 id="1、Producer"><a href="#1、Producer" class="headerlink" title="1、Producer"></a>1、Producer</h3><p>消息生产者，负责生产消息。</p>
+<p>Producer 通过 MQ 的负载均衡模块选择相应的 Broker 集群队列进行消息投递。投递的过程支持快速失败并且低延迟。</p>
+<blockquote>
+<p>  <em>例如：</em></p>
+<ul>
+<li>  <em>业务系统产生的日志写入到 MQ 的过程，就是消息生产的过程。</em></li>
+<li>  <em>电商平台中用户提交的秒杀请求写入到 MQ 的过程，也是消息生产的过程。</em></li>
+</ul>
+</blockquote>
+<p>RocketMQ 中的消息生产者都是以生产者组（Producer Group）的形式出现的。生产者组是同一类生产者的集合，这类 Producer 发送相同的 Topic 类型的消息。一个生产者组可以同时发送多个主题的消息。</p>
+<h3 id="2、Consumer"><a href="#2、Consumer" class="headerlink" title="2、Consumer"></a>2、Consumer</h3><p>消息消费者，负责消费消息。</p>
+<p>一个消息消费者会从 Broker 服务器中获取到消息，并对消息进行相关业务处理。</p>
+<blockquote>
+<p>  <em>例如：</em></p>
+<ul>
+<li>  Qos 系统从 MQ 中读取日志，并对日志进行解析处理的过程就是消息消费的过程。</li>
+<li>  电商平台的业务系统从 MQ 中读取到秒杀请求，并对请求进行处理的过程也是消息消费的过程。</li>
+</ul>
+</blockquote>
+<p>RocketMQ 中的消息消费者都是以消费者组（Consumer Group）的形式出现的。消费者组是同一类消费者的集合，这类 Consumer 消费的是同一个 Topic 类型的消息。消费者组使得在消息消费方面，实现<strong>负载均衡</strong>和<strong>容错</strong>的目标变得非常容易。</p>
+<blockquote>
+<ul>
+<li>  <strong>负载均衡</strong>：将一个 Topic 中的不同 Queue 平均分配给同一个 Consumer Group 的不同 Consumer。注意：并不是将消息负载均衡，而是将 Queue 负责均衡。</li>
+<li>  <strong>容错</strong>：一个 Consumer 挂了，该 Consumer Group 中的其它 Consumer 可以接着消费原 Consumer 消费的 Queue。</li>
+</ul>
+</blockquote>
+<p><img src="RocketMQ/image-20220511111742454.png" alt="image-20220511111742454"></p>
+<p>消费者组中的 Consumer 的数量应该小于等于订阅 Topic 的 Queue 的数量。如果超出 Queue 的数量，则多出的 Consumer 将不能消费消息。</p>
+<p><img src="RocketMQ/image-20220511112033543.png" alt="image-20220511112033543"></p>
+<p>不过，一个 Topic 类型的消息可以被多个消费者组同时消费。</p>
+<blockquote>
+<p>  Tip</p>
+<ul>
+<li>  一个消费者组同时只能消费一个 Topic 中的消息，不能同时消费多个 Topic 中的消息。</li>
+<li>  一个消费者组中的消费者必须订阅完全相同的 Topic。</li>
+</ul>
+</blockquote>
+<h3 id="3、Name-Server"><a href="#3、Name-Server" class="headerlink" title="3、Name Server"></a>3、Name Server</h3><h4 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h4><p>NameServer 是一个 Broker 与 Topic 路由的注册中心，支持 Broker 的动态注册与发现。</p>
+<p>RocketMQ 的思想来源于 Kafka，而 Kafka 是依赖了 ZooKeeper 的。所以，在 RocketMQ 的早期版本（即 MetaQ v1.0 和 v2.0 版本）中，也是依赖于 ZooKeeper 的。从 MetaQ v3.0（即 RocketMQ）开始去掉了 ZooKeeper 依赖，而是使用了自己的 NameServer。</p>
+<p>NameServer 主要包括两个功能：</p>
+<ul>
+<li><strong>Broker 管理</strong>：<ul>
+<li>  接收 Broker 集群的注册信息并且保存下来作为路由信息的基本数据；</li>
+<li>  提供心跳检测机制，检查 Broker 是否还存活。</li>
+</ul>
+</li>
+<li>  <strong>路由信息管理</strong>：每个 NameServer 中都保存着 Broker 集群的整个路由信息和用于客户端查询的队列（Queue）信息。Producer 和 Consumer 通过 NameServer 可以获取整个 Broker 集群的路由信息，从而进行消息的投递和消费。</li>
+</ul>
+<h4 id="路由注册"><a href="#路由注册" class="headerlink" title="路由注册"></a>路由注册</h4><p>NameServer 通常也是以集群的方式部署。不过，NameServer 是<code>无状态</code>的，即 NameServer 集群中的各个节点间是无差异的，各节点间相互不进行信息通讯。</p>
+<p><strong>那各节点是如何进行数据同步的呢？</strong></p>
+<p>在 Broker 节点启动时，轮询 NameServer 列表，与每个 NameServer 建立长连接，发起注册请求。在 NameServer 内部维护着一个 Broker 列表，用来动态存储 Broker 的信息。</p>
+<blockquote>
+<p>  <strong>Tip</strong></p>
+<p>  这是 NameServer 与 ZooKeeper、Eureka、Nacos 等其它注册中心不同的地方。</p>
+</blockquote>
+<p>这种 NameServer 无状态的方式，有什么优缺点：</p>
+<ul>
+<li>  优点：NameServer 集群搭建简单、扩容简单。</li>
+<li>  缺点：对于 Broker，必须明确指出所有 NameServer 的地址，否则未指出的将不会去注册。也正因为如此，NameServer 并不能随便扩容。因为每次新增 NameServer 节点必须将该节点的地址在所有的 Broker 上配置一遍。</li>
+</ul>
+<p><strong>为什么建立长连接？</strong></p>
+<p>Broker 节点为了证明自己是活着的，为了维护与 NameServer 之间的长连接，会将最新的信息以<code>心跳包</code>的方式上报给 Server，每 30 秒发送一次心跳。</p>
+<p>心跳包中包含 BrokerId、Broker地址（IP+Port）、Broker 名称、Broker 所属集群名称等等。NameServer 在收到心跳包后，会更新心跳时间戳、记录这个 Broker 的最新存活时间。</p>
+<h4 id="路由剔除"><a href="#路由剔除" class="headerlink" title="路由剔除"></a>路由剔除</h4><p>由于 Broker 关机、宕机或网络抖动等原因，NameServer 长时间没有收到某个 Broker 的心跳后，就可能会将其从 Broker 列表中剔除。</p>
+<p>NameServer 中有一个定时任务，每隔 10 秒就会扫描一次 Broker 列表，查看每个 Broker 的最新心跳时间戳距离当前时间是否超过 120 秒，如果超过，则会判定 Broker 失效，并将其从 Broker 列表中剔除。</p>
+<blockquote>
+<p>  扩展</p>
+<p>  问：对于 RocketMQ 日常运维工作，如 Broker 升级，需要停掉 Broker 的工作，OP（运维工程师）需要怎么做？</p>
+<p>  答：OP 需要将 Broker 的读写权限禁掉，一旦 Client（Consumer 或 Producer）向 Broker 发送请求，都会收到 NO_PERMISSION 响应，然后 Client 会进行其它 Broker 的重试。当 OP 观察到这个 Broker 没有流量后，再关闭它，就可以实现 Broker 从 NameServer 中移除。</p>
+</blockquote>
+<h4 id="路由发现"><a href="#路由发现" class="headerlink" title="路由发现"></a>路由发现</h4><p>RocketMQ 的路由发现采用的是 Pull 模型。</p>
+<p>当 Topic 路由信息发生变化时，NameServer 不会主动推送给客户端，而是客户端定时拉取 Topic 最新的路由，默认客户端每 30 秒会拉取一次最新的路由。</p>
+<blockquote>
+<p>  扩展</p>
+<ul>
+<li>Push 模型：推送模型。其实时性较好，是一个“发布-订阅”模型，需要维护一个长连接，而长连接的维护是需要资源成本的。该模型适用于以下场景：<ul>
+<li>  实时性要求较高。</li>
+<li>  Client 数量不多，Server 数据变化较频繁。</li>
+</ul>
+</li>
+<li>  Pull 模型：拉取模型。存在的问题是——实时性较差。</li>
+<li>  Long Polling 模型：长轮询模型。是对 Push 和 Pull 模型的整合，充分利用了这两种模型的优势，屏蔽了它们的劣势。</li>
+</ul>
+</blockquote>
+<h4 id="客户端NameServer选择策略"><a href="#客户端NameServer选择策略" class="headerlink" title="客户端NameServer选择策略"></a>客户端NameServer选择策略</h4><p>这里的客户端指定的是 Producer 和 Consumer。</p>
+<p>客户端在配置时必须要写上 NameServer 集群的地址，那么客户端到底连接的是哪个 NameServer 节点呢？客户端首先会产生一个随机数，然后再与 NameServer 的节点数量取模，此时得到的就是要连接的节点索引，然后就会进行连接。如果连接失败，则会采用 round-robin 策略，逐个尝试去连接其它节点。</p>
+<p>总结：首先采取<strong>随机策略</strong>进行选择，失败后选择<strong>轮询策略</strong>。</p>
+<blockquote>
+<p>  扩展：ZooKeeper Client 是如何选择 ZooKeeper Server 的？</p>
+<ul>
+<li>  简单来说：就是经过两次 Shuffle，然后选择第一台 ZooKeeper Server。</li>
+<li>  展开讲就是：将配置文件中的 ZooKeeper Server 地址进行第一次 shuffle，然后随机选择一个。这次选择出的一般都是一个 hostname。然后获取到该 hostname 对应的所有 ip，再对这些 ip 进行二次 shuffle，从 shuffle 过的结果中选择第一个 Server 的地址进行连接。</li>
+</ul>
+</blockquote>
+<h3 id="4、Broker"><a href="#4、Broker" class="headerlink" title="4、Broker"></a>4、Broker</h3><p>Broker 充当着消息中转的角色，负责存储消息、转发消息。</p>
+<p>Broker 在 RocketMQ 系统中负责接收并存储从生产者发送来的消息，同时为消费者的拉取请求做准备。Broker 同时也存储着消息相关的元数据，包括消费者组消费进度偏移 offset、主题 Topic、队列 Queue等。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/04/%E4%BC%9A%E8%AF%9D/" rel="prev" title="会话">
+                  <i class="fa fa-chevron-left"></i> 会话
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/09/MQ%E6%A6%82%E8%BF%B0/" rel="next" title="MQ概述">
+                  MQ概述 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
