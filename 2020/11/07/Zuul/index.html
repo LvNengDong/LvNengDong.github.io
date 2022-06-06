@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="网关从一个房间走到另一个房间，必然要经过一扇门。同样，从一个网络向另一个网络发送信息，也必须经过一道“关口”，即网关（GateWay）。 顾名思义，网关（GateWay）就是一个网络连接到另一个网络的“关口”。        通常我们讲的网关就是路由器的IP地址。     网关(Gateway) 又称网间连接器、协议转换器。               网关在网络层以上实现网络互连，是复杂的网络互">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/11/07/Zuul/Zuul/1525674644660.png">
-<meta property="og:image" content="http://example.com/2020/11/07/Zuul/Zuul/1525675648881.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Zuul/1525674644660.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Zuul/1525675648881.png">
 <meta property="article:published_time" content="2020-11-07T14:09:31.000Z">
 <meta property="article:modified_time" content="2021-09-03T08:51:46.943Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/11/07/Zuul/Zuul/1525674644660.png">
+<meta name="twitter:image" content="http://example.com/2020/11/07/Zuul/1525674644660.png">
 
 
 <link rel="canonical" href="http://example.com/2020/11/07/Zuul/">
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -242,7 +242,7 @@
 </ul>
 </blockquote>
 <h2 id="SpringCould中的网关"><a href="#SpringCould中的网关" class="headerlink" title="SpringCould中的网关"></a>SpringCould中的网关</h2><p>在不使用Zuul网关的情况下，使用Spring Cloud实现的微服务的架构大致如下：</p>
-<p><img src="Zuul/1525674644660.png" alt="1525674644660"></p>
+<p><img src="/2020/11/07/Zuul/1525674644660.png" alt="1525674644660"></p>
 <blockquote>
 <ul>
 <li>我们通过Eureka实现了<strong>服务注册中心</strong>以及<strong>服务注册</strong>与<strong>发现</strong>；</li>
@@ -308,7 +308,7 @@
 
 
 
-<h2 id="Zuul加入后的架构"><a href="#Zuul加入后的架构" class="headerlink" title="Zuul加入后的架构"></a>Zuul加入后的架构</h2><p><img src="Zuul/1525675648881.png" alt="1525675648881"></p>
+<h2 id="Zuul加入后的架构"><a href="#Zuul加入后的架构" class="headerlink" title="Zuul加入后的架构"></a>Zuul加入后的架构</h2><p><img src="/2020/11/07/Zuul/1525675648881.png" alt="1525675648881"></p>
 <ul>
 <li><strong>不管是来自于客户端（PC或移动端）的请求，还是服务内部调用。一切对服务的请求都会经过Zuul这个网关</strong>，然后再由网关来实现 鉴权、动态路由等等操作。Zuul就是我们服务的统一入口。</li>
 </ul>

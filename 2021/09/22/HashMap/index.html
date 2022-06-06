@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前置知识    位运算基础   HashMap 特点特点   存取无序的；  线程不安全；  key，value 都可以为 null  数据结构    JDK8 之前，HashMap 是由 数组+链表 组成的，数组是 HashMap 的主体，链表则是为了解决哈希冲突而存在的。   从 JDK8 开始，解决哈希冲突的策略由链表变为了链表+红黑树，当链表长度大于阈值（默认为8）并且当前数组长度大于64">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/09/22/HashMap/HashMap/image-20211025234552648.png">
-<meta property="og:image" content="http://example.com/2021/09/22/HashMap/HashMap/image-20211026102557636.png">
+<meta property="og:image" content="http://example.com/2021/09/22/HashMap/image-20211025234552648.png">
+<meta property="og:image" content="http://example.com/2021/09/22/HashMap/image-20211026102557636.png">
 <meta property="article:published_time" content="2021-09-22T10:00:49.000Z">
 <meta property="article:modified_time" content="2021-10-26T07:59:41.886Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/09/22/HashMap/HashMap/image-20211025234552648.png">
+<meta name="twitter:image" content="http://example.com/2021/09/22/HashMap/image-20211025234552648.png">
 
 
 <link rel="canonical" href="http://example.com/2021/09/22/HashMap/">
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -299,7 +299,7 @@
 </ul>
 </li>
 </ol>
-<p><img src="HashMap/image-20211025234552648.png" alt="image-20211025234552648"></p>
+<p><img src="/2021/09/22/HashMap/image-20211025234552648.png" alt="image-20211025234552648"></p>
 <p><strong>说明：</strong></p>
 <ul>
 <li>  size 表示 HashMap 中 Node 对象实时数量，如果添加元素后 Node 对象的个数大于 threshold，也会触发数组的扩容机制。</li>
@@ -411,7 +411,7 @@
   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; <span class="number">4</span>;	<span class="comment">// n=15</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001111</span>		<span class="comment">// 15</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span>		<span class="comment">// 无符号右移4位 ==&gt; 0</span></span><br><span class="line">------------------------------------------	</span><br><span class="line"><span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00001111</span>		<span class="comment">// 进行或运算 15|3 ==&gt; 15</span></span><br></pre></td></tr></table></figure></li>
 <li><p>第四次右移、第五次右移</p>
 <p>  当 n 被扩展到 <code>2^n-1</code> 时，再进行右移运算也不会改变 n 的值，最终返回 capacity 容量时，用 n+1 就能得到 <code>2^n</code>。</p>
-<p>  <img src="HashMap/image-20211026102557636.png" alt="image-20211026102557636"></p>
+<p>  <img src="/2021/09/22/HashMap/image-20211026102557636.png" alt="image-20211026102557636"></p>
 </li>
 </ul>
 </li>

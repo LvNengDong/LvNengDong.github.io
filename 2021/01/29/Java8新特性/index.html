@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="函数式接口   包含且仅包含一个抽象方法的接口称为函数式接口。（不是规定接口中只能有一个方法，非抽象方法的个数是不加限制的，当然在 JDK8 中接口中只能有抽象方法和静态方法了，所以这里的非抽象方法在 JDK8 中就是指静态方法，在 JDK9 中接口中还可以声明 private 方法）   @FunctionalInterface注解：我们可以通过在任意接口上使用@FunctionalInterf">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/01/29/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Stream%E6%B5%81.png">
+<meta property="og:image" content="http://example.com/2021/01/29/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Stream%E6%B5%81.png">
 <meta property="article:published_time" content="2021-01-29T02:12:14.000Z">
 <meta property="article:modified_time" content="2021-11-18T07:17:20.181Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/01/29/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Stream%E6%B5%81.png">
+<meta name="twitter:image" content="http://example.com/2021/01/29/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Stream%E6%B5%81.png">
 
 
 <link rel="canonical" href="http://example.com/2021/01/29/Java8%E6%96%B0%E7%89%B9%E6%80%A7/">
@@ -134,7 +134,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,14 +268,14 @@
 <td align="left"><code>R apply(T t)</code></td>
 <td align="center">T</td>
 <td align="center">R</td>
-<td align="left">对类型为T的对象进行操作，<br/>并返回类型为R的结果对象</td>
+<td align="left">对类型为T的对象进行操作，<br>并返回类型为R的结果对象</td>
 </tr>
 <tr>
 <td align="left">断定型接口：<code>Predicate&lt;T&gt;</code></td>
 <td align="left"><code>boolean test(T t)</code></td>
 <td align="center">T</td>
 <td align="center">Boolean</td>
-<td align="left">确定类型为T的对象是否满足约束，<br/>并返回Boolean值</td>
+<td align="left">确定类型为T的对象是否满足约束，<br>并返回Boolean值</td>
 </tr>
 </tbody></table>
 <h2 id="其它函数式接口"><a href="#其它函数式接口" class="headerlink" title="其它函数式接口"></a>其它函数式接口</h2><table>
@@ -294,13 +294,13 @@
 <td align="center">R</td>
 </tr>
 <tr>
-<td align="center"><code>UnaryOperator&lt;T&gt;</code><br/>(Funtion子接口)</td>
+<td align="center"><code>UnaryOperator&lt;T&gt;</code><br>(Funtion子接口)</td>
 <td align="center"><code>T apply(T t)</code></td>
 <td align="center">T</td>
 <td align="center">T</td>
 </tr>
 <tr>
-<td align="center"><code>BinaryOperator&lt;T&gt;</code><br/>(BinFunction子接口)</td>
+<td align="center"><code>BinaryOperator&lt;T&gt;</code><br>(BinFunction子接口)</td>
 <td align="center"><code>T apply(T t1, T t2);</code></td>
 <td align="center">T，T</td>
 <td align="center">T</td>
@@ -312,15 +312,15 @@
 <td align="center">void</td>
 </tr>
 <tr>
-<td align="center"><code>ToIntFunction&lt;T&gt;</code><br/><code>ToLongFunction&lt;T&gt;</code><br/><code>ToDoubleFunction&lt;T&gt;</code></td>
-<td align="center"><code>int applyAsInt(T value);</code><br/><code>long applyAsLong(T value);</code><br/><code>double applyAsDouble(T value);</code></td>
+<td align="center"><code>ToIntFunction&lt;T&gt;</code><br><code>ToLongFunction&lt;T&gt;</code><br><code>ToDoubleFunction&lt;T&gt;</code></td>
+<td align="center"><code>int applyAsInt(T value);</code><br><code>long applyAsLong(T value);</code><br><code>double applyAsDouble(T value);</code></td>
 <td align="center">T</td>
-<td align="center">int<br/>long<br/>double</td>
+<td align="center">int<br>long<br>double</td>
 </tr>
 <tr>
-<td align="center"><code>IntFunction&lt;R&gt;</code><br/><code>LongFunction&lt;R&gt;</code><br/><code>DoubleFunction&lt;R&gt;</code></td>
-<td align="center"><code>R apply(int value);</code><br/><code>R apply(long value);</code><br/><code>R apply(double value);</code></td>
-<td align="center">int<br/>long<br/>double</td>
+<td align="center"><code>IntFunction&lt;R&gt;</code><br><code>LongFunction&lt;R&gt;</code><br><code>DoubleFunction&lt;R&gt;</code></td>
+<td align="center"><code>R apply(int value);</code><br><code>R apply(long value);</code><br><code>R apply(double value);</code></td>
+<td align="center">int<br>long<br>double</td>
 <td align="center">R</td>
 </tr>
 </tbody></table>
@@ -599,7 +599,7 @@
 <p><code>Stream</code>：流</p>
 <p>Stream 是 Java8 中处理<strong>集合</strong>的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。使用 Stream API 对集合数据进行操作，就类似于使用 SQL 执行数据库查询。 也可以使用 Stream API 来并行执行操作。 简而言之，Stream API 提供了一种高效且易于使用的处理集合数据的方式。</p>
 <p>Stream 用于操作数据源（集合、数组等）所生成的元素序列。</p>
-<p><img src="Java8%E6%96%B0%E7%89%B9%E6%80%A7/Stream%E6%B5%81.png"></p>
+<p><img src="/2021/01/29/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Stream%E6%B5%81.png"></p>
 <blockquote>
 <p>包：<code>java.util.stream.*</code></p>
 </blockquote>
@@ -748,27 +748,27 @@
 <tbody><tr>
 <td align="left"><code>map(Function mapper)</code></td>
 <td align="center"><code>Stream</code></td>
-<td align="left">接收一个函数作为参数，该函数会被应用到集合的<br/>每个元素上，并将其映射成一个新的元素。</td>
+<td align="left">接收一个函数作为参数，该函数会被应用到集合的<br>每个元素上，并将其映射成一个新的元素。</td>
 </tr>
 <tr>
 <td align="left"><code>mapToDouble(ToDoubleFunction mapper)</code></td>
 <td align="center"><code>DoubleStream</code></td>
-<td align="left">接收一个函数作为参数，该函数会被应用到<br/>每个元素上，产生一个新的 <code>DoubleStream</code></td>
+<td align="left">接收一个函数作为参数，该函数会被应用到<br>每个元素上，产生一个新的 <code>DoubleStream</code></td>
 </tr>
 <tr>
 <td align="left"><code>mapToInt(ToIntFunction mapper)</code></td>
 <td align="center"><code>IntStream</code></td>
-<td align="left">接收一个函数作为参数，该函数会被应用到<br/>每个元素上，产生一个新的 <code>IntStream</code></td>
+<td align="left">接收一个函数作为参数，该函数会被应用到<br>每个元素上，产生一个新的 <code>IntStream</code></td>
 </tr>
 <tr>
 <td align="left"><code>mapToLong(ToLongFunction mapper)</code></td>
 <td align="center"><code>LongStream</code></td>
-<td align="left">接收一个函数作为参数，该函数会被应用到<br/>每个元素上，产生一个新的 <code>LongStream</code></td>
+<td align="left">接收一个函数作为参数，该函数会被应用到<br>每个元素上，产生一个新的 <code>LongStream</code></td>
 </tr>
 <tr>
 <td align="left"><code>flatMap(Function mapper)</code></td>
 <td align="center"><code>Stream</code></td>
-<td align="left">接收一个函数作为参数，将流中的每个值都换成<br/>另一个流，然后把所有流连接成一个流。</td>
+<td align="left">接收一个函数作为参数，将流中的每个值都换成<br>另一个流，然后把所有流连接成一个流。</td>
 </tr>
 </tbody></table>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 映射：</span></span><br><span class="line"><span class="comment">    *  1、map</span></span><br><span class="line"><span class="comment">    *  2、flatMap</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test03</span><span class="params">()</span>&#123;</span><br><span class="line">       List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;aa&quot;</span>, <span class="string">&quot;bb&quot;</span>, <span class="string">&quot;cc&quot;</span>, <span class="string">&quot;dd&quot;</span>);</span><br><span class="line">       list.stream()</span><br><span class="line">               .map(String::toUpperCase)   <span class="comment">// 把集合中的元素全部转换为大写</span></span><br><span class="line">               .forEach(System.out::println);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test04</span><span class="params">()</span>&#123;</span><br><span class="line">       employees.stream()</span><br><span class="line">               .map(Employee::getName)     <span class="comment">// 提取每个员工的名字</span></span><br><span class="line">               .forEach(System.out::println);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
@@ -964,7 +964,7 @@
 <tr>
 <td align="center"><code>reducing</code></td>
 <td align="center">归约产生的类型</td>
-<td align="center">从一个作为累加器的初始值开始，利用BinaryOperator<br/>与流中元素逐个结合，从而归约成单个值</td>
+<td align="center">从一个作为累加器的初始值开始，利用BinaryOperator<br>与流中元素逐个结合，从而归约成单个值</td>
 </tr>
 <tr>
 <td align="center"><code>collectingAndThen</code></td>

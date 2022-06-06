@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="第9章 POM 深入与强化第2节 POM的四个层次1、超级POM经过前面的学习，我们看到 Maven 在构建过程中有很多默认的设定。例如：源文件存放的目录、测试源文件存放的目录、构建输出的目录……等等。但是其实这些要素也是被 Maven 定义过的。定义的位置就是：超级 POM 关于超级 POM，Maven 官网是这样介绍的：    The Super POM is Maven’s default">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/image-20220409225240991.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/image-20220409225240991.png">
 <meta property="article:published_time" content="2022-04-08T01:58:19.000Z">
 <meta property="article:modified_time" content="2022-04-26T01:46:25.896Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/image-20220409225240991.png">
+<meta name="twitter:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/image-20220409225240991.png">
 
 
 <link rel="canonical" href="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/">
@@ -134,7 +134,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -246,7 +246,7 @@
 
 
 <h3 id="2、父POM"><a href="#2、父POM" class="headerlink" title="2、父POM"></a>2、父POM</h3><p>和 Java 类一样，POM 之间也是<strong>单继承</strong>的，但是可以存在多级继承。如果我们给一个 POM 指定了父 POM，它的继承关系如下图所示：</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/image-20220409225240991.png" alt="image-20220409225240991"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/image-20220409225240991.png" alt="image-20220409225240991"></p>
 <h3 id="3、有效POM"><a href="#3、有效POM" class="headerlink" title="3、有效POM"></a>3、有效POM</h3><p><strong>1、概念</strong></p>
 <p>有效 POM 的英文名称是 “Effective POM”。它的概念是这样的：在 POM 的继承关系中，子 POM 可以覆盖父 POM 中的配置；如果子 POM 没有覆盖，那么父 POM 中的配置将会被继承。按照这个规则，继承关系中的所有 POM 叠加到一起，就得到了一个最终生效的 POM。</p>
 <p>显然，Maven 在实际运行过程中，执行构建操作就是按照这个最终 POM 来运行的。</p>

@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="题目：    公司员工入职，要求将每个员工的所有信息（id，gender，name，addr，……）等全部录入系统。当输入该员工的 id 时，要求查找到该员工的所有信息。   要求：不使用数据库，尽量节省内存，速度越快越好。&#x3D;&#x3D;&gt;&gt; 哈希表（散列）  应用场景    一般情况下，Java 程序直接与数据库交互，对数据的增删改查都直接体现在数据库中。   但是在某些开发场景中，我们会把被">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png">
-<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721223318370.png">
-<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E5%93%88%E5%B8%8C%E8%A1%A8/%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%A1%E7%90%86%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF.png">
-<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721225646006.png">
+<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png">
+<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721223318370.png">
+<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%A1%E7%90%86%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721225646006.png">
 <meta property="article:published_time" content="2021-07-21T08:44:57.000Z">
 <meta property="article:modified_time" content="2021-07-21T15:00:48.910Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png">
+<meta name="twitter:image" content="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png">
 
 
 <link rel="canonical" href="http://example.com/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/">
@@ -137,7 +137,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -233,7 +233,7 @@
 <p>  公司员工入职，要求将每个员工的所有信息（id，gender，name，addr，……）等全部录入系统。当输入该员工的 id 时，要求查找到该员工的所有信息。</p>
 <p>  <strong>要求：</strong>不使用数据库，尽量节省内存，速度越快越好。==&gt;&gt; <strong>哈希表（散列）</strong></p>
 </blockquote>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png"></p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png"></p>
 <ul>
 <li>  一般情况下，Java 程序直接与数据库交互，对数据的增删改查都直接体现在数据库中。</li>
 <li>  但是在某些开发场景中，我们会把被经常访问且不会经常变化的数据放入缓存（内存）中存储，来达到提高访问速度和减少数据库访问流量的目的。</li>
@@ -245,8 +245,8 @@
 </blockquote>
 <p>HashTable 是根据<strong>关键码值</strong>（Key Value）进行访问的数据结构。</p>
 <p>也就是说，它通过把关键码值映射到表中的一个位置来访问记录，以加快查找的速度。这个映射函数就叫做<strong>散列函数</strong>，存放记录的数组叫做<strong>散列表</strong>。</p>
-<p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721223318370.png" alt="image-20210721223318370"></p>
-<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h2><p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%A1%E7%90%86%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF.png"></p>
+<p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721223318370.png" alt="image-20210721223318370"></p>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h2><p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%A1%E7%90%86%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF.png"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">哈希表 = 数组 + 链表</span><br><span class="line"></span><br><span class="line">数组 ==&gt;&gt; EmpLinkedList[]；数组中的每一个元素都是一个链表。</span><br><span class="line">链表 ==&gt;&gt; EmpLinkedList；链表中的每一个元素为 Emp 类创建的实例对象</span><br><span class="line"></span><br><span class="line">所以需要三个类，</span><br><span class="line">    <span class="number">1</span>、HashTable 类用于创建 HashTable 实例对象；该对象中需要对外提供：</span><br><span class="line">    	<span class="number">1</span>️⃣	链表集合 EmpLinkedList[]；</span><br><span class="line">    	<span class="number">2</span>️⃣ 计算哈希值的散列函数；</span><br><span class="line">    	<span class="number">3</span>️⃣ API层面的CRUD方法</span><br><span class="line">    </span><br><span class="line">    <span class="number">2</span>、EmpLinkedList 类用于维护数组中的每条链表；该类中需要：</span><br><span class="line">    	<span class="number">1</span>️⃣ 定位每条链表的头结点 head</span><br><span class="line">    	<span class="number">2</span>️⃣ 操作链表中元素的 CRUD 方法</span><br><span class="line">    </span><br><span class="line">    <span class="number">3</span>、Emp 对象用于维护链表中的单个元素；该类中需要：</span><br><span class="line">    	<span class="number">1</span>️⃣ Emp 对象的基本属性/方法</span><br><span class="line">    	<span class="number">2</span>️⃣ 链表中下一个节点的引用 next</span><br></pre></td></tr></table></figure>
 
 
@@ -289,7 +289,7 @@
 
 
 <p><strong>执行结果</strong></p>
-<p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721225646006.png" alt="image-20210721225646006"></p>
+<p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721225646006.png" alt="image-20210721225646006"></p>
 <p><strong>分析优化</strong></p>
 <ol>
 <li><p>上述代码中，在添加员工信息时，我们假定按照 id 从低到高插入，所以在向链表中插入 Emp 对象时只需使用尾插法即可。</p>

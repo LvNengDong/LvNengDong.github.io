@@ -27,26 +27,26 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="AQS简介   AQS数据结构   资源共享模式   AQS 源码分析   释放资源   前置知识   公平锁和非公平锁  可重入锁  LockSupport  自旋锁  数据结构链表  设计模式——模板设计模式    理论1    为什么学1.1    重要性   JUC 底层原理就是 AQS，就相当于 JVM 之于 Java。   AQS 是 JUC 内容中最重要的基石     为什么">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/image-20210716222211925.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/image-20210716222347766.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/image-20210716222507442.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/image-20210716222601965.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/AQS%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/AbstractQueuedSynchronizer.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/image-20210717091946871.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock_AQS_01.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock_AQS_01_1.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock_AQS_02.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock_AQS_03.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock_AQS_03_02.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/ReentrantLock%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%8101.png">
-<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS/fair_nonfair$tryAcquire.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/image-20210716222211925.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/image-20210716222347766.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/image-20210716222507442.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/image-20210716222601965.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/AQS%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/AbstractQueuedSynchronizer.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/image-20210717091946871.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock_AQS_01.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock_AQS_01_1.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock_AQS_02.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock_AQS_03.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock_AQS_03_02.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/ReentrantLock%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%8101.png">
+<meta property="og:image" content="http://example.com/2021/09/06/AQS/fair_nonfair$tryAcquire.png">
 <meta property="article:published_time" content="2021-09-06T09:27:18.000Z">
 <meta property="article:modified_time" content="2021-10-08T14:02:01.280Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/09/06/AQS/AQS/image-20210716222211925.png">
+<meta name="twitter:image" content="http://example.com/2021/09/06/AQS/image-20210716222211925.png">
 
 
 <link rel="canonical" href="http://example.com/2021/09/06/AQS/">
@@ -148,7 +148,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -288,19 +288,19 @@
 <ol>
 <li> <strong>ReentrantLock</strong></li>
 </ol>
-<p><img src="AQS/image-20210716222211925.png" alt="image-20210716222211925"></p>
+<p><img src="/2021/09/06/AQS/image-20210716222211925.png" alt="image-20210716222211925"></p>
 <ol start="2">
 <li> <strong>CountDownLatch</strong></li>
 </ol>
-<p><img src="AQS/image-20210716222347766.png" alt="image-20210716222347766"></p>
+<p><img src="/2021/09/06/AQS/image-20210716222347766.png" alt="image-20210716222347766"></p>
 <ol start="3">
 <li> <strong>ReentrantReadWriteLock</strong></li>
 </ol>
-<p><img src="AQS/image-20210716222507442.png" alt="image-20210716222507442"></p>
+<p><img src="/2021/09/06/AQS/image-20210716222507442.png" alt="image-20210716222507442"></p>
 <ol start="4">
 <li> <strong>Semaphore</strong></li>
 </ol>
-<p><img src="AQS/image-20210716222601965.png" alt="image-20210716222601965"></p>
+<p><img src="/2021/09/06/AQS/image-20210716222601965.png" alt="image-20210716222601965"></p>
 <h3 id="1-2-必要性"><a href="#1-2-必要性" class="headerlink" title="1.2    必要性"></a>1.2    必要性</h3><ul>
 <li>  多线程环境下，为保证线程安访问共享资源时就会加锁，加锁就会导致抢不到锁的其它线程阻塞，如果有多个线程被阻塞后就需要对这些线程进行排队，实现排队必然需要队列（抢不到锁的线程被阻塞后就得去排队）。</li>
 <li>  抢到锁的线程直接访问临界资源执行业务逻辑，抢不到锁的线程必然涉及一种排队等候机制。抢占锁失败的线程继续等待，但等候的线程仍保留获取锁的可能性。【在锁被前一个持有锁的线程释放后等待队列中的线程就有可能获取到锁】</li>
@@ -341,7 +341,7 @@
 <li><p>  AQS 类本身实现的是⼀些排队和阻塞的机制，比如具体线程等待队列的维护（如获取资源失败入队/唤醒出队等）。它内部使用了一个先进先出（FIFO）的双端队列，并使用了两个指针 <code>head</code> 和 <code>tail</code> 用于标识队列的头部和尾部。其数据结构如图：</p>
 </li>
 </ul>
-<p><img src="AQS/AQS%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="AQS数据结构"></p>
+<p><img src="/2021/09/06/AQS/AQS%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="AQS数据结构"></p>
 <ul>
 <li>  但它并不是直接储存线程，而是存储与线程绑定的 Node 节点。</li>
 </ul>
@@ -353,14 +353,14 @@
 <li>  <strong>AQS = 双向队列 + state</strong> </li>
 </ul>
 <hr>
-<h3 id="4-1-AQS内部体系架构"><a href="#4-1-AQS内部体系架构" class="headerlink" title="4.1    AQS内部体系架构"></a>4.1    AQS内部体系架构</h3><p><img src="AQS/AbstractQueuedSynchronizer.png" alt="AbstractQueuedSynchronizer"></p>
+<h3 id="4-1-AQS内部体系架构"><a href="#4-1-AQS内部体系架构" class="headerlink" title="4.1    AQS内部体系架构"></a>4.1    AQS内部体系架构</h3><p><img src="/2021/09/06/AQS/AbstractQueuedSynchronizer.png" alt="AbstractQueuedSynchronizer"></p>
 <ul>
 <li>  AQS 有两个内部类：<strong>ConditionObject</strong> 和 <strong>Node</strong></li>
 <li>  Sync 实现了 AQS，NofairSync 和 FairSync 实现了 Sync，所以说它们两个也实现了 AQS</li>
 <li>  Sync、NofairSync 和 FairSync 都是 ReentrantLock 的内部类，也即 Lock 的内部类</li>
 </ul>
 <hr>
-<h2 id="5-AQS-成员变量"><a href="#5-AQS-成员变量" class="headerlink" title="5    AQS 成员变量"></a>5    AQS 成员变量</h2><h3 id="5-1-AQS-成员变量"><a href="#5-1-AQS-成员变量" class="headerlink" title="5.1    AQS 成员变量"></a>5.1    AQS 成员变量</h3><p><img src="AQS/image-20210717091946871.png" alt="image-20210717091946871"></p>
+<h2 id="5-AQS-成员变量"><a href="#5-AQS-成员变量" class="headerlink" title="5    AQS 成员变量"></a>5    AQS 成员变量</h2><h3 id="5-1-AQS-成员变量"><a href="#5-1-AQS-成员变量" class="headerlink" title="5.1    AQS 成员变量"></a>5.1    AQS 成员变量</h3><p><img src="/2021/09/06/AQS/image-20210717091946871.png" alt="image-20210717091946871"></p>
 <ol>
 <li><p>静态内部类 <strong>Node</strong></p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Node</span>;	<span class="comment">// Node 节点是对线程的抽象，与线程绑定</span></span><br></pre></td></tr></table></figure></li>
@@ -495,7 +495,7 @@
 
 
 <hr>
-<h1 id="AQS-原理概述（以-ReentrantLock-为例）"><a href="#AQS-原理概述（以-ReentrantLock-为例）" class="headerlink" title="AQS 原理概述（以 ReentrantLock 为例）"></a>AQS 原理概述（以 ReentrantLock 为例）</h1><h2 id="ReentrantLock-和-AQS-的关系"><a href="#ReentrantLock-和-AQS-的关系" class="headerlink" title="ReentrantLock 和 AQS 的关系"></a>ReentrantLock 和 AQS 的关系</h2><p><img src="AQS/ReentrantLock_AQS_01.png" alt="ReentrantLock_AQS_01"></p>
+<h1 id="AQS-原理概述（以-ReentrantLock-为例）"><a href="#AQS-原理概述（以-ReentrantLock-为例）" class="headerlink" title="AQS 原理概述（以 ReentrantLock 为例）"></a>AQS 原理概述（以 ReentrantLock 为例）</h1><h2 id="ReentrantLock-和-AQS-的关系"><a href="#ReentrantLock-和-AQS-的关系" class="headerlink" title="ReentrantLock 和 AQS 的关系"></a>ReentrantLock 和 AQS 的关系</h2><p><img src="/2021/09/06/AQS/ReentrantLock_AQS_01.png" alt="ReentrantLock_AQS_01"></p>
 <p>ReentrantLock 类有一个内部类 Sync 继承了 AbstractQueuedSynchronizer 抽象类，说白了就是 ReentrantLock 中包含了一个 AQS 对象，AQS 对象是 ReentrantLock 实现加锁和释放锁的关键性核心组件。</p>
 <h2 id="ReentrantLock-加锁和释放锁的底层原理"><a href="#ReentrantLock-加锁和释放锁的底层原理" class="headerlink" title="ReentrantLock 加锁和释放锁的底层原理"></a>ReentrantLock 加锁和释放锁的底层原理</h2><blockquote>
 <ol>
@@ -504,11 +504,11 @@
 </blockquote>
 <p>如果现在有一个线程尝试调用 <code>ReentrantLock</code> 的 <code>lock()</code> 方法进行加锁，会发生什么事情呢？</p>
 <p>很简单。这个 AQS 对象内部有一个核心变量 <code>private volatile int state</code>，代表了加锁的状态。初始状态下，<code>state == 0</code>，另外，这个 AQS 内部还有一个关键变量，用来记录当前加锁的是哪个线程，初始化状态下，这个变量是 null。</p>
-<p><img src="AQS/ReentrantLock_AQS_01_1.png" alt="ReentrantLock_AQS_01_1"></p>
+<p><img src="/2021/09/06/AQS/ReentrantLock_AQS_01_1.png" alt="ReentrantLock_AQS_01_1"></p>
 <p>接着线程 T1 调用 ReentrantLock#lock() 方法尝试进行加锁，这个加锁的过程，就是用 CAS 操作将 state 值从 0 变成 1。</p>
 <p>如果 T1 之前没有其它线程加锁锁，那么 <code>state==0</code> 恒成立。此时线程 T1 就可以加锁成功。</p>
 <p>一旦线程 T1 加锁成功后，就可以设置当前加锁线程是自己。如下图所示，就是线程 T1 加锁的过程。</p>
-<p><img src="AQS/ReentrantLock_AQS_02.png" alt="ReentrantLock_AQS_02"></p>
+<p><img src="/2021/09/06/AQS/ReentrantLock_AQS_02.png" alt="ReentrantLock_AQS_02"></p>
 <p>说白了，AQS 其实就是 JUC 包中的一个核心组件，里面有 <strong>state 变量</strong>、<strong>加锁线程变量</strong>等核心的东西，维护了加锁的状态。</p>
 <p>而<strong>ReentrantLock 只是一个外层的 API，内核中的锁机制实现都是依赖于 AQS 组件的。</strong></p>
 <p>ReentrantLock 顾名思义是一个可重入锁，即可以使用一个 ReentrantLock 对象执行多次 <code>lock()</code> 和 <code>unlock()</code> 方法。</p>
@@ -523,7 +523,7 @@
 <li> 线程 T2 尝试获取锁，调用 <code>lock()</code> 方法，首先会去检查 <code>ReentrantLock.AQS.state</code> 变量是否为 0，发现不为 0，说明有线程正在使用锁，CAS 校验失败；</li>
 <li> 接着线程 T2 会继续查看当前加锁的线程是不是自己，“<strong>加锁线程</strong>”这个变量明确记录了是线程 T1 占用了这个锁，所以此时线程 T2 会加锁失败。</li>
 </ol>
-<p><img src="AQS/ReentrantLock_AQS_03.png" alt="ReentrantLock_AQS_03"></p>
+<p><img src="/2021/09/06/AQS/ReentrantLock_AQS_03.png" alt="ReentrantLock_AQS_03"></p>
 <blockquote>
 <ol start="3">
 <li> <strong>加锁失败</strong></li>
@@ -531,7 +531,7 @@
 </blockquote>
 <p>接着，线程 T2 会将自己放入 AQS 的同步等待队列中，因为自己尝试加锁失败了，此时就要将自己放入等待队列中，直到线程 T1 释放锁之后，自己就可以重新尝试加锁了。</p>
 <p>所以 AQS 内部还有一个同步等待队列，专门存放那些加锁失败的线程。</p>
-<p><img src="AQS/ReentrantLock_AQS_03_02.png" alt="ReentrantLock_AQS_03_02"></p>
+<p><img src="/2021/09/06/AQS/ReentrantLock_AQS_03_02.png" alt="ReentrantLock_AQS_03_02"></p>
 <blockquote>
 <ol start="4">
 <li> <strong>释放锁</strong></li>
@@ -547,7 +547,7 @@
 <p>线程 T2 重新尝试加锁，还是使用 CAS 操作将 state 从 0 变成 1，此时就会加锁成功，并将 state 设置为 1，同时把 “<strong>加锁线程”</strong> 设置为线程 T2 自己，同时线程 T2 从同步等待队列中出队。 </p>
 <hr>
 <h1 id="从-ReentrantLock-开始解读-AQS"><a href="#从-ReentrantLock-开始解读-AQS" class="headerlink" title="从 ReentrantLock 开始解读 AQS"></a>从 ReentrantLock 开始解读 AQS</h1><p>Lock 接口的实现类（如 ReentrantLock ），基本都是通过【聚合】了一个【队列同步器】的子类（sync ）完成线程访问控制的。</p>
-<p><img src="AQS/ReentrantLock.png" alt="ReentrantLock"></p>
+<p><img src="/2021/09/06/AQS/ReentrantLock.png" alt="ReentrantLock"></p>
 <p>ReentrantLock 类：</p>
 <ol>
 <li> 实现了 Lock 接口</li>
@@ -579,13 +579,13 @@
 <li> <strong>ReentrantLock 底层源码01</strong></li>
 </ol>
 </blockquote>
-<p><img src="AQS/ReentrantLock%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%8101.png" alt="ReentrantLock底层源码01"></p>
+<p><img src="/2021/09/06/AQS/ReentrantLock%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%8101.png" alt="ReentrantLock底层源码01"></p>
 <blockquote>
 <ol start="2">
 <li> <strong>公平锁和非公平锁的 tryAcquire() 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="AQS/fair_nonfair$tryAcquire.png" alt="fair_nonfair$tryAcquire"></p>
+<p><img src="/2021/09/06/AQS/fair_nonfair$tryAcquire.png" alt="fair_nonfair$tryAcquire"></p>
 <ul>
 <li>  hasQueuedPredecessors是公平锁加锁时判断等待队列中是否存在有效节点的方法</li>
 </ul>

@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Request 对象和 Response 对象是 TomCat 服务器在监听到请求后由 Servlet 程序自动创建的，我们可以在 Servlet 的实现类中直接使用。 Request 对象是用来获取请求消息的，Response 对象是用来返回响应消息的。  1    Request6.1.1    Request对象的继承结构12345ServletRequest		-- 接口	|（继承）Ht">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519150806643-1597652154014.png">
-<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519154532869-1597652154015.png">
-<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/HttpServletRequest%E5%92%8CHttpServletResponse/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp">
-<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519183919703-1597652154016.png">
+<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519150806643-1597652154014.png">
+<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519154532869-1597652154015.png">
+<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp">
+<meta property="og:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519183919703-1597652154016.png">
 <meta property="article:published_time" content="2021-11-25T14:24:14.000Z">
 <meta property="article:modified_time" content="2021-11-26T10:03:37.742Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519150806643-1597652154014.png">
+<meta name="twitter:image" content="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519150806643-1597652154014.png">
 
 
 <link rel="canonical" href="http://example.com/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/">
@@ -137,7 +137,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -481,7 +481,7 @@
 </blockquote>
 <h5 id="3-1、为什么要使用请求转发？"><a href="#3-1、为什么要使用请求转发？" class="headerlink" title="3.1、为什么要使用请求转发？"></a>3.1、为什么要使用请求转发？</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">客户端通过浏览器访问服务器资源； </span><br><span class="line">--&gt;&gt; </span><br><span class="line">在服务器内部，我们希望服务器是&quot;高内聚、低耦合&quot;的，尽量让每个类满足单一职责要求。	这种情况下，客户端要访问的资源就不可能只存储在一个类中，也就是说客户端一次请求所需要的资源需要在服务器的同一个工程下的多个类中获取。这时候就需要请求转发了；</span><br><span class="line">--&gt;&gt; </span><br><span class="line">请求转发规定了一块范围，这块范围内的所有数据可以共享。</span><br></pre></td></tr></table></figure>
 
-<p><img src="HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519150806643-1597652154014.png" alt="image-20200519150806643"></p>
+<p><img src="/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519150806643-1597652154014.png" alt="image-20200519150806643"></p>
 <h5 id="3-2、请求转发的特点"><a href="#3-2、请求转发的特点" class="headerlink" title="3.2、请求转发的特点"></a>3.2、请求转发的特点</h5><blockquote>
 <ul>
 <li>浏览器的地址栏路径不会发生变化。</li>
@@ -547,7 +547,7 @@
 </ol>
 </li>
 </ul>
-<p><img src="HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519154532869-1597652154015.png" alt="image-20200519154532869"></p>
+<p><img src="/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519154532869-1597652154015.png" alt="image-20200519154532869"></p>
 <ul>
 <li><p>如果不使用<code>&lt;base&gt;</code>，经过转发器转发后，<code>c.html</code>返回首页的链接就会以转发器所在的<code>ForwardC.java</code>类的绝对路径为标准进行相对查找，这样找到的路径是不对的。</p>
 </li>
@@ -689,8 +689,8 @@
 </ul>
 </li>
 </ol>
-<h3 id="6-2-2-重定向-vs-转发"><a href="#6-2-2-重定向-vs-转发" class="headerlink" title="6.2.2    重定向 vs. 转发"></a>6.2.2    重定向 vs. 转发</h3><p><img src="HttpServletRequest%E5%92%8CHttpServletResponse/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp"></p>
-<p><img src="HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519183919703-1597652154016.png" alt="image-20200519183919703"></p>
+<h3 id="6-2-2-重定向-vs-转发"><a href="#6-2-2-重定向-vs-转发" class="headerlink" title="6.2.2    重定向 vs. 转发"></a>6.2.2    重定向 vs. 转发</h3><p><img src="/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/%E9%87%8D%E5%AE%9A%E5%90%91-1597652154015.bmp"></p>
+<p><img src="/2021/11/25/HttpServletRequest%E5%92%8CHttpServletResponse/image-20200519183919703-1597652154016.png" alt="image-20200519183919703"></p>
 <ul>
 <li><p>重定向：<code>redirect</code></p>
 <ol>

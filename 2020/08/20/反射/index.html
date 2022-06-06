@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1    类的加载、连接和初始化​    系统可能在第一次使用某个类时加载该类，也可能采用预加载机制来加载某个类。 1.1    JVM和类​        当运行某个Java程序时会启动一个Java虚拟机进程，不管该Java进程有多么复杂，该程序启动了多少个线程，它们都处于Java虚拟机进程里。也就是说，同一个JVM的所有线程、所有变量都处于同一个进程里，它们都使用该JVM进程的内存区。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/%E5%8F%8D%E5%B0%84/image-20210804115254782.png">
-<meta property="og:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp">
+<meta property="og:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/image-20210804115254782.png">
+<meta property="og:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp">
 <meta property="article:published_time" content="2020-08-20T02:08:25.000Z">
 <meta property="article:modified_time" content="2021-08-04T04:18:32.485Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="JavaSE">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/%E5%8F%8D%E5%B0%84/image-20210804115254782.png">
+<meta name="twitter:image" content="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/image-20210804115254782.png">
 
 
 <link rel="canonical" href="http://example.com/2020/08/20/%E5%8F%8D%E5%B0%84/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -355,7 +355,7 @@
 <li>  动态调用的好处：将编译期异常转移到运行期异常，降低耦合度。</li>
 </ul>
 <hr>
-<h2 id="2-3-反射机制能提供的功能"><a href="#2-3-反射机制能提供的功能" class="headerlink" title="2.3    反射机制能提供的功能"></a>2.3    反射机制能提供的功能</h2><p><img src="%E5%8F%8D%E5%B0%84/image-20210804115254782.png" alt="image-20210804115254782"></p>
+<h2 id="2-3-反射机制能提供的功能"><a href="#2-3-反射机制能提供的功能" class="headerlink" title="2.3    反射机制能提供的功能"></a>2.3    反射机制能提供的功能</h2><p><img src="/2020/08/20/%E5%8F%8D%E5%B0%84/image-20210804115254782.png" alt="image-20210804115254782"></p>
 <h2 id="2-4-相关-API"><a href="#2-4-相关-API" class="headerlink" title="2.4    相关 API"></a>2.4    相关 API</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Class: <span class="comment">// 反射的源头</span></span><br><span class="line">java.lang.reflect.Method</span><br><span class="line">java.lang.reflect.Field</span><br><span class="line">java.lang.reflect.Constructor</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
 
 
@@ -363,7 +363,7 @@
 
 
 <hr>
-<h1 id="3-Java代码在计算机中经历的三个阶段"><a href="#3-Java代码在计算机中经历的三个阶段" class="headerlink" title="3    Java代码在计算机中经历的三个阶段"></a>3    Java代码在计算机中经历的三个阶段</h1><p><img src="%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp"></p>
+<h1 id="3-Java代码在计算机中经历的三个阶段"><a href="#3-Java代码在计算机中经历的三个阶段" class="headerlink" title="3    Java代码在计算机中经历的三个阶段"></a>3    Java代码在计算机中经历的三个阶段</h1><p><img src="/2020/08/20/%E5%8F%8D%E5%B0%84/Java%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5.bmp"></p>
 <h2 id="3-1-源代码阶段（Source）"><a href="#3-1-源代码阶段（Source）" class="headerlink" title="3.1.    源代码阶段（Source）"></a>3.1.    源代码阶段（Source）</h2><ol>
 <li><code>Person.java</code> 阶段，这个类中包含：</li>
 </ol>
@@ -701,7 +701,7 @@
 
 
 
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<h2 id><a href="#" class="headerlink" title></a></h2>
     </div>
 
     

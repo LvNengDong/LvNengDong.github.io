@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="01 | 基础架构：一条SQL查询语句是如何执行的？人们经常说，看待一件事儿千万不要直接陷入细节里，你应该先鸟瞰其全貌，这样能够帮助你从更高的维度理解问题。同样，对于 MySQL 的学习也是如此。平常我们使用数据库，看到的通常都是一个整体。比如，你有个最简单的表，表里只有一个 ID 字段，在执行下面这条查询语句的时候： 1select * from T where ID&#x3D;10;  我们看到的只是一">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316142834564.png">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317110516145.png">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317122356838.png">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412162803566.png">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412164433876.png">
-<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412165512818.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316142834564.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317110516145.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317122356838.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412162803566.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412164433876.png">
+<meta property="og:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412165512818.png">
 <meta property="article:published_time" content="2022-03-16T05:43:05.000Z">
 <meta property="article:modified_time" content="2022-04-13T10:38:28.997Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png">
+<meta name="twitter:image" content="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png">
 
 
 <link rel="canonical" href="http://example.com/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/">
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -243,7 +243,7 @@
 <p>我们看到的只是一条输入语句，返回一个结果，却不知道这条语句在 MySQL 内部的执行过程。</p>
 <p>所以，今天我们要通过这条最简单的查询语句把 MySQL 拆解一下，看看里面都有哪些“零件”。借由这个拆解过程，可以让我们对 MySQL 能有更深刻的理解。这样，当我们碰到 MySQL 的一些异常或者问题时，就能够直指本质，能更快地定位并解决问题。</p>
 <p>下图是 MySQL 的基本架构示意图，从中可以清楚地看到 SQL 语句在 MySQL 的各个模块中流转的过程。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png" alt="image-20220316135623293"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png" alt="image-20220316135623293"></p>
 <p>大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。</p>
 <ul>
 <li>  Server 层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 中大多数的核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），<u>所有跨存储引擎的功能都在这一层实现</u>，比如存储过程、触发器、视图等。</li>
@@ -262,7 +262,7 @@
 <li>  如果用户密码认证通过，连接器将会继续到权限表中查出当前登录用户拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。【这就意味着，一个用户成功建立连接后，即使我们用管理员账号对这个用户的权限做了修改，也不会影响已存在连接的权限。修改完成后，只有重新建立的连接才会应用新的权限】</li>
 </ul>
 <p>连接完成后，如果我们没有后续的操作，这个连接就会一直处于空闲状态。我们可以用 <code>show processlist</code> 命令查看连接的状态。下面这张图就是 show processlist 命令的执行结果，其中 Command 列显示为 “Sleep” 的这行，就表示现在系统里有一个空闲连接。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316142834564.png" alt="image-20220316142834564"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316142834564.png" alt="image-20220316142834564"></p>
 <p>客户端如果太长时间没动静，连接器就会自动将它断开。这个时间参数是由 <code>wait_timeout</code> 控制的，默认值是 8 小时。</p>
 <p>如果连接断开之后，客户端再次发送请求的话，就会收到一个错误提醒：Lost connection to MySQL server during query。这时候如果想要继续操作，就需要重新连接，然后再执行请求了。</p>
 <h3>长连接 & 短连接</h3>
@@ -372,7 +372,7 @@
 </blockquote>
 <p>如果今天赊账的人不多，掌柜可以等打烊以后再整理。但如果某天赊账的人特别多，没下班之前粉板就写满了，又该怎么办呢？这个时候掌柜只好放下手中的活儿，把粉板中的一部分赊账记录更新到账本中，然后再把这些记录从粉板上擦掉，为记新账腾出空间。</p>
 <p>与此类似，InnoDB 的 redo log 是固定大小的，比如可以配置一组 4 个文件，每个文件的大小是 1GB，那么这块“粉板”总共就可以记录 4GB 的操作。<u>从头开始写，写到末尾又回到开头循环写【环状结构】</u>。如下图所示。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317110516145.png" alt="image-20220317110516145"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317110516145.png" alt="image-20220317110516145"></p>
 <ul>
 <li>  <code>write pos</code> 是当前记录的位置，一边写一边往后移，写到第 3 号文件末尾后就回到 0 号文件开头。</li>
 <li>  <code>checkpoint</code> 是当前要擦除的位置，也是往后推移并且循环的，擦除记录前要把记录更新到磁盘中的数据文件。</li>
@@ -402,7 +402,7 @@
 <li> 执行器调用引擎的提交事务接口，引擎把刚刚写入的 redo log 改成提交（commit）状态，更新完成。</li>
 </ol>
 <p>这条 update 语句的执行流程如下图所示，图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行的。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317122356838.png" alt="image-20220317122356838"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317122356838.png" alt="image-20220317122356838"></p>
 <p>最后三步看起来有点“绕”，将 redo log 的写入拆成了两个步骤：prepare 和 commit，这就是“两阶段提交”。</p>
 <hr>
 <h2 id="两阶段提交"><a href="#两阶段提交" class="headerlink" title="两阶段提交"></a>两阶段提交</h2><blockquote>
@@ -447,7 +447,7 @@
 <h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>哈希表是一种以『键-值（key-value）』存储数据的结构，我们只要输入待查找的值（即 key），就可以找到其对应的值（即 value）。哈希的思路很简单，就是用一个哈希函数把 key 换算成一个确定的位置 index，然后把 value 放在数组的这个位置。</p>
 <p>不可避免地，多个 key 经过哈希函数的换算，会出现同一个 index 的情况。处理这种情况的一种方法是，拉出一个链表。</p>
 <p>假设，你现在维护者一个身份证信息和姓名的表，需要根据身份证号查找对应的名字，这时对应的哈希索引的示意图如下所示：</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412162803566.png" alt="image-20220412162803566"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412162803566.png" alt="image-20220412162803566"></p>
 <p>图中，User2 和 User4 根据身份证号算出来的 index 都是 N，但是没关系，后面还跟了一个链表。假设，这时候你要查 ID_card_n2 对应的名字是什么，处理步骤就是：首先，将 ID_card_n2 通过哈希函数算出 N；然后，按顺序遍历，找到 User2。</p>
 <p>需要注意的是：图中的四个 ID_card_n 的值并不是递增的，这样做的好处是增加新的 User 时速度会很快，只需要往后追加即可。但缺点是，<strong>因为不是有序的，所以哈希索引做区间查询的速度是很慢的。</strong></p>
 <blockquote>
@@ -466,13 +466,13 @@
 </ul>
 </blockquote>
 <p>还是上面这个根据身份证号查名字的例子，如果我们使用有序数组来实现的话，示意图如下所示：</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412164433876.png" alt="image-20220412164433876"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412164433876.png" alt="image-20220412164433876"></p>
 <p>这里我们假设身份证号没有重复，这个数组就是按照身份证号递增的顺序保存的。这时候如果你要查 ID_card_n2 对应的名字，用二分法就可以快速得到，时间复杂度为 O(log n)。</p>
 <p>同时很显然，这个索引模型支持范围查询。你要查身份证号在 <code>[ID_card_X, ID_card_Y]</code> 区间的 User，可以先用二分法找到 ID_card_X（如果 ID_card_X 不存在，就找到大于 ID_card_X 的第一个 User），然后向右遍历，直到查到第一个大于 ID_card_Y 的身份证号，退出循环。</p>
 <p>如果仅看查询效率，有序数组就是最好的数据结构了。但是，在需要更新数据的时候就太麻烦了，你往中间插入一条记录就必须挪动后面的所有记录，成本太高。</p>
 <p>所以，<strong>有序数组只适用于静态存储引擎</strong>。比如，你要保存 2017 年某个城市的所有人口信息，这类不会再修改的数据。</p>
 <h3 id="搜索树"><a href="#搜索树" class="headerlink" title="搜索树"></a>搜索树</h3><p>还是上面根据身份证号查名字的例子，如果我们使用『二叉搜索树』来实现的话，示意图如下所示：</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412165512818.png" alt="image-20220412165512818"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412165512818.png" alt="image-20220412165512818"></p>
 <p>二叉搜索树的特点是：每个节点的左儿子的值小于父节点的值，而父节点的值又小于右儿子的值。这样，如果你要查 ID_card_n2 的话，按照图中的搜索顺序就是按照 UserA -&gt; UserC -&gt; UserF -&gt; User2 这个路径得到的，时间复杂度为 O(log n)</p>
 <p>当然，<u>为了维持 O(log n) 的时间复杂度，你就必须维持这棵树是平衡二叉树。为了做这个保证，更新的时间复杂度也达到了 O(log n)</u>。</p>
 <blockquote>

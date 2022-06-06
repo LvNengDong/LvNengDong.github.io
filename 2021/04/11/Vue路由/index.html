@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="什么是路由路由就是一组映射关系，即&lt;K, V&gt;键值对。 在前端（Vue）中，K 是 Path，V 是 通过这个 Path 要访问的组件。  Vue-Router 概述 Vue-Router 是官方提供的用来实现 SPA（Single Page Application） 的 vue 插件 GitHub地址：https:&#x2F;&#x2F;github.com&#x2F;vuejs&#x2F;vue-router 官方文档（">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/04/11/Vue%E8%B7%AF%E7%94%B1/Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png">
+<meta property="og:image" content="http://example.com/2021/04/11/Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png">
 <meta property="article:published_time" content="2021-04-11T03:12:35.000Z">
 <meta property="article:modified_time" content="2022-03-24T11:23:09.129Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/04/11/Vue%E8%B7%AF%E7%94%B1/Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png">
+<meta name="twitter:image" content="http://example.com/2021/04/11/Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png">
 
 
 <link rel="canonical" href="http://example.com/2021/04/11/Vue%E8%B7%AF%E7%94%B1/">
@@ -144,7 +144,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -299,7 +299,7 @@
 <li>  非路由组件：无需进行路由跳转的组件，一般放在 <strong>components</strong> 目录下</li>
 </ul>
 <p>在真实开发中，一般会专门创建一个 <strong>src/router/index.js</strong> 文件用于配置全局路由信息。</p>
-<p><img src="Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png" alt="image-20210411113552483"></p>
+<p><img src="/2021/04/11/Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png" alt="image-20210411113552483"></p>
 <p><strong>src/router/index.js</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 全局路由配置 </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 1、引入 vue 插件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 2、引入 vue-router 插件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、声明使用 VueRouter 实例</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueRouter</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前js文件中使用到的其它组件（在配置路由信息时需要映射到Vue组件）</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&quot;../views/About&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&quot;../views/Home&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、导出 VueRouter 路由对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="comment">// 5、配置路由表</span></span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="string">&#x27;About&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="string">&#x27;Home&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 

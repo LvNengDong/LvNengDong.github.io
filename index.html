@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -156,6 +156,499 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/03/Activiti7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/03/Activiti7/" class="post-title-link" itemprop="url">Activiti7</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-03 11:51:15" itemprop="dateCreated datePublished" datetime="2022-06-03T11:51:15+08:00">2022-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-06-05 18:31:25" itemprop="dateModified" datetime="2022-06-05T18:31:25+08:00">2022-06-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" itemprop="url" rel="index"><span itemprop="name">工作流</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="第一章-工作流概述"><a href="#第一章-工作流概述" class="headerlink" title="第一章 工作流概述"></a>第一章 工作流概述</h1><h2 id="1、什么是工作流"><a href="#1、什么是工作流" class="headerlink" title="1、什么是工作流"></a>1、什么是工作流</h2><p>…</p>
+<h2 id="2、工作流应用场景"><a href="#2、工作流应用场景" class="headerlink" title="2、工作流应用场景"></a>2、工作流应用场景</h2><ul>
+<li>  业务类：合同审批流程、订单处理流程、出入库审批流程等。</li>
+<li>  行政类：请假流程、出差流程、办公用品申请流程等。</li>
+<li>  财务类：报销流程、支付流程等。</li>
+<li>  客户服务类：售后跟踪、客户投诉等。</li>
+</ul>
+<h2 id="3、BPMN2-0规范"><a href="#3、BPMN2-0规范" class="headerlink" title="3、BPMN2.0规范"></a>3、BPMN2.0规范</h2><h3 id="3-1-BPMN2-0是什么"><a href="#3-1-BPMN2-0是什么" class="headerlink" title="3.1 BPMN2.0是什么"></a>3.1 BPMN2.0是什么</h3><p>BPMN，Business Process Modeling Notation，业务流程模型注解。</p>
+<h3 id="3-2-BPMN2-0基本流程符号"><a href="#3-2-BPMN2-0基本流程符号" class="headerlink" title="3.2 BPMN2.0基本流程符号"></a>3.2 BPMN2.0基本流程符号</h3><h4 id="事件Event"><a href="#事件Event" class="headerlink" title="事件Event"></a>事件Event</h4><p><img src="/2022/06/03/Activiti7/image-20220605171023417.png" alt="image-20220605171023417"></p>
+<h4 id="活动Activity"><a href="#活动Activity" class="headerlink" title="活动Activity"></a>活动Activity</h4><p>活动是工作或任务的一个通用术语。</p>
+<p>一个活动可以是一个任务，还可以是一个当前流程的子处理流程；其次，你还可以为活动指定不同的类型。</p>
+<p>常见的活动如下：</p>
+<p><img src="/2022/06/03/Activiti7/image-20220605171205918.png" alt="image-20220605171205918"></p>
+<h4 id="网关Gateway"><a href="#网关Gateway" class="headerlink" title="网关Gateway"></a>网关Gateway</h4><p>网关用来处理决策：</p>
+<p><img src="/2022/06/03/Activiti7/image-20220605171309046.png" alt="image-20220605171309046"></p>
+<p><strong>排他网关（X）</strong></p>
+<ul>
+<li>  只有一条路径会被选择。流程执行到该网关时，按照输出流的顺序逐个计算，当条件的计算结果为true时，继续执行当前网关的输出流。</li>
+<li>  如果多条线路的计算结果都是true，则会执行第一个为true的线路。如果所有网关的计算没有true，则抛出异常。</li>
+<li>  排他网关需要和条件顺序流结合使用。使用default属性指定默认的顺序流，当所有的条件都不满足时会执行默认顺序流。</li>
+</ul>
+<p><strong>并行网关（+）</strong></p>
+<ul>
+<li>所有路径会被同时选择。<ul>
+<li>  分支：并行执行所有输出顺序流，为每一条顺序流创建一个并行执行线路。</li>
+<li>  汇聚：所有从并行网关拆分并执行完的线路均在此等候，直到所有的线路都执行完成才继续向后执行。</li>
+</ul>
+</li>
+</ul>
+<p><strong>包含网关（o）</strong></p>
+<ul>
+<li>可以同时执行多条线路，也可以在网关上设置条件。<ul>
+<li>  分支：计算每条线路上的表达式，当表达式的结果为true时，创建一个并行线路并继续执行。</li>
+<li>  汇聚：所有从并行网关拆分并执行完成的线路均在此等候，直到所有的线路都执行完成才继续向下执行。</li>
+</ul>
+</li>
+</ul>
+<p><strong>事件网关（o+）</strong></p>
+<ul>
+<li>  专门为中间捕获事件设置的，允许设置多个输出流指向多个不同的中间捕获事件。当流程执行到事件网关后，流程处于等待状态，需要等待抛出事件才能将等待状态转换为活动状态。</li>
+</ul>
+<h4 id="定时器事件"><a href="#定时器事件" class="headerlink" title="定时器事件"></a>定时器事件</h4><p><img src="/2022/06/03/Activiti7/image-20220605172512814.png" alt="image-20220605172512814"></p>
+<ul>
+<li>开始定时器事件<ul>
+<li>  可以设置时间，定时开始启动流程实例。</li>
+</ul>
+</li>
+<li>中间定时器事件<ul>
+<li>  设定延迟时间，当完成任务A后，到达延时时间后，流程才会走向任务B。</li>
+</ul>
+</li>
+<li>边界定时器事件<ul>
+<li>  用于向某节点上添加边界定时事件。在设定时间内没有完成，流程实例则自动走向下一节点。</li>
+</ul>
+</li>
+</ul>
+<h1 id="第二章-Activiti"><a href="#第二章-Activiti" class="headerlink" title="第二章 Activiti"></a>第二章 Activiti</h1><h2 id="1、什么是Activiti"><a href="#1、什么是Activiti" class="headerlink" title="1、什么是Activiti"></a>1、什么是Activiti</h2><p>官网：<a target="_blank" rel="noopener" href="https://www.activiti.org/">https://www.activiti.org/</a></p>
+<h2 id="2、Activiti开发流程"><a href="#2、Activiti开发流程" class="headerlink" title="2、Activiti开发流程"></a>2、Activiti开发流程</h2><ol>
+<li><p>绘制流程定义模型</p>
+<p> 遵循BPMN的流程规范，使用BPMN的流程定义工具，通过<strong>流程符号</strong>把整个业务流程定义出来。可以将流程定义文件的字节流保存到模型数据表中（Model）。</p>
+</li>
+<li><p>部署流程定义：</p>
+<p> 就是将第一步画好的流程定义模型进行部署。</p>
+<p> 加载画好的流程定义文件，将它转换成流程定义数据（ProcessDefinition），保存到流程定义数据表中。</p>
+</li>
+<li><p>启动流程（提交流程申请）</p>
+<p> 部署好了流程定义之后就可以使用这个流程了。</p>
+<p> 启动流程实例就是提交申请，比如申请请假就是提交了一个流程实例、申请报销也是提交了一个流程实例</p>
+<p> 生成流程实例数据（ProcessInstance），生成第一节点任务数据（Task）</p>
+</li>
+<li><p>处理人审批流程节点任务</p>
+<p> 完成任务审批。生成审批结果，生成下一节点任务数据。</p>
+</li>
+</ol>
+<p><img src="/2022/06/03/Activiti7/Activiti%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B.svg" alt="Activiti开发流程"></p>
+<h2 id="3、开发环境"><a href="#3、开发环境" class="headerlink" title="3、开发环境"></a>3、开发环境</h2><h3 id="3-1-框架版本号"><a href="#3-1-框架版本号" class="headerlink" title="3.1 框架版本号"></a>3.1 框架版本号</h3><table>
+<thead>
+<tr>
+<th align="center">开发环境</th>
+<th align="center">版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SpringBoot</td>
+<td align="center">2.5.0</td>
+</tr>
+<tr>
+<td align="center">Activiti</td>
+<td align="center">7.1.0.M6</td>
+</tr>
+<tr>
+<td align="center">JDK</td>
+<td align="center">1.8</td>
+</tr>
+<tr>
+<td align="center">MySQL</td>
+<td align="center">8.0</td>
+</tr>
+<tr>
+<td align="center">Maven</td>
+<td align="center">3.6.3</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-Activiti支持的数据库"><a href="#3-2-Activiti支持的数据库" class="headerlink" title="3.2 Activiti支持的数据库"></a>3.2 Activiti支持的数据库</h3><p>Activiti 实质上就是通过数据库的数据表来控制业务流程。其支持的数据库如下：</p>
+<table>
+<thead>
+<tr>
+<th>数据库类型</th>
+<th>JDBC连接示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h2</td>
+<td><code>jdbc:h2:tcp://localhost/activiti</code></td>
+<td>默认使用的数据库</td>
+</tr>
+<tr>
+<td>mysql</td>
+<td><code>jdbc:mysql://localhost:3306/activiti?autoReconnect=true</code></td>
+<td>使用<code>mysql-connector-java</code>数据库驱动程序进行测试</td>
+</tr>
+<tr>
+<td>oracle</td>
+<td><code>jdbc:oracle:thin:@localhost:1521:xe</code></td>
+<td></td>
+</tr>
+<tr>
+<td>postgres</td>
+<td><code>jdbc:postgresql://localhost:5432/activiti</code></td>
+<td></td>
+</tr>
+<tr>
+<td>db2</td>
+<td><code>jdbc:db2://localhost:50000/activiti</code></td>
+<td></td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-依赖坐标"><a href="#3-3-依赖坐标" class="headerlink" title="3.3 依赖坐标"></a>3.3 依赖坐标</h3><ul>
+<li><p>Activiti核心依赖</p>
+<ul>
+<li>  在Maven项目中，只需导入该依赖即可使用Activiti的核心功能</li>
+</ul>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--activiti核心依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>7.1.0.M6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>SpringBoot整合Activiti依赖</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    </span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="4、Activiti配置入门"><a href="#4、Activiti配置入门" class="headerlink" title="4、Activiti配置入门"></a>4、Activiti配置入门</h2><blockquote>
+<p>  <strong>前置：</strong></p>
+<ol>
+<li> 在MySQL服务器中创建一个 activiti01 数据库；</li>
+<li> 创建Maven项目并导入相关依赖；</li>
+</ol>
+</blockquote>
+<h3 id="4-1-activiti-cfg-xml-核心配置"><a href="#4-1-activiti-cfg-xml-核心配置" class="headerlink" title="4.1 activiti.cfg.xml 核心配置"></a>4.1 activiti.cfg.xml 核心配置</h3><p>Activiti 流程引擎通过名为 <code>activiti.cfg.xml</code> 的配置文件进行配置。所以需要在 resource 目录下创建 <code>activiti.cfg.xml</code> 文件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--默认情况下，bean的id必须是processEngineConfiguration--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;processEngineConfiguration&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--配置数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/activiti01?nullCatalogMeansCurrent=true<span class="symbol">&amp;amp;</span>autoReconnect=true<span class="symbol">&amp;amp;</span>characterEncoding=utf8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--characterEncoding=utf8 ：防止向MySQL中插入中文数据时乱码--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--nullCatalogMeansCurrent=true ：解决数据库初始化时自动创建表的问题--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &amp;amp;  转义符+分隔符--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcDriver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUsername&quot;</span> <span class="attr">value</span>=<span class="string">&quot;mysql_lvnengdong&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcPassword&quot;</span> <span class="attr">value</span>=<span class="string">&quot;AdminLnd5639634&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--activiti 数据库表的生成策略--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">            自动更新数据库结构：</span></span><br><span class="line"><span class="comment">                true：默认值，适用于开发环境。activiti会对数据库中所有表进行更新操作。如果表不存在，则自动创建。</span></span><br><span class="line"><span class="comment">                false：适用于生产环境。activiti在启动时，会对比当前数据库中表的版本，不过没有表或者版本不匹配，则抛出异常。</span></span><br><span class="line"><span class="comment">                create_drop：在activiti启动时创建表，在关闭时删除表（必须手动关闭引擎，才能删除表）</span></span><br><span class="line"><span class="comment">                drop_create：在activiti启动时删除原来的旧表，然后再创建新表（不需要手段关闭引擎）</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;databaseSchemaUpdate&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  <strong>注意：</strong></p>
+<ul>
+<li>  为了防止向MySQL数据库中插入中文数据时乱码，需要设置插入数据的字符编码为UTF8。</li>
+<li>  数据库连接URL后面可以添加多个属性，当存在多个属性时，彼此之间需要使用『转义符+封号』<code>&amp;amp;</code> 分隔。 </li>
+</ul>
+</blockquote>
+<h3 id="4-2-创建ProcessEngine流程引擎实例和数据表"><a href="#4-2-创建ProcessEngine流程引擎实例和数据表" class="headerlink" title="4.2 创建ProcessEngine流程引擎实例和数据表"></a>4.2 创建ProcessEngine流程引擎实例和数据表</h3><p>加载类路径下的 <code>activiti.cfg.xml</code> 配置文件，根据该文件中的配置构造一个流程引擎实例。在创建该实例的时候，会执行数据库的初始化脚本创建数据表。</p>
+<p>创建ProcessEngine流程引擎实例的方式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngine;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngineConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngines;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/6/3 17:42</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivitiTest01</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建流程引擎实例。</span></span><br><span class="line"><span class="comment">     * 在创建流程引擎实例的时候，会执行数据库初始化脚本，在数据库中创建25张表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getProcessEngine</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 方式一：使用工具类ProcessEngines获取默认的流程引擎实例</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 使用这种方式，要求核心配置文件中流程引擎实例的id必须是 “processEngineConfiguration”</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine</span> <span class="operator">=</span> ProcessEngines.getDefaultProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine：&quot;</span> + processEngine);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 方式二：使用配置类创建流程引擎实例（等同于方式一）</span></span><br><span class="line"><span class="comment">        *   查看源码可知，该方法底层调用了 createProcessEngineConfigurationFromResource 方法，并指定了</span></span><br><span class="line"><span class="comment">        *   配置文件的路径为 activiti.cfg.xml ，核心实例的 beanName 为 processEngineConfiguration</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        *   所以，举一反三可以知道，如果想自定义配置文件的路径和核心实例的 beanName，可直接调用</span></span><br><span class="line"><span class="comment">        *   createProcessEngineConfigurationFromResource 方法</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="type">ProcessEngineConfiguration</span> <span class="variable">configuration</span> <span class="operator">=</span> ProcessEngineConfiguration.createProcessEngineConfigurationFromResourceDefault();</span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine1</span> <span class="operator">=</span> configuration.buildProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine1：&quot;</span> + processEngine1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 方式三：显式指定配置文件路径和 beanName</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="type">ProcessEngineConfiguration</span> <span class="variable">configuration1</span> <span class="operator">=</span> ProcessEngineConfiguration.createProcessEngineConfigurationFromResource(<span class="string">&quot;activiti.cfg.bak.xml&quot;</span>, <span class="string">&quot;myProcessEngineConfiguration&quot;</span>);</span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine2</span> <span class="operator">=</span> configuration1.buildProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine2：&quot;</span> + processEngine2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="4-3-Activiti的25张数据表分析"><a href="#4-3-Activiti的25张数据表分析" class="headerlink" title="4.3 Activiti的25张数据表分析"></a>4.3 Activiti的25张数据表分析</h3><p>Activiti 在创建 ProcessEngine 流程实例的时候会自动创建25张数据表，这正是 Activiti 能实现工作流的基础。</p>
+<p><img src="/2022/06/03/Activiti7/image-20220604091757471.png" alt="image-20220604091757471"></p>
+<p>Activiti 数据库中表的命名都是以 <code>act_</code> 开头的。<code>act_</code> 代表 Activiti。</p>
+<ul>
+<li>  <code>act_ge_*</code>：ge 是 generate 的缩写。这些表存放通用数据。即在各种情况下都会使用的数据，比如资源文件（图片、规则等）。</li>
+<li>  <code>act_hi_*</code>：hi 是 history 的缩写。这些表存放历史数据，如结束的流程实例（变量、任务等）</li>
+<li>  <code>act_re_*</code>：re 是 repository 的缩写。这些表存放静态数据信息。比如，流程定义、流程的资源（图片、规则等）。Activiti 只在流程实例执行过程中保存这些数据，在流程结束时就会删除这些记录。这样运行时表就可以一直很小、速度很快。</li>
+<li>  <code>act_ru_*</code>：ru 是 runtime 的缩写。这些表是运行时的流程变量，用户任务、职责等运行时的数据。Activiti 只存储实例执行期间的运行时数据，当流程实例结束时，将删除这些记录。这就保证了这些运行时的表小且快。</li>
+<li>  <code>act_evt_log</code>：evt 是 event 的缩写。这张表是流程引擎通用事件的日志记录表，方便管理员跟踪处理。</li>
+<li>  <code>act_procdef_info</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通用数据</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_ge_bytearray</td>
+<td>二进制数据表。主要用来存储一些字节数据，比如涉及到的图片、画的流程图以及对应的XML文件，都会以二进制数据保存在这张表中。</td>
+</tr>
+<tr>
+<td>act_ge_property</td>
+<td>属性数据表。存储整个Activiti引擎的元数据信息。初始化表结构时，会插入版本号信息等。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>历史数据</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_hi_actinst</td>
+<td>历史节点表</td>
+</tr>
+<tr>
+<td>act_hi_attachment</td>
+<td>历史附件表。比如审批可能会涉及到提交附件，就会保存在这张表中。</td>
+</tr>
+<tr>
+<td>act_hi_comment</td>
+<td>历史意见表。如果审批时除了“批准”或“不批准”外，还需要编辑“审批意见”，则“审批意见”会保存在这张表中。</td>
+</tr>
+<tr>
+<td>act_hi_detail</td>
+<td>历史详情表。提供历史变量查询。</td>
+</tr>
+<tr>
+<td>act_hi_identitylink</td>
+<td>历史流程人员表。每个节点对应的审批人/处理人的信息。</td>
+</tr>
+<tr>
+<td>act_hi_procinst</td>
+<td>历史流程实例表。procinst = process instance。每次提交申请，都会保存一份历史数据</td>
+</tr>
+<tr>
+<td>act_hi_taskinst</td>
+<td>历史任务实例表</td>
+</tr>
+<tr>
+<td>act_hi_varinst</td>
+<td>历史变量表</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>流程定义表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_re_deployment</td>
+<td>部署信息表</td>
+</tr>
+<tr>
+<td>act_re_model</td>
+<td>流程设计模型表</td>
+</tr>
+<tr>
+<td>act_re_procdef</td>
+<td>流程定义数据表</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>流程运行数据表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_ru_deadletter_job</td>
+<td>作业死亡信息表。如果作业失败超过重试次数，则写入到此表。</td>
+</tr>
+<tr>
+<td>act_ru_event_subscr</td>
+<td>throwEvent、catchEvent时间监听信息表</td>
+</tr>
+<tr>
+<td>act_ru_execution</td>
+<td>运行时流程执行实例表</td>
+</tr>
+<tr>
+<td>act_ru_identitylink</td>
+<td>运行时流程人员表。主要存储任务节点与参与者的相关信息。</td>
+</tr>
+<tr>
+<td>act_ru_integration</td>
+<td>运行时积分表。</td>
+</tr>
+<tr>
+<td>act_ru_job</td>
+<td>定时异步任务数据表。</td>
+</tr>
+<tr>
+<td>act_ru_suspended_job</td>
+<td>运行时作业暂停表。比如流程中有一个定时任务，如果把这个任务停止工作了，这个任务写入此表中。</td>
+</tr>
+<tr>
+<td>act_ru_task</td>
+<td>运行时任务节点表。</td>
+</tr>
+<tr>
+<td>act_ru_timer_job</td>
+<td>运行时定时器作业表。</td>
+</tr>
+<tr>
+<td>act_ru_variable</td>
+<td>运行时流程变量数据表。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>其它表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_procdef_info</td>
+<td>流程定义的动态变更信息。procdef = process definition。即如果流程的定义发生了变更，会在这张表中进行记录。</td>
+</tr>
+<tr>
+<td>act_evt_log</td>
+<td>通用事件日志记录表。</td>
+</tr>
+</tbody></table>
+<p>act_hi_detail，提供历史变量查询。比如在请假流程中，如果“请假时间&lt;3天”由直接部门领导审批即可，如果“请假时间&gt;3天”，则需要总经理审核。这其中，“3天”就是一个历史变量，而历史变量就会保存在 act_hi_detail 表中。</p>
+<h2 id="Activiti-API服务接口"><a href="#Activiti-API服务接口" class="headerlink" title="Activiti API服务接口"></a>Activiti API服务接口</h2><p>Activiti 流程引擎包含了 25 张表，而且表间关系复杂，理解难度高。</p>
+<p>按照传统的方式，有了数据库表后，就应该为每张表创建 Entity 实体类，然后为其创建对应的 DAO 接口，然后再创建对应的 Service 来实现对表数据的增删改查。</p>
+<p>但是这些表数量多，关系复杂，还要兼顾流程引擎的处理方式，自己去实现一套处理规则难度很大。</p>
+<p>因此 Activiti 已经帮我们把这些东西都实现了，不需要我们手动去创建 Entity、Dao、Service、Controller，它提供了一套简单易用的 APi，我们直接调用即可完成对应的功能。</p>
+<p><img src="/2022/06/03/Activiti7/image-20220604111356712.png" alt="image-20220604111356712"></p>
+<blockquote>
+<p>  <strong>Tip</strong></p>
+<p>  Activiti7 中没有 IdentityService 和 FormService 接口。</p>
+</blockquote>
+<h3 id="Activiti7的Service核心接口"><a href="#Activiti7的Service核心接口" class="headerlink" title="Activiti7的Service核心接口"></a>Activiti7的Service核心接口</h3><ul>
+<li><p>Service管理接口说明</p>
+<table>
+<thead>
+<tr>
+<th>Service接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RuntimeService</strong></td>
+<td>运行时Service，可以处理所有处于运行状态的流程实例和任务。</td>
+</tr>
+<tr>
+<td><strong>RepositoryService</strong></td>
+<td>流程仓库Service，主要用于管理流程仓库，比如流程模型的控制管理（部署、删除、挂起、激活…）</td>
+</tr>
+<tr>
+<td><strong>TaskRepository</strong></td>
+<td>任务Service。用于管理和查询任务，例如：签收、办理等。</td>
+</tr>
+<tr>
+<td><strong>HistoryService</strong></td>
+<td>历史Service。可以查询所有历史数据，例如，流程实例信息、参与者信息、完成时间…</td>
+</tr>
+<tr>
+<td>ManagementService</td>
+<td>引擎管理Service。和具体业务无关，主要用于对Activiti流程引擎进行管理和维护。</td>
+</tr>
+<tr>
+<td>DynamicBpmnService</td>
+<td>RepositoryService可以用来部署流程模型（使用XML定义好的），一旦部署到Activiti（解析后保存到DB）后，流程模型就不会再变了，除非修改XML文件内容并重新部署。而DynamicBpmnService则允许我们在程序运行的过程中去修改流程模型的内容。比如：修改流程定义中分配的角色、优先级、流程流转条件等。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>核心Service接口实例的获取方式</p>
+<p>  <img src="/2022/06/03/Activiti7/image-20220604113226413.png" alt="image-20220604113226413"></p>
+</li>
+</ul>
+<blockquote>
+<p>  创建流程引擎实例</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Activiti 在创建流程引擎实例时，会执行数据库初始化的脚本，除了创建 25 张表外，还会执行下列语句向 <code>ACT_GE_PROPERTY</code> 表中插入一些元数据信息。</p>
+<p>总共插入了 4 条数据，也就是说：在成功创建流程引擎实例后，数据库中就存在了以下四条记录。</p>
+<p><img src="/2022/06/03/Activiti7/Activiti%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9D%E5%A7%8B%E5%8C%96-1654417958883.png" alt="Activiti数据库初始化"></p>
+<h3 id="部署流程模型"><a href="#部署流程模型" class="headerlink" title="部署流程模型"></a>部署流程模型</h3><p>通过BPMN和png文件部署流程模型</p>
+<p>BPMN 对应的 XML 文件是流程模型真正的数据来源，而png图片只是对XML数据的描述文件，更方便用户进行预览。</p>
+<p>部署流程模型的实质就是通过 Activiti 提供的 API 向数据库表中添加数据。我们以创建一个“请假申请流程”为例，查看部署流程模型时都向哪些表中添加了数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngine;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngines;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.RepositoryService;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.repository.Deployment;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.repository.DeploymentBuilder;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/6/5 10:51</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivitiTest02</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 部署流程模型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deploymentTest</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 1、获取流程引擎实例</span></span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine</span> <span class="operator">=</span> ProcessEngines.getDefaultProcessEngine();</span><br><span class="line">        <span class="comment">// 2、获取部署流程模型的相关Service——RepositoryService</span></span><br><span class="line">        <span class="type">RepositoryService</span> <span class="variable">repositoryService</span> <span class="operator">=</span> processEngine.getRepositoryService();</span><br><span class="line">        <span class="comment">// 3、调用相关API部署流程模型</span></span><br><span class="line">        <span class="type">DeploymentBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> repositoryService.createDeployment();</span><br><span class="line">        <span class="type">Deployment</span> <span class="variable">deployment</span> <span class="operator">=</span> builder.name(<span class="string">&quot;请假申请流程&quot;</span>)  <span class="comment">// 起名字</span></span><br><span class="line">                .addClasspathResource(<span class="string">&quot;processes/leave.bpmn&quot;</span>)  <span class="comment">// 加载资源文件</span></span><br><span class="line">                .addClasspathResource(<span class="string">&quot;processes/leave.png&quot;</span>)</span><br><span class="line">                .deploy();</span><br><span class="line">        <span class="comment">// 4、输出部署结果</span></span><br><span class="line">        System.out.println(<span class="string">&quot;部署ID=====&quot;</span> + deployment.getId());</span><br><span class="line">        System.out.println(<span class="string">&quot;部署名称=====&quot;</span> + deployment.getName());</span><br><span class="line">        <span class="comment">// 5、部署之后，流程模型数据就会保存到数据库表中</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">        --------------------------------------</span></span><br><span class="line"><span class="comment">                部署ID=====1</span></span><br><span class="line"><span class="comment">                部署名称=====请假申请流程</span></span><br><span class="line"><span class="comment">        ----------------------------------- */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应数据库涉及到的写操作操作有：</p>
+<p><img src="/2022/06/03/Activiti7/%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%98%E5%8C%96.png" alt="部署流程模型数据库变化"></p>
+<p><img src="/2022/06/03/Activiti7/bpmn-structure.png" alt="bpmn-structure"></p>
+<p><img src="/2022/06/03/Activiti7/activiti-flow.png" alt="activiti-flow"></p>
+<h2 id="流程-amp-流程实例"><a href="#流程-amp-流程实例" class="headerlink" title="流程 &amp; 流程实例"></a>流程 &amp; 流程实例</h2><ul>
+<li>  流程由遵守 BPMN2.0 规范的 XML 文件指定，定义流程即完成流程文件的设计。</li>
+<li>  流程发布后，使用 RuntimeService 可以开启一个流程实例，每个流程可以开启 N 次流程实例，且实例之间的数据相互隔离。</li>
+</ul>
+<h2 id="用户任务"><a href="#用户任务" class="headerlink" title="用户任务"></a>用户任务</h2><p>用户任务是 BPMN 规范中 Activities 组件下的重要组成部分，在 Activiti 中对应 Task 类；区别于其它类型的任务，用户任务需要进行领取操作，不会自动执行，且领取后从待处理任务列表中移出，其它候选人不可见。</p>
+<h2 id="用户-amp-角色"><a href="#用户-amp-角色" class="headerlink" title="用户 &amp; 角色"></a>用户 &amp; 角色</h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -289,7 +782,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="temp/image-20220403104256750.png" alt="image-20220403104256750"></p>
+          <p><img src="/2022/05/31/temp/image-20220403104256750.png" alt="image-20220403104256750"></p>
 <p>Spring Framework 的设计理念非常着重的突出了一个分层的设计。它争取在每一层都让你可以进行自己的选择，比如，在上图中的数据访问层，你可以选择 JDBC，也可以选择 ORM 这样的方式。如果你选择 ORM，Spring 也提供了 ORM 的实现框架，如 Hibernate、也可以选择 iBatis 或者 MyBatis 这样的框架，所以说他其实把能够想到的主流的研发框架或者工具支持都已经考虑在里面了。</p>
 <p>通过 <code>curl</code> 命令可以直接在控制窗口访问网页，非常的帅气。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\workspace_java\spring-all&gt;curl http://localhost:8080/hello</span><br></pre></td></tr></table></figure>
@@ -467,7 +960,7 @@
 <li><strong>窄依赖</strong>：上游 RDD 的一个分区只与下游 RDD 的一个分区有关，是一对一或多对一关系。</li>
 <li><strong>宽依赖</strong>：上游 RDD 的一个分区与下游 RDD 的多个分区都有关，是一对多的关系。</li>
 </ul>
-<img src="Spark-Core/image-20211214122641729.png" alt="image-20211214122641729" style="zoom:150%;" />
+<img src="/2022/05/31/Spark-Core/image-20211214122641729.png" alt="image-20211214122641729" style="zoom:150%;">
 
 
 
@@ -476,7 +969,7 @@
 <hr>
 <h4 id="1-3-1-5-缓存"><a href="#1-3-1-5-缓存" class="headerlink" title="1.3.1.5   缓存"></a>1.3.1.5   缓存</h4><p>如果在应用程序中多次使用到了同一个 RDD，可以将该 RDD 缓存起来，该 RDD 只有在第一次计算的时候会根据血缘关系依次计算得到分区的数据，在后续其它地方用到该 RDD 的时候，会直接从缓存中取而不用再根据血缘关系重头计算，这样可以加速后期的重用。</p>
 <p>如下图所示，RDD-1 经过一系列的转换后得到 RDD-n 并保存到 HDFS，RDD-1 在这一过程中会有个中间结果，如果将其缓存到内存，那么在随后的 RDD-1 转换到 RDD-m 这一过程中，就不会计算其之前的 RDD-0 了。</p>
-<img src="Spark-Core/image-20211214122828163.png" alt="image-20211214122828163" style="zoom：150%;" />
+<img src="/2022/05/31/Spark-Core/image-20211214122828163.png" alt="image-20211214122828163" style="zoom：150%;">
 
 
 
@@ -827,7 +1320,7 @@
 <h4 id="6-aggregateByKey-zeroValue-seqOp-combOp-numTasks"><a href="#6-aggregateByKey-zeroValue-seqOp-combOp-numTasks" class="headerlink" title="6   aggregateByKey(zeroValue)(seqOp, combOp, [numTasks])"></a>6   <code>aggregateByKey(zeroValue)(seqOp, combOp, [numTasks])</code></h4><p><strong>思考：</strong><code>reduceByKey，aggregateByKey，foldByKey</code> 的区别和联系？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、reduceByKey、foldByKey 都有预聚合，且分区内聚合和分区间聚合的逻辑是一样的。</span><br><span class="line">2、aggregateByKey 也有预聚合，但是区内聚合和分区间聚合的逻辑可以不一样。</span><br><span class="line">3、零值只在分区内聚合的时候使用</span><br></pre></td></tr></table></figure>
 
-<p><img src="Spark-Core/image-20211215213010832.png" alt="image-20211215213010832"></p>
+<p><img src="/2022/05/31/Spark-Core/image-20211215213010832.png" alt="image-20211215213010832"></p>
 <p><strong>函数声明：</strong></p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	1. zeroValue：零值，分区内使用。给每一个分区中的每一个key一个初始值；</span></span><br><span class="line"><span class="comment">	2. seqOp：分区内的聚合逻辑。函数用于在每一个分区中用初始值逐步迭代value；</span></span><br><span class="line"><span class="comment">	3. combOp：分区间的聚合逻辑。函数用于合并每个分区中的结果。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>: <span class="type">ClassTag</span>](zeroValue: <span class="type">U</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) =&gt; <span class="type">U</span>,</span><br><span class="line">                                              combOp: (<span class="type">U</span>, <span class="type">U</span>) =&gt; <span class="type">U</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)] = self.withScope &#123;</span><br><span class="line">    aggregateByKey(zeroValue, defaultPartitioner(self))(seqOp, combOp)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1005,9 +1498,9 @@
 
 
 <p><strong>说明：</strong>直接运行程序会发现报错，没有序列化化。因为 <code>rdd.filter(isMatch)</code> 是在 <code>Executor</code> 上执行的，而且用到了对象 <code>this</code> 的方法 <code>isMatch</code>，但是 <code>Executor</code> 上并没有 <code>Searcher</code> 对象，所以对象 <code>this</code> 需要序列化，才能把对象从 <code>driver</code> 发送到 <code>executor</code>。</p>
-<p><img src="Spark-Core/image-20211217102243803.png" alt="image-20211217102243803"></p>
+<p><img src="/2022/05/31/Spark-Core/image-20211217102243803.png" alt="image-20211217102243803"></p>
 <p><strong>解决方案：</strong>让 <code>Searcher</code> 类实现序列化接口 <code>Serializable</code></p>
-<p> <img src="Spark-Core/image-20211217102251217.png" alt="image-20211217102251217"></p>
+<p> <img src="/2022/05/31/Spark-Core/image-20211217102251217.png" alt="image-20211217102251217"></p>
 <hr>
 <h3 id="2-5-2-传递变量"><a href="#2-5-2-传递变量" class="headerlink" title="2.5.2  传递变量"></a>2.5.2  传递变量</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SerDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">        <span class="keyword">val</span> conf: <span class="type">SparkConf</span> = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">&quot;SerDemo&quot;</span>).setMaster(<span class="string">&quot;local[*]&quot;</span>)</span><br><span class="line">        <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">        <span class="keyword">val</span> rdd: <span class="type">RDD</span>[<span class="type">String</span>] = sc.parallelize(<span class="type">Array</span>(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;hello atguigu&quot;</span>, <span class="string">&quot;atguigu&quot;</span>, <span class="string">&quot;hahah&quot;</span>), <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">val</span> searcher = <span class="keyword">new</span> <span class="type">Searcher</span>(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">        <span class="keyword">val</span> result: <span class="type">RDD</span>[<span class="type">String</span>] = searcher.getMatchedRDD2(rdd)</span><br><span class="line">        result.collect.foreach(println)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1019,7 +1512,7 @@
 <li><p>  让类实现序列化接口：Serializable</p>
 </li>
 <li><p>传递局部变量而不是属性。</p>
-<p>   <img src="Spark-Core/image-20211217102320709.png" alt="image-20211217102320709"></p>
+<p>   <img src="/2022/05/31/Spark-Core/image-20211217102320709.png" alt="image-20211217102320709"></p>
 <p>  如果使用 <code>val q = query</code> 把 <code>query</code> 变量赋值给常量 <code>q</code>，因为 <code>q</code> 是 String 类型的常量，这一系统类型已经默认实现了序列化接口，现在 <code>rdd.filter(_.contains(q))</code> 与 <code>Seacher</code> 对象没有了任何关系，所以 <code>Searcher</code> 对象可以无需序列化。</p>
 </li>
 </ul>
@@ -1056,13 +1549,13 @@
 <h3 id="2-6-3-窄依赖"><a href="#2-6-3-窄依赖" class="headerlink" title="2.6.3  窄依赖"></a>2.6.3  窄依赖</h3><p>如果 <code>B RDD</code> 是由 <code>A RDD</code> 计算得到的，则 <code>B RDD</code> 就是 <code>Child RDD</code>， <code>A RDD</code> 就是 <code>parent RDD</code>。</p>
 <p>如果依赖关系在设计的时候就可以确定，而不需要考虑父 RDD 分区中的记录，并且如果父 RDD 中的每个分区最多只有一个子分区，这样的依赖就叫窄依赖。</p>
 <p>一句话总结：<strong>父RDD 的每个分区最多被一个 RDD 的分区使用</strong>。</p>
-<p><img src="Spark-Core/image-20211217104250450.png" alt="image-20211217104250450"></p>
+<p><img src="/2022/05/31/Spark-Core/image-20211217104250450.png" alt="image-20211217104250450"></p>
 <p>​                               </p>
 <p>具体来说，窄依赖的时候，子 RDD 中的分区要么只依赖一个父 RDD 中的一个分区(比如map, filter操作)，要么在设计时候就能确定子 RDD 是父 RDD 的一个子集(比如: coalesce)。</p>
 <p>所以，窄依赖的转换可以在任何的的一个分区上单独执行，而不需要其它分区的任何信息。</p>
 <hr>
 <h3 id="2-6-4-宽依赖"><a href="#2-6-4-宽依赖" class="headerlink" title="2.6.4  宽依赖"></a>2.6.4  宽依赖</h3><p>如果父 RDD 的分区被不止一个子 RDD 的分区依赖，就是宽依赖。</p>
-<p><img src="Spark-Core/image-20211217104447823.png" alt="image-20211217104447823"></p>
+<p><img src="/2022/05/31/Spark-Core/image-20211217104447823.png" alt="image-20211217104447823"></p>
 <p>宽依赖工作的时候，不能随意在某些记录上运行，而是需要使用特殊的方式(比如按照 key)来获取分区中的所有数据。</p>
 <p>例如：在排序(sort)的时候，数据必须被分区，同样范围的 key 必须在同一个分区内。具有宽依赖的 <code>transformations</code> 包括：sort， reduceByKey，groupByKey，join 和调用 <code>rePartition</code> 函数的任何操作。</p>
 <hr>
@@ -1074,7 +1567,7 @@
 
 
 
-<p><img src="Spark-Core/image-20211217121753477.png" alt="image-20211217121753477"></p>
+<p><img src="/2022/05/31/Spark-Core/image-20211217121753477.png" alt="image-20211217121753477"></p>
 <hr>
 <h3 id="2-7-1-DAG-Directed-Acyclic-Graph-有向无环图"><a href="#2-7-1-DAG-Directed-Acyclic-Graph-有向无环图" class="headerlink" title="2.7.1    DAG(Directed Acyclic Graph) 有向无环图"></a>2.7.1    DAG(Directed Acyclic Graph) 有向无环图</h3><p>Spark 的顶层调度层使用 RDD 的依赖为每个 job 创建一个由 stages 组成的 DAG(有向无环图)。 在 Spark API 中，这被称作 DAG 调度器(DAG Scheduler)。</p>
 <p>我们已经注意到，有些错误，比如：连接集群的错误，配置参数错误，启动一个 Spark job 的错误，这些错误必须处理，并且都表现为 DAG Scheduler 错误。这是因为一个 Spark job 的执行是被 DAG 来处理。</p>
@@ -1089,7 +1582,7 @@
 <p>从整体来看，一个 stage 可以任务是“计算(task)”的集合，这些每个“计算”在各自的 Executor 中进行运算，而不需要同其它的执行器或者驱动进行网络通讯。换句话说，当任何两个 workers 之间开始需要网络通讯的时候，这时候一个新的 stage 就产生了。例如：shuffle 的时候。</p>
 <p>这些创建 stage 边界的依赖称为 <code>ShuffleDependencies</code>。shuffle 是由宽依赖所引起的，比如：sort，groupBy，因为它们需要在分区中重新分发数据，那些窄依赖的转换会被分到同一个 stage 中。</p>
 <p>想想我们以前学习的 “worldcount 案例”</p>
-<p> <img src="Spark-Core/image-20211217124958363.png" alt="image-20211217124958363"></p>
+<p> <img src="/2022/05/31/Spark-Core/image-20211217124958363.png" alt="image-20211217124958363"></p>
 <p>Spark 会把 flatMap，map 合并到一个 stage 中，因为这些转换不需要 shuffle。所以，数据只需要传递一次，每个执行器就可以顺序的执行这些操作。</p>
 <p>因为边界 stage 需要同驱动进行通讯，所以与 job 有关的 stage 通常必须顺序执行而不能并行执行。</p>
 <p>如果这个 stage 是用来计算不同的 RDDs，被用来合并成一个下游的转换(比如: join)，也是有可能并行执行的。但是仅需要计算一个 RDD 的宽依赖转换必须顺序计算。</p>
@@ -1106,7 +1599,7 @@
 
 
 <p><strong>执行结果：</strong></p>
-<p> <img src="Spark-Core/image-20211217125526721.png" alt="image-20211217125526721"></p>
+<p> <img src="/2022/05/31/Spark-Core/image-20211217125526721.png" alt="image-20211217125526721"></p>
 <p><strong>说明：</strong></p>
 <ol>
 <li> 每调用一次 <code>collect</code>，都会创建一个新的 <code>job</code>，每个 <code>job</code> 总是从它血缘的起始开始计算。所以，会发现中间的这些计算过程都会重复的执行。</li>
@@ -1158,7 +1651,7 @@
 </tbody></table>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rdd2.cache() // 等价于 rdd2.persist(StorageLevel.MEMORY_ONLY)	对rdd2进行持久化</span></span><br><span class="line">rdd2.persist(<span class="type">StorageLevel</span>.<span class="type">MEMORY_ONLY</span>)</span><br></pre></td></tr></table></figure>
 
-<p><img src="Spark-Core/image-20211217170539985.png" alt="image-20211217170539985"></p>
+<p><img src="/2022/05/31/Spark-Core/image-20211217170539985.png" alt="image-20211217170539985"></p>
 <p><strong>说明：</strong></p>
 <ol>
 <li> 第一个 job 会计算 RDD2，以后的 job 就不用再计算了。</li>
@@ -1364,7 +1857,7 @@
 <p> import org.apache.spark.util.AccumulatorV2</p>
 <p> object MyAccDemo {<br>   def main(args: Array[String]): Unit = {</p>
 <p>   }<br> }</p>
-<p> class MyAcc extends AccumulatorV2[String, java.util.List[String]] {<br>   private val _list: java.util.List[String] = Collections.synchronizedList(new ArrayList<a href="">String</a>)<br>   override def isZero: Boolean = _list.isEmpty</p>
+<p> class MyAcc extends AccumulatorV2[String, java.util.List[String]] {<br>   private val _list: java.util.List[String] = Collections.synchronizedList(new ArrayList<a href>String</a>)<br>   override def isZero: Boolean = _list.isEmpty</p>
 <p>   override def copy(): AccumulatorV2[String, util.List[String]] = {<br>     val newAcc = new MyAcc<br>     _list.synchronized {<br>       newAcc._list.addAll(_list)<br>     }<br>     newAcc<br>   }</p>
 <p>   override def reset(): Unit = _list.clear()</p>
 <p>   override def add(v: String): Unit = _list.add(v)</p>
@@ -1575,7 +2068,7 @@
 <hr>
 <h2 id="MQ用途"><a href="#MQ用途" class="headerlink" title="MQ用途"></a>MQ用途</h2><p>MQ 的使用场景有很多，但大多数场景都是基于以下三个方向衍生出来的。分别是：</p>
 <h3 id="限流削峰"><a href="#限流削峰" class="headerlink" title="限流削峰"></a>限流削峰</h3><p>MQ 可以将系统的<strong>超量</strong>请求暂存起来，以便系统后期空闲时可以慢慢处理，从而避免了请求的丢失或系统被压垮。</p>
-<p><img src="MQ%E6%A6%82%E8%BF%B0/MQ%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A%E9%99%90%E6%B5%81%E5%89%8A%E5%B3%B0.svg" alt="MQ使用场景：限流削峰"></p>
+<p><img src="/2022/05/09/MQ%E6%A6%82%E8%BF%B0/MQ%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A%E9%99%90%E6%B5%81%E5%89%8A%E5%B3%B0.svg" alt="MQ使用场景：限流削峰"></p>
 <p>如图所示，系统 A 可处理的请求峰值是 2000/s，超量的请求就会被系统丢掉或者压垮系统。这显然会造成业务上的重大损失。</p>
 <p>引入 MQ 后，可将请求先保存在 MQ 中，由 MQ 向系统 A 发送 2000/s 的请求。既能保证系统的正常运行，又不会造成请求的丢失。</p>
 <h3 id="异步解耦"><a href="#异步解耦" class="headerlink" title="异步解耦"></a>异步解耦</h3><p>上游系统对下游系统的调用若为同步调用，则会大大降低系统的吞吐量和并发度，且系统耦合度太高。</p>
@@ -1583,7 +2076,7 @@
 <p>  在同步调用状态下，上游系统调用下游系统处理请求，上游系统向下游系统发出请求后，在下游系统没有处理完毕请求的情况下，上游系统会一直处于阻塞状态。</p>
 </blockquote>
 <p>而异步调用则可以解决这些问题。所以两层之间若要实现由同步到异步的转化，一般的做法就是，在这两层之间添加一个 MQ 层。</p>
-<p><img src="MQ%E6%A6%82%E8%BF%B0/MQ%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A%E5%BC%82%E6%AD%A5%E8%A7%A3%E8%80%A6.svg" alt="MQ使用场景：异步解耦"></p>
+<p><img src="/2022/05/09/MQ%E6%A6%82%E8%BF%B0/MQ%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A%E5%BC%82%E6%AD%A5%E8%A7%A3%E8%80%A6.svg" alt="MQ使用场景：异步解耦"></p>
 <h3 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h3><p>现代系统会产生海量的数据流，如：业务日志数据、监控数据、用户行为数据等。针对这些数据流进行实时或批量采集汇总，然后对这些数据进行大数据分析，这是互联网平台的必备技术。通过 MQ 完成此类数据收集是最好的选择。大数据收集场景最常用的框架就是 Kafka。</p>
 <hr>
 <h2 id="常见的MQ产品"><a href="#常见的MQ产品" class="headerlink" title="常见的MQ产品"></a>常见的MQ产品</h2><h3 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h3><p>ActiveMQ 是使用 Java 语言开发的一款 MQ 产品。早期很多公司与项目都在使用，但是现在社区活跃度已经很低，现在的项目中已经很少使用了。优点是使用 Java 开发，对于 Java 开发人员来说源码更容易看懂。</p>
@@ -1656,8 +2149,8 @@
 <p>RabbitMQ 通过插件可以支持该协议。</p>
 <hr>
 <h1 id="RocketMQ-1"><a href="#RocketMQ-1" class="headerlink" title="RocketMQ"></a>RocketMQ</h1><ul>
-<li>  <a href="">RocketMQ概述</a></li>
-<li>  <a href="">RocketMQ理论基础</a></li>
+<li>  <a href>RocketMQ概述</a></li>
+<li>  <a href>RocketMQ理论基础</a></li>
 <li></li>
 </ul>
 
@@ -1748,13 +2241,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="RocketMQ概述"><a href="#RocketMQ概述" class="headerlink" title="RocketMQ概述"></a>RocketMQ概述</h1><h2 id="RocketMQ简介"><a href="#RocketMQ简介" class="headerlink" title="RocketMQ简介"></a>RocketMQ简介</h2><p><img src="RocketMQ/image-20220511082821184.png" alt="image-20220511082821184"></p>
+          <h1 id="RocketMQ概述"><a href="#RocketMQ概述" class="headerlink" title="RocketMQ概述"></a>RocketMQ概述</h1><h2 id="RocketMQ简介"><a href="#RocketMQ简介" class="headerlink" title="RocketMQ简介"></a>RocketMQ简介</h2><p><img src="/2022/05/09/RocketMQ/image-20220511082821184.png" alt="image-20220511082821184"></p>
 <ul>
 <li>  官网地址：<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/">https://rocketmq.apache.org/</a></li>
 <li>  RocketMQ 是一个统一消息引擎、轻量级数据处理平台。</li>
 <li>  RocketMQ 是一款阿里巴巴开源的消息中间件。2016年11月28日，阿里巴巴向 Apache 基金会捐赠了 RocketMQ，成为 Apache 孵化项目。2017年9月25日，Apache 宣布 RocketMQ 孵化成为 Apache 顶级项目（TLP），成为国内首个互联网中间件在 Apache 上的顶级项目。</li>
 </ul>
-<h2 id="RocketMQ发展历程"><a href="#RocketMQ发展历程" class="headerlink" title="RocketMQ发展历程"></a>RocketMQ发展历程</h2><img src="RocketMQ/image-20220509183545154.png" alt="image-20220509183545154"  />
+<h2 id="RocketMQ发展历程"><a href="#RocketMQ发展历程" class="headerlink" title="RocketMQ发展历程"></a>RocketMQ发展历程</h2><img src="/2022/05/09/RocketMQ/image-20220509183545154.png" alt="image-20220509183545154">
 
 <ul>
 <li>  2007年，阿里开启“五彩石项目”，Notify 作为项目中的<strong>交易核心消息流转系统</strong>应运而生。Notify 系统是 RocketMQ 的雏形。</li>
@@ -1827,7 +2320,7 @@
 <td>✔</td>
 </tr>
 </tbody></table>
-<p><img src="RocketMQ/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E5%8C%BA.svg" alt="为什么分区"></p>
+<p><img src="/2022/05/09/RocketMQ/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E5%8C%BA.svg" alt="为什么分区"></p>
 <p>举个例子就是：</p>
 <ul>
 <li>  如果不划分分区（即可视为只有一个分区），且生产者生产消息的速度大于消费者，那么就会有大量的待处理消息滞留在唯一的一个分区中。而且一个分区同时只能被一个消费者消费，这就会造成大量的请求消息得不到处理。</li>
@@ -1835,7 +2328,7 @@
 </ul>
 <p>从 MQ 的角度来看，一个消费者组只代表一个消费者。建立消费者组的目的是提高消费速度。</p>
 <h4 id="分片（Sharing）"><a href="#分片（Sharing）" class="headerlink" title="分片（Sharing）"></a>分片（Sharing）</h4><p>在 RocketMQ 中还有一个概念就是<strong>分片（Sharding）</strong>。分片不同于分区，在 RocketMQ 中，分片指的是存放相应 Topic 的 Broker。每个分片中会创建相应数量的分区（即 Queue），每个 Queue 的大小都是相同的。</p>
-<p><img src="RocketMQ/image-20220511094229752.png" alt="image-20220511094229752"></p>
+<p><img src="/2022/05/09/RocketMQ/image-20220511094229752.png" alt="image-20220511094229752"></p>
 <p>Broker 可以简单理解为“物理主机”。</p>
 <p>如上图所示，就可以简单理解为：TopicA 中的消息保存在三台服务器上，每台服务器上的所有消息被称为一个分片，每个分片又划分了多个分区（Queue/Partition）来保存消息。</p>
 <h3 id="5、消息标识（MessageId-Key）"><a href="#5、消息标识（MessageId-Key）" class="headerlink" title="5、消息标识（MessageId/Key）"></a>5、消息标识（MessageId/Key）</h3><p>RocketMQ 中每个消息拥有“唯一”的 MessageId，且可以携带具有业务标识的 Key，以方便对消息的查询。不过需要注意的是，MessageId 有两个：在生产者 send() 消息时会自动生成一个 MessageId（msgId）；当消息到达 Broker 后，Broker 也会自动生成一个 MessageId（offsetMsgId）。msgId、offsetMsgId 与 Key 都被称为消息标识。</p>
@@ -1851,7 +2344,7 @@
 </li>
 </ul>
 <hr>
-<h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><p><img src="RocketMQ/image-20220511101230750.png" alt="image-20220511101230750"></p>
+<h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><p><img src="/2022/05/09/RocketMQ/image-20220511101230750.png" alt="image-20220511101230750"></p>
 <p>RocketMQ 的架构分为四部分构成。</p>
 <h3 id="1、Producer"><a href="#1、Producer" class="headerlink" title="1、Producer"></a>1、Producer</h3><p>消息生产者，负责生产消息。</p>
 <p>Producer 通过 MQ 的负载均衡模块选择相应的 Broker 集群队列进行消息投递。投递的过程支持快速失败并且低延迟。</p>
@@ -1879,9 +2372,9 @@
 <li>  <strong>容错</strong>：一个 Consumer 挂了，该 Consumer Group 中的其它 Consumer 可以接着消费原 Consumer 消费的 Queue。</li>
 </ul>
 </blockquote>
-<p><img src="RocketMQ/image-20220511111742454.png" alt="image-20220511111742454"></p>
+<p><img src="/2022/05/09/RocketMQ/image-20220511111742454.png" alt="image-20220511111742454"></p>
 <p>消费者组中的 Consumer 的数量应该小于等于订阅 Topic 的 Queue 的数量。如果超出 Queue 的数量，则多出的 Consumer 将不能消费消息。</p>
-<p><img src="RocketMQ/image-20220511112033543.png" alt="image-20220511112033543"></p>
+<p><img src="/2022/05/09/RocketMQ/image-20220511112033543.png" alt="image-20220511112033543"></p>
 <p>不过，一个 Topic 类型的消息可以被多个消费者组同时消费。</p>
 <blockquote>
 <p>  Tip</p>
@@ -2054,7 +2547,7 @@
 <li> 在当前次会话中，当客户端再次访问服务器时，请求消息中会携带 cookie 数据；</li>
 <li> 服务器解析客户端的请求消息，如果客户端需要的资源在 cookie 中存在，就不再重新分配该数据给客户端。</li>
 </ol>
-<p><img src="%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="Cookie实现原理"></p>
+<p><img src="/2022/05/04/%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="Cookie实现原理"></p>
 <p>客户端<strong>首次</strong>访问一个服务器时，服务器会在响应消息中携带 Cookie 数据并将 Cookie 数据保存在客户端缓存中。</p>
 <ul>
 <li><p>  Cookie 数据被封装在响应头中（响应头中的数据都是以键值对的形式存在的）。</p>
@@ -2197,7 +2690,7 @@
 <li>  访问一个接口，如果是第一次访问，则提示：宁好，欢迎宁首次访问XSYU</li>
 <li>  如果不是第一次访问，则提示：欢迎回来，宁上次的访问时间为：2020-06-10 11:46:36</li>
 </ul>
-<p><img src="%E4%BC%9A%E8%AF%9D/%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4.png" alt="案例：记住上一次访问时间"></p>
+<p><img src="/2022/05/04/%E4%BC%9A%E8%AF%9D/%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4.png" alt="案例：记住上一次访问时间"></p>
 <p><strong>分析：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">当客户端（浏览器）请求服务器时，服务器判断请求头中是否含有『cookie: lastTime=Xxx』</span><br><span class="line">    <span class="keyword">if</span>(没有)&#123;</span><br><span class="line">        <span class="number">1.</span>证明浏览器是第一次访问服务器</span><br><span class="line">        <span class="number">2.</span>响应数据：您好，欢迎首次访问！</span><br><span class="line">        <span class="number">3.</span>响应：将一个键值对『lastTime=$&#123;currentTime&#125;』作为cookie响应给浏览器，</span><br><span class="line">        <span class="number">4.</span>并设置 cookie 持久化存储。</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123; <span class="comment">// 有</span></span><br><span class="line">        <span class="number">1.</span>证明浏览器不是第一次访问该服务器</span><br><span class="line">        <span class="number">2.</span>获取请求消息中请求头中的『cookie: lastTime=Xxx』</span><br><span class="line">        <span class="number">3.</span>响应数据：将时间值显示在客户端浏览器页面上：欢迎回来，您上次的访问时间为：...</span><br><span class="line">        <span class="number">4.</span>更新 cookie ，设置『lastTime=$&#123;最新时间&#125;』</span><br><span class="line">        <span class="number">5.</span>响应给浏览器，并持久化存储。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -2223,7 +2716,7 @@
 </li>
 </ul>
 <h2 id="Session原理"><a href="#Session原理" class="headerlink" title="Session原理"></a>Session原理</h2><h3 id="Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？"><a href="#Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？" class="headerlink" title="Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？"></a>Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？</h3><p>Session的实现是依赖于Cookie的。</p>
-<p><img src="%E4%BC%9A%E8%AF%9D/Session%E5%8E%9F%E7%90%86.png" alt="Session原理"></p>
+<p><img src="/2022/05/04/%E4%BC%9A%E8%AF%9D/Session%E5%8E%9F%E7%90%86.png" alt="Session原理"></p>
 <p><strong>客户端首次访问服务器时：</strong></p>
 <ul>
 <li><p>  客户端首次访问服务器时，请求消息中是没有 cookie 数据的；</p>
@@ -2434,7 +2927,7 @@
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum install --downloadonly --downloaddir=/opt/software/redis/ redis</span><br></pre></td></tr></table></figure>
 
 <p> 查看</p>
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424114832651.png" alt="image-20220424114832651"></p>
+<p> <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424114832651.png" alt="image-20220424114832651"></p>
 <blockquote>
 <p>  <strong>注意：</strong></p>
 <p>  这一步的下载过程，会将 Redis 的安装包及其依赖的安装包都下载到该目录下。我的目录下只存在一个安装包是因为我已经安装了它的依赖。如果没有安装的话，可能出现下载到多个安装包的情况。</p>
@@ -2450,7 +2943,7 @@
 <li><p>安装结束后，查看 Redis 的安装情况</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; whereis redis</span><br></pre></td></tr></table></figure>
 
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424115413331.png" alt="image-20220424115413331"></p>
+<p> <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424115413331.png" alt="image-20220424115413331"></p>
 </li>
 <li><p>启动 Redis</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; systemctl start redis</span><br></pre></td></tr></table></figure></li>
@@ -2471,7 +2964,7 @@
 <li><p>下载 Redis 安装包</p>
 <ul>
 <li><p>下载地址：<a target="_blank" rel="noopener" href="https://redis.io/download/">https://redis.io/download/</a></p>
-  <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424121207274.png" alt="image-20220424121207274" style="zoom:67%;" /></li>
+  <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424121207274.png" alt="image-20220424121207274" style="zoom:67%;"></li>
 </ul>
 </li>
 <li><p>找到下载地址，使用 wget 下载指定版本的 Redis 到当前目录下。</p>
@@ -2489,7 +2982,7 @@
 <ul>
 <li>  在执行完 make install 后，在 /usr/local/bin 目录下将出现一些 Redis 脚本</li>
 </ul>
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424122533226.png" alt="image-20220424122533226"></p>
+<p> <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424122533226.png" alt="image-20220424122533226"></p>
 <ul>
 <li>  /usr/local/bin 为环境变量，故其下的脚本可以直接使用。</li>
 </ul>
@@ -2639,10 +3132,10 @@
 <p>为了防止，官方文档地址发生变动，在此处粘一个『yum 安装 MySQL 指南』的查找路径。</p>
 <ol>
 <li><p>首先进入<a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL官网</a>，进入『文档』专栏，下拉选择按『主题』查找。</p>
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png" alt="image-20220421131815293"></p>
+<p> <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png" alt="image-20220421131815293"></p>
 </li>
 <li><p>继续下拉找到『A Quick Guide to Using the MySQL Yum Repository』专栏，点击进入，即为“使用 Yum 仓库安装 MySQL 快速入门指南”。</p>
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png" alt="image-20220421131947148"></p>
+<p> <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png" alt="image-20220421131947148"></p>
 </li>
 </ol>
 <h2 id="1、下载-MySQL-Yum-存储仓库"><a href="#1、下载-MySQL-Yum-存储仓库" class="headerlink" title="1、下载 MySQL Yum 存储仓库"></a>1、下载 MySQL Yum 存储仓库</h2><p>首先，将 MySQL Yum 存储仓库（这是一个文件）下载到当前 Linux 系统中。</p>
@@ -2650,9 +3143,9 @@
 <li><p>  转到 <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/repo/yum/">https://dev.mysql.com/downloads/repo/yum/</a> 的 MySQL Yum 文件的下载页面。</p>
 </li>
 <li><p>为你的平台选择并下载发布包的版本（我选择的是 RedHat 系列 Linux7 系统的社区版）。</p>
-  <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png" alt="image-20220421115245966" style="zoom: 80%;" /></li>
+  <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png" alt="image-20220421115245966" style="zoom: 80%;"></li>
 <li><p>选择需要的版本，点击“Download”，进入详情页面，复制下载链接地址，下载对应的 rpm 文件。</p>
-  <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png" alt="image-20220421115510940" style="zoom: 50%;" /></li>
+  <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png" alt="image-20220421115510940" style="zoom: 50%;"></li>
 <li><p>使用以下命令安装下载发布包。使用上一个链接地址替换 『<em>platform-and-version-specific-package-name</em>.rpm』</p>
   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 我的</span></span><br><span class="line">sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -2757,7 +3250,7 @@
 </ul>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; firewall-cmd --list-all</span><br></pre></td></tr></table></figure>
 
- <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png" alt="image-20220423102519269" style="zoom:67%;" /></li>
+ <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png" alt="image-20220423102519269" style="zoom:67%;"></li>
 </ol>
 <hr>
 <h1 id="使用安装包安装-MySQL"><a href="#使用安装包安装-MySQL" class="headerlink" title="使用安装包安装 MySQL"></a>使用安装包安装 MySQL</h1><h2 id="1、下载安装包并上传到-Linux-服务器"><a href="#1、下载安装包并上传到-Linux-服务器" class="headerlink" title="1、下载安装包并上传到 Linux 服务器"></a>1、下载安装包并上传到 Linux 服务器</h2><ol>
@@ -2790,116 +3283,6 @@
 </li>
 </ol>
 <h2 id="4-4-MySQL-中-user-表中主机配置"><a href="#4-4-MySQL-中-user-表中主机配置" class="headerlink" title="4.4    MySQL 中 user 表中主机配置"></a>4.4    MySQL 中 user 表中主机配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">配置只要是root用户+密码，在任何主机上都能登录MySQL数据库。</span><br><span class="line"></span><br><span class="line">1．进入mysql</span><br><span class="line"></span><br><span class="line">[root@hadoop102 mysql-libs]# mysql -uroot -p000000</span><br><span class="line"></span><br><span class="line">2．显示数据库</span><br><span class="line"></span><br><span class="line">mysql&gt;show databases;</span><br><span class="line"></span><br><span class="line">3．使用mysql数据库</span><br><span class="line"></span><br><span class="line">mysql&gt;use mysql;</span><br><span class="line"></span><br><span class="line">4．展示mysql数据库中的所有表</span><br><span class="line"></span><br><span class="line">mysql&gt;show tables;</span><br><span class="line"></span><br><span class="line">5．展示user表的结构</span><br><span class="line"></span><br><span class="line">mysql&gt;desc user;</span><br><span class="line"></span><br><span class="line">6．查询user表</span><br><span class="line"></span><br><span class="line">mysql&gt;select User, Host, Password from user;</span><br><span class="line"></span><br><span class="line">7．修改user表，把Host表内容修改为%</span><br><span class="line"></span><br><span class="line">mysql&gt;update user set host=&#x27;%&#x27; where host=&#x27;localhost&#x27;;</span><br><span class="line"></span><br><span class="line">8．删除root用户的其他host</span><br><span class="line"></span><br><span class="line">mysql&gt;delete from user where Host=&#x27;hadoop102&#x27;;</span><br><span class="line"></span><br><span class="line">mysql&gt;delete from user where Host=&#x27;127.0.0.1&#x27;;</span><br><span class="line"></span><br><span class="line">mysql&gt;delete from user where Host=&#x27;::1&#x27;;</span><br><span class="line"></span><br><span class="line">9．刷新</span><br><span class="line"></span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line"></span><br><span class="line">10．退出</span><br><span class="line"></span><br><span class="line">mysql&gt;quit;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-%E5%A4%A7%E7%BA%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/10/%E6%89%8B%E5%86%99Spring-%E5%A4%A7%E7%BA%B2/" class="post-title-link" itemprop="url">手写Spring-大纲</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-04-10 11:32:18 / Modified: 20:15:52" itemprop="dateCreated datePublished" datetime="2022-04-10T11:32:18+08:00">2022-04-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="学习目的"><a href="#学习目的" class="headerlink" title="学习目的"></a>学习目的</h2><p>本系列课程的学习目的是：通过手写简化的 Spring 实现来抓住 Spring 源码的核心思想，为阅读 Spring 源码奠定基础。</p>
-<p>学习本课程需要有一定的 Spring 基础。</p>
-<h2 id="课程大纲"><a href="#课程大纲" class="headerlink" title="课程大纲"></a>课程大纲</h2><p><img src="%E6%89%8B%E5%86%99Spring-%E5%A4%A7%E7%BA%B2/%E6%89%8B%E5%86%99Spring%E8%AF%BE%E7%A8%8B%E5%A4%A7%E7%BA%B2.png" alt="手写Spring课程大纲"></p>
-<blockquote>
-<p>  图片地址：<a target="_blank" rel="noopener" href="https://www.processon.com/view/link/625250755653bb0743cc6b1c">https://www.processon.com/view/link/625250755653bb0743cc6b1c</a></p>
-</blockquote>
-<h2 id="课程目录"><a href="#课程目录" class="headerlink" title="课程目录"></a>课程目录</h2><ul>
-<li>  <a href="">模拟 Spring 扫描底层实现</a></li>
-<li>  <a href="">模拟 BeanDefinition 的生成</a></li>
-<li>  <a href="">模拟 getBean 方法的底层实现</a></li>
-<li>  <a href="">模拟 Bean 创建流程</a></li>
-<li>  <a href="">模拟依赖注入</a></li>
-<li>  <a href="">模拟 Aware 回调机制</a></li>
-<li>  <a href="">模拟 Spring 初始化机制</a></li>
-<li>  <a href="">模拟 BeanPostProcessor 机制</a></li>
-<li>  <a href="">模拟 SpringAOP 机制</a></li>
-</ul>
-<h2 id="课程源码地址"><a href="#课程源码地址" class="headerlink" title="课程源码地址"></a>课程源码地址</h2><p><a href="">课程源码地址</a></p>
-<h2 id="后续课程：Spring-源码解读"><a href="#后续课程：Spring-源码解读" class="headerlink" title="后续课程：Spring 源码解读"></a>后续课程：Spring 源码解读</h2><ul>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-<li>  <a href="">TODO</a></li>
-</ul>
-
       
     </div>
 

@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Filter 原理Filter 用于拦截客户端的请求，对满足条件的请求放行，不满足条件的请求不放行。 Filter 既可以对用户请求（request）进行预处理，也可以对服务器响应（response）进行后处理。    预处理：当客户端向服务器发送请求时，过滤器可以将请求拦截下来，进行一些额外的操作。比如：登录验证、统一编码处理、敏感字符处理等操作。   后处理：服务器发给客户端的响应，也可以被过">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/04/19/Filter/Filter/Filter-1651721919372.png">
-<meta property="og:image" content="http://example.com/2020/04/19/Filter/Filter/Filter%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.svg">
+<meta property="og:image" content="http://example.com/2020/04/19/Filter/Filter-1651721919372.png">
+<meta property="og:image" content="http://example.com/2020/04/19/Filter/Filter%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.svg">
 <meta property="article:published_time" content="2020-04-19T15:26:53.000Z">
 <meta property="article:modified_time" content="2022-05-05T05:22:16.966Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/04/19/Filter/Filter/Filter-1651721919372.png">
+<meta name="twitter:image" content="http://example.com/2020/04/19/Filter/Filter-1651721919372.png">
 
 
 <link rel="canonical" href="http://example.com/2020/04/19/Filter/">
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -238,7 +238,7 @@
 <li>  预处理：当客户端向服务器发送请求时，过滤器可以将请求拦截下来，进行一些额外的操作。比如：登录验证、统一编码处理、敏感字符处理等操作。</li>
 <li>  后处理：服务器发给客户端的响应，也可以被过滤器拦截，完成统一编码处理、响应结果处理等操作。</li>
 </ul>
-<p><img src="Filter/Filter-1651721919372.png" alt="Filter"></p>
+<p><img src="/2020/04/19/Filter/Filter-1651721919372.png" alt="Filter"></p>
 <hr>
 <h1 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h1><h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
 <li><p>创建自定义的过滤器类，实现 <code>Filter</code> 接口。</p>
@@ -394,7 +394,7 @@
 
 
 <hr>
-<h2 id="过滤器链（配置多个过滤器）"><a href="#过滤器链（配置多个过滤器）" class="headerlink" title="过滤器链（配置多个过滤器）"></a>过滤器链（配置多个过滤器）</h2><h3 id="过滤器执行顺序：栈式原则"><a href="#过滤器执行顺序：栈式原则" class="headerlink" title="过滤器执行顺序：栈式原则"></a>过滤器执行顺序：栈式原则</h3><p><img src="Filter/Filter%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.svg" alt="Filter的执行顺序"></p>
+<h2 id="过滤器链（配置多个过滤器）"><a href="#过滤器链（配置多个过滤器）" class="headerlink" title="过滤器链（配置多个过滤器）"></a>过滤器链（配置多个过滤器）</h2><h3 id="过滤器执行顺序：栈式原则"><a href="#过滤器执行顺序：栈式原则" class="headerlink" title="过滤器执行顺序：栈式原则"></a>过滤器执行顺序：栈式原则</h3><p><img src="/2020/04/19/Filter/Filter%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F.svg" alt="Filter的执行顺序"></p>
 <p>如果有2个过滤器，过滤器A和过滤器B。其执行顺序为：</p>
 <ul>
 <li>  过滤器A –&gt; 过滤器B –&gt; 访问业务接口 –&gt; 过滤器B –&gt; 过滤器A</li>

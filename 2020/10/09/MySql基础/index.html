@@ -27,19 +27,19 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1、数据库介绍1.1、是什么   数据库 &#x3D;&#x3D; 存储数据的仓库，   数据库本质上是一个文件，我们可以称之为文件系统，与普通的文件相比多了便于管理的特点。  1.1.1、常见数据的存储方式   存储位置 优点 缺点 举例    内存 存取速度快 不能永久保存，数据是临时状态 Java中创建的对象   文件 数据可以永久保存 数据操作不方便，查询数据时不方便 通过Java的IO流，把临时数据保存到">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/image-20201008221624101.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/%E6%8F%92%E5%85%A5%E8%AE%B0%E5%BD%95.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/%E6%8E%92%E5%BA%8F.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/5%E4%B8%AA%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png">
-<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/image-20201008221624101.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E6%8F%92%E5%85%A5%E8%AE%B0%E5%BD%95.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E6%8E%92%E5%BA%8F.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/5%E4%B8%AA%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB.png">
 <meta property="article:published_time" content="2020-10-09T12:32:50.000Z">
 <meta property="article:modified_time" content="2021-10-06T05:48:51.866Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png">
+<meta name="twitter:image" content="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png">
 
 
 <link rel="canonical" href="http://example.com/2020/10/09/MySql%E5%9F%BA%E7%A1%80/">
@@ -141,7 +141,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -238,7 +238,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png"></p>
+        <p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png"></p>
 <h1 id="1、数据库介绍"><a href="#1、数据库介绍" class="headerlink" title="1、数据库介绍"></a>1、数据库介绍</h1><h2 id="1-1、是什么"><a href="#1-1、是什么" class="headerlink" title="1.1、是什么"></a>1.1、是什么</h2><ul>
 <li>  数据库 == <strong>存储数据的仓库</strong>，</li>
 <li>  数据库本质上是一个<strong>文件</strong>，我们可以称之为文件系统，与普通的文件相比多了便于管理的特点。</li>
@@ -286,7 +286,7 @@
 <blockquote>
 <p>  数据库管理系统、数据库和表的关系如图所示：</p>
 </blockquote>
-<p><img src="MySql%E5%9F%BA%E7%A1%80/image-20201008221624101.png" alt="image-20201008221624101"></p>
+<p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/image-20201008221624101.png" alt="image-20201008221624101"></p>
 <hr>
 <h1 id="2、SQL-概述"><a href="#2、SQL-概述" class="headerlink" title="2、SQL 概述"></a>2、SQL 概述</h1><h2 id="2-1、是什么"><a href="#2-1、是什么" class="headerlink" title="2.1、是什么"></a>2.1、是什么</h2><blockquote>
 <p>  <strong>SQL；Structured Query Language；结构化查询语言；</strong></p>
@@ -489,7 +489,7 @@
 <p><strong>DML；Data Manipulation Language；数组操作语言</strong></p>
 </blockquote>
 <p>操作的数据是表中的记录，主要用于<strong>对表中的记录进行增删改</strong>操作</p>
-<h2 id="4-1、增"><a href="#4-1、增" class="headerlink" title="4.1、增"></a>4.1、增</h2><h3 id="1、插入记录"><a href="#1、插入记录" class="headerlink" title="1、插入记录"></a>1、插入记录</h3><p><img src="MySql%E5%9F%BA%E7%A1%80/%E6%8F%92%E5%85%A5%E8%AE%B0%E5%BD%95.png"></p>
+<h2 id="4-1、增"><a href="#4-1、增" class="headerlink" title="4.1、增"></a>4.1、增</h2><h3 id="1、插入记录"><a href="#1、插入记录" class="headerlink" title="1、插入记录"></a>1、插入记录</h3><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E6%8F%92%E5%85%A5%E8%AE%B0%E5%BD%95.png"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">insert [into] 表名 </span><br><span class="line">[(字段名)] </span><br><span class="line">values</span><br><span class="line">(字段值)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">INSERT INTO USER			-- 插入哪个表</span><br><span class="line">(username, passsword)		 -- 插入哪些字段</span><br><span class="line">VALUES						-- 表示插入数据</span><br><span class="line">(&quot;李四&quot;,&quot;8546&quot;)				-- 具体数据</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -536,7 +536,7 @@
 <li>  主要用于查询表中的记录。</li>
 <li>  查询结果是一个虚拟表</li>
 </ul>
-<h2 id="5-1、简单查询"><a href="#5-1、简单查询" class="headerlink" title="5.1、简单查询"></a>5.1、简单查询</h2><p><img src="MySql%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2.png"></p>
+<h2 id="5-1、简单查询"><a href="#5-1、简单查询" class="headerlink" title="5.1、简单查询"></a>5.1、简单查询</h2><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2.png"></p>
 <ol>
 <li><p>查询表中所有记录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user;</span><br></pre></td></tr></table></figure></li>
@@ -630,7 +630,7 @@
 <li><strong>组合排序</strong>：同时对多个字段进行排序，如果第1个字段相等，则按第2个字段排序，以此类推。</li>
 </ul>
 </blockquote>
-<p><img src="MySql%E5%9F%BA%E7%A1%80/%E6%8E%92%E5%BA%8F.png"></p>
+<p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E6%8E%92%E5%BA%8F.png"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 排序[DESC/ASC]</span><br><span class="line">select 字段名</span><br><span class="line">from 表名</span><br><span class="line">where 条件</span><br><span class="line">order by 字段名 DESC					-- 单列排序</span><br><span class="line">order by age DESC, grade ASC		   -- 组合排序[在age降序的基础上，对于年龄相同的再按grade升序]</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -641,7 +641,7 @@
 <li>  之前我们做的查询都是横向查询，它们都是根据条件一行一行的进行判断。    而使用聚合函数查询则是<strong>纵向查询</strong>，它是对一列的值进行计算，然后返回一个结果值。</li>
 <li>  聚合函数是对横向查询结果值的统计，首先必须要经过横向查询这一步骤，只是没有在最后展示出来，展示出来的是聚合后的结果。</li>
 </ul>
-<p><img src="MySql%E5%9F%BA%E7%A1%80/5%E4%B8%AA%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png"></p>
+<p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/5%E4%B8%AA%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png"></p>
 <h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 聚合函数(列名) form 表名;</span><br><span class="line">select count(*) from user;</span><br><span class="line">select max(age) from user;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -851,7 +851,7 @@
 
 
 <hr>
-<h1 id="8、表与表之间的关系"><a href="#8、表与表之间的关系" class="headerlink" title="8、表与表之间的关系"></a>8、表与表之间的关系</h1><p><img src="MySql%E5%9F%BA%E7%A1%80/%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png"></p>
+<h1 id="8、表与表之间的关系"><a href="#8、表与表之间的关系" class="headerlink" title="8、表与表之间的关系"></a>8、表与表之间的关系</h1><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png"></p>
 <hr>
 <h1 id="9、数据库设计"><a href="#9、数据库设计" class="headerlink" title="9、数据库设计"></a>9、数据库设计</h1><h2 id="9-1、数据库范化"><a href="#9-1、数据库范化" class="headerlink" title="9.1、数据库范化"></a>9.1、数据库范化</h2><h3 id="1、是什么？"><a href="#1、是什么？" class="headerlink" title="1、是什么？"></a>1、是什么？</h3><ul>
 <li>  顾名思义，数据库范化就是数据库规范化。    </li>
@@ -1213,7 +1213,7 @@
 <li> <del>数据删除存在问题：假设某一个系的所有同学都毕业了，在将这些同学的数据删除时，会将系的数据一起删除。</del></li>
 </ol>
 <hr>
-<h1 id="10、多表查询"><a href="#10、多表查询" class="headerlink" title="10、多表查询"></a>10、多表查询</h1><h2 id="10-1、多表查询分类"><a href="#10-1、多表查询分类" class="headerlink" title="10.1、多表查询分类"></a>10.1、多表查询分类</h2><p><img src="MySql%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB.png"></p>
+<h1 id="10、多表查询"><a href="#10、多表查询" class="headerlink" title="10、多表查询"></a>10、多表查询</h1><h2 id="10-1、多表查询分类"><a href="#10-1、多表查询分类" class="headerlink" title="10.1、多表查询分类"></a>10.1、多表查询分类</h2><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB.png"></p>
 <h2 id="10-2、笛卡尔积"><a href="#10-2、笛卡尔积" class="headerlink" title="10.2、笛卡尔积"></a>10.2、笛卡尔积</h2><h3 id="1、是什么"><a href="#1、是什么" class="headerlink" title="1、是什么"></a>1、是什么</h3><h3 id="2、为什么要消除笛卡尔积"><a href="#2、为什么要消除笛卡尔积" class="headerlink" title="2、为什么要消除笛卡尔积"></a>2、为什么要消除笛卡尔积</h3><ul>
 <li>我们发现由并不是所有由笛卡尔积连接起来的数据组合都是有用的，所以需要通过设置条件过滤掉没有用的数据。</li>
 </ul>
@@ -1287,7 +1287,7 @@
 
 
 <hr>
-<h1 id="12、事务"><a href="#12、事务" class="headerlink" title="12、事务"></a>12、事务</h1><p><a href="">超链接</a></p>
+<h1 id="12、事务"><a href="#12、事务" class="headerlink" title="12、事务"></a>12、事务</h1><p><a href>超链接</a></p>
 
     </div>
 

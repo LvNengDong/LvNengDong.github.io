@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="对象的创建：    对象分配   对象内存布局   对象的访问  1    对象的实例化 1.1    创建对象的方式   new    ​        使用 new 关键字创建对象本质上是调用对象的构造方法，但是在有些类中构造方法是私有的，这时我们就无法通过new关键字来创建对象了。 ​        一般这时候类会提供一个（或多个） public static 修饰的方法，我们可以通过">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/1623036700337-191886ae-39e7-4254-83c7-77fd7788e9da.jpeg">
-<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%AD%A5%E9%AA%A4.png">
-<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E8%84%91%E5%9B%BE.png">
-<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE.png">
-<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE.png">
-<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png">
+<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/1623036700337-191886ae-39e7-4254-83c7-77fd7788e9da.jpeg">
+<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%AD%A5%E9%AA%A4.png">
+<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E8%84%91%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE.png">
+<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE.png">
+<meta property="og:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png">
 <meta property="article:published_time" content="2021-06-07T03:34:22.000Z">
 <meta property="article:modified_time" content="2021-09-01T09:44:49.342Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/1623036700337-191886ae-39e7-4254-83c7-77fd7788e9da.jpeg">
+<meta name="twitter:image" content="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/1623036700337-191886ae-39e7-4254-83c7-77fd7788e9da.jpeg">
 
 
 <link rel="canonical" href="http://example.com/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/">
@@ -139,7 +139,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -244,7 +244,7 @@
 <li>  对象内存布局</li>
 <li>  对象的访问</li>
 </ul>
-<h1 id="1-对象的实例化"><a href="#1-对象的实例化" class="headerlink" title="1    对象的实例化"></a>1    对象的实例化</h1><p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/1623036700337-191886ae-39e7-4254-83c7-77fd7788e9da.jpeg" alt="img"></p>
+<h1 id="1-对象的实例化"><a href="#1-对象的实例化" class="headerlink" title="1    对象的实例化"></a>1    对象的实例化</h1><p><img src="/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/1623036700337-191886ae-39e7-4254-83c7-77fd7788e9da.jpeg" alt="img"></p>
 <h2 id="1-1-创建对象的方式"><a href="#1-1-创建对象的方式" class="headerlink" title="1.1    创建对象的方式"></a>1.1    创建对象的方式</h2><blockquote>
 <ol>
 <li> <strong>new</strong> </li>
@@ -288,7 +288,7 @@
 </ol>
 </blockquote>
 <hr>
-<h2 id="1-2-创建对象的步骤"><a href="#1-2-创建对象的步骤" class="headerlink" title="1.2    创建对象的步骤"></a>1.2    创建对象的步骤</h2><p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%AD%A5%E9%AA%A4.png" alt="对象创建步骤"></p>
+<h2 id="1-2-创建对象的步骤"><a href="#1-2-创建对象的步骤" class="headerlink" title="1.2    创建对象的步骤"></a>1.2    创建对象的步骤</h2><p><img src="/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%AD%A5%E9%AA%A4.png" alt="对象创建步骤"></p>
 <h3 id="1、判断对象对应的类是否加载、链接、初始化"><a href="#1、判断对象对应的类是否加载、链接、初始化" class="headerlink" title="1、判断对象对应的类是否加载、链接、初始化"></a>1、判断对象对应的类是否加载、链接、初始化</h3><p>​        虚拟机在执行指令集时遇到了 new 指令后，首先会去检查这个指令的参数能否在方法区的运行时常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已经被加载、解析和初始化过（即判断类元信息是否存在）。如果没有，那么必须先执行相应的类加载过程。</p>
 <ul>
 <li>  类加载过程：在双亲委派模式下，使用类加载器以 <code>ClassLoader+包名+类名</code> 为Key查找对应的 <code>.class</code> 文件，如果找到文件，则进行类加载，并生成对应的Class对象；如果没有找到文件，则抛出 ClassNotFoundException 异常，。</li>
@@ -343,7 +343,7 @@
 <p>  对象在堆空间中的内存布局：</p>
 <p>  可分为3部分：1、对象头  2、实例数据  3、对齐填充</p>
 </blockquote>
-<p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E8%84%91%E5%9B%BE.png"></p>
+<p><img src="/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E8%84%91%E5%9B%BE.png"></p>
 <h2 id="2-1-对象头（Header）"><a href="#2-1-对象头（Header）" class="headerlink" title="2.1    对象头（Header）"></a>2.1    对象头（Header）</h2><blockquote>
 <ol>
 <li> <strong>运行时元数据（Mark Word）</strong></li>
@@ -389,12 +389,12 @@
 <p>  <strong>句柄访问</strong></p>
 </blockquote>
 <p>​        句柄访问就是在Java堆区中划分出一块内存作为句柄池，<code>栈帧.局部变量表.reference</code> 中保存的就是对象的句柄地址，而句柄中包含了对象的实例数据地址信息和对象的类型数据的地址信息。 </p>
-<p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE.png" alt="句柄访问"></p>
+<p><img src="/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE.png" alt="句柄访问"></p>
 <blockquote>
 <p>  <strong>直接指针访问</strong></p>
 </blockquote>
 <p>​        如果使用直接指针访问的话，Java堆中对象的内存布局就必须考虑如何保存到对象类型数据的指针，如通过在对象头中保留类型指针来访问类型信息。而 reference 中存储的直接就是实例对象的地址，当然这时如果只是访问实例对象本身的话，就不需要多一次间接访问句柄池的开销。</p>
-<p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE.png"></p>
+<p><img src="/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE.png"></p>
 <blockquote>
 <p>  <strong>对比</strong></p>
 </blockquote>
@@ -425,7 +425,7 @@
 <ul>
 <li>  对象头中的类型指针保存的是方法区中对象对应的类型信息。</li>
 </ul>
-<p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png" alt="对象的内存布局"></p>
+<p><img src="/2021/06/07/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-07%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png" alt="对象的内存布局"></p>
 <h1 id="5-面试题"><a href="#5-面试题" class="headerlink" title="5    面试题"></a>5    面试题</h1><blockquote>
 <p>  面试题</p>
 </blockquote>

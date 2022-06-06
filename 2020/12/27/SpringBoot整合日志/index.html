@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1、日志框架 日志的作用：  记录程序运行中产生的关键数据。  日志的发展：   System.out.println(&quot;&quot;)；，将程序运行时产生的关键数据打印在控制台上。 日志框架，既可以将程序运行时的关键数据打印在控制台上，也可以将日志信息持久化到指定的文件夹中去。 高级日志框架：在日志框架的基础上，增加了一些人性化的功能，如： 异步模式 自动归档：将每天的日志单独放在一个">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/legacy.png">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227200842184.png">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180131220946.png">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203358527.png">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203732038.png">
-<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227204458159.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/legacy.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227200842184.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180131220946.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203358527.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203732038.png">
+<meta property="og:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227204458159.png">
 <meta property="article:published_time" content="2020-12-27T13:54:37.000Z">
 <meta property="article:modified_time" content="2022-01-14T09:01:35.973Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png">
+<meta name="twitter:image" content="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png">
 
 
 <link rel="canonical" href="http://example.com/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/">
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -275,7 +275,7 @@
 </thead>
 <tbody><tr>
 <td align="center"><strong>SLF4j</strong>（Simple  Logging Facade for Java）<br>JCL（Jakarta  Commons Logging）<br>jboss-logging</td>
-<td align="center">Log4j<br/>JUL（java.util.logging）<br/>  Log4j2<br/><strong>Logback</strong></td>
+<td align="center">Log4j<br>JUL（java.util.logging）<br>  Log4j2<br><strong>Logback</strong></td>
 </tr>
 </tbody></table>
 <p>左边选一个日志框架接口（抽象层），右边来选一个实现。如：</p>
@@ -326,7 +326,7 @@
 <li>  通过应用程序层直接调用Slf4j的抽象层，并且导入抽象层的实现类，但是实现类与抽象层并不适配，这时候就需要多加一层适配层，启到承上启下的作用，加上适配器后也以正确输出日志信息。</li>
 <li>  如下图所示，<code>slf4j</code>是日志框架的一种抽象层，<code>log4j</code>的是一种日志框架的实现层，但是二者之间并不兼容，这时候我们引入了<code>slf4j-log412</code> 这一适配器，就可将这二者关联起来。</li>
 </ul>
-<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png"></p>
+<p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/concrete-bindings.png"></p>
 <ul>
 <li>  每一个日志的实现框架都有自己的配置文件。无论使用哪一种日志门面，<strong>配置文件还是得与具体的日志实现框架的匹配</strong>。</li>
 </ul>
@@ -349,7 +349,7 @@
 <p>  <strong>做法：</strong></p>
 </blockquote>
 <p>将不需要使用的日志框架排除出去，但是排除过后会出现一个问题就是原来框架的运行需要的jar包不存在了程序直接无法启动，这时候我们可以引入<strong>中间包</strong>来替换掉被排除的jar包，中间包中的所有类与原jar包中的所有类名字完全一样，这就保证了程序在运行过程中可以加载到需要的全限定类名，但是中间包中的类的方法的实现又去调用SLF4J的抽象类，SLF4J的抽象类则继续调用SLF4J的实现类。</p>
-<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/legacy.png"></p>
+<p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/legacy.png"></p>
 <blockquote>
 <p>  <strong>小总结：</strong></p>
 </blockquote>
@@ -359,19 +359,19 @@
 <li>我们导入slf4j的实现类</li>
 </ol>
 <hr>
-<h2 id="3、SpringBoot日志关系"><a href="#3、SpringBoot日志关系" class="headerlink" title="3、SpringBoot日志关系"></a>3、SpringBoot日志关系</h2><p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227200842184.png" alt="image-20201227200842184"></p>
+<h2 id="3、SpringBoot日志关系"><a href="#3、SpringBoot日志关系" class="headerlink" title="3、SpringBoot日志关系"></a>3、SpringBoot日志关系</h2><p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227200842184.png" alt="image-20201227200842184"></p>
 <p>SpringBoot项目默认依赖<code>spirng-boot-starter</code>依赖，进而依赖<code>spirng-boot-starter-logging</code>依赖，改以来用来管理日志框架。</p>
 <p>底层依赖关系</p>
-<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180131220946.png"></p>
+<p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20180131220946.png"></p>
 <p>总结：</p>
 <ol>
 <li>SpringBoot底层默认使用<code>slf4j（抽象层）+ logback（实现类）</code>的方式进行日志记录；</li>
 <li>SpringBoot也把其他的日志框架的抽象层使用<strong>中间包</strong>替换，中间包再去依赖<code>slf4j</code>的抽象类；</li>
 <li><code>slf4j</code>的抽象类再去调用<code> logback（实现类）</code>实现类完成日志相关功能。</li>
 </ol>
-<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203358527.png" alt="image-20201227203358527"></p>
+<p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203358527.png" alt="image-20201227203358527"></p>
 <p>如图所示，我们可以看到默认日志框架的包结构与中间包的包结构完全相同，这就保证了即使用中间包替换默认包，项目的加载也不会出现问题。</p>
-<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203732038.png" alt="image-20201227203732038"></p>
+<p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227203732038.png" alt="image-20201227203732038"></p>
 <p>但是我们进一步进入中间包的实现类中可以发现，在中间包的类中又调用了SLF4J的接口中的方法。完成了对SLF4J抽象层的依赖。</p>
 <ol start="4">
 <li><p>如果我们要引入其他框架，一定要把这个框架的默认日志依赖移除掉。</p>
@@ -381,7 +381,7 @@
 <p><strong>==SpringBoot能自动适配所有的日志，而且底层使用slf4j+logback的方式记录日志，引入其他框架的时候，只需要把这个框架依赖的日志框架排除掉即可；==</strong></p>
 <hr>
 <h2 id="4、日志使用；"><a href="#4、日志使用；" class="headerlink" title="4、日志使用；"></a>4、日志使用；</h2><h3 id="1、默认配置"><a href="#1、默认配置" class="headerlink" title="1、默认配置"></a>1、默认配置</h3><p>SpringBoot默认帮我们配置好了日志。我们只需启动一个SpringBoot项目，就会在控制台上看到如下日志信息，这就是默认日志。</p>
-<p><img src="SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227204458159.png" alt="image-20201227204458159"></p>
+<p><img src="/2020/12/27/SpringBoot%E6%95%B4%E5%90%88%E6%97%A5%E5%BF%97/image-20201227204458159.png" alt="image-20201227204458159"></p>
 <blockquote>
 <p>日志的级别:</p>
 </blockquote>

@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="带着问题学？    线程池相比于手动创建线程的优势？  线程池的体系架构？  常见的线程池？  线程池的七大参数？  线程池的底层工作原理？  线程池的四大拒绝策略？  线程池在生产环境中的使用？   0    前置知识   超链接：阻塞队列   1    为什么使用线程池？（优势）线程池的主要工作是控制并行线程的数量，运行过程中将待执行的任务加入队列，由线程池分配线程来执行这些任务，如果任务数量">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154412236.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154444221.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154508186.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%9B%BE.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E6%BA%90%E7%A0%81.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102641510.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102554869.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102733383.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103054629.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103405598.png">
-<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210914173600250.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154412236.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154444221.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154508186.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E6%BA%90%E7%A0%81.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102641510.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102554869.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102733383.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103054629.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103405598.png">
+<meta property="og:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210914173600250.png">
 <meta property="article:published_time" content="2021-07-15T06:34:36.000Z">
 <meta property="article:modified_time" content="2021-10-19T12:02:47.773Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png">
+<meta name="twitter:image" content="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png">
 
 
 <link rel="canonical" href="http://example.com/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
@@ -146,7 +146,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -272,7 +272,7 @@
 <hr>
 <h1 id="2-怎么用"><a href="#2-怎么用" class="headerlink" title="2    怎么用"></a>2    怎么用</h1><p>当我们使用线程池后，执行任务时就不再需要为某个任务分配某个具体的线程了，我们只需要把任务交给线程池即可，线程池内部会分配一个空闲的线程去执行该任务。</p>
 <h2 id="2-1-架构说明"><a href="#2-1-架构说明" class="headerlink" title="2.1    架构说明"></a>2.1    架构说明</h2><p>线程池是通过 Executor 框架实现的，该框架用到了 <strong>Executors、Executor、ExecutorService、ThreadPoolExecutor</strong> 这几个类。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png" alt="Executor"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png" alt="Executor"></p>
 <ul>
 <li>  线程池的顶级父接口是 <strong>Executor</strong>，次一级父接口是 <strong>ExecutorService</strong>，这两个接口中定义了线程池实例必须要实现的公共的方法。</li>
 <li>  <strong>ThreadPoolExecutor</strong> 是线程池的具体实现类，<strong>可以通过这个类来创建一个线程池对象</strong>。</li>
@@ -307,7 +307,7 @@
 <li>  底层使用的数据结构是 LinkedBlockingQueue。</li>
 <li>  执行长期的任务，性能较好</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154412236.png" alt="image-20210715154412236"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154412236.png" alt="image-20210715154412236"></p>
 <blockquote>
 <ol start="2">
 <li> <strong>newSingleThreadExecutor</strong></li>
@@ -319,7 +319,7 @@
 <li>  底层使用的数据结构是 LinkedBlockingQueue。</li>
 <li>  适用于一个任务一个任务执行的场景</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154444221.png" alt="image-20210715154444221"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154444221.png" alt="image-20210715154444221"></p>
 <blockquote>
 <ol start="3">
 <li> <strong>newCachedThreadPool</strong></li>
@@ -331,7 +331,7 @@
 <li>  底层使用的数据结构是 SynchronousQueue。</li>
 <li>  适用于执行很多短期异步的小程序或者负载较轻的服务器。</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154508186.png" alt="image-20210715154508186"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154508186.png" alt="image-20210715154508186"></p>
 <hr>
 <h1 id="3-ThreadPoolExecutor-构造方法中的-7-大参数"><a href="#3-ThreadPoolExecutor-构造方法中的-7-大参数" class="headerlink" title="3    ThreadPoolExecutor 构造方法中的 7 大参数"></a>3    ThreadPoolExecutor 构造方法中的 7 大参数</h1><p>ThreadPoolExecutor 有多个重载的构造方法，方法中的参数为 5~7 个不等，我们直接来看最多的 7 个参数。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ThreadPoolExecutor</span><span class="params">(<span class="type">int</span> corePoolSize,</span></span><br><span class="line"><span class="params">                          <span class="type">int</span> maximumPoolSize,</span></span><br><span class="line"><span class="params">                          <span class="type">long</span> keepAliveTime,</span></span><br><span class="line"><span class="params">                          TimeUnit unit,</span></span><br><span class="line"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span><br><span class="line"><span class="params">                          ThreadFactory threadFactory,</span></span><br><span class="line"><span class="params">                          RejectedExecutionHandler handler)</span> &#123;</span><br><span class="line">    <span class="comment">// .....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -360,11 +360,11 @@
 </li>
 </ol>
 <hr>
-<h1 id="4-底层工作原理"><a href="#4-底层工作原理" class="headerlink" title="4    底层工作原理"></a>4    底层工作原理</h1><h2 id="4-1-工作原理"><a href="#4-1-工作原理" class="headerlink" title="4.1    工作原理"></a>4.1    工作原理</h2><p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="线程池工作原理图"></p>
+<h1 id="4-底层工作原理"><a href="#4-底层工作原理" class="headerlink" title="4    底层工作原理"></a>4    底层工作原理</h1><h2 id="4-1-工作原理"><a href="#4-1-工作原理" class="headerlink" title="4.1    工作原理"></a>4.1    工作原理</h2><p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="线程池工作原理图"></p>
 <h2 id="4-2-工作流程"><a href="#4-2-工作流程" class="headerlink" title="4.2    工作流程"></a>4.2    工作流程</h2><blockquote>
 <p>  <strong>工作流程图</strong></p>
 </blockquote>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="线程池工作流程图"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="线程池工作流程图"></p>
 <p>在创建了线程池后，线程池会等待提交过来的任务请求。每次调用 <code>execute()</code> 方法执行新的任务请求时，线程池中会进行如下判断：</p>
 <ol>
 <li> 如果线程池中正在运行的线程数量小于 corePoolSize，那么马上分配一个空闲线程执行这个任务；</li>
@@ -385,7 +385,7 @@
 <h2 id="4-3-源码分析"><a href="#4-3-源码分析" class="headerlink" title="4.3    源码分析"></a>4.3    源码分析</h2><blockquote>
 <p>  <strong>ThreadPoolExecutor 的构造函数</strong>【重载】</p>
 </blockquote>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E6%BA%90%E7%A0%81.png" alt="源码"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E6%BA%90%E7%A0%81.png" alt="源码"></p>
 <hr>
 <h1 id="5-线程池的4种拒绝策略"><a href="#5-线程池的4种拒绝策略" class="headerlink" title="5    线程池的4种拒绝策略"></a>5    线程池的4种拒绝策略</h1><p>当线程池中的任务数已经达到了当前线程池负载的极限时，再有新的任务交付给线程池时，线程池就会采用拒绝策略。以下是线程池中常见的四种拒绝策略：</p>
 <ol>
@@ -429,35 +429,35 @@
 <p>上述的自定义线程池，核心线程数为 2 个，最大线程数量为 5 个，阻塞队列的最大容量为 5 个，也就是说，该线程池顶峰时期最多只能同时容纳 10 个任务。如果任务数量超过 10 个，则会执行默认的拒绝策略，即抛出异常并终止程序。</p>
 <hr>
 <h2 id="7-2-不同拒绝策略测试"><a href="#7-2-不同拒绝策略测试" class="headerlink" title="7.2    不同拒绝策略测试"></a>7.2    不同拒绝策略测试</h2><p>如果将用户请求的任务设置为 12 个，则一定会触发拒绝策略。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102641510.png" alt="image-20210716102641510"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102641510.png" alt="image-20210716102641510"></p>
 <blockquote>
 <ol>
 <li> <strong>默认拒绝策略 AbortPolicy 测试</strong></li>
 </ol>
 </blockquote>
 <p>程序会直接抛出 <strong>java.util.concurrent.RejectedExecutionException</strong> 异常。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102554869.png" alt="image-20210716102554869"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102554869.png" alt="image-20210716102554869"></p>
 <blockquote>
 <ol start="2">
 <li> <strong>CallerRunsPolicy 测试</strong></li>
 </ol>
 </blockquote>
 <p>不会抛出异常，但是由于请求任务数大于线程池的最大线程容量与阻塞队列容量之和，所以会将容纳不下的任务交还给调用者线程执行，在这里就是交还给 main 线程，让 main 线程去执行任务。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102733383.png" alt="image-20210716102733383"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102733383.png" alt="image-20210716102733383"></p>
 <blockquote>
 <ol start="3">
 <li> <strong>DiscardOldestPolicy</strong></li>
 </ol>
 </blockquote>
 <p>不会抛出异常，而是将阻塞队列中等待时间最长的任务丢弃掉。可以看到请求任务有 12 个，而程序只执行的 10 个，阻塞队列中等待时间最长的两个被抛弃掉了。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103054629.png" alt="image-20210716103054629"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103054629.png" alt="image-20210716103054629"></p>
 <blockquote>
 <ol start="4">
 <li> <strong>DiscardPolicy 策略</strong></li>
 </ol>
 </blockquote>
 <p>不会抛出异常，同样是把超出数量的任务抛弃掉，但是在这里抛弃的是容纳不下的最新的任务请求。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103405598.png" alt="image-20210716103405598"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103405598.png" alt="image-20210716103405598"></p>
 <hr>
 <h2 id="7-3-如何合理配置线程池参数"><a href="#7-3-如何合理配置线程池参数" class="headerlink" title="7.3    如何合理配置线程池参数"></a>7.3    如何合理配置线程池参数</h2><h3 id="CPU密集型任务"><a href="#CPU密集型任务" class="headerlink" title="CPU密集型任务"></a>CPU密集型任务</h3><p>CPU 密集型也是指计算密集型，大部分时间用来做计算逻辑判断等 CPU 操作的程序称为 CPU 密集型任务。该类型的任务需要进行大量的计算，主要消耗 CPU 资源。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花费在任务切换上的时间就越多，CPU 执行的效率也就越低，所以想要最高效的，所以，想要最高效地利用 CPU，CPU 密集型任务同时进行的数量应当等于 CPU 的核心数。</p>
 <ul>
@@ -489,7 +489,7 @@
 <h2 id="线程池常用的阻塞队列有哪些"><a href="#线程池常用的阻塞队列有哪些" class="headerlink" title="线程池常用的阻塞队列有哪些?"></a>线程池常用的阻塞队列有哪些?</h2><ul>
 <li>  表格左侧是线程池，右侧为它们对应的阻塞队列，可以看到 5 种线程池对应了 3 种阻塞队列</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210914173600250.png" alt="image-20210914173600250"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210914173600250.png" alt="image-20210914173600250"></p>
 <blockquote>
 <ol>
 <li> <strong>LinkedBlockingQueue</strong></li>

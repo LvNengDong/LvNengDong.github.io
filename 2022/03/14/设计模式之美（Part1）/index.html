@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="03 | 面向对象、设计原则、设计模式、编程规范、重构，这五者有何关系？想要具备编写高质量代码的能力，首先要学习一些编程方法论，主要包含：    面向对象（可以视为一种设计思想）  设计原则  设计模式  编程规范  重构技巧  …   这部分基础方法论的内容就相当于一个全局性大纲，你可以把学到的具体内容填充到这个大纲中，不断完善自己的知识结构体系。 面向对象目前主流的编程风格有三种，分别是：">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png">
+<meta property="og:image" content="http://example.com/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png">
 <meta property="article:published_time" content="2022-03-14T04:02:18.000Z">
 <meta property="article:modified_time" content="2022-03-20T05:50:39.349Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png">
+<meta name="twitter:image" content="http://example.com/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png">
 
 
 <link rel="canonical" href="http://example.com/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -646,7 +646,7 @@
 
 <p>​    这种设计思路虽然可以解决问题，但是不够优美。因为除了鸵鸟之外，不会飞的鸟还有很多，比如企鹅。对于这些不会飞的鸟来说，我们都需要重写 fly() 方法并抛出异常。这样的设计，一方面，徒增了编码的工作量；另一方面，也违背了“最小知识原则（Least Knowledge Principe，也叫迪米特法则）”，暴露不该暴露的接口给外部，增加了类使用过程中被误用的概率。</p>
 <p>​    你可能又会说，那我们再通过 AbstractBird 类派生出两个更加细分的抽象类：会飞的鸟类 AbstractFlyableBird 和不会飞的鸟类 AbstractUnFlyableBird，让麻雀、鸽子这些会飞的鸟继承 AbstractFlyableBird，让鸵鸟、企鹅这些不会飞的鸟都继承 AbstractUnFlyableBird，不就可以了么。  </p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png" alt="image-20220320110025182"></p>
+<p><img src="/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png" alt="image-20220320110025182"></p>
 <p>​    从图中我们可以看出，继承关系变成了三层。不过，从整体上来讲，目前的继承关系还比较简单，层次比较浅，也算是一种可以接受的设计思路。我们再继续加点难度，在刚刚这个场景中，我们只关注“鸟会不会飞”，但如果我们还关注“鸟会不会叫”，那这个时候，我们又该如何设计类之间的继承关系呢？</p>
 <p>​    是否会飞？是否会叫？两个行为搭配起来会产生四种行为：会飞会叫、会飞不会叫、不会飞会叫、不会飞不会叫。如果我们继续沿用刚才的思路，那就需要再定义四个抽象类：AbstractFlyableTweetableBird、AbstractFlyableUnTweetableBird、AbstractUnFlyableTweetableBird、AbstractUnFlyableUnTweetableBird。此时继承关系就变成了四层。</p>
 <p>​    如果我们还要考虑“是否会下蛋”这一行为，那估计就要组合爆炸了。类的继承层次会越来深、继承关系会越来越复杂。而这种层次很深、很复杂的继承关系，一方面，会导致代码的可读性变差。因为我们要搞清楚某个类具有哪些方法、属性，必须阅读父类的代码、父类的父类的代码…一直追溯到最顶层父类的代码。另一方面，这也破坏了类的封装，将父类的实现细节暴露给了子类【从父类命名中就可以看出父类的实现细节】。子类依赖父类实现，两者高度耦合，一旦父类代码修改，就会影响所有子类的逻辑。</p>

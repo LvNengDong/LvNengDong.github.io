@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="题目：    假设有一张表，有字段：ID(主键),A,B,C,D；如果字段A的值和字段B的值和上一条(或者某一条)记录都相同的话就算重复，就需要删除其中重复的记录，只保留一条不重复的记录，请问该如何写这条SQL语句 ？  考点：delete，max，min，in">
+    <meta name="description" content="A001：交集类型查询123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354CREATE TABLE A001(stuId INT,cId VARCHAR(10),grade INT);INSERT INTO A001 VALUES(1, &amp;#x27;00">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL每日一题">
 <meta property="og:url" content="http://example.com/2022/04/06/SQL%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="题目：    假设有一张表，有字段：ID(主键),A,B,C,D；如果字段A的值和字段B的值和上一条(或者某一条)记录都相同的话就算重复，就需要删除其中重复的记录，只保留一条不重复的记录，请问该如何写这条SQL语句 ？  考点：delete，max，min，in">
+<meta property="og:description" content="A001：交集类型查询123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354CREATE TABLE A001(stuId INT,cId VARCHAR(10),grade INT);INSERT INTO A001 VALUES(1, &amp;#x27;00">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-06T02:03:50.000Z">
-<meta property="article:modified_time" content="2022-04-06T02:14:41.413Z">
+<meta property="article:modified_time" content="2022-06-06T03:45:18.752Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -95,7 +95,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -108,6 +108,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A001%EF%BC%9A%E4%BA%A4%E9%9B%86%E7%B1%BB%E5%9E%8B%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">A001：交集类型查询</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -131,7 +132,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -198,9 +199,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-04-06 10:03:50 / Modified: 10:14:41" itemprop="dateCreated datePublished" datetime="2022-04-06T10:03:50+08:00">2022-04-06</time>
+      <time title="Created: 2022-04-06 10:03:50" itemprop="dateCreated datePublished" datetime="2022-04-06T10:03:50+08:00">2022-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-06-06 11:45:18" itemprop="dateModified" datetime="2022-06-06T11:45:18+08:00">2022-06-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -222,7 +229,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>题目：</strong></p>
+        <h2 id="A001：交集类型查询"><a href="#A001：交集类型查询" class="headerlink" title="A001：交集类型查询"></a>A001：交集类型查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE A001</span><br><span class="line">(</span><br><span class="line">stuId INT,</span><br><span class="line">cId VARCHAR(10),</span><br><span class="line">grade INT</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">INSERT INTO A001 VALUES</span><br><span class="line">(1, &#x27;001&#x27;, 67),</span><br><span class="line">(1, &#x27;002&#x27;, 89),</span><br><span class="line">(1, &#x27;003&#x27;, 94),</span><br><span class="line">(2, &#x27;001&#x27;, 95),</span><br><span class="line">(2, &#x27;002&#x27;, 88),</span><br><span class="line">(2, &#x27;004&#x27;, 78),</span><br><span class="line">(3, &#x27;001&#x27;, 94),</span><br><span class="line">(3, &#x27;002&#x27;, 77),</span><br><span class="line">(3, &#x27;003&#x27;, 90);</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">查询出既学过‘001’课程，也学过‘003’号课程的学生ID</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">-- 错误写法</span><br><span class="line">SELECT stuId FROM A001</span><br><span class="line">WHERE cId=&#x27;001&#x27; AND cId=&#x27;003&#x27;;</span><br><span class="line">-- 错误原因：没有一条数据的 cId 既是‘001’又是‘003’</span><br><span class="line"></span><br><span class="line">-- 思路1：使用自连接选择符合条件的学生</span><br><span class="line">SELECT t1.stuId FROM</span><br><span class="line">(SELECT stuId FROM A001 WHERE cId=&#x27;001&#x27;) t1</span><br><span class="line">INNER JOIN </span><br><span class="line">(SELECT stuId FROM A001 WHERE cId=&#x27;003&#x27;) t2</span><br><span class="line">ON t1.stuId=t2.stuId;</span><br><span class="line"></span><br><span class="line">-- 思路2：使用交集取出同时满足条件的学生【备注：MySQL中不支持直接使用INTERSECT关键字进行交集运算】</span><br><span class="line">SELECT stuId FROM A001 WHERE cId=&#x27;001&#x27;</span><br><span class="line">INTERSECT</span><br><span class="line">SELECT stuId FROM A001 WHERE cId=&#x27;003&#x27;;</span><br><span class="line"></span><br><span class="line">-- 思路3：</span><br><span class="line">SELECT stuId FROM A001 </span><br><span class="line">WHERE cId IN(&#x27;001&#x27;, &#x27;003&#x27;)</span><br><span class="line">GROUP BY stuId</span><br><span class="line">HAVING COUNT(stuId)=2;</span><br><span class="line"></span><br><span class="line">-- 思路4（思路3的变式）</span><br><span class="line">SELECT stuId FROM</span><br><span class="line">(</span><br><span class="line">SELECT stuId FROM A001 WHERE cId=&#x27;001&#x27;</span><br><span class="line">UNION ALL</span><br><span class="line">SELECT stuId FROM A001 WHERE cId=&#x27;003&#x27;</span><br><span class="line">) tmp</span><br><span class="line">GROUP BY stuId</span><br><span class="line">HAVING COUNT(stuId)=2;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>题目：</strong></p>
 <blockquote>
 <p>  假设有一张表，有字段：ID(主键),A,B,C,D；如果字段A的值和字段B的值和上一条(或者某一条)记录都相同的话就算重复，就需要删除其中重复的记录，只保留一条不重复的记录，请问该如何写这条SQL语句 ？</p>
 </blockquote>

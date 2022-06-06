@@ -27,21 +27,21 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="MapReduce 理论基础MapReduce 定义MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于Hadoop的数据分析应用”的核心框架。 MapReduce 核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，可以运行在一个Hadoop集群上。  MapReduce优缺点优点——简单缺点——慢 MapReduce 组件MapReduce 是一种编">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211126202235883.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202113216507.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202141842801.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202150116535.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211127120148703.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202172418064.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202170551898.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202173603095.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211202202010080.png">
-<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211203123841956.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211126202235883.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202113216507.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202141842801.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202150116535.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211127120148703.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202172418064.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202170551898.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202173603095.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211202202010080.png">
+<meta property="og:image" content="http://example.com/2021/02/19/MapReduce/image-20211203123841956.png">
 <meta property="article:published_time" content="2021-02-19T07:10:17.000Z">
 <meta property="article:modified_time" content="2021-12-14T11:23:26.934Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/02/19/MapReduce/MapReduce/image-20211126202235883.png">
+<meta name="twitter:image" content="http://example.com/2021/02/19/MapReduce/image-20211126202235883.png">
 
 
 <link rel="canonical" href="http://example.com/2021/02/19/MapReduce/">
@@ -143,7 +143,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -326,8 +326,8 @@
 <hr>
 <h2 id="三、Driver"><a href="#三、Driver" class="headerlink" title="三、Driver"></a>三、Driver</h2><p><strong>Driver 就相当于 Yarn 的客户端，用于提交 Job 到 Yarn 中。</strong></p>
 <hr>
-<h1 id="WordCount-案例"><a href="#WordCount-案例" class="headerlink" title="WordCount 案例"></a>WordCount 案例</h1><h2 id="WordCount-案例分析"><a href="#WordCount-案例分析" class="headerlink" title="WordCount 案例分析"></a>WordCount 案例分析</h2><p><img src="MapReduce/image-20211126202235883.png" alt="image-20211126202235883"></p>
-<p><img src="MapReduce/image-20211202113216507.png" alt="image-20211202113216507"></p>
+<h1 id="WordCount-案例"><a href="#WordCount-案例" class="headerlink" title="WordCount 案例"></a>WordCount 案例</h1><h2 id="WordCount-案例分析"><a href="#WordCount-案例分析" class="headerlink" title="WordCount 案例分析"></a>WordCount 案例分析</h2><p><img src="/2021/02/19/MapReduce/image-20211126202235883.png" alt="image-20211126202235883"></p>
+<p><img src="/2021/02/19/MapReduce/image-20211202113216507.png" alt="image-20211202113216507"></p>
 <h3 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h3><p>在 HDFS 的 <code>/hello</code> 目录下存在两个文件，现在要求统计两个文件中不同单词的数量，并要求将 <code>a-p</code> 开头的单词放入到一个结果文件中，<code>q-z</code> 开头的单词放入到另一个结果文件中。    </p>
 <ul>
 <li><p><code>/hello/a.txt    200M</code></p>
@@ -382,7 +382,7 @@
 <li>  准备的数据的格式必须是文本</li>
 <li>  编码必须是<code>utf-8无bom</code></li>
 </ul>
-<p><img src="MapReduce/image-20211202141842801.png" alt="image-20211202141842801"></p>
+<p><img src="/2021/02/19/MapReduce/image-20211202141842801.png" alt="image-20211202141842801"></p>
 <hr>
 <h1 id="Hadoop-序列化"><a href="#Hadoop-序列化" class="headerlink" title="Hadoop 序列化"></a>Hadoop 序列化</h1><h2 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h2><ul>
 <li>  <strong>序列化</strong>就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储（持久化）和网络传输。</li>
@@ -477,11 +477,11 @@
 <p>（3）期望输出数据格式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">13560436666      1116         954            2070  </span><br><span class="line">手机号码        上行流量     下行流量         总流量  </span><br></pre></td></tr></table></figure>
 
-<p><img src="MapReduce/image-20211202150116535.png" alt="image-20211202150116535"></p>
+<p><img src="/2021/02/19/MapReduce/image-20211202150116535.png" alt="image-20211202150116535"></p>
 <hr>
-<h1 id="MapReduce-框架原理"><a href="#MapReduce-框架原理" class="headerlink" title="MapReduce 框架原理"></a>MapReduce 框架原理</h1><p><img src="MapReduce/image-20211127120148703.png" alt="image-20211127120148703"></p>
+<h1 id="MapReduce-框架原理"><a href="#MapReduce-框架原理" class="headerlink" title="MapReduce 框架原理"></a>MapReduce 框架原理</h1><p><img src="/2021/02/19/MapReduce/image-20211127120148703.png" alt="image-20211127120148703"></p>
 <hr>
-<h1 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h1><h2 id="FileInputFormat切片源码解析-input-getSplits-job"><a href="#FileInputFormat切片源码解析-input-getSplits-job" class="headerlink" title="FileInputFormat切片源码解析(input.getSplits(job))"></a>FileInputFormat切片源码解析(input.getSplits(job))</h2><p><img src="MapReduce/image-20211202172418064.png" alt="image-20211202172418064"></p>
+<h1 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h1><h2 id="FileInputFormat切片源码解析-input-getSplits-job"><a href="#FileInputFormat切片源码解析-input-getSplits-job" class="headerlink" title="FileInputFormat切片源码解析(input.getSplits(job))"></a>FileInputFormat切片源码解析(input.getSplits(job))</h2><p><img src="/2021/02/19/MapReduce/image-20211202172418064.png" alt="image-20211202172418064"></p>
 <h2 id="FileInputFormat-的切片策略（默认切片策略）"><a href="#FileInputFormat-的切片策略（默认切片策略）" class="headerlink" title="FileInputFormat 的切片策略（默认切片策略）"></a>FileInputFormat 的切片策略（默认切片策略）</h2><ul>
 <li><strong>切片策略</strong><ol>
 <li> 首先获取当前输入目录中的所有文件；</li>
@@ -506,7 +506,7 @@
 <li>  MapTask 在读取切片的内容时，需要根据切片的 metainfo ，获取到当前切片属于文件的哪部分，再根据此信息去寻找对应的块，读取数据。</li>
 </ul>
 <p><strong>建议：</strong></p>
-<p><img src="MapReduce/image-20211202170551898.png" alt="image-20211202170551898"></p>
+<p><img src="/2021/02/19/MapReduce/image-20211202170551898.png" alt="image-20211202170551898"></p>
 <ul>
 <li><p>片大小最好等于块大小。</p>
 <blockquote>
@@ -519,7 +519,7 @@
 </li>
 </ul>
 <hr>
-<p><img src="MapReduce/image-20211202173603095.png" alt="image-20211202173603095"></p>
+<p><img src="/2021/02/19/MapReduce/image-20211202173603095.png" alt="image-20211202173603095"></p>
 <hr>
 <h2 id="CombineTextInputFormat切片机制"><a href="#CombineTextInputFormat切片机制" class="headerlink" title="CombineTextInputFormat切片机制"></a>CombineTextInputFormat切片机制</h2><p>框架默认的TextInputformat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask，这样如果有大量小文件，就会产生大量的MapTask，处理效率极其低下。</p>
 <p><strong>一、应用场景：</strong></p>
@@ -609,7 +609,7 @@
 <p>无论是 HDFS 还是 MapReduce，在处理小文件时效率都非常低，但又难免面临处理大量小文件的场景，此时，就需要有相应解决方案。可以自定义 InputFormat 实现小文件的合并。</p>
 <p><strong>一、需求</strong></p>
 <p>将多个小文件合并成一个 <code>SequenceFile</code> 文件（SequenceFile 文件是 Hadoop 用来存储二进制形式的 <code>key-value</code> 对的文件格式），SequenceFile 里面存储着多个文件，存储的形式为：<code>文件路径+文件名 = key</code>，<code>文件内容=value</code>。</p>
-<p><img src="MapReduce/image-20211202202010080.png" alt="image-20211202202010080"></p>
+<p><img src="/2021/02/19/MapReduce/image-20211202202010080.png" alt="image-20211202202010080"></p>
 <p><strong>二、需求分析</strong></p>
 <ol>
 <li>自定义一个类继承 FileInputFormat<ul>
@@ -680,7 +680,7 @@
 <hr>
 <h1 id="Shuffle-机制"><a href="#Shuffle-机制" class="headerlink" title="Shuffle 机制"></a>Shuffle 机制</h1><p>MapReduce 为了确保 Reducer 阶段每个输入数据都是按 key 排序的，会执行多次排序的过程，这个阶段被称为 Shuffle 阶段。</p>
 <p>从 Mapper 出去到 Reducer 接收之前全部都是 Shuffle 的范围。</p>
-<h2 id="MapTask-工作机制"><a href="#MapTask-工作机制" class="headerlink" title="MapTask 工作机制"></a>MapTask 工作机制</h2><p><img src="MapReduce/image-20211203123841956.png" alt="image-20211203123841956"></p>
+<h2 id="MapTask-工作机制"><a href="#MapTask-工作机制" class="headerlink" title="MapTask 工作机制"></a>MapTask 工作机制</h2><p><img src="/2021/02/19/MapReduce/image-20211203123841956.png" alt="image-20211203123841956"></p>
 <p><strong>一、MapTask 的两个阶段（官方定义）</strong></p>
 <p>MapTask 的执行过程大致可分为两个阶段：</p>
 <ol>

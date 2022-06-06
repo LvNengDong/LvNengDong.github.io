@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="观察者模式；Observer Pattern  概念：定义对象间的一种一对多依赖关系，使得每次当一个对象发生状态改变时，其所有依赖的对象都能得到通知并执行状态改变后的逻辑。 观察者模式案例需求天气预报项目需求：   气象站实时将测量到的温度、天气、空气质量等数据以公告的形式发布出去，比如发布给第三方，如Sina、Baidu、Tencent等，对应的第三方在自己的平台上展示。  需要设计开放型">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png">
+<meta property="og:image" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png">
 <meta property="article:published_time" content="2021-09-27T07:01:13.000Z">
 <meta property="article:modified_time" content="2021-10-30T07:55:52.535Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png">
+<meta name="twitter:image" content="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png">
 
 
 <link rel="canonical" href="http://example.com/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
@@ -134,7 +134,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -260,7 +260,7 @@
 <li>  <strong>核心接口2：Observer接口</strong>，该接口中定义一个 <strong>update()</strong> 方法，Subject 对象推送最新数据时会触发该方法，对第三方平台的数据进行更新，具体逻辑由其子类实现。</li>
 <li>  <strong>核心类2：</strong>Sina、Tencent、Baidu 等第三方平台类，这些类必须实现 Observer 接口，在类中一般会有一个 <code>upodate()</code> 方法用于接收最新的实时数据，和一个 <code>show()</code> 方法用于数据的展示。</li>
 </ul>
-<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png" alt="image-20211030114431359"></p>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="/2021/09/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20211030114431359.png" alt="image-20211030114431359"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@startuml</span></span><br><span class="line"><span class="string">&#x27;https://plantuml.com/class-diagram</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Subject ..&gt; Observer</span></span><br><span class="line"><span class="string">Observer --o WeatherData</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">interface Subject</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    void registerObserver(Observer o)</span></span><br><span class="line"><span class="string">    void removeObserver()</span></span><br><span class="line"><span class="string">    void notifyAllObserver()</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">class WeatherData implements Subject</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    List&lt;Observer&gt; observerList</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">class Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    void update()</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">class Sina implements Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">class Tencent implements Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">class Baidu implements Observer</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@enduml</span></span><br></pre></td></tr></table></figure>
 
 

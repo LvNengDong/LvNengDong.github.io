@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="基本概念会话   一次会话：浏览器第一次成功给服务器发送请求时，会话建立，直到有一方断开连接时，会话结束。   一次会话中可以包含多次请求和响应。  会话技术   会话技术：在一次会话的多次请求间，共享数据的技术。 会话技术实现方式：   客户端会话技术：Cookie   服务器端会话技术：Session     Cookie：把共享的数据存到客户端，就叫客户端会话技术。   Session：把共">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/%E4%BC%9A%E8%AF%9D/%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4.png">
-<meta property="og:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/%E4%BC%9A%E8%AF%9D/Session%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/Session%E5%8E%9F%E7%90%86.png">
 <meta property="article:published_time" content="2022-05-04T15:21:06.000Z">
 <meta property="article:modified_time" content="2022-05-05T03:17:51.007Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png">
+<meta name="twitter:image" content="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png">
 
 
 <link rel="canonical" href="http://example.com/2022/05/04/%E4%BC%9A%E8%AF%9D/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -254,7 +254,7 @@
 <li> 在当前次会话中，当客户端再次访问服务器时，请求消息中会携带 cookie 数据；</li>
 <li> 服务器解析客户端的请求消息，如果客户端需要的资源在 cookie 中存在，就不再重新分配该数据给客户端。</li>
 </ol>
-<p><img src="%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="Cookie实现原理"></p>
+<p><img src="/2022/05/04/%E4%BC%9A%E8%AF%9D/Cookie%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.png" alt="Cookie实现原理"></p>
 <p>客户端<strong>首次</strong>访问一个服务器时，服务器会在响应消息中携带 Cookie 数据并将 Cookie 数据保存在客户端缓存中。</p>
 <ul>
 <li><p>  Cookie 数据被封装在响应头中（响应头中的数据都是以键值对的形式存在的）。</p>
@@ -397,7 +397,7 @@
 <li>  访问一个接口，如果是第一次访问，则提示：宁好，欢迎宁首次访问XSYU</li>
 <li>  如果不是第一次访问，则提示：欢迎回来，宁上次的访问时间为：2020-06-10 11:46:36</li>
 </ul>
-<p><img src="%E4%BC%9A%E8%AF%9D/%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4.png" alt="案例：记住上一次访问时间"></p>
+<p><img src="/2022/05/04/%E4%BC%9A%E8%AF%9D/%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4.png" alt="案例：记住上一次访问时间"></p>
 <p><strong>分析：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">当客户端（浏览器）请求服务器时，服务器判断请求头中是否含有『cookie: lastTime=Xxx』</span><br><span class="line">    <span class="keyword">if</span>(没有)&#123;</span><br><span class="line">        <span class="number">1.</span>证明浏览器是第一次访问服务器</span><br><span class="line">        <span class="number">2.</span>响应数据：您好，欢迎首次访问！</span><br><span class="line">        <span class="number">3.</span>响应：将一个键值对『lastTime=$&#123;currentTime&#125;』作为cookie响应给浏览器，</span><br><span class="line">        <span class="number">4.</span>并设置 cookie 持久化存储。</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123; <span class="comment">// 有</span></span><br><span class="line">        <span class="number">1.</span>证明浏览器不是第一次访问该服务器</span><br><span class="line">        <span class="number">2.</span>获取请求消息中请求头中的『cookie: lastTime=Xxx』</span><br><span class="line">        <span class="number">3.</span>响应数据：将时间值显示在客户端浏览器页面上：欢迎回来，您上次的访问时间为：...</span><br><span class="line">        <span class="number">4.</span>更新 cookie ，设置『lastTime=$&#123;最新时间&#125;』</span><br><span class="line">        <span class="number">5.</span>响应给浏览器，并持久化存储。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -423,7 +423,7 @@
 </li>
 </ul>
 <h2 id="Session原理"><a href="#Session原理" class="headerlink" title="Session原理"></a>Session原理</h2><h3 id="Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？"><a href="#Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？" class="headerlink" title="Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？"></a>Q：服务器如何确保在一次会话中，多次获取到的Session是同一个？</h3><p>Session的实现是依赖于Cookie的。</p>
-<p><img src="%E4%BC%9A%E8%AF%9D/Session%E5%8E%9F%E7%90%86.png" alt="Session原理"></p>
+<p><img src="/2022/05/04/%E4%BC%9A%E8%AF%9D/Session%E5%8E%9F%E7%90%86.png" alt="Session原理"></p>
 <p><strong>客户端首次访问服务器时：</strong></p>
 <ul>
 <li><p>  客户端首次访问服务器时，请求消息中是没有 cookie 数据的；</p>

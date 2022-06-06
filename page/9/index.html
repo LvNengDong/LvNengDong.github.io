@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -239,7 +239,7 @@
 <li>  并查集跟树有些类似，只不过它跟树是相反的。在树这个数据结构里面，每个节点会记录它的子节点。在并查集里，每个节点会记录它的父节点。</li>
 <li>  通常用 Map 来实现这个结构，Map 的 K 表示当前节点，V 表示当前节点的父节点</li>
 </ul>
-<p><img src="%E5%B9%B6%E6%9F%A5%E9%9B%86/1609980000-ofFjdW-%E5%B9%BB%E7%81%AF%E7%89%871.JPG" alt="幻灯片1.JPG"></p>
+<p><img src="/2021/08/30/%E5%B9%B6%E6%9F%A5%E9%9B%86/1609980000-ofFjdW-%E5%B9%BB%E7%81%AF%E7%89%871.JPG" alt="幻灯片1.JPG"></p>
 <p>可以看到，如果节点是相互连通的（从一个节点可以到达另一个节点），那么他们在同一棵树里，或者说在同一个集合里，或者说他们的<strong>祖先是相同的</strong>。</p>
 <blockquote>
 <ol start="2">
@@ -965,7 +965,7 @@
 <li>  n 和 (n−1) 解析：（n-1）就是将二进制数字 n 最右边的 1 变成 0 ，此 1 右边的 0 都变成 1 。</li>
 <li>  <code>n &amp; (n - 1)</code> 解析：<code>n &amp; (n - 1)</code> 就是将二进制数字 n 最右边的 1 变成 0 ，其余不变。</li>
 </ul>
-<p><img src="%E4%BD%8D%E8%BF%90%E7%AE%97/9bc8ab7ba242888d5291770d35ef749ae76ee2f1a51d31d729324755fc4b1b1c-Picture10.png" alt="Picture10.png"></p>
+<p><img src="/2021/08/17/%E4%BD%8D%E8%BF%90%E7%AE%97/9bc8ab7ba242888d5291770d35ef749ae76ee2f1a51d31d729324755fc4b1b1c-Picture10.png" alt="Picture10.png"></p>
 
       
     </div>
@@ -1050,7 +1050,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="1-是什么？"><a href="#1-是什么？" class="headerlink" title="1    是什么？"></a>1    是什么？</h1><img src="LockSupport/image-20210716173307046.png" alt="image-20210716173307046" style="zoom:80%;" />
+          <h1 id="1-是什么？"><a href="#1-是什么？" class="headerlink" title="1    是什么？"></a>1    是什么？</h1><img src="/2021/08/10/LockSupport/image-20210716173307046.png" alt="image-20210716173307046" style="zoom:80%;">
 
 <ul>
 <li>  <strong>LockSupport</strong> 是 JUC 包下的一个类，也用于多线程间的通信，<strong>是 <code>wait / notify</code> 机制的改良加强版</strong>。</li>
@@ -1059,7 +1059,7 @@
 <li>  归根结底，<strong>LockSupport 调用的是 Unsafe 类中的 native 方法</strong>。</li>
 <li>  LockSupport 是用来创建锁和其它同步类的基本线程阻塞原语。</li>
 </ul>
-<p><img src="LockSupport/image-20210716173522862.png" alt="image-20210716173522862"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716173522862.png" alt="image-20210716173522862"></p>
 <hr>
 <h1 id="2-为什么学-LockSupport"><a href="#2-为什么学-LockSupport" class="headerlink" title="2    为什么学 LockSupport"></a>2    为什么学 LockSupport</h1><ol>
 <li> LockSupport 是学习 AQS 的前置知识。</li>
@@ -1090,7 +1090,7 @@
 <blockquote>
 <p>  <strong>执行结果：</strong></p>
 </blockquote>
-<p><img src="LockSupport/image-20210716181135743.png" alt="image-20210716181135743"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716181135743.png" alt="image-20210716181135743"></p>
 <blockquote>
 <p>  <strong>结论</strong></p>
 </blockquote>
@@ -1107,7 +1107,7 @@
 <blockquote>
 <p>  <strong>执行结果</strong></p>
 </blockquote>
-<p><img src="LockSupport/image-20210716181509277.png" alt="image-20210716181509277"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716181509277.png" alt="image-20210716181509277"></p>
 <blockquote>
 <p>  <strong>代码分析</strong></p>
 </blockquote>
@@ -1137,7 +1137,7 @@
 
 
 <h3 id="异常1-1"><a href="#异常1-1" class="headerlink" title="异常1"></a>异常1</h3><p>如果注释掉 lock 和 unlock 方法，程序将会抛出 <strong>IllegalMonitorStateException</strong> 异常。</p>
-<p><img src="LockSupport/image-20210716184240464.png" alt="image-20210716184240464"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716184240464.png" alt="image-20210716184240464"></p>
 <h3 id="异常2-1"><a href="#异常2-1" class="headerlink" title="异常2"></a>异常2</h3><p>如果调换 <code>await()</code> 和 <code>signal()</code> 的执行顺序，将有一个线程永远处于 Waiting 状态，导致线程无法结束。</p>
 <hr>
 <h2 id="3-3-总结"><a href="#3-3-总结" class="headerlink" title="3.3    总结"></a>3.3    总结</h2><blockquote>
@@ -1157,7 +1157,7 @@
 </ul>
 <hr>
 <h1 id="4-LockSupport"><a href="#4-LockSupport" class="headerlink" title="4    LockSupport"></a>4    LockSupport</h1><h2 id="4-1-常用方法"><a href="#4-1-常用方法" class="headerlink" title="4.1    常用方法"></a>4.1    常用方法</h2><p>在 LockSupport 中，通过 <code>park()</code> 和 <code>unpark(Thread thread)</code> 方法来实现阻塞和唤醒线程的操作。</p>
-<p><img src="LockSupport/image-20210716203238382.png" alt="image-20210716203238382"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716203238382.png" alt="image-20210716203238382"></p>
 <h2 id="4-2-原理"><a href="#4-2-原理" class="headerlink" title="4.2    原理"></a>4.2    原理</h2><ul>
 <li>  LockSupport 中使用了一种名为 Permit（许可证）的概念来实现阻塞和唤醒线程的功能，Permit 与线程绑定。</li>
 <li>  Permit 只有两个值 1 和 0，默认是 0。</li>
@@ -1174,7 +1174,7 @@
 <p>  <strong>阻塞原理</strong></p>
 </blockquote>
 <p>调用 <code>LockSupport#park()</code> 方法时，底层调用的是 <code>UNSAFE.park()</code> 方法</p>
-<p><img src="LockSupport/image-20210716203521212.png" alt="image-20210716203521212"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716203521212.png" alt="image-20210716203521212"></p>
 <p>默认情况 <code>permit == 0</code>，对于一个新的线程直接调用 <code>park()</code> 方法，该线程没有许可证可以被消耗，所以当前线程会直接阻塞，直到其它线程给该线程颁发一个许可证，即设置该线程的 <code>permit == 1</code> 时，该线程才会从阻塞状态中恢复运行，并消耗掉一个许可证，设置 <code>permit == 0</code> ，继续执行 <code>park()</code> 方法之后的代码。</p>
 <h2 id="4-4-唤醒"><a href="#4-4-唤醒" class="headerlink" title="4.4    唤醒"></a>4.4    唤醒</h2><blockquote>
 <p>  <strong>唤醒方法</strong></p>
@@ -1186,7 +1186,7 @@
 <p>  <strong>唤醒原理</strong></p>
 </blockquote>
 <p><strong>严格意义上将并不是唤醒线程，而是给线程颁发了一个许可证，这个许可证并不会立即被消耗，而是保存在线程实例中，在遇到 park() 方法造成的阻塞时，消耗该许可证可以保证线程不被阻塞。</strong></p>
-<p><img src="LockSupport/image-20210716203852897.png" alt="image-20210716203852897"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716203852897.png" alt="image-20210716203852897"></p>
 <p>调用 <code>unpark(thread)</code> 方法后，设置 thread 线程的许可证 <code>permit == 1</code>（注意多次调用 <code>unpark()</code>，permit 的值不会累加，最高只能是 1），自动唤醒 thread 线程，即之前阻塞中的 <code>LockSupport.park()</code> 方法会立即返回。</p>
 <h2 id="4-5-形象的理解"><a href="#4-5-形象的理解" class="headerlink" title="4.5    形象的理解"></a>4.5    形象的理解</h2><p><em>permit 许可证与线程绑定。</em></p>
 <p><em>permit  是一张万能的通行证，可以提前发给线程，线程每遇到一个关卡（阻塞）就需要消耗一张通行证。如果有则通过关卡，没有则不让通过，即阻塞。且每个线程最大只能持有一张许可证。</em></p>
@@ -1218,7 +1218,7 @@
 <li> 3s 后 T1 线程睡醒，接着上次的位置继续执行，打印 <code>... come in ...</code> 在控制台上，接着执行 <code>park()</code> 方法阻塞线程，但是由于此时 T1 线程是有一个通行证 permit 的，所以这个阻塞校验可以通过，紧接着继续执行下面的操作。</li>
 </ol>
 <p><strong>最终的运行结果为</strong>：</p>
-<p><img src="LockSupport/image-20210716213814924.png" alt="image-20210716213814924"></p>
+<p><img src="/2021/08/10/LockSupport/image-20210716213814924.png" alt="image-20210716213814924"></p>
 <p>可以看到：<code>LockSupport.park()</code>前后执行时间是一样的，也就说明阻塞没有生效。</p>
 <hr>
 <h1 id="6-面试题"><a href="#6-面试题" class="headerlink" title="6    面试题"></a>6    面试题</h1><blockquote>
@@ -1348,7 +1348,7 @@
 </li>
 <li> 阻塞队列空了消费者阻塞，满了生产者阻塞。</li>
 </ol>
-<p><img src="BlockingQueue/%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97.png" alt="阻塞队列"></p>
+<p><img src="/2021/08/09/BlockingQueue/%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97.png" alt="阻塞队列"></p>
 <hr>
 <h1 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h1><p>阻塞队列提供了四组不同的方法用于插入、移除、检查元素：</p>
 <table>
@@ -1426,7 +1426,7 @@
 <li>  可以访问阻塞队列中的任意元素，调用 <code>remove(o)</code> 可以将队列之中的特定对象移除，但并不⾼效，尽量避免使用。</li>
 </ul>
 <hr>
-<h1 id="BlockingQueue-架构"><a href="#BlockingQueue-架构" class="headerlink" title="BlockingQueue 架构"></a>BlockingQueue 架构</h1><img src="BlockingQueue/BlockingQueue.png" alt="BlockingQueue"  />
+<h1 id="BlockingQueue-架构"><a href="#BlockingQueue-架构" class="headerlink" title="BlockingQueue 架构"></a>BlockingQueue 架构</h1><img src="/2021/08/09/BlockingQueue/BlockingQueue.png" alt="BlockingQueue">
 
 
 
@@ -1482,11 +1482,11 @@
 <ul>
 <li>  队列满时继续入队</li>
 </ul>
-<p><img src="BlockingQueue/image-20210713172132018.png" alt="image-20210713172132018"></p>
+<p><img src="/2021/08/09/BlockingQueue/image-20210713172132018.png" alt="image-20210713172132018"></p>
 <ul>
 <li>  队列为空时继续出队</li>
 </ul>
-<p><img src="BlockingQueue/image-20210713172625099.png" alt="image-20210713172625099"></p>
+<p><img src="/2021/08/09/BlockingQueue/image-20210713172625099.png" alt="image-20210713172625099"></p>
 <h3 id="Case2：offer-poll"><a href="#Case2：offer-poll" class="headerlink" title="Case2：offer / poll"></a>Case2：offer / poll</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.juc.blk;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/13 17:18</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BlockingQueueDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        BlockingQueue&lt;String&gt; blockingQueue = <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*生产*/</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b1</span> <span class="operator">=</span> blockingQueue.offer(<span class="string">&quot;A&quot;</span>);    <span class="comment">// 正常添加返回值为Boolean类型的true</span></span><br><span class="line">        blockingQueue.offer(<span class="string">&quot;B&quot;</span>);</span><br><span class="line">        blockingQueue.offer(<span class="string">&quot;C&quot;</span>);</span><br><span class="line">        System.out.println(blockingQueue.offer(<span class="string">&quot;X&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*检索*/</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">element</span> <span class="operator">=</span> blockingQueue.peek();   <span class="comment">// 正常检索返回队首元素</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*消费*/</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">q1</span> <span class="operator">=</span> blockingQueue.poll();     <span class="comment">// 正常出队返回值为队首元素</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">q2</span> <span class="operator">=</span> blockingQueue.poll();</span><br><span class="line">        <span class="type">String</span> <span class="variable">q3</span> <span class="operator">=</span> blockingQueue.poll();</span><br><span class="line">        System.out.println(blockingQueue.poll());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出结果：</span></span><br><span class="line"><span class="comment"> *      false</span></span><br><span class="line"><span class="comment"> *      null</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -1497,8 +1497,8 @@
 
 
 
-<h3 id="Case4：offer-poll"><a href="#Case4：offer-poll" class="headerlink" title="Case4：offer / poll"></a>Case4：offer / poll</h3><p><img src="BlockingQueue/image-20210713173931729.png" alt="image-20210713173931729"></p>
-<p><img src="BlockingQueue/image-20210713174208204.png" alt="image-20210713174208204"></p>
+<h3 id="Case4：offer-poll"><a href="#Case4：offer-poll" class="headerlink" title="Case4：offer / poll"></a>Case4：offer / poll</h3><p><img src="/2021/08/09/BlockingQueue/image-20210713173931729.png" alt="image-20210713173931729"></p>
+<p><img src="/2021/08/09/BlockingQueue/image-20210713174208204.png" alt="image-20210713174208204"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.juc.blk;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/13 17:18</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BlockingQueueDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        BlockingQueue&lt;String&gt; blockingQueue = <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*生产*/</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b1</span> <span class="operator">=</span> blockingQueue.offer(<span class="string">&quot;A&quot;</span>,<span class="number">2</span>, TimeUnit.SECONDS);    <span class="comment">// 正常添加返回值为Boolean类型的true</span></span><br><span class="line">        blockingQueue.offer(<span class="string">&quot;B&quot;</span>, <span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">        blockingQueue.offer(<span class="string">&quot;C&quot;</span>, <span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">        blockingQueue.offer(<span class="string">&quot;X&quot;</span>, <span class="number">2</span>, TimeUnit.SECONDS);  <span class="comment">// 队列满时继续添加，会阻塞当前线程 2s，之后继续运行线程</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*消费*/</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">q1</span> <span class="operator">=</span> blockingQueue.poll(<span class="number">2</span>, TimeUnit.SECONDS);    <span class="comment">// 正常出队返回值为队首元素</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">q2</span> <span class="operator">=</span> blockingQueue.poll(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">        <span class="type">String</span> <span class="variable">q3</span> <span class="operator">=</span> blockingQueue.poll(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">        <span class="type">String</span> <span class="variable">q4</span> <span class="operator">=</span> blockingQueue.poll(<span class="number">2</span>, TimeUnit.SECONDS);    <span class="comment">// 队列空时继续出队，会阻塞当前线程线程2s，</span></span><br><span class="line">        <span class="comment">// 如果2s后队列还为空，则返回null，若2s后队列被其它线程入队了值，则返回队首的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -1538,7 +1538,7 @@
 <h1 id="用在哪里"><a href="#用在哪里" class="headerlink" title="用在哪里"></a>用在哪里</h1><h2 id="生产者消费者模式"><a href="#生产者消费者模式" class="headerlink" title="生产者消费者模式"></a>生产者消费者模式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/14 10:31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 知识点： volatile/CAS/atomicInteger/BlockQueue/线程交互/原子引用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyData3</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;   <span class="comment">// 默认开启，进行 生产+消费 。需要被多个线程知道，使用 volatile 修饰</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">AtomicInteger</span> <span class="variable">atomicInteger</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>();</span><br><span class="line"></span><br><span class="line">    BlockingQueue&lt;String&gt; blockingQueue = <span class="literal">null</span>;     <span class="comment">// 定义为接口类型，可以接受该接口的所有实现类</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*构造器注入*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyData3</span><span class="params">(BlockingQueue&lt;String&gt; blockingQueue)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.blockingQueue = blockingQueue;</span><br><span class="line">        System.out.println(blockingQueue.getClass().getName()); <span class="comment">// 通过反射的方式获取调用对象的全限定类名，方便出错时检查</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">product</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">data</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">boolean</span> result;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// flag == true</span></span><br><span class="line">        <span class="keyword">while</span> (flag)&#123;</span><br><span class="line">            data = atomicInteger.incrementAndGet()+<span class="string">&quot;&quot;</span>; <span class="comment">// i++</span></span><br><span class="line">            result = blockingQueue.offer(data, <span class="number">2L</span>, TimeUnit.SECONDS);    <span class="comment">// 加入阻塞队列，并返回执行结果</span></span><br><span class="line">            <span class="keyword">if</span> (result)&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;加入队列成功***&quot;</span> + data);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;加入队列失败***&quot;</span> + data);</span><br><span class="line">            &#125;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// flag == false</span></span><br><span class="line">        System.out.println(Thread.currentThread().getName()+<span class="string">&quot;生产线程执行结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">consumer</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (flag)&#123;</span><br><span class="line">            result = blockingQueue.poll(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">null</span> == result)&#123;</span><br><span class="line">                flag = <span class="literal">false</span>;</span><br><span class="line">                System.out.println(<span class="string">&quot;超过2s没有取到阻塞队列中的数据，消费线程退出&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;消费&quot;</span> + result +<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stop</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.flag = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*测试类*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProdConsumerDemo03</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">MyData3</span> <span class="variable">myData3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyData3</span>(<span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;String&gt;(<span class="number">3</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;生产线程启动&quot;</span>);</span><br><span class="line">                myData3.product();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;Product&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;消费线程启动&quot;</span>);</span><br><span class="line">                myData3.consumer();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;Consumer&quot;</span>).start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5s钟后，生产和消费都结束</span></span><br><span class="line">        <span class="keyword">try</span> &#123; TimeUnit.SECONDS.sleep(<span class="number">5</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">        myData3.stop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>执行结果</strong></p>
-<img src="BlockingQueue/image-20210714203155396.png" alt="image-20210714203155396" style="zoom:80%;" />
+<img src="/2021/08/09/BlockingQueue/image-20210714203155396.png" alt="image-20210714203155396" style="zoom:80%;">
 
 
 
@@ -1660,7 +1660,7 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="IO-模型"><a href="#IO-模型" class="headerlink" title="IO 模型"></a>IO 模型</h1><p>Java 共支持 3 种 IO 模型：BIO、NIO、AIO</p>
-<h2 id="1-BIO（同步阻塞-IO）"><a href="#1-BIO（同步阻塞-IO）" class="headerlink" title="1    BIO（同步阻塞 IO）"></a>1    BIO（同步阻塞 IO）</h2><p><img src="NIO/BIO.png" alt="BIO"></p>
+<h2 id="1-BIO（同步阻塞-IO）"><a href="#1-BIO（同步阻塞-IO）" class="headerlink" title="1    BIO（同步阻塞 IO）"></a>1    BIO（同步阻塞 IO）</h2><p><img src="/2021/08/09/NIO/BIO.png" alt="BIO"></p>
 <p><strong>是什么</strong></p>
 <ul>
 <li>  服务器的实现模式是为一个连接创建一个新的线程，即客户端有连接请求时服务器就会新启动一个线程单独处理这个请求。</li>
@@ -1691,7 +1691,7 @@
 <li>  NIO 支持面向缓冲区的、基于通道的IO操作。NIO 将以更加高效的方式进行文件的读写操作。</li>
 </ul>
 <p>NIO 中非阻塞 I/O 采用了基于 Reactor 模式的工作方式，I/O 调用不会被阻塞，相反是注册感兴趣的特定 I/O 事件，如可读数据到达，新的套接字连接等等，在发生特定事件时，系统再通知我们。NIO 中实现非阻塞 I/O 的核心对象就是 Selector，Selector 就是注册各种 I/O 事件地方，而且当我们感兴趣的事件发生时，就是这个对象告诉我们所发生的事件，如下图所示：</p>
-<p><img src="NIO/image-20210909171418839.png" alt="image-20210909171418839"></p>
+<p><img src="/2021/08/09/NIO/image-20210909171418839.png" alt="image-20210909171418839"></p>
 <p>从图中可以看出，当有读或写等任何注册的事件发生时，可以从 Selector 中获得相应的 SelectionKey，同时从 SelectionKey 中可以找到发生的事件和该事件所发生的具体的 SelectableChannel，以获得客户端发送过来的数据。</p>
 <p>非阻塞指的是 IO 事件本身不阻塞，但是获取 IO 事件的 <code>select()</code> 方法是需要阻塞等待的。区别是阻塞的 IO 会阻塞在 IO 操作上, NIO 阻塞在事件获取上，没有事件就没有 IO，从高层次看 IO 就不阻塞了。</p>
 <p>也就是说只有 IO 已经发生那么我们才评估 IO 是否阻塞，但是 <code>select()</code> 阻塞的时候 IO 还没有发生，何谈 IO 的阻塞呢？NIO 的本质是延迟 IO 操作到真正发生 IO 的时候，而不是以前的只要 IO 流打开了就一直等待 IO 操作。</p>
@@ -1759,7 +1759,7 @@
 <li>通道可以异步地读写。</li>
 <li>通道中的数据总是要先读到一个 Buffer，或者总是要从一个Buffer中写入。正如上面所说，从通道读取数据到缓冲区，从缓冲区写入数据到通道。如下图所示：</li>
 </ul>
-<p><img src="NIO/image-20210909174621529.png" alt="image-20210909174621529"></p>
+<p><img src="/2021/08/09/NIO/image-20210909174621529.png" alt="image-20210909174621529"></p>
 <hr>
 <h2 id="2-Channel实现"><a href="#2-Channel实现" class="headerlink" title="2    Channel实现"></a>2    Channel实现</h2><p>下面是 Java NIO 中最重要的 Channel 的实现：</p>
 <ul>
@@ -1961,7 +1961,7 @@
 <li>mian 线程在睡醒后继续执行，修改 <code>flag=false</code>并在控制台上输出指定内容，然后主线程结束。</li>
 <li>但这是我们会发现程序并没有结束，因为 child 线程仍处于死循环状态。也就是说<strong>main 线程修改全局变量 flag=false ，并不能被 child 线程感知到</strong>。</li>
 </ol>
-<p><img src="volatile/image-20210506143613131.png" alt="image-20210506143613131"></p>
+<p><img src="/2021/08/07/volatile/image-20210506143613131.png" alt="image-20210506143613131"></p>
 <p>但是如果我们将 <strong>volatile</strong> 关键字的注释打开，代码的执行流程就变成了：</p>
 <ol>
 <li>child 线程开始执行，检测到 <code>flag == true</code>，进入死循环中。</li>
@@ -1969,7 +1969,7 @@
 <li>但是此时 child 线程监听了到主线程对于 flag 变量的修改，即在 child 线程的感知中 <code>flag == false</code> 了，所以 child 线程退出死循环，在控制台上打印指定内容，child 线程结束。</li>
 <li>整个 JVM 进程结束。</li>
 </ol>
-<p><img src="volatile/image-20210506143757319.png" alt="image-20210506143757319"></p>
+<p><img src="/2021/08/07/volatile/image-20210506143757319.png" alt="image-20210506143757319"></p>
 <p><strong>总结：</strong></p>
 <p>上面的代码可以证明：<strong>volatile 关键字可以保证多个线程之间共享变量的可见性</strong>。即共享变量在某个线程中的本地内存中发生了变化，其它的线程也可以监听到这种变化！当然这种<strong>监听的底层原理还是通过主内存作为传输纽带进行交互的</strong>，即单个线程在本地内存中对共享变量的操作最终还是要写回到主内存中，再由主内存将这种变化通知到其它所有使用这个共享变量的线程。</p>
 <hr>
@@ -1988,7 +1988,7 @@
 <li> 改：在自己的工作内存中对 num 进行自增操作；[<code>iadd</code>]</li>
 <li> 写：将更改后的 num 写回到主内存中去。[<code>putfield #2 &lt;com/juc/day01/Test.n&gt;</code>]</li>
 </ol>
-<p><img src="volatile/image-20210709105405172.png" alt="image-20210709105405172"></p>
+<p><img src="/2021/08/07/volatile/image-20210709105405172.png" alt="image-20210709105405172"></p>
 <p>原子性就是对 num 的操作，即 “读 –&gt; 改 –&gt; 写” 这三个步骤是不可分割的，而 volatile 不能保证原子性。</p>
 <p>​        在保证原子性的情况下 num++ 的执行流程应该是：假设线程 A、B、C 并发执行，线程 A 拿到了 num=0，复制副本后在自己的工作空间中将其更新为 num=1，然后再将其写回到主内存中。这时候其它线程再去对 num 进行操作，这是一个完整的具备原子性的操作流程。</p>
 <p>​        而在不能保证原子性的情况下则会出现，线程 A、B、C 同时拿到了主内存中的值 num=0，并在各自的内存空间将 num 更新为 1。接下来三个线程需要将更新后的值写回主内存中，假设 A 先写回主内存，主内存中的共享变量改变后需要通知其它线程，但是在这个通知还未发送到 B、C 线程的时候，B、C 线程就已经把写回主内存的操作都做完了，那么此时主内存中的值仍然会是 1，最后一个写入到主内存的 1 会覆盖前面两个写入到主内存的 1。而我们知道实际的运算结果本应该是 3。所以说在不能保证原子性的前提下，上述代码执行的结果大概率会小于 20000。</p>
@@ -2000,7 +2000,7 @@
 <li> 使用 JUC 包下的 AtomicInteger</li>
 </ol>
 <p>查看 JavaDoc 可知，在 <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html">java.util.concurrent.atomic</a> 包下包含了一系列的能保证原子性的数据类型。我们可以<strong>在使用 volatile 的基础上再使用 AtomicXXX 类型的对象就能保证多线程操作数据的可见性和原子性并存，并且不用添加重锁</strong>。</p>
-<img src="volatile/image-20210709112717007.png" alt="image-20210709112717007" style="zoom:80%;" />
+<img src="/2021/08/07/volatile/image-20210709112717007.png" alt="image-20210709112717007" style="zoom:80%;">
 
 
 
@@ -2012,7 +2012,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="volatile/image-20210709113136165.png" alt="image-20210709113136165"></p>
+<p><img src="/2021/08/07/volatile/image-20210709113136165.png" alt="image-20210709113136165"></p>
 <ul>
 <li>  <strong>代码修改</strong></li>
 </ul>
@@ -2021,7 +2021,7 @@
 <blockquote>
 <p>  <strong>AtomicInteger#getAndIncrement() 方法源码</strong></p>
 </blockquote>
-<img src="volatile/image-20210709113659357.png" alt="image-20210709113659357" style="zoom:80%;" />
+<img src="/2021/08/07/volatile/image-20210709113659357.png" alt="image-20210709113659357" style="zoom:80%;">
 
 
 
@@ -2032,7 +2032,7 @@
 <hr>
 <h2 id="指令重排是什么？"><a href="#指令重排是什么？" class="headerlink" title="指令重排是什么？"></a>指令重排是什么？</h2><p>计算机在执行程序时，为了提高性能，编译器和处理器往往会<strong>对指令进行重排</strong>。</p>
 <p>指令重排造成的结果是：程序员写的代码的执行的顺序与代码真正在底层执行的顺序是有偏差的。</p>
-<p><img src="volatile/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png" alt="指令重排"></p>
+<p><img src="/2021/08/07/volatile/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png" alt="指令重排"></p>
 <ul>
 <li>  多线程环境中线程交替执行，由于指令优化重排的存在，多个线程中使用的变量能否保证一致性是无法确定的，程序执行的结果也就无法预测了。</li>
 <li>  处理器在进行指令重排时必须要考虑指令之间的<strong>数据依赖性</strong>。（也就是说指令重排必须是在满足数据依赖性的基础上进行的）</li>
@@ -2161,7 +2161,7 @@
 </li>
 </ul>
 <h2 id="DCL-单例存在的隐患及优化方法"><a href="#DCL-单例存在的隐患及优化方法" class="headerlink" title="DCL 单例存在的隐患及优化方法"></a>DCL 单例存在的隐患及优化方法</h2><p>​        DCL 单例并不一定线程安全，原因是可能会出现指令重排，所以还需要使用 volatile 关键字来防止高并发情况下，指令重排造成的线程安全问题。</p>
-<h3 id="Java创建对象过程中CPU进行的操作"><a href="#Java创建对象过程中CPU进行的操作" class="headerlink" title="Java创建对象过程中CPU进行的操作"></a>Java创建对象过程中CPU进行的操作</h3><p><img src="volatile/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
+<h3 id="Java创建对象过程中CPU进行的操作"><a href="#Java创建对象过程中CPU进行的操作" class="headerlink" title="Java创建对象过程中CPU进行的操作"></a>Java创建对象过程中CPU进行的操作</h3><p><img src="/2021/08/07/volatile/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
 <p>Java 创建对象的过程可分为三个部分：</p>
 <ol>
 <li>在堆中给将要创建的对象分配一块内存空间，并赋初始零值。</li>
@@ -2387,7 +2387,7 @@
 <h3 id="2-1-工厂的体系结构（BeanFactory-vs-ApplicationContext）"><a href="#2-1-工厂的体系结构（BeanFactory-vs-ApplicationContext）" class="headerlink" title="2.1 工厂的体系结构（BeanFactory vs. ApplicationContext）"></a>2.1 工厂的体系结构（BeanFactory vs. ApplicationContext）</h3><blockquote>
 <p><strong>Spring容器体系结构图（部分）</strong></p>
 </blockquote>
-<p><img src="Spring%E2%80%94%E2%80%94IoC/Spring%E5%AE%B9%E5%99%A8%E7%B1%BB.png" alt="Spring容器类"></p>
+<p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/Spring%E5%AE%B9%E5%99%A8%E7%B1%BB.png" alt="Spring容器类"></p>
 <h5>BeanFactory 和 ApplicationContext 的继承关系：</h5>
 
 
@@ -2548,7 +2548,7 @@
 <li>通过 Class 对象得到对应的实例对象，并将其交给 Spring 管理。**[内存中存在<code>cn.xsyu.factory.InstanceFactory</code>的实例对象]**</li>
 <li>得到 <strong>InstanceFactory</strong> 实例对象后，再通过<code>factory-method</code>调用对象中的方法<code>createUserDao</code>，最后得到方法的返回值交给 Spring容器管理，并指定唯一标识<code>id=&quot;accountDao&quot;</code>。</li>
 </ol>
-<p><img src="Spring%E2%80%94%E2%80%94IoC/%E5%AE%9E%E4%BE%8B%E5%8C%96bean%E7%9A%84%E6%96%B9%E5%BC%8F-1598445621956.png"></p>
+<p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/%E5%AE%9E%E4%BE%8B%E5%8C%96bean%E7%9A%84%E6%96%B9%E5%BC%8F-1598445621956.png"></p>
 <hr>
 <h1 id="依赖注入（Dependency-Injection）"><a href="#依赖注入（Dependency-Injection）" class="headerlink" title="依赖注入（Dependency Injection）"></a>依赖注入（Dependency Injection）</h1><blockquote>
 <ul>
@@ -2802,7 +2802,7 @@
 </ul>
 </li>
 </ol>
-<p><img src="Spring%E2%80%94%E2%80%94IoC/%E8%87%AA%E5%8A%A8%E6%8C%89%E7%85%A7%E7%B1%BB%E5%9E%8B%E6%B3%A8%E5%85%A5-1598445621956.png"></p>
+<p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/%E8%87%AA%E5%8A%A8%E6%8C%89%E7%85%A7%E7%B1%BB%E5%9E%8B%E6%B3%A8%E5%85%A5-1598445621956.png"></p>
 <hr>
 <h4 id="2、-Qualifier"><a href="#2、-Qualifier" class="headerlink" title="2、@Qualifier"></a>2、@Qualifier</h4><ol>
 <li><p>作用范围：①成员变量 ②成员方法中的形式参数</p>
@@ -3152,7 +3152,7 @@
 
 
 
-<h2 id="1、prepareRefresh"><a href="#1、prepareRefresh" class="headerlink" title="1、prepareRefresh"></a>1、prepareRefresh</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002093938014.png" alt="image-20211002093938014"></p>
+<h2 id="1、prepareRefresh"><a href="#1、prepareRefresh" class="headerlink" title="1、prepareRefresh"></a>1、prepareRefresh</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002093938014.png" alt="image-20211002093938014"></p>
 <blockquote>
 <p>  <strong>prepareRefresh 方法的作用</strong></p>
 </blockquote>
@@ -3179,7 +3179,7 @@
 <li>  Environment 的作用之一就是在 @Value 注解中，根据对应的键注入值，这个值就是从 Environment 中获取的。</li>
 </ul>
 <hr>
-<h2 id="2、obtainFreshBeanFactory"><a href="#2、obtainFreshBeanFactory" class="headerlink" title="2、obtainFreshBeanFactory"></a>2、obtainFreshBeanFactory</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211001211518869.png" alt="image-20211001211518869"></p>
+<h2 id="2、obtainFreshBeanFactory"><a href="#2、obtainFreshBeanFactory" class="headerlink" title="2、obtainFreshBeanFactory"></a>2、obtainFreshBeanFactory</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211001211518869.png" alt="image-20211001211518869"></p>
 <blockquote>
 <p>  <strong>obtainFreshBeanFactory 方法的作用：</strong></p>
 </blockquote>
@@ -3220,7 +3220,7 @@
 <li> 特殊 bean 的注入</li>
 <li> 两个内置的 BeanPostProcessor 的作用</li>
 </ol>
-<p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211001214801077.png" alt="image-20211001214801077"></p>
+<p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211001214801077.png" alt="image-20211001214801077"></p>
 <ul>
 <li>  上图中 BeanFactory 内部的变量，由白色变为绿色部分就是在 prepareBeanFactory 方法中进行变量初始化的。</li>
 <li>  beanExpressResolver：解析 SpEL 表达式的</li>
@@ -3244,7 +3244,7 @@
 </blockquote>
 <p>一般 Web 环境下的 ApplicationContext 都要利用它注册新的 Scope，完善 Web 下的 BeanFactory。</p>
 <hr>
-<h2 id="5、invokeBeanFactoryPostProcessors"><a href="#5、invokeBeanFactoryPostProcessors" class="headerlink" title="5、invokeBeanFactoryPostProcessors"></a>5、invokeBeanFactoryPostProcessors</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211001221038451.png" alt="image-20211001221038451"></p>
+<h2 id="5、invokeBeanFactoryPostProcessors"><a href="#5、invokeBeanFactoryPostProcessors" class="headerlink" title="5、invokeBeanFactoryPostProcessors"></a>5、invokeBeanFactoryPostProcessors</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211001221038451.png" alt="image-20211001221038451"></p>
 <blockquote>
 <p>  <strong>invokeBeanFactoryPostProcessors 方法的作用</strong></p>
 </blockquote>
@@ -3265,7 +3265,7 @@
 <ul>
 <li>  beanFactory 后处理器，充当 beanFactory 的扩展点，可以用来补充或修改 BeanDefinition</li>
 </ul>
-<h2 id="6、registerBeanPostProcessors"><a href="#6、registerBeanPostProcessors" class="headerlink" title="6、registerBeanPostProcessors"></a>6、registerBeanPostProcessors</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002153102533.png" alt="image-20211002153102533"></p>
+<h2 id="6、registerBeanPostProcessors"><a href="#6、registerBeanPostProcessors" class="headerlink" title="6、registerBeanPostProcessors"></a>6、registerBeanPostProcessors</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002153102533.png" alt="image-20211002153102533"></p>
 <ol>
 <li> bean 的后处理器（第5步的是BeanFactory的后处理器）</li>
 <li> 常见的 bean 后处理器</li>
@@ -3284,7 +3284,7 @@
 </li>
 </ul>
 <h2 id="7、initMessageSource"><a href="#7、initMessageSource" class="headerlink" title="7、initMessageSource"></a>7、initMessageSource</h2><p>从第 7 开始，回到 ApplicationContext 。</p>
-<p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002153624068.png" alt="image-20211002153624068"></p>
+<p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002153624068.png" alt="image-20211002153624068"></p>
 <ol>
 <li> 新加入一个 MessageSource 对象，用于提供国际化功能。</li>
 </ol>
@@ -3292,7 +3292,7 @@
 <ul>
 <li>  在容器中 BeanDefinitionMap 中查找是否存在一个 messageSource 的 bean（实现了 MessageSource 接口的对象），如果没有，则提供空的 MessageSource 的实现（空实现就是不支持国际化）。</li>
 </ul>
-<h2 id="8、initApplicationEventMulticaster"><a href="#8、initApplicationEventMulticaster" class="headerlink" title="8、initApplicationEventMulticaster"></a>8、initApplicationEventMulticaster</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002153714170.png" alt="image-20211002153714170"></p>
+<h2 id="8、initApplicationEventMulticaster"><a href="#8、initApplicationEventMulticaster" class="headerlink" title="8、initApplicationEventMulticaster"></a>8、initApplicationEventMulticaster</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002153714170.png" alt="image-20211002153714170"></p>
 <blockquote>
 <p>  作用</p>
 </blockquote>
@@ -3321,7 +3321,7 @@
 <ul>
 <li>  SpringBoot 中的子类可以在这里准备 WebServer，即内嵌 web 容器</li>
 </ul>
-<h2 id="10、registerListeners"><a href="#10、registerListeners" class="headerlink" title="10、registerListeners"></a>10、registerListeners</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002154659370.png" alt="image-20211002154659370"></p>
+<h2 id="10、registerListeners"><a href="#10、registerListeners" class="headerlink" title="10、registerListeners"></a>10、registerListeners</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002154659370.png" alt="image-20211002154659370"></p>
 <ul>
 <li>  注册监听器对象</li>
 <li>  用来接收事件</li>
@@ -3339,7 +3339,7 @@
 <li>  如何接收事件</li>
 </ul>
 <p>实现 ApplicationListener 接口，必须重写其中的 onApplicationEvent(E e) 方法，方法参数 E 就是监听的对象，当对象发生改变时，就会触发该方法，可以在该方法中编写具体的业务处理逻辑。</p>
-<h2 id="11、finishBeanFactoryInitialization"><a href="#11、finishBeanFactoryInitialization" class="headerlink" title="11、finishBeanFactoryInitialization"></a>11、finishBeanFactoryInitialization</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002155343583.png" alt="image-20211002155343583"></p>
+<h2 id="11、finishBeanFactoryInitialization"><a href="#11、finishBeanFactoryInitialization" class="headerlink" title="11、finishBeanFactoryInitialization"></a>11、finishBeanFactoryInitialization</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002155343583.png" alt="image-20211002155343583"></p>
 <ol>
 <li> conversionService：用来做类型转换，作为对 propertyEditorRegister 的补充，都是类型转换，但是这个功能更加强大</li>
 <li> embeddedValueResolvers：解析 <code>$&#123;&#125;</code>，对 Environment 进行再一次的封装，底层调用的还是 Environment 中的方法来完成对 <code>$&#123;&#125;</code> 的解析，只不过它是属于 BeanFactory 的成员方法。</li>
@@ -3353,7 +3353,7 @@
 <li>  内嵌值解析器用来解析 @Value 中的 ${} ，借用的是 Environment 中的功能</li>
 <li>  单例池用来缓存所有的单例对象，对象的创建都分为三个阶段，每一阶段都有不同的 bean 后处理器参与进来，进行功能上的扩展。</li>
 </ul>
-<h2 id="12、finishRefresh"><a href="#12、finishRefresh" class="headerlink" title="12、finishRefresh"></a>12、finishRefresh</h2><p><img src="Spring%E2%80%94%E2%80%94IoC/image-20211002160408973.png" alt="image-20211002160408973"></p>
+<h2 id="12、finishRefresh"><a href="#12、finishRefresh" class="headerlink" title="12、finishRefresh"></a>12、finishRefresh</h2><p><img src="/2021/08/07/Spring%E2%80%94%E2%80%94IoC/image-20211002160408973.png" alt="image-20211002160408973"></p>
 <ol>
 <li> 创建 lifecycleProcessor，生命周期处理器。</li>
 <li> 发布 ContextRefreshed 事件，表示整个容器创建已经完成</li>

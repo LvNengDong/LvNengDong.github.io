@@ -27,21 +27,21 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1    乐观锁和悲观锁锁可以从不同的⻆度分类。其中，乐观锁和悲观锁是⼀种分类⽅式。    悲观锁：  悲观锁就是我们常说的锁。对于悲观锁来说，它总是认为每次访问共享资源时会发⽣冲突，所以必须对每次数据操作加上锁，以保证临界区中的代码同⼀时间只能有⼀个线程在执⾏。    乐观锁：     乐观锁⼜称为“⽆锁”，顾名思义，它是乐观派。乐观锁总是假设对共享资源的访问没有冲突，线程可以不停地执⾏，⽆需加">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210710163343519.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210711174059615.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210711174640841.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210811165621045.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/CAS.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/ABA%E5%AD%98%E5%9C%A8.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210711132742276.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210710211109304.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210710221251706.png">
-<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210710222525576.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210710163343519.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210711174059615.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210711174640841.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210811165621045.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/CAS.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/ABA%E5%AD%98%E5%9C%A8.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210711132742276.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210710211109304.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210710221251706.png">
+<meta property="og:image" content="http://example.com/2021/07/10/CAS/image-20210710222525576.png">
 <meta property="article:published_time" content="2021-07-10T07:51:36.000Z">
 <meta property="article:modified_time" content="2021-08-11T10:08:36.415Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/10/CAS/CAS/image-20210710163343519.png">
+<meta name="twitter:image" content="http://example.com/2021/07/10/CAS/image-20210710163343519.png">
 
 
 <link rel="canonical" href="http://example.com/2021/07/10/CAS/">
@@ -143,7 +143,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -306,7 +306,7 @@
 <li> 此时 main 线程再次将主内存中的 <code>atomicInteger == 4</code> 拷贝到本地内存中，并记录快照值。</li>
 <li> 之后在本地内存中更新 <code>atomicInteger == 7</code> 并要将该值写回主内存中，在 CAS 校验中，由于这时候我们手动设置了 main 线程的期望值是 <code>atomicInteger == 3</code> ，而此时 mian 线程的真实值是 <code>atomicInteger == 4</code>，所以校验失败，不会将 <code>atomicInteger == 7</code> 写回主内存中。</li>
 </ol>
-<h2 id="AtomicInteger-compareAndSet-源码"><a href="#AtomicInteger-compareAndSet-源码" class="headerlink" title="AtomicInteger#compareAndSet 源码"></a><strong>AtomicInteger#compareAndSet 源码</strong></h2><p><img src="CAS/image-20210710163343519.png" alt="image-20210710163343519"></p>
+<h2 id="AtomicInteger-compareAndSet-源码"><a href="#AtomicInteger-compareAndSet-源码" class="headerlink" title="AtomicInteger#compareAndSet 源码"></a><strong>AtomicInteger#compareAndSet 源码</strong></h2><p><img src="/2021/07/10/CAS/image-20210710163343519.png" alt="image-20210710163343519"></p>
 <blockquote>
 <p>  <strong>compareAndSet()：</strong></p>
 </blockquote>
@@ -335,12 +335,12 @@
 <h2 id="AtomicInteger-类"><a href="#AtomicInteger-类" class="headerlink" title="AtomicInteger 类"></a>AtomicInteger 类</h2><blockquote>
 <p>  <strong>问题：AtomicInteger 凭什么能在多线程环境下保证变量的原子性?</strong></p>
 </blockquote>
-<p><img src="CAS/image-20210711174059615.png" alt="image-20210711174059615"></p>
+<p><img src="/2021/07/10/CAS/image-20210711174059615.png" alt="image-20210711174059615"></p>
 <ol>
 <li><p> <strong>AtomicInteger 是一个 Integer 类型的包装类，构造方法中接收 initialValue 值后用 volatile 修饰该值，保证了多线程操作时改变量在线程间的可见性。</strong></p>
 </li>
 <li><p><strong>valueOffset</strong> 表示当前对象中 value 值的内存偏移量，通过 <strong>unsafe.objectFieldOffset</strong> 方法获取，该方法是一个本地方法，底层是用 C++ 写的。</p>
-<p> <img src="CAS/image-20210711174640841.png" alt="image-20210711174640841"></p>
+<p> <img src="/2021/07/10/CAS/image-20210711174640841.png" alt="image-20210711174640841"></p>
 </li>
 </ol>
 <hr>
@@ -376,7 +376,7 @@
 <hr>
 <h2 id="原⼦操作-AtomicInteger类源码简析"><a href="#原⼦操作-AtomicInteger类源码简析" class="headerlink" title="原⼦操作-AtomicInteger类源码简析"></a>原⼦操作-AtomicInteger类源码简析</h2><p>上⾯介绍了 Unsafe 类的⼏个⽀持 CAS 的⽅法。那 Java 具体是如何使⽤这⼏个⽅法来实现原⼦操作的呢？</p>
 <p>JDK提供了⼀些⽤于原⼦操作的类，在 java.util.concurrent.atomic 包下⾯。在 JDK8 中，有如下16 个类：</p>
-<p><img src="CAS/image-20210811165621045.png" alt="image-20210811165621045"></p>
+<p><img src="/2021/07/10/CAS/image-20210811165621045.png" alt="image-20210811165621045"></p>
 <p>从名字就可以看得出来这些类⼤概的⽤途：</p>
 <ul>
 <li>  原⼦更新基本类型</li>
@@ -390,7 +390,7 @@
 <li>  在单线程环境下，<code>getAndIncrement()</code> 与 <code>i++</code> 的作用是相同的，但是由于 <code>i++</code> 不能保证原子性，在多线程环境下继续使用 <code>i++</code> 存在线程安全问题。</li>
 <li>  而 <code>atomicInteger#getAndIncrement()</code> 可以实现多线程环境下，不用加锁就可以保证线程的原子性，这里用到了 CAS 的思想，具体的底层源码如下：</li>
 </ul>
-<p><img src="CAS/CAS.png" alt="CAS"></p>
+<p><img src="/2021/07/10/CAS/CAS.png" alt="CAS"></p>
 <ol>
 <li><p> <code>new AtomicInteger(100)</code> 这句代码会在主内存中创建出一个 volatile 修饰的整型变量 <code>volatile int value = 100</code></p>
 </li>
@@ -483,7 +483,7 @@
 <blockquote>
 <p>  <strong>代码分析</strong></p>
 </blockquote>
-<p><img src="CAS/ABA%E5%AD%98%E5%9C%A8.png" alt="ABA存在"></p>
+<p><img src="/2021/07/10/CAS/ABA%E5%AD%98%E5%9C%A8.png" alt="ABA存在"></p>
 <ol>
 <li><p> main 线程开始执行</p>
 </li>
@@ -570,7 +570,7 @@
 <li> 在 T1 线程全部执行完毕后，T2 线程睡醒，将 100（1）改为 999（2），并准备写回到主内存中，在进行 CAS + ABA 校验时，CAS 校验时可以通过的，因为值相等，但 ABA 校验不能通过，因为版本号不一致，T2 线程中版本号为（1），而主内存中版本号则是（3），也就是线程 T2 的期望版本号与主内存中的实际版本号不同，所以导致修改失败。</li>
 </ol>
 <hr>
-<h3 id="5-5-AtomicStampedReference-compareAndSet-源码分析"><a href="#5-5-AtomicStampedReference-compareAndSet-源码分析" class="headerlink" title="5.5    AtomicStampedReference#compareAndSet 源码分析"></a>5.5    AtomicStampedReference#compareAndSet 源码分析</h3><p><img src="CAS/image-20210711132742276.png" alt="image-20210711132742276"></p>
+<h3 id="5-5-AtomicStampedReference-compareAndSet-源码分析"><a href="#5-5-AtomicStampedReference-compareAndSet-源码分析" class="headerlink" title="5.5    AtomicStampedReference#compareAndSet 源码分析"></a>5.5    AtomicStampedReference#compareAndSet 源码分析</h3><p><img src="/2021/07/10/CAS/image-20210711132742276.png" alt="image-20210711132742276"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* <span class="meta">@param</span> expectedReference 	某个线程期望的主内存中的对象值（对象引用）</span><br><span class="line">* <span class="meta">@param</span> newReference 			要写回主内存中的更新后的对象值（对象引用）</span><br><span class="line">* <span class="meta">@param</span> expectedStamp 		某个线程期望的主内存中对象值的版本号</span><br><span class="line">* <span class="meta">@param</span> newStamp 				要写回主内存中的更新后的版本号</span><br><span class="line">* <span class="meta">@return</span> &#123;<span class="meta">@code</span> <span class="literal">true</span>&#125; <span class="keyword">if</span> successful	是否可以将更新内容写回主内存中</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -584,8 +584,8 @@
 <h2 id="6-1-AtomicReference"><a href="#6-1-AtomicReference" class="headerlink" title="6.1    AtomicReference"></a>6.1    AtomicReference</h2><p>​        在 JUC<code>（java.util.concurrent.atomic）</code> 包中，提供了 AtomicBoolean、AtomicInteger、AtomicLong 等具有原子性的基本数据类型和常见的引用变量类型。</p>
 <p>​        但是对于一些开发人员自定义类型的对象，比如，想让一个自定义的 User、Employee 对象具有原子性应该怎么办？我们可以通过 <strong><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html">AtomicReference</a></strong> 实现。</p>
 <p>​        如图所示，创建 <code>AtomicReference&lt;V&gt;</code> 对象时可以指定一个任意类型的泛型，如果你想让 User 对象具有原子性就指定泛型为 User 类型，如果想让 Student 对象具有原子性就指定泛型为 Student 类型。</p>
-<p><img src="CAS/image-20210710211109304.png" alt="image-20210710211109304"></p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="CAS/image-20210710221251706.png" alt="image-20210710221251706"></p>
+<p><img src="/2021/07/10/CAS/image-20210710211109304.png" alt="image-20210710211109304"></p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="/2021/07/10/CAS/image-20210710221251706.png" alt="image-20210710221251706"></p>
 <ul>
 <li>  我们可以把 AtomicReference 看做是普通对象的包装类，一个普通的对象是不具有原子性的，而在使用 AtomicReference 包装后，它就具有了原子性。</li>
 <li>  AtomicReference 类提供了两个构造函数。我们可以直接在构造函数中包装一个普通对象让其具有原子性；也可以使用无参构造器创建一个 AtomicReference 对象，然后再调用 <strong>AtomicReference#set(V newValue)</strong> 方法让普通对象 V newValue 具有原子性。</li>
@@ -601,7 +601,7 @@
 <p>  <strong>可以解决 ABA 问题的原子引用</strong></p>
 </blockquote>
 <p><strong>AtomicStampedReference</strong> 和 <strong>AtomicReference</strong> 的作用类似，都是包装一个普通对象让其具有原子性。在不考虑 ABA 问题的前提下，这两个类是类似的。如果考虑 ABA 问题，则应该使用 <strong>AtomicStampedReference</strong> ，因为它既可以解决原子性问题，也可以解决 ABA 问题。</p>
-<h3 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="CAS/image-20210710222525576.png" alt="image-20210710222525576"></p>
+<h3 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="/2021/07/10/CAS/image-20210710222525576.png" alt="image-20210710222525576"></p>
 <ul>
 <li>  <strong>AtomicStampedReference</strong> 没有无参的构造器，所以在创建对象时必须指定要包装的对象和一个 int 类型的版本号。</li>
 </ul>

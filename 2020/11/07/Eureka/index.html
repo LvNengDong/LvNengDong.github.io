@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Eureka    Eureka只是注册中心的一种；   目前常用的还有 Nacos   为什么要使用注册中心（Eureka能做什么）？   Before   在微服务架构中，服务提供者 对外提供服务，需要对外暴露自己的地址。 服务调用者需要记录服务提供者的地址来进行数据交互，将来地址出现变更，还需要及时更新。 这在服务数量较少的时候并不觉得有什么，如果一个项目中包含几十上百个微服务，此时如果还人">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
-<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/1525618396076.png">
-<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/1525617060656.png">
-<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka/1525617542081.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/1525618396076.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/1525617060656.png">
+<meta property="og:image" content="http://example.com/2020/11/07/Eureka/1525617542081.png">
 <meta property="article:published_time" content="2020-11-07T13:52:34.000Z">
 <meta property="article:modified_time" content="2021-09-03T04:39:25.862Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/11/07/Eureka/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
+<meta name="twitter:image" content="http://example.com/2020/11/07/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png">
 
 
 <link rel="canonical" href="http://example.com/2020/11/07/Eureka/">
@@ -137,7 +137,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -264,7 +264,7 @@
 <li>  注册中心就相当于一个总控，一个“中间人”，维护一张服务列表。没有注册中心之前，<code>服务提供者</code> 和 <code>服务调用者</code> 之间是直接联系的，所以 <code>服务调用者</code> 必须知道 <code>服务提供者</code> 的IP地址，当需要调用很多个服务的时候，记录 <code>服务提供者</code> 的 IP 地址本身就是一项非常复杂的工作。而有了总控（注册中心）后，<code>服务调用者</code> 只需要记住一个 IP 地址，即“总控”的 IP 地址，并定期的从“总控”拉取最新的服务列表，然后 <code>服务调用者</code> 就可以从服务列表中选择合适的 IP 地址去调用 <code>服务提供者</code> 进行业务请求了。</li>
 </ul>
 <hr>
-<h2 id="Eureka架构"><a href="#Eureka架构" class="headerlink" title="Eureka架构"></a>Eureka架构</h2><p><img src="Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png"></p>
+<h2 id="Eureka架构"><a href="#Eureka架构" class="headerlink" title="Eureka架构"></a>Eureka架构</h2><p><img src="/2020/11/07/Eureka/Eureka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84.png"></p>
 <blockquote>
 <p>Eureka架构中的三个核心角色</p>
 <ul>
@@ -310,7 +310,7 @@
 <li><strong>自我保护</strong>（EurekaServer）</li>
 </ul>
 <p>我们关停一个服务，就会在Eureka面板看到一条警告：这是触发了Eureka的自我保护机制。</p>
-<p><img src="Eureka/1525618396076.png"></p>
+<p><img src="/2020/11/07/Eureka/1525618396076.png"></p>
 <blockquote>
 <p>当一个<code>服务提供者</code>未按时心跳续约时，Eureka会统计该服务实例最近15分钟心跳失败的比例是否超过了85%。在生产环境下，因为网络延迟等原因，心跳失败的比例很有可能超标，但此时直接把服务剔除并不妥当，因为服务可能没有宕机。Eureka就把当前实例的注册信心保护起来，不予剔除。生产环境下这很有用，保证了大多数服务依然可用。</p>
 <p>但是这给我们的开发带来了麻烦，因此开发阶段我们都会关闭自我保护模式：</p>
@@ -351,7 +351,7 @@
 <li><p><strong>实例ID</strong></p>
 <p>先来看一下服务状态信息：</p>
 <p>在Eureka监控页面，查看服务注册信息：</p>
-<p><img src="Eureka/1525617060656.png" alt="1525617060656"></p>
+<p><img src="/2020/11/07/Eureka/1525617060656.png" alt="1525617060656"></p>
 <p>在status一列中，显示以下信息：</p>
 <ul>
 <li>UP(1)：代表现在是启动了1个服务器实例，没有形成集群</li>
@@ -365,7 +365,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">instance-id:</span> <span class="string">$&#123;spring.application.name&#125;:$&#123;server.port&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>重启服务再试试看：</p>
-<p><img src="Eureka/1525617542081.png" alt="1525617542081"></p>
+<p><img src="/2020/11/07/Eureka/1525617542081.png" alt="1525617542081"></p>
 </li>
 </ul>
 <h3 id="服务调用者"><a href="#服务调用者" class="headerlink" title="服务调用者"></a>服务调用者</h3><blockquote>

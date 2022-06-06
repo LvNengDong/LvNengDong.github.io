@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Shell 是一门解释性语言，也就是说在编写完 Shell 脚本后，可以直接使用 Shell 解释器解释执行，而无需像 Java 语言那样需要先经过 javac 进行编译，编译后才能被执行。 Shell 编程怎么学  学习 shell 语言的语法和格式要求  使用 shell 语法尝试编写若干个 shell 脚本  使用 shell 命令的解释器解释执行 shell 脚本。   Shell 概述">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/10/30/Shell/Shell/image-20211030163357198.png">
-<meta property="og:image" content="http://example.com/2021/10/30/Shell/Shell/image-20211030212648163.png">
-<meta property="og:image" content="http://example.com/2021/10/30/Shell/Shell/image-20211030212915700.png">
+<meta property="og:image" content="http://example.com/2021/10/30/Shell/image-20211030163357198.png">
+<meta property="og:image" content="http://example.com/2021/10/30/Shell/image-20211030212648163.png">
+<meta property="og:image" content="http://example.com/2021/10/30/Shell/image-20211030212915700.png">
 <meta property="article:published_time" content="2021-10-30T08:20:00.000Z">
 <meta property="article:modified_time" content="2021-11-19T14:07:49.858Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/10/30/Shell/Shell/image-20211030163357198.png">
+<meta name="twitter:image" content="http://example.com/2021/10/30/Shell/image-20211030163357198.png">
 
 
 <link rel="canonical" href="http://example.com/2021/10/30/Shell/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -240,7 +240,7 @@
 <li> 使用 shell 命令的解释器解释执行 shell 脚本。</li>
 </ol>
 <hr>
-<h1 id="Shell-概述"><a href="#Shell-概述" class="headerlink" title="Shell 概述"></a>Shell 概述</h1><p><img src="Shell/image-20211030163357198.png" alt="image-20211030163357198"></p>
+<h1 id="Shell-概述"><a href="#Shell-概述" class="headerlink" title="Shell 概述"></a>Shell 概述</h1><p><img src="/2021/10/30/Shell/image-20211030163357198.png" alt="image-20211030163357198"></p>
 <p>Linux 系统的核心是<strong>内核</strong>，内核直接控制着计算机系统上的所有硬件和软件，应用程序在执行时都需要先向内核申请 CPU、内存等硬件资源。也就是说应用程序执行时会先向内核发送申请资源的指令，为了防止第三方程序发送一些恶意指令损坏内核，Linux 开发人员在应用程序和内核之间，设置了一个中间层——<strong>Shell</strong>。这样所有发送给内核的指令，都必须先由 Shell 层进行一次校验，校验通过后才可以继续发往内核，减少了内核被损坏的风险。</p>
 <p><strong>本质上来说：</strong></p>
 <ul>
@@ -299,10 +299,10 @@
 
 <ul>
 <li><p><strong>/bin</strong>：该目录下保存着用户常用命令对应的脚本，如 <code>cd、pwd、ll</code> 等，所以在该目录下可以使用 shell 解释器直接执行这些脚本。</p>
-<p>  <img src="Shell/image-20211030212648163.png" alt="image-20211030212648163"></p>
+<p>  <img src="/2021/10/30/Shell/image-20211030212648163.png" alt="image-20211030212648163"></p>
 </li>
 <li><p><strong>/sbin（superUser bin）</strong>：该目录下保存着 root 用户常用命令的脚本，一般用于对整个机器进行管理。如 <code>service</code> 等，在该目录下同样可以使用 shell 解释器执行这些脚本。</p>
-<p>  <img src="Shell/image-20211030212915700.png" alt="image-20211030212915700"></p>
+<p>  <img src="/2021/10/30/Shell/image-20211030212915700.png" alt="image-20211030212915700"></p>
 </li>
 </ul>
 <hr>
@@ -481,7 +481,7 @@
 </li>
 </ol>
 <hr>
-<h4 id=""><a href="#" class="headerlink" title="$#"></a>$#</h4><p><strong>基本语法</strong>：<code>$#</code></p>
+<h4 id><a href="#" class="headerlink" title="$#"></a>$#</h4><p><strong>基本语法</strong>：<code>$#</code></p>
 <ul>
 <li>  功能描述：获取所有输入参数个数，常用于循环。</li>
 </ul>
@@ -933,8 +933,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/11/03/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%BC%95%E6%93%8EActiviti/" rel="next" title="工作流引擎Activiti">
-                  工作流引擎Activiti <i class="fa fa-chevron-right"></i>
+                <a href="/2021/11/04/SpringSecurity/" rel="next" title="SpringSecurity">
+                  SpringSecurity <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

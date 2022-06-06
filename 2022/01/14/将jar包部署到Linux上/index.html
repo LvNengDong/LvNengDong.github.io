@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="将SpringBoot项目打成jar包部署到Linux上1、打包   使用 package 命令打包 SpringBoot 项目   使用对于不需要的目录（比如 test 目录）可以选择性的忽略。      查看打包之后的文件结构  jar 包所在位置     jar 的目录结构    在元数据目录 META-INF 下的文件 MANIFEST.MF 包含了元数据基本信息。其中的内容如下：  12">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png">
-<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180356799.png">
-<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180636623.png">
-<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114181942630.png">
+<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png">
+<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180356799.png">
+<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180636623.png">
+<meta property="og:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114181942630.png">
 <meta property="article:published_time" content="2022-01-14T09:50:43.000Z">
 <meta property="article:modified_time" content="2022-01-16T02:06:58.147Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png">
+<meta name="twitter:image" content="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png">
 
 
 <link rel="canonical" href="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/">
@@ -137,7 +137,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -238,18 +238,18 @@
 <li>  使用 <code>package</code> 命令打包 SpringBoot 项目</li>
 <li>  使用对于不需要的目录（比如 <code>test</code> 目录）可以选择性的忽略。</li>
 </ul>
-<img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png" alt="image-20220114175348398" style="zoom:50%;" />
+<img src="/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png" alt="image-20220114175348398" style="zoom:50%;">
 
 
 
 <h3 id="查看打包之后的文件结构"><a href="#查看打包之后的文件结构" class="headerlink" title="查看打包之后的文件结构"></a>查看打包之后的文件结构</h3><ol>
 <li> jar 包所在位置</li>
 </ol>
-<img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180356799.png" alt="image-20220114180356799" style="zoom:50%;" />
+<img src="/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180356799.png" alt="image-20220114180356799" style="zoom:50%;">
 
 <ol start="2">
 <li><p>jar 的目录结构</p>
-<p> <img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180636623.png" alt="image-20220114180636623"></p>
+<p> <img src="/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180636623.png" alt="image-20220114180636623"></p>
 </li>
 <li><p>在元数据目录 <code>META-INF</code> 下的文件 <code>MANIFEST.MF</code> 包含了元数据基本信息。其中的内容如下：</p>
  <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Manifest-Version</span>: <span class="string">1.0</span></span><br><span class="line"><span class="attr">Implementation-Title</span>: <span class="string">gmall-logger</span></span><br><span class="line"><span class="attr">Implementation-Version</span>: <span class="string">0.0.1-SNAPSHOT</span></span><br><span class="line"><span class="attr">Start-Class</span>: <span class="string">com.example.gmalllogger.GmallLoggerApplication</span></span><br><span class="line"><span class="attr">Spring-Boot-Classes</span>: <span class="string">BOOT-INF/classes/</span></span><br><span class="line"><span class="attr">Spring-Boot-Lib</span>: <span class="string">BOOT-INF/lib/</span></span><br><span class="line"><span class="attr">Build-Jdk-Spec</span>: <span class="string">1.8</span></span><br><span class="line"><span class="attr">Spring-Boot-Version</span>: <span class="string">2.2.1.RELEASE</span></span><br><span class="line"><span class="attr">Created-By</span>: <span class="string">Maven Archiver 3.4.0</span></span><br><span class="line"><span class="comment"># jar 的主类名，在 Linux 中运行 jar 包时需要使用到该主类名</span></span><br><span class="line"><span class="attr">Main-Class</span>: <span class="string">org.springframework.boot.loader.JarLauncher</span></span><br></pre></td></tr></table></figure>
@@ -270,7 +270,7 @@
 <li><p>实例：在 jar 包所在的目录下执行以下命令：</p>
   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 tmp]$ java -jar gmall-logger-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
 
-<p>  <img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114181942630.png" alt="image-20220114181942630"></p>
+<p>  <img src="/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114181942630.png" alt="image-20220114181942630"></p>
 </li>
 </ul>
 <p><strong>Case2</strong></p>

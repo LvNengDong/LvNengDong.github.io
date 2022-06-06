@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第一章 工作流概述1、什么是工作流… 2、工作流应用场景   业务类：合同审批流程、订单处理流程、出入库审批流程等。   行政类：请假流程、出差流程、办公用品申请流程等。   财务类：报销流程、支付流程等。   客户服务类：售后跟踪、客户投诉等。  3、BPMN2.0规范3.1 BPMN2.0是什么BPMN，Business Process Modeling Notation，业务流程模型注解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activiti7">
+<meta property="og:url" content="http://example.com/2022/06/03/Activiti7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一章 工作流概述1、什么是工作流… 2、工作流应用场景   业务类：合同审批流程、订单处理流程、出入库审批流程等。   行政类：请假流程、出差流程、办公用品申请流程等。   财务类：报销流程、支付流程等。   客户服务类：售后跟踪、客户投诉等。  3、BPMN2.0规范3.1 BPMN2.0是什么BPMN，Business Process Modeling Notation，业务流程模型注解。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220605171023417.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220605171205918.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220605171309046.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220605172512814.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/Activiti%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B.svg">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220604091757471.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220604111356712.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/image-20220604113226413.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/Activiti%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9D%E5%A7%8B%E5%8C%96-1654417958883.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%98%E5%8C%96.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/bpmn-structure.png">
+<meta property="og:image" content="http://example.com/2022/06/03/Activiti7/activiti-flow.png">
+<meta property="article:published_time" content="2022-06-03T03:51:15.000Z">
+<meta property="article:modified_time" content="2022-06-05T10:31:25.750Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Activiti">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/06/03/Activiti7/image-20220605171023417.png">
+
+
+<link rel="canonical" href="http://example.com/2022/06/03/Activiti7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/06/03/Activiti7/","path":"2022/06/03/Activiti7/","title":"Activiti7"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Activiti7 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一章 工作流概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">1.1.</span> <span class="nav-text">1、什么是工作流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.</span> <span class="nav-text">2、工作流应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81BPMN2-0%E8%A7%84%E8%8C%83"><span class="nav-number">1.3.</span> <span class="nav-text">3、BPMN2.0规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-BPMN2-0%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 BPMN2.0是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-BPMN2-0%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 BPMN2.0基本流程符号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6Event"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">事件Event</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B4%BB%E5%8A%A8Activity"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">活动Activity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E5%85%B3Gateway"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">网关Gateway</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">定时器事件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-Activiti"><span class="nav-number">2.</span> <span class="nav-text">第二章 Activiti</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFActiviti"><span class="nav-number">2.1.</span> <span class="nav-text">1、什么是Activiti</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81Activiti%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2、Activiti开发流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">2.3.</span> <span class="nav-text">3、开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A1%86%E6%9E%B6%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 框架版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Activiti%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 Activiti支持的数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E4%BE%9D%E8%B5%96%E5%9D%90%E6%A0%87"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 依赖坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81Activiti%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8"><span class="nav-number">2.4.</span> <span class="nav-text">4、Activiti配置入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-activiti-cfg-xml-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.4.1.</span> <span class="nav-text">4.1 activiti.cfg.xml 核心配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%88%9B%E5%BB%BAProcessEngine%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">2.4.2.</span> <span class="nav-text">4.2 创建ProcessEngine流程引擎实例和数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Activiti%E7%9A%8425%E5%BC%A0%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%88%86%E6%9E%90"><span class="nav-number">2.4.3.</span> <span class="nav-text">4.3 Activiti的25张数据表分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activiti-API%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.5.</span> <span class="nav-text">Activiti API服务接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activiti7%E7%9A%84Service%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.5.1.</span> <span class="nav-text">Activiti7的Service核心接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.5.2.</span> <span class="nav-text">部署流程模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B-amp-%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.6.</span> <span class="nav-text">流程 &amp; 流程实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.7.</span> <span class="nav-text">用户任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7-amp-%E8%A7%92%E8%89%B2"><span class="nav-number">2.8.</span> <span class="nav-text">用户 &amp; 角色</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/03/Activiti7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Activiti7 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Activiti7
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-03 11:51:15" itemprop="dateCreated datePublished" datetime="2022-06-03T11:51:15+08:00">2022-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-06-05 18:31:25" itemprop="dateModified" datetime="2022-06-05T18:31:25+08:00">2022-06-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" itemprop="url" rel="index"><span itemprop="name">工作流</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第一章-工作流概述"><a href="#第一章-工作流概述" class="headerlink" title="第一章 工作流概述"></a>第一章 工作流概述</h1><h2 id="1、什么是工作流"><a href="#1、什么是工作流" class="headerlink" title="1、什么是工作流"></a>1、什么是工作流</h2><p>…</p>
+<h2 id="2、工作流应用场景"><a href="#2、工作流应用场景" class="headerlink" title="2、工作流应用场景"></a>2、工作流应用场景</h2><ul>
+<li>  业务类：合同审批流程、订单处理流程、出入库审批流程等。</li>
+<li>  行政类：请假流程、出差流程、办公用品申请流程等。</li>
+<li>  财务类：报销流程、支付流程等。</li>
+<li>  客户服务类：售后跟踪、客户投诉等。</li>
+</ul>
+<h2 id="3、BPMN2-0规范"><a href="#3、BPMN2-0规范" class="headerlink" title="3、BPMN2.0规范"></a>3、BPMN2.0规范</h2><h3 id="3-1-BPMN2-0是什么"><a href="#3-1-BPMN2-0是什么" class="headerlink" title="3.1 BPMN2.0是什么"></a>3.1 BPMN2.0是什么</h3><p>BPMN，Business Process Modeling Notation，业务流程模型注解。</p>
+<h3 id="3-2-BPMN2-0基本流程符号"><a href="#3-2-BPMN2-0基本流程符号" class="headerlink" title="3.2 BPMN2.0基本流程符号"></a>3.2 BPMN2.0基本流程符号</h3><h4 id="事件Event"><a href="#事件Event" class="headerlink" title="事件Event"></a>事件Event</h4><p><img src="/2022/06/03/Activiti7/image-20220605171023417.png" alt="image-20220605171023417"></p>
+<h4 id="活动Activity"><a href="#活动Activity" class="headerlink" title="活动Activity"></a>活动Activity</h4><p>活动是工作或任务的一个通用术语。</p>
+<p>一个活动可以是一个任务，还可以是一个当前流程的子处理流程；其次，你还可以为活动指定不同的类型。</p>
+<p>常见的活动如下：</p>
+<p><img src="/2022/06/03/Activiti7/image-20220605171205918.png" alt="image-20220605171205918"></p>
+<h4 id="网关Gateway"><a href="#网关Gateway" class="headerlink" title="网关Gateway"></a>网关Gateway</h4><p>网关用来处理决策：</p>
+<p><img src="/2022/06/03/Activiti7/image-20220605171309046.png" alt="image-20220605171309046"></p>
+<p><strong>排他网关（X）</strong></p>
+<ul>
+<li>  只有一条路径会被选择。流程执行到该网关时，按照输出流的顺序逐个计算，当条件的计算结果为true时，继续执行当前网关的输出流。</li>
+<li>  如果多条线路的计算结果都是true，则会执行第一个为true的线路。如果所有网关的计算没有true，则抛出异常。</li>
+<li>  排他网关需要和条件顺序流结合使用。使用default属性指定默认的顺序流，当所有的条件都不满足时会执行默认顺序流。</li>
+</ul>
+<p><strong>并行网关（+）</strong></p>
+<ul>
+<li>所有路径会被同时选择。<ul>
+<li>  分支：并行执行所有输出顺序流，为每一条顺序流创建一个并行执行线路。</li>
+<li>  汇聚：所有从并行网关拆分并执行完的线路均在此等候，直到所有的线路都执行完成才继续向后执行。</li>
+</ul>
+</li>
+</ul>
+<p><strong>包含网关（o）</strong></p>
+<ul>
+<li>可以同时执行多条线路，也可以在网关上设置条件。<ul>
+<li>  分支：计算每条线路上的表达式，当表达式的结果为true时，创建一个并行线路并继续执行。</li>
+<li>  汇聚：所有从并行网关拆分并执行完成的线路均在此等候，直到所有的线路都执行完成才继续向下执行。</li>
+</ul>
+</li>
+</ul>
+<p><strong>事件网关（o+）</strong></p>
+<ul>
+<li>  专门为中间捕获事件设置的，允许设置多个输出流指向多个不同的中间捕获事件。当流程执行到事件网关后，流程处于等待状态，需要等待抛出事件才能将等待状态转换为活动状态。</li>
+</ul>
+<h4 id="定时器事件"><a href="#定时器事件" class="headerlink" title="定时器事件"></a>定时器事件</h4><p><img src="/2022/06/03/Activiti7/image-20220605172512814.png" alt="image-20220605172512814"></p>
+<ul>
+<li>开始定时器事件<ul>
+<li>  可以设置时间，定时开始启动流程实例。</li>
+</ul>
+</li>
+<li>中间定时器事件<ul>
+<li>  设定延迟时间，当完成任务A后，到达延时时间后，流程才会走向任务B。</li>
+</ul>
+</li>
+<li>边界定时器事件<ul>
+<li>  用于向某节点上添加边界定时事件。在设定时间内没有完成，流程实例则自动走向下一节点。</li>
+</ul>
+</li>
+</ul>
+<h1 id="第二章-Activiti"><a href="#第二章-Activiti" class="headerlink" title="第二章 Activiti"></a>第二章 Activiti</h1><h2 id="1、什么是Activiti"><a href="#1、什么是Activiti" class="headerlink" title="1、什么是Activiti"></a>1、什么是Activiti</h2><p>官网：<a target="_blank" rel="noopener" href="https://www.activiti.org/">https://www.activiti.org/</a></p>
+<h2 id="2、Activiti开发流程"><a href="#2、Activiti开发流程" class="headerlink" title="2、Activiti开发流程"></a>2、Activiti开发流程</h2><ol>
+<li><p>绘制流程定义模型</p>
+<p> 遵循BPMN的流程规范，使用BPMN的流程定义工具，通过<strong>流程符号</strong>把整个业务流程定义出来。可以将流程定义文件的字节流保存到模型数据表中（Model）。</p>
+</li>
+<li><p>部署流程定义：</p>
+<p> 就是将第一步画好的流程定义模型进行部署。</p>
+<p> 加载画好的流程定义文件，将它转换成流程定义数据（ProcessDefinition），保存到流程定义数据表中。</p>
+</li>
+<li><p>启动流程（提交流程申请）</p>
+<p> 部署好了流程定义之后就可以使用这个流程了。</p>
+<p> 启动流程实例就是提交申请，比如申请请假就是提交了一个流程实例、申请报销也是提交了一个流程实例</p>
+<p> 生成流程实例数据（ProcessInstance），生成第一节点任务数据（Task）</p>
+</li>
+<li><p>处理人审批流程节点任务</p>
+<p> 完成任务审批。生成审批结果，生成下一节点任务数据。</p>
+</li>
+</ol>
+<p><img src="/2022/06/03/Activiti7/Activiti%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B.svg" alt="Activiti开发流程"></p>
+<h2 id="3、开发环境"><a href="#3、开发环境" class="headerlink" title="3、开发环境"></a>3、开发环境</h2><h3 id="3-1-框架版本号"><a href="#3-1-框架版本号" class="headerlink" title="3.1 框架版本号"></a>3.1 框架版本号</h3><table>
+<thead>
+<tr>
+<th align="center">开发环境</th>
+<th align="center">版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SpringBoot</td>
+<td align="center">2.5.0</td>
+</tr>
+<tr>
+<td align="center">Activiti</td>
+<td align="center">7.1.0.M6</td>
+</tr>
+<tr>
+<td align="center">JDK</td>
+<td align="center">1.8</td>
+</tr>
+<tr>
+<td align="center">MySQL</td>
+<td align="center">8.0</td>
+</tr>
+<tr>
+<td align="center">Maven</td>
+<td align="center">3.6.3</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-Activiti支持的数据库"><a href="#3-2-Activiti支持的数据库" class="headerlink" title="3.2 Activiti支持的数据库"></a>3.2 Activiti支持的数据库</h3><p>Activiti 实质上就是通过数据库的数据表来控制业务流程。其支持的数据库如下：</p>
+<table>
+<thead>
+<tr>
+<th>数据库类型</th>
+<th>JDBC连接示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h2</td>
+<td><code>jdbc:h2:tcp://localhost/activiti</code></td>
+<td>默认使用的数据库</td>
+</tr>
+<tr>
+<td>mysql</td>
+<td><code>jdbc:mysql://localhost:3306/activiti?autoReconnect=true</code></td>
+<td>使用<code>mysql-connector-java</code>数据库驱动程序进行测试</td>
+</tr>
+<tr>
+<td>oracle</td>
+<td><code>jdbc:oracle:thin:@localhost:1521:xe</code></td>
+<td></td>
+</tr>
+<tr>
+<td>postgres</td>
+<td><code>jdbc:postgresql://localhost:5432/activiti</code></td>
+<td></td>
+</tr>
+<tr>
+<td>db2</td>
+<td><code>jdbc:db2://localhost:50000/activiti</code></td>
+<td></td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-依赖坐标"><a href="#3-3-依赖坐标" class="headerlink" title="3.3 依赖坐标"></a>3.3 依赖坐标</h3><ul>
+<li><p>Activiti核心依赖</p>
+<ul>
+<li>  在Maven项目中，只需导入该依赖即可使用Activiti的核心功能</li>
+</ul>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--activiti核心依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>7.1.0.M6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>SpringBoot整合Activiti依赖</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    </span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="4、Activiti配置入门"><a href="#4、Activiti配置入门" class="headerlink" title="4、Activiti配置入门"></a>4、Activiti配置入门</h2><blockquote>
+<p>  <strong>前置：</strong></p>
+<ol>
+<li> 在MySQL服务器中创建一个 activiti01 数据库；</li>
+<li> 创建Maven项目并导入相关依赖；</li>
+</ol>
+</blockquote>
+<h3 id="4-1-activiti-cfg-xml-核心配置"><a href="#4-1-activiti-cfg-xml-核心配置" class="headerlink" title="4.1 activiti.cfg.xml 核心配置"></a>4.1 activiti.cfg.xml 核心配置</h3><p>Activiti 流程引擎通过名为 <code>activiti.cfg.xml</code> 的配置文件进行配置。所以需要在 resource 目录下创建 <code>activiti.cfg.xml</code> 文件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--默认情况下，bean的id必须是processEngineConfiguration--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;processEngineConfiguration&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--配置数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/activiti01?nullCatalogMeansCurrent=true<span class="symbol">&amp;amp;</span>autoReconnect=true<span class="symbol">&amp;amp;</span>characterEncoding=utf8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--characterEncoding=utf8 ：防止向MySQL中插入中文数据时乱码--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--nullCatalogMeansCurrent=true ：解决数据库初始化时自动创建表的问题--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &amp;amp;  转义符+分隔符--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcDriver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUsername&quot;</span> <span class="attr">value</span>=<span class="string">&quot;mysql_lvnengdong&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcPassword&quot;</span> <span class="attr">value</span>=<span class="string">&quot;AdminLnd5639634&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--activiti 数据库表的生成策略--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">            自动更新数据库结构：</span></span><br><span class="line"><span class="comment">                true：默认值，适用于开发环境。activiti会对数据库中所有表进行更新操作。如果表不存在，则自动创建。</span></span><br><span class="line"><span class="comment">                false：适用于生产环境。activiti在启动时，会对比当前数据库中表的版本，不过没有表或者版本不匹配，则抛出异常。</span></span><br><span class="line"><span class="comment">                create_drop：在activiti启动时创建表，在关闭时删除表（必须手动关闭引擎，才能删除表）</span></span><br><span class="line"><span class="comment">                drop_create：在activiti启动时删除原来的旧表，然后再创建新表（不需要手段关闭引擎）</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;databaseSchemaUpdate&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  <strong>注意：</strong></p>
+<ul>
+<li>  为了防止向MySQL数据库中插入中文数据时乱码，需要设置插入数据的字符编码为UTF8。</li>
+<li>  数据库连接URL后面可以添加多个属性，当存在多个属性时，彼此之间需要使用『转义符+封号』<code>&amp;amp;</code> 分隔。 </li>
+</ul>
+</blockquote>
+<h3 id="4-2-创建ProcessEngine流程引擎实例和数据表"><a href="#4-2-创建ProcessEngine流程引擎实例和数据表" class="headerlink" title="4.2 创建ProcessEngine流程引擎实例和数据表"></a>4.2 创建ProcessEngine流程引擎实例和数据表</h3><p>加载类路径下的 <code>activiti.cfg.xml</code> 配置文件，根据该文件中的配置构造一个流程引擎实例。在创建该实例的时候，会执行数据库的初始化脚本创建数据表。</p>
+<p>创建ProcessEngine流程引擎实例的方式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngine;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngineConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngines;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/6/3 17:42</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivitiTest01</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建流程引擎实例。</span></span><br><span class="line"><span class="comment">     * 在创建流程引擎实例的时候，会执行数据库初始化脚本，在数据库中创建25张表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getProcessEngine</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 方式一：使用工具类ProcessEngines获取默认的流程引擎实例</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 使用这种方式，要求核心配置文件中流程引擎实例的id必须是 “processEngineConfiguration”</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine</span> <span class="operator">=</span> ProcessEngines.getDefaultProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine：&quot;</span> + processEngine);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 方式二：使用配置类创建流程引擎实例（等同于方式一）</span></span><br><span class="line"><span class="comment">        *   查看源码可知，该方法底层调用了 createProcessEngineConfigurationFromResource 方法，并指定了</span></span><br><span class="line"><span class="comment">        *   配置文件的路径为 activiti.cfg.xml ，核心实例的 beanName 为 processEngineConfiguration</span></span><br><span class="line"><span class="comment">        *</span></span><br><span class="line"><span class="comment">        *   所以，举一反三可以知道，如果想自定义配置文件的路径和核心实例的 beanName，可直接调用</span></span><br><span class="line"><span class="comment">        *   createProcessEngineConfigurationFromResource 方法</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="type">ProcessEngineConfiguration</span> <span class="variable">configuration</span> <span class="operator">=</span> ProcessEngineConfiguration.createProcessEngineConfigurationFromResourceDefault();</span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine1</span> <span class="operator">=</span> configuration.buildProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine1：&quot;</span> + processEngine1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 方式三：显式指定配置文件路径和 beanName</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="type">ProcessEngineConfiguration</span> <span class="variable">configuration1</span> <span class="operator">=</span> ProcessEngineConfiguration.createProcessEngineConfigurationFromResource(<span class="string">&quot;activiti.cfg.bak.xml&quot;</span>, <span class="string">&quot;myProcessEngineConfiguration&quot;</span>);</span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine2</span> <span class="operator">=</span> configuration1.buildProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine2：&quot;</span> + processEngine2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="4-3-Activiti的25张数据表分析"><a href="#4-3-Activiti的25张数据表分析" class="headerlink" title="4.3 Activiti的25张数据表分析"></a>4.3 Activiti的25张数据表分析</h3><p>Activiti 在创建 ProcessEngine 流程实例的时候会自动创建25张数据表，这正是 Activiti 能实现工作流的基础。</p>
+<p><img src="/2022/06/03/Activiti7/image-20220604091757471.png" alt="image-20220604091757471"></p>
+<p>Activiti 数据库中表的命名都是以 <code>act_</code> 开头的。<code>act_</code> 代表 Activiti。</p>
+<ul>
+<li>  <code>act_ge_*</code>：ge 是 generate 的缩写。这些表存放通用数据。即在各种情况下都会使用的数据，比如资源文件（图片、规则等）。</li>
+<li>  <code>act_hi_*</code>：hi 是 history 的缩写。这些表存放历史数据，如结束的流程实例（变量、任务等）</li>
+<li>  <code>act_re_*</code>：re 是 repository 的缩写。这些表存放静态数据信息。比如，流程定义、流程的资源（图片、规则等）。Activiti 只在流程实例执行过程中保存这些数据，在流程结束时就会删除这些记录。这样运行时表就可以一直很小、速度很快。</li>
+<li>  <code>act_ru_*</code>：ru 是 runtime 的缩写。这些表是运行时的流程变量，用户任务、职责等运行时的数据。Activiti 只存储实例执行期间的运行时数据，当流程实例结束时，将删除这些记录。这就保证了这些运行时的表小且快。</li>
+<li>  <code>act_evt_log</code>：evt 是 event 的缩写。这张表是流程引擎通用事件的日志记录表，方便管理员跟踪处理。</li>
+<li>  <code>act_procdef_info</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通用数据</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_ge_bytearray</td>
+<td>二进制数据表。主要用来存储一些字节数据，比如涉及到的图片、画的流程图以及对应的XML文件，都会以二进制数据保存在这张表中。</td>
+</tr>
+<tr>
+<td>act_ge_property</td>
+<td>属性数据表。存储整个Activiti引擎的元数据信息。初始化表结构时，会插入版本号信息等。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>历史数据</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_hi_actinst</td>
+<td>历史节点表</td>
+</tr>
+<tr>
+<td>act_hi_attachment</td>
+<td>历史附件表。比如审批可能会涉及到提交附件，就会保存在这张表中。</td>
+</tr>
+<tr>
+<td>act_hi_comment</td>
+<td>历史意见表。如果审批时除了“批准”或“不批准”外，还需要编辑“审批意见”，则“审批意见”会保存在这张表中。</td>
+</tr>
+<tr>
+<td>act_hi_detail</td>
+<td>历史详情表。提供历史变量查询。</td>
+</tr>
+<tr>
+<td>act_hi_identitylink</td>
+<td>历史流程人员表。每个节点对应的审批人/处理人的信息。</td>
+</tr>
+<tr>
+<td>act_hi_procinst</td>
+<td>历史流程实例表。procinst = process instance。每次提交申请，都会保存一份历史数据</td>
+</tr>
+<tr>
+<td>act_hi_taskinst</td>
+<td>历史任务实例表</td>
+</tr>
+<tr>
+<td>act_hi_varinst</td>
+<td>历史变量表</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>流程定义表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_re_deployment</td>
+<td>部署信息表</td>
+</tr>
+<tr>
+<td>act_re_model</td>
+<td>流程设计模型表</td>
+</tr>
+<tr>
+<td>act_re_procdef</td>
+<td>流程定义数据表</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>流程运行数据表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_ru_deadletter_job</td>
+<td>作业死亡信息表。如果作业失败超过重试次数，则写入到此表。</td>
+</tr>
+<tr>
+<td>act_ru_event_subscr</td>
+<td>throwEvent、catchEvent时间监听信息表</td>
+</tr>
+<tr>
+<td>act_ru_execution</td>
+<td>运行时流程执行实例表</td>
+</tr>
+<tr>
+<td>act_ru_identitylink</td>
+<td>运行时流程人员表。主要存储任务节点与参与者的相关信息。</td>
+</tr>
+<tr>
+<td>act_ru_integration</td>
+<td>运行时积分表。</td>
+</tr>
+<tr>
+<td>act_ru_job</td>
+<td>定时异步任务数据表。</td>
+</tr>
+<tr>
+<td>act_ru_suspended_job</td>
+<td>运行时作业暂停表。比如流程中有一个定时任务，如果把这个任务停止工作了，这个任务写入此表中。</td>
+</tr>
+<tr>
+<td>act_ru_task</td>
+<td>运行时任务节点表。</td>
+</tr>
+<tr>
+<td>act_ru_timer_job</td>
+<td>运行时定时器作业表。</td>
+</tr>
+<tr>
+<td>act_ru_variable</td>
+<td>运行时流程变量数据表。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>其它表</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>act_procdef_info</td>
+<td>流程定义的动态变更信息。procdef = process definition。即如果流程的定义发生了变更，会在这张表中进行记录。</td>
+</tr>
+<tr>
+<td>act_evt_log</td>
+<td>通用事件日志记录表。</td>
+</tr>
+</tbody></table>
+<p>act_hi_detail，提供历史变量查询。比如在请假流程中，如果“请假时间&lt;3天”由直接部门领导审批即可，如果“请假时间&gt;3天”，则需要总经理审核。这其中，“3天”就是一个历史变量，而历史变量就会保存在 act_hi_detail 表中。</p>
+<h2 id="Activiti-API服务接口"><a href="#Activiti-API服务接口" class="headerlink" title="Activiti API服务接口"></a>Activiti API服务接口</h2><p>Activiti 流程引擎包含了 25 张表，而且表间关系复杂，理解难度高。</p>
+<p>按照传统的方式，有了数据库表后，就应该为每张表创建 Entity 实体类，然后为其创建对应的 DAO 接口，然后再创建对应的 Service 来实现对表数据的增删改查。</p>
+<p>但是这些表数量多，关系复杂，还要兼顾流程引擎的处理方式，自己去实现一套处理规则难度很大。</p>
+<p>因此 Activiti 已经帮我们把这些东西都实现了，不需要我们手动去创建 Entity、Dao、Service、Controller，它提供了一套简单易用的 APi，我们直接调用即可完成对应的功能。</p>
+<p><img src="/2022/06/03/Activiti7/image-20220604111356712.png" alt="image-20220604111356712"></p>
+<blockquote>
+<p>  <strong>Tip</strong></p>
+<p>  Activiti7 中没有 IdentityService 和 FormService 接口。</p>
+</blockquote>
+<h3 id="Activiti7的Service核心接口"><a href="#Activiti7的Service核心接口" class="headerlink" title="Activiti7的Service核心接口"></a>Activiti7的Service核心接口</h3><ul>
+<li><p>Service管理接口说明</p>
+<table>
+<thead>
+<tr>
+<th>Service接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RuntimeService</strong></td>
+<td>运行时Service，可以处理所有处于运行状态的流程实例和任务。</td>
+</tr>
+<tr>
+<td><strong>RepositoryService</strong></td>
+<td>流程仓库Service，主要用于管理流程仓库，比如流程模型的控制管理（部署、删除、挂起、激活…）</td>
+</tr>
+<tr>
+<td><strong>TaskRepository</strong></td>
+<td>任务Service。用于管理和查询任务，例如：签收、办理等。</td>
+</tr>
+<tr>
+<td><strong>HistoryService</strong></td>
+<td>历史Service。可以查询所有历史数据，例如，流程实例信息、参与者信息、完成时间…</td>
+</tr>
+<tr>
+<td>ManagementService</td>
+<td>引擎管理Service。和具体业务无关，主要用于对Activiti流程引擎进行管理和维护。</td>
+</tr>
+<tr>
+<td>DynamicBpmnService</td>
+<td>RepositoryService可以用来部署流程模型（使用XML定义好的），一旦部署到Activiti（解析后保存到DB）后，流程模型就不会再变了，除非修改XML文件内容并重新部署。而DynamicBpmnService则允许我们在程序运行的过程中去修改流程模型的内容。比如：修改流程定义中分配的角色、优先级、流程流转条件等。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>核心Service接口实例的获取方式</p>
+<p>  <img src="/2022/06/03/Activiti7/image-20220604113226413.png" alt="image-20220604113226413"></p>
+</li>
+</ul>
+<blockquote>
+<p>  创建流程引擎实例</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Activiti 在创建流程引擎实例时，会执行数据库初始化的脚本，除了创建 25 张表外，还会执行下列语句向 <code>ACT_GE_PROPERTY</code> 表中插入一些元数据信息。</p>
+<p>总共插入了 4 条数据，也就是说：在成功创建流程引擎实例后，数据库中就存在了以下四条记录。</p>
+<p><img src="/2022/06/03/Activiti7/Activiti%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9D%E5%A7%8B%E5%8C%96-1654417958883.png" alt="Activiti数据库初始化"></p>
+<h3 id="部署流程模型"><a href="#部署流程模型" class="headerlink" title="部署流程模型"></a>部署流程模型</h3><p>通过BPMN和png文件部署流程模型</p>
+<p>BPMN 对应的 XML 文件是流程模型真正的数据来源，而png图片只是对XML数据的描述文件，更方便用户进行预览。</p>
+<p>部署流程模型的实质就是通过 Activiti 提供的 API 向数据库表中添加数据。我们以创建一个“请假申请流程”为例，查看部署流程模型时都向哪些表中添加了数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngine;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngines;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.RepositoryService;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.repository.Deployment;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.repository.DeploymentBuilder;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/6/5 10:51</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivitiTest02</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 部署流程模型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deploymentTest</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 1、获取流程引擎实例</span></span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine</span> <span class="operator">=</span> ProcessEngines.getDefaultProcessEngine();</span><br><span class="line">        <span class="comment">// 2、获取部署流程模型的相关Service——RepositoryService</span></span><br><span class="line">        <span class="type">RepositoryService</span> <span class="variable">repositoryService</span> <span class="operator">=</span> processEngine.getRepositoryService();</span><br><span class="line">        <span class="comment">// 3、调用相关API部署流程模型</span></span><br><span class="line">        <span class="type">DeploymentBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> repositoryService.createDeployment();</span><br><span class="line">        <span class="type">Deployment</span> <span class="variable">deployment</span> <span class="operator">=</span> builder.name(<span class="string">&quot;请假申请流程&quot;</span>)  <span class="comment">// 起名字</span></span><br><span class="line">                .addClasspathResource(<span class="string">&quot;processes/leave.bpmn&quot;</span>)  <span class="comment">// 加载资源文件</span></span><br><span class="line">                .addClasspathResource(<span class="string">&quot;processes/leave.png&quot;</span>)</span><br><span class="line">                .deploy();</span><br><span class="line">        <span class="comment">// 4、输出部署结果</span></span><br><span class="line">        System.out.println(<span class="string">&quot;部署ID=====&quot;</span> + deployment.getId());</span><br><span class="line">        System.out.println(<span class="string">&quot;部署名称=====&quot;</span> + deployment.getName());</span><br><span class="line">        <span class="comment">// 5、部署之后，流程模型数据就会保存到数据库表中</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">        --------------------------------------</span></span><br><span class="line"><span class="comment">                部署ID=====1</span></span><br><span class="line"><span class="comment">                部署名称=====请假申请流程</span></span><br><span class="line"><span class="comment">        ----------------------------------- */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应数据库涉及到的写操作操作有：</p>
+<p><img src="/2022/06/03/Activiti7/%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%98%E5%8C%96.png" alt="部署流程模型数据库变化"></p>
+<p><img src="/2022/06/03/Activiti7/bpmn-structure.png" alt="bpmn-structure"></p>
+<p><img src="/2022/06/03/Activiti7/activiti-flow.png" alt="activiti-flow"></p>
+<h2 id="流程-amp-流程实例"><a href="#流程-amp-流程实例" class="headerlink" title="流程 &amp; 流程实例"></a>流程 &amp; 流程实例</h2><ul>
+<li>  流程由遵守 BPMN2.0 规范的 XML 文件指定，定义流程即完成流程文件的设计。</li>
+<li>  流程发布后，使用 RuntimeService 可以开启一个流程实例，每个流程可以开启 N 次流程实例，且实例之间的数据相互隔离。</li>
+</ul>
+<h2 id="用户任务"><a href="#用户任务" class="headerlink" title="用户任务"></a>用户任务</h2><p>用户任务是 BPMN 规范中 Activities 组件下的重要组成部分，在 Activiti 中对应 Task 类；区别于其它类型的任务，用户任务需要进行领取操作，不会自动执行，且领取后从待处理任务列表中移出，其它候选人不可见。</p>
+<h2 id="用户-amp-角色"><a href="#用户-amp-角色" class="headerlink" title="用户 &amp; 角色"></a>用户 &amp; 角色</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Activiti/" rel="tag"># Activiti</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/31/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

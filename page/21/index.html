@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -373,7 +373,7 @@
 <h2 id="2-类实例化"><a href="#2-类实例化" class="headerlink" title="2    类实例化"></a>2    类实例化</h2><blockquote>
 <p>  <strong>常用构造方法</strong></p>
 </blockquote>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507091527611-1627738403443.png" alt="image-20210507091527611"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507091527611-1627738403443.png" alt="image-20210507091527611"></p>
 <table>
 <thead>
 <tr>
@@ -454,7 +454,7 @@
 <tr>
 <td align="center"><code>getPath()</code></td>
 <td align="center"><code>String</code></td>
-<td align="center">获取路径（返回的路径与创建File对象时传入的路径一致，<br/>即创建是传入相对路径此时就获取相对路径）</td>
+<td align="center">获取路径（返回的路径与创建File对象时传入的路径一致，<br>即创建是传入相对路径此时就获取相对路径）</td>
 </tr>
 <tr>
 <td align="center"><code>getName()</code></td>
@@ -573,7 +573,7 @@
 <li><code>mkdirs()</code> 方法可用于一次性创建多级目录，而 <code>mkdir()</code> 方法每次只能创建单层目录。</li>
 <li>比如，要求的创建一个文件，这个文件保存在一个多层目录下，且这个多层目录中间的部分目录不存在，则创建文件和目录的方法都不会执行成功。不同的是  <strong><code>mkdir()</code> 方法即使执行不成功也不会报错，而 <code>createNewFile()</code> 方法会直接报错</strong>。报错信息如下：</li>
 </ul>
-<p><img src="/IO%E7%B3%BB%E7%BB%9F/image-20210507094900445.png" alt="image-20210507094900445"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507094900445.png" alt="image-20210507094900445"></p>
 <blockquote>
 <p>  <strong>删除功能：</strong></p>
 </blockquote>
@@ -626,12 +626,12 @@
 <li>即流向内存为输入流，流出内存为输出流。</li>
 <li>输入也叫做<strong>读取数据</strong>，输出也叫做<strong>写出数据</strong>。</li>
 </ul>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/IO.png" alt="IO"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/IO.png" alt="IO"></p>
 <h2 id="IO的分类"><a href="#IO的分类" class="headerlink" title="IO的分类"></a>IO的分类</h2><ol>
 <li> 按数据流向分类：<strong>输入流</strong>、<strong>输出流</strong></li>
 <li> 按操作数据的单位分类：<strong>字节流</strong>、<strong>字符流</strong></li>
 </ol>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/IO%E5%88%86%E7%B1%BB.png"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/IO%E5%88%86%E7%B1%BB.png"></p>
 <hr>
 <h2 id="流的体系结构"><a href="#流的体系结构" class="headerlink" title="流的体系结构"></a>流的体系结构</h2><blockquote>
 <p>  <strong>顶级父类</strong></p>
@@ -658,7 +658,7 @@
 <blockquote>
 <p>  <strong>体系结构</strong></p>
 </blockquote>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210731223442543.png" alt="image-20210731223442543"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210731223442543.png" alt="image-20210731223442543"></p>
 <blockquote>
 <p>  <strong>常用结构</strong></p>
 </blockquote>
@@ -719,7 +719,7 @@
 <li>OutputStream 类中没有重载构造方法，使用 JVM 提供的默认无参构造器！</li>
 <li>OutputStream 是一个抽象类，不能直接 new 一个对象，但可以接收 new 出来的子类对象（多态）。</li>
 </ul>
-<h3 id="2-3-成员方法"><a href="#2-3-成员方法" class="headerlink" title="2.3    成员方法"></a>2.3    成员方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507104001127.png" alt="image-20210507104001127"></p>
+<h3 id="2-3-成员方法"><a href="#2-3-成员方法" class="headerlink" title="2.3    成员方法"></a>2.3    成员方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507104001127.png" alt="image-20210507104001127"></p>
 <table>
 <thead>
 <tr>
@@ -778,7 +778,7 @@
 <li>InputStream 类中没有重载构造方法，使用 JVM 提供的默认无参构造器！</li>
 <li>InputStream 是一个抽象类，不能直接 new 一个对象，但可以接收 new 出来的子类对象（多态）。</li>
 </ul>
-<h3 id="3-3-成员方法"><a href="#3-3-成员方法" class="headerlink" title="3.3    成员方法"></a>3.3    成员方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507135331635.png" alt="image-20210507135331635"></p>
+<h3 id="3-3-成员方法"><a href="#3-3-成员方法" class="headerlink" title="3.3    成员方法"></a>3.3    成员方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507135331635.png" alt="image-20210507135331635"></p>
 <table>
 <thead>
 <tr>
@@ -830,7 +830,7 @@
 <li>Reader 类中没有重载构造方法，使用 JVM 提供的默认无参构造器！</li>
 <li>Reader 是一个抽象类，不能直接 new 一个对象，但可以接收 new 出来的子类对象（多态）。</li>
 </ul>
-<h3 id="4-1-3、成员方法"><a href="#4-1-3、成员方法" class="headerlink" title="4.1.3、成员方法"></a>4.1.3、成员方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507141214703.png" alt="image-20210507141214703"></p>
+<h3 id="4-1-3、成员方法"><a href="#4-1-3、成员方法" class="headerlink" title="4.1.3、成员方法"></a>4.1.3、成员方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507141214703.png" alt="image-20210507141214703"></p>
 <table>
 <thead>
 <tr>
@@ -870,7 +870,7 @@
 <li>  Writer 类中没有重载构造方法，使用 JVM 提供的默认无参构造器！</li>
 <li>  Writer 类是一个抽象类，不能直接 new 一个对象，但可以接收 new 出来的子类对象（多态）。</li>
 </ul>
-<h3 id="2-3-成员方法-1"><a href="#2-3-成员方法-1" class="headerlink" title="2.3    成员方法"></a>2.3    成员方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507141914198.png" alt="image-20210507141914198"></p>
+<h3 id="2-3-成员方法-1"><a href="#2-3-成员方法-1" class="headerlink" title="2.3    成员方法"></a>2.3    成员方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507141914198.png" alt="image-20210507141914198"></p>
 <table>
 <thead>
 <tr>
@@ -936,7 +936,7 @@
 
 
 <hr>
-<h3 id="1-2-构造方法-1"><a href="#1-2-构造方法-1" class="headerlink" title="1.2    构造方法"></a>1.2    构造方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507113455730.png" alt="image-20210507113455730"></p>
+<h3 id="1-2-构造方法-1"><a href="#1-2-构造方法-1" class="headerlink" title="1.2    构造方法"></a>1.2    构造方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507113455730.png" alt="image-20210507113455730"></p>
 <blockquote>
 <p>  <strong>总纲：</strong></p>
 </blockquote>
@@ -1009,7 +1009,7 @@
 <ul>
 <li>  输出结果为：</li>
 </ul>
-<img src="IO%E7%B3%BB%E7%BB%9F/image-20210507134152996.png" alt="image-20210507134152996"  />
+<img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507134152996.png" alt="image-20210507134152996">
 
 
 
@@ -1026,7 +1026,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> file;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyIO</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">/*  1、创建一个 File 对象，当做字节输出流写出数据的目的地  */</span></span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;G:\\AAA\\BBB&quot;</span>, <span class="string">&quot;1.txt&quot;</span>);</span><br><span class="line">        file.createNewFile();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*  2、创建字节输出流对象，并指定输出的目的地 */</span></span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(file);</span><br><span class="line">        <span class="type">byte</span>[] br = <span class="string">&quot;\r\n&quot;</span>.getBytes();  <span class="comment">// 换行符的byte类型表示</span></span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[]&#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>,<span class="number">100</span>,<span class="number">101</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">byte</span> aByte : bytes) &#123;</span><br><span class="line">            fos.write(aByte);</span><br><span class="line">            fos.write(br);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/*  3、关闭字节输出流对象 */</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>输出结果为：</p>
-<img src="IO%E7%B3%BB%E7%BB%9F/image-20210507134827165.png" alt="image-20210507134827165" />
+<img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507134827165.png" alt="image-20210507134827165">
 
 
 
@@ -1048,7 +1048,7 @@
 
 
 
-<h3 id="2-2-构造方法-2"><a href="#2-2-构造方法-2" class="headerlink" title="2.2    构造方法"></a>2.2    构造方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507135646091.png" alt="image-20210507135646091"></p>
+<h3 id="2-2-构造方法-2"><a href="#2-2-构造方法-2" class="headerlink" title="2.2    构造方法"></a>2.2    构造方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507135646091.png" alt="image-20210507135646091"></p>
 <blockquote>
 <p>  <strong>总纲：</strong></p>
 </blockquote>
@@ -1130,7 +1130,7 @@
 <li>字符编码：字节与字符的对应规则。Windows 系统的中文编码默认是GBK编码表；IDEA中默认<code>UTF-8</code>。</li>
 <li>字节缓冲区：一个字节数组，用来临时存储字节数据。</li>
 </ul>
-<h3 id="4-2-构造方法"><a href="#4-2-构造方法" class="headerlink" title="4.2    构造方法"></a>4.2    构造方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507141402352.png" alt="image-20210507141402352"></p>
+<h3 id="4-2-构造方法"><a href="#4-2-构造方法" class="headerlink" title="4.2    构造方法"></a>4.2    构造方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507141402352.png" alt="image-20210507141402352"></p>
 <table>
 <thead>
 <tr>
@@ -1192,7 +1192,7 @@
 
 
 <hr>
-<h3 id="5-2-构造方法"><a href="#5-2-构造方法" class="headerlink" title="5.2    构造方法"></a>5.2    构造方法</h3><p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210507141942042.png" alt="image-20210507141942042"></p>
+<h3 id="5-2-构造方法"><a href="#5-2-构造方法" class="headerlink" title="5.2    构造方法"></a>5.2    构造方法</h3><p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210507141942042.png" alt="image-20210507141942042"></p>
 <table>
 <thead>
 <tr>
@@ -1300,7 +1300,7 @@
 <li>  <strong>作用：</strong>提高流的读取、写入的速度；</li>
 <li>  提高读写速度的<strong>原因</strong>：内部提供了一个缓冲区。默认情况下是 <strong>8kb</strong>。</li>
 </ul>
-<img src="IO%E7%B3%BB%E7%BB%9F/image-20210801152442138.png" alt="image-20210801152442138" style="zoom: 67%;" />
+<img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210801152442138.png" alt="image-20210801152442138" style="zoom: 67%;">
 
 <p><strong>Tip：</strong>不光是 BufferedInputStream，包括 BufferedOutputStream、BufferedWriter、BufferedReader 在内的所有缓冲流类的默认缓冲区大小都是 <code>8192 Byte</code>。</p>
 <hr>
@@ -1346,7 +1346,7 @@
 <p>  <strong>作用：</strong></p>
 </blockquote>
 <p>提供字节流与字符流之间的转换。</p>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210801154712518.png" alt="image-20210801154712518"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210801154712518.png" alt="image-20210801154712518"></p>
 <blockquote>
 <p>  <strong>说明：</strong></p>
 </blockquote>
@@ -1597,7 +1597,7 @@
 <blockquote>
 <p>  <strong>常用方法：</strong></p>
 </blockquote>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210801164830948.png" alt="image-20210801164830948"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210801164830948.png" alt="image-20210801164830948"></p>
 <hr>
 <h2 id="3-Files-工具类（JDK7提供）"><a href="#3-Files-工具类（JDK7提供）" class="headerlink" title="3    Files 工具类（JDK7提供）"></a>3    Files 工具类（JDK7提供）</h2><blockquote>
 <p>  <strong>作用：</strong></p>
@@ -1608,8 +1608,8 @@
 <blockquote>
 <p>  <strong>常用方法：</strong></p>
 </blockquote>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210801165053808.png" alt="image-20210801165053808"></p>
-<p><img src="IO%E7%B3%BB%E7%BB%9F/image-20210801165120070.png" alt="image-20210801165120070"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210801165053808.png" alt="image-20210801165053808"></p>
+<p><img src="/2020/10/13/IO%E7%B3%BB%E7%BB%9F/image-20210801165120070.png" alt="image-20210801165120070"></p>
 
       
     </div>
@@ -1762,7 +1762,7 @@
 <li>一个进程中至少有一个线程；</li>
 <li>一个进程中是可以有多个线程的，这样的程序被称为多线程程序。</li>
 </ul>
-<p><img src="%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B.png"></p>
+<p><img src="/2020/10/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B.png"></p>
 <p>一个程序从创建到死亡的过程就是一个进程的生命周期，所以说进程就是运行中的程序。</p>
 <p>那么线程又是什么呢？在上图的谷歌浏览器中，我们看一看到运行这一进程我们使用了4个线程，这4个线程或者是并行或者是并发运行，可以充分利用计算机的性能。再举一个简单的例子就是IDM下载器，我们使用了多线程下载来提高下载速度，每个线程只负责一部分的下载任务。多线程是可选的，因为我们执行一个进程最少情况下一个线程也能完成，但是为了提高效率、防止阻塞等原因，我们往往使用多线程来完成。</p>
 <p>其实，<strong>多线程程序并不能够提高程序的运行速度，但能够提高程序运行效率，让 CPU 的利用率更高，最常见的就是当某个线程发生 IO 或网络操作时切换到其它线程去利用 CPU 而不是让 CPU 处于空闲等待状态</strong>。</p>
@@ -2117,7 +2117,7 @@
 </blockquote>
 <hr>
 <h1 id="4-线程状态"><a href="#4-线程状态" class="headerlink" title="4    线程状态"></a>4    线程状态</h1><h2 id="4-1-操作系统中的线程五态"><a href="#4-1-操作系统中的线程五态" class="headerlink" title="4.1    操作系统中的线程五态"></a>4.1    操作系统中的线程五态</h2><p>在现代操作系统中，<strong>线程被视为轻量级的进程，所以操作系统线程的状态和操作系统进程的状态是一致的</strong>。</p>
-<p><img src="%E5%A4%9A%E7%BA%BF%E7%A8%8B/7462071-955b1ef86b257315.png" alt="img"></p>
+<p><img src="/2020/10/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/7462071-955b1ef86b257315.png" alt="img"></p>
 <p>操作系统线程主要有以下三个状态：</p>
 <ul>
 <li>  **就绪状态(ready)**：线程正在等待 CPU，获得 CPU 之后可进入 running 状态。</li>
@@ -2125,7 +2125,7 @@
 <li>  **等待状态(waiting)**：线程被等待事件的调用或者正在等待其他资源（如 I/O）。</li>
 </ul>
 <hr>
-<h2 id="4-2-Java-中的线程六态"><a href="#4-2-Java-中的线程六态" class="headerlink" title="4.2    Java 中的线程六态"></a>4.2    Java 中的线程六态</h2><p><img src="%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%88%86%E7%B1%BB.png"></p>
+<h2 id="4-2-Java-中的线程六态"><a href="#4-2-Java-中的线程六态" class="headerlink" title="4.2    Java 中的线程六态"></a>4.2    Java 中的线程六态</h2><p><img src="/2020/10/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%88%86%E7%B1%BB.png"></p>
 <blockquote>
 <p>  <strong>Thread.State 源码</strong></p>
 </blockquote>
@@ -2197,7 +2197,7 @@
 <ul>
 <li>  当多个线程协作时，比如线程 A 和线程 B 争夺同一锁对象，如果线程 A 先获取到锁对象，那么线程 A 就进入到<code>Runnable</code>状态，而线程 B 进入到<code>Blocked</code><strong>锁阻塞</strong>状态，注意仅仅是锁阻塞，在自旋状态下线程B还会不停地尝试获取锁对象，直到进入 Waiting 状态后才释放对 CPU 的占用。</li>
 </ul>
-<p><img src="%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20201012170616241.png" alt="image-20201012170616241"></p>
+<p><img src="/2020/10/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20201012170616241.png" alt="image-20201012170616241"></p>
 <h2 id="4-6-WAITING"><a href="#4-6-WAITING" class="headerlink" title="4.6    WAITING"></a>4.6    WAITING</h2><ul>
 <li>等待状态。<ul>
 <li>  处于等待状态的线程变成 RUNNABLE 状态需要通过其它线程唤醒[，而处于 BLOCKED 状态的线程变成 RUNNABLE 状态时不需要通过其它线程唤醒。]</li>
@@ -2215,7 +2215,7 @@
 </li>
 <li>  如果此时线程 B 获取到了同一锁对象，并在 <code>running</code> 状态下调用了 <code>notify()</code> 方法，那么就会将<code>Waiting</code>状态的线程 A 唤醒。<strong>注意仅仅只是唤醒，如果线程 A 被唤醒后获取到了锁对象，那么就进入<code>Runnable</code>状态，如果没有获取到锁对象，则进入<code>Blocked</code>状态。</strong></li>
 </ul>
-<img src="%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20201012171420707.png" alt="image-20201012171420707" style="zoom:80%;" />
+<img src="/2020/10/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20201012171420707.png" alt="image-20201012171420707" style="zoom:80%;">
 
 
 
@@ -2257,7 +2257,7 @@
 <blockquote>
 <p>  <strong>TimeWaiting 线程状态图</strong></p>
 </blockquote>
-<img src="%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20201012165955497.png" alt="image-20201012165955497" style="zoom:80%;" />
+<img src="/2020/10/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20201012165955497.png" alt="image-20201012165955497" style="zoom:80%;">
 
 
 
@@ -2472,7 +2472,7 @@
 <li>  <a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2021/07/08/JMM/">超链接：JMM</a></li>
 </ul>
 <hr>
-<h1 id="8-线程池"><a href="#8-线程池" class="headerlink" title="8    线程池"></a>8    线程池</h1><p><a href="">超链接</a></p>
+<h1 id="8-线程池"><a href="#8-线程池" class="headerlink" title="8    线程池"></a>8    线程池</h1><p><a href>超链接</a></p>
 <h2 id="7-1、概念"><a href="#7-1、概念" class="headerlink" title="7.1、概念"></a>7.1、概念</h2><ul>
 <li><strong>线程池：</strong>一个可以容纳多个线程对象的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，无需反复创建线程对象而消耗过多的资源。</li>
 </ul>
@@ -2587,7 +2587,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png"></p>
+          <p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/MySQL%E5%9F%BA%E7%A1%80.png"></p>
 <h1 id="1、数据库介绍"><a href="#1、数据库介绍" class="headerlink" title="1、数据库介绍"></a>1、数据库介绍</h1><h2 id="1-1、是什么"><a href="#1-1、是什么" class="headerlink" title="1.1、是什么"></a>1.1、是什么</h2><ul>
 <li>  数据库 == <strong>存储数据的仓库</strong>，</li>
 <li>  数据库本质上是一个<strong>文件</strong>，我们可以称之为文件系统，与普通的文件相比多了便于管理的特点。</li>
@@ -2635,7 +2635,7 @@
 <blockquote>
 <p>  数据库管理系统、数据库和表的关系如图所示：</p>
 </blockquote>
-<p><img src="MySql%E5%9F%BA%E7%A1%80/image-20201008221624101.png" alt="image-20201008221624101"></p>
+<p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/image-20201008221624101.png" alt="image-20201008221624101"></p>
 <hr>
 <h1 id="2、SQL-概述"><a href="#2、SQL-概述" class="headerlink" title="2、SQL 概述"></a>2、SQL 概述</h1><h2 id="2-1、是什么"><a href="#2-1、是什么" class="headerlink" title="2.1、是什么"></a>2.1、是什么</h2><blockquote>
 <p>  <strong>SQL；Structured Query Language；结构化查询语言；</strong></p>
@@ -2838,7 +2838,7 @@
 <p><strong>DML；Data Manipulation Language；数组操作语言</strong></p>
 </blockquote>
 <p>操作的数据是表中的记录，主要用于<strong>对表中的记录进行增删改</strong>操作</p>
-<h2 id="4-1、增"><a href="#4-1、增" class="headerlink" title="4.1、增"></a>4.1、增</h2><h3 id="1、插入记录"><a href="#1、插入记录" class="headerlink" title="1、插入记录"></a>1、插入记录</h3><p><img src="MySql%E5%9F%BA%E7%A1%80/%E6%8F%92%E5%85%A5%E8%AE%B0%E5%BD%95.png"></p>
+<h2 id="4-1、增"><a href="#4-1、增" class="headerlink" title="4.1、增"></a>4.1、增</h2><h3 id="1、插入记录"><a href="#1、插入记录" class="headerlink" title="1、插入记录"></a>1、插入记录</h3><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E6%8F%92%E5%85%A5%E8%AE%B0%E5%BD%95.png"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">insert [into] 表名 </span><br><span class="line">[(字段名)] </span><br><span class="line">values</span><br><span class="line">(字段值)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">INSERT INTO USER			-- 插入哪个表</span><br><span class="line">(username, passsword)		 -- 插入哪些字段</span><br><span class="line">VALUES						-- 表示插入数据</span><br><span class="line">(&quot;李四&quot;,&quot;8546&quot;)				-- 具体数据</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -2885,7 +2885,7 @@
 <li>  主要用于查询表中的记录。</li>
 <li>  查询结果是一个虚拟表</li>
 </ul>
-<h2 id="5-1、简单查询"><a href="#5-1、简单查询" class="headerlink" title="5.1、简单查询"></a>5.1、简单查询</h2><p><img src="MySql%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2.png"></p>
+<h2 id="5-1、简单查询"><a href="#5-1、简单查询" class="headerlink" title="5.1、简单查询"></a>5.1、简单查询</h2><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2.png"></p>
 <ol>
 <li><p>查询表中所有记录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user;</span><br></pre></td></tr></table></figure></li>
@@ -2979,7 +2979,7 @@
 <li><strong>组合排序</strong>：同时对多个字段进行排序，如果第1个字段相等，则按第2个字段排序，以此类推。</li>
 </ul>
 </blockquote>
-<p><img src="MySql%E5%9F%BA%E7%A1%80/%E6%8E%92%E5%BA%8F.png"></p>
+<p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E6%8E%92%E5%BA%8F.png"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 排序[DESC/ASC]</span><br><span class="line">select 字段名</span><br><span class="line">from 表名</span><br><span class="line">where 条件</span><br><span class="line">order by 字段名 DESC					-- 单列排序</span><br><span class="line">order by age DESC, grade ASC		   -- 组合排序[在age降序的基础上，对于年龄相同的再按grade升序]</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -2990,7 +2990,7 @@
 <li>  之前我们做的查询都是横向查询，它们都是根据条件一行一行的进行判断。    而使用聚合函数查询则是<strong>纵向查询</strong>，它是对一列的值进行计算，然后返回一个结果值。</li>
 <li>  聚合函数是对横向查询结果值的统计，首先必须要经过横向查询这一步骤，只是没有在最后展示出来，展示出来的是聚合后的结果。</li>
 </ul>
-<p><img src="MySql%E5%9F%BA%E7%A1%80/5%E4%B8%AA%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png"></p>
+<p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/5%E4%B8%AA%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0.png"></p>
 <h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 聚合函数(列名) form 表名;</span><br><span class="line">select count(*) from user;</span><br><span class="line">select max(age) from user;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -3200,7 +3200,7 @@
 
 
 <hr>
-<h1 id="8、表与表之间的关系"><a href="#8、表与表之间的关系" class="headerlink" title="8、表与表之间的关系"></a>8、表与表之间的关系</h1><p><img src="MySql%E5%9F%BA%E7%A1%80/%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png"></p>
+<h1 id="8、表与表之间的关系"><a href="#8、表与表之间的关系" class="headerlink" title="8、表与表之间的关系"></a>8、表与表之间的关系</h1><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png"></p>
 <hr>
 <h1 id="9、数据库设计"><a href="#9、数据库设计" class="headerlink" title="9、数据库设计"></a>9、数据库设计</h1><h2 id="9-1、数据库范化"><a href="#9-1、数据库范化" class="headerlink" title="9.1、数据库范化"></a>9.1、数据库范化</h2><h3 id="1、是什么？"><a href="#1、是什么？" class="headerlink" title="1、是什么？"></a>1、是什么？</h3><ul>
 <li>  顾名思义，数据库范化就是数据库规范化。    </li>
@@ -3562,7 +3562,7 @@
 <li> <del>数据删除存在问题：假设某一个系的所有同学都毕业了，在将这些同学的数据删除时，会将系的数据一起删除。</del></li>
 </ol>
 <hr>
-<h1 id="10、多表查询"><a href="#10、多表查询" class="headerlink" title="10、多表查询"></a>10、多表查询</h1><h2 id="10-1、多表查询分类"><a href="#10-1、多表查询分类" class="headerlink" title="10.1、多表查询分类"></a>10.1、多表查询分类</h2><p><img src="MySql%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB.png"></p>
+<h1 id="10、多表查询"><a href="#10、多表查询" class="headerlink" title="10、多表查询"></a>10、多表查询</h1><h2 id="10-1、多表查询分类"><a href="#10-1、多表查询分类" class="headerlink" title="10.1、多表查询分类"></a>10.1、多表查询分类</h2><p><img src="/2020/10/09/MySql%E5%9F%BA%E7%A1%80/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB.png"></p>
 <h2 id="10-2、笛卡尔积"><a href="#10-2、笛卡尔积" class="headerlink" title="10.2、笛卡尔积"></a>10.2、笛卡尔积</h2><h3 id="1、是什么"><a href="#1、是什么" class="headerlink" title="1、是什么"></a>1、是什么</h3><h3 id="2、为什么要消除笛卡尔积"><a href="#2、为什么要消除笛卡尔积" class="headerlink" title="2、为什么要消除笛卡尔积"></a>2、为什么要消除笛卡尔积</h3><ul>
 <li>我们发现由并不是所有由笛卡尔积连接起来的数据组合都是有用的，所以需要通过设置条件过滤掉没有用的数据。</li>
 </ul>
@@ -3636,7 +3636,7 @@
 
 
 <hr>
-<h1 id="12、事务"><a href="#12、事务" class="headerlink" title="12、事务"></a>12、事务</h1><p><a href="">超链接</a></p>
+<h1 id="12、事务"><a href="#12、事务" class="headerlink" title="12、事务"></a>12、事务</h1><p><a href>超链接</a></p>
 
       
     </div>
@@ -3722,11 +3722,11 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="1、系统架构演变"><a href="#1、系统架构演变" class="headerlink" title="1、系统架构演变"></a>1、系统架构演变</h1><p>随着互联网的发展，网站应用的规模不断扩大。需求的激增，带来的是技术上的压力。系统架构也因此也不断的演进、升级、迭代。从单一应用，到垂直拆分，到分布式服务，到SOA，以及现在火热的微服务架构。</p>
-<p><img src="SpringCloud/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98.png"></p>
+<p><img src="/2020/10/07/SpringCloud/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98.png"></p>
 <p>​    </p>
 <h2 id="1-1-集中式架构"><a href="#1-1-集中式架构" class="headerlink" title="1.1. 集中式架构"></a>1.1. 集中式架构</h2><p>当网站流量很小时，只需一个应用，就可以将所有功能都部署在一起，减少了部署节点和成本。</p>
 <p><em>此时，用于简化增删改查工作量的数据访问框架(ORM)是影响项目开发的关键。</em></p>
-<p> <img src="SpringCloud/1525529091749.png" alt="1525529091749"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525529091749.png" alt="1525529091749"></p>
 <blockquote>
 <p>存在的问题：</p>
 <ul>
@@ -3738,7 +3738,7 @@
 </blockquote>
 <hr>
 <h2 id="1-2-垂直拆分"><a href="#1-2-垂直拆分" class="headerlink" title="1.2.垂直拆分"></a>1.2.垂直拆分</h2><p>当访问量逐渐增大，单一应用无法满足需求，此时为了应对更高的并发和业务需求，我们根据业务功能对系统进行拆分：</p>
-<p> <img src="SpringCloud/1525529671801.png" alt="1525529671801"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525529671801.png" alt="1525529671801"></p>
 <blockquote>
 <p><strong>优点</strong>：</p>
 <ul>
@@ -3754,7 +3754,7 @@
 <hr>
 <h2 id="1-3-分布式服务"><a href="#1-3-分布式服务" class="headerlink" title="1.3.分布式服务"></a>1.3.分布式服务</h2><p>当垂直应用越来越多，应用之间交互不可避免，将<strong>通用业务</strong>抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。</p>
 <p>此时，用于提高业务复用及整合的分布式调用是关键。</p>
-<p> <img src="SpringCloud/1525530657919.png" alt="1525530657919"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525530657919.png" alt="1525530657919"></p>
 <blockquote>
 <p>优点：</p>
 <ul>
@@ -3769,7 +3769,7 @@
 <p><strong><code>SOA(Service-Oriented Architecture)：面向服务的架构</code></strong> </p>
 </blockquote>
 <p>当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的 <strong>资源调度和治理中心(SOA)</strong> 是关键。</p>
-<p><img src="SpringCloud/1525530804753.png" alt="1525530804753"></p>
+<p><img src="/2020/10/07/SpringCloud/1525530804753.png" alt="1525530804753"></p>
 <blockquote>
 <p><strong>Before：</strong></p>
 <ul>
@@ -3790,7 +3790,7 @@
 </ul>
 </blockquote>
 <h2 id="1-5-微服务"><a href="#1-5-微服务" class="headerlink" title="1.5.微服务"></a>1.5.微服务</h2><p>前面说的SOA，英文翻译过来是面向服务。微服务，似乎也是服务，都是对系统进行拆分。因此两者非常容易混淆，但其实缺有一些差别：</p>
-<p><img src="SpringCloud/1525532344817.png" alt="1525532344817"></p>
+<p><img src="/2020/10/07/SpringCloud/1525532344817.png" alt="1525532344817"></p>
 <blockquote>
 <p>微服务的特点：</p>
 <ul>
@@ -3808,7 +3808,7 @@
 </ul>
 </blockquote>
 <p><strong>微服务结构图</strong>：</p>
-<p><img src="SpringCloud/1526860071166.png" alt="1526860071166"></p>
+<p><img src="/2020/10/07/SpringCloud/1526860071166.png" alt="1526860071166"></p>
 <p><strong>微服务 vs. SOA</strong></p>
 <ol>
 <li>微服务比SOA更细粒度。</li>
@@ -3855,7 +3855,7 @@
 </ul>
 </blockquote>
 <p><strong>RPC调用流程图</strong>：</p>
-<p><img src="SpringCloud/1525568965976.png" alt="1525568965976"></p>
+<p><img src="/2020/10/07/SpringCloud/1525568965976.png" alt="1525568965976"></p>
 <h2 id="2-2、HTTP"><a href="#2-2、HTTP" class="headerlink" title="2.2、HTTP"></a>2.2、HTTP</h2><p>HTTP协议(超文本传输协议)是一种应用层协议。规定了网络传输的请求格式、响应格式、资源定位和操作的方式等。但是底层采用什么网络传输协议，并没有规定，不过现在都是采用TCP协议作为底层传输协议。说到这里，大家可能觉得，Http与RPC的远程调用非常像，都是按照某种规定好的数据格式进行网络通信，有请求，有响应。没错，在这点来看，两者非常相似，但是还是有一些细微差别。</p>
 <blockquote>
 <ul>
@@ -3869,7 +3869,7 @@
 </ul>
 </blockquote>
 <p>例如我们通过浏览器访问网站，就是通过HTTP协议。只不过浏览器把请求封装，发起请求以及接收响应，解析响应的事情都帮我们做了。如果是不通过浏览器，那么这些事情都需要自己去完成。</p>
-<p><img src="SpringCloud/1525569352313.png" alt="1525569352313"></p>
+<p><img src="/2020/10/07/SpringCloud/1525569352313.png" alt="1525569352313"></p>
 <h2 id="2-3、如何选择？"><a href="#2-3、如何选择？" class="headerlink" title="2.3、如何选择？"></a>2.3、如何选择？</h2><p>既然两种方式都可以实现远程调用，我们该如何选择呢？</p>
 <ul>
 <li>速度来看，RPC要比HTTP更快，虽然底层都是TCP，但是HTTP协议的信息往往比较臃肿，不过可以采用gzip压缩。</li>
@@ -3967,23 +3967,23 @@
 </ul>
 </blockquote>
 <p>以上只是其中一部分，架构图：</p>
-<p><img src="SpringCloud/1525575656796.png" alt="1525575656796"></p>
+<p><img src="/2020/10/07/SpringCloud/1525575656796.png" alt="1525575656796"></p>
 <h2 id="4-2、版本"><a href="#4-2、版本" class="headerlink" title="4.2、版本"></a>4.2、版本</h2><blockquote>
 <p>SpringCloud的版本命名比较特殊，因为它不是一个组件，而是许多组件的集合，它的命名是以A到Z的为首字母的一些单词组成。</p>
 </blockquote>
 <h1 id="5、微服务入门"><a href="#5、微服务入门" class="headerlink" title="5、微服务入门"></a>5、微服务入门</h1><h2 id="5-1-服务提供者"><a href="#5-1-服务提供者" class="headerlink" title="5.1.服务提供者"></a>5.1.服务提供者</h2><p>我们新建一个项目，对外提供查询用户的服务。</p>
 <h3 id="5-1-1-Spring脚手架创建工程"><a href="#5-1-1-Spring脚手架创建工程" class="headerlink" title="5.1.1.Spring脚手架创建工程"></a>5.1.1.Spring脚手架创建工程</h3><p>借助于Spring提供的快速搭建工具：</p>
-<p><img src="SpringCloud/1525576816916.png" alt="1525576816916"></p>
+<p><img src="/2020/10/07/SpringCloud/1525576816916.png" alt="1525576816916"></p>
 <p>填写项目信息：</p>
-<p> <img src="SpringCloud/1525576909381.png" alt="1525576909381"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525576909381.png" alt="1525576909381"></p>
 <p>添加web依赖：</p>
-<p><img src="SpringCloud/1525576950842.png" alt="1525576950842"></p>
+<p><img src="/2020/10/07/SpringCloud/1525576950842.png" alt="1525576950842"></p>
 <p>添加mybatis依赖：</p>
-<p><img src="SpringCloud/1525576999052.png" alt="1525576999052"></p>
+<p><img src="/2020/10/07/SpringCloud/1525576999052.png" alt="1525576999052"></p>
 <p>填写项目位置：</p>
-<p><img src="SpringCloud/1525577029150.png" alt="1525577029150"></p>
+<p><img src="/2020/10/07/SpringCloud/1525577029150.png" alt="1525577029150"></p>
 <p>生成的项目结构：</p>
-<p> <img src="SpringCloud/1525577106711.png" alt="1525577106711"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525577106711.png" alt="1525577106711"></p>
 <p>依赖也已经全部自动引入：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>user-service-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>user-service-demo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -4012,9 +4012,9 @@
 
 
 <p>项目结构：</p>
-<p> <img src="SpringCloud/1525577911331.png" alt="1525577911331"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525577911331.png" alt="1525577911331"></p>
 <h3 id="5-1-3-启动并测试："><a href="#5-1-3-启动并测试：" class="headerlink" title="5.1.3.启动并测试："></a>5.1.3.启动并测试：</h3><p>启动项目，访问接口：<code>http://localhost:8081/user/7</code></p>
-<p> <img src="SpringCloud/1525593139364.png" alt="1525593139364"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525593139364.png" alt="1525593139364"></p>
 <h2 id="5-2-服务调用者"><a href="#5-2-服务调用者" class="headerlink" title="5.2.服务调用者"></a>5.2.服务调用者</h2><h3 id="5-2-1-创建工程"><a href="#5-2-1-创建工程" class="headerlink" title="5.2.1.创建工程"></a>5.2.1.创建工程</h3><p>与上面类似，这里不再赘述，需要注意的是，我们调用user-service的功能，因此不需要mybatis相关依赖了。</p>
 <p>pom：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>user-consumer-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>user-consumer-demo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 添加OkHttp支持 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.squareup.okhttp3<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>okhttp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -4038,7 +4038,7 @@
 
 
 <h3 id="5-2-3-启动测试："><a href="#5-2-3-启动测试：" class="headerlink" title="5.2.3.启动测试："></a>5.2.3.启动测试：</h3><p>因为我们没有配置端口，那么默认就是8080，我们访问：<code>http://localhost:8080/consume?ids=6,7,8</code></p>
-<p> <img src="SpringCloud/1525594222408.png" alt="1525594222408"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525594222408.png" alt="1525594222408"></p>
 <p>一个简单的远程服务调用案例就实现了。</p>
 <h2 id="5-3-有没有问题？"><a href="#5-3-有没有问题？" class="headerlink" title="5.3.有没有问题？"></a>5.3.有没有问题？</h2><p>简单回顾一下，刚才我们写了什么：</p>
 <ul>
@@ -4046,7 +4046,7 @@
 <li>consumer-demo：一个服务调用者，通过RestTemplate远程调用user-service-demo</li>
 </ul>
 <p>流程如下：</p>
-<p><img src="SpringCloud/1525595012668.png" alt="1525595012668"></p>
+<p><img src="/2020/10/07/SpringCloud/1525595012668.png" alt="1525595012668"></p>
 <blockquote>
 <p>  存在什么问题？</p>
 </blockquote>
@@ -4078,9 +4078,9 @@
 </ul>
 <hr>
 <h2 id="Eureka实践"><a href="#Eureka实践" class="headerlink" title="Eureka实践"></a>Eureka实践</h2><h3 id="编写EurekaServer"><a href="#编写EurekaServer" class="headerlink" title="编写EurekaServer"></a>编写EurekaServer</h3><p>接下来我们创建一个项目，启动一个EurekaServer：</p>
-<p><img src="SpringCloud/1525598231170.png" alt="1525598231170"></p>
+<p><img src="/2020/10/07/SpringCloud/1525598231170.png" alt="1525598231170"></p>
 <p>选择依赖：</p>
-<p><img src="SpringCloud/1525598312368.png" alt="1525598312368"></p>
+<p><img src="/2020/10/07/SpringCloud/1525598312368.png" alt="1525598312368"></p>
 <p>完整的Pom文件：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>eureka-demo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- SpringCloud版本 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Finchley.RC1<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Eureka服务端 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- SpringCloud依赖，一定要放到dependencyManagement中，起到管理版本的作用即可 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>spring-milestones<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>Spring Milestones<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repo.spring.io/milestone<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -4091,8 +4091,8 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10086</span> <span class="comment"># 端口</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span> <span class="comment"># 应用名称，会在Eureka中显示</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span> <span class="comment"># 是否注册自己的信息到EurekaServer，默认是true</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span> <span class="comment"># 是否拉取其它服务的信息，默认是true</span></span><br><span class="line">    <span class="attr">service-url:</span> <span class="comment"># EurekaServer的地址，现在是自己的地址，如果是集群，需要加上其它Server的地址。</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:$&#123;server.port&#125;/eureka</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>启动服务，并访问：<code>http://127.0.0.1:10086/eureka</code></p>
-<p><img src="SpringCloud/1525604959508.png" alt="1525604959508"></p>
-<p><img src="SpringCloud/1525605081129.png" alt="1525605081129"></p>
+<p><img src="/2020/10/07/SpringCloud/1525604959508.png" alt="1525604959508"></p>
+<p><img src="/2020/10/07/SpringCloud/1525605081129.png" alt="1525605081129"></p>
 <h3 id="将user-service注册到Eureka"><a href="#将user-service注册到Eureka" class="headerlink" title="将user-service注册到Eureka"></a>将user-service注册到Eureka</h3><p>注册服务到<code>EurekaServer</code>，就是在服务上添加Eureka的客户端依赖，客户端代码会自动把服务注册到EurekaServer中。</p>
 <blockquote>
 <p>我们在user-service-demo中添加Eureka客户端依赖：</p>
@@ -4126,7 +4126,7 @@
 <blockquote>
 <p>重启项目，访问<code>Eureka监控页面</code>查看</p>
 </blockquote>
-<p><img src="SpringCloud/1525609225152.png" alt="1525609225152"></p>
+<p><img src="/2020/10/07/SpringCloud/1525609225152.png" alt="1525609225152"></p>
 <p>我们发现user-service服务已经注册成功了</p>
 <h3 id="消费者从Eureka获取服务"><a href="#消费者从Eureka获取服务" class="headerlink" title="消费者从Eureka获取服务"></a>消费者从Eureka获取服务</h3><p>接下来我们修改consumer-demo，尝试从EurekaServer获取服务。</p>
 <p>方法与消费者类似，只需要在项目中添加EurekaClient依赖，就可以通过服务名称来获取信息了！</p>
@@ -4168,12 +4168,12 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10087</span> <span class="comment"># 端口</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span> <span class="comment"># 应用名称，会在Eureka中显示</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span> <span class="comment"># 配置其他Eureka服务的地址，而不是自己，比如10087</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>注意：idea中一个应用不能启动两次，我们需要重新配置一个启动器：</p>
-<p> <img src="SpringCloud/1525615070033.png" alt="1525615070033"></p>
-<p> <img src="SpringCloud/1525615095693.png" alt="1525615095693"></p>
-<p><img src="SpringCloud/1525615026937.png" alt="1525615026937"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525615070033.png" alt="1525615070033"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525615095693.png" alt="1525615095693"></p>
+<p><img src="/2020/10/07/SpringCloud/1525615026937.png" alt="1525615026937"></p>
 <p>然后启动即可。</p>
 <p>3）启动测试：</p>
-<p><img src="SpringCloud/1525615165157.png" alt="1525615165157"></p>
+<p><img src="/2020/10/07/SpringCloud/1525615165157.png" alt="1525615165157"></p>
 <p>4）客户端注册服务到集群</p>
 <p>因为EurekaServer不止一个，因此注册服务的时候，service-url参数需要变化：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span> <span class="comment"># EurekaServer地址,多个地址以&#x27;,&#x27;隔开</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka</span></span><br></pre></td></tr></table></figure>
@@ -4195,9 +4195,9 @@
 <p>Ribbon默认为我们提供了很多负载均衡的算法，例如轮询、随机等。当然，我们也可以自定义负载均衡算法。</p>
 </blockquote>
 <h2 id="2-1、Ribbon的代码实现"><a href="#2-1、Ribbon的代码实现" class="headerlink" title="2.1、Ribbon的代码实现"></a>2.1、Ribbon的代码实现</h2><h3 id="1、启动两个服务实例"><a href="#1、启动两个服务实例" class="headerlink" title="1、启动两个服务实例"></a>1、启动两个服务实例</h3><p>首先我们启动两个user-service实例，一个8081，一个8082。</p>
-<p> <img src="SpringCloud/1525619515586.png" alt="1525619515586"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525619515586.png" alt="1525619515586"></p>
 <p>Eureka监控面板：</p>
-<p><img src="SpringCloud/1525619546904.png" alt="1525619546904"></p>
+<p><img src="/2020/10/07/SpringCloud/1525619546904.png" alt="1525619546904"></p>
 <h3 id="2、开启负载均衡"><a href="#2、开启负载均衡" class="headerlink" title="2、开启负载均衡"></a>2、开启负载均衡</h3><p>因为Eureka中已经集成了Ribbon，所以我们无需引入新的依赖。直接修改代码：</p>
 <p>在RestTemplate的配置方法上添加<code>@LoadBalanced</code>注解：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>(<span class="keyword">new</span> <span class="title class_">OkHttp3ClientHttpRequestFactory</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -4212,7 +4212,7 @@
 <p>显然有人帮我们根据service名称，获取到了服务实例的ip和端口。它就是<code>LoadBalancerInterceptor</code>【源码部分】</p>
 </blockquote>
 <p>访问页面，查看结果：</p>
-<p> <img src="SpringCloud/1525620305704.png" alt="1525620305704"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525620305704.png" alt="1525620305704"></p>
 <h2 id="2-2-修改负载均衡策略"><a href="#2-2-修改负载均衡策略" class="headerlink" title="2.2    修改负载均衡策略"></a>2.2    修改负载均衡策略</h2><blockquote>
 <p>Ribbon默认的负载均衡策略是简单的轮询，SpringBoot也帮我们提供了修改负载均衡规则的配置入口。</p>
 </blockquote>
@@ -4231,9 +4231,9 @@
 <p>Eureka为了实现更高的服务可用性，牺牲了一定的一致性，<u>极端情况下它宁愿接收故障实例也不愿丢掉健康实例</u>，正如我们上面所说的自我保护机制。</p>
 <p>但是，此时如果我们调用了这些不正常的服务，调用就会失败，从而导致其它服务不能正常工作！这显然不是我们愿意看到的。</p>
 <p>我们现在关闭一个user-service实例：</p>
-<p> <img src="SpringCloud/1525653565855.png" alt="1525653565855"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525653565855.png" alt="1525653565855"></p>
 <p>因为失效剔除的延迟，consumer并不会立即得到最新的服务列表，此时再次访问你会得到错误提示：</p>
-<p><img src="SpringCloud/1525653715488.png" alt="1525653715488"></p>
+<p><img src="/2020/10/07/SpringCloud/1525653715488.png" alt="1525653715488"></p>
 <p>但是此时，8081服务其实是正常的。</p>
 <p>因此Spring Cloud 整合了Spring Retry 来增强RestTemplate的重试能力，当一次服务调用失败后，不会立即抛出一次，而是再次重试另一个服务。</p>
 <p>只需要简单配置即可实现Ribbon的重试：</p>
@@ -4274,14 +4274,14 @@
 
 <h3 id="5、启动测试"><a href="#5、启动测试" class="headerlink" title="5、启动测试"></a>5、启动测试</h3><p>然后运行并查看日志：</p>
 <p>id为9、10、11的访问时间分别是：</p>
-<p> <img src="SpringCloud/1525661641660.png" alt="1525661641660"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525661641660.png" alt="1525661641660"></p>
 <p>id为12的访问时间：</p>
-<p> <img src="SpringCloud/1525661669136.png" alt="1525661669136"></p>
+<p> <img src="/2020/10/07/SpringCloud/1525661669136.png" alt="1525661669136"></p>
 <p>因此，只有12是正常访问，其它都会触发熔断，我们来查看结果：</p>
-<p><img src="SpringCloud/1525661720656.png" alt="1525661720656"></p>
+<p><img src="/2020/10/07/SpringCloud/1525661720656.png" alt="1525661720656"></p>
 <h3 id="6、优化"><a href="#6、优化" class="headerlink" title="6、优化"></a>6、优化</h3><p>虽然熔断实现了，但是我们的重试机制似乎没有生效，是这样吗？</p>
 <p>其实这里是因为我们的Ribbon超时时间设置的是1000ms:</p>
-<p>​    <img src="SpringCloud/1525666632542.png" alt="1525666632542"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525666632542.png" alt="1525666632542"></p>
 <p>而Hystix的超时时间默认也是1000ms，因此重试机制没有被触发，而是先触发了熔断。</p>
 <p>所以，Ribbon的超时时间一定要小于Hystix的超时时间。</p>
 <p>我们可以通过<code>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds</code>来设置Hystrix超时时间。</p>
@@ -4370,7 +4370,7 @@
 <p>关闭user-service服务，然后在页面访问：</p>
 </li>
 </ol>
-<p><img src="SpringCloud/1525673049875.png" alt="1525673049875"></p>
+<p><img src="/2020/10/07/SpringCloud/1525673049875.png" alt="1525673049875"></p>
 <hr>
 <h2 id="9-5、请求压缩"><a href="#9-5、请求压缩" class="headerlink" title="9.5、请求压缩"></a>9.5、请求压缩</h2><blockquote>
 <p>Spring Cloud Feign 支持对请求和响应进行GZIP压缩，以减少通信过程中的性能损耗。通过下面的参数即可开启请求与响应的压缩功能：</p>
@@ -4402,7 +4402,7 @@
 <blockquote>
 <p>这里指定的Level级别是FULL，Feign支持4种级别：</p>
 </blockquote>
-<p>​    <img src="SpringCloud/1525674373507.png" alt="1525674373507"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525674373507.png" alt="1525674373507"></p>
 <blockquote>
 <ul>
 <li>NONE：不记录任何日志信息，这是默认值。</li>
@@ -4419,7 +4419,7 @@
 <ol start="4">
 <li>重启项目，即可看到每次访问的日志：</li>
 </ol>
-<p><img src="SpringCloud/1525674544569.png" alt="1525674544569"></p>
+<p><img src="/2020/10/07/SpringCloud/1525674544569.png" alt="1525674544569"></p>
 <hr>
 <h1 id="10、服务网关"><a href="#10、服务网关" class="headerlink" title="10、服务网关"></a>10、服务网关</h1><h2 id="Zuul原理"><a href="#Zuul原理" class="headerlink" title="Zuul原理"></a>Zuul原理</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2020/11/07/Zuul/">Zull网关详解</a></li>
@@ -4496,16 +4496,16 @@
 
 
 
-<h2 id="Zuul实践"><a href="#Zuul实践" class="headerlink" title="Zuul实践"></a>Zuul实践</h2><h3 id="1、新建工程"><a href="#1、新建工程" class="headerlink" title="1、新建工程"></a>1、新建工程</h3><p><img src="SpringCloud/1525675928548.png" alt="1525675928548"></p>
+<h2 id="Zuul实践"><a href="#Zuul实践" class="headerlink" title="Zuul实践"></a>Zuul实践</h2><h3 id="1、新建工程"><a href="#1、新建工程" class="headerlink" title="1、新建工程"></a>1、新建工程</h3><p><img src="/2020/10/07/SpringCloud/1525675928548.png" alt="1525675928548"></p>
 <p>添加Zuul依赖：</p>
-<p><img src="SpringCloud/1525675991833.png" alt="1525675991833"></p>
+<p><img src="/2020/10/07/SpringCloud/1525675991833.png" alt="1525675991833"></p>
 <h3 id="2、编写启动类"><a href="#2、编写启动类" class="headerlink" title="2、编写启动类"></a>2、编写启动类</h3><p>通过<code>@EnableZuulProxy </code>注解开启Zuul的功能：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableZuulProxy</span> <span class="comment">// 开启Zuul的网关功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ZuulDemoApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		SpringApplication.run(ZuulDemoApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3、编写配置"><a href="#3、编写配置" class="headerlink" title="3、编写配置"></a>3、编写配置</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10010</span> 	<span class="comment">#服务端口</span></span><br><span class="line"><span class="attr">spring:</span> </span><br><span class="line">  <span class="attr">application:</span>  </span><br><span class="line">    <span class="attr">name:</span> <span class="string">api-gateway</span> <span class="comment">#指定服务实例ID</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="4、编写路由规则"><a href="#4、编写路由规则" class="headerlink" title="4、编写路由规则"></a>4、编写路由规则</h3><p>我们需要用Zuul来代理<code>user-service</code>服务，先看一下控制面板中的服务状态：</p>
-<p><img src="SpringCloud/1525676797879.png" alt="1525676797879"></p>
+<p><img src="/2020/10/07/SpringCloud/1525676797879.png" alt="1525676797879"></p>
 <blockquote>
 <ul>
 <li>IP：127.0.0.1</li>
@@ -4518,7 +4518,7 @@
 <p>我们将符合<code>path</code> 规则的一切请求，都代理到 <code>url</code>参数指定的地址</p>
 <p>本例中，我们将 <code>/user-service/**</code>开头的请求，代理到<code>http://127.0.0.1:8081</code></p>
 <h3 id="3-3-5-启动测试"><a href="#3-3-5-启动测试" class="headerlink" title="3.3.5.启动测试"></a>3.3.5.启动测试</h3><p>访问的路径中需要加上配置规则的映射路径，我们访问：<code>http://127.0.0.1:8081/user-service/user/10</code></p>
-<p>​    <img src="SpringCloud/1525677046705.png" alt="1525677046705"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525677046705.png" alt="1525677046705"></p>
 <h2 id="3-4-面向服务的路由"><a href="#3-4-面向服务的路由" class="headerlink" title="3.4.面向服务的路由"></a>3.4.面向服务的路由</h2><p>在刚才的路由规则中，我们把路径对应的服务地址写死了！如果同一服务有多个实例的话，这样做显然就不合理了。</p>
 <p>我们应该根据服务的名称，去Eureka注册中心查找 服务对应的所有实例列表，然后进行动态路由才对！</p>
 <h3 id="3-4-1-添加Eureka客户端依赖"><a href="#3-4-1-添加Eureka客户端依赖" class="headerlink" title="3.4.1.添加Eureka客户端依赖"></a>3.4.1.添加Eureka客户端依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -4535,9 +4535,9 @@
 
 
 <h3 id="3-4-5-启动测试"><a href="#3-4-5-启动测试" class="headerlink" title="3.4.5.启动测试"></a>3.4.5.启动测试</h3><p>再次启动，这次Zuul进行代理时，会利用Ribbon进行负载均衡访问：</p>
-<p>​    <img src="SpringCloud/1525677821212.png" alt="1525677821212"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525677821212.png" alt="1525677821212"></p>
 <p>日志中可以看到使用了负载均衡器：</p>
-<p><img src="SpringCloud/1525677891119.png" alt="1525677891119"></p>
+<p><img src="/2020/10/07/SpringCloud/1525677891119.png" alt="1525677891119"></p>
 <h2 id="3-5-简化的路由配置"><a href="#3-5-简化的路由配置" class="headerlink" title="3.5.简化的路由配置"></a>3.5.简化的路由配置</h2><p>在刚才的配置中，我们的规则是这样的：</p>
 <ul>
 <li><code>zuul.routes.&lt;route&gt;.path=/xxx/**</code>： 来指定映射路径。<code>&lt;route&gt;</code>是自定义的路由名</li>
@@ -4578,7 +4578,7 @@
 <li><code>filterOrder</code>：通过返回的int值来定义过滤器的执行顺序，数字越小优先级越高。</li>
 </ul>
 <h3 id="3-8-2-过滤器执行生命周期："><a href="#3-8-2-过滤器执行生命周期：" class="headerlink" title="3.8.2.过滤器执行生命周期："></a>3.8.2.过滤器执行生命周期：</h3><p>这张是Zuul官网提供的请求生命周期图，清晰的表现了一个请求在各个过滤器的执行顺序。</p>
-<p>​    <img src="SpringCloud/1525681866862.png" alt="1525681866862"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525681866862.png" alt="1525681866862"></p>
 <ul>
 <li>正常流程：<ul>
 <li>请求到达首先会经过pre类型过滤器，而后到达routing类型，进行路由，请求就到达真正的服务提供者，执行请求，返回结果后，会到达post过滤器。而后返回响应。</li>
@@ -4592,7 +4592,7 @@
 </li>
 </ul>
 <p>所有内置过滤器列表：</p>
-<p>​    <img src="SpringCloud/1525682427811.png" alt="1525682427811"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525682427811.png" alt="1525682427811"></p>
 <h3 id="3-8-3-使用场景"><a href="#3-8-3-使用场景" class="headerlink" title="3.8.3.使用场景"></a>3.8.3.使用场景</h3><p>场景非常多：</p>
 <ul>
 <li>请求鉴权：一般放在pre类型，如果发现没有访问权限，直接就拦截了</li>
@@ -4605,9 +4605,9 @@
 
 
 <h3 id="3-9-2-测试"><a href="#3-9-2-测试" class="headerlink" title="3.9.2.测试"></a>3.9.2.测试</h3><p>没有token参数时，访问失败：</p>
-<p>​    <img src="SpringCloud/1525683285697.png" alt="1525683285697"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525683285697.png" alt="1525683285697"></p>
 <p>添加token参数后：</p>
-<p>​    <img src="SpringCloud/1525683354113.png" alt="1525683354113"></p>
+<p>​    <img src="/2020/10/07/SpringCloud/1525683354113.png" alt="1525683354113"></p>
 <h2 id="3-10-负载均衡和熔断"><a href="#3-10-负载均衡和熔断" class="headerlink" title="3.10.负载均衡和熔断"></a>3.10.负载均衡和熔断</h2><p>Zuul中默认就已经集成了Ribbon负载均衡和Hystix熔断机制。但是所有的超时策略都是走的默认值，比如熔断超时时间只有1S，很容易就触发了。因此建议我们手动进行配置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">zuul:</span></span><br><span class="line">  <span class="attr">retryable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">  <span class="attr">ConnectTimeout:</span> <span class="number">250</span> <span class="comment"># 连接超时时间(ms)</span></span><br><span class="line">  <span class="attr">ReadTimeout:</span> <span class="number">2000</span> <span class="comment"># 通信超时时间(ms)</span></span><br><span class="line">  <span class="attr">OkToRetryOnAllOperations:</span> <span class="literal">true</span> <span class="comment"># 是否对所有操作重试</span></span><br><span class="line">  <span class="attr">MaxAutoRetriesNextServer:</span> <span class="number">2</span> <span class="comment"># 同一服务不同实例的重试次数</span></span><br><span class="line">  <span class="attr">MaxAutoRetries:</span> <span class="number">1</span> <span class="comment"># 同一实例的重试次数</span></span><br><span class="line"><span class="attr">hystrix:</span></span><br><span class="line">  <span class="attr">command:</span></span><br><span class="line">  	<span class="attr">default:</span></span><br><span class="line">        <span class="attr">execution:</span></span><br><span class="line">          <span class="attr">isolation:</span></span><br><span class="line">            <span class="attr">thread:</span></span><br><span class="line">              <span class="attr">timeoutInMillisecond:</span> <span class="number">6000</span> <span class="comment"># 熔断超时时长：6000ms</span></span><br></pre></td></tr></table></figure>
 
@@ -4796,8 +4796,8 @@
 <h3 id="3、hashCode"><a href="#3、hashCode" class="headerlink" title="3、hashCode"></a>3、hashCode</h3><ol>
 <li><p>哈希表：</p>
 <p>​    Hash表是一种数据结构，在JDK1.8之前，Hash表底层采用<code>数组+链表</code>实现，即使用链表处理冲突，同一Hash值的对象都存储在一个链表里。    但是当位于一个桶中的元素较多，即Hash值相等的元素较多时，通过key值依次查找的效率较低。    而在JDK1.8中，Hash表存储采用了<code>数组+链表+红黑树</code>实现，当链表长度超过阀值（默认为8）时，将链表转换为红黑树，这样大大减少了查找时间。</p>
-<p><img src="Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png"></p>
-<p><img src="Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927104116199.png"></p>
+<p><img src="/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png"></p>
+<p><img src="/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927104116199.png"></p>
 </li>
 <li><p><code>hashCode()</code>是<code>Object</code>类的一个方法，返回一个<code>int</code>类型的整数，从方法名上就可以看出，其作用就是生成一个Hash码（散列码）。    所有的Hash函数都有如下一个基本特性：</p>
 <ul>
@@ -4976,7 +4976,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="SpringBoot/SpringBoot.png"></p>
+          <p><img src="/2020/09/20/SpringBoot/SpringBoot.png"></p>
 <h1 id="1、SpringBoot简介"><a href="#1、SpringBoot简介" class="headerlink" title="1、SpringBoot简介"></a>1、SpringBoot简介</h1><h2 id="1-1、为什么要学习SpringBoot"><a href="#1-1、为什么要学习SpringBoot" class="headerlink" title="1.1、为什么要学习SpringBoot"></a>1.1、为什么要学习SpringBoot</h2><p>因为 Spring 框架存在一些缺点，而 SpringBoot 框架在一定程度上很好的解决了这些缺点，所以我们需要学习 SpringBoot。</p>
 <h3 id="1-1-1、Spring的缺点"><a href="#1-1-1、Spring的缺点" class="headerlink" title="1.1.1、Spring的缺点"></a>1.1.1、Spring的缺点</h3><ul>
 <li><strong>配置复杂</strong>。虽然使用 Spring 开发的业务代码是轻量级的，但它的配置代码却是重量级的。Spring 中配置代码的发展可分为3个阶段：<ul>
@@ -5027,11 +5027,11 @@
 </ul>
 </li>
 </ol>
-<p><img src="SpringBoot/1525487705460.png" alt="1525487705460"></p>
+<p><img src="/2020/09/20/SpringBoot/1525487705460.png" alt="1525487705460"></p>
 <ol start="6">
 <li> 在浏览器中访问。</li>
 </ol>
-<p><img src="SpringBoot/1525487820824.png" alt="1525487820824"></p>
+<p><img src="/2020/09/20/SpringBoot/1525487820824.png" alt="1525487820824"></p>
 <ol start="7">
 <li><p>简化部署。将源代码编译成一个可执行的jar包。</p>
 <ul>
@@ -5043,13 +5043,13 @@
 <p> 将这个应用打成 jar 包，使用 <code>java -jar</code> 命令运行 jar 包。</p>
 <ul>
 <li><p>（1）打包</p>
-<p>  <img src="SpringBoot/image-20210103112702556.png" alt="image-20210103112702556"></p>
+<p>  <img src="/2020/09/20/SpringBoot/image-20210103112702556.png" alt="image-20210103112702556"></p>
 </li>
 <li><p>（2）jar包所在的目录</p>
-<p>  <img src="SpringBoot/image-20210103112807935.png" alt="image-20210103112807935"></p>
+<p>  <img src="/2020/09/20/SpringBoot/image-20210103112807935.png" alt="image-20210103112807935"></p>
 </li>
 <li><p>（3）在 jar 包所在目录下，使用 <code>java-jar</code> 的命令运行jar包</p>
-<p>  <img src="SpringBoot/image-20210103113115811.png" alt="image-20210103113115811"></p>
+<p>  <img src="/2020/09/20/SpringBoot/image-20210103113115811.png" alt="image-20210103113115811"></p>
 </li>
 <li><p>  （4）通过浏览器访问。</p>
 </li>
@@ -5059,7 +5059,7 @@
 <ol start="8">
 <li> SpringBoot 在执行完打包命令后得到一个jar包，可以看到这个jar包也是一个压缩文件，在其<code>BOOT-INF/lib</code>目录下，我们可以看到已经导入了依赖和嵌入式的 TomCat，所以我们的目标环境就可以无需自己安装 TomCat 服务器也可正常运行。</li>
 </ol>
-<p><img src="SpringBoot/image-20210103113305223.png" alt="image-20210103113305223"></p>
+<p><img src="/2020/09/20/SpringBoot/image-20210103113305223.png" alt="image-20210103113305223"></p>
 <hr>
 <h2 id="2-2-快速入门分析"><a href="#2-2-快速入门分析" class="headerlink" title="2.2 快速入门分析"></a>2.2 快速入门分析</h2><h3 id="2-2-1-POM文件"><a href="#2-2-1-POM文件" class="headerlink" title="2.2.1 POM文件"></a>2.2.1 POM文件</h3><h4 id="1、JDK版本管理"><a href="#1、JDK版本管理" class="headerlink" title="1、JDK版本管理"></a>1、JDK版本管理</h4><p>当前项目使用的 MAVEN 版本是 <code>apache-maven-3.5.2</code>，该版本默认使用 JDK1.5 对源码进行编译。</p>
 <p>而项目开发使用的是 JDK 版本是 1.8，因此我们需要修改 Maven 编译时的 JDK 版本为 1.8。</p>
@@ -5104,9 +5104,9 @@
 <li>  这些都是 SpringBoot 根据 <code>spring-boot-starter-web</code> 这个依赖自动引入的，而且所有的版本都已经管理好，不会出现依赖冲突。</li>
 <li>  SpringBoot 集成了大部分主流的框架并且制作了启动器，部分没有收录的框架如 MyBatis 则是自己实现了 SpringBoot 的启动器。</li>
 </ul>
-<p> <img src="SpringBoot/1525486980765.png" alt="1525486980765"></p>
+<p> <img src="/2020/09/20/SpringBoot/1525486980765.png" alt="1525486980765"></p>
 <hr>
-<h3 id="2-2-2-启动类-自动配置原理分析"><a href="#2-2-2-启动类-自动配置原理分析" class="headerlink" title="2.2.2 启动类 (自动配置原理分析)"></a>2.2.2 启动类 (自动配置原理分析)</h3><p><img src="SpringBoot/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86.png"></p>
+<h3 id="2-2-2-启动类-自动配置原理分析"><a href="#2-2-2-启动类-自动配置原理分析" class="headerlink" title="2.2.2 启动类 (自动配置原理分析)"></a>2.2.2 启动类 (自动配置原理分析)</h3><p><img src="/2020/09/20/SpringBoot/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86.png"></p>
 <p>在 SpringBoot 的启动类中有2个特殊的地方：</p>
 <ul>
 <li>  <strong>@SpringBootApplication</strong>：该注解标注在某个类上就说明这个类是 SpringBoot 项目的启动类，SpringBoot 应该运行这个类的 main 方法来启动 SpringBoot 应用。</li>
@@ -5118,7 +5118,7 @@
 
 <hr>
 <h4 id="1、-SpringBootApplication"><a href="#1、-SpringBootApplication" class="headerlink" title="1、@SpringBootApplication"></a>1、@SpringBootApplication</h4><p>查看源码：</p>
-<p><img src="SpringBoot/1525488226710.png" alt="1525488226710"></p>
+<p><img src="/2020/09/20/SpringBoot/1525488226710.png" alt="1525488226710"></p>
 <blockquote>
 <p>  <strong>@SpringBootConfiguration</strong></p>
 </blockquote>
@@ -5126,10 +5126,10 @@
 <ul>
 <li>  查看源码：</li>
 </ul>
-<p><img src="SpringBoot/1525488518514.png" alt="1525488518514"></p>
+<p><img src="/2020/09/20/SpringBoot/1525488518514.png" alt="1525488518514"></p>
 <p>我们可以到，在这个注解中又有一个<code>@Configuration</code>注解。这个注解的作用就是声明当前类是一个配置类，项目启动时会将该类注册到容器中，并自动加载配置类中的配置信息。</p>
 <p>配置类 <code>&lt;==&gt;</code> 配置文件，配置类也是容器中的一个组件，所以<code>@Configuration</code>注解的源码中也有<code>@Component</code>注解，即只使用<code>@Configuration</code>注解后也会被扫描添加到容器中。</p>
-<img src="SpringBoot/image-20210909103358197.png" alt="image-20210909103358197" style="zoom:67%;" />
+<img src="/2020/09/20/SpringBoot/image-20210909103358197.png" alt="image-20210909103358197" style="zoom:67%;">
 
 
 
@@ -5152,7 +5152,7 @@
 <ul>
 <li>  查看源码：</li>
 </ul>
-<p> <img src="SpringBoot/1525498265579.png" alt="1525498265579"></p>
+<p> <img src="/2020/09/20/SpringBoot/1525498265579.png" alt="1525498265579"></p>
 <ul>
 <li>  配置组件扫描的指令。提供了类似与<code>&lt;context:component-scan&gt;</code>标签相似的作用。</li>
 <li>  通过<code>basePackageClasses</code>或者<code>basePackages</code>属性来指定要扫描的包。如果没有指定这些属性，默认从使用该注解的类所在的包开始，扫描当前包及其子包。</li>
@@ -5245,7 +5245,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;hello&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">hello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello, spring boot!&quot;</span> + dataSource;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后Debug运行并查看：</p>
-<p><img src="SpringBoot/1525492528558.png" alt="1525492528558"></p>
+<p><img src="/2020/09/20/SpringBoot/1525492528558.png" alt="1525492528558"></p>
 <p>属性注入成功了！</p>
 <hr>
 <h2 id="4-2、SpringBoot的属性注入"><a href="#4-2、SpringBoot的属性注入" class="headerlink" title="4.2、SpringBoot的属性注入"></a>4.2、SpringBoot的属性注入</h2><ul>
@@ -5272,7 +5272,7 @@
 <li><p>需要注意的是，这里我们并没有指定属性文件的地址，所以我们需要把<code>jdbc.properties</code>名称改为<code>application.properties</code>，这是SpringBoot默认读取的属性文件名：</p>
 </li>
 </ul>
-<p><img src="SpringBoot/1525496325572.png" alt="1525496325572"></p>
+<p><img src="/2020/09/20/SpringBoot/1525496325572.png" alt="1525496325572"></p>
 <blockquote>
 <ol start="2">
 <li> 在<code>JdbcConfig类</code>中使用<code>JdbcProperties对象</code>：</li>
@@ -5289,7 +5289,7 @@
 <li> 测试结果：</li>
 </ol>
 </blockquote>
-<p><img src="SpringBoot/1525492528558.png" alt="1525492528558"></p>
+<p><img src="/2020/09/20/SpringBoot/1525492528558.png" alt="1525492528558"></p>
 <hr>
 <h2 id="4-3、更简单的注入"><a href="#4-3、更简单的注入" class="headerlink" title="4.3、更简单的注入"></a>4.3、更简单的注入</h2><ul>
 <li>  事实上，如果一段属性（配置信息）只被一个Bean需要，我们无需将先其注入到一个类（<code>JdbcProperties</code>）中。而是直接在需要的地方使用<code>@ConfigurationProperties注解</code>声明即可。</li>
@@ -5327,7 +5327,7 @@
 <li>classpath:/public</li>
 </ul>
 <p>只要静态资源放在这些目录中任何一个，SpringMVC 都会帮我们处理。我们习惯会把静态资源放在<code>classpath:/static/</code>目录下。</p>
-<p> <img src="SpringBoot/1525512196866.png" alt="1525512196866"></p>
+<p> <img src="/2020/09/20/SpringBoot/1525512196866.png" alt="1525512196866"></p>
 <blockquote>
 <ol start="3">
 <li> <strong>添加拦截器</strong></li>
@@ -5363,7 +5363,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过<span class="doctag">@Bean</span>注解，将我们定义的拦截器注册到Spring容器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> LoginInterceptor <span class="title function_">loginInterceptor</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">LoginInterceptor</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写接口中的addInterceptors方法，添加自定义拦截器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        <span class="comment">// 通过registry来注册拦截器，通过addPathPatterns来添加拦截路径</span></span><br><span class="line">        registry.addInterceptor(<span class="built_in">this</span>.loginInterceptor()).addPathPatterns(<span class="string">&quot;/**&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结构如下：</p>
-<p> <img src="SpringBoot/1525513555179.png" alt="1525513555179"></p>
+<p> <img src="/2020/09/20/SpringBoot/1525513555179.png" alt="1525513555179"></p>
 <p>接下来运行并查看日志：</p>
 <p>你会发现日志中什么都没有，因为我们记录的log级别是debug，默认是显示info以上，我们需要进行配置。</p>
 <p>SpringBoot通过<code>logging.level.*=debug</code>来配置日志级别，*填写包名</p>
@@ -5545,7 +5545,7 @@
           <h1 id="Linux-安装"><a href="#Linux-安装" class="headerlink" title="Linux 安装"></a>Linux 安装</h1><p>两个概念： 物理机和虚拟机。</p>
 <p>创建虚拟机需要一台<strong>支持虚拟化</strong>的物理机和虚拟化软件（如VMWare）。需要先当前物理机开启虚拟化支持。</p>
 <p>步骤大体分两步，第一步使用虚拟化软件（VMWara）虚拟出一台虚拟机，然后再为这台虚拟机安装操作系统！</p>
-<h2 id="查看虚拟化支持"><a href="#查看虚拟化支持" class="headerlink" title="查看虚拟化支持"></a>查看虚拟化支持</h2><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20211119221353669.png" alt="image-20211119221353669" style="zoom: 50%;" />
+<h2 id="查看虚拟化支持"><a href="#查看虚拟化支持" class="headerlink" title="查看虚拟化支持"></a>查看虚拟化支持</h2><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20211119221353669.png" alt="image-20211119221353669" style="zoom: 50%;">
 
 
 
@@ -5558,43 +5558,43 @@
 </ul>
 <h2 id="1-3-VMware-workstation安装"><a href="#1-3-VMware-workstation安装" class="headerlink" title="1.3    VMware workstation安装"></a>1.3    VMware workstation安装</h2><ol start="2">
 <li><p>点击next进行安装</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps1.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps1.jpg" alt="img"></p>
 </li>
 <li><p> 选择安装方式</p>
 </li>
 </ol>
-<p>   <img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps2.jpg" alt="img"></p>
+<p>   <img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps2.jpg" alt="img"></p>
 <ul>
 <li>Typical：典型安装</li>
 <li>Custom：自定义安装</li>
 </ul>
 <ol start="4">
 <li><p>选择程序安装位置</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps3.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps3.jpg" alt="img"></p>
 <p>点击 change 选择程序安装位置，然后点击 next</p>
 </li>
 <li><p>选择是否自动检测更新</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps4.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps4.jpg" alt="img"></p>
 </li>
 <li><p>创建快捷方式，选择后点击 next。</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps5.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps5.jpg" alt="img"></p>
 </li>
 <li><p>配置完成，开始安装程序</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps6.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps6.jpg" alt="img"></p>
 </li>
 <li><p>开始安装虚拟原件</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps7.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps7.jpg" alt="img"></p>
 </li>
 <li><p>完成。</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps8.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps8.jpg" alt="img"></p>
 </li>
 </ol>
 <hr>
-<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps9.jpg" alt="img"></p>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps9.jpg" alt="img"></p>
 <p>虚拟软件安装完成后会在 <code>控制面板\网络和Internet\网络连接</code> 下多出来两个虚拟网卡<code>VMware Network Adapter VMnet1</code>和<code>VMware Network Adapter VMnet8</code>，需要将这两个网卡禁用。</p>
 <ul>
 <li><p>选中VMnet1和VMnet8，右键点击禁用</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps10.jpg" alt="img"> </p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps10.jpg" alt="img"> </p>
 </li>
 </ul>
 <hr>
@@ -5612,98 +5612,98 @@
 <li><p>打开 <code>VMware Workstation</code>。</p>
 </li>
 <li><p><code>文件 → 新建虚拟机</code> 或 直接点击 <code>创建新的虚拟机</code>图标。</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps1-1600356028741.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps1-1600356028741.jpg" alt="img"></p>
 </li>
 <li><p>选择 <code>典型（推荐）→ 下一步 </code></p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps2-1600356057469.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps2-1600356057469.jpg" alt="img"></p>
 </li>
 <li><p>稍后安装操作系统</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps3-1600356078993.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps3-1600356078993.jpg" alt="img"></p>
 </li>
 <li><p>选择操作系统和版本</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps4-1600356106544.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps4-1600356106544.jpg" alt="img"></p>
 </li>
 <li><p>输入虚拟机名称和安装路径</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps5-1600356118626.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps5-1600356118626.jpg" alt="img"></p>
 </li>
 <li><p>设置磁盘大小</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps6-1600356132029.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps6-1600356132029.jpg" alt="img"></p>
 </li>
 <li><p>自定义硬件</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps7-1600356150025.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps7-1600356150025.jpg" alt="img"></p>
 </li>
 <li><p>选择CentOS安装镜像文件</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps8-1600356164481.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps8-1600356164481.jpg" alt="img"></p>
 </li>
 <li><p>点击完成</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps9-1600356185973.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps9-1600356185973.jpg" alt="img"></p>
 </li>
 <li><p>启动虚拟机</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps10-1600356210771.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps10-1600356210771.jpg" alt="img"></p>
 </li>
 <li><p>选择第一项，安装全新操作系统或升级现有操作系统</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps11.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps11.jpg" alt="img"></p>
 </li>
 <li><p>Tab键进行选择，选择Skip，退出检测</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps12.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps12.jpg" alt="img"></p>
 </li>
 <li><p>点击Next</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps13.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps13.jpg" alt="img"></p>
 </li>
 <li><p>选择语言，这里选择的是中文简体</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps14.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps14.jpg" alt="img"></p>
 </li>
 <li><p>选择键盘样式</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps15.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps15.jpg" alt="img"></p>
 </li>
 <li><p>选择存储设备</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps16.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps16.jpg" alt="img"></p>
 <p>如果以前安装过虚拟机，会出现这个警告，选择是，忽略所有数据</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps17.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps17.jpg" alt="img"></p>
 </li>
 <li><p>输入主机名</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps18.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps18.jpg" alt="img"></p>
 </li>
 <li><p>配置网络</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps19.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps19.jpg" alt="img"></p>
 </li>
 <li><p>设置时区，勾选使用UTC时间</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps20.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps20.jpg" alt="img"></p>
 </li>
 <li><p>输入根用户（root）的密码</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps21.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps21.jpg" alt="img"></p>
 <p>如果密码过于简单会出现提示，点击无论如何都使用</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps22.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps22.jpg" alt="img"></p>
 </li>
 <li><p>根据此Linux具体功能，选择不同的方式</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps23.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps23.jpg" alt="img"></p>
 </li>
 <li><p>选择现在自定义，自定义安装需要的软件，如桌面配置[这一步可以根据需求选择是否跳过]</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps24.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps24.jpg" alt="img"></p>
 <p>可以根据具体的情况来配置，如可安Eclipse</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps25.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps25.jpg" alt="img"></p>
 <p>还可以安装Java平台、Perl支持等</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps26.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps26.jpg" alt="img"></p>
 <p>选择语言支持</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps27.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps27.jpg" alt="img"></p>
 </li>
 <li><p>点击下一步，开始安装</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps28.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps28.jpg" alt="img"></p>
 </li>
 <li><p>安装完成后，点击重新导引</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps29.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps29.jpg" alt="img"></p>
 </li>
 <li><p>点击前进按钮</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps30.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps30.jpg" alt="img"></p>
 </li>
 <li><p>点击是，同意许可，再点击前进按钮</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps31.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps31.jpg" alt="img"></p>
 </li>
 <li><p>创建用户</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps32.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps32.jpg" alt="img"></p>
 </li>
 <li><p>设置日期和时间，如果可以上网，勾选在网上同步日期和时间</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps33.jpg" alt="img"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/wps33.jpg" alt="img"></p>
 <p>最后点击前进，完成安装！</p>
 </li>
 </ol>
@@ -5724,19 +5724,19 @@
 <li><p>下载安装VirtualBox。官网：<a target="_blank" rel="noopener" href="https://www.virtualbox.org/">https://www.virtualbox.org</a></p>
 </li>
 <li><p>打开VirtualBox –&gt; 新建；</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127103545039.png" alt="image-20210127103545039"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127103545039.png" alt="image-20210127103545039"></p>
 <blockquote>
 <p>因为Centos其实是RedHat的克隆版，所以版本类型选择RedHat（64-bit）</p>
 </blockquote>
 </li>
 <li><p>下一步，选择默认配置就好</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127103717711.png" alt="image-20210127103717711"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127103717711.png" alt="image-20210127103717711"></p>
 </li>
 <li><p>下一步，</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127103754923.png" alt="image-20210127103754923"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127103754923.png" alt="image-20210127103754923"></p>
 </li>
 <li><p>创建；</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104004000.png" alt="image-20210127104004000"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104004000.png" alt="image-20210127104004000"></p>
 <blockquote>
 <p>在选择磁盘文件类型的时候主要考虑该Centos 7是否要被其他虚拟化软件(如vmware)使用</p>
 <ul>
@@ -5747,21 +5747,21 @@
 </blockquote>
 </li>
 <li><p>这里选择VDI类型，点击下一步</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104135785.png" alt="image-20210127104135785"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104135785.png" alt="image-20210127104135785"></p>
 </li>
 <li><p>选择动态分配，下一步</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104316650.png" alt="image-20210127104316650"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104316650.png" alt="image-20210127104316650"></p>
 </li>
 <li><p>点击创建，完成对虚拟机的创建</p>
 </li>
 </ol>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104421814.png" alt="image-20210127104421814"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104421814.png" alt="image-20210127104421814"></p>
 <h2 id="2、将CentOS7-iso文件与该虚拟机关联起来"><a href="#2、将CentOS7-iso文件与该虚拟机关联起来" class="headerlink" title="2、将CentOS7.iso文件与该虚拟机关联起来"></a>2、将CentOS7.iso文件与该虚拟机关联起来</h2><ol>
 <li><p>点击设置 -&gt; 存储–&gt; 选择虚拟盘</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104828201.png" alt="image-20210127104828201"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127104828201.png" alt="image-20210127104828201"></p>
 </li>
 <li><p>系统–&gt;主板，将光驱启动设置为第一项，点击 OK</p>
-<p><img src="%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127105012031.png" alt="image-20210127105012031"></p>
+<p><img src="/2020/09/17/%E9%80%9A%E8%BF%87%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85CentOS/image-20210127105012031.png" alt="image-20210127105012031"></p>
 </li>
 <li><p>点击启动，开始安装过程</p>
 </li>

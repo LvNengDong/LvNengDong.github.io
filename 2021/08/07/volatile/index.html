@@ -27,19 +27,19 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1    前置知识在 Java 内存模型中，我们知道了 JMM 有一个主内存，每个线程有自己的私有工作内存，工作内存中保存了一些变量在主内存的拷贝。    内存可见性：  指的是线程之间的可见性，当一个线程修改了共享变量时，另一个线程可以读取到这个修改后的值。    重排序  为优化程序性能，对原有的指令执行顺序进行优化重新排序。重排序可能发生在多个阶段，比如编译重排序、CPU重排序等。  2">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210506143613131.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210506143757319.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210709105405172.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210709112717007.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210709113136165.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210709113659357.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png">
-<meta property="og:image" content="http://example.com/2021/08/07/volatile/volatile/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/image-20210506143613131.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/image-20210506143757319.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/image-20210709105405172.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/image-20210709112717007.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/image-20210709113136165.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/image-20210709113659357.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png">
+<meta property="og:image" content="http://example.com/2021/08/07/volatile/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png">
 <meta property="article:published_time" content="2021-08-07T08:28:28.000Z">
 <meta property="article:modified_time" content="2021-08-08T03:08:26.638Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/08/07/volatile/volatile/image-20210506143613131.png">
+<meta name="twitter:image" content="http://example.com/2021/08/07/volatile/image-20210506143613131.png">
 
 
 <link rel="canonical" href="http://example.com/2021/08/07/volatile/">
@@ -141,7 +141,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -285,7 +285,7 @@
 <li>mian 线程在睡醒后继续执行，修改 <code>flag=false</code>并在控制台上输出指定内容，然后主线程结束。</li>
 <li>但这是我们会发现程序并没有结束，因为 child 线程仍处于死循环状态。也就是说<strong>main 线程修改全局变量 flag=false ，并不能被 child 线程感知到</strong>。</li>
 </ol>
-<p><img src="volatile/image-20210506143613131.png" alt="image-20210506143613131"></p>
+<p><img src="/2021/08/07/volatile/image-20210506143613131.png" alt="image-20210506143613131"></p>
 <p>但是如果我们将 <strong>volatile</strong> 关键字的注释打开，代码的执行流程就变成了：</p>
 <ol>
 <li>child 线程开始执行，检测到 <code>flag == true</code>，进入死循环中。</li>
@@ -293,7 +293,7 @@
 <li>但是此时 child 线程监听了到主线程对于 flag 变量的修改，即在 child 线程的感知中 <code>flag == false</code> 了，所以 child 线程退出死循环，在控制台上打印指定内容，child 线程结束。</li>
 <li>整个 JVM 进程结束。</li>
 </ol>
-<p><img src="volatile/image-20210506143757319.png" alt="image-20210506143757319"></p>
+<p><img src="/2021/08/07/volatile/image-20210506143757319.png" alt="image-20210506143757319"></p>
 <p><strong>总结：</strong></p>
 <p>上面的代码可以证明：<strong>volatile 关键字可以保证多个线程之间共享变量的可见性</strong>。即共享变量在某个线程中的本地内存中发生了变化，其它的线程也可以监听到这种变化！当然这种<strong>监听的底层原理还是通过主内存作为传输纽带进行交互的</strong>，即单个线程在本地内存中对共享变量的操作最终还是要写回到主内存中，再由主内存将这种变化通知到其它所有使用这个共享变量的线程。</p>
 <hr>
@@ -312,7 +312,7 @@
 <li> 改：在自己的工作内存中对 num 进行自增操作；[<code>iadd</code>]</li>
 <li> 写：将更改后的 num 写回到主内存中去。[<code>putfield #2 &lt;com/juc/day01/Test.n&gt;</code>]</li>
 </ol>
-<p><img src="volatile/image-20210709105405172.png" alt="image-20210709105405172"></p>
+<p><img src="/2021/08/07/volatile/image-20210709105405172.png" alt="image-20210709105405172"></p>
 <p>原子性就是对 num 的操作，即 “读 –&gt; 改 –&gt; 写” 这三个步骤是不可分割的，而 volatile 不能保证原子性。</p>
 <p>​        在保证原子性的情况下 num++ 的执行流程应该是：假设线程 A、B、C 并发执行，线程 A 拿到了 num=0，复制副本后在自己的工作空间中将其更新为 num=1，然后再将其写回到主内存中。这时候其它线程再去对 num 进行操作，这是一个完整的具备原子性的操作流程。</p>
 <p>​        而在不能保证原子性的情况下则会出现，线程 A、B、C 同时拿到了主内存中的值 num=0，并在各自的内存空间将 num 更新为 1。接下来三个线程需要将更新后的值写回主内存中，假设 A 先写回主内存，主内存中的共享变量改变后需要通知其它线程，但是在这个通知还未发送到 B、C 线程的时候，B、C 线程就已经把写回主内存的操作都做完了，那么此时主内存中的值仍然会是 1，最后一个写入到主内存的 1 会覆盖前面两个写入到主内存的 1。而我们知道实际的运算结果本应该是 3。所以说在不能保证原子性的前提下，上述代码执行的结果大概率会小于 20000。</p>
@@ -324,7 +324,7 @@
 <li> 使用 JUC 包下的 AtomicInteger</li>
 </ol>
 <p>查看 JavaDoc 可知，在 <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html">java.util.concurrent.atomic</a> 包下包含了一系列的能保证原子性的数据类型。我们可以<strong>在使用 volatile 的基础上再使用 AtomicXXX 类型的对象就能保证多线程操作数据的可见性和原子性并存，并且不用添加重锁</strong>。</p>
-<img src="volatile/image-20210709112717007.png" alt="image-20210709112717007" style="zoom:80%;" />
+<img src="/2021/08/07/volatile/image-20210709112717007.png" alt="image-20210709112717007" style="zoom:80%;">
 
 
 
@@ -336,7 +336,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="volatile/image-20210709113136165.png" alt="image-20210709113136165"></p>
+<p><img src="/2021/08/07/volatile/image-20210709113136165.png" alt="image-20210709113136165"></p>
 <ul>
 <li>  <strong>代码修改</strong></li>
 </ul>
@@ -345,7 +345,7 @@
 <blockquote>
 <p>  <strong>AtomicInteger#getAndIncrement() 方法源码</strong></p>
 </blockquote>
-<img src="volatile/image-20210709113659357.png" alt="image-20210709113659357" style="zoom:80%;" />
+<img src="/2021/08/07/volatile/image-20210709113659357.png" alt="image-20210709113659357" style="zoom:80%;">
 
 
 
@@ -356,7 +356,7 @@
 <hr>
 <h2 id="指令重排是什么？"><a href="#指令重排是什么？" class="headerlink" title="指令重排是什么？"></a>指令重排是什么？</h2><p>计算机在执行程序时，为了提高性能，编译器和处理器往往会<strong>对指令进行重排</strong>。</p>
 <p>指令重排造成的结果是：程序员写的代码的执行的顺序与代码真正在底层执行的顺序是有偏差的。</p>
-<p><img src="volatile/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png" alt="指令重排"></p>
+<p><img src="/2021/08/07/volatile/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png" alt="指令重排"></p>
 <ul>
 <li>  多线程环境中线程交替执行，由于指令优化重排的存在，多个线程中使用的变量能否保证一致性是无法确定的，程序执行的结果也就无法预测了。</li>
 <li>  处理器在进行指令重排时必须要考虑指令之间的<strong>数据依赖性</strong>。（也就是说指令重排必须是在满足数据依赖性的基础上进行的）</li>
@@ -485,7 +485,7 @@
 </li>
 </ul>
 <h2 id="DCL-单例存在的隐患及优化方法"><a href="#DCL-单例存在的隐患及优化方法" class="headerlink" title="DCL 单例存在的隐患及优化方法"></a>DCL 单例存在的隐患及优化方法</h2><p>​        DCL 单例并不一定线程安全，原因是可能会出现指令重排，所以还需要使用 volatile 关键字来防止高并发情况下，指令重排造成的线程安全问题。</p>
-<h3 id="Java创建对象过程中CPU进行的操作"><a href="#Java创建对象过程中CPU进行的操作" class="headerlink" title="Java创建对象过程中CPU进行的操作"></a>Java创建对象过程中CPU进行的操作</h3><p><img src="volatile/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
+<h3 id="Java创建对象过程中CPU进行的操作"><a href="#Java创建对象过程中CPU进行的操作" class="headerlink" title="Java创建对象过程中CPU进行的操作"></a>Java创建对象过程中CPU进行的操作</h3><p><img src="/2021/08/07/volatile/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
 <p>Java 创建对象的过程可分为三个部分：</p>
 <ol>
 <li>在堆中给将要创建的对象分配一块内存空间，并赋初始零值。</li>

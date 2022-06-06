@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -289,7 +289,7 @@
 <li> 此时 main 线程再次将主内存中的 <code>atomicInteger == 4</code> 拷贝到本地内存中，并记录快照值。</li>
 <li> 之后在本地内存中更新 <code>atomicInteger == 7</code> 并要将该值写回主内存中，在 CAS 校验中，由于这时候我们手动设置了 main 线程的期望值是 <code>atomicInteger == 3</code> ，而此时 mian 线程的真实值是 <code>atomicInteger == 4</code>，所以校验失败，不会将 <code>atomicInteger == 7</code> 写回主内存中。</li>
 </ol>
-<h2 id="AtomicInteger-compareAndSet-源码"><a href="#AtomicInteger-compareAndSet-源码" class="headerlink" title="AtomicInteger#compareAndSet 源码"></a><strong>AtomicInteger#compareAndSet 源码</strong></h2><p><img src="CAS/image-20210710163343519.png" alt="image-20210710163343519"></p>
+<h2 id="AtomicInteger-compareAndSet-源码"><a href="#AtomicInteger-compareAndSet-源码" class="headerlink" title="AtomicInteger#compareAndSet 源码"></a><strong>AtomicInteger#compareAndSet 源码</strong></h2><p><img src="/2021/07/10/CAS/image-20210710163343519.png" alt="image-20210710163343519"></p>
 <blockquote>
 <p>  <strong>compareAndSet()：</strong></p>
 </blockquote>
@@ -318,12 +318,12 @@
 <h2 id="AtomicInteger-类"><a href="#AtomicInteger-类" class="headerlink" title="AtomicInteger 类"></a>AtomicInteger 类</h2><blockquote>
 <p>  <strong>问题：AtomicInteger 凭什么能在多线程环境下保证变量的原子性?</strong></p>
 </blockquote>
-<p><img src="CAS/image-20210711174059615.png" alt="image-20210711174059615"></p>
+<p><img src="/2021/07/10/CAS/image-20210711174059615.png" alt="image-20210711174059615"></p>
 <ol>
 <li><p> <strong>AtomicInteger 是一个 Integer 类型的包装类，构造方法中接收 initialValue 值后用 volatile 修饰该值，保证了多线程操作时改变量在线程间的可见性。</strong></p>
 </li>
 <li><p><strong>valueOffset</strong> 表示当前对象中 value 值的内存偏移量，通过 <strong>unsafe.objectFieldOffset</strong> 方法获取，该方法是一个本地方法，底层是用 C++ 写的。</p>
-<p> <img src="CAS/image-20210711174640841.png" alt="image-20210711174640841"></p>
+<p> <img src="/2021/07/10/CAS/image-20210711174640841.png" alt="image-20210711174640841"></p>
 </li>
 </ol>
 <hr>
@@ -359,7 +359,7 @@
 <hr>
 <h2 id="原⼦操作-AtomicInteger类源码简析"><a href="#原⼦操作-AtomicInteger类源码简析" class="headerlink" title="原⼦操作-AtomicInteger类源码简析"></a>原⼦操作-AtomicInteger类源码简析</h2><p>上⾯介绍了 Unsafe 类的⼏个⽀持 CAS 的⽅法。那 Java 具体是如何使⽤这⼏个⽅法来实现原⼦操作的呢？</p>
 <p>JDK提供了⼀些⽤于原⼦操作的类，在 java.util.concurrent.atomic 包下⾯。在 JDK8 中，有如下16 个类：</p>
-<p><img src="CAS/image-20210811165621045.png" alt="image-20210811165621045"></p>
+<p><img src="/2021/07/10/CAS/image-20210811165621045.png" alt="image-20210811165621045"></p>
 <p>从名字就可以看得出来这些类⼤概的⽤途：</p>
 <ul>
 <li>  原⼦更新基本类型</li>
@@ -373,7 +373,7 @@
 <li>  在单线程环境下，<code>getAndIncrement()</code> 与 <code>i++</code> 的作用是相同的，但是由于 <code>i++</code> 不能保证原子性，在多线程环境下继续使用 <code>i++</code> 存在线程安全问题。</li>
 <li>  而 <code>atomicInteger#getAndIncrement()</code> 可以实现多线程环境下，不用加锁就可以保证线程的原子性，这里用到了 CAS 的思想，具体的底层源码如下：</li>
 </ul>
-<p><img src="CAS/CAS.png" alt="CAS"></p>
+<p><img src="/2021/07/10/CAS/CAS.png" alt="CAS"></p>
 <ol>
 <li><p> <code>new AtomicInteger(100)</code> 这句代码会在主内存中创建出一个 volatile 修饰的整型变量 <code>volatile int value = 100</code></p>
 </li>
@@ -466,7 +466,7 @@
 <blockquote>
 <p>  <strong>代码分析</strong></p>
 </blockquote>
-<p><img src="CAS/ABA%E5%AD%98%E5%9C%A8.png" alt="ABA存在"></p>
+<p><img src="/2021/07/10/CAS/ABA%E5%AD%98%E5%9C%A8.png" alt="ABA存在"></p>
 <ol>
 <li><p> main 线程开始执行</p>
 </li>
@@ -553,7 +553,7 @@
 <li> 在 T1 线程全部执行完毕后，T2 线程睡醒，将 100（1）改为 999（2），并准备写回到主内存中，在进行 CAS + ABA 校验时，CAS 校验时可以通过的，因为值相等，但 ABA 校验不能通过，因为版本号不一致，T2 线程中版本号为（1），而主内存中版本号则是（3），也就是线程 T2 的期望版本号与主内存中的实际版本号不同，所以导致修改失败。</li>
 </ol>
 <hr>
-<h3 id="5-5-AtomicStampedReference-compareAndSet-源码分析"><a href="#5-5-AtomicStampedReference-compareAndSet-源码分析" class="headerlink" title="5.5    AtomicStampedReference#compareAndSet 源码分析"></a>5.5    AtomicStampedReference#compareAndSet 源码分析</h3><p><img src="CAS/image-20210711132742276.png" alt="image-20210711132742276"></p>
+<h3 id="5-5-AtomicStampedReference-compareAndSet-源码分析"><a href="#5-5-AtomicStampedReference-compareAndSet-源码分析" class="headerlink" title="5.5    AtomicStampedReference#compareAndSet 源码分析"></a>5.5    AtomicStampedReference#compareAndSet 源码分析</h3><p><img src="/2021/07/10/CAS/image-20210711132742276.png" alt="image-20210711132742276"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* <span class="meta">@param</span> expectedReference 	某个线程期望的主内存中的对象值（对象引用）</span><br><span class="line">* <span class="meta">@param</span> newReference 			要写回主内存中的更新后的对象值（对象引用）</span><br><span class="line">* <span class="meta">@param</span> expectedStamp 		某个线程期望的主内存中对象值的版本号</span><br><span class="line">* <span class="meta">@param</span> newStamp 				要写回主内存中的更新后的版本号</span><br><span class="line">* <span class="meta">@return</span> &#123;<span class="meta">@code</span> <span class="literal">true</span>&#125; <span class="keyword">if</span> successful	是否可以将更新内容写回主内存中</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -567,8 +567,8 @@
 <h2 id="6-1-AtomicReference"><a href="#6-1-AtomicReference" class="headerlink" title="6.1    AtomicReference"></a>6.1    AtomicReference</h2><p>​        在 JUC<code>（java.util.concurrent.atomic）</code> 包中，提供了 AtomicBoolean、AtomicInteger、AtomicLong 等具有原子性的基本数据类型和常见的引用变量类型。</p>
 <p>​        但是对于一些开发人员自定义类型的对象，比如，想让一个自定义的 User、Employee 对象具有原子性应该怎么办？我们可以通过 <strong><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html">AtomicReference</a></strong> 实现。</p>
 <p>​        如图所示，创建 <code>AtomicReference&lt;V&gt;</code> 对象时可以指定一个任意类型的泛型，如果你想让 User 对象具有原子性就指定泛型为 User 类型，如果想让 Student 对象具有原子性就指定泛型为 Student 类型。</p>
-<p><img src="CAS/image-20210710211109304.png" alt="image-20210710211109304"></p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="CAS/image-20210710221251706.png" alt="image-20210710221251706"></p>
+<p><img src="/2021/07/10/CAS/image-20210710211109304.png" alt="image-20210710211109304"></p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="/2021/07/10/CAS/image-20210710221251706.png" alt="image-20210710221251706"></p>
 <ul>
 <li>  我们可以把 AtomicReference 看做是普通对象的包装类，一个普通的对象是不具有原子性的，而在使用 AtomicReference 包装后，它就具有了原子性。</li>
 <li>  AtomicReference 类提供了两个构造函数。我们可以直接在构造函数中包装一个普通对象让其具有原子性；也可以使用无参构造器创建一个 AtomicReference 对象，然后再调用 <strong>AtomicReference#set(V newValue)</strong> 方法让普通对象 V newValue 具有原子性。</li>
@@ -584,7 +584,7 @@
 <p>  <strong>可以解决 ABA 问题的原子引用</strong></p>
 </blockquote>
 <p><strong>AtomicStampedReference</strong> 和 <strong>AtomicReference</strong> 的作用类似，都是包装一个普通对象让其具有原子性。在不考虑 ABA 问题的前提下，这两个类是类似的。如果考虑 ABA 问题，则应该使用 <strong>AtomicStampedReference</strong> ，因为它既可以解决原子性问题，也可以解决 ABA 问题。</p>
-<h3 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="CAS/image-20210710222525576.png" alt="image-20210710222525576"></p>
+<h3 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h3><p><img src="/2021/07/10/CAS/image-20210710222525576.png" alt="image-20210710222525576"></p>
 <ul>
 <li>  <strong>AtomicStampedReference</strong> 没有无参的构造器，所以在创建对象时必须指定要包装的对象和一个 int 类型的版本号。</li>
 </ul>
@@ -695,7 +695,7 @@
 <h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>​    绝大多数的运算任务都不可能只靠处理器“计算”就能完成，处理器至少要与内存交互，如读取内存数据、存储运算结果等，这个 I/O 是很难消除的。即程序运行时 CPU 需要经历 <code>从内存取数据 --&gt; CPU 运算 --&gt; 将运算结果写回内存</code>，由于 CPU 的运算速度远快于内存的读写速度，就会出现这样一种情况，内存花了 10s 才将要运算的数据传递到 CPU 中，但是 CPU 只用了 1s 就计算完了，那么中间的 9s CPU 就一直没有活干。写出到内存中也存在类似的情况。<strong>基于高速缓存的存储很好地解决了处理器与内存的速度矛盾，但是引入了一个新的问题：缓存一致性</strong>。</p>
 <p>​    在多处理器系统中，每个处理器都有自己的高速缓存，而它们又共享同一主内存（物理意义上的内存，可以看做是内存条）（比如 3 个 CPU，一根内存条）。当多个处理器的运算任务都涉及同一块主内存区域时，将可能导致各自的缓存数据不一致。举例说明就是某个变量在多个 CPU 之间共享，并且这些 CPU 都对这个变量进行了运算，那么当缓存数据同步回主内存时以谁的缓存数据为主呢？</p>
 <p>​    <strong>为了解决缓存一致性的问题，需要各个处理器访问缓存时都要遵循一些协议，在读写的时候要根据协议来进行操作</strong>。</p>
-<p><img src="JMM/JMM.png" alt="JMM"></p>
+<p><img src="/2021/07/08/JMM/JMM.png" alt="JMM"></p>
 <hr>
 <h1 id="JMM-概述"><a href="#JMM-概述" class="headerlink" title="JMM 概述"></a>JMM 概述</h1><blockquote>
 <p>  <strong>JMM；Java Memory Model；Java内存模型</strong></p>
@@ -705,7 +705,7 @@
 <p>​        其实 JVM 也是一种内存模型，因为真实的物理内存空间并未划分什么栈空间、堆空间、方法区等，只不过 JVM 在实现时利用一部分物理空间存储具有相似性的数据，所以才把内存抽象成一块一块不同的区域。</p>
 <p>​        从抽象的角度看，<strong>JMM 定义了线程和主内存之间的抽象关系</strong>：线程之间共享的变量存储在<strong>主内存（Main Memory）</strong>中，每个线程都有一个私有的<strong>本地内存（Local Memory）</strong>，本地内存中存储了该线程读/写共享变量的副本。</p>
 <p>​        <strong>本地内存是 JMM 的一个抽象概念</strong>，并不真实存在，它由缓存、写缓冲区、寄存器以及其它的编译期优化共同实现的。它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段、静态字段和构成数组对象的元素）的访问方式。</p>
-<h2 id="运行时内存的划分"><a href="#运行时内存的划分" class="headerlink" title="运行时内存的划分"></a>运行时内存的划分</h2><img src="JMM/image-20210807154853861.png" alt="image-20210807154853861" style="zoom: 33%;" />
+<h2 id="运行时内存的划分"><a href="#运行时内存的划分" class="headerlink" title="运行时内存的划分"></a>运行时内存的划分</h2><img src="/2021/07/08/JMM/image-20210807154853861.png" alt="image-20210807154853861" style="zoom: 33%;">
 
 
 
@@ -736,7 +736,7 @@
 <hr>
 <h1 id="JMM-工作原理"><a href="#JMM-工作原理" class="headerlink" title="JMM 工作原理"></a>JMM 工作原理</h1><p>​    上面我们讲了：JMM 定义了线程与主内存之间的抽象关系。</p>
 <p>​    在一个运行的 Java 程序中，JVM 是一个进程，运行时包含多个线程，而每个线程创建时 JVM 都会为其创建一个<strong>工作内存</strong>，工作内存是每个线程私有的数据区域，而 JMM 中规定所有变量都要存储在<strong>主内存</strong>，主内存是共享内存区域，所有线程都可以访问，但 <strong>线程对变量的操作（读取、赋值等）必须要在工作内存中进行，首先要将变量从主内存拷贝到自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存</strong>，而不能直接操作主内存中的变量，各个线程中的工作内存中存储着主内存中的变量副本拷贝，因此不同的线程间无法访问对方的工作内存。<strong>若多个线程间想要通信，必须通过主内存来完成</strong>。其简要访问过程如下图：</p>
-<p><img src="JMM/JMM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" alt="JMM内存结构"></p>
+<p><img src="/2021/07/08/JMM/JMM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" alt="JMM内存结构"></p>
 <p>从图中可以看出：</p>
 <ol>
 <li>所有的共享变量都存在主内存中。</li>
@@ -809,11 +809,11 @@
 <li>  ThreadLocalMap 内部维护着一个 <strong>Entry</strong> 数组，每个 Entry 代表一个完整的对象，Entry 是 <code>&lt;K，V&gt;</code> 键值对结构的，key 为 ThreadLocal 对象本身，value 为需要存入的值（数据类型与 ThreadLocal 的泛型值）。</li>
 <li>  ThreadLocalMap 的 key 始终为 ThreadLocal 的引用，value 是一个 Object 类型，可以将其声明为一个 Map 类型，这样就可以存储多对元素了。</li>
 </ul>
-<p><img src="JMM/ThreadLocal.png" alt="ThreadLocal"></p>
+<p><img src="/2021/07/08/JMM/ThreadLocal.png" alt="ThreadLocal"></p>
 <blockquote>
 <p>  <strong>ThreadLocal 内存结构图</strong></p>
 </blockquote>
-<p><img src="JMM/image-20210914163551442.png" alt="image-20210914163551442"></p>
+<p><img src="/2021/07/08/JMM/image-20210914163551442.png" alt="image-20210914163551442"></p>
 <ul>
 <li>  <strong>Thread</strong> 对象中持有一个 <strong>ThreadLocal.ThreadLocalMap</strong> 的成员变量。</li>
 <li>  ThreadLocalMap 内部维护了 <strong>Entry 数组</strong>，每个 Entry 代表一个完整的对象，key 是 ThreadLocal 本身，value 是 ThreadLocal 的泛型值。</li>
@@ -824,13 +824,13 @@
 <p>  <strong>ThreadLocal 内存泄露问题</strong></p>
 </blockquote>
 <p>ThreadLocalMap 中的 Entry 是一个键值对形式的对象，该对象的 key 是 ThreadLocal 的引用，但是这个引用是一种弱引用。查看源码可知，ThreadLocalMap 中使用的 key 为 ThreadLocal 的弱引用，如下：</p>
-<p><img src="JMM/image-20210914164627172.png" alt="image-20210914164627172"></p>
+<p><img src="/2021/07/08/JMM/image-20210914164627172.png" alt="image-20210914164627172"></p>
 <p>弱引用比较容易被回收，只要垃圾回收机制一运行，不管 JVM 的内存空间是否充足，都会回收该对象占用的内存。</p>
 <p>如果 ThreadLocal（ThreadLocalMap 中 Entry 的 key）被垃圾回收器回收了，按理来讲该 key 对应的整个 Entry 都应该被回收掉，但是因为 ThreadLocalMap 的生命周期和 Thread 是一样的，所以还存在通过 ThreadLocalMap 发出的强引用会指向这个 Entry，因此该 Entry 也不会被回收，就会出现这种情况：ThreadLocalMap 中的某个 Entry 的 key 没了，value 还在，这就会<strong>「造成了内存泄漏」</strong>。</p>
 <ul>
 <li>  ThreadLocal 的引用示意图</li>
 </ul>
-<p><img src="JMM/image-20210914164909204.png" alt="image-20210914164909204"></p>
+<p><img src="/2021/07/08/JMM/image-20210914164909204.png" alt="image-20210914164909204"></p>
 <blockquote>
 <p>  <strong>如何「解决内存泄漏问题」？</strong></p>
 </blockquote>
@@ -1020,7 +1020,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="1-ArrayList-概述"><a href="#1-ArrayList-概述" class="headerlink" title="1    ArrayList 概述"></a>1    ArrayList 概述</h2><p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png" alt="image-20210705132107889"></p>
+<h2 id="1-ArrayList-概述"><a href="#1-ArrayList-概述" class="headerlink" title="1    ArrayList 概述"></a>1    ArrayList 概述</h2><p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png" alt="image-20210705132107889"></p>
 <ul>
 <li>  <code>ArrayList</code> 实现了<code> List</code> 接口，继承了 <code>AbstractList</code> 类；</li>
 <li>  底层数据结构是一个 Object 数组， <code>Object[] elementData</code>。并通过一系列机制实现了数组的自动扩容。</li>
@@ -1046,14 +1046,14 @@
 <h3 id="空参构造器"><a href="#空参构造器" class="headerlink" title="空参构造器"></a>空参构造器</h3><blockquote>
 <p>  首先查看源码中 <strong>无参构造器</strong> 的实现：</p>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705110738072.png" alt="image-20210705110738072"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705110738072.png" alt="image-20210705110738072"></p>
 <ul>
 <li>  上面的注释表明：无参构造器将会提供一个初始容量为 10 的空数组，即 Object[10]。</li>
 <li>  但是实际上并不是在这一步实现的。我们继续查看 <strong>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</strong> 和 <strong>elementData</strong> 的源码。</li>
 <li>  发现 <code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code> 只是一个空数组，这一步只是让 <strong>elementData</strong> 指向了一个容量为 0  的空数组罢了。</li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111012804.png" alt="image-20210705111012804"></p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111123760.png" alt="image-20210705111123760"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111012804.png" alt="image-20210705111012804"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111123760.png" alt="image-20210705111123760"></p>
 <hr>
 <h3 id="带参构造器"><a href="#带参构造器" class="headerlink" title="带参构造器"></a>带参构造器</h3><p>ArrayList 有<strong>两个带参构造器</strong> ，其实现分别如下：</p>
 <blockquote>
@@ -1069,7 +1069,7 @@
 <p>  ② 如果实例对象不为空，将原实例对象中的所有元素复制一份到新数组中。</p>
 </li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705133755514.png" alt="image-20210705133755514"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705133755514.png" alt="image-20210705133755514"></p>
 <p><code>Collection#toArray()</code> 方法是一个抽象方法，具体的实现过程由实现类决定，该方法的作用是：返回一个包含此集合中所有元素的数组，返回值是 <code>Object[]</code> 数组，并且 <code>Object[]</code> 数组长度与集合中有效元素的个数是一样的。</p>
 <ol>
 <li> 首先将 <strong>Collection c</strong> 中的元素全部转添加到 <code>Object[]</code> 类型的 <strong>elementData</strong> 中；</li>
@@ -1086,7 +1086,7 @@
 </ol>
 </blockquote>
 <p>这是一个带初始容量的 ArrayList 构造方法，构造具有指定初始容量的空列表。创建时需要传递数组长度 <strong>initialCapacity</strong>。</p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705140516278.png" alt="image-20210705140516278"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705140516278.png" alt="image-20210705140516278"></p>
 <ol>
 <li> 若数组长度大于0，新建一个 <code>Object[initialCapacity]</code> 数组；</li>
 <li> 若数组长度等于0，直接复用类加载阶段创建好的 Object 空数组；</li>
@@ -1106,7 +1106,7 @@
 <li> <strong>add() 方法是 List 接口声明的通用的方法，在 ArrayList 中的实现如下：</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112039567.png" alt="image-20210705112039567"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112039567.png" alt="image-20210705112039567"></p>
 <p>源码分析：</p>
 <ol>
 <li> <strong>size</strong> 是当前数组中有效元素的个数（未新增 e 元素之前）。</li>
@@ -1119,14 +1119,14 @@
 <li>  <strong>ensureCapacityInternal 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112635200.png" alt="image-20210705112635200"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112635200.png" alt="image-20210705112635200"></p>
 <p><strong>ensureCapacityInternal</strong> 继续调用 <strong>ensureExplicitCapacity</strong> 和 <strong>calculateCapacity</strong> 方法保证数组容量问题。</p>
 <blockquote>
 <ol start="3">
 <li> <strong>calculateCapacity 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112857905.png" alt="image-20210705112857905"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112857905.png" alt="image-20210705112857905"></p>
 <p><strong>方法参数：</strong></p>
 <ul>
 <li>  <strong>minCapacity</strong> 是新增元素后需要的最小数组容量<code>[minCapacity = size+1]</code>。</li>
@@ -1151,7 +1151,7 @@
 <li>  <strong>ensureExplicitCapacity 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114523086.png" alt="image-20210705114523086"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114523086.png" alt="image-20210705114523086"></p>
 <ol>
 <li> <code>modCount++</code> 是用于在快速失败机制中判断使用的，与本文相关性不大，暂时略过。</li>
 <li>接下来判断，新增元素后元素的个数是否超过了当前数组的容量，如果超过了，则证明需要扩容了。<ul>
@@ -1165,7 +1165,7 @@
 <li> <strong>grow 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114959424.png" alt="image-20210705114959424"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114959424.png" alt="image-20210705114959424"></p>
 <ol>
 <li> <strong>minCapacity</strong> 是新增元素后需要的最小容量</li>
 <li> <strong>oldCapacity</strong> 是原来（未新增元素前）数组的容量</li>
@@ -1180,20 +1180,20 @@
 </ul>
 </li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144202128.png" alt="image-20210705144202128"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144202128.png" alt="image-20210705144202128"></p>
 <p>所有的处理结束后，调用 <strong>Arrays.copyOf</strong> 方法将原数组中的所有元素拷贝到新数组中。</p>
 <blockquote>
 <ol start="6">
 <li> <strong>hugeCapacity 方法</strong>（非必须执行的方法）</li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144627777.png" alt="image-20210705144627777"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144627777.png" alt="image-20210705144627777"></p>
 <p>在数组长度已经很大的基础上，直接扩容 1.5 倍增长是很大的，所以这时候我们需要额外加一些保护机制。不再是在原数组长度的基础上增加 0.5 倍了，而是根据新增元素后需要的最小容量来改变新数组的容量（只有 2 种情况）。凡是能进入到该方法的都是大容量的数组（即扩大 1.5 就会超出上限）。</p>
 <ol>
 <li>如果新增元素后需要的最小容量大于 MAX_ARRAY_SIZE ，则将新数组的容量设置为 <strong>Integer.MAX_VALUE</strong>；</li>
 <li>否则，将新数组的容量设置为 <strong>MAX_ARRAY_SIZE</strong>；</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145256894.png" alt="image-20210705145256894"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145256894.png" alt="image-20210705145256894"></p>
 <p>方法执行完后，当前栈帧出栈，执行上一个方法。</p>
 <blockquote>
 <ol start="7">
@@ -1203,11 +1203,11 @@
 <ol>
 <li> 计算完扩容的容量后，继续执行真正地执行 grow 方法。调用 <strong>Arrays.copyof</strong> 方法，进行复制操作。</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145658774.png" alt="image-20210705145658774"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145658774.png" alt="image-20210705145658774"></p>
 <ol start="2">
 <li> <strong>Arrays.copyof</strong> 底层真正执行的是 <strong>System.arraycopy</strong> 方法。</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145828821.png" alt="image-20210705145828821"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145828821.png" alt="image-20210705145828821"></p>
 <ol start="3">
 <li> 而 <strong>System.arraycopy</strong> 方法则是一个本地方法。</li>
 </ol>
@@ -1215,10 +1215,10 @@
 <h2 id="4-ArrayList-线程不安全"><a href="#4-ArrayList-线程不安全" class="headerlink" title="4    ArrayList 线程不安全"></a>4    ArrayList 线程不安全</h2><h3 id="ArrayList-线程不安全案例"><a href="#ArrayList-线程不安全案例" class="headerlink" title="ArrayList 线程不安全案例"></a>ArrayList 线程不安全案例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">           <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">               list.add(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">8</span>));</span><br><span class="line">               System.out.println(list);</span><br><span class="line">           &#125;, String.valueOf(i)).start();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 <p>根据上面几部分的学习，我们已经知道了 <code>ArrayList#add</code> 方法在写入数据之前，会先确定要写入位置的下标。如果多个线程同时向同一个 <code>list</code> 集合中写入数据，就可能存在<strong>多个线程同时取得了同一个下标的写入权</strong>，如果不加以限制，就可能会造成如下情况。即一个线程写的值覆盖了另一个线程写的值。</p>
-<img src="集合类线程不安全——List-Set-Map/image-20210705205807031.png" alt="image-20210705205807031" style="zoom: 67%;" />
+<img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705205807031.png" alt="image-20210705205807031" style="zoom: 67%;">
 
 <p>甚至可能会出现并发修改异常：<strong>java.util.ConcurrentModificationException</strong></p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211114239.png" alt="image-20210705211114239"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211114239.png" alt="image-20210705211114239"></p>
 <p>既然 <code>ArrayList#add()</code> 是线程不安全的，为了解决线程安全问题，我们应该怎么做呢？——加锁！！！</p>
 <blockquote>
 <p>  <strong>ArrayList 线程不安全总结：</strong></p>
@@ -1237,7 +1237,7 @@
 <blockquote>
 <p>  <strong>线程安全的代码</strong></p>
 </blockquote>
-<img src="集合类线程不安全——List-Set-Map/image-20210705211801881.png" alt="image-20210705211801881"  />
+<img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211801881.png" alt="image-20210705211801881">
 
 <ul>
 <li>  只需将 <strong>new ArrayList</strong> 改为 <strong>new Vector</strong> 即可。</li>
@@ -1245,7 +1245,7 @@
 <blockquote>
 <p>  <strong>Vector 的缺点</strong></p>
 </blockquote>
-<img src="集合类线程不安全——List-Set-Map/image-20210705212216863.png" alt="image-20210705212216863"  />
+<img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705212216863.png" alt="image-20210705212216863">
 
 <ul>
 <li>  查看 <strong>Vector#add</strong> 的源码，可以看到该方法被 synchronized 修饰，是线程安全的，但是这样一来就会严重影响高并环境下的程序执行速度了。</li>
@@ -1255,11 +1255,11 @@
 <h3 id="解决方法2：使用-Collections-工具类创建线程安全的-ArrayList"><a href="#解决方法2：使用-Collections-工具类创建线程安全的-ArrayList" class="headerlink" title="解决方法2：使用 Collections 工具类创建线程安全的 ArrayList"></a>解决方法2：使用 Collections 工具类创建线程安全的 ArrayList</h3><ul>
 <li>  使用 <strong>Collections.synchronizedList</strong> 方法创建线程安全的 ArrayList。</li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213152762.png" alt="image-20210705213152762"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213152762.png" alt="image-20210705213152762"></p>
 <ul>
 <li>  下图可以看到，Collections 工具类提供了用于保证线程安全的 List 、Set 、Map 方法，那么也就说明 List、Set、Map 中一定有一些实现类是线程不安全的。具体就是：<strong>ArrayList、HashSet、HashMap</strong></li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213534400.png" alt="image-20210705213534400"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213534400.png" alt="image-20210705213534400"></p>
 <h3 id="解决方法3：CopyOnWriteArrayList"><a href="#解决方法3：CopyOnWriteArrayList" class="headerlink" title="解决方法3：CopyOnWriteArrayList"></a>解决方法3：CopyOnWriteArrayList</h3><blockquote>
 <p>  <strong>CopyOnWriteArrayList 类</strong></p>
 </blockquote>
@@ -1270,11 +1270,11 @@
 <li>  它实现了 <code>List&lt;E&gt;</code> 接口，在某种意义上，它和 ArrayList 、Vector 是平级的。</li>
 <li>  它能保证线程安全是因为采用了<strong>写时复制技术</strong></li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705215106596.png" alt="image-20210705215106596"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705215106596.png" alt="image-20210705215106596"></p>
 <blockquote>
 <p>  <strong>线程安全的代码</strong></p>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705214658694.png" alt="image-20210705214658694"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705214658694.png" alt="image-20210705214658694"></p>
 <blockquote>
 <p>  <strong>写时复制技术</strong></p>
 </blockquote>
@@ -1299,7 +1299,7 @@
 
 
 <p><strong>add() 方法源码</strong></p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705221837637.png" alt="image-20210705221837637"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705221837637.png" alt="image-20210705221837637"></p>
 <ol>
 <li> 首先加锁</li>
 <li> 调用自身类中的 <code>getArray()</code> 方法获得当前集合对象的底层数组对象；</li>
@@ -1325,15 +1325,15 @@
 <ol>
 <li> 通过源码可以看到，HashSet 的底层数据结构其实是一个 HashMap。而 HashMap 的数据结构是键值对的，那么 HashSet 是如何处理这一情况的呢？</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225253807.png" alt="image-20210705225253807"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225253807.png" alt="image-20210705225253807"></p>
 <ol start="2">
 <li> 在 <strong>HashSet#add</strong> 方法中可以看到，add 方法底层确实调用的是 <strong>HashMap#put</strong> 方法，其 Key 为要添加的元素，而 V 则是一个 <strong>PRESENT</strong> 值</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225457854.png" alt="image-20210705225457854"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225457854.png" alt="image-20210705225457854"></p>
 <ol start="3">
 <li> 继续查看 PRESENT 的源码，我们可以看到， <strong>PRESENT</strong> 是一个常量值，也就是说 Value 是固定不变的。</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225617057.png" alt="image-20210705225617057"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225617057.png" alt="image-20210705225617057"></p>
 <ol start="4">
 <li> 总结：HashSet 底层是 HashMap，但是只是利用了 HashMap 中键（key）的不可重复性，而在值（value）的部分则是使用一个常量值来填充。</li>
 </ol>
@@ -1534,7 +1534,7 @@
 
 
 
-<h4 id="Synchronized-和-Lock-有什么区别？用新的-Lock-有什么好处？"><a href="#Synchronized-和-Lock-有什么区别？用新的-Lock-有什么好处？" class="headerlink" title="Synchronized 和 Lock 有什么区别？用新的 Lock 有什么好处？"></a>Synchronized 和 Lock 有什么区别？用新的 Lock 有什么好处？</h4><p><img src="JUC/image-20210714112703545.png" alt="image-20210714112703545"></p>
+<h4 id="Synchronized-和-Lock-有什么区别？用新的-Lock-有什么好处？"><a href="#Synchronized-和-Lock-有什么区别？用新的-Lock-有什么好处？" class="headerlink" title="Synchronized 和 Lock 有什么区别？用新的 Lock 有什么好处？"></a>Synchronized 和 Lock 有什么区别？用新的 Lock 有什么好处？</h4><p><img src="/2021/07/03/JUC/image-20210714112703545.png" alt="image-20210714112703545"></p>
 <blockquote>
 <ol>
 <li> <strong>原始构成</strong></li>
@@ -1745,7 +1745,7 @@
 <ol start="3">
 <li> 测试结果如下，完全正确。我们可以看到 +1 操作和 -1 操作依次执行，交替 10 次。</li>
 </ol>
-<img src="JUC/image-20210706214541876.png" alt="image-20210706214541876" style="zoom: 67%;" />
+<img src="/2021/07/03/JUC/image-20210706214541876.png" alt="image-20210706214541876" style="zoom: 67%;">
 
 
 
@@ -1757,7 +1757,7 @@
 <ol start="5">
 <li> 我们想象中的代码的执行结果应该是：<code>1 -&gt; 0 -&gt; 1 -&gt; 0</code> 这样依次执行的。那么我们来看看真实的执行结果是什么呢？</li>
 </ol>
-<img src="JUC/image-20210706215410137.png" alt="image-20210706215410137" style="zoom:67%;" />
+<img src="/2021/07/03/JUC/image-20210706215410137.png" alt="image-20210706215410137" style="zoom:67%;">
 
 <ol start="6">
 <li><p>在结果中竟然看到了 <strong>2</strong> ，这与我们设计的程序不符。我们想象中的程序应该是：</p>
@@ -1790,7 +1790,7 @@
 <p> ​        重点来了！！！线程 B 唤醒 A 线程后，B 与 A 此时都处于 Runnable 状态，然后开始竞争锁对象，假设这时候 A 获得了锁对象（当然如果 B 获得了锁对象也没有关系，因为此时 <code>num==0</code>，即使 B 获得了锁对象最终还是会执行 wait 方法归还锁对象），那么<strong>线程 A 并不会从头开始重新执行一遍 add 方法，而是直接续着上次执行的位置继续执行。 也就是判读操作在线程睡眠之前已经执行过一次了，线程醒来后就不再判断了，而是直接从上次断开的位置往下走。</strong></p>
 </li>
 </ol>
-<p><img src="JUC/image-20210706222059608.png" alt="image-20210706222059608"></p>
+<p><img src="/2021/07/03/JUC/image-20210706222059608.png" alt="image-20210706222059608"></p>
 <p>​    在只有 2 个线程的环境中这是 OK 的，因为只有两种状态，不会对结果产生影响。那么如果有 4 个线程呢？我们来分析一下。</p>
 <blockquote>
 <ol start="2">
@@ -1814,28 +1814,28 @@
 <li><p> 接着 A+ 线程得到锁对象，执行 add 方法，同样它也会从上一次断开的位置继续执行，没有 if 判断，直接干活。诶，这时候你就会发现，num++ 执行后 <strong>num==2</strong>，if 判断失效了，这是不对的。我们想要的代码应该是发现 num==1 后就不再 +1 了，而是让 sub 方法去执行 -1 操作。这就是传说中的<strong>虚假唤醒原理</strong>。</p>
 </li>
 </ol>
-<p><img src="JUC/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92.png" alt="虚假唤醒"></p>
+<p><img src="/2021/07/03/JUC/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92.png" alt="虚假唤醒"></p>
 <h3 id="如何解决虚假唤醒问题？"><a href="#如何解决虚假唤醒问题？" class="headerlink" title="如何解决虚假唤醒问题？"></a>如何解决虚假唤醒问题？</h3><p>虚假唤醒的问题管方很早就给出了解决的答案，在 Java8_API_Doc 中明确指出[<strong>java.lang.Object#wait</strong>]：</p>
 <blockquote>
 <p>  As in the one argument version, interrupts and spurious wakeups are possible, and this method should always be used in a loop</p>
 <p>  中断和虚假唤醒是可能存在的，所以 <strong>wait()</strong> 方法应该总是在循环 <strong>while</strong> 中使用。</p>
 </blockquote>
-<p><img src="JUC/image-20210707110323903.png" alt="image-20210707110323903"></p>
+<p><img src="/2021/07/03/JUC/image-20210707110323903.png" alt="image-20210707110323903"></p>
 <p>​        <strong>if</strong> 只起到判断的作用，而 <strong>while</strong> 则能起到<strong>循环判断</strong>的作用。只需要在上面代码中调用 wait 方法的地方用 while 语句替换 if 语句，即可解决虚假唤醒的问题。即每次线程从 Waiting 状态重新进入 Runnable 状态时，还是会进行一次判断的过程，判断成功则干活，不成功则再次进入 Waiting 状态。</p>
 <blockquote>
 <p>  <strong>修改代码</strong></p>
 </blockquote>
 <p>修改 Operator 类中的代码为：（只需要将所有使用 wait 方法的判断条件从 if 改为 while 即可）</p>
-<p><img src="JUC/image-20210707111358025.png" alt="image-20210707111358025"></p>
+<p><img src="/2021/07/03/JUC/image-20210707111358025.png" alt="image-20210707111358025"></p>
 <p>修改后的代码即可按照 <code>1-&gt;0-&gt;1_&gt;0</code> 的顺序交替执行。</p>
 <h2 id="新版写法（Lock版）"><a href="#新版写法（Lock版）" class="headerlink" title="新版写法（Lock版）"></a>新版写法（Lock版）</h2><p>首先要明确一点，在 synchronized 的写法中，wait 和 notify 都是由 this 锁对象调用的。</p>
 <p>而在 Lock 的写法中，this 对象不再是锁对象了，那么继续使用 this 调用 wait 和 notify 也就不合适了。在 JavaDoc 中，专门推出了一个接口类型 Condition 用于让线程进入等待/唤醒状态。接口中定义了 <strong>await()</strong> 、<strong>signal()<strong>、</strong>signalAll()</strong> 方法对标 Object 类中的 <strong>wait</strong>、<strong>notify</strong>、<strong>notifyAll</strong> 方法。对应方法的作用是一样的，但是 Condition 接口中的方法专门用于 Lock 锁对象。</p>
-<p><img src="JUC/image-20210707120201254.png" alt="image-20210707120201254"></p>
-<p><img src="JUC/image-20210707120803646.png" alt="image-20210707120803646"></p>
+<p><img src="/2021/07/03/JUC/image-20210707120201254.png" alt="image-20210707120201254"></p>
+<p><img src="/2021/07/03/JUC/image-20210707120803646.png" alt="image-20210707120803646"></p>
 <ul>
 <li>  官方的使用说明案例</li>
 </ul>
-<p><img src="JUC/image-20210707121613702.png" alt="image-20210707121613702"></p>
+<p><img src="/2021/07/03/JUC/image-20210707121613702.png" alt="image-20210707121613702"></p>
 <blockquote>
 <p>  <strong>修改代码（Operator类）</strong></p>
 </blockquote>
@@ -1846,7 +1846,7 @@
 <blockquote>
 <p>  <strong>总结</strong></p>
 </blockquote>
-<p><img src="JUC/Lock%E9%94%81.png" alt="Lock锁"></p>
+<p><img src="/2021/07/03/JUC/Lock%E9%94%81.png" alt="Lock锁"></p>
 <h2 id="精准唤醒"><a href="#精准唤醒" class="headerlink" title="精准唤醒"></a>精准唤醒</h2><h3 id="题目：-1"><a href="#题目：-1" class="headerlink" title="题目："></a>题目：</h3><p><strong>要求</strong>：多线程之间按顺序调用，3个线程按照 <code>A-&gt;B-&gt;C</code> 的顺序执行。A线程打印5次“AA”，B 线程打印10次“BB”，C线程打印15次“CC”；重复10轮</p>
 <p><strong>分解</strong>：</p>
 <ol>
@@ -1879,9 +1879,9 @@
 <hr>
 <h3 id="分析2："><a href="#分析2：" class="headerlink" title="分析2："></a>分析2：</h3><p>​        如果多个线程间能实现<strong>精准通知</strong>，即 A 干完活唤醒 B，B 干完活唤醒 C，C 干完活唤醒 A，形成一个闭环。而不是 ABC 每次干完活后进行广播式的通知，唤醒所有线程进行抢占式的资源争夺。那么显然程序的执行速度能得到极大的提升，因为这样就减少了每次线程抢占锁对象成功但在方法体中的判断不成功导致线程重新被挂起和重新被唤醒的时间。</p>
 <p>​        为了能满足这个条件，首先 <strong>Object#notifyAll</strong> 和 <strong>Condition#signalAll</strong> 方法是肯定不能使用的。那么 <strong>Object#notify</strong> 和 <strong>Condition#signal</strong> 该选择哪一个呢？首先我们来看下 <strong>Object#notify</strong> 的源码。</p>
-<p><img src="JUC/image-20210707143619075.png" alt="image-20210707143619075"></p>
+<p><img src="/2021/07/03/JUC/image-20210707143619075.png" alt="image-20210707143619075"></p>
 <p>​        具体就是说：唤醒此对象监视的等待队列中的一个线程，如果这个对象有多个等待中的线程，就会选择其中一个被唤醒。这个选择是任意的，由实现自行决定。也就是说，<strong>如果我们不自己手动去实现，那么调用 notify 方法唤醒的线程是随机的</strong>。那么显然，要想做到精准唤醒就不适合是用 notify 方法了，当然也不是不可以用，只是要自己去重写 notify 方法比较复杂，而且在 JUC 包下已经提供了现成的可以实现精准唤醒的方法，你自己实现也不见得能比人家写得好。这个方法就是 signal 方法，我们来看一下。</p>
-<p><img src="JUC/image-20210707144208656.png" alt="image-20210707144208656"></p>
+<p><img src="/2021/07/03/JUC/image-20210707144208656.png" alt="image-20210707144208656"></p>
 <p>​        <strong>signal()</strong> 方法的作用就是唤醒一个等待的线程，但是这里它是<strong>可以自行选择</strong>的。也就是说如果有多个线程BCD都处于 Waiting 状态，A线程正在使用锁对象，A在使用完锁后，不再是把锁往出一扔就不管了，它是可以指定下一个给谁，通过这个方法我们就可以实现将处于 Waiting 状态的多个线程精准唤醒了。</p>
 <h3 id="Condition-接口"><a href="#Condition-接口" class="headerlink" title="Condition 接口"></a>Condition 接口</h3><ul>
 <li>  Lock 锁与监听器（Condition）是<strong>一对多</strong>的，一个 Lock 锁可以有多个监听器，Condition 与线程也是<strong>一对多</strong>的，每个 Condition 都可以监视该锁对象锁住的所有线程，即每个 Condition 都维护一个线程等待队列。</li>
@@ -1889,7 +1889,7 @@
 <li>  如果想要实现线程间的精准唤醒，Condition 数量最好设置成与线程数相等的，即每个 Condition 的最高优先级的名额绑定一个线程。</li>
 <li>  <strong>线程在第一次调用 wait() 方法的时候与监听器绑定</strong>。</li>
 </ul>
-<p><img src="JUC/%E9%94%81%E5%92%8C%E7%9B%91%E5%90%AC%E5%99%A8.png" alt="锁和监听器"></p>
+<p><img src="/2021/07/03/JUC/%E9%94%81%E5%92%8C%E7%9B%91%E5%90%AC%E5%99%A8.png" alt="锁和监听器"></p>
 <h3 id="代码实现2："><a href="#代码实现2：" class="headerlink" title="代码实现2："></a>代码实现2：</h3><p>只需修改 CPU 类中代码即可。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CPU</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标志位。线程A：1；线程B：2；线程C：3</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="number">1</span>;   <span class="comment">// 默认线程A先执行</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用Lock锁，每个锁可以设置多个监听器</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">    <span class="keyword">final</span> <span class="type">Condition</span> <span class="variable">c1</span> <span class="operator">=</span> lock.newCondition();</span><br><span class="line">    <span class="keyword">final</span> <span class="type">Condition</span> <span class="variable">c2</span> <span class="operator">=</span> lock.newCondition();</span><br><span class="line">    <span class="keyword">final</span> <span class="type">Condition</span> <span class="variable">c3</span> <span class="operator">=</span> lock.newCondition();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">print5</span><span class="params">()</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 判断、干活、通知</span></span><br><span class="line">            <span class="keyword">while</span> (flag != <span class="number">1</span>)&#123;</span><br><span class="line">                c1.await(); <span class="comment">// 持有 c1 钥匙的线程进入 Waiting</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;AA&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            flag = <span class="number">2</span>;   <span class="comment">// 干完活后修改标志位</span></span><br><span class="line">            c2.signal();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">print10</span><span class="params">()</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 判断、干活、通知</span></span><br><span class="line">            <span class="keyword">while</span> (flag != <span class="number">2</span>)&#123;</span><br><span class="line">                c2.await();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;BB&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            flag = <span class="number">3</span>;   <span class="comment">// 干完活后修改标志位</span></span><br><span class="line">            c3.signal();    <span class="comment">// 唤醒</span></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">print15</span><span class="params">()</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 判断、干活、通知</span></span><br><span class="line">            <span class="keyword">while</span> (flag != <span class="number">3</span>)&#123;</span><br><span class="line">                c3.await();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">15</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;CC&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            flag = <span class="number">1</span>;   <span class="comment">// 干完活后修改标志位</span></span><br><span class="line">            c1.signal();    <span class="comment">// 唤醒</span></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -1989,22 +1989,22 @@
 
 
 <p>​        那么我们继续通过这种方式来通过 Callable 接口实现多线程可以吗？答案是不可以的。我们可以看到，在 Thread 的构造函数这一步出错了。</p>
-<img src="JUC/image-20210708205927767.png" alt="image-20210708205927767" style="zoom: 80%;" />
+<img src="/2021/07/03/JUC/image-20210708205927767.png" alt="image-20210708205927767" style="zoom: 80%;">
 
 <p>来看一下 Thread 的构造函数。</p>
-<p><img src="JUC/image-20210708210157359.png" alt="image-20210708210157359"></p>
+<p><img src="/2021/07/03/JUC/image-20210708210157359.png" alt="image-20210708210157359"></p>
 <p>​        <strong>Thread 的构造方法有多种重载形式，但是没有一种可以直接接收 Callable 类型的参数</strong>，所以我们就不能直接在构造 Thread 对象的时候就绑定 Callable 接口。那么如何通过 Thread 关联到 Callable 呢？这就需要有一个中间的传递者，它既能认识 Thread，又能认识 Callable。</p>
 <ol>
 <li><p> 首先要明确一点，Thread 的构造器不能接收 Callable 类型的参数，但是可以接收 Runnable 类型的参数。根据类的多态性，Thread 的构造方法同样可以接收 Runnable 的子类类型对象，比如 <strong>RunnableFuture</strong> ，这是 Runnable 接口的一个子接口。</p>
 </li>
 <li><p>在 RunnableFuture 接口的实现类中有一个 <strong>FutureTask</strong> 类，我么来看一下它的构造方法。</p>
-<p> <img src="JUC/image-20210708210859384.png" alt="image-20210708210859384"></p>
+<p> <img src="/2021/07/03/JUC/image-20210708210859384.png" alt="image-20210708210859384"></p>
 <p> 发现创建 FutureTask 时构造方法中可以传入一个 Runnable 对象或是 Callable 对象。 </p>
 </li>
 <li><p>  这时我们再来捋一捋，Thread 对象在创建时可以传入一个 Runnable 类型的对象，FutureTask 类的爷爷辈是 Runnable 接口，而 FutureTask 对象在创建时又需要一个 Callable 对象，这样我们就可以把 Callable 对象与 Thread 联系起来了。</p>
 </li>
 </ol>
-<img src="JUC/image-20210708211522773.png" alt="image-20210708211522773" style="zoom:80%;" />
+<img src="/2021/07/03/JUC/image-20210708211522773.png" alt="image-20210708211522773" style="zoom:80%;">
 
 <p>​    接下来改写我们的代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1、FutureTask 中的泛型类型应与 Callable 中线程执行体的返回值类型一致</span></span><br><span class="line"><span class="comment"> * 2、通过 FutureTask#get() 方法来获得 Callable 中线程执行体的返回值</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;String&gt;(<span class="keyword">new</span> <span class="title class_">Callable</span>&lt;String&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;==========Callable Start&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;==========Callable end&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask, <span class="string">&quot;Callable线程&quot;</span>).start();</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">while</span> (!futureTask.isDone())&#123;	</span><br><span class="line">            <span class="comment">// 如果 Callable 线程没有计算完毕，则 main 线程等待其算完后再进行下一步</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> futureTask.get();	<span class="comment">// 获得Callable线程的返回结果，如无必要，放在程序执行的最后，避免堵塞main线程</span></span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2019,9 +2019,9 @@
 <li>  <code>CountDownLatch</code> 是一种同步辅助工具，作用是<strong>让一个或多个线程挂起，直到另一些线程完成了一系列操作后被挂起的线程再被唤醒</strong>。</li>
 <li>  <code>CountDownLatch</code> 对象是用给定的计数器初始化的。<strong>调用 await 方法会使当前线程阻塞</strong>，调用 <strong>countDown()</strong> 方法会减少计数值，直到当前计数减为零之后，所有等待的线程都会被释放， await 方法的后面的代码会继续执行。</li>
 </ul>
-<p><img src="JUC/image-20210713124120349.png" alt="image-20210713124120349"></p>
+<p><img src="/2021/07/03/JUC/image-20210713124120349.png" alt="image-20210713124120349"></p>
 <hr>
-<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p><img src="JUC/image-20210713130528886.png" alt="image-20210713130528886"></p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p><img src="/2021/07/03/JUC/image-20210713130528886.png" alt="image-20210713130528886"></p>
 <ul>
 <li>  <strong>CountDownLatch#await()</strong> ：让当前线程进入等待，直到 latch 锁减到 0 再唤醒线程（每次减 1）。</li>
 <li>  <strong>CountDownLatch#countDown()</strong> ：减少 latch 锁的计数，如果计数达到 0  则释放所有等待的线程。</li>
@@ -2044,7 +2044,7 @@
 <blockquote>
 <p>  <strong>使用 CountDownLatch 优化后代码</strong></p>
 </blockquote>
-<p><img src="JUC/image-20210713131401299.png" alt="image-20210713131401299"></p>
+<p><img src="/2021/07/03/JUC/image-20210713131401299.png" alt="image-20210713131401299"></p>
 <p>首先创建一个 <code>CountDownLatch</code> 对象，初始化值计数为 5，下面的操作都是并发执行的。</p>
 <ul>
 <li>  假设先执行 for 循环，创建了第一个线程，之后线程被挂起，而去执行 mian 线程了；</li>
@@ -2072,7 +2072,7 @@
 <li>  集齐七颗龙珠，才能召唤神龙。</li>
 <li>  与 CountDownLatch 恰恰相反，CyclicBarrier 初始值为 0，只有达到指定值，才能开始执行。</li>
 </ul>
-<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p><img src="JUC/image-20210713141702447.png" alt="image-20210713141702447"></p>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p><img src="/2021/07/03/JUC/image-20210713141702447.png" alt="image-20210713141702447"></p>
 <blockquote>
 <p>  <strong>两个参数的含义</strong>：</p>
 </blockquote>
@@ -2105,7 +2105,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.juc.other;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Semaphore;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/13 14:44</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SemaphoreDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Semaphore</span> <span class="variable">semaphore</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Semaphore</span>(<span class="number">3</span>); <span class="comment">// 模拟3个车位</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++) &#123;  <span class="comment">// 模拟6部汽车</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    semaphore.acquire();    <span class="comment">/*抢到资源*/</span></span><br><span class="line">                    System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;====抢到车位&quot;</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">3000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">                    System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;====停车3s后离开&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                    semaphore.release();    <span class="comment">/*释放资源*/</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<img src="JUC/image-20210713144925160.png" alt="image-20210713144925160" style="zoom:80%;" />
+<img src="/2021/07/03/JUC/image-20210713144925160.png" alt="image-20210713144925160" style="zoom:80%;">
 
 <blockquote>
 <p>  <strong>结果分析：</strong></p>
@@ -2117,7 +2117,7 @@
 </ul>
 <hr>
 <h1 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h1><ul>
-<li>  <a href="">超链接：阻塞队列</a></li>
+<li>  <a href>超链接：阻塞队列</a></li>
 </ul>
 <hr>
 <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ul>
@@ -2141,7 +2141,7 @@
 </li>
 </ul>
 <hr>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p><img src="JUC/%E6%AD%BB%E9%94%81.png" alt="死锁"></p>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p><img src="/2021/07/03/JUC/%E6%AD%BB%E9%94%81.png" alt="死锁"></p>
 <p>死锁是指两个或两个以上的线程在执行过程中，因争夺资源而造成的一种<strong>互相等待的现象</strong>，若无外力干涉那它们都将无法推进下去。如果系统资源充足，线程的资源请求都能满足，死锁出现的可能性就很低，否则就会因为争夺优先的资源而陷入死锁。</p>
 <h2 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h2><ul>
 <li>  系统资源不足</li>
@@ -2150,7 +2150,7 @@
 </ul>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.juc.blk;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/16 11:23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lockA;</span><br><span class="line">    <span class="keyword">private</span> String lockB;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*构造注入*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyThread</span><span class="params">(String lockA, String lockB)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.lockA = lockA;</span><br><span class="line">        <span class="built_in">this</span>.lockB = lockB;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (lockA)&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;****自己持有&quot;</span> + lockA + <span class="string">&quot;，尝试获得：&quot;</span> + lockB);</span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">1000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            <span class="keyword">synchronized</span> (lockB)&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;****自己持有&quot;</span> + lockB + <span class="string">&quot;，尝试获得：&quot;</span> + lockA);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeadLock</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">lockA</span> <span class="operator">=</span> <span class="string">&quot;lockA&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">lockB</span> <span class="operator">=</span> <span class="string">&quot;lockB&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">MyThread</span>(lockA, lockB), <span class="string">&quot;T1&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">MyThread</span>(lockB, lockA), <span class="string">&quot;T2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="JUC/image-20210716115243510.png" alt="image-20210716115243510"></p>
+<p><img src="/2021/07/03/JUC/image-20210716115243510.png" alt="image-20210716115243510"></p>
 <p><strong>代码分析</strong></p>
 <ol>
 <li> main 线程启动，创建两个子线程 T1 和 T2。</li>
@@ -2247,11 +2247,11 @@
           <h1 id="1-类的初始化和实例化过程"><a href="#1-类的初始化和实例化过程" class="headerlink" title="1    类的初始化和实例化过程"></a>1    类的初始化和实例化过程</h1><blockquote>
 <p>  <strong>问题：</strong>下图所示代码的输出结果是什么？</p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210628141649356.png" alt="image-20210628141649356"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210628141649356.png" alt="image-20210628141649356"></p>
 <ul>
 <li>  输出结果：</li>
 </ul>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210628141540786.png" alt="image-20210628141540786"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210628141540786.png" alt="image-20210628141540786"></p>
 <blockquote>
 <p>  <strong>考点：</strong></p>
 </blockquote>
@@ -2352,7 +2352,7 @@
 <p>  <strong>分析：</strong></p>
 </blockquote>
 <p>i、j、k 都是局部变量，且均为基本类型的数据，所以都保存在栈中，随着栈帧入栈被加载，栈帧出栈被卸载</p>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/%E8%87%AA%E5%A2%9E%E5%8F%98%E9%87%8F.png" alt="自增变量"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/%E8%87%AA%E5%A2%9E%E5%8F%98%E9%87%8F.png" alt="自增变量"></p>
 <ol>
 <li><code>int i = 1</code><ul>
 <li>  在栈帧的局部变量表中分配一个插槽，用于保存整型变量 i 的值。</li>
@@ -2421,11 +2421,11 @@
 <h1 id="3-方法参数传递机制"><a href="#3-方法参数传递机制" class="headerlink" title="3    方法参数传递机制"></a>3    方法参数传递机制</h1><blockquote>
 <p>  <strong>问题：求下图中代码的输出结果</strong></p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702153407582.png" alt="image-20210702153407582"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702153407582.png" alt="image-20210702153407582"></p>
 <blockquote>
 <p>  <strong>答案：</strong></p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702153426620.png" alt="image-20210702153426620"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702153426620.png" alt="image-20210702153426620"></p>
 <blockquote>
 <p>  <strong>分析：</strong></p>
 </blockquote>
@@ -2436,7 +2436,7 @@
 <li>  在方法进行参数传递（实参 –&gt;&gt; 形参）时，是将要传递的参数从局部变量表复制一份到新方法的栈帧中的局部变量表中去。</li>
 <li>  方法中的变量均为局部变量，类中方法外的变量为成员变量。局部变量的作用范围仅仅在当前方法（当前栈帧）中。</li>
 </ul>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%9C%BA%E5%88%B6.png" alt="方法的参数传递机制"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E6%9C%BA%E5%88%B6.png" alt="方法的参数传递机制"></p>
 <p>程序开始执行，main() 方法首先被压入栈中，</p>
 <ul>
 <li>在 main() 方法中所在栈帧中，基础数据类型的变量直接保存在局部变量表中，其它类型的数据都只是把变量空间的地址值保存在变量表中。即：<ol>
@@ -2495,11 +2495,11 @@
 <h1 id="4-成员变量与局部变量"><a href="#4-成员变量与局部变量" class="headerlink" title="4    成员变量与局部变量"></a>4    成员变量与局部变量</h1><blockquote>
 <p>  <strong>问题：下图中代码的输出结果</strong></p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702154631649.png" alt="image-20210702154631649"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702154631649.png" alt="image-20210702154631649"></p>
 <blockquote>
 <p>  <strong>答案：</strong></p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702154708484.png" alt="image-20210702154708484"></p>
+<p><img src="/2021/06/28/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94JavaSE/image-20210702154708484.png" alt="image-20210702154708484"></p>
 <blockquote>
 <p>  <strong>分析</strong></p>
 </blockquote>
@@ -3026,7 +3026,7 @@
 <li> 类 A 通过接口 Interface1 依赖类 B ，类 C 通过接口 Interface1 依赖类 D ，如果接口 Interface1 对于类 A 和类 C 来说不是最小接口，那么类 B 和类 D 必须去实现他们不需要的方法。</li>
 <li>按隔离原则应当这样处理：<br> 将接口 Interface1 拆分为独立的几个接口，类 A 和类 C 分别与他们需要的接口建立依赖关系。也就是采用接口隔离原则</li>
 </ol>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/image-20210626165355427.png" alt="image-20210626165355427"></p>
+<p><img src="/2021/06/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/image-20210626165355427.png" alt="image-20210626165355427"></p>
 <h3 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h3><ol>
 <li> 类 A 通过接口 Interface1 依赖类 B，类 C 通过接口 Interface1 依赖类 D。请编写代码完成此应用实例。</li>
 <li> 看老师代码</li>
@@ -3213,7 +3213,7 @@
 </ul>
 <hr>
 <h2 id="2-2-TCP-为什么是三次握手，而不是两次"><a href="#2-2-TCP-为什么是三次握手，而不是两次" class="headerlink" title="2.2    TCP 为什么是三次握手，而不是两次"></a>2.2    TCP 为什么是三次握手，而不是两次</h2><p>答：如果是两次握手，可能会造成连接资源浪费的情况。</p>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98.png" alt="TCP两次握手存在的问题"></p>
+<p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98.png" alt="TCP两次握手存在的问题"></p>
 <p>网络是一种非常不稳定的资源，TCP 建立连接三次握手，断开连接四次挥手。</p>
 <p>假设只有两次握手，</p>
 <ul>
@@ -3293,7 +3293,7 @@
 <blockquote>
 <p>  BIO    同步阻塞IO</p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/BIO.png"></p>
+<p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/BIO.png"></p>
 <ol>
 <li><p>当有一个客户端向服务器发起请求时，服务器就调用一个线程去处理这个请求。</p>
 </li>
@@ -3313,7 +3313,7 @@
 <blockquote>
 <p>  NIO    同步非阻塞IO</p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NIO.png"></p>
+<p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NIO.png"></p>
 <p>为了解决服务器一次开启多个线程压力过大的问题。JDK 1.4 中新增了 <strong>Selector</strong>，用于接收多个请求，并决定处理这些请求的优先级。这样就可以实现服务端线程与客户端请求的一对多关系，在一定程度上解决了BIO模式下服务器压力过大的问题。</p>
 <blockquote>
 <p>可靠性比较好</p>
@@ -3323,7 +3323,7 @@
 <blockquote>
 <p>  <strong>AIO    异步非阻塞IO</strong></p>
 </blockquote>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/AIO.png"></p>
+<p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/AIO.png"></p>
 <p>AIO 又解决了 NIO 模型服务端需要一直守着线程的这个问题。可靠性最好，吞吐量也是非常高的，适用于连接比较多，并且连接比较长的场景（重操作）。例如：相册服务器。从JDK 7版本开始支持。</p>
 <p>客户端在发送完请求后，可以执行任何操作，不需要一直等待或每隔一段时间来询问服务器请求是否处理完毕。相应的服务器在处理完请求后，会将处理结果保存到一个队列中，并逐一发送通知给请求的客户端，客户端在接收到通知后获取返回消息即可。</p>
 <blockquote>
@@ -3560,14 +3560,14 @@
 </li>
 </ul>
 <hr>
-<h3 id="2-2-2-什么是指令重排？"><a href="#2-2-2-什么是指令重排？" class="headerlink" title="2.2.2    什么是指令重排？"></a>2.2.2    什么是指令重排？</h3><p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png"></p>
+<h3 id="2-2-2-什么是指令重排？"><a href="#2-2-2-什么是指令重排？" class="headerlink" title="2.2.2    什么是指令重排？"></a>2.2.2    什么是指令重排？</h3><p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png"></p>
 <ol>
 <li>在计算机中，CPU 负责数据的计算功能，可以直接从内存中读取数据。</li>
 <li>假设 CPU 按照上图 1~4 序号的顺序执行，在执行完第 1 阶段后，CPU 需要从内存中读取数据，从向内存发送读取数据的请求到内存返回数据给 CPU 需要花费一定的时间，那么这段时间 CPU 就是处于空闲状态的。</li>
 <li>上图中第 3 阶段是 CPU 自给自足，根据自身有的数据进行计算，也需要花费一定的时间。</li>
 <li>那什么是指令重排呢？就是将本来第3阶段要执行的任务提前到1、2阶段之间，因为这段时间CPU是空闲的。实际上 CPU 也是这么干的。</li>
 </ol>
-<h4 id="2-2-2-1-Java创建对象过程中CPU进行的操作"><a href="#2-2-2-1-Java创建对象过程中CPU进行的操作" class="headerlink" title="2.2.2.1    Java创建对象过程中CPU进行的操作"></a>2.2.2.1    Java创建对象过程中CPU进行的操作</h4><p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
+<h4 id="2-2-2-1-Java创建对象过程中CPU进行的操作"><a href="#2-2-2-1-Java创建对象过程中CPU进行的操作" class="headerlink" title="2.2.2.1    Java创建对象过程中CPU进行的操作"></a>2.2.2.1    Java创建对象过程中CPU进行的操作</h4><p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
 <p>Java 创建对象的过程：</p>
 <ol>
 <li>在堆中划分一块空间用于存储对象并赋初值。</li>
@@ -3595,7 +3595,7 @@
 <p>  ​        而偏向锁、轻量锁、重量锁也是一个锁围绕着如何使得程序运行的更加“划算”而进行改变的。</p>
 </li>
 </ul>
-<h3 id="3-1-2-对象头"><a href="#3-1-2-对象头" class="headerlink" title="3.1.2    对象头"></a>3.1.2    对象头</h3><p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/20190415101813830.png"></p>
+<h3 id="3-1-2-对象头"><a href="#3-1-2-对象头" class="headerlink" title="3.1.2    对象头"></a>3.1.2    对象头</h3><p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/20190415101813830.png"></p>
 <p>HotSpot 中，对象在堆内存中的布局可以分为三块部分：</p>
 <blockquote>
 <ol>
@@ -3606,7 +3606,7 @@
 </blockquote>
 <p>​        其中对象头（Object Header）主要包括两部分信息，第一部分用于存储对象自身的运行时数据， 如哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等等，这部分数据的长度在32位和64位的虚拟机（暂不考虑开启压缩指针的场景）中分别为 32bits 和 64Bits，官方称它为“Mark Word”。</p>
 <p>​        在 HotSpot 虚拟机中对象未被锁定的状态下，Mark Word 的32个Bits 空间中的25Bits用于存储对象哈希码（HashCode），4Bits用于存储对象分代年龄，2Bits 用于存储锁标志位，1Bit 固定为0，在其他状态（轻量级锁定、重量级锁定、GC标记、可偏向）下对象的存储内容如上图所示。 </p>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20210507174841595.png" alt="image-20210507174841595"></p>
+<p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20210507174841595.png" alt="image-20210507174841595"></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- OFFSET 代表偏移量（其实就是相对于起点的位置）</span></span><br><span class="line"><span class="comment">-- SIZE 代表每一部分的字节数（这里每一部分为4bytes）</span></span><br><span class="line"><span class="comment">-- TYPE DESCRIPTION 类型描述：1、object header，对象头  2、loss due to the next object alignment 补位数据，为了补满一个对象占用的64bits设置的空数据</span></span><br><span class="line"></span><br><span class="line">一个对象占<span class="number">16</span>字节（<span class="number">16</span>bytes），共 <span class="number">128</span> 位（<span class="number">16</span><span class="operator">*</span><span class="number">8</span> bits）</span><br><span class="line"></span><br><span class="line">第一个 <span class="number">4</span>bytes 就是对象在堆内存中的标志位，也叫做 MarkWord，作用就是记录整个对象的一些状态信息，其中也包括锁的状态信息。</span><br><span class="line">	MarkWord 占 <span class="number">32</span>bits（<span class="number">4</span>bytes），</span><br><span class="line">	锁状态的标志位在 <span class="number">31</span><span class="operator">~</span><span class="number">32</span> 位，可以看到，对象加锁和未加锁的区别仅仅是在 <span class="number">31</span><span class="operator">~</span><span class="number">32</span>bit 之间不同，剩余其它部分都是相同的。</span><br><span class="line">	在上图中，未加锁时 <span class="number">30</span><span class="operator">~</span><span class="number">32</span> 比特的二进制编码是 “<span class="number">01</span>”，加锁后变成了 “<span class="number">00</span>”，也就是说，我们通过 synchronized 关键字给对象加了一个轻量级锁。</span><br><span class="line">	</span><br><span class="line">第二个 <span class="number">4</span>bytes 的作用就是指向方法区的一个 Class 对象；</span><br><span class="line">第三个 <span class="number">4</span>bytes 保存一些成员变量的信息</span><br><span class="line">第四个 <span class="number">4</span>bytes 保存一些补位数据，保证对象能被 <span class="number">8</span>bits 整除。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -3820,7 +3820,7 @@
 <p>  <strong>提出问题：</strong></p>
 </blockquote>
 <p>​        在 Java 程序中，我们总是使用 <code>System.out.println();</code> 用于展示输出结果，但是追踪源码我们会发现 <code>print()</code> 方法位于 <strong>PrintStream</strong> 类中，而我们却总是使用 System 中的 out 属性（即 <code>System.out</code> ）来调用 <code>print()</code> 方法，这就说明 <code>System.out</code> 其实指向了一个 PrintStream 类对应的实例对象。查看 <strong>System</strong> 类的源码可以看到：<strong>out</strong> 是一个 PrintStream 类型的实例对象，并且在 System 类中提供了 set 方法用于创建该对象。</p>
-<p><img src="Java%E4%B8%ADprint%E3%80%81println%E3%80%81printf%E7%9A%84%E5%8C%BA%E5%88%AB/image-20210627151759843.png" alt="image-20210627151759843"></p>
+<p><img src="/2021/06/27/Java%E4%B8%ADprint%E3%80%81println%E3%80%81printf%E7%9A%84%E5%8C%BA%E5%88%AB/image-20210627151759843.png" alt="image-20210627151759843"></p>
 <p>​        所以可以得出一个结论：<code>System.out</code> 就等价于一个 PrintStream 类的实例对象。</p>
 <hr>
 <h2 id="2-print、println、printf-的区别"><a href="#2-print、println、printf-的区别" class="headerlink" title="2    print、println、printf 的区别"></a>2    print、println、printf 的区别</h2><ul>
@@ -3840,7 +3840,7 @@
 <li>  对于 <code>println()</code> 这个空参的方法，输出结果仅仅起到一个换行的作用。</li>
 <li>  而对于 <code>printf()</code> 方法，最少都有两个参数，一个参数用于接收含有占位符的字符串，而另一个参数则主要用于给占位符赋值等操作。</li>
 </ul>
-<p><img src="Java%E4%B8%ADprint%E3%80%81println%E3%80%81printf%E7%9A%84%E5%8C%BA%E5%88%AB/image-20210627145315659.png" alt="image-20210627145315659"></p>
+<p><img src="/2021/06/27/Java%E4%B8%ADprint%E3%80%81println%E3%80%81printf%E7%9A%84%E5%8C%BA%E5%88%AB/image-20210627145315659.png" alt="image-20210627145315659"></p>
 <blockquote>
 <p>  <strong>部分源码（JDK8）</strong></p>
 </blockquote>
@@ -3873,7 +3873,7 @@
 <hr>
 <h2 id="3-测试用例"><a href="#3-测试用例" class="headerlink" title="3    测试用例"></a>3    测试用例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> <span class="number">13</span>;</span><br><span class="line">        <span class="type">double</span> <span class="variable">num2</span> <span class="operator">=</span> <span class="number">7.36</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*  println() 方法：标准输出 + 自动换行  */</span></span><br><span class="line">        System.out.println(<span class="string">&quot;AAA&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;BBB&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;CCC\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*  print() 方法：标准输出（不自动换行）    */</span></span><br><span class="line">        System.out.print(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;bbb&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;ccc\n&quot;</span>);	<span class="comment">// 可以加转义字符进行手动换行</span></span><br><span class="line"></span><br><span class="line">        System.out.println();   <span class="comment">// 直接输出空的 println() 方法就相当于自动换行</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*  printf() 方法：格式化输出  */</span></span><br><span class="line">        System.out.printf(<span class="string">&quot;树上吊着%d只大马猴\n&quot;</span>, num1);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="Java%E4%B8%ADprint%E3%80%81println%E3%80%81printf%E7%9A%84%E5%8C%BA%E5%88%AB/image-20210510105800973.png" alt="image-20210510105800973"></p>
+<p><img src="/2021/06/27/Java%E4%B8%ADprint%E3%80%81println%E3%80%81printf%E7%9A%84%E5%8C%BA%E5%88%AB/image-20210510105800973.png" alt="image-20210510105800973"></p>
 <h2 id="4-构造方法"><a href="#4-构造方法" class="headerlink" title="4    构造方法"></a>4    构造方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrintStream</span> <span class="keyword">extends</span> <span class="title class_">FilterOutputStream</span> <span class="keyword">implements</span> <span class="title class_">Appendable</span>, Closeable</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    	<span class="comment">/**</span></span><br><span class="line"><span class="comment">         * print() 方法：  直接在控制台上打印参数中的字符串，不换行</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> s</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (s == <span class="literal">null</span>) &#123;</span><br><span class="line">            s = <span class="string">&quot;null&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        write(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    	<span class="comment">/**</span></span><br><span class="line"><span class="comment">         * println() 方法：  在控制台上打印参数中的字符串，并且在打印完成后末尾加上换行</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> x</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">println</span><span class="params">(String x)</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">            print(x);</span><br><span class="line">            newLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    	<span class="comment">/**</span></span><br><span class="line"><span class="comment">         * printf() 方法：  在控制台上打印格式化输出后的字符串。</span></span><br><span class="line"><span class="comment">         *      可以接收两个参数：</span></span><br><span class="line"><span class="comment">         *          String format   要打印在控制台上的内容，参数部分用指定的格式保留（类似于插值表达式）</span></span><br><span class="line"><span class="comment">         *          Object args    将真正的参数 args 按顺序插入到 format 中保留的位置中</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> format</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    <span class="keyword">public</span> PrintStream <span class="title function_">printf</span><span class="params">(String format, Object ... args)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> format(format, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 

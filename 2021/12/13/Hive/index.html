@@ -27,25 +27,25 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="官网地址：https:&#x2F;&#x2F;hive.apache.org&#x2F; 第1章 Hive入门1.1 什么是HiveHive 是一个由 Facebook 开源的用于解决海量结构化数据统计分析的框架。 Hive 只能分析结构化的数据。所以在使用 Hive 之前，需要先对非结构化数据进行 ETL ，转换为结构化的数据。 Hive 是基于 Hadoop 的一个数据仓库工具，可以将结构化的数据文件映射为一张表，并提供类">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/clip_image002.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20220124205740685.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/clip_image002-1639754524896.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/clip_image006.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211219121900037.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211219223705371.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220102736063.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220102924703.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220103704244.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220114355694.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220122413669.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220125128806.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220125548362.png">
-<meta property="og:image" content="http://example.com/2021/12/13/Hive/Hive/image-20211220175855162.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/clip_image002.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20220124205740685.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/clip_image002-1639754524896.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/clip_image006.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211219121900037.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211219223705371.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220102736063.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220102924703.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220103704244.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220114355694.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220122413669.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220125128806.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220125548362.png">
+<meta property="og:image" content="http://example.com/2021/12/13/Hive/image-20211220175855162.png">
 <meta property="article:published_time" content="2021-12-13T08:21:50.000Z">
 <meta property="article:modified_time" content="2022-01-30T04:59:33.282Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/12/13/Hive/Hive/clip_image002.png">
+<meta name="twitter:image" content="http://example.com/2021/12/13/Hive/clip_image002.png">
 
 
 <link rel="canonical" href="http://example.com/2021/12/13/Hive/">
@@ -147,7 +147,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -249,7 +249,7 @@
 <p>Hive 只能分析结构化的数据。所以在使用 Hive 之前，需要先对非结构化数据进行 ETL ，转换为结构化的数据。</p>
 <p>Hive 是基于 Hadoop 的一个数据仓库工具，可以将结构化的数据文件映射为一张表，并提供类 SQL 查询功能。</p>
 <p><strong>Hive 的底层实现原理是：将 HQL 转化成 MapReduce 程序执行。</strong></p>
-<p><img src="Hive/clip_image002.png" alt="img">   </p>
+<p><img src="/2021/12/13/Hive/clip_image002.png" alt="img">   </p>
 <ol>
 <li> Hive 处理的数据存储在 HDFS 上。</li>
 <li> Hive 分析数据底层的实现是 MapReduce</li>
@@ -262,7 +262,7 @@
 <li>  <code>dbs</code>：存放库相关的元数据信息</li>
 <li>  <code>column_v2</code>：存放列相关的元数据信息 </li>
 </ul>
-<p><img src="Hive/image-20220124205740685.png" alt="image-20220124205740685"></p>
+<p><img src="/2021/12/13/Hive/image-20220124205740685.png" alt="image-20220124205740685"></p>
 <hr>
 <h2 id="1-2-Hive的优缺点"><a href="#1-2-Hive的优缺点" class="headerlink" title="1.2 Hive的优缺点"></a>1.2 Hive的优缺点</h2><h3 id="1-2-1-优点"><a href="#1-2-1-优点" class="headerlink" title="1.2.1 优点"></a>1.2.1 优点</h3><ol>
 <li> 操作接口采用类SQL语法，提供快速开发的能力（简单、容易上手）。</li>
@@ -285,7 +285,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="1-3-Hive架构原理"><a href="#1-3-Hive架构原理" class="headerlink" title="1.3 Hive架构原理"></a>1.3 Hive架构原理</h2><p><img src="Hive/clip_image002-1639754524896.png" alt="img"></p>
+<h2 id="1-3-Hive架构原理"><a href="#1-3-Hive架构原理" class="headerlink" title="1.3 Hive架构原理"></a>1.3 Hive架构原理</h2><p><img src="/2021/12/13/Hive/clip_image002-1639754524896.png" alt="img"></p>
 <ol>
 <li><strong>用户接口：Client</strong><ul>
 <li>  CLI（Hive shell）、JDBC/ODBC（Java 访问 Hive）、WEBUI（浏览器访问 Hive）</li>
@@ -308,7 +308,7 @@
 </ul>
 </li>
 </ol>
-<p><img src="Hive/clip_image006.png" alt="img"></p>
+<p><img src="/2021/12/13/Hive/clip_image006.png" alt="img"></p>
 <p>Hive 通过给用户提供的一系列交互接口，接收到用户的**指令(SQL)<strong>，使用自己的 <strong>Driver</strong>，结合</strong>元数据(MetaStore)**，将这些指令翻译成 MapReduce Job，提交到 Hadoop 中执行，最后，将执行返回的结果输出到用户交互接口。</p>
 <hr>
 <h2 id="1-4-Hive和数据库比较"><a href="#1-4-Hive和数据库比较" class="headerlink" title="1.4 Hive和数据库比较"></a>1.4 Hive和数据库比较</h2><p>由于 Hive 采用了类 SQL 查询语言 <code>HQL(Hive Query Language)</code>，因此很容易将 Hive 理解为数据库。其实从结构上来看，Hive 和数据库除了拥有类似的查询语言，再无类似之处。本文将从多个方面来阐述 Hive 和数据库的差异。数据库可以用在 Online 的应用中，但是Hive 是为数据仓库而设计的，清楚这一点，有助于从应用角度理解 Hive 的特性。</p>
@@ -481,7 +481,7 @@
 <li><p>创建数据库时手动指定数据库在 HDFS 上的存储路径。</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; </span><br><span class="line">create database db_hive2 \</span><br><span class="line">location &#x27;/custom_hive.db&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p> <img src="Hive/image-20211219121900037.png" alt="image-20211219121900037"></p>
+<p> <img src="/2021/12/13/Hive/image-20211219121900037.png" alt="image-20211219121900037"></p>
 </li>
 </ol>
 <hr>
@@ -816,15 +816,15 @@
 <h5 id="新增分区（方式一）："><a href="#新增分区（方式一）：" class="headerlink" title="新增分区（方式一）："></a>新增分区（方式一）：</h5><p>在给分区表新增分区时：</p>
 <ol>
 <li><p>在 HDFS 上会生成分区路径。查看 HDFS 的分区目录结构：</p>
-<p> <img src="Hive/image-20211219223705371.png" alt="image-20211219223705371"></p>
+<p> <img src="/2021/12/13/Hive/image-20211219223705371.png" alt="image-20211219223705371"></p>
 </li>
 <li><p>在 MySQL 中的 <code>metastore.partitions</code> 表中会生成分区相关的元数据信息</p>
-<p> <img src="Hive/image-20211220102736063.png" alt="image-20211220102736063"></p>
+<p> <img src="/2021/12/13/Hive/image-20211220102736063.png" alt="image-20211220102736063"></p>
 <ul>
 <li>  <strong>PART_NAME</strong>：保存了分区列的信息；</li>
 <li>  <strong>TBL_ID</strong>：指定了分区所在的表的 ID，对应 <code>TBLS</code>表的主键</li>
 </ul>
-<p> <img src="Hive/image-20211220102924703.png" alt="image-20211220102924703"></p>
+<p> <img src="/2021/12/13/Hive/image-20211220102924703.png" alt="image-20211220102924703"></p>
 </li>
 </ol>
 <h5 id="增加分区（方式二）"><a href="#增加分区（方式二）" class="headerlink" title="增加分区（方式二）"></a>增加分区（方式二）</h5><p>我们还可以直接使用 <code>load</code> 命令向分区加载数据，如果分区不存在，load 时会自动帮我们生成分区</p>
@@ -840,7 +840,7 @@
 <ul>
 <li>  在 HDFS 上查看上传的数据文件</li>
 </ul>
-<p><img src="Hive/image-20211220103704244.png" alt="image-20211220103704244"></p>
+<p><img src="/2021/12/13/Hive/image-20211220103704244.png" alt="image-20211220103704244"></p>
 <h4 id="6、查询分区表"><a href="#6、查询分区表" class="headerlink" title="6、查询分区表"></a>6、查询分区表</h4><ol>
 <li><p>将数据导入到指定的分区之后，数据会额外附加上分区列的信息。</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select * from dept_partition;</span><br><span class="line">OK</span><br><span class="line">dept_partition.deptno	dept_partition.dname	dept_partition.loc	dept_partition.month</span><br><span class="line">NULL	1700	NULL	202110</span><br><span class="line">20	RESEARCH	1800	202110</span><br><span class="line">30	SALES	1900	202110</span><br><span class="line">40	OPERATIONS	1700	202110</span><br><span class="line">Time taken: 0.47 seconds, Fetched: 4 row(s)</span><br><span class="line"></span><br><span class="line"># 分区列 dept_partition.month 的信息在源数据文件中是没有的，是在将数据分区表之后由 Hive 自动生成的</span><br></pre></td></tr></table></figure>
@@ -890,7 +890,7 @@
 <ul>
 <li>  对应的目录结构就是三级目录：<strong>表目录/一级分区目录/二级分区目录</strong>，在 HDFS 上的结构如下：</li>
 </ul>
-<p> <img src="Hive/image-20211220114355694.png" alt="image-20211220114355694"></p>
+<p> <img src="/2021/12/13/Hive/image-20211220114355694.png" alt="image-20211220114355694"></p>
 <ul>
 <li>Tip：如果是多级分区表，数据必须位于最内层目录下。</li>
 </ul>
@@ -994,7 +994,7 @@
 <li><p>导入数据到分桶表中</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; load data local inpath &#x27;/opt/module/datas/student.txt&#x27; into table  stu_buck;</span><br></pre></td></tr></table></figure></li>
 <li><p>查看创建的分桶表中是否分成4个桶。</p>
-<p> <img src="Hive/image-20211220122413669.png" alt="image-20211220122413669"></p>
+<p> <img src="/2021/12/13/Hive/image-20211220122413669.png" alt="image-20211220122413669"></p>
 <blockquote>
 <p>  发现并没有分成 4 个桶。是什么原因呢？</p>
 <ul>
@@ -1014,7 +1014,7 @@
 <li><p>通过子查询的方式导入数据到分桶表。</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into table stu_buck select id, name from stu;  </span><br></pre></td></tr></table></figure></li>
 <li><p>发现还是只有一个分桶</p>
-<p> <img src="Hive/image-20211220125128806.png" alt="image-20211220125128806"></p>
+<p> <img src="/2021/12/13/Hive/image-20211220125128806.png" alt="image-20211220125128806"></p>
 </li>
 <li><p>需要设置一个属性</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 1、打开强制分桶开关：</span><br><span class="line">hive  (default)&gt; set hive.enforce.bucketing=true;</span><br><span class="line"># 2、mapreduce.job.reduces=-1 表示默认值，表示 Hive 会读取分桶表的设置的 numBuckets 来设置分桶值，</span><br><span class="line"># 但是该参数生效的前提是必须打开分桶开关</span><br><span class="line">hive  (default)&gt; set mapreduce.job.reduces=-1;  </span><br><span class="line">hive  (default)&gt; insert into table stu_buck  select  id, name from stu;  </span><br></pre></td></tr></table></figure></li>
@@ -1022,7 +1022,7 @@
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select * from stu_buck;</span><br><span class="line">OK</span><br><span class="line">stu_buck.id	stu_buck.name</span><br><span class="line">1016	ss16</span><br><span class="line">1012	ss12</span><br><span class="line">1008	ss8</span><br><span class="line">1004	ss4</span><br><span class="line">1009	ss9</span><br><span class="line">1005	ss5</span><br><span class="line">1001	ss1</span><br><span class="line">1013	ss13</span><br><span class="line">1010	ss10</span><br><span class="line">1002	ss2</span><br><span class="line">1006	ss6</span><br><span class="line">1014	ss14</span><br><span class="line">1003	ss3</span><br><span class="line">1011	ss11</span><br><span class="line">1007	ss7</span><br><span class="line">1015	ss15</span><br><span class="line">Time taken: 0.043 seconds, Fetched: 16 row(s)</span><br></pre></td></tr></table></figure></li>
 <li><p>查看 HDFS 上的分桶结果</p>
 <p> 表中的所有数据现在都根据 <code>id</code> 的 Hash 值分散在四个桶中了。Hash 是采用 MapReduce 默认的 Hash 分区器。</p>
-<p> <img src="Hive/image-20211220125548362.png" alt="image-20211220125548362"></p>
+<p> <img src="/2021/12/13/Hive/image-20211220125548362.png" alt="image-20211220125548362"></p>
 </li>
 </ol>
 <hr>
@@ -1218,7 +1218,7 @@
 
 <ul>
 <li><p>查看 HDFS 上的文件结构</p>
-<p>  <img src="Hive/image-20211220175855162.png" alt="image-20211220175855162"></p>
+<p>  <img src="/2021/12/13/Hive/image-20211220175855162.png" alt="image-20211220175855162"></p>
 </li>
 </ul>
 <hr>

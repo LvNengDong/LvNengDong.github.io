@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="HDFS 概述分布式文件管理系统随着数据量越来越大，在一个机器上存不下所有的数据，就需要把数据分配到更多的机器中，但是这样又不方便管理和维护，所以我们迫切需要一种系统来管理多台机器上的文件，这就是分布式文件管理系统。HDFS 是分布式文件管理系统中的一种落地实现。  HDFS 定义HDFS（Hadoop Distribute FileSystem）    Hadoop 分布式文件系统，本质上还是一">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20210219125213030.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20210219125238273.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20210225211305080.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20210219131335414.png?lastModify=1637670391">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20210219130216472.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211124095328168.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211124095406232.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211124173109470.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211124184155174.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211124210327466.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211125112723407.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211125115010253.png">
-<meta property="og:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20211126180438535.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20210219125213030.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20210219125238273.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20210225211305080.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20210219131335414.png?lastModify=1637670391">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20210219130216472.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211124095328168.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211124095406232.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211124173109470.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211124184155174.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211124210327466.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211125112723407.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211125115010253.png">
+<meta property="og:image" content="http://example.com/2021/02/08/HDFS/image-20211126180438535.png">
 <meta property="article:published_time" content="2021-02-08T11:48:38.000Z">
 <meta property="article:modified_time" content="2021-12-14T09:17:41.660Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/02/08/HDFS/HDFS/image-20210219125213030.png">
+<meta name="twitter:image" content="http://example.com/2021/02/08/HDFS/image-20210219125213030.png">
 
 
 <link rel="canonical" href="http://example.com/2021/02/08/HDFS/">
@@ -146,7 +146,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -262,11 +262,11 @@
 <ul>
 <li>  （1）数据自动创建多个副本中。它通过增加副本的形式，提高容错性。</li>
 </ul>
-<p><img src="HDFS/image-20210219125213030.png" alt="image-20210219125213030"></p>
+<p><img src="/2021/02/08/HDFS/image-20210219125213030.png" alt="image-20210219125213030"></p>
 <ul>
 <li>  （2）某一个副本丢失以后 ，它可以自动恢复，使副本数量维持预设置的数量。</li>
 </ul>
-<p><img src="HDFS/image-20210219125238273.png" alt="image-20210219125238273"></p>
+<p><img src="/2021/02/08/HDFS/image-20210219125238273.png" alt="image-20210219125238273"></p>
 <blockquote>
 <p>  HDFS 的副本自动恢复机制：</p>
 <ul>
@@ -324,7 +324,7 @@
 
 
 <h4 id="4、不支持并发写入、文件随机修改"><a href="#4、不支持并发写入、文件随机修改" class="headerlink" title="4、不支持并发写入、文件随机修改"></a>4、不支持并发写入、文件随机修改</h4><p>同一文件在同一时刻只能由一个线程写入，不允许多个线程同时写。假设线程 A 正在上传<code>ss.txt</code>文件，那么在线程 A 开始上传到结束之间，其它线程不能再上传<code>ss.txt</code>文件</p>
-<p><img src="HDFS/image-20210225211305080.png" alt="image-20210225211305080"></p>
+<p><img src="/2021/02/08/HDFS/image-20210225211305080.png" alt="image-20210225211305080"></p>
 <hr>
 <h2 id="HDFS-块大小"><a href="#HDFS-块大小" class="headerlink" title="HDFS 块大小"></a>HDFS 块大小</h2><p>HDFS 中的文件在物理上是分块存储（Block），块的大小由 <code>hdfs-default.xml </code>配置文件中的参数 <code>dfs.blocksize</code> 来决定。</p>
 <ul>
@@ -361,7 +361,7 @@
 <li> 图示</li>
 </ol>
 </blockquote>
-<p><img src="HDFS/image-20210219131335414.png?lastModify=1637670391" alt="image-20210219131335414"></p>
+<p><img src="/2021/02/08/HDFS/image-20210219131335414.png?lastModify=1637670391" alt="image-20210219131335414"></p>
 <p><strong>总结：HDFS块的大小设置主要取决于磁盘传输速率。</strong></p>
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><blockquote>
 <ol>
@@ -383,7 +383,7 @@
 </blockquote>
 <p> 意思是即使当前 block 只占用了几 kb，还有很大的剩余内存，但是也不能存储其它文件的内容。</p>
 <hr>
-<h1 id="HDFS-体系结构"><a href="#HDFS-体系结构" class="headerlink" title="HDFS 体系结构"></a>HDFS 体系结构</h1><p><img src="HDFS/image-20210219130216472.png" alt="image-20210219130216472"></p>
+<h1 id="HDFS-体系结构"><a href="#HDFS-体系结构" class="headerlink" title="HDFS 体系结构"></a>HDFS 体系结构</h1><p><img src="/2021/02/08/HDFS/image-20210219130216472.png" alt="image-20210219130216472"></p>
 <p><strong>一、NameNode</strong>：就是Master，它是一个主管、管理者。</p>
 <ol>
 <li> 管理HDFS的名称空间；</li>
@@ -536,10 +536,10 @@
 <li><p> 在 Windows 上安装 Hadoop 客户端。</p>
 </li>
 <li><p>配置 HADOOP_HOME 环境变量</p>
-<p> <img src="HDFS/image-20211124095328168.png" alt="image-20211124095328168"></p>
+<p> <img src="/2021/02/08/HDFS/image-20211124095328168.png" alt="image-20211124095328168"></p>
 </li>
 <li><p>配置 PATH 环境变量。然后重启电脑。</p>
-<p> <img src="HDFS/image-20211124095406232.png" alt="image-20211124095406232"></p>
+<p> <img src="/2021/02/08/HDFS/image-20211124095406232.png" alt="image-20211124095406232"></p>
 </li>
 <li><p>测试</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt;hadoop version</span><br><span class="line">Hadoop <span class="number">2.7</span><span class="number">.2</span></span><br><span class="line">Subversion https:<span class="comment">//git-wip-us.apache.org/repos/asf/hadoop.git -r b165c4fe8a74265c792ce23f546c64604acf0e41</span></span><br><span class="line">Compiled by jenkins on <span class="number">2016</span>-<span class="number">01</span>-26T00:08Z</span><br><span class="line">Compiled with protoc <span class="number">2.5</span><span class="number">.0</span></span><br><span class="line">From source with checksum d0fda26633fa762bff87ec759ebe689c</span><br><span class="line">This command was run using /D:/Software/Dev/hadoop-<span class="number">2.7</span><span class="number">.2</span>/share/hadoop/common/hadoop-common-<span class="number">2.7</span><span class="number">.2</span>.jar</span><br></pre></td></tr></table></figure></li>
@@ -600,7 +600,7 @@
 
 <p><strong>配置文件</strong></p>
 <p>在我们引入 Hadoop 相关的 Maven 依赖时，这些依赖中就已经包含了 Hadoop 四个常用的配置文件，所以在创建 <code>new Configuration()</code> 对象时首先会加载这四个配置文件得到 <code>configuration</code> 对象。如果想要得到加载自定义配置文件的 <code>configuration</code> 对象，就需要在类路径下创建对应的 <code>xxx-site.xml</code> 配置文件来重写默认配置文件中的属性。</p>
-<p><img src="HDFS/image-20211124173109470.png" alt="image-20211124173109470"></p>
+<p><img src="/2021/02/08/HDFS/image-20211124173109470.png" alt="image-20211124173109470"></p>
 <ul>
 <li><p>举例：</p>
   <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在 core-default.xml 配置文件中使用的是本地文件系统，即</span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:///<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">如果我们想要使用 HDFS 的分布式文件系统，就需要在类路径下创建一个 core-site.xml 文件，覆盖原先的配置。</span><br><span class="line">这时我们再通过 `new Configuration()` 得到的对象就是一个分布式文件系统的配置对象。</span><br></pre></td></tr></table></figure></li>
@@ -715,7 +715,7 @@
 
 
 <hr>
-<h1 id="HDFS的数据流"><a href="#HDFS的数据流" class="headerlink" title="HDFS的数据流"></a>HDFS的数据流</h1><h2 id="HDFS-写数据流程"><a href="#HDFS-写数据流程" class="headerlink" title="HDFS 写数据流程"></a>HDFS 写数据流程</h2><p><img src="HDFS/image-20211124184155174.png" alt="image-20211124184155174"></p>
+<h1 id="HDFS的数据流"><a href="#HDFS的数据流" class="headerlink" title="HDFS的数据流"></a>HDFS的数据流</h1><h2 id="HDFS-写数据流程"><a href="#HDFS-写数据流程" class="headerlink" title="HDFS 写数据流程"></a>HDFS 写数据流程</h2><p><img src="/2021/02/08/HDFS/image-20211124184155174.png" alt="image-20211124184155174"></p>
 <ol>
 <li><p> 服务端：启动 NameNode 和 DataNode；</p>
 </li>
@@ -767,7 +767,7 @@
 <li> 只要有一个 DataNode 节点收到了数据，DataNode 上报 NameNode 已经收完此块，NameNode 就认为当前块已经传输成功了。至于其它的 DataNode 节点可能未收到完整数据，NameNode 会在之后空闲的时候自动维护副本数！</li>
 </ol>
 <hr>
-<h2 id="HDFS-读数据流程"><a href="#HDFS-读数据流程" class="headerlink" title="HDFS 读数据流程"></a>HDFS 读数据流程</h2><p><img src="HDFS/image-20211124210327466.png" alt="image-20211124210327466"></p>
+<h2 id="HDFS-读数据流程"><a href="#HDFS-读数据流程" class="headerlink" title="HDFS 读数据流程"></a>HDFS 读数据流程</h2><p><img src="/2021/02/08/HDFS/image-20211124210327466.png" alt="image-20211124210327466"></p>
 <ol>
 <li> 服务端启动 HDFS 中的 NameNode 和 DataNode 进程；</li>
 <li> 客户端创建一个分布式文件系统客户端 <code>DistributedFileSystem</code>，由客户端向 NameNode 发送请求，请求下载文件；</li>
@@ -786,7 +786,7 @@
 <hr>
 <h2 id="网络拓扑-节点距离计算"><a href="#网络拓扑-节点距离计算" class="headerlink" title="网络拓扑-节点距离计算"></a>网络拓扑-节点距离计算</h2><p>在 HDFS 写数据的过程中，NameNode 会选择距离待上传数据最近的 DataNode （也就是距离发起上传的客户端最近的 DataNode）接收数据。那么这个最近距离怎么计算呢？</p>
 <p><strong>节点距离：两个节点到达最近的共同祖先的距离总和。</strong>  </p>
-<p><img src="HDFS/image-20211125112723407.png" alt="image-20211125112723407"></p>
+<p><img src="/2021/02/08/HDFS/image-20211125112723407.png" alt="image-20211125112723407"></p>
 <h2 id="机架感知"><a href="#机架感知" class="headerlink" title="机架感知"></a>机架感知</h2><p><strong>Hadoop 2.7.2 默认的机架感知策略：</strong></p>
 <ol>
 <li> 第一个副本放在本地机架的一个 DN 节点；</li>
@@ -809,7 +809,7 @@
 
 <p>为什么磁盘中的元数据信息要分成两部分呢？这一点其实和 Redis 很相似，首先日志文件中保存了所有对元数据的写操作（行为数据），但是日志文件会随着 NameNode 服务运行时间的增加而不断膨胀，当日志文件的数量（或大小）到达了一个阈值后，会对这些日志文件进行一个压缩，压缩后的日志文件就变成了一个快照文件<code>fsimage</code>，<code>fsimage</code> 是一个当前时刻元数据的一致性快照（快照文件保存的是状态数据），当生成快照文件后，就可以将当前快照之前的所有日志文件清空，重新开始记录新的日志文件。所以在运行 NameNode 进程时，需要加载两种类型的文件才能在内存中拼接成完整的元数据信息：1️⃣某一时刻的快照文件；2️⃣该时刻之后新生成的所有日志文件。</p>
 <hr>
-<h2 id="NN-和-2NN-工作机制"><a href="#NN-和-2NN-工作机制" class="headerlink" title="NN 和 2NN 工作机制"></a>NN 和 2NN 工作机制</h2><p><img src="HDFS/image-20211125115010253.png" alt="image-20211125115010253"></p>
+<h2 id="NN-和-2NN-工作机制"><a href="#NN-和-2NN-工作机制" class="headerlink" title="NN 和 2NN 工作机制"></a>NN 和 2NN 工作机制</h2><p><img src="/2021/02/08/HDFS/image-20211125115010253.png" alt="image-20211125115010253"></p>
 <p><strong>第一阶段：NameNode启动</strong></p>
 <ol>
 <li><p> 如果是第一次启动 NameNode 的话，需要执行 NameNode 格式化指令，创建 Fsimage 和 Edits 文件。如果不是第一次启动 NameNode，会直接加载已存在的日志文件和镜像文件到内存中组成完成的元数据信息。</p>
@@ -886,7 +886,7 @@
  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.txns<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>1000000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>操作动作次数<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.check.period<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>60<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span> 1分钟检查一次操作次数<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">&lt;/property &gt;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <hr>
-<h1 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h1><h2 id="DataNode-工作机制"><a href="#DataNode-工作机制" class="headerlink" title="DataNode 工作机制"></a>DataNode 工作机制</h2><p><img src="HDFS/image-20211126180438535.png" alt="image-20211126180438535"></p>
+<h1 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h1><h2 id="DataNode-工作机制"><a href="#DataNode-工作机制" class="headerlink" title="DataNode 工作机制"></a>DataNode 工作机制</h2><p><img src="/2021/02/08/HDFS/image-20211126180438535.png" alt="image-20211126180438535"></p>
 <ol>
 <li> 一个数据块在 DataNode 上以文件形式存储在磁盘上，每个 Block 包括两个文件，一个是数据本身，一个是元数据（包括数据块的长度，块数据的校验和，以及时间戳等）。</li>
 <li> DataNode 启动需要先将自身的信息注册到 NameNode 上，注册完成后，还需要周期性（1小时）的向 NameNode 上报最新的块信息。</li>

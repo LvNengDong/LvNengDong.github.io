@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="官网地址：https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;  ZooKeeper 理论基础ZooKeeper 工作机制从设计模式角度来理解，Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 将会负责将变化通知那些已注册并订阅服务的观察者。 ZooKeeper 特点">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211129222922413.png">
-<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211201102045752.png">
-<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211201195906285.png">
-<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211202102918703.png">
-<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211213115812008.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/image-20211129222922413.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/image-20211201102045752.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/image-20211201195906285.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/image-20211202102918703.png">
+<meta property="og:image" content="http://example.com/2021/11/29/ZooKeeper/image-20211213115812008.png">
 <meta property="article:published_time" content="2021-11-29T13:37:18.000Z">
 <meta property="article:modified_time" content="2021-12-13T07:55:18.603Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/11/29/ZooKeeper/ZooKeeper/image-20211129222922413.png">
+<meta name="twitter:image" content="http://example.com/2021/11/29/ZooKeeper/image-20211129222922413.png">
 
 
 <link rel="canonical" href="http://example.com/2021/11/29/ZooKeeper/">
@@ -138,7 +138,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -249,7 +249,7 @@
 </ol>
 <h2 id="ZooKeeper-数据结构"><a href="#ZooKeeper-数据结构" class="headerlink" title="ZooKeeper 数据结构"></a>ZooKeeper 数据结构</h2><p>ZooKeeper 的数据结构有点类似于 Linux，整体是一个文件系统，可以看作是一棵树，从根路径<code>/</code> 出发可以到达任意位置。</p>
 <p>每个节点称为一个 <strong>ZNode</strong>。每个 ZNode 默认能够存储 1MB 的数据，每个 ZNode 都可以通过其路径唯一标识。</p>
-<p><img src="ZooKeeper/image-20211129222922413.png" alt="image-20211129222922413"></p>
+<p><img src="/2021/11/29/ZooKeeper/image-20211129222922413.png" alt="image-20211129222922413"></p>
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>ZooKeeper 提供的服务包括：统一命名服务、统一配置管理、统一集群管理、服务器节点动态上下线、软负载均衡等。</p>
 <h3 id="软负载均衡-vs-硬负载均衡"><a href="#软负载均衡-vs-硬负载均衡" class="headerlink" title="软负载均衡 vs. 硬负载均衡"></a>软负载均衡 vs. 硬负载均衡</h3><p><strong>软负载均衡</strong>是指，假设集群中现有 3 台机器，A 机器承担了 60% 的流量，B 机器承担了 30% 的流量，C 机器只承担了 10% 的流量，即集群中功能相同的 3 台机器的负载不均衡，为了让负载能均衡一点，接下来的大部分请求就都会被分配到 C 机器上进行处理。所谓的软负载均衡，就是在软件层面，通过一些算法，让集群中多台机器承担的流量尽可能地相近。</p>
 <p>而<strong>硬负载均衡</strong>则是在硬件上的突破，即如果某台机器承担的流量非常大，那么就新增一台机器去分担它的流量，达到负载均衡的目的。</p>
@@ -472,7 +472,7 @@
 <li>  <code>ephemeralOwner</code> ：该节点是否是一个临时节点。<code>0x0</code>表示当前节点是一个永久节点，非0表示当前节点是一个临时节点</li>
 <li>  <code>numChildren</code>：当前节点的子节点个数</li>
 </ul>
-<h1 id="ZK-内部原理"><a href="#ZK-内部原理" class="headerlink" title="ZK 内部原理"></a>ZK 内部原理</h1><h2 id="监听器原理"><a href="#监听器原理" class="headerlink" title="监听器原理"></a>监听器原理</h2><p><img src="ZooKeeper/image-20211201102045752.png" alt="image-20211201102045752"></p>
+<h1 id="ZK-内部原理"><a href="#ZK-内部原理" class="headerlink" title="ZK 内部原理"></a>ZK 内部原理</h1><h2 id="监听器原理"><a href="#监听器原理" class="headerlink" title="监听器原理"></a>监听器原理</h2><p><img src="/2021/11/29/ZooKeeper/image-20211201102045752.png" alt="image-20211201102045752"></p>
 <ol>
 <li> 首先在 Main() 线程中创建 ZK 客户端；</li>
 <li> ZK 客户端创建后会维护两个线程 <strong>Listener</strong> 和 <strong>connect</strong>，一个负责与 ZK 服务端进行网络连接通信（connect），一个负责监听（Listener）。</li>
@@ -498,7 +498,7 @@
 <p>ZooKeeper 虽然没有在配置文件中指定 Master 和 Slaver，但是 ZK 集群在运行时只能有一个节点为 Leader，其余节点均为 Follower，这个 Leader 是 ZK 运行时通过内部选举机制产生的。</p>
 <p>下面以一个简单的例子来说明选举 Leader 的过程：</p>
 <p>假设有五台服务器组成的 Zookeeper 集群，它们的 id 为从1~5，同时它们都是新建的，没有历史数据，在存放数据量这一点上，都是一样的。假设这些服务器按照 id 从小到大<strong>依次启动</strong>，来看看会发生什么。</p>
-<p><img src="ZooKeeper/image-20211201195906285.png" alt="image-20211201195906285"></p>
+<p><img src="/2021/11/29/ZooKeeper/image-20211201195906285.png" alt="image-20211201195906285"></p>
 <ol>
 <li> <code>Server1</code> 率先启动，发起一次选举，并且投自己一票（默认每个服务器投票时都会优先选自己）。此时集群中只有一台机器，<code>Server1</code> 得到一票，但是总票数小于3票，不够半数以上，选举无法完成，服务器保持 Looking 状态。</li>
 <li> <code>Server2</code> 启动，再发起一次选举。<code>Server1</code> 和 <code>Server2</code> 首先分别投自己一票并交换选举信息。此时<code>Server1</code> 发现<code>Server2</code> 的ID比自己目前投票推举的服务器id大，更改选票为推举<code>Server2</code> 。此时<code>Server1</code> 得 0 票，<code>Server2</code> 得 2 票，没有半数以上的结果。选举无法完成。服务器1、2状态保持 Looking。</li>
@@ -507,7 +507,7 @@
 <li> 服务器5启动，同服务器4一样当小弟。</li>
 </ol>
 <hr>
-<h2 id="写数据流程"><a href="#写数据流程" class="headerlink" title="写数据流程"></a>写数据流程</h2><p><img src="ZooKeeper/image-20211202102918703.png" alt="image-20211202102918703"></p>
+<h2 id="写数据流程"><a href="#写数据流程" class="headerlink" title="写数据流程"></a>写数据流程</h2><p><img src="/2021/11/29/ZooKeeper/image-20211202102918703.png" alt="image-20211202102918703"></p>
 <p>ZooKeeper 并没有实现读写分离。</p>
 <ol>
 <li> Client 向 ZK 集群中的 <code>Server1</code> 发送写请求，如果 <code>Server1</code> 不是 Leader，那么 <code>Server1</code> 首先会把接收到的请求进一步转发给 Leader。</li>
@@ -599,7 +599,7 @@
 <ol>
 <li> 想要客户端能动态监控服务器节点的上线、下线，那么要求服务器节点一定不能是永久节点，对于永久节点来说，一旦创建了就会被持久化，即使下线了在 ZK 集群中也不会失去这个节点的信息。所以需要把服务器节点设置称为临时节点，这样当服务器上/下线的时候，ZK 集群就会动态的创建/删除节点。</li>
 </ol>
-<p><img src="ZooKeeper/image-20211213115812008.png" alt="image-20211213115812008"></p>
+<p><img src="/2021/11/29/ZooKeeper/image-20211213115812008.png" alt="image-20211213115812008"></p>
 <p><strong>具体实现</strong></p>
 <ol>
 <li><p>先在集群上创建 <code>servers</code> 节点</p>

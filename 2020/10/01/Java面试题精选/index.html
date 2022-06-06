@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1、JavaSE Java中创建对象的5种方式    创建方式 是否调用构造函数     1 使用new关键字 是    2 使用Class类的newInstance()方法 是    3 使用Constructor类的newInstance() 是    4 使用clone()方法 否    5 使用反序列化 否     第2种和第3种方式都利用了反射机制。  Java当中的四种引用 强引用&amp;g">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png">
-<meta property="og:image" content="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927104116199.png">
+<meta property="og:image" content="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png">
+<meta property="og:image" content="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927104116199.png">
 <meta property="article:published_time" content="2020-10-01T02:15:19.000Z">
 <meta property="article:modified_time" content="2020-12-03T03:35:44.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png">
+<meta name="twitter:image" content="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png">
 
 
 <link rel="canonical" href="http://example.com/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/">
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -331,8 +331,8 @@
 <h3 id="3、hashCode"><a href="#3、hashCode" class="headerlink" title="3、hashCode"></a>3、hashCode</h3><ol>
 <li><p>哈希表：</p>
 <p>​    Hash表是一种数据结构，在JDK1.8之前，Hash表底层采用<code>数组+链表</code>实现，即使用链表处理冲突，同一Hash值的对象都存储在一个链表里。    但是当位于一个桶中的元素较多，即Hash值相等的元素较多时，通过key值依次查找的效率较低。    而在JDK1.8中，Hash表存储采用了<code>数组+链表+红黑树</code>实现，当链表长度超过阀值（默认为8）时，将链表转换为红黑树，这样大大减少了查找时间。</p>
-<p><img src="Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png"></p>
-<p><img src="Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927104116199.png"></p>
+<p><img src="/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927103816987.png"></p>
+<p><img src="/2020/10/01/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E9%80%89/image-20200927104116199.png"></p>
 </li>
 <li><p><code>hashCode()</code>是<code>Object</code>类的一个方法，返回一个<code>int</code>类型的整数，从方法名上就可以看出，其作用就是生成一个Hash码（散列码）。    所有的Hash函数都有如下一个基本特性：</p>
 <ul>

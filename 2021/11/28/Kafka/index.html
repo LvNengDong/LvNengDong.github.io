@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="消息队列消息队列的应用场景   异步处理  消息队列的两种模式点对点模式特点：   一对一，  消费者主动从消费队列中拉取数据，  MQ 会自动把消费者已经收到的消息清除。【因为每条 message 只存在一个消费者】  流程：     生产者 Producer 生产消息发送到 MessageQueue 中，然后消费者 Consumer 从 MQ 中取出并且消费消息。  消息被消费以后，Consu">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128204651428.png">
-<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128205611922.png">
-<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128213939763.png">
-<meta property="og:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128213950934.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/image-20211128204651428.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/image-20211128205611922.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/image-20211128213939763.png">
+<meta property="og:image" content="http://example.com/2021/11/28/Kafka/image-20211128213950934.png">
 <meta property="article:published_time" content="2021-11-28T12:33:27.000Z">
 <meta property="article:modified_time" content="2021-11-29T03:21:19.466Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/11/28/Kafka/Kafka/image-20211128204651428.png">
+<meta name="twitter:image" content="http://example.com/2021/11/28/Kafka/image-20211128204651428.png">
 
 
 <link rel="canonical" href="http://example.com/2021/11/28/Kafka/">
@@ -137,7 +137,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -244,7 +244,7 @@
 <li> MQ 会自动把消费者已经收到的消息清除。【因为每条 message 只存在一个消费者】</li>
 </ol>
 <p><strong>流程：</strong></p>
-<img src="Kafka/image-20211128204651428.png" alt="image-20211128204651428" style="zoom:150%;" />
+<img src="/2021/11/28/Kafka/image-20211128204651428.png" alt="image-20211128204651428" style="zoom:150%;">
 
 <ol>
 <li> 生产者 Producer 生产消息发送到 MessageQueue 中，然后消费者 Consumer 从 MQ 中取出并且消费消息。</li>
@@ -260,7 +260,7 @@
 </ul>
 <p><strong>流程：</strong></p>
 <p>消息生产者 Producer 将消息发布到 Topic 中，同时有多个消费者 Consumer（订阅）消费该消息。和点对点方式不同，发布到 Topic 的消息会被所有订阅者消费。</p>
-<p> <img src="Kafka/image-20211128205611922.png" alt="image-20211128205611922"></p>
+<p> <img src="/2021/11/28/Kafka/image-20211128205611922.png" alt="image-20211128205611922"></p>
 <hr>
 <h1 id="Kafka-简介"><a href="#Kafka-简介" class="headerlink" title="Kafka 简介"></a>Kafka 简介</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>Kafka 是一个分布式的基于<strong>发布/订阅模式</strong>的消息队列（Message Queue），主要应用于大数据实时处理领域。</p>
 <p>Kafka 是一个分布式的数据流式传输平台。在流式计算中，Kafka 一般用来缓存数据，Spark 通过消费 Kafka 中的数据来进行计算。</p>
@@ -312,11 +312,11 @@
 <blockquote>
 <p>  图1 Topic拓扑结构</p>
 </blockquote>
-<p> <img src="Kafka/image-20211128213939763.png" alt="image-20211128213939763"></p>
+<p> <img src="/2021/11/28/Kafka/image-20211128213939763.png" alt="image-20211128213939763"></p>
 <blockquote>
 <p>  图2 数据流</p>
 </blockquote>
-<p><img src="Kafka/image-20211128213950934.png" alt="image-20211128213950934"></p>
+<p><img src="/2021/11/28/Kafka/image-20211128213950934.png" alt="image-20211128213950934"></p>
 <hr>
 <h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p>Kafka 集群会保留所有发布的记录，无论它们是否已被消费。</p>
 <p>如果想要删除发布记录，可以通过配置保留期限参数来控制。举个例子，如果保留策略设置为2天，一条记录发布后两天内，可以随时被消费，两天过后这条记录会被清除并释放磁盘空间。</p>

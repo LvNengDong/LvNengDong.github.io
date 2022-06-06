@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="准备工作安装前需检查是否已经安装了某个版本的 MySQL，如果安装了，需要先卸载，避免因版本冲突导致的错误。  查看   1rpm -qa | grep mysql 如果有则需要卸载   1rpm -e --nodeps xxx   使用 rpm -e 卸载后，需要删除 &#x2F;var&#x2F;lib&#x2F;mysql 目录。    使用 yum 安装 MySQL    官方文档地址：https:&#x2F;&#x2F;dev.mysq">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png">
-<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png">
-<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png">
-<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png">
-<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png">
+<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png">
+<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png">
+<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png">
+<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png">
+<meta property="og:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png">
 <meta property="article:published_time" content="2022-04-21T02:24:02.000Z">
 <meta property="article:modified_time" content="2022-04-24T08:56:29.395Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png">
+<meta name="twitter:image" content="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png">
 
 
 <link rel="canonical" href="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/">
@@ -138,7 +138,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -255,10 +255,10 @@
 <p>为了防止，官方文档地址发生变动，在此处粘一个『yum 安装 MySQL 指南』的查找路径。</p>
 <ol>
 <li><p>首先进入<a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL官网</a>，进入『文档』专栏，下拉选择按『主题』查找。</p>
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png" alt="image-20220421131815293"></p>
+<p> <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png" alt="image-20220421131815293"></p>
 </li>
 <li><p>继续下拉找到『A Quick Guide to Using the MySQL Yum Repository』专栏，点击进入，即为“使用 Yum 仓库安装 MySQL 快速入门指南”。</p>
-<p> <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png" alt="image-20220421131947148"></p>
+<p> <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png" alt="image-20220421131947148"></p>
 </li>
 </ol>
 <h2 id="1、下载-MySQL-Yum-存储仓库"><a href="#1、下载-MySQL-Yum-存储仓库" class="headerlink" title="1、下载 MySQL Yum 存储仓库"></a>1、下载 MySQL Yum 存储仓库</h2><p>首先，将 MySQL Yum 存储仓库（这是一个文件）下载到当前 Linux 系统中。</p>
@@ -266,9 +266,9 @@
 <li><p>  转到 <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/repo/yum/">https://dev.mysql.com/downloads/repo/yum/</a> 的 MySQL Yum 文件的下载页面。</p>
 </li>
 <li><p>为你的平台选择并下载发布包的版本（我选择的是 RedHat 系列 Linux7 系统的社区版）。</p>
-  <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png" alt="image-20220421115245966" style="zoom: 80%;" /></li>
+  <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png" alt="image-20220421115245966" style="zoom: 80%;"></li>
 <li><p>选择需要的版本，点击“Download”，进入详情页面，复制下载链接地址，下载对应的 rpm 文件。</p>
-  <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png" alt="image-20220421115510940" style="zoom: 50%;" /></li>
+  <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png" alt="image-20220421115510940" style="zoom: 50%;"></li>
 <li><p>使用以下命令安装下载发布包。使用上一个链接地址替换 『<em>platform-and-version-specific-package-name</em>.rpm』</p>
   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 我的</span></span><br><span class="line">sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -373,7 +373,7 @@
 </ul>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; firewall-cmd --list-all</span><br></pre></td></tr></table></figure>
 
- <img src="Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png" alt="image-20220423102519269" style="zoom:67%;" /></li>
+ <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png" alt="image-20220423102519269" style="zoom:67%;"></li>
 </ol>
 <hr>
 <h1 id="使用安装包安装-MySQL"><a href="#使用安装包安装-MySQL" class="headerlink" title="使用安装包安装 MySQL"></a>使用安装包安装 MySQL</h1><h2 id="1、下载安装包并上传到-Linux-服务器"><a href="#1、下载安装包并上传到-Linux-服务器" class="headerlink" title="1、下载安装包并上传到 Linux 服务器"></a>1、下载安装包并上传到 Linux 服务器</h2><ol>

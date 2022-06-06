@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1    什么是事务事务是一组 SQL 语句组成的逻辑处理单元，事务具有 ACID 四个属性。    事务特性 含义    原子性（Atomicity） 每个事务都是一个不可再分的整体，事务中的SQL语句要么全部成功，要么全部失败   一致性（Consistency） SQL语句执行前后数据库的状态保持一致。   隔离性（Isolation） 事务之间不应该互相影响。   持久性（Durabili">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/MySQL%E4%BA%8B%E5%8A%A1/image-20201008173026672.png">
-<meta property="og:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/MySQL%E4%BA%8B%E5%8A%A1/image-20211006133130410.png">
-<meta property="og:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/MySQL%E4%BA%8B%E5%8A%A1/image-20211006133111921.png">
+<meta property="og:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20201008173026672.png">
+<meta property="og:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20211006133130410.png">
+<meta property="og:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20211006133111921.png">
 <meta property="article:published_time" content="2021-10-06T04:48:49.000Z">
 <meta property="article:modified_time" content="2021-10-06T06:21:01.955Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/MySQL%E4%BA%8B%E5%8A%A1/image-20201008173026672.png">
+<meta name="twitter:image" content="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20201008173026672.png">
 
 
 <link rel="canonical" href="http://example.com/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -263,7 +263,7 @@
 
 
 <h2 id="2-2-自动提交事务（默认）"><a href="#2-2-自动提交事务（默认）" class="headerlink" title="2.2    自动提交事务（默认）"></a>2.2    自动提交事务（默认）</h2><p>MySQL 默认每一条 DML（增删改）语句都是一个单独的事务，即每条语句执行前都会自动开启一个事务，语句执行完毕自动提交事务。</p>
-<p><img src="MySQL%E4%BA%8B%E5%8A%A1/image-20201008173026672.png" alt="image-20201008173026672"></p>
+<p><img src="/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20201008173026672.png" alt="image-20201008173026672"></p>
 <h3 id="2-2-1-取消自动提交事务"><a href="#2-2-1-取消自动提交事务" class="headerlink" title="2.2.1    取消自动提交事务"></a>2.2.1    取消自动提交事务</h3><ol>
 <li><p>查看 MySQL是否开启自动提交事务</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select @@autocommit;</span><br><span class="line">-- @@ 表示全局变量</span><br><span class="line">-- 查询得到的结果为0或1，1表示已开启自动提交，0表示已关闭自动提交</span><br></pre></td></tr></table></figure></li>
@@ -278,7 +278,7 @@
 <li>  <code>undo log</code> 指事务开始之前，在操作任何数据之前，首先将当前状态下的数据库数据进行一次备份。</li>
 <li>  当事务执行失败需要回滚时，根据  <code>undo log</code> 日志文件进行数据恢复。</li>
 </ul>
-<p><img src="MySQL%E4%BA%8B%E5%8A%A1/image-20211006133130410.png" alt="image-20211006133130410"></p>
+<p><img src="/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20211006133130410.png" alt="image-20211006133130410"></p>
 <h2 id="3-2-redo-log"><a href="#3-2-redo-log" class="headerlink" title="3.2    redo log"></a>3.2    redo log</h2><ul>
 <li>  当对数据库中的数据进行修改时（数据存在磁盘中），需要把数据从磁盘中读取到内存中的缓冲池（BufferPool）中，然后在 BufferPool 中进行修改。</li>
 <li>  那么这个时候 BufferPool 中的数据与磁盘中的数据就是不一致的，称 BufferPool 中的数据为“脏数据”。</li>
@@ -288,7 +288,7 @@
 <li>  <code>redo log</code> 日志文件记录了事务中对任何数据执行写的操作，当事务执行成功时，日志文件会被提交到数据库服务器中去执行，其它任何情况都会清空事务日志（<code>rollback</code>）。</li>
 <li>  <code>redo log</code> 不是随着事务的提交才写入的，而是在事务的执行过程中，便开始写入 redo 中。具体的落盘策略可以进行配置 。防止在发生故障的时间点，尚有脏页未写入磁盘，在重启 MySQL 服务的时候，根据 redo log 进行重做，从而达到事务的未入磁盘数据进行持久化这一特性。</li>
 </ul>
-<p><img src="MySQL%E4%BA%8B%E5%8A%A1/image-20211006133111921.png" alt="image-20211006133111921"></p>
+<p><img src="/2021/10/06/MySQL%E4%BA%8B%E5%8A%A1/image-20211006133111921.png" alt="image-20211006133111921"></p>
 <hr>
 <h1 id="4-回滚点"><a href="#4-回滚点" class="headerlink" title="4    回滚点"></a>4    回滚点</h1><h2 id="4-1-什么是回滚点"><a href="#4-1-什么是回滚点" class="headerlink" title="4.1    什么是回滚点"></a>4.1    什么是回滚点</h2><p>在某些成功的操作完成之后，后续操作有可能成功也有可能失败，但是不管成功还是失败，前面的操作都已经成功了，可以在当前成功的位置设置一个回滚点。可以供后续失败操作回滚到该位置，而不是回滚全部操作，这个点称为回滚点。</p>
 <p><strong>设置回滚点可以让SQL语句在执行失败的时候回退到回滚点，而不是回退到事务开启的时候</strong>。</p>

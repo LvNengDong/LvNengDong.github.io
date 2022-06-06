@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="方法区；Method Area  1    栈、堆、方法区三者之间的交互关系   2    方法区的理解《Java虚拟机规范》中明确规定：方法区在逻辑上是属于堆的一部分，但在一些 JVM 的落地产品中，方法区并不属于堆区的一部分。    对于 HotSpot 而言，方法区还有一个别名叫做 Non-Heap（非堆），目的就是要和堆分开。 所以，方法区可以看做是一块独立于Java堆的内存空间。  方">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/image-20210524212516071.png">
-<meta property="og:image" content="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%BA%A4%E4%BA%92.png">
+<meta property="og:image" content="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/image-20210524212516071.png">
+<meta property="og:image" content="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%BA%A4%E4%BA%92.png">
 <meta property="article:published_time" content="2021-06-02T02:18:07.000Z">
 <meta property="article:modified_time" content="2021-08-03T13:18:22.523Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/image-20210524212516071.png">
+<meta name="twitter:image" content="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/image-20210524212516071.png">
 
 
 <link rel="canonical" href="http://example.com/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/">
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -235,8 +235,8 @@
         <blockquote>
 <p><strong>方法区；Method Area</strong></p>
 </blockquote>
-<h1 id="1-栈、堆、方法区三者之间的交互关系"><a href="#1-栈、堆、方法区三者之间的交互关系" class="headerlink" title="1    栈、堆、方法区三者之间的交互关系"></a>1    栈、堆、方法区三者之间的交互关系</h1><p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/image-20210524212516071.png" alt="image-20210524212516071"></p>
-<p><img src="JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%BA%A4%E4%BA%92.png" alt="运行时数据区交互"></p>
+<h1 id="1-栈、堆、方法区三者之间的交互关系"><a href="#1-栈、堆、方法区三者之间的交互关系" class="headerlink" title="1    栈、堆、方法区三者之间的交互关系"></a>1    栈、堆、方法区三者之间的交互关系</h1><p><img src="/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/image-20210524212516071.png" alt="image-20210524212516071"></p>
+<p><img src="/2021/06/02/JVM%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA-06%E6%96%B9%E6%B3%95%E5%8C%BA/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%BA%A4%E4%BA%92.png" alt="运行时数据区交互"></p>
 <hr>
 <h1 id="2-方法区的理解"><a href="#2-方法区的理解" class="headerlink" title="2    方法区的理解"></a>2    方法区的理解</h1><p>《Java虚拟机规范》中明确规定：方法区在<strong>逻辑</strong>上是属于堆的一部分，但在一些 JVM 的落地产品中，方法区并不属于堆区的一部分。    对于 HotSpot 而言，方法区还有一个别名叫做 Non-Heap（非堆），目的就是要和堆分开。</p>
 <p>所以，<strong>方法区可以看做是一块独立于Java堆的内存空间</strong>。</p>

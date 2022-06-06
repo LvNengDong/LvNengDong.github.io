@@ -27,38 +27,38 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="第一章 Maven概述第一节 Why？为什么要学Maven？一、Maven 作为依赖管理工具1、jar包的规模随着我们使用越来越多的框架，或者框架封装程度越来越高，项目中使用的 jar 包也越来越多。项目中，一个模块里面用到上百个 jar 包是非常正常的。 比如下面的例子，我们只用到 SpringBoot、SpringCloud 框架中的三个功能：    Nacos 服务注册发现   Web 框架">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img006.ab4f2e31.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img010.74e515e5.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img003.f9cc536c.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110007419.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110550592.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114249657.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114553733.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408115112790.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408160611025.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408163058811.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408170538989.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408172504131.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408184141206.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190148655.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190831519.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191725052.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191836572.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192152959.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192341212.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408205004283.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210807337.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210700458.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408222403247.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409182216350.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409191815270.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409193722168.png">
-<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409211556788.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img006.ab4f2e31.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img010.74e515e5.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img003.f9cc536c.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110007419.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110550592.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114249657.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114553733.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408115112790.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408160611025.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408163058811.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408170538989.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408172504131.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408184141206.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190148655.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190831519.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191725052.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191836572.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192152959.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192341212.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408205004283.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210807337.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210700458.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408222403247.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409182216350.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409191815270.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409193722168.png">
+<meta property="og:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409211556788.png">
 <meta property="article:published_time" content="2022-04-08T01:58:11.000Z">
 <meta property="article:modified_time" content="2022-04-09T14:26:29.069Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img006.ab4f2e31.png">
+<meta name="twitter:image" content="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img006.ab4f2e31.png">
 
 
 <link rel="canonical" href="http://example.com/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/">
@@ -160,7 +160,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -285,11 +285,11 @@
 <p>而使用 Maven 后，依赖对应的 jar 包能够<strong>自动下载</strong>，方便、快捷又规范。</p>
 <h4 id="3、jar包之间的依赖关系"><a href="#3、jar包之间的依赖关系" class="headerlink" title="3、jar包之间的依赖关系"></a>3、jar包之间的依赖关系</h4><p>框架中使用的 jar 包，不仅数量庞大，而且彼此之间存在错综复杂的依赖关系。依赖关系的复杂程度，已经上升到了完全不能靠人力手动解决的程度。另外，jar 包之间有可能产生冲突。进一步增加了我们在 jar 包使用过程中的难度。</p>
 <p>下面是前面例子中 jar 包之间的依赖关系：</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img006.ab4f2e31.png" alt="images"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img006.ab4f2e31.png" alt="images"></p>
 <p>而实际上 jar 包之间的依赖关系是普遍存在的，如果要由程序员手动梳理无疑会增加极高的学习成本，而这些工作又对实现业务功能毫无帮助。</p>
 <p>而使用 Maven 则几乎不需要管理这些关系，极个别的地方调整一下即可，极大的减轻了我们的工作量。</p>
 <h3 id="二、Maven-作为构建管理工具"><a href="#二、Maven-作为构建管理工具" class="headerlink" title="二、Maven 作为构建管理工具"></a>二、Maven 作为构建管理工具</h3><h4 id="1、你没有注意过的构建"><a href="#1、你没有注意过的构建" class="headerlink" title="1、你没有注意过的构建"></a>1、你没有注意过的构建</h4><p>你可以不使用 Maven，但是构建必须要做。当我们使用 IDEA 进行开发时，构建是 IDEA 替我们做的。</p>
-<h4 id="2、脱离-IDE-环境仍需构建"><a href="#2、脱离-IDE-环境仍需构建" class="headerlink" title="2、脱离 IDE 环境仍需构建"></a>2、脱离 IDE 环境仍需构建</h4><p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img010.74e515e5.png" alt="images"></p>
+<h4 id="2、脱离-IDE-环境仍需构建"><a href="#2、脱离-IDE-环境仍需构建" class="headerlink" title="2、脱离 IDE 环境仍需构建"></a>2、脱离 IDE 环境仍需构建</h4><p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img010.74e515e5.png" alt="images"></p>
 <h3 id="三、结论"><a href="#三、结论" class="headerlink" title="三、结论"></a>三、结论</h3><ul>
 <li>  <strong>管理规模庞大的 jar 包，需要专门工具。</strong></li>
 <li>  <strong>脱离 IDE 环境执行构建操作，需要专门工具。</strong></li>
@@ -346,14 +346,14 @@
 <li>  jar 包之间的依赖：通过依赖的传递性自动完成</li>
 <li>  jar 包之间的冲突：通过对依赖的配置进行调整，让某些jar包不会被导入</li>
 </ul>
-<h3 id="三、Maven-的工作机制"><a href="#三、Maven-的工作机制" class="headerlink" title="三、Maven 的工作机制"></a>三、Maven 的工作机制</h3><p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img003.f9cc536c.png" alt="./images"></p>
+<h3 id="三、Maven-的工作机制"><a href="#三、Maven-的工作机制" class="headerlink" title="三、Maven 的工作机制"></a>三、Maven 的工作机制</h3><p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/img003.f9cc536c.png" alt="./images"></p>
 <hr>
 <h1 id="第二章-Maven核心程序的安装与配置"><a href="#第二章-Maven核心程序的安装与配置" class="headerlink" title="第二章 Maven核心程序的安装与配置"></a>第二章 Maven核心程序的安装与配置</h1><h2 id="第一节-Maven核心程序安装与配置"><a href="#第一节-Maven核心程序安装与配置" class="headerlink" title="第一节 Maven核心程序安装与配置"></a>第一节 Maven核心程序安装与配置</h2><h3 id="1、Maven官网地址"><a href="#1、Maven官网地址" class="headerlink" title="1、Maven官网地址"></a>1、Maven官网地址</h3><p>首页：</p>
 <p><a target="_blank" rel="noopener" href="https://maven.apache.org/">Maven – Welcome to Apache Maven</a></p>
 <p>下载页面：</p>
 <p><a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">Maven – Download Apache Maven</a></p>
 <p>下载链接：</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110007419.png" alt="image-20220408110007419"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110007419.png" alt="image-20220408110007419"></p>
 <blockquote>
 <ul>
 <li>注意：<ul>
@@ -365,7 +365,7 @@
 </blockquote>
 <h3 id="2、解压Maven核心程序"><a href="#2、解压Maven核心程序" class="headerlink" title="2、解压Maven核心程序"></a>2、解压Maven核心程序</h3><p>将核心程序压缩包<code>apache-maven-3.8.5-bin.zip</code>，解压到<strong>非中文、没有空格</strong>的目录。</p>
 <p>在解压目录中，我们需要着重关注 Maven 的核心配置文件：<strong>conf/settings.xml</strong></p>
-<img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110550592.png" alt="image-20220408110550592" style="zoom:67%;" />
+<img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408110550592.png" alt="image-20220408110550592" style="zoom:67%;">
 
 
 
@@ -406,7 +406,7 @@
 <li>  4、验证</li>
 </ul>
 <h3 id="1、检查-JAVA-HOME-配置是否正确"><a href="#1、检查-JAVA-HOME-配置是否正确" class="headerlink" title="1、检查 JAVA_HOME 配置是否正确"></a>1、检查 JAVA_HOME 配置是否正确</h3><p>Maven 是一个用 Java 语言开发的程序，它必须基于 JDK 来运行，需要通过 JAVA_HOME 来找到 JDK 的安装位置。</p>
-<img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114249657.png" alt="image-20220408114249657" style="zoom: 67%;" />
+<img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114249657.png" alt="image-20220408114249657" style="zoom: 67%;">
 
 
 
@@ -415,7 +415,7 @@
 
 
 
-<h3 id="2、配置-MAVEN-HOME"><a href="#2、配置-MAVEN-HOME" class="headerlink" title="2、配置 MAVEN_HOME"></a>2、配置 MAVEN_HOME</h3><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114553733.png" alt="image-20220408114553733" style="zoom:67%;" />
+<h3 id="2、配置-MAVEN-HOME"><a href="#2、配置-MAVEN-HOME" class="headerlink" title="2、配置 MAVEN_HOME"></a>2、配置 MAVEN_HOME</h3><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408114553733.png" alt="image-20220408114553733" style="zoom:67%;">
 
 
 
@@ -427,7 +427,7 @@
 <li>  PATH 指向的是 bin 目录</li>
 </ul>
 </blockquote>
-<h3 id="3、配置PATH"><a href="#3、配置PATH" class="headerlink" title="3、配置PATH"></a>3、配置PATH</h3><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408115112790.png" alt="image-20220408115112790" style="zoom: 67%;" />
+<h3 id="3、配置PATH"><a href="#3、配置PATH" class="headerlink" title="3、配置PATH"></a>3、配置PATH</h3><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408115112790.png" alt="image-20220408115112790" style="zoom: 67%;">
 
 <h3 id="4、验证"><a href="#4、验证" class="headerlink" title="4、验证"></a>4、验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\admin&gt;mvn -v</span><br><span class="line">Apache Maven 3.8.5 (3599d3414f046de2324203b78ddcf9b5e4388aa0)</span><br><span class="line">Maven home: D:\Software\Dev\apache-maven-3.8.5</span><br><span class="line">Java version: 1.8.0_162, vendor: Oracle Corporation, runtime: D:\Software\Dev\Java\jdk1.8.0_162\jre</span><br><span class="line">Default locale: zh_CN, platform encoding: GBK</span><br><span class="line">OS name: <span class="string">&quot;windows 10&quot;</span>, version: <span class="string">&quot;10.0&quot;</span>, <span class="built_in">arch</span>: <span class="string">&quot;amd64&quot;</span>, family: <span class="string">&quot;windows&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -446,7 +446,7 @@
 <p>第八节 实验八：测试依赖的排除</p>
 <p>第九节 实验九：继承</p>
 <p>第十节 实验十：聚合</p>
-<h2 id="第一节-实验一：根据坐标创建Maven工程"><a href="#第一节-实验一：根据坐标创建Maven工程" class="headerlink" title="第一节 实验一：根据坐标创建Maven工程"></a>第一节 实验一：根据坐标创建Maven工程</h2><h3 id="一、Maven核心概念：坐标"><a href="#一、Maven核心概念：坐标" class="headerlink" title="一、Maven核心概念：坐标"></a>一、Maven核心概念：坐标</h3><h4 id="1、数学中的坐标"><a href="#1、数学中的坐标" class="headerlink" title="1、数学中的坐标"></a>1、数学中的坐标</h4><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408160611025.png" alt="image-20220408160611025" style="zoom: 50%;" />
+<h2 id="第一节-实验一：根据坐标创建Maven工程"><a href="#第一节-实验一：根据坐标创建Maven工程" class="headerlink" title="第一节 实验一：根据坐标创建Maven工程"></a>第一节 实验一：根据坐标创建Maven工程</h2><h3 id="一、Maven核心概念：坐标"><a href="#一、Maven核心概念：坐标" class="headerlink" title="一、Maven核心概念：坐标"></a>一、Maven核心概念：坐标</h3><h4 id="1、数学中的坐标"><a href="#1、数学中的坐标" class="headerlink" title="1、数学中的坐标"></a>1、数学中的坐标</h4><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408160611025.png" alt="image-20220408160611025" style="zoom: 50%;">
 
 <p>使用 x、y、z 三个<strong>『向量』</strong>作为空间的坐标系，可以在<strong>『空间』</strong>中唯一定位到一个<strong>『点』</strong>。</p>
 <h4 id="2、Maven中的坐标"><a href="#2、Maven中的坐标" class="headerlink" title="2、Maven中的坐标"></a>2、Maven中的坐标</h4><p>（1）向量说明：</p>
@@ -493,7 +493,7 @@
 <li>  本地工作空间：战场</li>
 </ul>
 </blockquote>
-<h4 id="2、在工作空间目录下打开命令行窗口"><a href="#2、在工作空间目录下打开命令行窗口" class="headerlink" title="2、在工作空间目录下打开命令行窗口"></a>2、在工作空间目录下打开命令行窗口</h4><h4 id="3、使用命令生成Maven工程"><a href="#3、使用命令生成Maven工程" class="headerlink" title="3、使用命令生成Maven工程"></a>3、使用命令生成Maven工程</h4><p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408163058811.png" alt="image-20220408163058811"></p>
+<h4 id="2、在工作空间目录下打开命令行窗口"><a href="#2、在工作空间目录下打开命令行窗口" class="headerlink" title="2、在工作空间目录下打开命令行窗口"></a>2、在工作空间目录下打开命令行窗口</h4><h4 id="3、使用命令生成Maven工程"><a href="#3、使用命令生成Maven工程" class="headerlink" title="3、使用命令生成Maven工程"></a>3、使用命令生成Maven工程</h4><p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408163058811.png" alt="image-20220408163058811"></p>
 <ol>
 <li><p> 运行 <code>mvn archetype:generate</code> 命令，创建一个脚手架。archetype 是一个插件的名字，可以理解为就是一个jar包，generate 是插件提供的一个功能。</p>
 </li>
@@ -517,14 +517,14 @@
 <h3 id="三、Maven核心概念：POM"><a href="#三、Maven核心概念：POM" class="headerlink" title="三、Maven核心概念：POM"></a>三、Maven核心概念：POM</h3><h4 id="1、含义"><a href="#1、含义" class="headerlink" title="1、含义"></a>1、含义</h4><p>POM（<strong>P</strong>roject <strong>O</strong>bject <strong>M</strong>odel），项目对象化模型。和 POM 类似的有 DOM（Document Object Model），文档对象模型。它们都是模型化思想的具体体现。</p>
 <h4 id="2、模型化思想"><a href="#2、模型化思想" class="headerlink" title="2、模型化思想"></a>2、模型化思想</h4><p>POM 表示将工程抽象为一个模型，再用程序中的对象来描述这个模型。这样我们就可以用程序来管理项目了。我们在开发过程中，最基本的做法就是将现实生活中的事物抽象为模型，然后封装模型相关的数据作为一个对象，这样就可以在程序中计算与现实事物相关的数据。</p>
 <h4 id="3、对应的配置文件"><a href="#3、对应的配置文件" class="headerlink" title="3、对应的配置文件"></a>3、对应的配置文件</h4><p>POM 理念集中体现在 Maven 工程根目录下的 <code>pom.xml</code> 这个配置文件中。所以这个 pom.xml 配置文件就是 Maven 工程的核心配置文件。其实学习 Maven 就是学习这个文件怎么配置，各个配置有什么用。</p>
-<h3 id="四、Maven核心概念：约定的目录结构"><a href="#四、Maven核心概念：约定的目录结构" class="headerlink" title="四、Maven核心概念：约定的目录结构"></a>四、Maven核心概念：约定的目录结构</h3><h4 id="1、各个目录的作用"><a href="#1、各个目录的作用" class="headerlink" title="1、各个目录的作用"></a>1、各个目录的作用</h4><p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408170538989.png" alt="image-20220408170538989"></p>
+<h3 id="四、Maven核心概念：约定的目录结构"><a href="#四、Maven核心概念：约定的目录结构" class="headerlink" title="四、Maven核心概念：约定的目录结构"></a>四、Maven核心概念：约定的目录结构</h3><h4 id="1、各个目录的作用"><a href="#1、各个目录的作用" class="headerlink" title="1、各个目录的作用"></a>1、各个目录的作用</h4><p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408170538989.png" alt="image-20220408170538989"></p>
 <p>另外还有一个 <code>target</code> 目录专门存放构建操作输出的结果。</p>
 <h4 id="2、约定目录结构的意义"><a href="#2、约定目录结构的意义" class="headerlink" title="2、约定目录结构的意义"></a>2、约定目录结构的意义</h4><p>为了让构建过程尽可能自动化完成，Maven 也采用了“约定大于配置”的思想，在底层约定了目录结构的作用。</p>
 <p>例如：Maven 执行编译操作，必须先去 Java 源程序目录读取 Java 源代码，然后执行编译，最后把编译结果放在 target 目录。</p>
 <h4 id="3、约定大于配置"><a href="#3、约定大于配置" class="headerlink" title="3、约定大于配置"></a>3、约定大于配置</h4><p>Maven 对于目录结构这个问题，没有采用基于配置的方式，而是基于约定。这样会让我们在开发过程中非常方便。如果每次创建 Maven 工程后，还需要针对各个目录的位置及保存的文件类型进行详细的配置，那肯定非常麻烦。</p>
 <p>目前开发领域的技术发展趋势就是：约定大于配置，配置大于编码。</p>
 <hr>
-<h2 id="第二节-实验二：在-Maven-工程中编写代码"><a href="#第二节-实验二：在-Maven-工程中编写代码" class="headerlink" title="第二节 实验二：在 Maven 工程中编写代码"></a>第二节 实验二：在 Maven 工程中编写代码</h2><p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408172504131.png" alt="image-20220408172504131"></p>
+<h2 id="第二节-实验二：在-Maven-工程中编写代码"><a href="#第二节-实验二：在-Maven-工程中编写代码" class="headerlink" title="第二节 实验二：在 Maven 工程中编写代码"></a>第二节 实验二：在 Maven 工程中编写代码</h2><p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408172504131.png" alt="image-20220408172504131"></p>
 <h3 id="1、主体程序"><a href="#1、主体程序" class="headerlink" title="1、主体程序"></a>1、主体程序</h3><p>在主体程序目录中创建 Calculator 类。</p>
 <p>主体程序指的是被测试的程序，同时也是将来在项目中真正要使用的程序。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.maven;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i + j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -589,7 +589,7 @@
 
 
 
-<h3 id="4、生成的-Web-工程的目录结构"><a href="#4、生成的-Web-工程的目录结构" class="headerlink" title="4、生成的 Web 工程的目录结构"></a>4、生成的 Web 工程的目录结构</h3><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408184141206.png" alt="image-20220408184141206" style="zoom:67%;" />
+<h3 id="4、生成的-Web-工程的目录结构"><a href="#4、生成的-Web-工程的目录结构" class="headerlink" title="4、生成的 Web 工程的目录结构"></a>4、生成的 Web 工程的目录结构</h3><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408184141206.png" alt="image-20220408184141206" style="zoom:67%;">
 
 <ul>
 <li>  webapp 目录下有 index.jsp</li>
@@ -615,7 +615,7 @@
 <li><p>在 index.jsp 页面编写超链接</p>
  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;h2&gt;Hello World!&lt;/h2&gt;</span><br><span class="line">        &lt;a href=<span class="string">&quot;/helloServlet&quot;</span>&gt;Access Servlet&lt;/a&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190148655.png" alt="image-20220408190148655" style="zoom:67%;" />
+<img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190148655.png" alt="image-20220408190148655" style="zoom:67%;">
 
 
 
@@ -623,15 +623,15 @@
 
 <h3 id="6、编译"><a href="#6、编译" class="headerlink" title="6、编译"></a>6、编译</h3><p><code>mvn compile</code></p>
 <h3 id="7、将-Web-工程打包为-war-包"><a href="#7、将-Web-工程打包为-war-包" class="headerlink" title="7、将 Web 工程打包为 war 包"></a>7、将 Web 工程打包为 war 包</h3><p>运行 <code>mvn package</code> 命令，生成的 war 包的位置如下图所示：</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190831519.png" alt="image-20220408190831519"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408190831519.png" alt="image-20220408190831519"></p>
 <h3 id="8、将-war-包部署到-Tomcat-上运行"><a href="#8、将-war-包部署到-Tomcat-上运行" class="headerlink" title="8、将 war 包部署到 Tomcat 上运行"></a>8、将 war 包部署到 Tomcat 上运行</h3><p>（1）将 war 包复制到 Tomcat/webapps 目录下</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191725052.png" alt="image-20220408191725052"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191725052.png" alt="image-20220408191725052"></p>
 <p>（2）启动 Tomcat</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191836572.png" alt="image-20220408191836572"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408191836572.png" alt="image-20220408191836572"></p>
 <p>此时，再去访问 webapps 目录，可以发现 Tomcat 启动后会自动解压 war 包。</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192152959.png" alt="image-20220408192152959"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192152959.png" alt="image-20220408192152959"></p>
 <p>（3）通过浏览器尝试访问：<a target="_blank" rel="noopener" href="http://localhost:8080/pro02-maven-web/index.jsp">http://localhost:8080/pro02-maven-web/index.jsp</a></p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192341212.png" alt="image-20220408192341212"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408192341212.png" alt="image-20220408192341212"></p>
 <hr>
 <h2 id="第五节-实验五：让-Web-工程依赖-Java-工程"><a href="#第五节-实验五：让-Web-工程依赖-Java-工程" class="headerlink" title="第五节 实验五：让 Web 工程依赖 Java 工程"></a>第五节 实验五：让 Web 工程依赖 Java 工程</h2><h3 id="1、观念"><a href="#1、观念" class="headerlink" title="1、观念"></a>1、观念</h3><p>明确一个意识：从来只有 Web 工程依赖 Java 工程，没有 Java 工程依赖 Web 工程。</p>
 <p>本质上来说，Web 工程依赖的 Java 工程其实就是 Web 工程里面导入的 jar 包。也就是说，Java 工程最终会变成 jar 包，放在 Web 工程的 WEB-INF/lib 目录下。</p>
@@ -642,7 +642,7 @@
 
 <h3 id="3、在-Web-工程中，编写测试代码"><a href="#3、在-Web-工程中，编写测试代码" class="headerlink" title="3、在 Web 工程中，编写测试代码"></a>3、在 Web 工程中，编写测试代码</h3><ol>
 <li><p>补充创建目录：<code>pro02-maven-web/src/test/java/cn/xsyu/maven</code></p>
- <img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408205004283.png" alt="image-20220408205004283" style="zoom:67%;" />
+ <img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408205004283.png" alt="image-20220408205004283" style="zoom:67%;">
 
 <ul>
 <li>  可以看出，test 目录和 main 目录属于同一级目录，一个负责保存主体程序的源代码，一个负责保存测试程序的源代码。</li>
@@ -663,10 +663,10 @@
 </li>
 <li><p><strong>打包命令</strong></p>
 <p> <code>mvn package</code></p>
- <img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210807337.png" alt="image-20220408210807337" style="zoom:67%;" />
+ <img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210807337.png" alt="image-20220408210807337" style="zoom:67%;">
 
 <p> 通过查看 war 包内的结构，我们看到 Web 工程依赖的 Java 工程确实会变成 Web 工程的 <code>WEB-INF/lib</code> 目录下的 jar 包。</p>
-<p> <img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210700458.png" alt="image-20220408210700458"></p>
+<p> <img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408210700458.png" alt="image-20220408210700458"></p>
 </li>
 <li><p><strong>查看当前 Web 工程所依赖的 jar 包的列表</strong></p>
 <p> <code>mvn dependency:list</code></p>
@@ -779,7 +779,7 @@
 <h4 id="（3）验证-test-和-provided-范围不参与服务器部署"><a href="#（3）验证-test-和-provided-范围不参与服务器部署" class="headerlink" title="（3）验证 test 和 provided 范围不参与服务器部署"></a>（3）验证 test 和 provided 范围不参与服务器部署</h4><p>其实就是验证：通过 compile 范围依赖的 jar 包会放入 war 包，而通过 test 和 provided 范围依赖的 jar 包不会放入 war 包。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>  <span class="comment">&lt;!-- 没有放进 war 包--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.xsyu.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pro01-maven-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>  <span class="comment">&lt;!-- 放进了 war 包--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>  <span class="comment">&lt;!-- 没有放进 war 包--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408222403247.png" alt="image-20220408222403247" style="zoom:67%;" />
+<img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220408222403247.png" alt="image-20220408222403247" style="zoom:67%;">
 
  
 
@@ -848,7 +848,7 @@
 </ul>
 <h2 id="第八节-实验八：测试依赖的排除"><a href="#第八节-实验八：测试依赖的排除" class="headerlink" title="第八节 实验八：测试依赖的排除"></a>第八节 实验八：测试依赖的排除</h2><h3 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h3><p>当 A 依赖 B，B 依赖 C，而且 C 可以传递到 A 的时候，A 如果不想要 C，需要在 A 里面把 C 排除掉。</p>
 <p>这种情况一般是为了解决 jar 包之间的冲突问题。</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409182216350.png" alt="image-20220409182216350"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409182216350.png" alt="image-20220409182216350"></p>
 <p><strong>所谓的“配置依赖排除”就是阻止某些 jar 包的传递</strong>。因为有些 jar 包传递过来可能会和其它 jar 包产生冲突。</p>
 <h3 id="2、配置方式"><a href="#2、配置方式" class="headerlink" title="2、配置方式"></a>2、配置方式</h3><ol>
 <li><p>首先记录一下 pro02-maven-web 工程的依赖结构。</p>
@@ -900,7 +900,7 @@
 <li>  pro05-maven-module</li>
 <li>  pro06-maven-module</li>
 </ul>
-<img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409191815270.png" alt="image-20220409191815270" style="zoom:67%;" />
+<img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409191815270.png" alt="image-20220409191815270" style="zoom:67%;">
 
 
 
@@ -924,12 +924,12 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;my.spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>真正实现“一处修改，处处生效！”</p>
-<h3 id="4、实际意义"><a href="#4、实际意义" class="headerlink" title="4、实际意义"></a>4、实际意义</h3><p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409193722168.png" alt="image-20220409193722168"></p>
+<h3 id="4、实际意义"><a href="#4、实际意义" class="headerlink" title="4、实际意义"></a>4、实际意义</h3><p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409193722168.png" alt="image-20220409193722168"></p>
 <p>编写一套符合要求、开发各种功能都能正常工作的依赖并不容易。如果公司里已经有人总结了成熟的组合方案，那么再开发新项目时，如果不使用原有的积累，而是重新摸索，会浪费大量的时间。为了提高效率，我们可以使用 Maven 工程的继承机制，让成熟的依赖组合方案能够保留下来。</p>
 <p>如上图所示，公司级的父工程中管理的就是成熟的依赖组合方案，各个新项目、子系统各取所需即可。</p>
 <hr>
 <h2 id="第十节-实验十：聚合"><a href="#第十节-实验十：聚合" class="headerlink" title="第十节 实验十：聚合"></a>第十节 实验十：聚合</h2><h3 id="1、聚合本身的含义"><a href="#1、聚合本身的含义" class="headerlink" title="1、聚合本身的含义"></a>1、聚合本身的含义</h3><p>部分组成整体。</p>
-<p><img src="Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409211556788.png" alt="image-20220409211556788"></p>
+<p><img src="/2022/04/08/Maven%E5%AD%A6%E4%B9%A0-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/image-20220409211556788.png" alt="image-20220409211556788"></p>
 <p>动画片《战神金刚》中的经典台词：“我来组成头部！我来组成手臂！”就是聚合关系最生动的体现。</p>
 <h3 id="2、Maven中的聚合"><a href="#2、Maven中的聚合" class="headerlink" title="2、Maven中的聚合"></a>2、Maven中的聚合</h3><p>使用一个“总工程”将各个“模块工程”汇集起来，作为一个整体对应完整的项目。</p>
 <ul>

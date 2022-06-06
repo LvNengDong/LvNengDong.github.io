@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -156,6 +156,219 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" class="post-title-link" itemprop="url">Vue组件化开发</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-24 20:45:27" itemprop="dateCreated datePublished" datetime="2022-03-24T20:45:27+08:00">2022-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-03-25 13:52:30" itemprop="dateModified" datetime="2022-03-25T13:52:30+08:00">2022-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>  前置知识链接：</p>
+</blockquote>
+<p>在大型应用开发的时候，页面需要划分成很多部分。往往不同的页面，也会有相同的部分。例如可能会有相同的头部导航。</p>
+<p>组件化就是把页面中可以复用的部分抽取成成独立的组件，然后在不同的地方<strong>复用</strong>这些组件，减少了开发成本！</p>
+<p>其实 Vue 应用就是一个组件，这也是它被称为 SPA 的由来，只不过这个组件底下又有很多层很多个子组件。</p>
+<p>组件本质上也是一个 Vue 实例，因此它在创建时也需要定义 data、methods、生命周期函数等。</p>
+<p>不同的是组件不会与某个页面的元素绑定，否则就无法复用了，因此没有 el 属性。</p>
+<p>但是组件又是一个页面的一部分，即组件也是由静态 HTML 和 Vue 实例共同组成的，所以增加了 template 属性，它的值就是一段 HTML 代码。</p>
+<h2 id="1-全局组件"><a href="#1-全局组件" class="headerlink" title="1 全局组件"></a>1 全局组件</h2><p>全局组件是一个创建后可悲任何 vue 实例都直接调用的组件。它是通过 <code>Vue.component()</code> 方法创建的。具体代码如下：</p>
+<ul>
+<li>  <strong>在组件中，data 必须是一个函数，不再是一个对象。</strong></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用定义好的全局组件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../node_modules/vue/dist/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 定义一个全局组件。两个参数：1，组件名称。2，组件参数</span></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;aaa&quot;</span>,&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>:<span class="string">&#x27;&lt;button v-on:click=&quot;bbb++&quot;&gt;你点了我 &#123;&#123; bbb &#125;&#125; 次，我记住了.&lt;/button&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">data</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span>&#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">bbb</span>: <span class="number">0</span></span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>效果：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/60.gif"></p>
+<h2 id="2-组件的复用"><a href="#2-组件的复用" class="headerlink" title="2 组件的复用"></a>2 组件的复用</h2><p>定义好的组件，可以任意复用多次：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--复用定义好的全局组件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530084943778.png" alt="1530084943778"></p>
+<p>你会发现每个组件互不干扰，都有自己的 bbb 值。这是怎么实现的呢？</p>
+<p>答案就是：<strong>组件的data属性必须是函数</strong>。</p>
+<p>当我们定义这个 <code>&lt;aaa&gt;</code> 组件时，它的 data 并不是像这样直接提供一个对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">data</span>: &#123;</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取而代之的是，一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">data</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果 Vue 没有这条规则，点击一个按钮就会影响到其它所有实例！</p>
+<hr>
+<h2 id="3-局部注册"><a href="#3-局部注册" class="headerlink" title="3 局部注册"></a>3 局部注册</h2><p>一旦全局注册，就意味着即便以后你不再使用这个组件，它依然会随着Vue的加载而加载。</p>
+<p>因此，对于一些并不频繁使用的组件，我们会采用局部注册。</p>
+<p>我们先在外部定义一个对象，结构与创建组件时传递的第二个参数一致：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">&#x27;&lt;button v-on:click=&quot;count++&quot;&gt;你点了我 &#123;&#123; count &#125;&#125; 次，我记住了.&lt;/button&gt;&#x27;</span>,</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">count</span>:<span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后在Vue中使用它：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        <span class="attr">counter</span>:counter <span class="comment">// 将定义的对象注册为组件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>components 就是当前 vue 对象导入的组件集合。<ul>
+<li>其key就是子组件名称</li>
+<li>其值就是组件对象的属性</li>
+</ul>
+</li>
+<li>效果与刚才的全局注册是类似的，不同的是，这个counter组件只能在当前的Vue实例中使用</li>
+</ul>
+<hr>
+<h2 id="4-组件通信"><a href="#4-组件通信" class="headerlink" title="4 组件通信"></a>4 组件通信</h2><p>通常一个单页应用会以一棵嵌套的组件树的形式来组织：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1525855149491.png" alt="1525855149491"></p>
+<ul>
+<li>页面首先分成了顶部导航、左侧内容区、右侧边栏三部分</li>
+<li>左侧内容区又分为上下两个组件</li>
+<li>右侧边栏中又包含了3个子组件</li>
+</ul>
+<p>各个组件之间以嵌套的关系组合在一起，那么这个时候不可避免的会有组件间通信的需求。</p>
+<h3 id="4-1-props（父向子传递）"><a href="#4-1-props（父向子传递）" class="headerlink" title="4.1 props（父向子传递）"></a>4.1 props（父向子传递）</h3><ol>
+<li>父组件使用子组件时，自定义属性（属性名任意，属性值为要传递的数据）</li>
+<li>子组件通过props接收父组件属性</li>
+</ol>
+<p>父组件使用子组件，并自定义了title属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>打个招呼：<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用子组件，同时传递title属性--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">introduce</span> <span class="attr">title</span>=<span class="string">&quot;大家好，我是锋哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./node_modules/vue/dist/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;introduce&quot;</span>,&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 直接使用props接收到的属性来渲染页面</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>:<span class="string">&#x27;&lt;h1&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">props</span>:[<span class="string">&#x27;title&#x27;</span>] <span class="comment">// 通过props来接收一个父组件传递的属性</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530093525973.png" alt="1530093525973"></p>
+<h3 id="4-2-props验证"><a href="#4-2-props验证" class="headerlink" title="4.2.props验证"></a>4.2.props验证</h3><p>我们定义一个子组件，并接受复杂数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myList = &#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;\</span></span><br><span class="line"><span class="string">    &lt;ul&gt;\</span></span><br><span class="line"><span class="string">    	&lt;li v-for=&quot;item in items&quot; :key=&quot;item.id&quot;&gt;&#123;&#123;item.id&#125;&#125; : &#123;&#123;item.name&#125;&#125;&lt;/li&gt;\</span></span><br><span class="line"><span class="string">    &lt;/ul&gt;\</span></span><br><span class="line"><span class="string">    &#x27;</span>,</span><br><span class="line">    <span class="attr">props</span>: &#123;</span><br><span class="line">        <span class="attr">items</span>: &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="title class_">Array</span>,</span><br><span class="line">            <span class="attr">default</span>: [],</span><br><span class="line">            <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这个子组件可以对 items 进行迭代，并输出到页面。</li>
+<li>props：定义需要从父组件中接收的属性<ul>
+<li>items：是要接收的属性名称<ul>
+<li>type：限定父组件传递来的必须是数组</li>
+<li>default：默认值</li>
+<li>required：是否必须</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。</strong> </p>
+<p>我们在父组件中使用它：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>传智播客已开设如下课程：<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用子组件的同时，传递属性，这里使用了v-bind，指向了父组件自己的属性lessons --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">my-list</span> <span class="attr">:items</span>=<span class="string">&quot;lessons&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        myList <span class="comment">// 当key和value一样时，可以只写一个</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">lessons</span>:[</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;java&#x27;</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;php&#x27;</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>: <span class="string">&#x27;ios&#x27;</span>&#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530107338625.png" alt="1530107338625"></p>
+<p>type类型，可以有：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530108427358.png" alt="1530108427358"></p>
+<h3 id="4-3-动态静态传递"><a href="#4-3-动态静态传递" class="headerlink" title="4.3.动态静态传递"></a>4.3.动态静态传递</h3><p>给 prop 传入一个静态的值： </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">introduce</span> <span class="attr">title</span>=<span class="string">&quot;大家好，我是锋哥&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>给 prop 传入一个动态的值： （通过v-bind从数据模型中，获取title的值）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">introduce</span> <span class="attr">:title</span>=<span class="string">&quot;title&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>静态传递时，我们传入的值都是字符串类型的，但实际上<strong>任何类型</strong>的值都可以传给一个 props。 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 即便 `42` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这是一个JavaScript表达式而不是一个字符串。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:likes</span>=<span class="string">&quot;42&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 用一个变量进行动态赋值。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:likes</span>=<span class="string">&quot;post.likes&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-4-子向父的通信"><a href="#4-4-子向父的通信" class="headerlink" title="4.4.子向父的通信"></a>4.4.子向父的通信</h3><p>来看这样的一个案例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>num: &#123;&#123;num&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用子组件的时候，传递num到子组件中--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">counter</span> <span class="attr">:num</span>=<span class="string">&quot;num&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./node_modules/vue/dist/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;counter&quot;</span>, &#123;<span class="comment">// 子组件，定义了两个按钮，点击数字num会加或减</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>:<span class="string">&#x27;\</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">            &lt;div&gt;\</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                &lt;button @click=&quot;num++&quot;&gt;加&lt;/button&gt;  \</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                &lt;button @click=&quot;num--&quot;&gt;减&lt;/button&gt;  \</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">            &lt;/div&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">props</span>:[<span class="string">&#x27;num&#x27;</span>]<span class="comment">// count是从父组件获取的。</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">data</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">num</span>:<span class="number">0</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>子组件接收父组件的num属性</li>
+<li>子组件定义点击按钮，点击后对num进行加或减操作</li>
+</ul>
+<p>我们尝试运行，好像没问题，点击按钮试试：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530115066496.png" alt="1525859093172"></p>
+<p>子组件接收到父组件属性后，默认是不允许修改的。怎么办？</p>
+<p>既然只有父组件能修改，那么加和减的操作一定是放在父组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">num</span>:<span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123; <span class="comment">// 父组件中定义操作num的方法</span></span><br><span class="line">        <span class="title function_">increment</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">num</span>++;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">decrement</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">num</span>--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>但是，点击按钮是在子组件中，那就是说需要子组件来调用父组件的函数，怎么做？</p>
+<p>我们可以<strong>通过v-on指令将父组件的函数绑定到子组件</strong>上：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>num: &#123;&#123;num&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">counter</span> <span class="attr">:count</span>=<span class="string">&quot;num&quot;</span> @<span class="attr">inc</span>=<span class="string">&quot;increment&quot;</span> @<span class="attr">dec</span>=<span class="string">&quot;decrement&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在子组件中定义函数，函数的具体实现调用父组件的实现，并在子组件中调用这些函数。当子组件中按钮被点击时，调用绑定的函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;counter&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">&#x27;\</span></span><br><span class="line"><span class="string">        &lt;div&gt;\</span></span><br><span class="line"><span class="string">            &lt;button @click=&quot;plus&quot;&gt;加&lt;/button&gt;  \</span></span><br><span class="line"><span class="string">            &lt;button @click=&quot;reduce&quot;&gt;减&lt;/button&gt;  \</span></span><br><span class="line"><span class="string">        &lt;/div&gt;&#x27;</span>,</span><br><span class="line">    <span class="attr">props</span>:[<span class="string">&#x27;count&#x27;</span>],</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">        <span class="title function_">plus</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.$emit(<span class="string">&quot;inc&quot;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">reduce</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.$emit(<span class="string">&quot;dec&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>vue提供了一个内置的this.$emit()函数，用来调用父组件绑定的函数</li>
+</ul>
+<p>效果：</p>
+<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/61.gif"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -235,7 +448,7 @@
 <p>实际上也是这样，数据不同的存储方式，会导致不同的检索效率。那么，到底什么样的数据存储方式检索快？什么样的数据存储方式检索慢呢？这其实并无一个标准的答案，因为并没有哪种数据存储方式的检索效率可以在所有使用场景下都具有优势，脱离实际的理论都是空谈，在不同的应用场景中我们要学会取舍，选择当前需求下最合适的存储方式来解决问题。</p>
 <p>今天，我们首先从数组和链表的特点入手，先来看一下它们是如何进行检索的。</p>
 <h2 id="数组和链表有哪些优点？"><a href="#数组和链表有哪些优点？" class="headerlink" title="数组和链表有哪些优点？"></a>数组和链表有哪些优点？</h2><p>相信有一定计算机基础的小伙伴儿对这个问题已不陌生了。数组就是用一块连续的内存来存储数据。那如果我申请不到连续的内存空间怎么办呢？这时候就可以派上用场了。链表可以申请不连续的空间，通过一个指针按顺序将这些空间串起来，形成一条链，链表也正是因此得名。不过，严格意义上来讲，这个叫做单链表。如果没有特别说明，下文我提到的链表，指的都是只有一个后续指针的单链表。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321193427186.png" alt="image-20220321193427186"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321193427186.png" alt="image-20220321193427186"></p>
 <p>从图片中我们可以看出，<strong>数组和链表代表了连续空间和不连续空间最基础的存储方式，它们是线性表（Linked List）的典型代表。其它所有的数据结构，比如栈、队列、二叉树、B+树等，不外乎都是这两者的结合和变化。</strong>以栈为例，它本质就是一个限制了读写位置的数组，特点是只允许先进后出。</p>
 <p>因此，<strong>我们只需要从最基础的数组和链表入手，结合实际应用中遇到的问题去思考解决方案，就能逐步学习和了解更过的数据结构和检索技术。</strong></p>
 <p>那么，数组和链表这两种线性数据结构的检索效率究竟如何呢？我们来具体看一下。</p>
@@ -250,34 +463,34 @@
 <li>同理，如果中间元素的值大于我们想查询的值，那么我们就只在左边的数组元素查找即可。</li>
 </ol>
 </blockquote>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321195720343.png" alt="image-20220321195720343"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321195720343.png" alt="image-20220321195720343"></p>
 <p>由此可见，合理地组织数据的存储可以提高检索效率。<strong>检索的核心思路，其实就是通过合理组织数据，尽可能地快速减少查询范围。</strong>我们见到的各种检索算法和技术，本质上都是通过灵活应用各种数据结构的特点来组织数据，从而达到快速减少查询范围的目的。</p>
 <h2 id="链表在检索和动态调整上的优缺点"><a href="#链表在检索和动态调整上的优缺点" class="headerlink" title="链表在检索和动态调整上的优缺点"></a>链表在检索和动态调整上的优缺点</h2><p>前面我们说了，数据无序存储的话，数据和链表的检索效率都很低，都需要全盘扫描遍历。如果数据有序的话，采用数组存储数据可以通过二分查找大大提高检索效率。但你有没有发现一个问题，即便数据有序，链表好像也没法儿提高检索效率啊。</p>
 <p>数组的“连续空间存储”带来了数据可随机访问的特点。在有序数组应用二分查找时，它能以 O(1) 的时间代价快速访问到位于中间的值，然后以中间点为分界线，只选择左边或右边继续查找，从而能快速缩小查询范围。</p>
 <p>但是链表并不具备“随机访问”的特点。当链表想要访问中间的元素时，我们必须从链表头开始，沿着链一步一步遍历过去，才能访问到期望的数值。即如果想要访问链表中间的节点，我们就需要遍历一半的节点，时间代价已经是 O(n/2) 了。从这个方面来看，由于少了“随机访问”的特性，链表的检索能力是偏弱的。</p>
 <p>但，凡事都有两面性，<strong>链表的检索能力偏弱，作为弥补，它在动态调整上会更容易</strong>。我们可以以 O(1) 的时间代价完成节点的插入和删除，这是“连续空间”的数组难以做到的。毕竟如果我们要在有序数组中插入一个元素，为了保证“数组有序”，我们就必须将数组中排在这个元素后面的元素，全部顺序后移一位，这其实是一个 O(n) 的时间代价了。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321201525392.png" alt="image-20220321201525392"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321201525392.png" alt="image-20220321201525392"></p>
 <p>因此，<u>在一些需要频繁插入删除数据的场合，有序数组不见得是最合适的选择。另一方面，在数据量非常大的场合，我们也很难保证能申请到连续空间来构建有序数组。</u>因此，学会高效合理地使用链表，也是非常重要的。</p>
 <h2 id="如何灵活改造链表提升检索效率？"><a href="#如何灵活改造链表提升检索效率？" class="headerlink" title="如何灵活改造链表提升检索效率？"></a>如何灵活改造链表提升检索效率？</h2><p><u><strong>本质上，我们学习链表，就是在学习“非连续存储空间”的组织方案。</strong>我们知道，对于“非连续空间”，可以用指针将它串联成一个整体。只要掌握了这个思想，我们就可以在不同的应用场景中，设计出适用的数据结构，而不需要拘泥于链表自身的结构限制。</u></p>
 <p>我们可以来看一个简单的例子。</p>
 <p>比如说，如果我们觉得链表一个节点一个节点地遍历太慢，那么我们是不是可以对其进行简单改造，让链表的每个节点不再只是存储一个元素，而是存储一个小的数组。这样我们就能大幅减少节点的数量，从而减少依次遍历节点带来的“低寻址效率”。</p>
 <p>如下图所示，我的链表里就只有两个节点，每个节点都存储了一个小的有序数组。这样在检索的时候，我可以用二分查找的思想，先查询第一个节点存储的数组中的末尾元素，看看是否是我们想要的数字。如果不是，我们要么在第一个节点的数组中继续二分查找，要么在第二个节点的数组中继续二分查找。这样的结构就能同时兼顾数组和链表的特点了，而且时间代价也是 O(log n)。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321202554930.png" alt="image-20220321202554930"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321202554930.png" alt="image-20220321202554930"></p>
 <p>可见，尽管常规的链表只能遍历检索，但是只要我们掌握了“非连续存储空间可以灵活调整”的特性，就可以设计更高效的数据结构和检索算法了。</p>
 <hr>
 <h1 id="02-非线性结构检索：数据频繁变化的情况下，如何高效检索？"><a href="#02-非线性结构检索：数据频繁变化的情况下，如何高效检索？" class="headerlink" title="02 | 非线性结构检索：数据频繁变化的情况下，如何高效检索？"></a>02 | 非线性结构检索：数据频繁变化的情况下，如何高效检索？</h1><p>当我们在电脑中查文件的时候，我们一般习惯先打开相应的磁盘，再打开文件夹及子文件夹，最后找到我们需要的文件。这其实就是一个检索路径。如果把所有的文件展开，这个查找路径其实是一种树状结构，即是一种非线性结构，而不是一个所有文件平铺排列的线性结构。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/1859310bd112d5479eac9c097db8b946.jpeg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/1859310bd112d5479eac9c097db8b946.jpeg" alt="img"></p>
 <p>我们都知道，<u>有层次的文件组织肯定比散乱平铺的文件更容易找到。这样一个熟悉的场景，是否是能给我们一个启发：对于零散的数据，非线性的树状结构是否可以帮助我们提高检索效率呢？</u></p>
 <p>另一方面，我们也知道，在数据频繁更新的场景中，连续存储的有序数组并不是最合适的存储方案。因为数组为了保持有序必须不停地重建和排序，系统的检索性能就会急剧下滑。但是，非连续存储的有序链表倒是具有高效插入新数据的能力。因此，我们能否结合上面的例子，使用非线性的树状结构来改造有序链表，让链表也具有二分查找的能力呢？并且，如果成功的话，还是一种适用于写多读少场景的二分查找能力。</p>
 <h2 id="树结构是如何进行二分查找的？"><a href="#树结构是如何进行二分查找的？" class="headerlink" title="树结构是如何进行二分查找的？"></a>树结构是如何进行二分查找的？</h2><p>上一节我们说过，因为链表不具备“随机访问”的特点，所以二分查找无法生效。当链表想要访问中间的元素时，我们必须从链表头开始，沿着指针一步一步遍历，需要遍历一半的节点才能到达中间节点，时间代价是 O(n/2)。而有序数组由于可以“随机访问”，因此只需要 O(1) 的时间代价就可以访问到中间节点了。</p>
 <p>那如果我们能在链表中以 O(1) 的时间代价快速访问到中间的节点，是不是就可以和有序数组一样使用二分查找了？</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/2c61d26ed919411dd9be1a94cefb30ca.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/2c61d26ed919411dd9be1a94cefb30ca.jpg" alt="img"></p>
 <p>既然我们希望能以 O(1) 的时间代价访问中间节点，那直接将这个节点记录下来是不是就可以了？因此，如果我们已经把中间节点 M 拎出来单独记录了，那我们的第一步操作就是直接访问这个中间节点，然后判断这个节点和要查找的元素是否相等。如果相等，则返回查询结果。如果节点元素大于要查找的元素，那我们就道左边的部分继续查找；反之，则到右边的部分继续查找。</p>
 <p>对于左边或者右边的部分，我们可以将它们视为两个独立的子链表，依然沿用这个逻辑。如果想用 O(1) 的时间代价就能访问这两个子链表的中间节点，我们就应该把左边部分的中间节点 L 和右边部分的中间节点 R 单独拎出来记录。</p>
 <p>并且，由于我们是在访问完了 M 节点后，才决定接下来该去访问左边的 L 还是右边的 R。所以，我们还需要将 M 和 L，M 和 R 连接起来。我们可以让 M 带有两个指针，一个左指针指向 L，一个右指针指向 R。这样，在访问 M 以后，一旦发现 M 不是我们要查找的节点，那么我们接下来就可以通过指针快速访问到 L 或者 R 了。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/d274bfacd98b00d82746cfeb838ec1f4.jpeg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/d274bfacd98b00d82746cfeb838ec1f4.jpeg" alt="img"></p>
 <p>对于其余的节点，我们也可以进行同样的处理。下面这个结构，你是不是很熟悉，没错，这就是我们常见的二叉树。你再来观察一下，这个二叉树和普通的二叉树有什么不一样？</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/bf8df69285c21e28b493bd2f7a0c1abb.jpeg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/bf8df69285c21e28b493bd2f7a0c1abb.jpeg" alt="img"></p>
 <p>没错，这个二叉树是有序的。它的左子树的所有节点的值都小于根节点，同时右子树所有节点的值都大于等于根节点。这样的有序结构，使得它能使用二分查找法，快速地过滤掉一半的数据。具备了这样特点的树，就是<strong>二叉检索树（Binary Search Tree）</strong>，或叫<strong>二叉排序树（Binary Sorted Tree）</strong>。</p>
 <p>现在我们就可以简单对比一下。<strong>尽管有序数组和二叉检索树，在数据形态上看起来差异很大，但是在提高检索效率上，它们的核心原理都是一样的。</strong>那么，它们是如何提高检索效率的呢？核心原理又一致在哪里呢？下面我们从两个方面总结一下：</p>
 <ul>
@@ -308,11 +521,11 @@
 <h3>什么是倒排索引？
 
 <p>我们先来看看第一个问题：给出一首诗的题目，马上背出内容。这其实就是一个典型的键值查询场景。针对这个场景，我们可以给每首诗一个唯一的编号作为 ID，然后使用哈希表将诗的 ID 作为键（Key），把诗的内容作为键对应的值（Value）。这样，我们就能在 O(1) 的时间复杂度内，完成对指定 key 的检索。这样的以对象的唯一 ID 为 key 的哈希索引结构，叫做<strong>正排索引（Forward Index）</strong>。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/4b5e88addf89120aba176671c53d25f1.jpeg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/4b5e88addf89120aba176671c53d25f1.jpeg" alt="img"></p>
 <p>一般来说，我们会遍历哈希表，遍历的时间复杂度是 O(n)。在遍历过程中，对于遇到的每一个元素对应着一首诗，如果我们想要判断这首诗中是否包含“极”字和“客”字，我们还需要遍历这首诗中的每一个字符。假设每首诗的平均长度是 k，那么遍历一首诗的时间代价就是 O(k)。所以，判断哪些诗中包含“极”字和“客”字的时间复杂度就是 O(n*k)。从分析中我们可以发现，这个检索过程全部都是遍历，因此时间复杂度非常高。对此，有什么优化方法吗？</p>
 <p>我们首先来分析一下这两个场景。我们会发现，“根据题目查找内容”和“根据关键字查找题目”，这两个问题其实是完全相反的。既然完全相反，那我们能否“反着”建立一个哈希表来帮助我们查找呢？也就是说，如果我们以关键字作为 key 建立哈希表，是不是问题就解决了呢？接下来，我们试着操作一下。</p>
 <p>我们将每个关键字当做 key，将包含了这个关键字的诗的列表当做存储的内容。这样，我们就建立了一个哈希表，根据关键字来查询这个哈希表，在 O(1) 的时间复杂度内，我们就能得到包含该关键字的文档列表。这种根据具体内容或者属性反过来索引文档标题的结构，就叫做<strong>倒排索引（Invert Index）</strong>。在倒排索引中，key 的集合叫做<strong>字典（Dictionary）</strong>，一个 key 后面对应的记录集合叫做<strong>记录列表（Posting List）</strong>。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/8e602ab79d98380c8c258a30a1e2108b.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/8e602ab79d98380c8c258a30a1e2108b.jpg" alt="img"></p>
 <h3>如何创建倒排索引？
 
 <p>前面我们介绍了倒排索引的概念，那创建一个倒排索引的过程究竟是怎么样的呢？我把这个过程总结成了以下步骤：</p>
@@ -322,7 +535,7 @@
 <li> 每检测到一个关键字，就将关键字作为 key 插入哈希表，如果哈希表中已经有这个 key 了，我们就在对应的 posting list 后面追加节点，记录该文档 ID（关键字的位置信息如果需要，也可以一并记录在节点中）；如果哈希表中还没有这个 key，我们就直接插入该 key，并创建 posting list 和对应节点。</li>
 <li> 重复第2步和第3步，处理完所有文档，完成倒排索引的创建。</li>
 </ol>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/2ccc78df6ebbd4d716318d5113fa090d.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/2ccc78df6ebbd4d716318d5113fa090d.jpg" alt="img"></p>
 <h3>如何查询同时含有“极”字和“客”字两个key的文档？
 
 <p>如果只是查询包含“极”或者“客”这样的单个字的文档，我们直接以查询的字作为 key 去倒排索引表中检索，得到的 posting list 就是结果了。但是，如果我们的目的是要查询同时包含“极”和“客”这两个字的文档，那我们该如何操作呢？</p>
@@ -342,10 +555,10 @@
 </ol>
 <p>  具体的操作步骤如下图所示：</p>
 </blockquote>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/a377f626bbfc1de2f98f199ed0ad585f.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/a377f626bbfc1de2f98f199ed0ad585f.jpg" alt="img"></p>
 <p>那对于<strong>两个 key</strong> 的联合查询来说，除了有“<strong>同时存在</strong>”这样的场景以外，还有很多联合查询的实际例子。比如说，我们可以查询包含“极”<strong>或</strong>“客”的诗，也可以查询包含“极“<strong>且不包含</strong>”客”的诗。这些场景分别对应着交集、并集和差集等问题。具体的实现流程也和“同时存在”差不多，也是通过遍历链表对比的方式来完成的。</p>
 <p>此外，在实际应用中，我们可能还需要对<strong>多个 key</strong> 进行联合查询，比如说，要查询同时包含“极“、”客“、”时“、”间” 四个字的诗，这个时候，我们利用多路归并的方法，同时遍历这四个关键字对应的 posting list 即可。实现过程如下图所示：</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/c91ce2f3cff16b20b0cca52a57336b96.jpeg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/c91ce2f3cff16b20b0cca52a57336b96.jpeg" alt="img"></p>
 <h3>重点回顾
 
 <p>回顾上面讲的，你会发现，<u>倒排索引的核心其实并不复杂，它的具体实现其实是哈希表</u>，只是它不是将文档 ID 或者题目作为 key，而是反过来，通过将内容或者属性作为 key 来存储对应的文档列表，使得我们能在 O(1) 的时间复杂度内完成查询。</p>
@@ -363,23 +576,23 @@
 <p>由于磁盘相对于内存而言，访问速度实在太慢，因此，对于磁盘上数据的高效检索，我们有一个极其重要的原则：<strong>对磁盘的访问次数要尽可能的少！</strong></p>
 <p>那么问题来了，我们应该如何减少磁盘的访问次数呢？将索引和数据分离就是一种常见的设计思路。</p>
 <h2 id="如何将索引和数据分离？"><a href="#如何将索引和数据分离？" class="headerlink" title="如何将索引和数据分离？"></a>如何将索引和数据分离？</h2><p>我们以查询用户信息为例。我们知道，一个系统中的用户信息非常多，除了有唯一标识的ID以外，还有名字、邮箱、手机、兴趣爱好以及文章列表等各种信息。一个保存了所有用户信息的数组往往非常大，无法全部放在内存中，因此，我们会将它存储在磁盘中。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/3ad283ed20ba36a8f5f8350ee4bd7d56.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/3ad283ed20ba36a8f5f8350ee4bd7d56.jpg" alt="img"></p>
 <p>当我们以用户的ID进行检索时，这个检索过程其实并不是需要读取存储用户的具体信息。因此，我们可以生成一个只用于检索的有序索引数组。数组中的每个元素只存两个值，一个是用户ID，另一个是这个用户信息在磁盘上的位置，那么这个数组空间就会很小，也就可以放入内存中了。这种用有序数组做索引的方法，叫做<strong>线性索引</strong>（Linear Index）。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/0e7ca7c9a2c9c373353ae5ec824f4f1e.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/0e7ca7c9a2c9c373353ae5ec824f4f1e.jpg" alt="img"></p>
 <p>【有序数组的缺点：】在数据频繁变化的场景中，有序数组并不是一个最好的选择，二叉检索树或者哈希表往往更有普适性。（数据频繁变化 -&gt; 写操作多 -&gt; 产生大量的新增/删除/修改操作 -&gt; 有序数组中元素的位置需要频繁变化）</p>
 <p>【哈希表的缺点：】但是，哈希表由于缺乏范围检索的能力，在一些场合中也不适用。</p>
 <p>【只剩下二叉检索树：】因此，二叉检索树这种树形结构是许多常见检索系统的实施方案。那么，上图中的线性索引结构，就变成了下图这个样子。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/0203a7cc903e3acf38e47a59ad3aa6b4.jpeg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/0203a7cc903e3acf38e47a59ad3aa6b4.jpeg" alt="img"></p>
 <p>【二叉检索树的缺点：】尽管二叉检索树可以解决数据动态修改的问题，但<u>在索引数据很大的情况下，依然会存在数据无法全部加载到内存中的情况。</u>这种情况下我们应该怎么办呢？</p>
 <p>一个很自然的思路，就是将索引数据也存在磁盘中。那如果是树形索引，我们应该将哪些节点存入磁盘，又要如何从磁盘中读出这些数据进行检索呢？我们可以先自己想一想。然后再来看一下业界常用的解决方案 B+树是怎么做的。</p>
 <h2 id="如何理解B-树的数据结构？"><a href="#如何理解B-树的数据结构？" class="headerlink" title="如何理解B+树的数据结构？"></a>如何理解B+树的数据结构？</h2><p>B+树是检索技术中非常重要的一个部分。这是为什么呢？因为<strong>B+树给出了树形索引的所有节点都存在磁盘上的高效检索方案，</strong>使得索引技术摆脱了内存空间的限制，得到了广泛的应用。</p>
 <p>前面我们讲了，操作系统对磁盘数据的访问是以块为单位的。因此，如果我们想将树形索引的一个节点从磁盘中读出，即使该节点的数据量很小（比如说只有几个字节），但磁盘依然会将整个块的数据全部读出来，而不是只读这一小部分数据，这会让有效读取效率很低。<strong>B+树的一个关键设计就是，让一个节点的大小等于一个块的大小。节点内存储的数据，不是一个元素，而是一个可以装 m 个元素的有序数组。</strong>这样一来，我们就可以将磁盘一次读取的数据全部利用起来，使得读取效率最大化。</p>
 <p>B+树还有另一个设计，就是将所有的节点分为内部节点和叶子节点。尽管内部节点和叶子节点的数据结构是一样的，但存储的内容是不同的。</p>
 <p><u>内部节点仅存储 key 和维持树形结构的指针，并不存储 key 对应的数据（无论是具体数据还是文件位置信息）。</u>这样内部节点就能存储更多的索引数据，我们也就可以使用最少的内部节点，将所有数据组织起来了。而<u>叶子节点仅存储 key 和对应数据，不存储维持树形结构的指针。</u>通过这样的设计，B+树就能做到节点的空间利用率最大化。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/a994e93f2fdd38291998cba8149270eb.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/a994e93f2fdd38291998cba8149270eb.jpg" alt="img"></p>
 <p>此外，<u>B+树还将同一层的所有节点串成了有序的双向链表，这样一来B+树就同时具备了良好的范围查询能力和灵活调整能力了。</u></p>
 <p>因此，B+树是一棵完全平衡的 m 阶多叉树。所谓的 m 阶，就是每个节点最多有 m 个子节点，并且每个节点里都存了一个紧凑的可包含 m 个元素的数组。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/72499a6180cfb1ee7e3c33e6ca433b65.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/72499a6180cfb1ee7e3c33e6ca433b65.jpg" alt="img"></p>
 <h2 id="B-树是如何检索的？"><a href="#B-树是如何检索的？" class="headerlink" title="B+树是如何检索的？"></a>B+树是如何检索的？</h2><p>这样的结构，使得B+树可以作为一个完整的文件全部存储在磁盘中。当从根节点开始查询时，通过一次磁盘访问，我们就能将文件中的根节点这个数据块读出，然后在根节点的有序数组中进行二分查找。</p>
 <p>具体的查找过程如下：</p>
 <ol>
@@ -391,19 +604,19 @@
 <p>比如说，对于一个 4 层的 B+ 树，每个节点的大小是 4K，那么第一层根节点就是 4K，第二层最多有 400 个节点，一共就是 1.6M，第三层最多有 400^2 个节点，一共是 640M。对于现在常见的计算机来说，前三层的内部节点其实都可以存储在内存中，只有第四层的叶子节点才需要存储在磁盘中。这样一来，我们就只需要读取一次磁盘即可。这也是为什么，B+ 树要将内部节点和叶子节点区分开的原因。通过这种只让内部节点存储索引数据的设计，我们就可以更容易地把内部节点全部加载到内存中了。</p>
 <h2 id="B-树是如何动态调整的？"><a href="#B-树是如何动态调整的？" class="headerlink" title="B+树是如何动态调整的？"></a>B+树是如何动态调整的？</h2><p>现在，你已经知道 B+ 树的结构和原理了。那 B+ 树在“新增节点”和“删除节点”这样的动态变化场景中，又是怎样操作的呢？接下来，让我们一起来看一下。</p>
 <p>首先，我们来看插入数据。由于具体的数据都是存储在叶子节点上的，因此，数据的插入也是从叶子节点开始的。以一个节点有 3 个元素的 B+ 树为例，如果我们要插入一个 ID=6 的节点，首先要查询到对应的叶子节点，如果叶子节点的数组未满，那么就直接将该元素插入数组即可。具体过程如下图所示：</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/9ed9028cab65e6530966faae00d0d3d4.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/9ed9028cab65e6530966faae00d0d3d4.jpg" alt="img"></p>
 <p>如果我们插入的是 ID=10 的节点呢？按照之前的逻辑，我们应该插入到 ID9 后面，但是 ID9 所在的这个节点已经存满了 3 个节点，无法继续存入了。因此，我们需要将该叶子节点<strong>分裂</strong>。<u>分裂的逻辑就是生成一个新的节点，并将数据在两个节点平分。</u></p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/674115e7c61637e56791e001ea840af2.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/674115e7c61637e56791e001ea840af2.jpg" alt="img"></p>
 <p>叶子节点分裂完成后，上一层的内部节点也需要修改。但如果上一层的父节点也是满的，那么上一层的父节点也需要分裂。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/03af63ed8cd065743bd8b2bd812e5057.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/03af63ed8cd065743bd8b2bd812e5057.jpg" alt="img"></p>
 <p>内部节点调整好了，下一步我们就要调整根节点了。由于根节点未满，因此我们不需要分裂，直接修改即可。</p>
-<p><img src="%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/53fd14349369951706f53abd1eff560f.jpg" alt="img"></p>
+<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/53fd14349369951706f53abd1eff560f.jpg" alt="img"></p>
 <p>如果根节点满了，那我们就需要将根节点分裂，并生成新的根节点作为第一层。</p>
 <p>删除数据也类似。如果节点数据较慢，直接删除，如果删除后数组有一般以上的空间为空，那为了提高节点的空间利用率，该节点需要将左右两边兄弟节点中的元素转移过来。可以成功转移的条件是，元素转移后该节点及其兄弟节点的空间必须都能维持在半满以上。如果无法满足这个条件，就说明兄弟节点其实也足够空闲，那我们直接将该节点的元素并入兄弟节点，然后删除该节点即可。</p>
 <h2 id="重点回顾"><a href="#重点回顾" class="headerlink" title="重点回顾"></a>重点回顾</h2><p>通过这节内容，你会发现，即使是复杂的 B+ 树，我们将它拆解开来，其实也是由简单的数组、链表和树组成的，而且 <u>B+ 树的检索过程其实也是二分查找。因此，如果 B+ 树完全加载在内存中的话，它的检索效率其实并不会比有序数组或者二叉检索树更高，也还是二分查找的 log(n) 的效率。并且，它还比数组和二叉检索树更加复杂，还会带来额外的开销</u>。</p>
 <p><u>但是，B+ 树最大的优点在于，它提供了将索引数据存在磁盘中的高效检索方案。这让检索技术摆脱了内存的限制，</u>得到了更广泛的使用。</p>
 <p>另外，本节内容还有一个重要的设计思想就是：将索引和数据分离，通过这样的方式，我们能将索引的数组大小保持在一个较小的范围内，让它能加载在内存中。在很多大规模系统中，都是使用这个设计思路来精简索引的。而且，B+ 树的内部节点和叶子节点的区分，其实也是索引和数据分离的一种实践。</p>
-
+</h3></h3></h3></h3></h3>
       
     </div>
 
@@ -533,27 +746,27 @@
 <p>​    我们知道，越复杂的系统，对代码的复用性、易维护性要求就越高，我们就越应该花更多的时间和精力在前期设计上。而基于充血模型的DDD开发模式，正好需要我们前期做大量的业务调研、领域模型设计，所以它更加适合这种复杂系统的开发。</p>
 <hr>
 <h1 id="12-实战一（下）：如何利用基于充血模型的DDD开发一个虚拟钱包系统？"><a href="#12-实战一（下）：如何利用基于充血模型的DDD开发一个虚拟钱包系统？" class="headerlink" title="12 | 实战一（下）：如何利用基于充血模型的DDD开发一个虚拟钱包系统？"></a>12 | 实战一（下）：如何利用基于充血模型的DDD开发一个虚拟钱包系统？</h1><h2 id="钱包业务背景介绍"><a href="#钱包业务背景介绍" class="headerlink" title="钱包业务背景介绍"></a>钱包业务背景介绍</h2><p>​    很多具有支付、购买功能的应用（如淘宝、滴滴、极客时间等）都支持虚拟钱包功能。应用会为每个用户开设一个系统内的虚拟钱包账户，支持用户充值、提现、支付、冻结、透支、转增、查询账户余额、查询交易流水等操作。下图是一张典型的钱包功能界面，你可以直观地感受一下。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/9e91377602ef154eaf866c7e9263a64a.jpg" alt="img"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/9e91377602ef154eaf866c7e9263a64a.jpg" alt="img"></p>
 <p>​    一般来说，每个虚拟钱包账户都会对应用户的一个真实的支付账户，可能是银行卡账户，也有可能是第三方支付账户（比如支付宝、微信钱包）。为了方便后续的讲解，我们限定钱包暂时只支持充值、提现、查询余额、查询交易流水这五个核心功能，其它如冻结、透支、转增等不常用的功能暂不考虑。接下来，我们首先来看一下这五个核心功能的业务实现流程。</p>
 <h3 id="1、充值"><a href="#1、充值" class="headerlink" title="1、充值"></a>1、充值</h3><p>​    用户通过第三方支付渠道，把自己银行卡账户内的钱，充值到虚拟钱包账号中。整个过程我们可以分解为三个阶段：第一阶段是从用户的银行卡账户转账到应用的公共银行卡账户；第二个阶段是将用户充值的金额加到用户的虚拟钱包余额上；第三阶段是记录刚刚这笔交易流水。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/3915a6544403854d35678c81fe65f014.jpg" alt="img"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/3915a6544403854d35678c81fe65f014.jpg" alt="img"></p>
 <h3 id="2、支付"><a href="#2、支付" class="headerlink" title="2、支付"></a>2、支付</h3><p>​    用户用钱包内的余额，支付购买应用内的商品。实际上，支付的过程就是一个转账的过程，从用户的虚拟钱包账户转钱到商家的虚拟钱包账户上，然后触发真正的银行转账操作，从应用的公共银行账户转钱到商家的银行账户（注意，这里并不是从用户的银行账户转钱到商家的银行账户）。除此之外，我们也需要记录这笔支付的交易流水信息。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322101917924.png" alt="image-20220322101917924"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322101917924.png" alt="image-20220322101917924"></p>
 <h3 id="3、提现"><a href="#3、提现" class="headerlink" title="3、提现"></a>3、提现</h3><p>​    除了充值、支付之外，用户还可以将虚拟钱包中的余额，提现到自己的银行卡中。这个过程实际上就是扣减用户虚拟钱包中的余额，并且触发真正的银行转账操作，从应用的公共银行账户转钱到用户的银行账户。同样，我们也需要记录这笔提现的交易流水信息。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/66ede1de93d29b86a9194ea0f80d1e43.jpg" alt="img"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/66ede1de93d29b86a9194ea0f80d1e43.jpg" alt="img"></p>
 <h3 id="4、查询余额"><a href="#4、查询余额" class="headerlink" title="4、查询余额"></a>4、查询余额</h3><p>查询余额功能比较简单，我们看一下虚拟钱包中的余额数字即可。</p>
 <h3 id="5、查询交易流水"><a href="#5、查询交易流水" class="headerlink" title="5、查询交易流水"></a>5、查询交易流水</h3><p>​    查询交易流水也比较简单。我们只支持三种类型的交易流水：充值、支付、提现。在用户充值、支付、提现的时候，我们会生成记录响应的交易信息。在需要查询的时候，我们只需要将之前记录的交易流水，按照时间、类型等条件过滤之后，显示出来即可。</p>
 <h2 id="钱包系统的设计思路"><a href="#钱包系统的设计思路" class="headerlink" title="钱包系统的设计思路"></a>钱包系统的设计思路</h2><p>​    根据刚刚讲的业务实现流程和数据流转图，我们可以把整个钱包系统的业务划分为两部分，其中一部分单纯跟应用的虚拟钱包账户打交道，另一部分单纯跟银行账户打交道。基于这样一个业务划分，我们可以将系统解耦、拆分成两个子系统：虚拟钱包系统和第三方支付系统。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/60d3cfec73986b52e3a6ef4fe147e562.jpg" alt="img"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/60d3cfec73986b52e3a6ef4fe147e562.jpg" alt="img"></p>
 <p>而我们接下来将只聚焦于虚拟钱包系统的设计与实现。</p>
 <p><strong>现在我们来看一下，如果要支持钱包的这五个核心功能，虚拟钱包系统需要对应实现哪些操作。</strong>下面这张图列出了这五个功能都会对应虚拟钱包的哪些操作。注意，交易流水的记录和查询，我暂时在图中打了个问号，因为这块比较特殊，我们在用到的时候再讲。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/d1a9aeb6642404f80a62293ab2e45630.jpg" alt="img"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/d1a9aeb6642404f80a62293ab2e45630.jpg" alt="img"></p>
 <p>从图中我们可以看出，虚拟钱包系统要支持的操作非常简单，就是余额的加加减减。其中，充值、提现、查询余额三个功能，只涉及一个账户余额的加减操作，而支付功能涉及两个账户余额的加减操作：一个账户加余额，另一个账户减余额。</p>
 <p><strong>现在，我们再来看一下图中的问号部分，即交易流水应该如何记录和查询？</strong>我们先来看一下，交易流水都需要包含哪些信息。我觉得下面这几个信息是必需的。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/38b56bd1981d8b40ececa4d638e4a968.jpg" alt="img"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/38b56bd1981d8b40ececa4d638e4a968.jpg" alt="img"></p>
 <p>从图中我们可以发现，交易流水的数据格式包含两个钱包账号，一个是入账钱包账号，一个是出账钱包账号。为什么要有两个账号信息呢？这主要是为了兼容支付这种涉及两个账户的交易类型。不过，对于充值、提现这两种交易类型来说，我们只需要记录一个钱包账户信息就够了，所以，这样的交易流水数据格式的设计稍微有点浪费存储空间。</p>
 <p>实际上，我们还有另外一种交易流水数据格式的设计思路，可以解决这个问题。我们把“支付”这个交易类型拆分为两个子类型：支付和被支付。支付单纯表示出账，余额扣减，被支付单纯表示入账，余额增加。这样我们在设计交易流水数据格式的时候，只需要记录一个账户信息即可。我画了一张两种交易流水数据格式的对比图，你可以看一下。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322102527802.png" alt="image-20220322102527802"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322102527802.png" alt="image-20220322102527802"></p>
 <p><strong>那以上两种交易流水数据格式的设计思路，你觉得哪一个更好呢？</strong></p>
 <p>答案是第一种设计思路更好一些。因为交易流水有两个功能：一个是业务功能，比如，提供用户查询交易流水信息；另一个是非业务功能，保证数据的一致性。这里主要指支付操作数据的一致性。</p>
 <p>支付实际上就是一个转账的操作，在一个账户上加上一定的金额，在另一个账户上减去相应的金额。我们需要保证加金额和减金额这两个操作，要么都成功，要么都失败。如果一个成功，一个失败，就会导致数据的不一致，一个账户明明减掉了钱，另一个账户却没有收到钱。</p>
@@ -566,7 +779,7 @@
 <p>从系统设计的角度，我们不应该在虚拟钱包系统的交易流水中记录交易类型。从产品需求的角度来说，我们又必须记录交易流水的交易类型。听起来比较矛盾，这个问题该如何解决呢？</p>
 <p>我们可以通过记录两条交易流水信息来解决。我们前面讲到，整个钱包系统分为两个子系统，上层钱包系统的实现，依赖底层虚拟钱包系统和第三方支付系统。对于钱包系统来说，它可以感知充值、支付、提现等业务概念，所以我们在钱包系统这一层额外再记录一条包含交易类型的交易流水信息，而在底层的虚拟钱包系统中记录不包含交易类型的交易流水信息。</p>
 <p>为了让你更好地理解刚刚的设计思路，我画了一张图，可以对比着讲解一块儿来看。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322102706010.png" alt="image-20220322102706010"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322102706010.png" alt="image-20220322102706010"></p>
 <p>我们通过查询上层钱包系统的交易流水信息，去满足用户查询交易流水的功能需求，而虚拟钱包中的交易流水就只是用来解决数据一致性问题。实际上，它的作用还有很多，比如用来对账等。</p>
 <p>整个虚拟钱包系统的设计思路到此讲完了。接下来，我们来看一下，如何分别用基于贫血模型的传统开发模式和基于充血模型的DDD开发模式，来实现这样的一个虚拟钱包系统？</p>
 <h2 id="基于贫血模型的传统开发模式"><a href="#基于贫血模型的传统开发模式" class="headerlink" title="基于贫血模型的传统开发模式"></a>基于贫血模型的传统开发模式</h2><p>设计采用典型的Web后端项目三层架构。其中，Controller 和 VO 负责暴露接口，具体的代码实现如下所示。注意，Controller 中，接口实现比较简单，主要就是调用 Service 的方法。在这里省略了具体的代码实现。</p>
@@ -626,12 +839,12 @@
 <h3 id="1、第一轮需求分析"><a href="#1、第一轮需求分析" class="headerlink" title="1、第一轮需求分析"></a>1、第一轮需求分析</h3><p>对于如何做鉴权这样一个问题，最简单的解决方案就是，通过“用户名+密码”来做认证。我们给每个允许访问我们服务的调用方，派发一个应用名（AppID）和一个对应的密码（或者叫秘钥）。调用方每次进行接口请求的时候，都携带自己的 AppID 和密码。微服务在接收到接口调用请求之后，会解析出 AppID 和密码，跟存储在微服务端的 AppID 和密码进行比对。如果一致，说明请求成功，则允许接口调用请求；否则，就拒绝接口调用请求。</p>
 <h3 id="2、第二轮分析优化"><a href="#2、第二轮分析优化" class="headerlink" title="2、第二轮分析优化"></a>2、第二轮分析优化</h3><p>不过，这样的验证方式，每次都要明文传输密码。密码很容易被截获，是不安全的。那如果我们借助加密算法（比如SHA），对密码进行加密之后，再传递到微服务端验证，是不是就可以了呢？实际上，这样也是不安全的，因为加密之后的密码和 AppID，照样可以被未认证系统（或者说黑客）截获，未认证系统就可以携带这个加密之后的密码以及对应的 AppID，伪装成已认证系统来访问我们的所有接口。这就是典型的“<strong>重放攻击</strong>”。</p>
 <p>提出问题，然后再解决问题，这是一个非常好的迭代优化方法。对于刚刚这个问题，我们可以借助 OAuth 的验证思路来解决。调用方将请求接口的 URL 跟 AppID、密码拼接在一起，然后再进行加密，生成一个 token。调用方在进行接口请求的时候，将这个 token 及 AppID，随 URL 一起传递给微服务端。微服务端接收到这些数据之后，根据 AppID 从数据库中取出对应的密码，并通过同样的 token 生成算法用 URL、AppID、密码生成另外一个 token。用这个新生成的 token 跟调用方传递过来的 token 进行比对。如果一致，则运行接口调用请求，否则，就拒绝接口调用请求。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322125659233.png" alt="image-20220322125659233"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322125659233.png" alt="image-20220322125659233"></p>
 <h3 id="3、第三轮分析优化"><a href="#3、第三轮分析优化" class="headerlink" title="3、第三轮分析优化"></a>3、第三轮分析优化</h3><p>不过，这样的设计仍然存在重放攻击的风险，还是不够安全。每个 URL 拼接上 AppID、密码后生成的 token 都是固定的。未认证系统截获到 URL、AppID 和 token 之后，还是可以通过重放攻击的方式，伪装成认证系统，调用这个 URL <strong>对应</strong>的接口。 只不过此时未认证系统不能像之前一样在获取到 AppID 和密码后，一次性访问微服务端的所有接口罢了。但它还是可以通过多次拦截、记录，最终获取到所有接口的访问权限。</p>
 <p>为了解决这个问题，我们可以进一步优化 token 生成算法，引入一个随机变量，让每次接口请求生成的 token 都不一样。我们可以选择时间戳作为随机变量。原来的 token 是对 URL、AppID、密码三者进行加密生成的，现在我们将 URL、AppID、密码、时间戳四者进行加密来生成 token。调用方在进行接口请求的时候，将 token、AppID、时间戳、随 URL 一并传递给微服务端。</p>
 <p>微服务端在收到这些数据之后，会验证当前时间戳跟传递过来的时间戳，是否在一定的时间窗口内（比如一分钟）。如果超过一分钟，则判定 token 过期，拒绝接口请求。如果没有超过一分钟，则说明 token 没有过期，就再通过同样的 token 算法，在服务端生成新的 token，与调用方的传递过来的 token 比对，看是否一致。如果一致，则允许接口调用请求；否则，就拒绝接口调用请求。</p>
 <p>优化之后的认证流程如下图所示：</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322155801827.png" alt="image-20220322155801827"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322155801827.png" alt="image-20220322155801827"></p>
 <h3 id="4、第四轮分析优化"><a href="#4、第四轮分析优化" class="headerlink" title="4、第四轮分析优化"></a>4、第四轮分析优化</h3><p>不过，你可能还会说，这样还是不够安全啊。未认证系统还是可以在这一分钟的 token 失效窗口内，通过截获请求、重放请求，来调用我们的接口啊。</p>
 <p>你说的没错。不过，攻与防之间，本来就没有绝对的安全。我们能做的就是，尽量提高攻击的成本。这个方案虽然还有漏洞，但是实现起来足够简单，而且不会过度影响接口本身的性能（比如响应时间）。所以，权衡安全性、开发成本、对系统性能的影响，这个方案算是比较折中、比较合理的了。</p>
 <p>实际上，还有一个细节我们没有考虑到，那就是，如何在微服务端存储每个授权调用方的 AppID 和密码。当然，这个问题并不难。最容易想到的方案就是存储到数据库里，比如 MySQL。不过，开发像鉴权这样的非业务功能，最好不要与具体的第三方系统有过度的耦合。</p>
@@ -687,7 +900,7 @@
 </ul>
 <p>对于方法的识别，很多面向对象的书籍中一般都是这么讲的，<u>识别出需求描述中的动词，作为候选的方法，再进一步过滤筛选。</u>类比一下方法的识别，我们可以把功能点中涉及的名词，作为候选属性，然后同样进行过滤筛选。</p>
 <p>借用这个思路，根据功能点描述，识别出来 AuthToken 类的属性和方法如下图所示。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322171228516.png" alt="image-20220322171228516"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322171228516.png" alt="image-20220322171228516"></p>
 <p>从上面的类图中，我们可以发现这样几个小细节：</p>
 <ol>
 <li> 并不是所有的名字都被定义为了类的属性，比如 URL、AppID、密码、时间戳这几个名词，我们把它作为了方法的参数。</li>
@@ -702,13 +915,13 @@
 <li>  解析 URL，得到 token、AppID、时间戳等信息；</li>
 </ul>
 <p>虽然需求描述中，我们都是以 URL 来代指接口请求，但是，接口请求并不一定是以 URL 的形式表达，还有可能是 Dubbo RPC 等其它形式。为了让这个类更加通用，命名更加贴切，我们把它命名为 ApiRequest。下面是我根据功能点设计的 ApiRequest 类。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322174037460.png" alt="image-20220322174037460"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322174037460.png" alt="image-20220322174037460"></p>
 <p><strong>CredentialStorage 类相关的功能点只有一个：</strong></p>
 <ul>
 <li>  从存储中取出 AppID 和对应的密码</li>
 </ul>
 <p>CredentialStorage 类非常简单，类图如下所示。为了做到抽象封装具体的存储方式，我将 CredentialStorage 设计成了接口，基于接口编程而非具体的实现编程。</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322174247140.png" alt="image-20220322174247140"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322174247140.png" alt="image-20220322174247140"></p>
 <h3 id="3、定义类与类之间的交互关系"><a href="#3、定义类与类之间的交互关系" class="headerlink" title="3、定义类与类之间的交互关系"></a>3、定义类与类之间的交互关系</h3><p>类与类之间存在哪些交互关系呢？UML统一建模语言中定义了六种类之间的关系。分别是：泛化、实现、关联、聚合、组合、依赖。关系比较多，而且有些还比较相近，比如聚合和组合，下面我们逐一讲解一下。</p>
 <ul>
 <li>  <strong>泛化（Generalization）</strong>可以简单理解为继承关系。具体到Java代码就是下面这样：</li>
@@ -745,7 +958,7 @@
 <p>理论的东西讲完了，让我们来看一下，刚刚我们定义的类之间都有哪些关系呢？因为目前只有三个核心的类，所以只用到了实现关系，也即 CredentialStorage 和 MysqlCredentialStorage 之间的关系。接下里讲到组装类的时候，我们还会用到依赖关系、组合关系，但是泛化关系暂时没有用到。</p>
 <h3 id="4、将类组装起来并提供执行入口"><a href="#4、将类组装起来并提供执行入口" class="headerlink" title="4、将类组装起来并提供执行入口"></a>4、将类组装起来并提供执行入口</h3><p>类定义好了，类之间必要的交互关系也设计好了，接下来我们要将所有的类组装在一起，提供一个执行入口。这个入口可能是一个 main() 函数，也可能是一组给外部用的 API 接口。通过这个入口，我们能触发整个代码跑起来。</p>
 <p>接口鉴权并不是一个独立运行的系统，而是一个集成在系统上运行的组件。所以，我们封装所有的实现细节，设计了一个最顶层的 ApiAuthencator 接口类，暴露一组给外部调用者使用的 API 接口，作为触发执行鉴权逻辑的入口。具体的类的设计如下所示：</p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322185107325.png" alt="image-20220322185107325"></p>
+<p><img src="/2022/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part2%EF%BC%89/image-20220322185107325.png" alt="image-20220322185107325"></p>
 <hr>
 <h1 id="15-理论一：对于单一职责原则，如何判断某个类的职责是否足够“单一”？"><a href="#15-理论一：对于单一职责原则，如何判断某个类的职责是否足够“单一”？" class="headerlink" title="15 | 理论一：对于单一职责原则，如何判断某个类的职责是否足够“单一”？"></a>15 | 理论一：对于单一职责原则，如何判断某个类的职责是否足够“单一”？</h1><p>前面几节课，我们介绍了面向对象相关的知识。从今天起，我们开始学习一些经典的设计原则，其中包括，SOLID、KISS、YAGNI、DRY、LOD 等。</p>
 <p>对于这些设计原则，三句话总结就是：一看就懂，一学就会，一用就懵。</p>
@@ -898,7 +1111,7 @@
 
 
 <p>接口隔离原则跟单一职责原则还有点类似，它们的区别和联系是什么？</p>
-
+</h3></h3></h3>
       
     </div>
 
@@ -1056,7 +1269,7 @@
 <p>我们看到的只是一条输入语句，返回一个结果，却不知道这条语句在 MySQL 内部的执行过程。</p>
 <p>所以，今天我们要通过这条最简单的查询语句把 MySQL 拆解一下，看看里面都有哪些“零件”。借由这个拆解过程，可以让我们对 MySQL 能有更深刻的理解。这样，当我们碰到 MySQL 的一些异常或者问题时，就能够直指本质，能更快地定位并解决问题。</p>
 <p>下图是 MySQL 的基本架构示意图，从中可以清楚地看到 SQL 语句在 MySQL 的各个模块中流转的过程。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png" alt="image-20220316135623293"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316135623293.png" alt="image-20220316135623293"></p>
 <p>大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。</p>
 <ul>
 <li>  Server 层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 中大多数的核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），<u>所有跨存储引擎的功能都在这一层实现</u>，比如存储过程、触发器、视图等。</li>
@@ -1075,7 +1288,7 @@
 <li>  如果用户密码认证通过，连接器将会继续到权限表中查出当前登录用户拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。【这就意味着，一个用户成功建立连接后，即使我们用管理员账号对这个用户的权限做了修改，也不会影响已存在连接的权限。修改完成后，只有重新建立的连接才会应用新的权限】</li>
 </ul>
 <p>连接完成后，如果我们没有后续的操作，这个连接就会一直处于空闲状态。我们可以用 <code>show processlist</code> 命令查看连接的状态。下面这张图就是 show processlist 命令的执行结果，其中 Command 列显示为 “Sleep” 的这行，就表示现在系统里有一个空闲连接。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316142834564.png" alt="image-20220316142834564"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220316142834564.png" alt="image-20220316142834564"></p>
 <p>客户端如果太长时间没动静，连接器就会自动将它断开。这个时间参数是由 <code>wait_timeout</code> 控制的，默认值是 8 小时。</p>
 <p>如果连接断开之后，客户端再次发送请求的话，就会收到一个错误提醒：Lost connection to MySQL server during query。这时候如果想要继续操作，就需要重新连接，然后再执行请求了。</p>
 <h3>长连接 & 短连接</h3>
@@ -1185,7 +1398,7 @@
 </blockquote>
 <p>如果今天赊账的人不多，掌柜可以等打烊以后再整理。但如果某天赊账的人特别多，没下班之前粉板就写满了，又该怎么办呢？这个时候掌柜只好放下手中的活儿，把粉板中的一部分赊账记录更新到账本中，然后再把这些记录从粉板上擦掉，为记新账腾出空间。</p>
 <p>与此类似，InnoDB 的 redo log 是固定大小的，比如可以配置一组 4 个文件，每个文件的大小是 1GB，那么这块“粉板”总共就可以记录 4GB 的操作。<u>从头开始写，写到末尾又回到开头循环写【环状结构】</u>。如下图所示。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317110516145.png" alt="image-20220317110516145"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317110516145.png" alt="image-20220317110516145"></p>
 <ul>
 <li>  <code>write pos</code> 是当前记录的位置，一边写一边往后移，写到第 3 号文件末尾后就回到 0 号文件开头。</li>
 <li>  <code>checkpoint</code> 是当前要擦除的位置，也是往后推移并且循环的，擦除记录前要把记录更新到磁盘中的数据文件。</li>
@@ -1215,7 +1428,7 @@
 <li> 执行器调用引擎的提交事务接口，引擎把刚刚写入的 redo log 改成提交（commit）状态，更新完成。</li>
 </ol>
 <p>这条 update 语句的执行流程如下图所示，图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行的。</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317122356838.png" alt="image-20220317122356838"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220317122356838.png" alt="image-20220317122356838"></p>
 <p>最后三步看起来有点“绕”，将 redo log 的写入拆成了两个步骤：prepare 和 commit，这就是“两阶段提交”。</p>
 <hr>
 <h2 id="两阶段提交"><a href="#两阶段提交" class="headerlink" title="两阶段提交"></a>两阶段提交</h2><blockquote>
@@ -1260,7 +1473,7 @@
 <h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>哈希表是一种以『键-值（key-value）』存储数据的结构，我们只要输入待查找的值（即 key），就可以找到其对应的值（即 value）。哈希的思路很简单，就是用一个哈希函数把 key 换算成一个确定的位置 index，然后把 value 放在数组的这个位置。</p>
 <p>不可避免地，多个 key 经过哈希函数的换算，会出现同一个 index 的情况。处理这种情况的一种方法是，拉出一个链表。</p>
 <p>假设，你现在维护者一个身份证信息和姓名的表，需要根据身份证号查找对应的名字，这时对应的哈希索引的示意图如下所示：</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412162803566.png" alt="image-20220412162803566"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412162803566.png" alt="image-20220412162803566"></p>
 <p>图中，User2 和 User4 根据身份证号算出来的 index 都是 N，但是没关系，后面还跟了一个链表。假设，这时候你要查 ID_card_n2 对应的名字是什么，处理步骤就是：首先，将 ID_card_n2 通过哈希函数算出 N；然后，按顺序遍历，找到 User2。</p>
 <p>需要注意的是：图中的四个 ID_card_n 的值并不是递增的，这样做的好处是增加新的 User 时速度会很快，只需要往后追加即可。但缺点是，<strong>因为不是有序的，所以哈希索引做区间查询的速度是很慢的。</strong></p>
 <blockquote>
@@ -1279,13 +1492,13 @@
 </ul>
 </blockquote>
 <p>还是上面这个根据身份证号查名字的例子，如果我们使用有序数组来实现的话，示意图如下所示：</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412164433876.png" alt="image-20220412164433876"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412164433876.png" alt="image-20220412164433876"></p>
 <p>这里我们假设身份证号没有重复，这个数组就是按照身份证号递增的顺序保存的。这时候如果你要查 ID_card_n2 对应的名字，用二分法就可以快速得到，时间复杂度为 O(log n)。</p>
 <p>同时很显然，这个索引模型支持范围查询。你要查身份证号在 <code>[ID_card_X, ID_card_Y]</code> 区间的 User，可以先用二分法找到 ID_card_X（如果 ID_card_X 不存在，就找到大于 ID_card_X 的第一个 User），然后向右遍历，直到查到第一个大于 ID_card_Y 的身份证号，退出循环。</p>
 <p>如果仅看查询效率，有序数组就是最好的数据结构了。但是，在需要更新数据的时候就太麻烦了，你往中间插入一条记录就必须挪动后面的所有记录，成本太高。</p>
 <p>所以，<strong>有序数组只适用于静态存储引擎</strong>。比如，你要保存 2017 年某个城市的所有人口信息，这类不会再修改的数据。</p>
 <h3 id="搜索树"><a href="#搜索树" class="headerlink" title="搜索树"></a>搜索树</h3><p>还是上面根据身份证号查名字的例子，如果我们使用『二叉搜索树』来实现的话，示意图如下所示：</p>
-<p><img src="%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412165512818.png" alt="image-20220412165512818"></p>
+<p><img src="/2022/03/16/%E9%87%8D%E5%AD%A6MySQL%EF%BC%88Part1%EF%BC%89/image-20220412165512818.png" alt="image-20220412165512818"></p>
 <p>二叉搜索树的特点是：每个节点的左儿子的值小于父节点的值，而父节点的值又小于右儿子的值。这样，如果你要查 ID_card_n2 的话，按照图中的搜索顺序就是按照 UserA -&gt; UserC -&gt; UserF -&gt; User2 这个路径得到的，时间复杂度为 O(log n)</p>
 <p>当然，<u>为了维持 O(log n) 的时间复杂度，你就必须维持这棵树是平衡二叉树。为了做这个保证，更新的时间复杂度也达到了 O(log n)</u>。</p>
 <blockquote>
@@ -1804,7 +2017,7 @@
 
 <p>​    这种设计思路虽然可以解决问题，但是不够优美。因为除了鸵鸟之外，不会飞的鸟还有很多，比如企鹅。对于这些不会飞的鸟来说，我们都需要重写 fly() 方法并抛出异常。这样的设计，一方面，徒增了编码的工作量；另一方面，也违背了“最小知识原则（Least Knowledge Principe，也叫迪米特法则）”，暴露不该暴露的接口给外部，增加了类使用过程中被误用的概率。</p>
 <p>​    你可能又会说，那我们再通过 AbstractBird 类派生出两个更加细分的抽象类：会飞的鸟类 AbstractFlyableBird 和不会飞的鸟类 AbstractUnFlyableBird，让麻雀、鸽子这些会飞的鸟继承 AbstractFlyableBird，让鸵鸟、企鹅这些不会飞的鸟都继承 AbstractUnFlyableBird，不就可以了么。  </p>
-<p><img src="%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png" alt="image-20220320110025182"></p>
+<p><img src="/2022/03/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%EF%BC%88Part1%EF%BC%89/image-20220320110025182.png" alt="image-20220320110025182"></p>
 <p>​    从图中我们可以看出，继承关系变成了三层。不过，从整体上来讲，目前的继承关系还比较简单，层次比较浅，也算是一种可以接受的设计思路。我们再继续加点难度，在刚刚这个场景中，我们只关注“鸟会不会飞”，但如果我们还关注“鸟会不会叫”，那这个时候，我们又该如何设计类之间的继承关系呢？</p>
 <p>​    是否会飞？是否会叫？两个行为搭配起来会产生四种行为：会飞会叫、会飞不会叫、不会飞会叫、不会飞不会叫。如果我们继续沿用刚才的思路，那就需要再定义四个抽象类：AbstractFlyableTweetableBird、AbstractFlyableUnTweetableBird、AbstractUnFlyableTweetableBird、AbstractUnFlyableUnTweetableBird。此时继承关系就变成了四层。</p>
 <p>​    如果我们还要考虑“是否会下蛋”这一行为，那估计就要组合爆炸了。类的继承层次会越来深、继承关系会越来越复杂。而这种层次很深、很复杂的继承关系，一方面，会导致代码的可读性变差。因为我们要搞清楚某个类具有哪些方法、属性，必须阅读父类的代码、父类的父类的代码…一直追溯到最顶层父类的代码。另一方面，这也破坏了类的封装，将父类的实现细节暴露给了子类【从父类命名中就可以看出父类的实现细节】。子类依赖父类实现，两者高度耦合，一旦父类代码修改，就会影响所有子类的逻辑。</p>
@@ -1907,7 +2120,7 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>搭建一个“最小化”的环境，在这个环境里仅有 HTTP 协议的两个端点：请求方和应答方，去除一切多余的环节，从而可以抓住重点，快速掌握 HTTP 的本质。</p>
-<p><img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/85cadf90dc96cf413afaf8668689ef0b.png" alt="img"></p>
+<p><img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/85cadf90dc96cf413afaf8668689ef0b.png" alt="img"></p>
 <p>简单说一下这个“最小化”环境用到的应用软件：</p>
 <ul>
 <li>  Wireshark</li>
@@ -1926,21 +2139,21 @@
 <li><p>找到占用 443 端口的进程</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano | findstr <span class="string">&quot;443&quot;</span>    查看端口443被哪个进程占用；</span><br></pre></td></tr></table></figure>
 
-<p> <img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307123247611.png" alt="image-20220307123247611"></p>
+<p> <img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307123247611.png" alt="image-20220307123247611"></p>
 </li>
 <li><p>查看占用 443 进程的端口名</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist | findstr <span class="string">&quot;4464&quot;</span>    查看进程号<span class="string">&quot;4464&quot;</span>对应的进程,找出被哪个程序占用;</span><br></pre></td></tr></table></figure></li>
 <li><p>在任务管理器关闭进程</p>
-<p> <img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307123158332.png" alt="image-20220307123158332"></p>
+<p> <img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307123158332.png" alt="image-20220307123158332"></p>
 </li>
 <li><p>在命令行窗口重新检查 443 端口的占用是否解除。如果解除则重新启动 OpenResty，即可正常启动。</p>
-<p> <img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307123915274.png" alt="image-20220307123915274"></p>
+<p> <img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307123915274.png" alt="image-20220307123915274"></p>
 </li>
 </ol>
 <hr>
 <p>因为我们的实验环境运行在本机的 <code>127.0.0.1</code> 上，也就是 loopback “环回”地址。所以，需要安装 npcap 检测到这个地址。</p>
 <p>在安装 Wireshark 时有一个选项会提醒我们安装 npcap，我们可以直接在这里安装 Npcap。安装完毕后一定要重启电脑让配置生效（重要！！！）</p>
-<img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307194941346.png" alt="image-20220307194941346" style="zoom: 67%;" />
+<img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307194941346.png" alt="image-20220307194941346" style="zoom: 67%;">
 
 
 
@@ -1949,8 +2162,8 @@
 <li> npcap 下载地址：<a target="_blank" rel="noopener" href="https://npcap.com/#download">https://npcap.com/#download</a></li>
 </ol>
 <p>以上工作全部完成后，在 Wireshark 的界面就可以检测到 “loopback” 环回地址了。</p>
-<p><img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307194550899.png" alt="image-20220307194550899"></p>
-<p><img src="HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307195456658.png" alt="image-20220307195456658"></p>
+<p><img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307194550899.png" alt="image-20220307194550899"></p>
+<p><img src="/2022/03/07/HTTP%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20220307195456658.png" alt="image-20220307195456658"></p>
 
       
     </div>
@@ -2042,7 +2255,7 @@
 <li><p>在另一个 controller 中引用这个对象</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;member/member&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MemberController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TestDao testDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>启动项目时抛出如下错误：TestDao对象找不到</p>
-<p> <img src="SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302201437977.png" alt="image-20220302201437977"></p>
+<p> <img src="/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302201437977.png" alt="image-20220302201437977"></p>
 </li>
 <li><p>如果我们把 TestDao 的类型改为 “class”，发现项目又可以正常启动了</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.gulimall.member.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/3/2 19:23</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestDao</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -2060,7 +2273,7 @@
 <ul>
 <li>  dao包和feign包内成员展示（都是接口）</li>
 </ul>
-<img src="SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302203035084.png" alt="image-20220302203035084" style="zoom:50%;" />
+<img src="/2022/03/02/SpringBoot%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E2%80%9C%E9%81%BF%E5%9D%91%E2%80%9D%E6%8C%87%E5%8D%97/image-20220302203035084.png" alt="image-20220302203035084" style="zoom:50%;">
 
 
 
@@ -2257,84 +2470,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="日志系统：一条SQL更新语句是如何执行的？"><a href="#日志系统：一条SQL更新语句是如何执行的？" class="headerlink" title="日志系统：一条SQL更新语句是如何执行的？"></a>日志系统：一条SQL更新语句是如何执行的？</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/29/MySQL%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/29/MySQL%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">MySQL基础架构</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-01-29 19:29:05 / Modified: 19:32:37" itemprop="dateCreated datePublished" datetime="2022-01-29T19:29:05+08:00">2022-01-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/MySQL%E6%96%B0%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">MySQL新版</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="基础架构：一条SQL查询语句是如何执行的？"><a href="#基础架构：一条SQL查询语句是如何执行的？" class="headerlink" title="基础架构：一条SQL查询语句是如何执行的？"></a>基础架构：一条SQL查询语句是如何执行的？</h1>
       
     </div>
 

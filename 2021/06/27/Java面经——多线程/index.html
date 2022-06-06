@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="ReentrantLock，重进入锁  123456789101112131415161718192021222324252627282930313233343536373839404142import java.util.concurrent.locks.ReentrantLock;public class MyRunnable implements Runnable &amp;#123;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png">
-<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png">
-<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/20190415101813830.png">
-<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20210507174841595.png">
+<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png">
+<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png">
+<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/20190415101813830.png">
+<meta property="og:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20210507174841595.png">
 <meta property="article:published_time" content="2021-06-27T07:41:30.000Z">
 <meta property="article:modified_time" content="2021-09-27T02:23:30.943Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png">
+<meta name="twitter:image" content="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png">
 
 
 <link rel="canonical" href="http://example.com/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
@@ -137,7 +137,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -353,14 +353,14 @@
 </li>
 </ul>
 <hr>
-<h3 id="2-2-2-什么是指令重排？"><a href="#2-2-2-什么是指令重排？" class="headerlink" title="2.2.2    什么是指令重排？"></a>2.2.2    什么是指令重排？</h3><p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png"></p>
+<h3 id="2-2-2-什么是指令重排？"><a href="#2-2-2-什么是指令重排？" class="headerlink" title="2.2.2    什么是指令重排？"></a>2.2.2    什么是指令重排？</h3><p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92.png"></p>
 <ol>
 <li>在计算机中，CPU 负责数据的计算功能，可以直接从内存中读取数据。</li>
 <li>假设 CPU 按照上图 1~4 序号的顺序执行，在执行完第 1 阶段后，CPU 需要从内存中读取数据，从向内存发送读取数据的请求到内存返回数据给 CPU 需要花费一定的时间，那么这段时间 CPU 就是处于空闲状态的。</li>
 <li>上图中第 3 阶段是 CPU 自给自足，根据自身有的数据进行计算，也需要花费一定的时间。</li>
 <li>那什么是指令重排呢？就是将本来第3阶段要执行的任务提前到1、2阶段之间，因为这段时间CPU是空闲的。实际上 CPU 也是这么干的。</li>
 </ol>
-<h4 id="2-2-2-1-Java创建对象过程中CPU进行的操作"><a href="#2-2-2-1-Java创建对象过程中CPU进行的操作" class="headerlink" title="2.2.2.1    Java创建对象过程中CPU进行的操作"></a>2.2.2.1    Java创建对象过程中CPU进行的操作</h4><p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
+<h4 id="2-2-2-1-Java创建对象过程中CPU进行的操作"><a href="#2-2-2-1-Java创建对象过程中CPU进行的操作" class="headerlink" title="2.2.2.1    Java创建对象过程中CPU进行的操作"></a>2.2.2.1    Java创建对象过程中CPU进行的操作</h4><p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%843%E4%B8%AA%E9%98%B6%E6%AE%B5.png"></p>
 <p>Java 创建对象的过程：</p>
 <ol>
 <li>在堆中划分一块空间用于存储对象并赋初值。</li>
@@ -388,7 +388,7 @@
 <p>  ​        而偏向锁、轻量锁、重量锁也是一个锁围绕着如何使得程序运行的更加“划算”而进行改变的。</p>
 </li>
 </ul>
-<h3 id="3-1-2-对象头"><a href="#3-1-2-对象头" class="headerlink" title="3.1.2    对象头"></a>3.1.2    对象头</h3><p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/20190415101813830.png"></p>
+<h3 id="3-1-2-对象头"><a href="#3-1-2-对象头" class="headerlink" title="3.1.2    对象头"></a>3.1.2    对象头</h3><p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/20190415101813830.png"></p>
 <p>HotSpot 中，对象在堆内存中的布局可以分为三块部分：</p>
 <blockquote>
 <ol>
@@ -399,7 +399,7 @@
 </blockquote>
 <p>​        其中对象头（Object Header）主要包括两部分信息，第一部分用于存储对象自身的运行时数据， 如哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等等，这部分数据的长度在32位和64位的虚拟机（暂不考虑开启压缩指针的场景）中分别为 32bits 和 64Bits，官方称它为“Mark Word”。</p>
 <p>​        在 HotSpot 虚拟机中对象未被锁定的状态下，Mark Word 的32个Bits 空间中的25Bits用于存储对象哈希码（HashCode），4Bits用于存储对象分代年龄，2Bits 用于存储锁标志位，1Bit 固定为0，在其他状态（轻量级锁定、重量级锁定、GC标记、可偏向）下对象的存储内容如上图所示。 </p>
-<p><img src="Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20210507174841595.png" alt="image-20210507174841595"></p>
+<p><img src="/2021/06/27/Java%E9%9D%A2%E7%BB%8F%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/image-20210507174841595.png" alt="image-20210507174841595"></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- OFFSET 代表偏移量（其实就是相对于起点的位置）</span></span><br><span class="line"><span class="comment">-- SIZE 代表每一部分的字节数（这里每一部分为4bytes）</span></span><br><span class="line"><span class="comment">-- TYPE DESCRIPTION 类型描述：1、object header，对象头  2、loss due to the next object alignment 补位数据，为了补满一个对象占用的64bits设置的空数据</span></span><br><span class="line"></span><br><span class="line">一个对象占<span class="number">16</span>字节（<span class="number">16</span>bytes），共 <span class="number">128</span> 位（<span class="number">16</span><span class="operator">*</span><span class="number">8</span> bits）</span><br><span class="line"></span><br><span class="line">第一个 <span class="number">4</span>bytes 就是对象在堆内存中的标志位，也叫做 MarkWord，作用就是记录整个对象的一些状态信息，其中也包括锁的状态信息。</span><br><span class="line">	MarkWord 占 <span class="number">32</span>bits（<span class="number">4</span>bytes），</span><br><span class="line">	锁状态的标志位在 <span class="number">31</span><span class="operator">~</span><span class="number">32</span> 位，可以看到，对象加锁和未加锁的区别仅仅是在 <span class="number">31</span><span class="operator">~</span><span class="number">32</span>bit 之间不同，剩余其它部分都是相同的。</span><br><span class="line">	在上图中，未加锁时 <span class="number">30</span><span class="operator">~</span><span class="number">32</span> 比特的二进制编码是 “<span class="number">01</span>”，加锁后变成了 “<span class="number">00</span>”，也就是说，我们通过 synchronized 关键字给对象加了一个轻量级锁。</span><br><span class="line">	</span><br><span class="line">第二个 <span class="number">4</span>bytes 的作用就是指向方法区的一个 Class 对象；</span><br><span class="line">第三个 <span class="number">4</span>bytes 保存一些成员变量的信息</span><br><span class="line">第四个 <span class="number">4</span>bytes 保存一些补位数据，保证对象能被 <span class="number">8</span>bits 整除。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 

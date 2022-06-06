@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="准备工作在正式编写 Spring 核心代码之前，首先需要完成以下准备工作：  创建一个 JavaSE 项目，项目结构如下图所示。    其中，service 包用来保存业务代码；spring 包用来保存我们手写模拟的 spring 核心实现代码。   在 service 包下创建 2 个类，Test 类和 UserService 类。Test 类是一个包含 mian 方法的启动类，UserServ">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png">
-<meta property="og:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211214557.png">
-<meta property="og:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211926383.png">
+<meta property="og:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png">
+<meta property="og:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211214557.png">
+<meta property="og:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211926383.png">
 <meta property="article:published_time" content="2022-04-10T03:29:29.000Z">
 <meta property="article:modified_time" content="2022-04-11T04:16:47.805Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png">
+<meta name="twitter:image" content="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png">
 
 
 <link rel="canonical" href="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -236,7 +236,7 @@
         <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>在正式编写 Spring 核心代码之前，首先需要完成以下准备工作：</p>
 <ol>
 <li><p>创建一个 JavaSE 项目，项目结构如下图所示。</p>
-<p> <img src="%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png" alt="image-20220410114651862"></p>
+<p> <img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png" alt="image-20220410114651862"></p>
 <p> 其中，service 包用来保存业务代码；spring 包用来保存我们手写模拟的 spring 核心实现代码。</p>
 </li>
 <li><p> 在 service 包下创建 2 个类，Test 类和 UserService 类。Test 类是一个包含 mian 方法的启动类，UserService 是一个普通的业务类。</p>
@@ -305,12 +305,12 @@
 </ul>
 <p>上面第一个问题比较简单，JVM 在创建对象时依赖的是 .class 文件而非 .java 文件，所以我们的扫描的也应该是编译后的包。</p>
 <p>那我们如何确定编译后包的路径呢？我们可以先进行一个简单的编译测试。运行 Test 类中的 main 程序，程序运行时会自动执行编译操作。执行结束后，我们可以看到当前目录中多出了一个 out 目录，我们编译后的 .class 文件就保存在这个目录下，并且这个目录拥有和源代码相似的目录结构。</p>
-<p><img src="%E6%89%8B%E5%86%99Spring-Part01/image-20220410211214557.png" alt="image-20220410211214557"></p>
+<p><img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211214557.png" alt="image-20220410211214557"></p>
 <p>但相似始终不是相等，虽然我们这里编译后相比于源代码多出了 <code>out/production</code> 两级父目录，但不一定所有的项目都遵循这个规则，或许有的规则会把编译后的代码放在 target 目录中。</p>
 <p>也就是说，我们在获取『扫描路径』时，一定不能把路径写死。而是要根据编译的规则来动态获取『扫描路径』。</p>
 <p>关于如何动态获取扫描路径，我们接着往下看。</p>
 <p>可以看到，在 main 程序执行结束后，控制台上会打印这样一段代码。</p>
-<p><img src="%E6%89%8B%E5%86%99Spring-Part01/image-20220410211926383.png" alt="image-20220410211926383"></p>
+<p><img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211926383.png" alt="image-20220410211926383"></p>
 <p>我们把这段代码展开复制出来是这样的（我们在几个关键字上加了着重号表示）：</p>
 <blockquote>
 <p>  D:\Software\Dev\Java\jdk1.8.0_162\bin\『java.exe』</p>

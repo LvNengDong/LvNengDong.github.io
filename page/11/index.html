@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -232,8 +232,8 @@
 <li>  <strong>存储层</strong></li>
 </ol>
 </blockquote>
-<p><img src="MySQL%E9%AB%98%E7%BA%A7/1411859-20180617124155105-273948974.png" alt="img"></p>
-<p><img src="MySQL%E9%AB%98%E7%BA%A7/1411859-20180617123859211-1860022440.png" alt="img"></p>
+<p><img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/1411859-20180617124155105-273948974.png" alt="img"></p>
+<p><img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/1411859-20180617123859211-1860022440.png" alt="img"></p>
 <h3 id="1-1-1-连接层"><a href="#1-1-1-连接层" class="headerlink" title="1.1.1    连接层"></a>1.1.1    连接层</h3><ul>
 <li>  <strong>连接层主要处理客户端与 MySQL 服务端的连接、授权认证、连接安全等问题</strong>。包含本地 socket 通信和大多数基于客户端/服务端工具实现的网络通信。</li>
 <li>  主要完成一些类似于连接处理、授权认证、及相关的安全方案。同样在该层上可以实现基于 SSL 的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</li>
@@ -299,7 +299,7 @@
 <h2 id="1-2-存储引擎"><a href="#1-2-存储引擎" class="headerlink" title="1.2    存储引擎"></a>1.2    存储引擎</h2><blockquote>
 <p>  <strong>如何查看 MySQL 支持的存储引擎</strong></p>
 </blockquote>
-<p><img src="MySQL%E9%AB%98%E7%BA%A7/image-20210723163415302.png" alt="image-20210723163415302"></p>
+<p><img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210723163415302.png" alt="image-20210723163415302"></p>
 <blockquote>
 <p>  <strong>MyISAM vs. InnoDB</strong></p>
 </blockquote>
@@ -376,7 +376,7 @@
 
 
 
-<p><img src="MySQL%E9%AB%98%E7%BA%A7/image-20210724120203199.png" alt="image-20210724120203199"></p>
+<p><img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210724120203199.png" alt="image-20210724120203199"></p>
 <h1 id="Join图"><a href="#Join图" class="headerlink" title="Join图"></a>Join图</h1><p>基础的 Join 关系有 4 种：</p>
 <blockquote>
 <ol>
@@ -387,7 +387,7 @@
 </ol>
 </blockquote>
 <p>由此演化出来的常见的 Join 关系有 7 种，如图所示：</p>
-<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210724120245430.png" alt="image-20210724120245430" style="zoom:100%;" />
+<img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210724120245430.png" alt="image-20210724120245430" style="zoom:100%;">
 
 
 
@@ -513,11 +513,11 @@
 </ul>
 <hr>
 <h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ul>
-<li>  超链接：<a href="">MySQL索引</a></li>
+<li>  超链接：<a href>MySQL索引</a></li>
 </ul>
 <hr>
 <h1 id="MySQL-锁机制"><a href="#MySQL-锁机制" class="headerlink" title="MySQL 锁机制"></a>MySQL 锁机制</h1><ul>
-<li>  超链接：<a href="">MySQL锁机制</a></li>
+<li>  超链接：<a href>MySQL锁机制</a></li>
 </ul>
 <hr>
 <h1 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h1><blockquote>
@@ -546,7 +546,7 @@
 <li> <strong>服务器硬件的性能瓶颈</strong>：top，free，iostat 和 vmstat 来查看系统的性能状态。</li>
 </ol>
 <hr>
-<h1 id="主从复制（MySQL-集群）"><a href="#主从复制（MySQL-集群）" class="headerlink" title="主从复制（MySQL 集群）"></a>主从复制（MySQL 集群）</h1><img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814164014357.png" alt="image-20210814164014357" style="zoom: 50%;" />
+<h1 id="主从复制（MySQL-集群）"><a href="#主从复制（MySQL-集群）" class="headerlink" title="主从复制（MySQL 集群）"></a>主从复制（MySQL 集群）</h1><img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210814164014357.png" alt="image-20210814164014357" style="zoom: 50%;">
 
 <blockquote>
 <p>  <strong>一主多从</strong></p>
@@ -575,7 +575,7 @@
 <li>  在拆分之前，一个数据库由多张数据表组成，每张表对应不同的业务，而拆分之后，则是按照业务将表归类，分布到不同的数据库或表中，从而将压力分散至不同的数据库或表。</li>
 <li>  例如：下图将用户表和订单表垂直分片到不同的数据库。</li>
 </ul>
-<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814175705485.png" alt="image-20210814175705485" style="zoom:50%;" />
+<img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210814175705485.png" alt="image-20210814175705485" style="zoom:50%;">
 
 <p>垂直分片往往需要对架构和设计进行调整。通常来讲，是来不及应对业务需求快速变化的。而且，也无法真正地解决单点数据库的性能瓶颈。垂直分片可以缓解数据量和访问量带来的问题，但无法根治。如果垂直分片之后，表中的数据量依然超过单节点所能承受的阈值，则需要水平分片来进一步处理。</p>
 <h3 id="水平分片"><a href="#水平分片" class="headerlink" title="水平分片"></a>水平分片</h3><ul>
@@ -584,7 +584,7 @@
 <li>  水平分片从理论上突破了单击数据量处理的瓶颈，并且扩展相对自由，是分库分表的标准解决方案</li>
 <li>  如下图所示，根据取余的策略，将一张表中的数据分散到了两张表中保存。</li>
 </ul>
-<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814180055407.png" alt="image-20210814180055407" style="zoom:50%;" />
+<img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210814180055407.png" alt="image-20210814180055407" style="zoom:50%;">
 
 
 
@@ -606,7 +606,7 @@
 <h2 id="分库分表后，SQL语句的执行流程是怎样的？"><a href="#分库分表后，SQL语句的执行流程是怎样的？" class="headerlink" title="分库分表后，SQL语句的执行流程是怎样的？"></a>分库分表后，SQL语句的执行流程是怎样的？</h2><blockquote>
 <p>  <strong>分库分表后的执行流程</strong></p>
 </blockquote>
-<img src="MySQL%E9%AB%98%E7%BA%A7/image-20210814172920328.png" alt="image-20210814172920328" style="zoom:50%;" />
+<img src="/2021/07/23/MySQL%E9%AB%98%E7%BA%A7/image-20210814172920328.png" alt="image-20210814172920328" style="zoom:50%;">
 
 <p>分布分表后，在执行查询语句时，由于查询语句中使用的是逻辑上的表，但是在分库分表后，逻辑上的表结构实际存储在多个库的多个表中。</p>
 <ol>
@@ -855,7 +855,7 @@
 <li>  因为存储引擎不再需要进行全表扫描来获取数据，</li>
 <li>  数据分布在各个节点之中。</li>
 </ul>
-<p><img src="MySQL%E7%B4%A2%E5%BC%95/image-20210920161141312.png" alt="image-20210920161141312"></p>
+<p><img src="/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/image-20210920161141312.png" alt="image-20210920161141312"></p>
 <hr>
 <h3 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+Tree"></a>B+Tree</h3><blockquote>
 <p>  <strong>【概述】</strong></p>
@@ -874,7 +874,7 @@
 <li>  B+Tree 中，数据对象的插入和删除仅在叶节点上进行。</li>
 <li>  B+Tree 有 2 个头指针，一个是树的根节点，一个是最小叶子节点的头结点。</li>
 </ul>
-<p><img src="MySQL%E7%B4%A2%E5%BC%95/BTree.png" alt="BTree"></p>
+<p><img src="/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/BTree.png" alt="BTree"></p>
 <blockquote>
 <p>  <strong>【初始化介绍】</strong></p>
 </blockquote>
@@ -901,7 +901,7 @@
 <p>  <strong>【原理】</strong></p>
 </blockquote>
 <p>基于哈希表实现，对于每一行数据，存储引擎都会根据其索引列计算一个哈希值（HashCode），并且将所有的哈希码存储在索引表中，同时在索引表中保存指向每个数据行的指针。</p>
-<p><img src="MySQL%E7%B4%A2%E5%BC%95/java3-1562726249.jpeg"></p>
+<p><img src="/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/java3-1562726249.jpeg"></p>
 <blockquote>
 <p>  <strong>【缺点】</strong></p>
 </blockquote>
@@ -955,7 +955,7 @@
 
 
 
-<p><img src="MySQL%E7%B4%A2%E5%BC%95/image-20210920174400590.png" alt="image-20210920174400590"></p>
+<p><img src="/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/image-20210920174400590.png" alt="image-20210920174400590"></p>
 <ul>
 <li><p><strong>type</strong>：type 字段是判断查询是否高效的重要依据依据。<strong>通过 type 字段，我们可以判断此次查询是 全表扫描 还是 索引扫描</strong>。</p>
 <ul>
@@ -1264,9 +1264,9 @@
 </ol>
 <h1 id="有哪些？"><a href="#有哪些？" class="headerlink" title="有哪些？"></a>有哪些？</h1><h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>每个节点<strong>最多只能有两个子节点</strong>的树称为二叉树。</p>
 <h3 id="二叉树分类"><a href="#二叉树分类" class="headerlink" title="二叉树分类"></a>二叉树分类</h3><h4 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h4><p>如果二叉树的<strong>所有叶子节点都在最后一层</strong>，并且<strong>节点总数= 2^n^ -1</strong> ，n 为层数，则我们称为满二叉树。</p>
-<p><img src="%E6%A0%91/image-20210721220719400.png" alt="image-20210721220719400"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210721220719400.png" alt="image-20210721220719400"></p>
 <h4 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><p>如果二叉树的<strong>所有叶子节点都在最后一层或者倒数第二层</strong>，而且<strong>最后一层的叶子节点从左边数连续</strong>，<strong>倒数第二层的叶子节点从右边数连续</strong>，我们称为完全二叉树。</p>
-<p><img src="%E6%A0%91/image-20210721220853710.png" alt="image-20210721220853710"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210721220853710.png" alt="image-20210721220853710"></p>
 <p>如果把节点（61）删除掉，就不是完全二叉树了，因为倒数第二层从右边数不连续了。</p>
 <h1 id="怎么用？"><a href="#怎么用？" class="headerlink" title="怎么用？"></a>怎么用？</h1><h2 id="二叉树操作"><a href="#二叉树操作" class="headerlink" title="二叉树操作"></a>二叉树操作</h2><h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><blockquote>
 <p>  <strong>前序遍历</strong>：<strong>根</strong>左右（父节点最先输出）</p>
@@ -1296,7 +1296,7 @@
 
 
 
-<p><img src="%E6%A0%91/image-20210722172637677.png" alt="image-20210722172637677"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210722172637677.png" alt="image-20210722172637677"></p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><blockquote>
 <p>  <strong>HeroNode</strong></p>
 </blockquote>
@@ -1325,7 +1325,7 @@
 <hr>
 <h2 id="顺序存储二叉树"><a href="#顺序存储二叉树" class="headerlink" title="顺序存储二叉树"></a>顺序存储二叉树</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>从数据存储来看，<strong>数组</strong>存储方式和<strong>树</strong>的存储方式可以相互转换，即数组可以转换成树，树也可以转换成数组。</p>
 <p>顺序存储二叉树就是用数组的方式存放一棵树。但是要求在遍历数组时，仍然可以使用树的<strong>前序遍历</strong>、<strong>中序遍历</strong>和<strong>后序遍历</strong>的方式完成结点的遍历。</p>
-<p><img src="%E6%A0%91/image-20210722174229581.png" alt="image-20210722174229581"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210722174229581.png" alt="image-20210722174229581"></p>
 <h3 id="顺序存储二叉树的特点"><a href="#顺序存储二叉树的特点" class="headerlink" title="顺序存储二叉树的特点"></a>顺序存储二叉树的特点</h3><ol>
 <li>  顺序存储二叉树通常只考虑完全二叉树</li>
 <li>  第 n 个元素的左子节点为 <code>2n + 1</code> </li>
@@ -1351,7 +1351,7 @@
 <h3 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h3><p>八大排序算法中的<strong>堆排序</strong>，就会使用到顺序存储二叉树。</p>
 <hr>
 <h2 id="线索化二叉树"><a href="#线索化二叉树" class="headerlink" title="线索化二叉树"></a>线索化二叉树</h2><p>将数列 <code>&#123;1, 3, 6, 8, 10, 14 &#125;</code> 构建成一颗二叉树。</p>
-<p><img src="%E6%A0%91/image-20210722191217388.png" alt="image-20210722191217388"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210722191217388.png" alt="image-20210722191217388"></p>
 <p><strong>问题分析</strong>：</p>
 <ol>
 <li>  当我们对上面的二叉树进行中序遍历时，数列为 <code>&#123;8, 3, 10, 1, 14, 6&#125;</code></li>
@@ -1369,7 +1369,7 @@
 <li>  一个结点的前一个结点，称为<strong>前驱结点</strong>。</li>
 <li>  一个结点的后一个结点，称为<strong>后继结点</strong>。</li>
 </ol>
-<h3 id="线索化一棵的普通二叉树"><a href="#线索化一棵的普通二叉树" class="headerlink" title="线索化一棵的普通二叉树"></a>线索化一棵的普通二叉树</h3><p><img src="%E6%A0%91/image-20210722193140688.png" alt="image-20210722193140688"></p>
+<h3 id="线索化一棵的普通二叉树"><a href="#线索化一棵的普通二叉树" class="headerlink" title="线索化一棵的普通二叉树"></a>线索化一棵的普通二叉树</h3><p><img src="/2021/07/21/%E6%A0%91/image-20210722193140688.png" alt="image-20210722193140688"></p>
 <p><strong>思路分析</strong>：中序遍历的结果是 <code>&#123;8, 3, 10, 1, 14, 6&#125;</code></p>
 <p>说明：当线索化二叉树后，Node 节点的左右指针 left 和 right，有如下情况：</p>
 <ol>
@@ -1431,15 +1431,15 @@
 <li>  <strong>注意</strong>：没有要求结点的左孩子与右孩子值的大小关系。</li>
 <li>  一般升序采用大顶堆，降序采用小顶堆</li>
 </ol>
-<h2 id="大顶堆"><a href="#大顶堆" class="headerlink" title="大顶堆"></a>大顶堆</h2><p><img src="%E6%A0%91/image-20210722222336465.png" alt="image-20210722222336465"></p>
+<h2 id="大顶堆"><a href="#大顶堆" class="headerlink" title="大顶堆"></a>大顶堆</h2><p><img src="/2021/07/21/%E6%A0%91/image-20210722222336465.png" alt="image-20210722222336465"></p>
 <p>我们对堆中的结点按层进行编号，映射到数组中就是下面这个样子： （顺序存储二叉树）</p>
-<p><img src="%E6%A0%91/image-20210722222407903.png" alt="image-20210722222407903"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210722222407903.png" alt="image-20210722222407903"></p>
 <p><strong>大顶堆特点</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr[i] &gt;= arr[2*i+1] &amp;&amp; arr[i] &gt;= arr[2*i+2] // i 对应第几个节点，i 从 0开始编号</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="小顶堆"><a href="#小顶堆" class="headerlink" title="小顶堆"></a>小顶堆</h2><p><img src="%E6%A0%91/image-20210722222349430.png" alt="image-20210722222349430"></p>
+<h2 id="小顶堆"><a href="#小顶堆" class="headerlink" title="小顶堆"></a>小顶堆</h2><p><img src="/2021/07/21/%E6%A0%91/image-20210722222349430.png" alt="image-20210722222349430"></p>
 <p><strong>小顶堆特点：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr[i] &lt;= arr[<span class="number">2</span>*i+<span class="number">1</span>] &amp;&amp; arr[i] &lt;= arr[<span class="number">2</span>*i+<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
 
@@ -1492,18 +1492,18 @@
 </ol>
 </blockquote>
 <p>如图所示，假设从最后一个非叶子节点开始递减往回比较。</p>
-<p><img src="%E6%A0%91/image-20210722234506395.png" alt="image-20210722234506395"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210722234506395.png" alt="image-20210722234506395"></p>
 <ol>
 <li> 最后一个非叶子节点是 ⑥，跟 ⑤、⑨ 比较后将节点 ⑨ 上升到堆顶。</li>
 <li> 继续递减比较上一个非叶子 ④，跟 ⑨、⑧ 比较后将节点 ⑨ 上升到堆顶。但是注意，此时并没有结束，由于 ④ 与 ⑨ 交换了位置，所以此时 ④ 还需要继续向下与 ⑤、⑥ 比较，将 ⑥ 与 ④ 交换位置。</li>
 <li> 也就是说，如果发生了交换，交换的元素还要继续向下比较，以避免因为元素交换导致原先的大顶堆不符合规则了。<strong>【循环】</strong></li>
 </ol>
-<p><img src="%E6%A0%91/image-20210723000949376.png" alt="image-20210723000949376"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210723000949376.png" alt="image-20210723000949376"></p>
 <blockquote>
 <p>  <strong>代码中的思路：</strong></p>
 </blockquote>
 <p>正常的思路是每比较一次，如有需要就交换两个节点的位置，并且让交换后的节点继续与下层的节点进行比较。但是在代码中，为了减少比较次数，我们可以换一种思路。</p>
-<p><img src="%E6%A0%91/%E5%A0%86%E6%8E%92%E5%BA%8F.png" alt="堆排序"></p>
+<p><img src="/2021/07/21/%E6%A0%91/%E5%A0%86%E6%8E%92%E5%BA%8F.png" alt="堆排序"></p>
 <ol>
 <li> 创建一个临时变量 temp 作为根节点的副本，如上图左边所示，创建一个 ④ 的副本 temp，</li>
 <li> 第一次比较后，本该让 ④ 和 ⑨ 交换位置，但是只需实现一半，即让<strong>下标 0 处</strong>的 ④ 变成 ⑨，而不动下标 1 处的 ⑨。</li>
@@ -1548,7 +1548,7 @@
 <li> 取出数列中权值最小的两个节点与一个根节点组成一颗新的二叉树，该新的二叉树的根节点的权值是前面两颗二叉树根节点权值的和。</li>
 <li> 再将这棵新二叉树的根节点权值加入数列中再次从小到大排序，不断重复 1-2-3 的步骤，直到数列中，所有的数据都被处理，就得到一颗赫夫曼树。</li>
 </ol>
-<p><img src="%E6%A0%91/image-20210723232715084.png" alt="image-20210723232715084"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210723232715084.png" alt="image-20210723232715084"></p>
 <h2 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h2><blockquote>
 <p>  <strong>代码分析</strong></p>
 <ol>
@@ -1603,7 +1603,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、共40个字符(包括空格)  </span></span><br><span class="line">i like like like java <span class="keyword">do</span> you like a java</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 2、统计各个字符出现的次数（包括空格）</span></span><br><span class="line">d:<span class="number">1</span> y:<span class="number">1</span> u:<span class="number">1</span> j:<span class="number">2</span>  v:<span class="number">2</span>  o:<span class="number">2</span>  l:<span class="number">4</span>  k:<span class="number">4</span>  e:<span class="number">4</span> i:<span class="number">5</span>  a:<span class="number">5</span>   :<span class="number">9</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">// 3、按照上面字符出现的次数构建一颗赫夫曼树，次数作为权值。Huffman 树如下：</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="%E6%A0%91/image-20210724095759547.png" alt="image-20210724095759547"></p>
+<p><img src="/2021/07/21/%E6%A0%91/image-20210724095759547.png" alt="image-20210724095759547"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 4、规定编码：向左的路径为0，向右的路径为1。得到一组前缀编码：</span></span><br><span class="line">o:<span class="number">1000</span>	u:<span class="number">10010</span>	  d:<span class="number">100110</span>   y:<span class="number">100111</span>   i:<span class="number">101</span>   a:<span class="number">110</span>   </span><br><span class="line">k:<span class="number">1110</span>	e:<span class="number">1111</span>    j:<span class="number">0000</span>     v:<span class="number">0001</span>   	l:<span class="number">001</span>    :<span class="number">01</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment">/* 5、按照上面的赫夫曼编码，字符串 </span></span><br><span class="line"><span class="comment">		&quot;i like like like java do you like a java&quot; </span></span><br><span class="line"><span class="comment">	对应的编码为： */</span></span><br><span class="line"><span class="number">101010011011110111101001101111011110100110111101111010000110000111</span></span><br><span class="line"><span class="number">0011001111000011001111000100100100110111101111011100100001100001110</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	长度为 ： 133 </span></span><br><span class="line"><span class="comment">	说明:</span></span><br><span class="line"><span class="comment">		1) 原来长度是 359 , 压缩了 (359-133) / 359 = 62.9%</span></span><br><span class="line"><span class="comment">		2) 此编码满足前缀编码, 即字符的编码都不能是其他字符编码的前缀。不会造成匹配的多义性</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>Tip</strong>：赫夫曼树根据排序方法不同，得到的赫夫曼树也可能不太一样，这样对应的赫夫曼编码也不完全一样，但是 WPL 是一样的，都是最小的。</p>
@@ -1715,7 +1715,7 @@
 <p>  公司员工入职，要求将每个员工的所有信息（id，gender，name，addr，……）等全部录入系统。当输入该员工的 id 时，要求查找到该员工的所有信息。</p>
 <p>  <strong>要求：</strong>不使用数据库，尽量节省内存，速度越快越好。==&gt;&gt; <strong>哈希表（散列）</strong></p>
 </blockquote>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png"></p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/HashTable%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.png"></p>
 <ul>
 <li>  一般情况下，Java 程序直接与数据库交互，对数据的增删改查都直接体现在数据库中。</li>
 <li>  但是在某些开发场景中，我们会把被经常访问且不会经常变化的数据放入缓存（内存）中存储，来达到提高访问速度和减少数据库访问流量的目的。</li>
@@ -1727,8 +1727,8 @@
 </blockquote>
 <p>HashTable 是根据<strong>关键码值</strong>（Key Value）进行访问的数据结构。</p>
 <p>也就是说，它通过把关键码值映射到表中的一个位置来访问记录，以加快查找的速度。这个映射函数就叫做<strong>散列函数</strong>，存放记录的数组叫做<strong>散列表</strong>。</p>
-<p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721223318370.png" alt="image-20210721223318370"></p>
-<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h2><p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%A1%E7%90%86%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF.png"></p>
+<p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721223318370.png" alt="image-20210721223318370"></p>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="架构分析"><a href="#架构分析" class="headerlink" title="架构分析"></a>架构分析</h2><p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AE%A1%E7%90%86%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF.png"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">哈希表 = 数组 + 链表</span><br><span class="line"></span><br><span class="line">数组 ==&gt;&gt; EmpLinkedList[]；数组中的每一个元素都是一个链表。</span><br><span class="line">链表 ==&gt;&gt; EmpLinkedList；链表中的每一个元素为 Emp 类创建的实例对象</span><br><span class="line"></span><br><span class="line">所以需要三个类，</span><br><span class="line">    <span class="number">1</span>、HashTable 类用于创建 HashTable 实例对象；该对象中需要对外提供：</span><br><span class="line">    	<span class="number">1</span>️⃣	链表集合 EmpLinkedList[]；</span><br><span class="line">    	<span class="number">2</span>️⃣ 计算哈希值的散列函数；</span><br><span class="line">    	<span class="number">3</span>️⃣ API层面的CRUD方法</span><br><span class="line">    </span><br><span class="line">    <span class="number">2</span>、EmpLinkedList 类用于维护数组中的每条链表；该类中需要：</span><br><span class="line">    	<span class="number">1</span>️⃣ 定位每条链表的头结点 head</span><br><span class="line">    	<span class="number">2</span>️⃣ 操作链表中元素的 CRUD 方法</span><br><span class="line">    </span><br><span class="line">    <span class="number">3</span>、Emp 对象用于维护链表中的单个元素；该类中需要：</span><br><span class="line">    	<span class="number">1</span>️⃣ Emp 对象的基本属性/方法</span><br><span class="line">    	<span class="number">2</span>️⃣ 链表中下一个节点的引用 next</span><br></pre></td></tr></table></figure>
 
 
@@ -1771,7 +1771,7 @@
 
 
 <p><strong>执行结果</strong></p>
-<p><img src="%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721225646006.png" alt="image-20210721225646006"></p>
+<p><img src="/2021/07/21/%E5%93%88%E5%B8%8C%E8%A1%A8/image-20210721225646006.png" alt="image-20210721225646006"></p>
 <p><strong>分析优化</strong></p>
 <ol>
 <li><p>上述代码中，在添加员工信息时，我们假定按照 id 从低到高插入，所以在向链表中插入 Emp 对象时只需使用尾插法即可。</p>
@@ -2442,7 +2442,7 @@
 <p>所以只要将 <strong>事务的通知</strong> 织入到 <strong>切入点</strong> 中，就可以完成事务的控制。【把事务的通知织入切入点 就是 把事务相关的方法插入到业务方法中执行 的意思。】</p>
 <h2 id="5-完整代码"><a href="#5-完整代码" class="headerlink" title="5    完整代码"></a>5    完整代码</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        Spring中基于XML的声明式事务管理器</span></span><br><span class="line"><span class="comment">            1. 创建事务管理器对象</span></span><br><span class="line"><span class="comment">            2. 配置事务管理器的通知（增强）[需要导入事务的约束]</span></span><br><span class="line"><span class="comment">                * id：事务通知的唯一标识</span></span><br><span class="line"><span class="comment">                * transaction-manager：事务管理器的引用</span></span><br><span class="line"><span class="comment">			 2.1 配置事务的属性</span></span><br><span class="line"><span class="comment">				* 在事务的通知&lt;tx:advice&gt;标签内部</span></span><br><span class="line"><span class="comment">            3.选择AOP中的事务通知的切入点</span></span><br><span class="line"><span class="comment">            4.把增强后的事务管理器织入切入点形成切面</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--创建事务管理器对象--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;transactionManager&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置事务管理器的通知--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">&quot;txAdvice&quot;</span> <span class="attr">transaction-manager</span>=<span class="string">&quot;transactionManager&quot;</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">&lt;!--配置事务的属性（通知的具体内容）--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;*&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;REQUIRED&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;find*&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;SUPPORTS&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;true&quot;</span>/&gt;</span>       </span><br><span class="line">        <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--配置AOP切面--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--切入点--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;pt1&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;execution(* cn.xsyu.service.impl.*.*(..))&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--把增强后的事务管理器对象织入切入点--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">&quot;txAdvice&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;pt1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="Spring%E2%80%94%E2%80%94TX/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86.png"></p>
+<p><img src="/2021/07/20/Spring%E2%80%94%E2%80%94TX/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86.png"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">分析：</span><br><span class="line">	1. 事务管理器对象 tx_id 封装了事务的基本操作；</span><br><span class="line">	2. 事务的通知 txAdice_id 在事务管理器对象的基础上，额外扩展了事务的属性相关的操作。</span><br><span class="line">	3. 配置切入点表达式 选择要增强的方法/方法集合；</span><br><span class="line">	4. 配置切面, 将 `通知` 织入到 `切入点表达式` 之中。</span><br></pre></td></tr></table></figure>
 
 
@@ -2882,9 +2882,9 @@
 <li>  【关系】：实现、泛化、依赖、组合、聚合等。</li>
 </ul>
 <p>如下图所示：</p>
-<p><img src="UML/image-20210719234737592.png" alt="image-20210719234737592"></p>
+<p><img src="/2021/07/19/UML/image-20210719234737592.png" alt="image-20210719234737592"></p>
 <p>UML 类图用于描述系统中的<strong>类（对象）本身的组成</strong>和<strong>类（对象）之间的各种静态关系</strong>。</p>
-<p><img src="UML/image-20210719235004124.png" alt="image-20210719235004124"></p>
+<p><img src="/2021/07/19/UML/image-20210719235004124.png" alt="image-20210719235004124"></p>
 <p>类之间的关系（6种）： </p>
 <ol>
 <li><strong>依赖</strong>：<ul>
@@ -2918,17 +2918,17 @@
 <tbody><tr>
 <td>Extension（扩展）</td>
 <td>&lt;|–</td>
-<td><img src="UML/extends01.png" alt="img"></td>
+<td><img src="/2021/07/19/UML/extends01.png" alt="img"></td>
 </tr>
 <tr>
 <td>Composition（组合）</td>
 <td><code>*--</code></td>
-<td><img src="UML/sym03.png" alt="img"></td>
+<td><img src="/2021/07/19/UML/sym03.png" alt="img"></td>
 </tr>
 <tr>
 <td>Aggregation（聚合）</td>
 <td><code>o--</code></td>
-<td><img src="UML/sym01.png" alt="img"></td>
+<td><img src="/2021/07/19/UML/sym01.png" alt="img"></td>
 </tr>
 </tbody></table>
 <p>使用<code>..</code> 来代替 <code>--</code> 可以得到虚线.</p>
@@ -2947,7 +2947,7 @@
 <ul>
 <li>  PersonServiceBean 依赖 PersonDao、IDCard、Person、Department</li>
 </ul>
-<p><img src="UML/image-20211029221808275.png" alt="image-20211029221808275"></p>
+<p><img src="/2021/07/19/UML/image-20211029221808275.png" alt="image-20211029221808275"></p>
 <hr>
 <h2 id="泛化（继承）（generalization）"><a href="#泛化（继承）（generalization）" class="headerlink" title="泛化（继承）（generalization）"></a>泛化（继承）（generalization）</h2><p>泛化关系实际上就是<strong>继承</strong>关系，<strong>它也是一种依赖关系</strong>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Father</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(Object entity)</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">(Object id)</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_">Father</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2961,7 +2961,7 @@
 </ol>
 <p><strong>类图</strong></p>
 <p>Son 继承自 Father，所以说 Father 是 Son 的泛化。所谓泛化，可以理解为一种抽象，泛化就是说父类比子类具有更高层次的抽象，更具有普适性。</p>
-<p><img src="UML/image-20211029222334920.png" alt="image-20211029222334920"></p>
+<p><img src="/2021/07/19/UML/image-20211029222334920.png" alt="image-20211029222334920"></p>
 <hr>
 <h2 id="实现（Implementation）"><a href="#实现（Implementation）" class="headerlink" title="实现（Implementation）"></a>实现（Implementation）</h2><p>实现关系实际上就是 A 类实现 B 接口， 也是一种依赖关系。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PersonService</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">(Interger id)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonServiceBean</span> <span class="keyword">implements</span> <span class="title class_">PersonService</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">(Interger id)</span>&#123;</span><br><span class="line">		<span class="comment">// TODO</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2970,7 +2970,7 @@
 
 <p><strong>类图</strong></p>
 <p>PersonServiceBean 实现了 PersonService</p>
-<p><img src="UML/image-20211030095704822.png" alt="image-20211030095704822"></p>
+<p><img src="/2021/07/19/UML/image-20211030095704822.png" alt="image-20211030095704822"></p>
 <hr>
 <h2 id="关联（Association）"><a href="#关联（Association）" class="headerlink" title="关联（Association）"></a>关联（Association）</h2><p>关联关系实际上就是类与类之间的联系，也是依赖关系的特例。</p>
 <ul>
@@ -2982,17 +2982,17 @@
 
 
 <p><strong>类图</strong></p>
-<p><img src="UML/image-20210720002957102.png" alt="image-20210720002957102"></p>
+<p><img src="/2021/07/19/UML/image-20210720002957102.png" alt="image-20210720002957102"></p>
 <hr>
 <h2 id="聚合（Aggregation-）"><a href="#聚合（Aggregation-）" class="headerlink" title="聚合（Aggregation ）"></a>聚合（Aggregation ）</h2><p>聚合关系表示的是整体和部分的关系，<strong>整体与部分可以分开</strong>。聚合关系是关联关系的特例，所以它具有关联的导航性与多重性。</p>
 <p><strong>类图</strong></p>
 <p>如：一台电脑由显示器（monitor）、鼠标（mouse）等组成；组成电脑的各个配件是可以从电脑上分离出来的，就叫做聚合。</p>
-<p><img src="UML/image-20210720003930218.png" alt="image-20210720003930218"></p>
+<p><img src="/2021/07/19/UML/image-20210720003930218.png" alt="image-20210720003930218"></p>
 <hr>
 <h2 id="组合（Composition）"><a href="#组合（Composition）" class="headerlink" title="组合（Composition）"></a>组合（Composition）</h2><p>组合关系也是整体与部分的关系，但是<strong>整体与部分不可以分开</strong>。</p>
 <p>如果我们认为 Mouse、Monitor 和 Computer 是不可分离的，则升级为组合关系。[Mouse 和 Monitor 对象随着 Computer 对象的创建而创建，销毁而销毁]</p>
-<p><img src="UML/image-20210720004108303.png" alt="image-20210720004108303"></p>
-<p><strong>类图</strong>：<img src="UML/sym03.png" alt="img"></p>
+<p><img src="/2021/07/19/UML/image-20210720004108303.png" alt="image-20210720004108303"></p>
+<p><strong>类图</strong>：<img src="/2021/07/19/UML/sym03.png" alt="img"></p>
 <p>再看一个案例：在程序中我们定义实体：Person 与 IDCard 、Head。那么 Head 和 Person 就是组合，IDCard 和 Person 就是聚合。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IDCard card;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Head</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Head</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IDCard</span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Head</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 
@@ -3131,7 +3131,7 @@
 <li><p>  <strong>开闭原则，增加功能：</strong>代理类除了是客户类和委托类的中介之外，我们还可以通过给代理类增加额外的功能来扩展委托类的功能，这样做我们只需要修改代理类而不需要再修改委托类，符合代码设计的开闭原则。代理类主要负责为委托类预处理消息、过滤消息、把消息转发给委托类，以及事后对返回结果的处理等。代理类本身并不真正实现服务，而是同过调用委托类的相关方法，来提供特定的服务。真正的业务功能还是由委托类来实现，但是可以在业务功能执行的前后加入一些公共的服务。例如我们想给项目加入缓存、日志这些功能，我们就可以使用代理类来完成，而没必要打开已经封装好的委托类。</p>
 </li>
 </ul>
-<img src="设计模式——代理模式/image-20210719225805887.png" alt="image-20210719225805887" style="zoom:50%;" />
+<img src="/2021/07/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20210719225805887.png" alt="image-20210719225805887" style="zoom:50%;">
 
 
 
@@ -3340,7 +3340,7 @@
 <hr>
 <h1 id="2-怎么用"><a href="#2-怎么用" class="headerlink" title="2    怎么用"></a>2    怎么用</h1><p>当我们使用线程池后，执行任务时就不再需要为某个任务分配某个具体的线程了，我们只需要把任务交给线程池即可，线程池内部会分配一个空闲的线程去执行该任务。</p>
 <h2 id="2-1-架构说明"><a href="#2-1-架构说明" class="headerlink" title="2.1    架构说明"></a>2.1    架构说明</h2><p>线程池是通过 Executor 框架实现的，该框架用到了 <strong>Executors、Executor、ExecutorService、ThreadPoolExecutor</strong> 这几个类。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png" alt="Executor"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/Executor.png" alt="Executor"></p>
 <ul>
 <li>  线程池的顶级父接口是 <strong>Executor</strong>，次一级父接口是 <strong>ExecutorService</strong>，这两个接口中定义了线程池实例必须要实现的公共的方法。</li>
 <li>  <strong>ThreadPoolExecutor</strong> 是线程池的具体实现类，<strong>可以通过这个类来创建一个线程池对象</strong>。</li>
@@ -3375,7 +3375,7 @@
 <li>  底层使用的数据结构是 LinkedBlockingQueue。</li>
 <li>  执行长期的任务，性能较好</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154412236.png" alt="image-20210715154412236"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154412236.png" alt="image-20210715154412236"></p>
 <blockquote>
 <ol start="2">
 <li> <strong>newSingleThreadExecutor</strong></li>
@@ -3387,7 +3387,7 @@
 <li>  底层使用的数据结构是 LinkedBlockingQueue。</li>
 <li>  适用于一个任务一个任务执行的场景</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154444221.png" alt="image-20210715154444221"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154444221.png" alt="image-20210715154444221"></p>
 <blockquote>
 <ol start="3">
 <li> <strong>newCachedThreadPool</strong></li>
@@ -3399,7 +3399,7 @@
 <li>  底层使用的数据结构是 SynchronousQueue。</li>
 <li>  适用于执行很多短期异步的小程序或者负载较轻的服务器。</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154508186.png" alt="image-20210715154508186"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210715154508186.png" alt="image-20210715154508186"></p>
 <hr>
 <h1 id="3-ThreadPoolExecutor-构造方法中的-7-大参数"><a href="#3-ThreadPoolExecutor-构造方法中的-7-大参数" class="headerlink" title="3    ThreadPoolExecutor 构造方法中的 7 大参数"></a>3    ThreadPoolExecutor 构造方法中的 7 大参数</h1><p>ThreadPoolExecutor 有多个重载的构造方法，方法中的参数为 5~7 个不等，我们直接来看最多的 7 个参数。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ThreadPoolExecutor</span><span class="params">(<span class="type">int</span> corePoolSize,</span></span><br><span class="line"><span class="params">                          <span class="type">int</span> maximumPoolSize,</span></span><br><span class="line"><span class="params">                          <span class="type">long</span> keepAliveTime,</span></span><br><span class="line"><span class="params">                          TimeUnit unit,</span></span><br><span class="line"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span><br><span class="line"><span class="params">                          ThreadFactory threadFactory,</span></span><br><span class="line"><span class="params">                          RejectedExecutionHandler handler)</span> &#123;</span><br><span class="line">    <span class="comment">// .....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3428,11 +3428,11 @@
 </li>
 </ol>
 <hr>
-<h1 id="4-底层工作原理"><a href="#4-底层工作原理" class="headerlink" title="4    底层工作原理"></a>4    底层工作原理</h1><h2 id="4-1-工作原理"><a href="#4-1-工作原理" class="headerlink" title="4.1    工作原理"></a>4.1    工作原理</h2><p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="线程池工作原理图"></p>
+<h1 id="4-底层工作原理"><a href="#4-底层工作原理" class="headerlink" title="4    底层工作原理"></a>4    底层工作原理</h1><h2 id="4-1-工作原理"><a href="#4-1-工作原理" class="headerlink" title="4.1    工作原理"></a>4.1    工作原理</h2><p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="线程池工作原理图"></p>
 <h2 id="4-2-工作流程"><a href="#4-2-工作流程" class="headerlink" title="4.2    工作流程"></a>4.2    工作流程</h2><blockquote>
 <p>  <strong>工作流程图</strong></p>
 </blockquote>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="线程池工作流程图"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="线程池工作流程图"></p>
 <p>在创建了线程池后，线程池会等待提交过来的任务请求。每次调用 <code>execute()</code> 方法执行新的任务请求时，线程池中会进行如下判断：</p>
 <ol>
 <li> 如果线程池中正在运行的线程数量小于 corePoolSize，那么马上分配一个空闲线程执行这个任务；</li>
@@ -3453,7 +3453,7 @@
 <h2 id="4-3-源码分析"><a href="#4-3-源码分析" class="headerlink" title="4.3    源码分析"></a>4.3    源码分析</h2><blockquote>
 <p>  <strong>ThreadPoolExecutor 的构造函数</strong>【重载】</p>
 </blockquote>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E6%BA%90%E7%A0%81.png" alt="源码"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E6%BA%90%E7%A0%81.png" alt="源码"></p>
 <hr>
 <h1 id="5-线程池的4种拒绝策略"><a href="#5-线程池的4种拒绝策略" class="headerlink" title="5    线程池的4种拒绝策略"></a>5    线程池的4种拒绝策略</h1><p>当线程池中的任务数已经达到了当前线程池负载的极限时，再有新的任务交付给线程池时，线程池就会采用拒绝策略。以下是线程池中常见的四种拒绝策略：</p>
 <ol>
@@ -3497,35 +3497,35 @@
 <p>上述的自定义线程池，核心线程数为 2 个，最大线程数量为 5 个，阻塞队列的最大容量为 5 个，也就是说，该线程池顶峰时期最多只能同时容纳 10 个任务。如果任务数量超过 10 个，则会执行默认的拒绝策略，即抛出异常并终止程序。</p>
 <hr>
 <h2 id="7-2-不同拒绝策略测试"><a href="#7-2-不同拒绝策略测试" class="headerlink" title="7.2    不同拒绝策略测试"></a>7.2    不同拒绝策略测试</h2><p>如果将用户请求的任务设置为 12 个，则一定会触发拒绝策略。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102641510.png" alt="image-20210716102641510"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102641510.png" alt="image-20210716102641510"></p>
 <blockquote>
 <ol>
 <li> <strong>默认拒绝策略 AbortPolicy 测试</strong></li>
 </ol>
 </blockquote>
 <p>程序会直接抛出 <strong>java.util.concurrent.RejectedExecutionException</strong> 异常。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102554869.png" alt="image-20210716102554869"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102554869.png" alt="image-20210716102554869"></p>
 <blockquote>
 <ol start="2">
 <li> <strong>CallerRunsPolicy 测试</strong></li>
 </ol>
 </blockquote>
 <p>不会抛出异常，但是由于请求任务数大于线程池的最大线程容量与阻塞队列容量之和，所以会将容纳不下的任务交还给调用者线程执行，在这里就是交还给 main 线程，让 main 线程去执行任务。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102733383.png" alt="image-20210716102733383"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716102733383.png" alt="image-20210716102733383"></p>
 <blockquote>
 <ol start="3">
 <li> <strong>DiscardOldestPolicy</strong></li>
 </ol>
 </blockquote>
 <p>不会抛出异常，而是将阻塞队列中等待时间最长的任务丢弃掉。可以看到请求任务有 12 个，而程序只执行的 10 个，阻塞队列中等待时间最长的两个被抛弃掉了。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103054629.png" alt="image-20210716103054629"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103054629.png" alt="image-20210716103054629"></p>
 <blockquote>
 <ol start="4">
 <li> <strong>DiscardPolicy 策略</strong></li>
 </ol>
 </blockquote>
 <p>不会抛出异常，同样是把超出数量的任务抛弃掉，但是在这里抛弃的是容纳不下的最新的任务请求。</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103405598.png" alt="image-20210716103405598"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210716103405598.png" alt="image-20210716103405598"></p>
 <hr>
 <h2 id="7-3-如何合理配置线程池参数"><a href="#7-3-如何合理配置线程池参数" class="headerlink" title="7.3    如何合理配置线程池参数"></a>7.3    如何合理配置线程池参数</h2><h3 id="CPU密集型任务"><a href="#CPU密集型任务" class="headerlink" title="CPU密集型任务"></a>CPU密集型任务</h3><p>CPU 密集型也是指计算密集型，大部分时间用来做计算逻辑判断等 CPU 操作的程序称为 CPU 密集型任务。该类型的任务需要进行大量的计算，主要消耗 CPU 资源。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花费在任务切换上的时间就越多，CPU 执行的效率也就越低，所以想要最高效的，所以，想要最高效地利用 CPU，CPU 密集型任务同时进行的数量应当等于 CPU 的核心数。</p>
 <ul>
@@ -3557,7 +3557,7 @@
 <h2 id="线程池常用的阻塞队列有哪些"><a href="#线程池常用的阻塞队列有哪些" class="headerlink" title="线程池常用的阻塞队列有哪些?"></a>线程池常用的阻塞队列有哪些?</h2><ul>
 <li>  表格左侧是线程池，右侧为它们对应的阻塞队列，可以看到 5 种线程池对应了 3 种阻塞队列</li>
 </ul>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210914173600250.png" alt="image-20210914173600250"></p>
+<p><img src="/2021/07/15/%E7%BA%BF%E7%A8%8B%E6%B1%A0/image-20210914173600250.png" alt="image-20210914173600250"></p>
 <blockquote>
 <ol>
 <li> <strong>LinkedBlockingQueue</strong></li>
@@ -3690,12 +3690,12 @@
 <h1 id="乐观锁-amp-悲观锁"><a href="#乐观锁-amp-悲观锁" class="headerlink" title="乐观锁 &amp; 悲观锁"></a>乐观锁 &amp; 悲观锁</h1><h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>​        <strong>乐观锁</strong> 对应于生活中乐观的人，乐观的人总是想着事情往好的方向发展。</p>
 <p>​        在并发情况下，对于一个线程来说，最好的情况就是在自己操作共享数据期间没有其它线程去更新这个数据。而对于乐观锁来说，它就很乐观的认为确实会发生这种情况。所以乐观锁操作数据时不会上锁，只是在更新的时候会判断一下在此期间是否有其他线程去更新这个数据。</p>
 <p>​        乐观锁可以使用 <strong>版本号机制</strong> 和 <strong>CAS算法</strong> 实现。在 Java 中 <code>java.util.concurrent.atomic</code> 包下的原子类就是使用CAS 乐观锁实现的。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/%E4%B9%90%E8%A7%82%E9%94%81" alt="图片"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/%E4%B9%90%E8%A7%82%E9%94%81" alt="图片"></p>
 <hr>
 <h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>​        与乐观锁相反，<strong>悲观锁</strong> 考虑的则是最坏的情况。</p>
 <p>​        一个共享数据加了悲观锁，那么线程每次想操作这个数据前都会假设其他线程也可能会操作这个数据，所以每次操作前都会上锁，这样其他线程想操作这个数据拿不到锁只能阻塞了。</p>
 <p>​        在 Java 中，<code>synchronized</code> 和 <code>ReentrantLock</code> 等就是典型的悲观锁，还有一些使用了 synchronized 关键字的容器类如 <code>HashTable</code> 等也是悲观锁的应用。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/%E6%82%B2%E8%A7%82%E9%94%81" alt="图片"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/%E6%82%B2%E8%A7%82%E9%94%81" alt="图片"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
 <li> <strong>乐观锁 = 不真正加锁 + CAS</strong></li>
 <li> 悲观锁：加独占锁，加锁后其它线程的<strong>读写</strong>操作都会被阻塞</li>
@@ -3733,15 +3733,15 @@
 </blockquote>
 <hr>
 <h2 id="怎么创建"><a href="#怎么创建" class="headerlink" title="怎么创建"></a>怎么创建</h2><h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h3><p>​    JUC<code>(java.util.concurrent.locks)</code> 包中的 ReentrantLock 类提供了两个构造函数，用于创建一个公平锁对象或非公平锁对象。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210711100056238.png" alt="image-20210711100056238"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210711100056238.png" alt="image-20210711100056238"></p>
 <blockquote>
 <p>  <strong>无参构造器源码</strong></p>
 </blockquote>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210711100130951.png" alt="image-20210711100130951"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210711100130951.png" alt="image-20210711100130951"></p>
 <blockquote>
 <p>  <strong>带参构造器源码</strong>（创建时传入一个 boolean 类型的值）</p>
 </blockquote>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210711100200695.png" alt="image-20210711100200695"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210711100200695.png" alt="image-20210711100200695"></p>
 <ul>
 <li>  使用无参构造函数创建的 ReentrantLock 创建的锁对象是一个非公平锁，等价于 <code>new ReentrantLock(false)</code></li>
 <li>  使用带参构造函数创建 ReentrantLock 对象时，构造函数传入 true 则会创建一个公平锁，传入 false 则创建一个非公平锁。</li>
@@ -3810,10 +3810,10 @@
 
 <p><strong>代码分析</strong></p>
 <p>在只有一个线程 T1 执行 <code>myData.methodA()</code> 方法时，即使加了 2 次锁，也看不出来任何异常，程序正常运行，正常结束。符合可重入锁的一切特征。输出结果如下图所示。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210716151834421.png" alt="image-20210716151834421"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210716151834421.png" alt="image-20210716151834421"></p>
 <p>但其实这样是有隐患的，调用 lock 和 unlock 加锁和释放锁的底层原理是通过 AQS 和 CAS 实现的。即每个锁对象都会维护一个 state 变量标识当前有多少个线程正在使用该锁对象，初始 <code>state==0</code>，表示无任何线程得到该锁对象。在本例中，由于加锁 2 次，释放锁 1 次，所以线程 T1 执行完后锁对象 lock 维护的 state 值是 1 而不是 0。</p>
 <p>如果这时候有另一个线程想要去获得此锁对象的话（就是把上面 T2 线程相关代码的注释打开），在争夺锁对象之前要先经过 CAS 的比较，由于 <code>state == 1</code>，也就是说明该锁对象还被一个线程正在持有（实际上这个线程就是 T1，因为 T1 缺少一次释放锁的过程），所以 T2 获取锁对象的操作失败，如果 T1 一直不释放的话，T2 就会一直阻塞，无法继续进行下去。执行结果如下图所示：</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210716153220615.png" alt="image-20210716153220615"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210716153220615.png" alt="image-20210716153220615"></p>
 <p>T2 线程可以获取到 CPU 资源，但由于一直不能获取到锁对象所以会一直等待，导致进程不能结束。</p>
 <hr>
 <h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><h3 id="Synchronized-的可重入实现原理（AQS）"><a href="#Synchronized-的可重入实现原理（AQS）" class="headerlink" title="Synchronized 的可重入实现原理（AQS）"></a>Synchronized 的可重入实现原理（AQS）</h3><p>每个锁对象都拥有一个锁计数器和一个指向该使用锁的线程的指针。</p>
@@ -3835,7 +3835,7 @@
 </blockquote>
 <p><strong>自旋锁</strong> 是指尝试获取锁的线程在没有获得锁时不会被直接挂起，而是采用循环的方式去不断地尝试获取锁，这个循环就是所谓的自旋。【CAS 思想】</p>
 <p><strong>Tip：</strong>处于自旋中的线程并不会一直等待获取锁后才结束循环。如果持有锁的线程对锁的占用时间过长，自旋锁在自旋一段时间后仍然无法获取到锁，还是会进入阻塞状态，这时候锁也就不再是自旋锁了。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/%E8%87%AA%E6%97%8B%E9%94%81" alt="图片"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/%E8%87%AA%E6%97%8B%E9%94%81" alt="图片"></p>
 <ul>
 <li>  自旋锁的目的是为了减少线程被挂起的几率，因为线程的挂起和唤醒也都是耗资源的操作。【好处：减少上下文切换的消耗】</li>
 <li>  但是如果锁被另一个线程占用的时间比较长，即使自旋了之后当前线程还是会被挂起，忙循环就会变成浪费系统资源的操作，因为循环会消耗 CPU，反而降低了整体性能。因此自旋锁是不适应锁占用时间长的并发情况的。【缺点：自旋时间过长时浪费 CPU 资源较多，反而会拖慢程序的整体性能】</li>
@@ -3880,12 +3880,12 @@
 <h1 id="独占锁-amp-共享锁"><a href="#独占锁-amp-共享锁" class="headerlink" title="独占锁 &amp; 共享锁"></a>独占锁 &amp; 共享锁</h1><h2 id="独占锁"><a href="#独占锁" class="headerlink" title="独占锁"></a>独占锁</h2><p><strong>独占锁 是指锁一次只能被一个线程所持有</strong>。</p>
 <p>如果一个线程对数据加上排他锁后，那么其他线程不能再对该数据加任何类型的锁。获得独占锁的线程即能读数据又能修改数据。</p>
 <p>JDK中的<code>synchronized</code> 和 <code>ReentrantLock</code> 就是独占锁。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/%E7%8B%AC%E5%8D%A0%E9%94%81" alt="图片"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/%E7%8B%AC%E5%8D%A0%E9%94%81" alt="图片"></p>
 <hr>
 <h2 id="共享锁"><a href="#共享锁" class="headerlink" title="共享锁"></a>共享锁</h2><p><strong>共享锁 是指锁可被多个线程所持有</strong>。【共享数据被共享锁锁住，共享锁可被多个线程获取，获取到锁的线程都可以访问共享数据】</p>
 <p>如果一个线程对数据加上共享锁后，那么其他线程只能对数据再加共享锁，不能加独占锁。</p>
 <p><strong>获得共享锁的线程只能读数据，不能修改数据</strong>。</p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/%E5%85%B1%E4%BA%AB%E9%94%81" alt="图片"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/%E5%85%B1%E4%BA%AB%E9%94%81" alt="图片"></p>
 <ul>
 <li>  对 ReenterReadWriteLock 来说，其读锁是共享锁，写锁是独占锁</li>
 </ul>
@@ -3904,7 +3904,7 @@
 <p><strong>测试类</strong></p>
 <p>创建了 5 个线程向 myCache 对象写数据，5 个线程从  myCache 对象中读数据。</p>
 <p><strong>执行结果分析</strong></p>
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210712144602003.png" alt="image-20210712144602003"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210712144602003.png" alt="image-20210712144602003"></p>
 <p>​        从上图中我们看到，写线程 3 首先执行写操作，但是写操作并没有执行完 CPU 资源就被写线程 5 抢占了，并且 5 个写线程还没有</p>
 <p>执行完写操作，就被读线程抢先读了。所以程序运行的结果是混乱的。</p>
 <p>​        <strong>要想完成线程安全的写操作，必须满足两个条件：原子性 + 独占式锁</strong>。</p>
@@ -3912,7 +3912,7 @@
 <h3 id="加锁后"><a href="#加锁后" class="headerlink" title="加锁后"></a>加锁后</h3><p>​        如果使用一个独占锁统一管理写操作和读操作，确实可以保证线程安全，但是会大大降低代码的并发性。对于读操作，多线程操作是安全的，可以加共享锁；对于写操作，多线程操作是不安全的，需要加独占式锁。对于一个对象的不同方法（读和写方法）加不同类型的锁，可以通过 <strong>ReentrantReadWriteLock</strong> 实现。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.juc.lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReadWriteLock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantReadWriteLock;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/12 13:39</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  多个线程同时读一个资源类不会引发线程安全问题，所以为了满足并发量，读取共享资源应该可以同时进行。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  但是，如果有一个线程正在写（修改）共享资源，此时就不应该再有其它线程对该资源进行读或写了。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  总结：</span></span><br><span class="line"><span class="comment"> *      读-读 可以共存</span></span><br><span class="line"><span class="comment"> *      读-写 不能共存</span></span><br><span class="line"><span class="comment"> *      写-写 不能共存</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  写：原子+独占</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyCache</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ReadWriteLock</span> <span class="variable">rwLock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantReadWriteLock</span>();</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">private</span> Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(String key, Object value)</span>&#123;</span><br><span class="line">        rwLock.writeLock().lock();  <span class="comment">// 写方法加写锁（独占锁）</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;写线程&quot;</span> + Thread.currentThread().getName()+<span class="string">&quot;    正在写入：&quot;</span> + key);</span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">100</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            map.put(key, value);</span><br><span class="line">            System.out.println(<span class="string">&quot;写线程&quot;</span> + Thread.currentThread().getName()+<span class="string">&quot;    写入完成============&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            rwLock.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">read</span><span class="params">(String key)</span>&#123;</span><br><span class="line">        rwLock.readLock().lock();    <span class="comment">// 读方法加读锁（共享锁）</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;读线程&quot;</span> + Thread.currentThread().getName()+<span class="string">&quot;正在读取============&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">100</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> map.get(key);</span><br><span class="line">            System.out.println(<span class="string">&quot;读线程&quot;</span> + Thread.currentThread().getName()+<span class="string">&quot;读取完成，结果是：&quot;</span> + result);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            rwLock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 5个线程同时写入，5个线程同时读取</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReadWriteLockDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">MyCache</span> <span class="variable">myCache</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyCache</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                myCache.write(String.valueOf(temp), temp);</span><br><span class="line">            &#125;, String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                myCache.read(String.valueOf(temp));</span><br><span class="line">            &#125;, String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="%E9%94%81%E5%88%86%E7%B1%BB/image-20210712150150198.png" alt="image-20210712150150198"></p>
+<p><img src="/2021/07/11/%E9%94%81%E5%88%86%E7%B1%BB/image-20210712150150198.png" alt="image-20210712150150198"></p>
 <hr>
 <ul>
 <li>  公平锁 &amp; 非公平锁</li>

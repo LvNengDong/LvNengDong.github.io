@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -156,6 +156,84 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/29/MySQL%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/29/MySQL%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">MySQL基础架构</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-01-29 19:29:05 / Modified: 19:32:37" itemprop="dateCreated datePublished" datetime="2022-01-29T19:29:05+08:00">2022-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySQL%E6%96%B0%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">MySQL新版</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="基础架构：一条SQL查询语句是如何执行的？"><a href="#基础架构：一条SQL查询语句是如何执行的？" class="headerlink" title="基础架构：一条SQL查询语句是如何执行的？"></a>基础架构：一条SQL查询语句是如何执行的？</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -244,15 +322,15 @@
 
 
 <h1 id="3-复习"><a href="#3-复习" class="headerlink" title="3 复习"></a>3 复习</h1><h2 id="3-1-再谈隔离级别"><a href="#3-1-再谈隔离级别" class="headerlink" title="3.1 再谈隔离级别"></a>3.1 再谈隔离级别</h2><p>我们知道事务有 4 个隔离级别，可能存在三种并发问题：</p>
-<p><img src="MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407211710668.png" alt="image-20220407211710668"></p>
+<p><img src="/2022/01/28/MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407211710668.png" alt="image-20220407211710668"></p>
 <p>另图：</p>
-<p><img src="MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407211810571.png" alt="image-20220407211810571"></p>
+<p><img src="/2022/01/28/MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407211810571.png" alt="image-20220407211810571"></p>
 <h2 id="3-2-隐藏字段、Undo-Log版本链"><a href="#3-2-隐藏字段、Undo-Log版本链" class="headerlink" title="3.2 隐藏字段、Undo Log版本链"></a>3.2 隐藏字段、Undo Log版本链</h2><p>回顾一下 undo 日志的版本链，对于使用 InnoDB 存储引擎的表来说，它的聚簇索引记录中都包含两个必要的隐藏列。</p>
 <ul>
 <li>  <code>trx_id</code>：每次一个事务对某条聚簇索引记录进行改动时，都会把该事务的事务id 赋值给 trx_id 隐藏列。</li>
 <li>  <code>roll_pointer</code>：每次对某条聚簇索引记录进行改动时，都会把旧的版本写入到 undo 日志中，然后这个隐藏列就相当于一个指针，可以通过它来找到该记录修改前的信息。</li>
 </ul>
-<p><img src="MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407212125650.png" alt="image-20220407212125650"></p>
+<p><img src="/2022/01/28/MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407212125650.png" alt="image-20220407212125650"></p>
 <blockquote>
 <p>  insert undo 只在事务回滚时起作用，当事务提交后，该类型的 undo 日志就没用了，它占用的 Undo Log Segment也会被系统回收（也就是该undo日志占用的Undo页面链表要么被重用，要么被释放）。</p>
 </blockquote>
@@ -307,7 +385,7 @@
 </tr>
 </tbody></table>
 <p>每次对记录进行改动，都会记录一条 undo 日志，每条 undo 日志也都有一个 roll_pointer 属性（INSERT 操作对应的undo日志没有该属性，因为该记录并没有更早的版本），可以将这些undo日志都连起来，串成一个链表：</p>
-<p><img src="MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407213039611.png" alt="image-20220407213039611"></p>
+<p><img src="/2022/01/28/MySQL-%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/image-20220407213039611.png" alt="image-20220407213039611"></p>
 <p>对该记录每次更新后，都会将旧值放到一条 undo 日志中，就算是该记录的一个旧版本，随着更新次数的增多，所有的版本都会被 roll_pointer 属性连接成一个链表，我们把这个链表称之为版本链，版本链的头节点就是当前记录最新的值。</p>
 <p>每个版本中还包含生成该版本时对应的事务id 。</p>
 <hr>
@@ -826,7 +904,7 @@ Read View。
 <td>去除高亮显示。在进行查找操作之后查找到的此会被高亮显示。<code>[no highlight]</code></td>
 </tr>
 </tbody></table>
-<h2 id="3-4-模式间转换"><a href="#3-4-模式间转换" class="headerlink" title="3.4    模式间转换"></a>3.4    模式间转换</h2><p><img src="Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/image-20210204110521292.png" alt="image-20210204110521292"></p>
+<h2 id="3-4-模式间转换"><a href="#3-4-模式间转换" class="headerlink" title="3.4    模式间转换"></a>3.4    模式间转换</h2><p><img src="/2022/01/26/Vim%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/image-20210204110521292.png" alt="image-20210204110521292"></p>
 
       
     </div>
@@ -920,7 +998,7 @@ Read View。
 <li><p> 为了很好地组织起这样的复杂执行计划，需要一个工作流调度系统来调度执行；</p>
 </li>
 </ol>
-<p><img src="Azkaban/image-20220125123407206.png" alt="image-20220125123407206"></p>
+<p><img src="/2022/01/25/Azkaban/image-20220125123407206.png" alt="image-20220125123407206"></p>
 <hr>
 <h2 id="1-2-常见工作流调度系统"><a href="#1-2-常见工作流调度系统" class="headerlink" title="1.2 常见工作流调度系统"></a>1.2 常见工作流调度系统</h2><ol>
 <li> 简单的任务调度：直接使用 Linux 的 Crontab 来定义；</li>
@@ -1028,7 +1106,7 @@ Read View。
 <li>  注意：如果在 <code>/opt/module/azkaban/azkaban-exec</code> 目录下出现 <code>executor.port</code> 文件，说明启动成功</li>
 <li>  或者从 MySQL 的 azkaban 数据库的 executors 表中查询元数据信息，也能看到 Executor Server  节点信息。</li>
 </ul>
-<p> <img src="Azkaban/image-20220125221413005.png" alt="image-20220125221413005"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220125221413005.png" alt="image-20220125221413005"></p>
 <blockquote>
 <p>  表中字段的含义：</p>
 <ul>
@@ -1073,7 +1151,7 @@ Read View。
 
 </li>
 <li><p>访问 <a target="_blank" rel="noopener" href="http://hadoop102:8081/">http://hadoop102:8081</a> ，并使用 lvnengdong 用户登陆</p>
-<p> <img src="Azkaban/image-20220125224154284.png" alt="image-20220125224154284"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220125224154284.png" alt="image-20220125224154284"></p>
 </li>
 </ol>
 <hr>
@@ -1098,21 +1176,21 @@ Read View。
 </ul>
 </li>
 <li><p>在 WebServer 新建项目： <a target="_blank" rel="noopener" href="http://hadoop102:8081/index">http://hadoop102:8081/index</a></p>
-<p> <img src="Azkaban/image-20220126113158617.png" alt="image-20220126113158617"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126113158617.png" alt="image-20220126113158617"></p>
 </li>
 <li><p>给项目命名、添加项目描述</p>
-<p> <img src="Azkaban/image-20220126113351345.png" alt="image-20220126113351345"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126113351345.png" alt="image-20220126113351345"></p>
 </li>
 <li><p>创建项目成功后，上传工作流程的描述文件zip</p>
-<p> <img src="Azkaban/image-20220126113713009.png" alt="image-20220126113713009"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126113713009.png" alt="image-20220126113713009"></p>
 <p> Azkaban 在上传 zip 包时会校验描述文件的语法格式，只有在语法无误的情况下才能上传成功。也就是说，如果上传成功了，那么语法一定是正确的。</p>
 </li>
 <li><p>上传成功后，执行任务流</p>
-<p> <img src="Azkaban/image-20220126114313834.png" alt="image-20220126114313834"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114313834.png" alt="image-20220126114313834"></p>
 <ul>
 <li>  工作流程图：当前流程只有一个Job，即JobA</li>
 </ul>
-<p> <img src="Azkaban/image-20220126114348471.png" alt="image-20220126114348471"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114348471.png" alt="image-20220126114348471"></p>
 <blockquote>
 <ul>
 <li>  Execute：当前 Job 会立即执行且只执行一次</li>
@@ -1122,12 +1200,12 @@ Read View。
 <ul>
 <li>  以 Excute 的方式执行</li>
 </ul>
-<p> <img src="Azkaban/image-20220126114415573.png" alt="image-20220126114415573"></p>
-<p> <img src="Azkaban/image-20220126114436888.png" alt="image-20220126114436888"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114415573.png" alt="image-20220126114415573"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114436888.png" alt="image-20220126114436888"></p>
 </li>
 <li><p>在日志中，查看运行结果</p>
-<p> <img src="Azkaban/image-20220126114528652.png" alt="image-20220126114528652"></p>
-<p> <img src="Azkaban/image-20220126114707764.png" alt="image-20220126114707764"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114528652.png" alt="image-20220126114528652"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114707764.png" alt="image-20220126114707764"></p>
 </li>
 </ol>
 <hr>
@@ -1158,9 +1236,9 @@ Read View。
 </li>
 <li><p>在 Web Server 中：新建项目 ==&gt; 上传flow ==&gt; 执行flow</p>
 <p> 工作流程图：jobA 和 jobB 都执行完成之后，才能执行 jobC</p>
-<p> <img src="Azkaban/image-20220126135606672.png" alt="image-20220126135606672"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126135606672.png" alt="image-20220126135606672"></p>
 <p> 通过时间线我们可以看到，jobA 和 jobB 是并行执行的，而 jobC 则是在 jobA 和 jobB 执行完成之后才执行的。</p>
-<p> <img src="Azkaban/image-20220126143304512.png" alt="image-20220126143304512"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126143304512.png" alt="image-20220126143304512"></p>
 </li>
 </ol>
 <hr>
@@ -1176,9 +1254,9 @@ Read View。
 <li><p> 执行上面的工作流，因为 command 是一个不存在的命令，所以必然会执行失败。</p>
 </li>
 <li><p>查看 Job 执行的时间线，发现该任务单元总共执行了四次，重试了三次后宣布失败。</p>
-<p> <img src="Azkaban/image-20220126144747392.png" alt="image-20220126144747392"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126144747392.png" alt="image-20220126144747392"></p>
 <p> 查看日志也能发现总共执行了四次</p>
-<p> <img src="Azkaban/image-20220126145022109.png" alt="image-20220126145022109"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126145022109.png" alt="image-20220126145022109"></p>
 </li>
 </ol>
 <hr>
@@ -1189,14 +1267,14 @@ Read View。
 <li><p>编写工作流描述文件：<code>four.flow</code> </p>
  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobA.&quot;</span></span><br><span class="line">    </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobA</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobB.&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobC</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobB</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobC.&quot;</span></span><br><span class="line">      </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobD</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobC</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobD.&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobE</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobD</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobE.&quot;</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JobF</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">    <span class="attr">dependsOn:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JobE</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">command:</span> <span class="string">echo</span> <span class="string">&quot;This is JobF.&quot;</span></span><br></pre></td></tr></table></figure></li>
 <li><p>打包 =&gt; 上传 =&gt; 生成工作流程图</p>
-<p> <img src="Azkaban/image-20220126150931478.png" alt="image-20220126150931478"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126150931478.png" alt="image-20220126150931478"></p>
 </li>
 <li><p>手动失败重试。</p>
 <p> <strong>方式一</strong>：<code>History =&gt; Flow =&gt; Prepare Execution</code>：自动跳过成功的 Job，从上次失败的 Job 开始重新执行 Flow。 </p>
-<p> <img src="Azkaban/image-20220126151515522.png" alt="image-20220126151515522"></p>
-<p> <img src="Azkaban/image-20220126151608652.png" alt="image-20220126151608652"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126151515522.png" alt="image-20220126151515522"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126151608652.png" alt="image-20220126151608652"></p>
 <p> <strong>方式二：</strong>手动忽略。在执行 Flow 之前手动选择不希望执行的 Job 进行忽略。</p>
-<p> <img src="Azkaban/image-20220126152050666.png" alt="image-20220126152050666"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126152050666.png" alt="image-20220126152050666"></p>
 </li>
 </ol>
 <hr>
@@ -1245,7 +1323,7 @@ Read View。
 <li><p> 将 Jar 包、 flow 文件和 project 文件压缩为 javatest.zip</p>
 </li>
 <li><p>创建项目 =&gt; 上传 javatest.zip =&gt; 执行作业 =&gt; 观察结果</p>
-<p> <img src="Azkaban/image-20220126173205145.png" alt="image-20220126173205145"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126173205145.png" alt="image-20220126173205145"></p>
 </li>
 </ol>
 <hr>
@@ -1332,7 +1410,7 @@ Read View。
 <li><p> 创建 condition 项目 =&gt; 上传 condition.zip文件 =&gt; 执行作业 =&gt; 观察结果</p>
 </li>
 <li><p>按照我们设定的条件， JobB 会根据当日日期决定是否执行。</p>
- <img src="Azkaban/image-20220126195508740.png" alt="image-20220126195508740" style="zoom:50%;" /></li>
+ <img src="/2022/01/25/Azkaban/image-20220126195508740.png" alt="image-20220126195508740" style="zoom:50%;"></li>
 </ol>
 <hr>
 <h3 id="3-3-2-预定义宏案例"><a href="#3-3-2-预定义宏案例" class="headerlink" title="3.3.2 预定义宏案例"></a>3.3.2 预定义宏案例</h3><p>Azkaban 中预置了几个特殊的判断条件，称为预定义宏。</p>
@@ -1375,7 +1453,7 @@ Read View。
 <li><p> JobA.sh、JobC.sh、macro.flow、azkaban.project 文件打包成 macro.zip。</p>
 </li>
 <li><p>创建 macro 项目 =&gt; 上传 macro.zip文件 =&gt; 执行作业 =&gt; 观察结果</p>
- <img src="Azkaban/image-20220126201013836.png" alt="image-20220126201013836" style="zoom:67%;" />
+ <img src="/2022/01/25/Azkaban/image-20220126201013836.png" alt="image-20220126201013836" style="zoom:67%;">
 
 <p> 表示 JobA 执行成功，JobB 执行失败，但是 JobC 执行成功。</p>
 </li>
@@ -1385,17 +1463,17 @@ Read View。
 <p><strong>实现：</strong></p>
 <ol>
 <li><p>Azkaban 可以定时执行工作流。在执行工作流时候，选择左下角 <code>Schedule</code></p>
-<p> <img src="Azkaban/image-20220126114348471.png" alt="image-20220126114348471"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126114348471.png" alt="image-20220126114348471"></p>
 </li>
 <li><p>右上角注意时区是上海，然后在左面填写具体执行事件，填写的方法和 Linux 中使用 crontab 配置定时任务规则一致。</p>
- <img src="Azkaban/image-20220126202504516.png" alt="image-20220126202504516" style="zoom:80%;" /></li>
+ <img src="/2022/01/25/Azkaban/image-20220126202504516.png" alt="image-20220126202504516" style="zoom:80%;"></li>
 <li><p>观察结果</p>
 <p> 时间间隔为每两分钟执行一次。</p>
-<p> <img src="Azkaban/image-20220126202910617.png" alt="image-20220126202910617"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126202910617.png" alt="image-20220126202910617"></p>
 </li>
 <li><p>删除定时调度。</p>
 <p> 点击 remove Schedule 即可删除当前任务的调度规则。</p>
-<p> <img src="Azkaban/image-20220126202653520.png" alt="image-20220126202653520"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126202653520.png" alt="image-20220126202653520"></p>
 </li>
 </ol>
 <hr>
@@ -1439,10 +1517,10 @@ Read View。
 <p><strong>方案一：</strong>指定特定的 Executor(比如：hadoop102)去执行任务。</p>
 <ol>
 <li><p>在 MySQL 中 azkaban 数据库 executors 表中，查询 hadoop102 上的 Executor 的 id。</p>
-<p> <img src="Azkaban/image-20220126205853007.png" alt="image-20220126205853007"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126205853007.png" alt="image-20220126205853007"></p>
 </li>
 <li><p>在执行工作流程时加入 <code>useExecutor</code> 属性，如下</p>
-<p> <img src="Azkaban/image-20220126210010690.png" alt="image-20220126210010690"></p>
+<p> <img src="/2022/01/25/Azkaban/image-20220126210010690.png" alt="image-20220126210010690"></p>
 </li>
 <li><p> 执行成功！</p>
 </li>
@@ -1541,7 +1619,7 @@ Read View。
 <p>这些系统变量定义了当前 MySQL 服务实例的属性、特征。这些系统变量的值要么是<code>编译 MySQL 时参数</code>的默认值，要么是<code>配置文件</code>（例如 my.ini 等）中的参数值。大家可以通过网址 <code>https://dev.mysql.com/doc/refman/8.0/en/server-systemvariables.html</code> 查看 MySQL 文档的系统变量。</p>
 <p>系统变量又可细分为<strong>全局系统变量</strong>（需要添加 <code>global</code> 关键字）和<strong>会话系统变量</strong>（需要添加 <code>session</code> 关键字）。有时也把全局系统变量简称为全局变量，有时也把会话系统变量称为 local 变量。<strong>如果不写，默认会话级别</strong>。静态变量（在 MySQL 服务实例运行期间它们的值不能使用 set 动态修改）属于特殊的全局系统变量。</p>
 <p>每一个 MySQL 客户端成功连接 MySQL 服务器后，都会产生与之对应的会话。会话期间，MySQL 服务实例会在 MySQL 服务器内存中生成与该会话对应的会话系统变量，这些会话系统变量的初始值是全局系统变量值的复制。如下图：</p>
-<img src="MySQL-%E5%8F%98%E9%87%8F%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/image-20220118134321274.png" alt="image-20220118134321274" style="zoom:67%;" />
+<img src="/2022/01/18/MySQL-%E5%8F%98%E9%87%8F%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/image-20220118134321274.png" alt="image-20220118134321274" style="zoom:67%;">
 
 <ul>
 <li>  全局系统变量针对于所有会话（连接）有效，但<strong>不能跨重启</strong>。</li>
@@ -2629,7 +2707,7 @@ Read View。
 </tr>
 <tr>
 <td>数据字典</td>
-<td>数据字典是一种特殊的表，就是系统表，存放数据库系统的相关信息。<br/>系统表的数据通常由数据库系统维护，程序员通常不应该修改，只可查看。</td>
+<td>数据字典是一种特殊的表，就是系统表，存放数据库系统的相关信息。<br>系统表的数据通常由数据库系统维护，程序员通常不应该修改，只可查看。</td>
 </tr>
 <tr>
 <td>约束(CONSTRAINT)</td>
@@ -2657,13 +2735,13 @@ Read View。
 </tr>
 </tbody></table>
 <hr>
-<h1 id="2-视图概述"><a href="#2-视图概述" class="headerlink" title="2    视图概述"></a>2    视图概述</h1><p><img src="MySQL-%E8%A7%86%E5%9B%BE/image-20220118103844198.png" alt="image-20220118103844198"></p>
+<h1 id="2-视图概述"><a href="#2-视图概述" class="headerlink" title="2    视图概述"></a>2    视图概述</h1><p><img src="/2022/01/18/MySQL-%E8%A7%86%E5%9B%BE/image-20220118103844198.png" alt="image-20220118103844198"></p>
 <h2 id="2-1-为什么使用视图？"><a href="#2-1-为什么使用视图？" class="headerlink" title="2.1 为什么使用视图？"></a>2.1 为什么使用视图？</h2><p>一方面视图可以帮我们使用表的一部分而不是表的所有内容，另一方面也可以针对不同的用户制定不同的查询视图。</p>
 <p>比如，针对一个公司的销售人员，我们只想给他看部分数据，而某些特殊的数据，比如采购的价格，则不会提供给他。再比如，人员薪酬是个敏感的字段，那么只给某个级别以上的人员开放，其他人的查询视图中则不提供这个字段。</p>
 <p>刚才讲的只是视图的一个使用场景，实际上视图还有很多作用。最后，我们总结视图的优点。</p>
 <h2 id="2-2-视图的理解"><a href="#2-2-视图的理解" class="headerlink" title="2.2 视图的理解"></a>2.2 视图的理解</h2><p>视图是一种虚拟表，本身是不具有数据的，占用很少的内存空间，它是 SQL 中的一个重要概念。</p>
 <p>视图建立在已有表的基础上，视图赖以建立的这些表称为<strong>基表</strong>。</p>
-<img src="MySQL-%E8%A7%86%E5%9B%BE/image-20220118104111453.png" alt="image-20220118104111453" style="zoom: 50%;" />
+<img src="/2022/01/18/MySQL-%E8%A7%86%E5%9B%BE/image-20220118104111453.png" alt="image-20220118104111453" style="zoom: 50%;">
 
 <ul>
 <li>  <strong>视图</strong>的创建和删除只影响视图本身，不影响对应的基表。但是当对<strong>视图中的数据</strong>进行增加、删除和修改操作时，基表中的数据会相应地发生变化，反之亦然。</li>
@@ -2693,7 +2771,7 @@ Read View。
 <p>查询视图：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">FROM salvu80;</span><br></pre></td></tr></table></figure>
 
-<img src="MySQL-%E8%A7%86%E5%9B%BE/image-20220118104806070.png" alt="image-20220118104806070" style="zoom: 67%;" />
+<img src="/2022/01/18/MySQL-%E8%A7%86%E5%9B%BE/image-20220118104806070.png" alt="image-20220118104806070" style="zoom: 67%;">
 
 
 
@@ -2822,7 +2900,7 @@ Read View。
 <li><p>数据安全<br> MySQL将用户对数据的访问限制在某些数据的结果集上，而这些数据的结果集可以使用视图来实现。用户不必直接查询或操作数据表。这也可以理解为视图具有隔离性。视图相当于在用户和实际的数据表之间加了一层虚拟表。</p>
 </li>
 </ol>
-<p>  <img src="MySQL-%E8%A7%86%E5%9B%BE/image-20220118111505592.png" alt="image-20220118111505592"></p>
+<p>  <img src="/2022/01/18/MySQL-%E8%A7%86%E5%9B%BE/image-20220118111505592.png" alt="image-20220118111505592"></p>
 <p>  同时，MySQL可以根据权限将用户对数据的访问限制在某些视图上，用户不需要查询数据表，可以直接通过视图获取数据表中的信息。这在一定程度上保障了数据表中数据的安全性。</p>
 <ol start="4">
 <li><p>适应灵活多变的需求 当业务系统的需求发生变化后，如果需要改动数据表的结构，则工作量相对较大，可以使用视图来减少改动的工作量。这种方式在实际工作中使用得比较多。</p>
@@ -2943,7 +3021,7 @@ Read View。
 <li><p>查看是否启动成功</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由于 Nginx 不是使用 Java 实现的，所以无法使用 jps 命令查看状态，需要使用 ps 命令</span></span><br><span class="line">[lvnengdong@hadoop102 conf]$ ps -ef | grep nginx</span><br><span class="line">root     109415      1  0 20:54 ?        00:00:00 nginx: master process sbin/nginx</span><br><span class="line">nobody   109416 109415  0 20:54 ?        00:00:00 nginx: worker process</span><br><span class="line">lvnengd+ 110118 109287  0 21:17 pts/1    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure></li>
 <li><p>通过网页访问: <a target="_blank" rel="noopener" href="http://hadoop102/">http://hadoop102</a></p>
-<p> ​                                     <img src="Nginx/image-20220114212341344.png" alt="image-20220114212341344"></p>
+<p> ​                                     <img src="/2022/01/14/Nginx/image-20220114212341344.png" alt="image-20220114212341344"></p>
 </li>
 </ol>
 <p><strong>注意：</strong></p>
@@ -2962,138 +3040,6 @@ Read View。
 
 
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/14/%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/" class="post-title-link" itemprop="url">将jar包部署到Linux上</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-01-14 17:50:43" itemprop="dateCreated datePublished" datetime="2022-01-14T17:50:43+08:00">2022-01-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-16 10:06:58" itemprop="dateModified" datetime="2022-01-16T10:06:58+08:00">2022-01-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="将SpringBoot项目打成jar包部署到Linux上"><a href="#将SpringBoot项目打成jar包部署到Linux上" class="headerlink" title="将SpringBoot项目打成jar包部署到Linux上"></a>将SpringBoot项目打成jar包部署到Linux上</h1><h2 id="1、打包"><a href="#1、打包" class="headerlink" title="1、打包"></a>1、打包</h2><ul>
-<li>  使用 <code>package</code> 命令打包 SpringBoot 项目</li>
-<li>  使用对于不需要的目录（比如 <code>test</code> 目录）可以选择性的忽略。</li>
-</ul>
-<img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114175348398.png" alt="image-20220114175348398" style="zoom:50%;" />
-
-
-
-<h3 id="查看打包之后的文件结构"><a href="#查看打包之后的文件结构" class="headerlink" title="查看打包之后的文件结构"></a>查看打包之后的文件结构</h3><ol>
-<li> jar 包所在位置</li>
-</ol>
-<img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180356799.png" alt="image-20220114180356799" style="zoom:50%;" />
-
-<ol start="2">
-<li><p>jar 的目录结构</p>
-<p> <img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114180636623.png" alt="image-20220114180636623"></p>
-</li>
-<li><p>在元数据目录 <code>META-INF</code> 下的文件 <code>MANIFEST.MF</code> 包含了元数据基本信息。其中的内容如下：</p>
- <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Manifest-Version</span>: <span class="string">1.0</span></span><br><span class="line"><span class="attr">Implementation-Title</span>: <span class="string">gmall-logger</span></span><br><span class="line"><span class="attr">Implementation-Version</span>: <span class="string">0.0.1-SNAPSHOT</span></span><br><span class="line"><span class="attr">Start-Class</span>: <span class="string">com.example.gmalllogger.GmallLoggerApplication</span></span><br><span class="line"><span class="attr">Spring-Boot-Classes</span>: <span class="string">BOOT-INF/classes/</span></span><br><span class="line"><span class="attr">Spring-Boot-Lib</span>: <span class="string">BOOT-INF/lib/</span></span><br><span class="line"><span class="attr">Build-Jdk-Spec</span>: <span class="string">1.8</span></span><br><span class="line"><span class="attr">Spring-Boot-Version</span>: <span class="string">2.2.1.RELEASE</span></span><br><span class="line"><span class="attr">Created-By</span>: <span class="string">Maven Archiver 3.4.0</span></span><br><span class="line"><span class="comment"># jar 的主类名，在 Linux 中运行 jar 包时需要使用到该主类名</span></span><br><span class="line"><span class="attr">Main-Class</span>: <span class="string">org.springframework.boot.loader.JarLauncher</span></span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>  SpringBoot 项目生成的 jar 包内嵌了 TomCat 服务器，所以在 Linux 系统上运行时无需额外安装 TomCat。</p>
-</li>
-<li><p> 将 jar 文件上传到 Linux 上。</p>
-</li>
-</ol>
-<h2 id="2、在-Linux-上运行-jar"><a href="#2、在-Linux-上运行-jar" class="headerlink" title="2、在 Linux 上运行 jar"></a>2、在 Linux 上运行 jar</h2><p>在 Linux 上运行 jar 包有两种命令格式：</p>
-<p><strong>Case1</strong></p>
-<ul>
-<li><p>  格式：<code>java -jar jar包名称</code></p>
-</li>
-<li><p>  场景：适用于已经指定了启动类名的jar 包。SpringBoot 项目打包后一般都会生成一个主类名。</p>
-</li>
-<li><p>实例：在 jar 包所在的目录下执行以下命令：</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 tmp]$ java -jar gmall-logger-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
-
-<p>  <img src="%E5%B0%86jar%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E4%B8%8A/image-20220114181942630.png" alt="image-20220114181942630"></p>
-</li>
-</ul>
-<p><strong>Case2</strong></p>
-<ul>
-<li><p>  语法：<code>java -cp jar包名 启动类名称</code></p>
-</li>
-<li><p>  场景：如果一个 jar 包在元数据信息中没有显式声明启动类的类名，则可以通过这种方式手动指定启动类类名</p>
-</li>
-<li><p>实例：</p>
-  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 tmp]$ java -<span class="built_in">cp</span> gmall-logger-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.JarLauncher </span><br></pre></td></tr></table></figure></li>
-</ul>
 
       
     </div>

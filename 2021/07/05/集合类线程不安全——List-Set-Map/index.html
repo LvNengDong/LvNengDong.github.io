@@ -27,39 +27,39 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="ArrayList 线程不安全   带着问题学习：  在 Java8 中，   new ArrayList&lt;&gt;() 的底层数据结构是什么？  new ArrayList&lt;&gt;() 的初始长度是多少？  数组长度一旦初始化就不能再修改了，Java 底层对 ArrayList 扩容的机制是什么？  数组扩容的标准是什么？每次扩容多大？  ArrayList 是线程安全的吗？  写">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705110738072.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111012804.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111123760.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705133755514.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705140516278.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112039567.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112635200.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112857905.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114523086.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114959424.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144202128.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144627777.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145256894.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145658774.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145828821.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/集合类线程不安全——List-Set-Map/image-20210705205807031.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211114239.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/集合类线程不安全——List-Set-Map/image-20210705211801881.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/集合类线程不安全——List-Set-Map/image-20210705212216863.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213152762.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213534400.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705215106596.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705214658694.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705221837637.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225253807.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225457854.png">
-<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225617057.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705110738072.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111012804.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111123760.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705133755514.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705140516278.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112039567.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112635200.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112857905.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114523086.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114959424.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144202128.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144627777.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145256894.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145658774.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145828821.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705205807031.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211114239.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211801881.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705212216863.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213152762.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213534400.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705215106596.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705214658694.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705221837637.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225253807.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225457854.png">
+<meta property="og:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225617057.png">
 <meta property="article:published_time" content="2021-07-05T01:39:29.000Z">
 <meta property="article:modified_time" content="2021-09-22T10:02:01.873Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png">
+<meta name="twitter:image" content="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png">
 
 
 <link rel="canonical" href="http://example.com/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/">
@@ -161,7 +161,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -307,7 +307,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="1-ArrayList-概述"><a href="#1-ArrayList-概述" class="headerlink" title="1    ArrayList 概述"></a>1    ArrayList 概述</h2><p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png" alt="image-20210705132107889"></p>
+<h2 id="1-ArrayList-概述"><a href="#1-ArrayList-概述" class="headerlink" title="1    ArrayList 概述"></a>1    ArrayList 概述</h2><p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705132107889.png" alt="image-20210705132107889"></p>
 <ul>
 <li>  <code>ArrayList</code> 实现了<code> List</code> 接口，继承了 <code>AbstractList</code> 类；</li>
 <li>  底层数据结构是一个 Object 数组， <code>Object[] elementData</code>。并通过一系列机制实现了数组的自动扩容。</li>
@@ -333,14 +333,14 @@
 <h3 id="空参构造器"><a href="#空参构造器" class="headerlink" title="空参构造器"></a>空参构造器</h3><blockquote>
 <p>  首先查看源码中 <strong>无参构造器</strong> 的实现：</p>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705110738072.png" alt="image-20210705110738072"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705110738072.png" alt="image-20210705110738072"></p>
 <ul>
 <li>  上面的注释表明：无参构造器将会提供一个初始容量为 10 的空数组，即 Object[10]。</li>
 <li>  但是实际上并不是在这一步实现的。我们继续查看 <strong>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</strong> 和 <strong>elementData</strong> 的源码。</li>
 <li>  发现 <code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code> 只是一个空数组，这一步只是让 <strong>elementData</strong> 指向了一个容量为 0  的空数组罢了。</li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111012804.png" alt="image-20210705111012804"></p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111123760.png" alt="image-20210705111123760"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111012804.png" alt="image-20210705111012804"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705111123760.png" alt="image-20210705111123760"></p>
 <hr>
 <h3 id="带参构造器"><a href="#带参构造器" class="headerlink" title="带参构造器"></a>带参构造器</h3><p>ArrayList 有<strong>两个带参构造器</strong> ，其实现分别如下：</p>
 <blockquote>
@@ -356,7 +356,7 @@
 <p>  ② 如果实例对象不为空，将原实例对象中的所有元素复制一份到新数组中。</p>
 </li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705133755514.png" alt="image-20210705133755514"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705133755514.png" alt="image-20210705133755514"></p>
 <p><code>Collection#toArray()</code> 方法是一个抽象方法，具体的实现过程由实现类决定，该方法的作用是：返回一个包含此集合中所有元素的数组，返回值是 <code>Object[]</code> 数组，并且 <code>Object[]</code> 数组长度与集合中有效元素的个数是一样的。</p>
 <ol>
 <li> 首先将 <strong>Collection c</strong> 中的元素全部转添加到 <code>Object[]</code> 类型的 <strong>elementData</strong> 中；</li>
@@ -373,7 +373,7 @@
 </ol>
 </blockquote>
 <p>这是一个带初始容量的 ArrayList 构造方法，构造具有指定初始容量的空列表。创建时需要传递数组长度 <strong>initialCapacity</strong>。</p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705140516278.png" alt="image-20210705140516278"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705140516278.png" alt="image-20210705140516278"></p>
 <ol>
 <li> 若数组长度大于0，新建一个 <code>Object[initialCapacity]</code> 数组；</li>
 <li> 若数组长度等于0，直接复用类加载阶段创建好的 Object 空数组；</li>
@@ -393,7 +393,7 @@
 <li> <strong>add() 方法是 List 接口声明的通用的方法，在 ArrayList 中的实现如下：</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112039567.png" alt="image-20210705112039567"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112039567.png" alt="image-20210705112039567"></p>
 <p>源码分析：</p>
 <ol>
 <li> <strong>size</strong> 是当前数组中有效元素的个数（未新增 e 元素之前）。</li>
@@ -406,14 +406,14 @@
 <li>  <strong>ensureCapacityInternal 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112635200.png" alt="image-20210705112635200"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112635200.png" alt="image-20210705112635200"></p>
 <p><strong>ensureCapacityInternal</strong> 继续调用 <strong>ensureExplicitCapacity</strong> 和 <strong>calculateCapacity</strong> 方法保证数组容量问题。</p>
 <blockquote>
 <ol start="3">
 <li> <strong>calculateCapacity 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112857905.png" alt="image-20210705112857905"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705112857905.png" alt="image-20210705112857905"></p>
 <p><strong>方法参数：</strong></p>
 <ul>
 <li>  <strong>minCapacity</strong> 是新增元素后需要的最小数组容量<code>[minCapacity = size+1]</code>。</li>
@@ -438,7 +438,7 @@
 <li>  <strong>ensureExplicitCapacity 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114523086.png" alt="image-20210705114523086"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114523086.png" alt="image-20210705114523086"></p>
 <ol>
 <li> <code>modCount++</code> 是用于在快速失败机制中判断使用的，与本文相关性不大，暂时略过。</li>
 <li>接下来判断，新增元素后元素的个数是否超过了当前数组的容量，如果超过了，则证明需要扩容了。<ul>
@@ -452,7 +452,7 @@
 <li> <strong>grow 方法</strong></li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114959424.png" alt="image-20210705114959424"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705114959424.png" alt="image-20210705114959424"></p>
 <ol>
 <li> <strong>minCapacity</strong> 是新增元素后需要的最小容量</li>
 <li> <strong>oldCapacity</strong> 是原来（未新增元素前）数组的容量</li>
@@ -467,20 +467,20 @@
 </ul>
 </li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144202128.png" alt="image-20210705144202128"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144202128.png" alt="image-20210705144202128"></p>
 <p>所有的处理结束后，调用 <strong>Arrays.copyOf</strong> 方法将原数组中的所有元素拷贝到新数组中。</p>
 <blockquote>
 <ol start="6">
 <li> <strong>hugeCapacity 方法</strong>（非必须执行的方法）</li>
 </ol>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144627777.png" alt="image-20210705144627777"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705144627777.png" alt="image-20210705144627777"></p>
 <p>在数组长度已经很大的基础上，直接扩容 1.5 倍增长是很大的，所以这时候我们需要额外加一些保护机制。不再是在原数组长度的基础上增加 0.5 倍了，而是根据新增元素后需要的最小容量来改变新数组的容量（只有 2 种情况）。凡是能进入到该方法的都是大容量的数组（即扩大 1.5 就会超出上限）。</p>
 <ol>
 <li>如果新增元素后需要的最小容量大于 MAX_ARRAY_SIZE ，则将新数组的容量设置为 <strong>Integer.MAX_VALUE</strong>；</li>
 <li>否则，将新数组的容量设置为 <strong>MAX_ARRAY_SIZE</strong>；</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145256894.png" alt="image-20210705145256894"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145256894.png" alt="image-20210705145256894"></p>
 <p>方法执行完后，当前栈帧出栈，执行上一个方法。</p>
 <blockquote>
 <ol start="7">
@@ -490,11 +490,11 @@
 <ol>
 <li> 计算完扩容的容量后，继续执行真正地执行 grow 方法。调用 <strong>Arrays.copyof</strong> 方法，进行复制操作。</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145658774.png" alt="image-20210705145658774"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145658774.png" alt="image-20210705145658774"></p>
 <ol start="2">
 <li> <strong>Arrays.copyof</strong> 底层真正执行的是 <strong>System.arraycopy</strong> 方法。</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145828821.png" alt="image-20210705145828821"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705145828821.png" alt="image-20210705145828821"></p>
 <ol start="3">
 <li> 而 <strong>System.arraycopy</strong> 方法则是一个本地方法。</li>
 </ol>
@@ -502,10 +502,10 @@
 <h2 id="4-ArrayList-线程不安全"><a href="#4-ArrayList-线程不安全" class="headerlink" title="4    ArrayList 线程不安全"></a>4    ArrayList 线程不安全</h2><h3 id="ArrayList-线程不安全案例"><a href="#ArrayList-线程不安全案例" class="headerlink" title="ArrayList 线程不安全案例"></a>ArrayList 线程不安全案例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">           <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">               list.add(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">8</span>));</span><br><span class="line">               System.out.println(list);</span><br><span class="line">           &#125;, String.valueOf(i)).start();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 <p>根据上面几部分的学习，我们已经知道了 <code>ArrayList#add</code> 方法在写入数据之前，会先确定要写入位置的下标。如果多个线程同时向同一个 <code>list</code> 集合中写入数据，就可能存在<strong>多个线程同时取得了同一个下标的写入权</strong>，如果不加以限制，就可能会造成如下情况。即一个线程写的值覆盖了另一个线程写的值。</p>
-<img src="集合类线程不安全——List-Set-Map/image-20210705205807031.png" alt="image-20210705205807031" style="zoom: 67%;" />
+<img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705205807031.png" alt="image-20210705205807031" style="zoom: 67%;">
 
 <p>甚至可能会出现并发修改异常：<strong>java.util.ConcurrentModificationException</strong></p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211114239.png" alt="image-20210705211114239"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211114239.png" alt="image-20210705211114239"></p>
 <p>既然 <code>ArrayList#add()</code> 是线程不安全的，为了解决线程安全问题，我们应该怎么做呢？——加锁！！！</p>
 <blockquote>
 <p>  <strong>ArrayList 线程不安全总结：</strong></p>
@@ -524,7 +524,7 @@
 <blockquote>
 <p>  <strong>线程安全的代码</strong></p>
 </blockquote>
-<img src="集合类线程不安全——List-Set-Map/image-20210705211801881.png" alt="image-20210705211801881"  />
+<img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705211801881.png" alt="image-20210705211801881">
 
 <ul>
 <li>  只需将 <strong>new ArrayList</strong> 改为 <strong>new Vector</strong> 即可。</li>
@@ -532,7 +532,7 @@
 <blockquote>
 <p>  <strong>Vector 的缺点</strong></p>
 </blockquote>
-<img src="集合类线程不安全——List-Set-Map/image-20210705212216863.png" alt="image-20210705212216863"  />
+<img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705212216863.png" alt="image-20210705212216863">
 
 <ul>
 <li>  查看 <strong>Vector#add</strong> 的源码，可以看到该方法被 synchronized 修饰，是线程安全的，但是这样一来就会严重影响高并环境下的程序执行速度了。</li>
@@ -542,11 +542,11 @@
 <h3 id="解决方法2：使用-Collections-工具类创建线程安全的-ArrayList"><a href="#解决方法2：使用-Collections-工具类创建线程安全的-ArrayList" class="headerlink" title="解决方法2：使用 Collections 工具类创建线程安全的 ArrayList"></a>解决方法2：使用 Collections 工具类创建线程安全的 ArrayList</h3><ul>
 <li>  使用 <strong>Collections.synchronizedList</strong> 方法创建线程安全的 ArrayList。</li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213152762.png" alt="image-20210705213152762"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213152762.png" alt="image-20210705213152762"></p>
 <ul>
 <li>  下图可以看到，Collections 工具类提供了用于保证线程安全的 List 、Set 、Map 方法，那么也就说明 List、Set、Map 中一定有一些实现类是线程不安全的。具体就是：<strong>ArrayList、HashSet、HashMap</strong></li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213534400.png" alt="image-20210705213534400"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705213534400.png" alt="image-20210705213534400"></p>
 <h3 id="解决方法3：CopyOnWriteArrayList"><a href="#解决方法3：CopyOnWriteArrayList" class="headerlink" title="解决方法3：CopyOnWriteArrayList"></a>解决方法3：CopyOnWriteArrayList</h3><blockquote>
 <p>  <strong>CopyOnWriteArrayList 类</strong></p>
 </blockquote>
@@ -557,11 +557,11 @@
 <li>  它实现了 <code>List&lt;E&gt;</code> 接口，在某种意义上，它和 ArrayList 、Vector 是平级的。</li>
 <li>  它能保证线程安全是因为采用了<strong>写时复制技术</strong></li>
 </ul>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705215106596.png" alt="image-20210705215106596"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705215106596.png" alt="image-20210705215106596"></p>
 <blockquote>
 <p>  <strong>线程安全的代码</strong></p>
 </blockquote>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705214658694.png" alt="image-20210705214658694"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705214658694.png" alt="image-20210705214658694"></p>
 <blockquote>
 <p>  <strong>写时复制技术</strong></p>
 </blockquote>
@@ -586,7 +586,7 @@
 
 
 <p><strong>add() 方法源码</strong></p>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705221837637.png" alt="image-20210705221837637"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705221837637.png" alt="image-20210705221837637"></p>
 <ol>
 <li> 首先加锁</li>
 <li> 调用自身类中的 <code>getArray()</code> 方法获得当前集合对象的底层数组对象；</li>
@@ -612,15 +612,15 @@
 <ol>
 <li> 通过源码可以看到，HashSet 的底层数据结构其实是一个 HashMap。而 HashMap 的数据结构是键值对的，那么 HashSet 是如何处理这一情况的呢？</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225253807.png" alt="image-20210705225253807"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225253807.png" alt="image-20210705225253807"></p>
 <ol start="2">
 <li> 在 <strong>HashSet#add</strong> 方法中可以看到，add 方法底层确实调用的是 <strong>HashMap#put</strong> 方法，其 Key 为要添加的元素，而 V 则是一个 <strong>PRESENT</strong> 值</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225457854.png" alt="image-20210705225457854"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225457854.png" alt="image-20210705225457854"></p>
 <ol start="3">
 <li> 继续查看 PRESENT 的源码，我们可以看到， <strong>PRESENT</strong> 是一个常量值，也就是说 Value 是固定不变的。</li>
 </ol>
-<p><img src="%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225617057.png" alt="image-20210705225617057"></p>
+<p><img src="/2021/07/05/%E9%9B%86%E5%90%88%E7%B1%BB%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E2%80%94%E2%80%94List-Set-Map/image-20210705225617057.png" alt="image-20210705225617057"></p>
 <ol start="4">
 <li> 总结：HashSet 底层是 HashMap，但是只是利用了 HashMap 中键（key）的不可重复性，而在值（value）的部分则是使用一个常量值来填充。</li>
 </ol>

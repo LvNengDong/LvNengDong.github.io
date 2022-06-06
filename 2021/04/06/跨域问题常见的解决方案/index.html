@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="什么是跨域问题跨域问题是浏览器对于 Ajax 请求的一种安全限制：一个页面发起的ajax请求，只能是与当前页域名相同的路径，这能有效的阻止跨站攻击。 以下情况都属于跨域：    跨域原因说明 示例    域名不同 www.jd.com 与 www.taobao.com   域名相同，端口不同 www.jd.com:8080 与 www.jd.com:8081   二级域名不同 item.jd.co">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png">
-<meta property="og:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406002533903.png">
-<meta property="og:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406000556206.png">
+<meta property="og:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png">
+<meta property="og:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406002533903.png">
+<meta property="og:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406000556206.png">
 <meta property="article:published_time" content="2021-04-05T16:02:02.000Z">
 <meta property="article:modified_time" content="2021-04-11T15:30:16.792Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png">
+<meta name="twitter:image" content="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png">
 
 
 <link rel="canonical" href="http://example.com/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
@@ -136,7 +136,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -309,7 +309,7 @@
 <li>Content-Type：只限于三个值<code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code>、<code>text/plain</code></li>
 </ul>
 <p>当浏览器发现发起的ajax请求是简单请求时，会在请求头中携带一个字段：<code>Origin</code>.【发起请求的域名】</p>
-<p><img src="%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png" alt="1530460311064"></p>
+<p><img src="/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png" alt="1530460311064"></p>
 <p>Origin中会指出当前请求属于哪个域（协议+域名+端口）。服务会根据这个值决定是否允许其跨域。</p>
 <p>如果服务器允许跨域，需要在返回的响应头中携带下面信息：</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Access-Control-Allow-Origin</span><span class="punctuation">: </span>http://manage.leyou.com</span><br><span class="line"><span class="attribute">Access-Control-Allow-Credentials</span><span class="punctuation">: </span>true</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
@@ -362,7 +362,7 @@
 <p>事实上，SpringMVC已经帮我们写好了CORS的跨域过滤器：CorsFilter ,内部已经实现了刚才所讲的判定逻辑，我们直接用就好了。</p>
 <h3 id="通过-CrossOrigin-注解实现"><a href="#通过-CrossOrigin-注解实现" class="headerlink" title="通过 @CrossOrigin 注解实现"></a>通过 @CrossOrigin 注解实现</h3><p>通过 @CrossOrigin 注解实现跨域请求非常简单，只需要在要访问的 Controller 上加上 @CrossOrigin 注解即可！</p>
 <p>缺点是不能全局生效，每个要跨域的 Controller 都需要添加 @CrossOrigin 注解！</p>
-<p><img src="%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406002533903.png" alt="image-20210406002533903"></p>
+<p><img src="/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406002533903.png" alt="image-20210406002533903"></p>
 <h3 id="通过全局配置文件实现"><a href="#通过全局配置文件实现" class="headerlink" title="通过全局配置文件实现"></a>通过全局配置文件实现</h3><blockquote>
 <ol>
 <li>编写一个配置类，并且注册 CorsFilter</li>
@@ -373,7 +373,7 @@
 
 
 <h1 id="常见的错误"><a href="#常见的错误" class="headerlink" title="常见的错误"></a>常见的错误</h1><h2 id="常见错误1："><a href="#常见错误1：" class="headerlink" title="常见错误1："></a>常见错误1：</h2><p><strong>@CrossOrigin注解</strong> 和 <strong>全局配置文件</strong> 不能同时存在，因为这两种方式都能起到允许跨域的效果，如果同时使用就会发生冲突！</p>
-<h2 id="常见错误2"><a href="#常见错误2" class="headerlink" title="常见错误2"></a>常见错误2</h2><p><img src="%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406000556206.png" alt="image-20210406000556206"></p>
+<h2 id="常见错误2"><a href="#常见错误2" class="headerlink" title="常见错误2"></a>常见错误2</h2><p><img src="/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406000556206.png" alt="image-20210406000556206"></p>
 <blockquote>
 <p>错误信息：</p>
 <p><strong>Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https</strong></p>

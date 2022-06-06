@@ -127,7 +127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -281,7 +281,7 @@
 <li>  非路由组件：无需进行路由跳转的组件，一般放在 <strong>components</strong> 目录下</li>
 </ul>
 <p>在真实开发中，一般会专门创建一个 <strong>src/router/index.js</strong> 文件用于配置全局路由信息。</p>
-<p><img src="Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png" alt="image-20210411113552483"></p>
+<p><img src="/2021/04/11/Vue%E8%B7%AF%E7%94%B1/image-20210411113552483.png" alt="image-20210411113552483"></p>
 <p><strong>src/router/index.js</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 全局路由配置 </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 1、引入 vue 插件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 2、引入 vue-router 插件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、声明使用 VueRouter 实例</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueRouter</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前js文件中使用到的其它组件（在配置路由信息时需要映射到Vue组件）</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&quot;../views/About&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&quot;../views/Home&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、导出 VueRouter 路由对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="comment">// 5、配置路由表</span></span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="string">&#x27;About&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="string">&#x27;Home&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
@@ -441,23 +441,23 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法： vue init 模板名 [项目名称]</span></span><br><span class="line">vue init webpack</span><br><span class="line"></span><br><span class="line"><span class="comment"># 项目名称可以先不指定，在稍后的提示选项中指定！</span></span><br></pre></td></tr></table></figure>
 
 <p>初始化项目的选项根据需要自行选择：</p>
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409232341832.png" alt="image-20210409232341832"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409232341832.png" alt="image-20210409232341832"></p>
 <blockquote>
 <ol start="3">
 <li>使用<code>npm install</code>安装依赖。（如果在第二步中使用 NPM 自动安装的话，就无需进行手动安装这一步了！）</li>
 </ol>
 </blockquote>
 <p>安装成功！提示我们可以使用<code>npm run dev</code>命令启动。</p>
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530209062090.png" alt="1530209062090"></p>
-<h2 id="3、模板项目的结构？"><a href="#3、模板项目的结构？" class="headerlink" title="3、模板项目的结构？"></a>3、模板项目的结构？</h2><p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409233127399.png" alt="image-20210409233127399"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530209062090.png" alt="1530209062090"></p>
+<h2 id="3、模板项目的结构？"><a href="#3、模板项目的结构？" class="headerlink" title="3、模板项目的结构？"></a>3、模板项目的结构？</h2><p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409233127399.png" alt="image-20210409233127399"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">|—— build 				// webpack 相关的配置文件夹(基本不需要修改)</span><br><span class="line">	|—— dev-server.js 	 // 通过express 启动后台服务器</span><br><span class="line">|—— config				// webpack 相关的配置文件夹(基本不需要修改)</span><br><span class="line">	|—— index.js		// 指定的后台服务的端口号和静态资源文件夹</span><br><span class="line">|—— node_modules		// 依赖包文件夹</span><br><span class="line">|—— src 				// 源码文件夹</span><br><span class="line">	|—— components		// vue 组件及其相关资源文件夹</span><br><span class="line">	|—— App.vue			// 应用根组件</span><br><span class="line">	|—— main.js			// 应用入口js</span><br><span class="line">|—— static				// 静态资源文件夹</span><br><span class="line">|—— .babelrc			// babel 的配置文件（babel runtime control）</span><br><span class="line">|—— .eslintignore		// eslint 检查忽略的配置</span><br><span class="line">|—— .eslintrc.js		// eslint 的配置文件（eslint runtime control）</span><br><span class="line">|—— .editorcconfig</span><br><span class="line">|—— .gitignore			// Git 版本控制忽略文件配置</span><br><span class="line">|—— .postcssrc.js</span><br><span class="line">|—— index.html			// 主页面文件</span><br><span class="line">|—— package.json		// 依赖管理</span><br><span class="line">|—— package-lock.json</span><br><span class="line">|—— README.md			// 应用描述说明的readme 文件</span><br></pre></td></tr></table></figure>
 
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210404124345145.png" alt="image-20210404124345145"></p>
+<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210404124345145.png" alt="image-20210404124345145"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── assets 			// 图片等资源 </span><br><span class="line">├── components 		// 公共（全局）组件，非公共组件在各自view下维护 </span><br><span class="line">├── router 			// 路由表 </span><br><span class="line">├── App.vue 		// 项目根组件（老祖宗）</span><br><span class="line">├── main.js 		// 项目入口文件</span><br></pre></td></tr></table></figure>
 
-<h4 id="入口文件：main-js"><a href="#入口文件：main-js" class="headerlink" title="入口文件：main.js"></a>入口文件：<code>main.js</code></h4><p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530209503007.png" alt="1525913687860"></p>
+<h4 id="入口文件：main-js"><a href="#入口文件：main-js" class="headerlink" title="入口文件：main.js"></a>入口文件：<code>main.js</code></h4><p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530209503007.png" alt="1525913687860"></p>
 <h4 id="单文件组件：-vue"><a href="#单文件组件：-vue" class="headerlink" title="单文件组件：*.vue*"></a>单文件组件：<code>*.vue*</code></h4><p>我们称后缀名为<code>.vue</code>的文件为单文件组件。每一个<code>.vue</code>文件，就是一个独立的vue组件。而 <strong>App.vue</strong> 是整个项目的根组件。</p>
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530209769323.png" alt="1530209769323"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530209769323.png" alt="1530209769323"></p>
 <p>单文件组件中包含三部分内容：</p>
 <ul>
 <li><code>&lt;template/&gt;</code>：<strong>Html 模板</strong></li>
@@ -466,13 +466,13 @@
 </ul>
 <p>每个组件都有自己独立的html、JS、CSS，互不干扰，真正做到可独立复用。</p>
 <h4 id="多文件组件"><a href="#多文件组件" class="headerlink" title="多文件组件"></a>多文件组件</h4><p>既然有单文件组件，那么就一定有多文件组件。多文件组件一般是一个文件夹，这个文件夹中除了包含一些单文件组件之外，还可以包含一些 image 等静态资源。所有这些资源形成一个大的组件对外暴露，我们把这个大的组件就叫做多文件组件！！！</p>
-<h3 id="gitkeep"><a href="#gitkeep" class="headerlink" title=".gitkeep"></a>.gitkeep</h3><p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409233500688.png" alt="image-20210409233500688"></p>
+<h3 id="gitkeep"><a href="#gitkeep" class="headerlink" title=".gitkeep"></a>.gitkeep</h3><p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409233500688.png" alt="image-20210409233500688"></p>
 <p><code>.gitkeep</code> 是作用于 Git 进行版本管理的文件。</p>
 <p>Git 进行版本控制时有一个特点就是如果某个文件夹为空就会自动忽略（即不对该文件夹进行版本控制），但是如果我们不想该文件夹被忽略的话，就可以在该文件夹下创建一个<code>.gitkeep</code>的文件（文件内容为空），这样Git在进行版本管理时就不会忽略该文件夹了！！！</p>
 <h2 id="4、运行"><a href="#4、运行" class="headerlink" title="4、运行"></a>4、运行</h2><blockquote>
 <p>查看项目文件的配置信息：<code>package.json</code></p>
 </blockquote>
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530210016103.png" alt="1530210016103"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530210016103.png" alt="1530210016103"></p>
 <ul>
 <li>可以看到这里引入了非常多的依赖，绝大多数都是开发期依赖，比如大量的加载器。</li>
 <li>运行时依赖只有 vue 和 vue-router</li>
@@ -487,11 +487,11 @@
 <p>启动项目</p>
 </blockquote>
 <p>我们执行<code>npm run dev</code> 或者 <code>npm start</code> 都可以启动项目：</p>
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530210411076.png" alt="1530210411076"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/1530210411076.png" alt="1530210411076"></p>
 <blockquote>
 <p>检查页面元素</p>
 </blockquote>
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409234531234.png" alt="image-20210409234531234"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/image-20210409234531234.png" alt="image-20210409234531234"></p>
 <h2 id="5、项目打包"><a href="#5、项目打包" class="headerlink" title="5、项目打包"></a>5、项目打包</h2><blockquote>
 <p>打包命令</p>
 </blockquote>
@@ -576,7 +576,7 @@
 
 
 
-<p><img src="Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/lifecycle.png" alt="Vue 实例生命周期"></p>
+<p><img src="/2021/04/09/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%BC%96%E7%A0%81/lifecycle.png" alt="Vue 实例生命周期"></p>
 <h1 id="组件化编码的流程"><a href="#组件化编码的流程" class="headerlink" title="组件化编码的流程"></a>组件化编码的流程</h1><p>拆分组件–&gt;&gt;静态组件–&gt;&gt;动态组件</p>
 <h2 id="做交互"><a href="#做交互" class="headerlink" title="做交互"></a>做交互</h2><p>绑定事件监听</p>
 <p>–&gt;&gt;</p>
@@ -741,7 +741,7 @@
 <li>Content-Type：只限于三个值<code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code>、<code>text/plain</code></li>
 </ul>
 <p>当浏览器发现发起的ajax请求是简单请求时，会在请求头中携带一个字段：<code>Origin</code>.【发起请求的域名】</p>
-<p><img src="%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png" alt="1530460311064"></p>
+<p><img src="/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/1530460311064.png" alt="1530460311064"></p>
 <p>Origin中会指出当前请求属于哪个域（协议+域名+端口）。服务会根据这个值决定是否允许其跨域。</p>
 <p>如果服务器允许跨域，需要在返回的响应头中携带下面信息：</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Access-Control-Allow-Origin</span><span class="punctuation">: </span>http://manage.leyou.com</span><br><span class="line"><span class="attribute">Access-Control-Allow-Credentials</span><span class="punctuation">: </span>true</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
@@ -794,7 +794,7 @@
 <p>事实上，SpringMVC已经帮我们写好了CORS的跨域过滤器：CorsFilter ,内部已经实现了刚才所讲的判定逻辑，我们直接用就好了。</p>
 <h3 id="通过-CrossOrigin-注解实现"><a href="#通过-CrossOrigin-注解实现" class="headerlink" title="通过 @CrossOrigin 注解实现"></a>通过 @CrossOrigin 注解实现</h3><p>通过 @CrossOrigin 注解实现跨域请求非常简单，只需要在要访问的 Controller 上加上 @CrossOrigin 注解即可！</p>
 <p>缺点是不能全局生效，每个要跨域的 Controller 都需要添加 @CrossOrigin 注解！</p>
-<p><img src="%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406002533903.png" alt="image-20210406002533903"></p>
+<p><img src="/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406002533903.png" alt="image-20210406002533903"></p>
 <h3 id="通过全局配置文件实现"><a href="#通过全局配置文件实现" class="headerlink" title="通过全局配置文件实现"></a>通过全局配置文件实现</h3><blockquote>
 <ol>
 <li>编写一个配置类，并且注册 CorsFilter</li>
@@ -805,7 +805,7 @@
 
 
 <h1 id="常见的错误"><a href="#常见的错误" class="headerlink" title="常见的错误"></a>常见的错误</h1><h2 id="常见错误1："><a href="#常见错误1：" class="headerlink" title="常见错误1："></a>常见错误1：</h2><p><strong>@CrossOrigin注解</strong> 和 <strong>全局配置文件</strong> 不能同时存在，因为这两种方式都能起到允许跨域的效果，如果同时使用就会发生冲突！</p>
-<h2 id="常见错误2"><a href="#常见错误2" class="headerlink" title="常见错误2"></a>常见错误2</h2><p><img src="%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406000556206.png" alt="image-20210406000556206"></p>
+<h2 id="常见错误2"><a href="#常见错误2" class="headerlink" title="常见错误2"></a>常见错误2</h2><p><img src="/2021/04/06/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/image-20210406000556206.png" alt="image-20210406000556206"></p>
 <blockquote>
 <p>错误信息：</p>
 <p><strong>Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https</strong></p>
@@ -1314,7 +1314,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 查询 DepName = &quot;计科院&quot; 的学生信息</span><br><span class="line"></span><br><span class="line">-- 做法1：</span><br><span class="line">SELECT Sname FROM student stu, department dep</span><br><span class="line">WHERE stu.DepId = dep.DepId </span><br><span class="line">AND dep.DepName = &quot;计科院&quot;</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">-- 做法2（测试 EXISTS 用法：）：</span><br><span class="line">SELECT Sname FROM student stu</span><br><span class="line">WHERE EXISTS </span><br><span class="line">  (SELECT 1 FROM department dep WHERE stu.DepId = dep.DepId AND dep.DepName = &quot;计科院&quot;)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
-<p><img src="MySQL%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/image-20210401151204435.png" alt="image-20210401151204435"></p>
+<p><img src="/2021/04/03/MySQL%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/image-20210401151204435.png" alt="image-20210401151204435"></p>
 <blockquote>
 <p>分析：</p>
 </blockquote>
@@ -1345,7 +1345,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student stu</span><br><span class="line">WHERE NOT EXISTS </span><br><span class="line">  (SELECT * FROM department dep WHERE stu.DepId = dep.DepId AND dep.DepName = &quot;计科院&quot;)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
 
-<p><img src="MySQL%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/image-20210401151133530.png" alt="image-20210401151133530"></p>
+<p><img src="/2021/04/03/MySQL%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/image-20210401151133530.png" alt="image-20210401151133530"></p>
 <h1 id="根据时间范围查询语句"><a href="#根据时间范围查询语句" class="headerlink" title="根据时间范围查询语句"></a>根据时间范围查询语句</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 查询今天的数据</span><br><span class="line">SELECT * FROM 表名 where TO_DAYS(时间字段名) = to_days(now());</span><br><span class="line"></span><br><span class="line"># 查询昨天的数据</span><br><span class="line">SELECT * FROM 表名 WHERE TO_DAYS(NOW()) - TO_DAYS(时间字段名) &lt;= 1</span><br><span class="line"></span><br><span class="line"># 查询近7天的数据</span><br><span class="line">SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(时间字段名)</span><br><span class="line"></span><br><span class="line"># 查询近30天的数据</span><br><span class="line">SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(时间字段名)</span><br><span class="line"></span><br><span class="line"># 查询本月从1号开始到查询截止日期的数据</span><br><span class="line">SELECT * FROM 表名 WHERE DATE_FORMAT( 时间字段名, &#x27;%Y%m&#x27; ) = DATE_FORMAT( CURDATE( ) , &#x27;%Y%m&#x27; )</span><br><span class="line"></span><br><span class="line"># 查询上一月的数据</span><br><span class="line">SELECT * FROM 表名 WHERE PERIOD_DIFF( date_format( now( ) , &#x27;%Y%m&#x27; ) , date_format( 时间字段名, &#x27;%Y%m&#x27; ) ) =1</span><br><span class="line"></span><br><span class="line"># 查询本季度数据</span><br><span class="line">select * from 表名 where QUARTER(create_date)=QUARTER(now());</span><br><span class="line"></span><br><span class="line"># 查询上季度数据</span><br><span class="line">select * from 表名 where QUARTER(create_date)=QUARTER(DATE_SUB(now(),interval 1 QUARTER));</span><br><span class="line"></span><br><span class="line"># 查询本年数据</span><br><span class="line">select * from 表名 where YEAR(create_date)=YEAR(NOW());</span><br><span class="line"></span><br><span class="line"># 查询上年数据</span><br><span class="line">select * from 表名 where year(create_date)=year(date_sub(now(),interval 1 year));</span><br><span class="line"></span><br><span class="line"># 查询当前这周到查询截止日期的数据</span><br><span class="line">SELECT * FROM 表名 WHERE YEARWEEK(date_format(submittime,&#x27;%Y-%m-%d&#x27;)) = YEARWEEK(now());</span><br><span class="line"></span><br><span class="line"># 查询上周的数据</span><br><span class="line">SELECT * FROM 表名 WHERE YEARWEEK(date_format(submittime,&#x27;%Y-%m-%d&#x27;)) = YEARWEEK(now())-1;</span><br></pre></td></tr></table></figure>
 
 
@@ -1440,7 +1440,7 @@
 <hr>
 <h2 id="什么是-WebPack"><a href="#什么是-WebPack" class="headerlink" title="什么是 WebPack"></a>什么是 WebPack</h2><p>Webpack 是一个前端资源的打包工具，它可以将 js、image、css 等资源当成一个模块进行打包。</p>
 <p>中文官方网站：<a target="_blank" rel="noopener" href="https://www.webpackjs.com/">https://www.webpackjs.com/</a></p>
-<p><img src="WebPack/1530168661348.png" alt="1530168661348"></p>
+<p><img src="/2021/04/03/WebPack/1530168661348.png" alt="1530168661348"></p>
 <hr>
 <h2 id="WebPack-的作用"><a href="#WebPack-的作用" class="headerlink" title="WebPack 的作用"></a>WebPack 的作用</h2><blockquote>
 <ol>
@@ -1508,18 +1508,18 @@
 </blockquote>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
 
-<p><img src="WebPack/image-20210404105648734.png" alt="image-20210404105648734"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404105648734.png" alt="image-20210404105648734"></p>
 <p>打开文件，可以看到我们之前用npm安装过的文件都会出现在这里：</p>
-<p><img src="WebPack/image-20210404105828414.png" alt="image-20210404105828414"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404105828414.png" alt="image-20210404105828414"></p>
 <hr>
 <h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><h2 id="1-编写webpack配置文件"><a href="#1-编写webpack配置文件" class="headerlink" title="1    编写webpack配置文件"></a>1    编写webpack配置文件</h2><p>首先，我们要在项目的根目录下新建一个 <strong>webpack.config.js</strong> 配置文件来指定一些打包的配置信息。</p>
 <p>配置文件主要用来指定 WebPack 的四个核心概念的配置信息：入口、出口、加载器、插件。</p>
 <p>不过，加载器和插件是可选的。但是入口和出口是必须的。</p>
-<p><img src="WebPack/image-20210404110644933.png" alt="image-20210404110644933"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404110644933.png" alt="image-20210404110644933"></p>
 <h3 id="1-1-入口-entry"><a href="#1-1-入口-entry" class="headerlink" title="1.1    入口 entry"></a>1.1    入口 entry</h3><p>WebPack 打包的起点，可以有一个或多个，一般是一个 Js 文件。</p>
 <p>目前来说，我们所有的代码都集中在 <code>index.html</code> 中，显然不是一个 Js 文件。</p>
 <p>所以我们需要新建一个 Js 文件，把 <code>index.html</code> 中所有的 Js 内容拆分到该 Js 文件中<code>（index.js）</code>，然后在 <code>index.html</code> 中引用这个Js文件，这样就可以吧 <code>index.js</code> 文件作为打包的入口了！</p>
-<p><img src="WebPack/image-20210404110914981.png" alt="image-20210404110914981"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404110914981.png" alt="image-20210404110914981"></p>
 <blockquote>
 <ol>
 <li>新建一个入口文件 <code>index.js</code>，把原来 <code>index.html</code> 中所有的 Js 代码拆分到<code>index.js</code>中</li>
@@ -1561,7 +1561,7 @@
 </ol>
 </blockquote>
 <p>出口，就是打包后文件的保存的位置。一般我们会新建一个 <strong>dist</strong> 目录，作为打包输出的文件夹：</p>
-<p><img src="WebPack/image-20210404111657967.png" alt="image-20210404111657967"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404111657967.png" alt="image-20210404111657967"></p>
 <blockquote>
 <ol start="2">
 <li>在 webpack.config.js 配置文件中，添加出口配置：</li>
@@ -1575,12 +1575,12 @@
 <h2 id="2-执行打包"><a href="#2-执行打包" class="headerlink" title="2    执行打包"></a>2    执行打包</h2><p>在控制台输入以下命令进行打包：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx webpack --config webpack.config.js</span><br></pre></td></tr></table></figure>
 
-<p><img src="WebPack/1530203361613.png" alt="1530203361613"></p>
+<p><img src="/2021/04/03/WebPack/1530203361613.png" alt="1530203361613"></p>
 <p>随后，查看dist目录：</p>
-<p><img src="WebPack/image-20210404112246561.png" alt="image-20210404112246561"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404112246561.png" alt="image-20210404112246561"></p>
 <p>打开 <code>build.js</code>，发现我们的代码在打包后被做了混淆！</p>
 <p>所有的 Js 合并为1个，并且对变量名进行了随机打乱，这样就起到了压缩、混淆的作用。</p>
-<p><img src="WebPack/1530203465737.png" alt="1530203465737"></p>
+<p><img src="/2021/04/03/WebPack/1530203465737.png" alt="1530203465737"></p>
 <h2 id="3-测试运行"><a href="#3-测试运行" class="headerlink" title="3    测试运行"></a>3    测试运行</h2><blockquote>
 <ol>
 <li>在 <code>index.html</code> 中引入刚刚生成的 <code>build.js</code> 文件：</li>
@@ -1595,13 +1595,13 @@
 <li>然后运行：</li>
 </ol>
 </blockquote>
-<p><img src="WebPack/1530203553915.png" alt="1530203553915"></p>
+<p><img src="/2021/04/03/WebPack/1530203553915.png" alt="1530203553915"></p>
 <h2 id="4-打包CSS"><a href="#4-打包CSS" class="headerlink" title="4    打包CSS"></a>4    打包CSS</h2><blockquote>
 <ol>
 <li>首先，编写一段CSS代码，对 <code>index.html</code> 的样式做一些美化：</li>
 </ol>
 </blockquote>
-<p><img src="WebPack/image-20210404112626064.png" alt="image-20210404112626064"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404112626064.png" alt="image-20210404112626064"></p>
 <p><code>main.css</code> 内容：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#app</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: dodgerblue;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#app</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: whitesmoke;</span><br><span class="line">    <span class="attribute">color</span>: dodgerblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#app</span> <span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#app</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">305px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid dodgerblue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1613,7 +1613,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install style-loader css-loader --save-dev</span><br></pre></td></tr></table></figure>
 
 <p>此时，在 <code>package.json</code> 中能看到新安装的：</p>
-<p><img src="WebPack/1530204160848.png" alt="1530204160848"></p>
+<p><img src="/2021/04/03/WebPack/1530204160848.png" alt="1530204160848"></p>
 <h3 id="4-2-index-js-引入-Css-文件"><a href="#4-2-index-js-引入-Css-文件" class="headerlink" title="4.2    index.js 引入 Css 文件"></a>4.2    index.js 引入 Css 文件</h3><p>因为入口在 <code>index.js</code> ，因此 Css 文件也要在这里引入。依然使用ES6 的语法：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./css/main.css&#x27;</span></span><br></pre></td></tr></table></figure>
 
@@ -1623,15 +1623,15 @@
 <h3 id="4-4-重新打包"><a href="#4-4-重新打包" class="headerlink" title="4.4    重新打包"></a>4.4    重新打包</h3><p>再次输入打包指令：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx webpack --config webpack.config.js</span><br></pre></td></tr></table></figure>
 
-<p><img src="WebPack/1530204780240.png" alt="1530204780240"></p>
+<p><img src="/2021/04/03/WebPack/1530204780240.png" alt="1530204780240"></p>
 <p>效果：</p>
-<p><img src="WebPack/1530204813013.png" alt="1530204813013"></p>
+<p><img src="/2021/04/03/WebPack/1530204813013.png" alt="1530204813013"></p>
 <h2 id="5-script脚本"><a href="#5-script脚本" class="headerlink" title="5    script脚本"></a>5    script脚本</h2><p>我们每次使用 NPM 安装依赖，都会在 <code>package.json</code> 中留下痕迹。事实上<code>package.json</code>中不仅可以记录安装的内容，还可编写脚本，让我们运行命令更加快捷。</p>
 <p>我们可以把webpack的命令编入其中：</p>
-<p><img src="WebPack/1530205423730.png" alt="1530205423730"></p>
+<p><img src="/2021/04/03/WebPack/1530205423730.png" alt="1530205423730"></p>
 <p>以后，如果要打包，就可以直接输入：<code>npm run build</code>即可。</p>
 <p><code>npm run</code> ：执行npm脚本，后面跟的是配置脚本的名称<code>build</code></p>
-<p><img src="WebPack/1530205504104.png" alt="1530205504104"></p>
+<p><img src="/2021/04/03/WebPack/1530205504104.png" alt="1530205504104"></p>
 <h2 id="6-打包HTML"><a href="#6-打包HTML" class="headerlink" title="6    打包HTML"></a>6    打包HTML</h2><p>在之前的打包过程中，除了 HTML 文件外的其它文件都被打包了。这样每次我们还需要手动将打包后的<code>build.js</code>文件引入到 SPA 的<code>index.html</code>页面中。</p>
 <p>当在线上部署时，我们还得自己复制<code>index.html</code> 到 dist 目录中，然后再手动在<code>index.html</code>中引用<code>build.js</code>，这对用户体验并不友好。</p>
 <p>WebPack 中的一个插件：<strong>html-webpack-plugin</strong>，可以解决这个问题。</p>
@@ -1658,7 +1658,7 @@
 <li>将原来 HTML 中的引入 Js 代码删除：</li>
 </ol>
 </blockquote>
-<p><img src="WebPack/1530207035782.png" alt="1530207035782"></p>
+<p><img src="/2021/04/03/WebPack/1530207035782.png" alt="1530207035782"></p>
 <blockquote>
 <ol start="4">
 <li>再次打包：</li>
@@ -1673,9 +1673,9 @@
 <li>查看 dist 目录：</li>
 </ol>
 </blockquote>
-<p><img src="WebPack/image-20210404114225568.png" alt="image-20210404114225568"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404114225568.png" alt="image-20210404114225568"></p>
 <p>打开 <code>index.html</code>，发现已经自动添加了当前目录下的 <code>build.js</code></p>
-<p><img src="WebPack/image-20210404114356495.png" alt="image-20210404114356495"></p>
+<p><img src="/2021/04/03/WebPack/image-20210404114356495.png" alt="image-20210404114356495"></p>
 <h2 id="7-热更新的web服务"><a href="#7-热更新的web服务" class="headerlink" title="7    热更新的web服务"></a>7    热更新的web服务</h2><p>在之前的演示中，每次修改任何 Js 或 Css 内容，都必须重新打包，非常麻烦。</p>
 <p>WebPack 给我们提供了一个插件，可以帮我们运行一个 Web 服务，加载页面内容，并且修改 Js 后不需要重新加载就能看到最新结果！</p>
 <blockquote>
@@ -1699,13 +1699,13 @@
 <li>运行脚本：<code>npm run dev</code></li>
 </ol>
 </blockquote>
-<p><img src="WebPack/1530207667660.png" alt="1530207667660"></p>
+<p><img src="/2021/04/03/WebPack/1530207667660.png" alt="1530207667660"></p>
 <blockquote>
 <ol start="4">
 <li>效果：</li>
 </ol>
 </blockquote>
-<p><img src="WebPack/1530207505226.png" alt="1530207505226"></p>
+<p><img src="/2021/04/03/WebPack/1530207505226.png" alt="1530207505226"></p>
 
       
     </div>
@@ -1856,7 +1856,7 @@
 </blockquote>
 </li>
 </ol>
-<p><img src="SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210322134928644.png" alt="image-20210322134928644"></p>
+<p><img src="/2021/03/27/SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210322134928644.png" alt="image-20210322134928644"></p>
 <hr>
 <h1 id="Spring-缓存抽象"><a href="#Spring-缓存抽象" class="headerlink" title="Spring 缓存抽象"></a>Spring 缓存抽象</h1><h2 id="Spring-中的缓存API-amp-缓存注解"><a href="#Spring-中的缓存API-amp-缓存注解" class="headerlink" title="Spring 中的缓存API &amp; 缓存注解"></a>Spring 中的缓存API &amp; 缓存注解</h2><ul>
 <li>  **Spring 简化了 JSR-107 规范，只保留了 Cache 和 CacheManager 接口来统一不同的缓存技术！ ****</li>
@@ -2038,7 +2038,7 @@
 
 <p>根据 SpringBoot 的自动配置原理，当导入依赖后在项目启动时就会自动加载配置类 <strong>RedisAutoConfiguration</strong> ：在自动配置类中会将 <strong>RedisTemplate&lt;Object, Object&gt;</strong> 对象和 <strong>StringRedisTemplate&lt;String, String&gt;</strong> 对象注入到IOC容器中，然后我们就可以在项目的任何地方通过自动注入的方式调用这两个对象操作 Redis 数据库！</p>
 <p><strong>RedisTemplate&lt;Object, Object&gt;</strong> 和 <strong>StringRedisTemplate&lt;String, String&gt;</strong> 对象是两个连接 Redis 数据库的客户端对象，可以通过这两个客户端对象操作 Redis 对象！</p>
-<p><img src="SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325100936103.png" alt="image-20210325100936103"></p>
+<p><img src="/2021/03/27/SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325100936103.png" alt="image-20210325100936103"></p>
 <hr>
 <h2 id="2-在-application-properties-中配置-Redis-服务器的地址"><a href="#2-在-application-properties-中配置-Redis-服务器的地址" class="headerlink" title="2    在 application.properties 中配置 Redis 服务器的地址"></a>2    在 application.properties 中配置 Redis 服务器的地址</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redis 的配置信息------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="attr">spring.redis.host</span>=<span class="string">121.4.221.191</span></span><br><span class="line"><span class="attr">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="comment"># Redis服务器的连接密码，默认为空</span></span><br><span class="line"><span class="attr">spring.redis.password</span>=<span class="string">xxxxx</span></span><br></pre></td></tr></table></figure>
 
@@ -2046,8 +2046,8 @@
 
 
 
-<h2 id="3-使用-RestTemplate-操作-redis（数据库操作）"><a href="#3-使用-RestTemplate-操作-redis（数据库操作）" class="headerlink" title="3    使用 RestTemplate 操作 redis（数据库操作）"></a>3    使用 RestTemplate 操作 redis（数据库操作）</h2><p><img src="SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325102413297.png" alt="image-20210325102413297"></p>
-<p><img src="SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325103004408.png" alt="image-20210325103004408"></p>
+<h2 id="3-使用-RestTemplate-操作-redis（数据库操作）"><a href="#3-使用-RestTemplate-操作-redis（数据库操作）" class="headerlink" title="3    使用 RestTemplate 操作 redis（数据库操作）"></a>3    使用 RestTemplate 操作 redis（数据库操作）</h2><p><img src="/2021/03/27/SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325102413297.png" alt="image-20210325102413297"></p>
+<p><img src="/2021/03/27/SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325103004408.png" alt="image-20210325103004408"></p>
 <blockquote>
 <p>ops：operations，操作</p>
 </blockquote>
@@ -2086,11 +2086,11 @@
 <h2 id="4-操作-redis-缓存"><a href="#4-操作-redis-缓存" class="headerlink" title="4    操作 redis 缓存"></a>4    操作 redis 缓存</h2><ol>
 <li>引入 redis 的 starter ，容器中保存的就是 <strong>RedisCacheManager</strong> ！</li>
 </ol>
-<p><img src="SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325121758516.png" alt="image-20210325121758516"></p>
+<p><img src="/2021/03/27/SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325121758516.png" alt="image-20210325121758516"></p>
 <ol start="2">
 <li><strong>RedisCacheManager</strong> 中的<strong>createRedisCache()</strong> 方法就是用于创建一个 <strong>RedisCache</strong> 对象。此时我们使用上一部分讲的缓存注解就会将缓存数据直接保存到 Redis 数据库中！</li>
 </ol>
-<p><img src="SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325134918099.png" alt="image-20210325134918099"></p>
+<p><img src="/2021/03/27/SpringBoot%E4%B8%8E%E7%BC%93%E5%AD%98/image-20210325134918099.png" alt="image-20210325134918099"></p>
 
       
     </div>
@@ -2194,7 +2194,7 @@
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- EasyExcel --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>easyexcel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="EasyExcel/image-20210319154834666.png" alt="image-20210319154834666"></p>
+<p><img src="/2021/03/27/EasyExcel/image-20210319154834666.png" alt="image-20210319154834666"></p>
 
       
     </div>
@@ -2282,7 +2282,7 @@
           <h1 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h1><p>SVN 是『<strong>集中式版本控制系统</strong>』，版本库是放在中央服务器的，而干活的时候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。</p>
 <p>集中式版本控制系统的限制是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网下，如果网速慢的话，就郁闷了。</p>
 <p>下图就是标准的集中式版本控制工具管理方式：</p>
-<p><img src="SVN/image-20210326134117053.png" alt="image-20210326134117053"></p>
+<p><img src="/2021/03/27/SVN/image-20210326134117053.png" alt="image-20210326134117053"></p>
 <p>集中管理方式在一定程度上看到其他开发人员在干什么，而管理员也可以很轻松掌握每个人的开发权限。</p>
 <p>但是相较于其优点而言，集中式版本控制工具缺点很明显：</p>
 <ul>
