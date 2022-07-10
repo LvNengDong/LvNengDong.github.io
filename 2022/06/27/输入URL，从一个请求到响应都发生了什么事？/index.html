@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="输入URL，从一个请求到响应都发生了什么事？全局概览 常规的网络交互过程是从客户端发起网络请求，用户态的应用程序（比如浏览器）会生成 HTTP 请求报文，并通过 DNS 协议查找到对应的远端 IP 地址。  如果我们使用的是   在套接字生成之后进入内核态，浏览器会委托操作系统内核去通知网络协议栈中的上半部分，也就是 TCP&#x2F;UDP 协议发起连接请求。  然后经由网络协议栈的下半部分 IP 协议进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="输入URL，从一个请求到响应都发生了什么事？">
+<meta property="og:url" content="http://example.com/2022/06/27/%E8%BE%93%E5%85%A5URL%EF%BC%8C%E4%BB%8E%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E5%88%B0%E5%93%8D%E5%BA%94%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="输入URL，从一个请求到响应都发生了什么事？全局概览 常规的网络交互过程是从客户端发起网络请求，用户态的应用程序（比如浏览器）会生成 HTTP 请求报文，并通过 DNS 协议查找到对应的远端 IP 地址。  如果我们使用的是   在套接字生成之后进入内核态，浏览器会委托操作系统内核去通知网络协议栈中的上半部分，也就是 TCP&#x2F;UDP 协议发起连接请求。  然后经由网络协议栈的下半部分 IP 协议进">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://processon.com/chart_image/62b9bf50637689073326365f.png">
+<meta property="article:published_time" content="2022-06-27T13:12:20.000Z">
+<meta property="article:modified_time" content="2022-06-27T14:59:22.897Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://processon.com/chart_image/62b9bf50637689073326365f.png">
+
+
+<link rel="canonical" href="http://example.com/2022/06/27/%E8%BE%93%E5%85%A5URL%EF%BC%8C%E4%BB%8E%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E5%88%B0%E5%93%8D%E5%BA%94%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/06/27/%E8%BE%93%E5%85%A5URL%EF%BC%8C%E4%BB%8E%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E5%88%B0%E5%93%8D%E5%BA%94%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F/","path":"2022/06/27/输入URL，从一个请求到响应都发生了什么事？/","title":"输入URL，从一个请求到响应都发生了什么事？"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>输入URL，从一个请求到响应都发生了什么事？ | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5URL%EF%BC%8C%E4%BB%8E%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E5%88%B0%E5%93%8D%E5%BA%94%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">输入URL，从一个请求到响应都发生了什么事？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%A6%82%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">全局概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E8%B5%B7%E8%AF%B7%E6%B1%82%E9%98%B6%E6%AE%B5%EF%BC%88%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">发起请求阶段（应用层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%EF%BC%9A%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BE%93%E5%85%A5URL"><span class="nav-number">1.3.</span> <span class="nav-text">用户输入：在浏览器中输入URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%89%8D%EF%BC%9A%E6%9F%A5%E7%9C%8B%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98"><span class="nav-number">1.4.</span> <span class="nav-text">网络请求前：查看浏览器缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%EF%BC%9ADNS"><span class="nav-number">1.5.</span> <span class="nav-text">域名解析：DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88%EF%BC%88%E4%BC%A0%E8%BE%93%E5%B1%82%E5%92%8C%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">网络协议栈（传输层和网络层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BC%A0%E8%BE%93%EF%BC%9A%E5%BB%BA%E7%AB%8BTCP%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.7.</span> <span class="nav-text">可靠性传输：建立TCP连接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/27/%E8%BE%93%E5%85%A5URL%EF%BC%8C%E4%BB%8E%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E5%88%B0%E5%93%8D%E5%BA%94%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="输入URL，从一个请求到响应都发生了什么事？ | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          输入URL，从一个请求到响应都发生了什么事？
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-06-27 21:12:20 / Modified: 22:59:22" itemprop="dateCreated datePublished" datetime="2022-06-27T21:12:20+08:00">2022-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">网络编程</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">理论基础</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="输入URL，从一个请求到响应都发生了什么事？"><a href="#输入URL，从一个请求到响应都发生了什么事？" class="headerlink" title="输入URL，从一个请求到响应都发生了什么事？"></a>输入URL，从一个请求到响应都发生了什么事？</h1><h2 id="全局概览"><a href="#全局概览" class="headerlink" title="全局概览"></a>全局概览</h2><ol>
+<li><p>常规的网络交互过程是从客户端发起网络请求，用户态的应用程序（比如浏览器）会生成 HTTP 请求报文，并通过 DNS 协议查找到对应的远端 IP 地址。</p>
+<blockquote>
+<p>如果我们使用的是</p>
+</blockquote>
+</li>
+<li><p>在<strong>套接字生成之后</strong>进入内核态，浏览器会委托操作系统内核去通知网络协议栈中的上半部分，也就是 TCP/UDP 协议发起连接请求。</p>
+</li>
+<li><p>然后经由网络协议栈的下半部分 <strong>IP 协议进行包装，使数据包具有远程定位能力</strong>。</p>
+</li>
+<li><p>经过 MAC 层处理，找到接收方的 MAC 地址。</p>
+</li>
+<li><p>最终数据包再经过网卡转化成电信号，电信号经过交换机、路由器发送到服务端，服务端经过处理拿到数据，再通过各种网络协议把数据响应给客户端。</p>
+</li>
+<li><p>客户端拿到数据进行渲染。</p>
+</li>
+<li><p>客户端和服务器端之间反复交换数据，客户端的页面数据就会发生变化。</p>
+</li>
+</ol>
+<h2 id="发起请求阶段（应用层）"><a href="#发起请求阶段（应用层）" class="headerlink" title="发起请求阶段（应用层）"></a>发起请求阶段（应用层）</h2><p>应用层是多层网络结构中的最上层，也是我们能直接接触到的一层。</p>
+<p>我们手机或电脑使用的软件都是在应用层实现的，包括浏览器、邮件应用、甚至于我们开发人员使用的IDE（比如我们通过IDE去访问远程服务器上的数据）。对于应用层来说，它只需要关注于为用户提供应用功能，不用去关注数据是如何传输的。</p>
+<p>你可以理解为：<strong>应用层是工作在操作系统中的用户态</strong>。</p>
+<h2 id="用户输入：在浏览器中输入URL"><a href="#用户输入：在浏览器中输入URL" class="headerlink" title="用户输入：在浏览器中输入URL"></a>用户输入：在浏览器中输入URL</h2><p>我们在浏览器中输入 URL 的过程中，浏览器就开始工作了。</p>
+<p>首先，浏览器会根据我们的输入内容，匹配相似的 URL 及关键词，给出输入建议，同时校验 URL 的合法性，在你输入的 URL 前后补全这个 URL。</p>
+<blockquote>
+<p>比如，以我们输入 baidu.com 为例，首先，浏览器会判断这是一个格式合法的 URL，并且补全为 <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+</blockquote>
+<p>其中，http 为协议，baidu.com 为网络地址。每个浏览器网络栏中的地址都符合通用 URI 的语法。URI 一般由五个分层序列组成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URI = scheme:[//authority]path[?query][#fragment]</span><br><span class="line"></span><br><span class="line">URI = 方案:[//授权]路径[?查询][片段ID]</span><br></pre></td></tr></table></figure>
+
+<p>接着，浏览器会从 URL 中提取出网络请求的地址，也即主机名（host）。一般主机名可以是域名或 IP 地址，此处使用域名。</p>
+<p><strong>对 URL 进行解析之后，浏览器确定了服务器的主机名和请求路径，接下来就是根据这些信息来生成 HTTP 请求消息了</strong>。</p>
+<blockquote>
+<p>注：所以 HTTP 请求其实并不神秘，只不过是把一些客户端要发送的数据以特定的格式封装成一个大的数据对象。归根结底只不过是对数据的封装罢了。</p>
+</blockquote>
+<h2 id="网络请求前：查看浏览器缓存"><a href="#网络请求前：查看浏览器缓存" class="headerlink" title="网络请求前：查看浏览器缓存"></a>网络请求前：查看浏览器缓存</h2><p><strong>浏览器在 HTTP 报文生成完成后</strong>，它并不是马上就开始网络请求的。</p>
+<blockquote>
+<p>从这句话我们可以看出来，浏览器的一个重要作用是将客户端要发送的数据封装成一个 HTTP 请求。</p>
+<p>并且，我们要明白，在 HTTP 请求中，没有服务器 IP 地址，没有服务器进程的端口信息。但是有域名信息。</p>
+</blockquote>
+<p>在浏览器发出之前，浏览器会先检查本地计算机中的缓存，如果发现之前访问过当前的 URL，会先进入缓存中查询。此时存在的缓存有：路由器缓存、DNS缓存、浏览器缓存、Service Worker、Memory Cache、Disk Cache、Push Cache、系统缓存等。</p>
+<p>比如：如果在浏览器缓存里没有命中缓存，<strong>浏览器会做一个系统调用获得系统缓存的记录</strong>，也就是调用 <code>gethostbyname</code> 方法，这是一个系统调用，它的作用是通过域名获取 IP 地址。这个方法会返回如下结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span>&#123;</span> </span><br><span class="line">    <span class="type">char</span> *h_name; <span class="comment">// （字符类型的）主机名，比如 192.168.0.0.1</span></span><br><span class="line">    <span class="type">char</span> **h_aliases; <span class="comment">// 主机的别名。www.baidu.com 就是百度自己服务器的别名 </span></span><br><span class="line">    <span class="type">int</span> h_addrtype; <span class="comment">// 主机ip地址的类型，到底是ipv4(AF_INET)，还是pv6(AF_INET6)</span></span><br><span class="line">    <span class="type">int</span> h_length; <span class="comment">// 主机ip地址的长度 </span></span><br><span class="line">    <span class="type">char</span> **h_addr_list; <span class="comment">// 主机的ip地址（注意，这个是以网络字节序存储的）</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> h_addr h_addr_list[0] </span></span><br><span class="line">    #这个函数，是将类型为af的网络地址结构src，转换成主机序的字符串形式，存放在长度为cnt的字符串中。返回指向dst的一个指针。如果函数调用错误，返回值是<span class="literal">NULL</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果之前没有访问过当前的 URL，就会跳过缓存这一步，这时就真正进入网络中进行操作了。</p>
+<h2 id="域名解析：DNS"><a href="#域名解析：DNS" class="headerlink" title="域名解析：DNS"></a>域名解析：DNS</h2><p>浏览器在生成 HTTP 请求之后，需要委托操作系统将 HTTP 报文发送到对应的服务器端。在发送消息之前，必须知道服务器的 IP 地址，而域名服务器提供了通过域名解析 IP 地址的服务。</p>
+<h2 id="网络协议栈（传输层和网络层）"><a href="#网络协议栈（传输层和网络层）" class="headerlink" title="网络协议栈（传输层和网络层）"></a>网络协议栈（传输层和网络层）</h2><p>现在我们已经根据 URL 拿到服务器的唯一地址了，接下来就要委托操作系统将 HTTP 报文发送出去了，这个过程由操作系统中的网络协议栈进行处理。</p>
+<p>TCP/IP 协议栈是现在使用最广泛的网络协议栈（相较于 OSI 协议栈）。</p>
+<p>协议栈是分层结构的，<strong>它的上半部分负责和应用层通过套接字（Socket）进行交互</strong>，它可以是 TCP 或 UDP 协议。应用层会委托协议栈的上半部分（传输层及之上）完成收发数据的工作；而协议栈的下半部分（网络层及之下）则负责把数据发送到指定方的 IP 协议，由 IP 协议连接下层的网卡驱动。</p>
+<blockquote>
+<p>注：socket 其实就是连接应用层与传输层的一个接口，负责把应用层数据转发给传输层，在传输层按照TCP或UDP协议的格式将数据封装成数据包。</p>
+</blockquote>
+<p><img src="http://processon.com/chart_image/62b9bf50637689073326365f.png"></p>
+<h2 id="可靠性传输：建立TCP连接"><a href="#可靠性传输：建立TCP连接" class="headerlink" title="可靠性传输：建立TCP连接"></a>可靠性传输：建立TCP连接</h2><p>浏览器通过 DNS 解析拿到目标服务器的 IP 后，加上目标服务器的端口（HTTP默认80，HTTPS默认443，这些端口都是服务器公开的，在浏览器输入网址时就已经得到了）。这时浏览器就会委托操作系统调用协议栈的上半部分创建新的套接字（Socket），并向对应的 IP 发起 TCP 连接。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/26/%E4%BB%80%E4%B9%88%E6%98%AFSocket/" rel="prev" title="什么是Socket">
+                  <i class="fa fa-chevron-left"></i> 什么是Socket
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/27/%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E5%A6%82%E4%BD%95%E6%B5%81%E8%BD%AC/" rel="next" title="网络数据在内核中如何流转?">
+                  网络数据在内核中如何流转? <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

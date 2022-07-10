@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="客户端-服务器网络编程模型服务器端需要一开始就监听在某一个众所周知的端口上，等待客户端发送请求，一旦有客户端连接建立，服务器端就会消耗一定的计算机资源为它服务。服务器端是需要同时为成千上万的客户端服务的。如何保证服务器端在数据量巨大的客户端访问时仍能维持效率和稳定，这正是高性能网络编程要解决的问题。 客户端相对来说更为简单，它向服务器端监听的端口发起连接请求，连接建立之后，通过连接桐庐和服务器端进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程理论基础">
+<meta property="og:url" content="http://example.com/2022/06/19/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="客户端-服务器网络编程模型服务器端需要一开始就监听在某一个众所周知的端口上，等待客户端发送请求，一旦有客户端连接建立，服务器端就会消耗一定的计算机资源为它服务。服务器端是需要同时为成千上万的客户端服务的。如何保证服务器端在数据量巨大的客户端访问时仍能维持效率和稳定，这正是高性能网络编程要解决的问题。 客户端相对来说更为简单，它向服务器端监听的端口发起连接请求，连接建立之后，通过连接桐庐和服务器端进">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/54/2a/543b5488f9422558069df507cfaa462a.png?wh=1004*328">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/0b/64/0ba3f3d04b1466262c02d6f24ee76a64.jpg">
+<meta property="article:published_time" content="2022-06-19T01:37:55.000Z">
+<meta property="article:modified_time" content="2022-06-19T02:47:53.560Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/54/2a/543b5488f9422558069df507cfaa462a.png?wh=1004*328">
+
+
+<link rel="canonical" href="http://example.com/2022/06/19/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/06/19/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/","path":"2022/06/19/网络编程理论基础/","title":"网络编程理论基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>网络编程理论基础 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">客户端-服务器网络编程模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%92%8C%E7%AB%AF%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">IP和端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%92%8C%E5%AD%97%E8%8A%82%E6%B5%81"><span class="nav-number">3.</span> <span class="nav-text">数据报和字节流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">Socket到底是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E5%9C%B0%E7%90%86%E8%A7%A3socket%EF%BC%9A%E4%B8%80%E4%B8%AA%E6%9B%B4%E7%9B%B4%E8%A7%82%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">4.1.</span> <span class="nav-text">更好地理解socket：一个更直观的解释</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/19/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="网络编程理论基础 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络编程理论基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-06-19 09:37:55 / Modified: 10:47:53" itemprop="dateCreated datePublished" datetime="2022-06-19T09:37:55+08:00">2022-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">网络编程</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="客户端-服务器网络编程模型"><a href="#客户端-服务器网络编程模型" class="headerlink" title="客户端-服务器网络编程模型"></a>客户端-服务器网络编程模型</h2><p>服务器端需要一开始就监听在某一个众所周知的端口上，等待客户端发送请求，一旦有客户端连接建立，服务器端就会消耗一定的计算机资源为它服务。服务器端是需要同时为成千上万的客户端服务的。如何保证服务器端在数据量巨大的客户端访问时仍能维持效率和稳定，这正是高性能网络编程要解决的问题。</p>
+<p>客户端相对来说更为简单，它向服务器端监听的端口发起连接请求，连接建立之后，通过连接桐庐和服务器端进行通信。</p>
+<p><strong>还有一点需要强调的是，无论是客户端，还是服务器端，它们运行的单位都是进程(process)，而不是机器。</strong>一个客户端，比如我们的手机终端，同一个时刻可以建立多个到不同服务器的连接，比如同时打游戏，上知乎，逛天猫；而服务器端更是可能在一台机器上部署运行了多个服务，比如同时开启了 SSH 服务和 HTTP 服务。</p>
+<h2 id="IP和端口"><a href="#IP和端口" class="headerlink" title="IP和端口"></a>IP和端口</h2><p>端口号是一个 16 位的整数，最多为 65536。当一个客户端发起连接请求时，客户端的端口是由操作系统内核临时分配的，称为临时端口；然而，前面也提到过，服务器端的端口通常是一个众所周知的端口。</p>
+<p>一个连接可以通过客户端-服务器端的IP和端口唯一确定，这叫做套接字对，按照下面的四元组表示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(clientaddr: clientport, serveraddr: serverport)</span><br></pre></td></tr></table></figure>
+
+<p>下图表示了一个客户端-服务器之间的连接：</p>
+<p><img src="https://static001.geekbang.org/resource/image/54/2a/543b5488f9422558069df507cfaa462a.png?wh=1004*328" alt="img"></p>
+<h2 id="数据报和字节流"><a href="#数据报和字节流" class="headerlink" title="数据报和字节流"></a>数据报和字节流</h2><p>TCP，又被叫做字节流套接字（Stream Socket），注意我们这里先引入套接字 socket，套接字 socket 在后面几讲中将被反复提起，因为它实际上是网络编程的核心概念。</p>
+<p>当然，UDP 也有一个类似的叫法, 数据报套接字（Datagram Socket），一般分别以“SOCK_STREAM”与“SOCK_DGRAM”分别来表示 TCP 和 UDP 套接字。</p>
+<h2 id="Socket到底是什么？"><a href="#Socket到底是什么？" class="headerlink" title="Socket到底是什么？"></a>Socket到底是什么？</h2><p><img src="https://static001.geekbang.org/resource/image/0b/64/0ba3f3d04b1466262c02d6f24ee76a64.jpg" alt="img"></p>
+<p>这张图是网络编程中，客户端和服务器工作的核心逻辑。</p>
+<p>我们先从右侧的服务器端开始看，因为客户端在发起连接请求之前，服务器端必须先初始化好。右侧的图显示的是服务器端初始化的过程。</p>
+<ul>
+<li>  首先初始化 socket；</li>
+<li>  之后服务器端需要执行 bind 函数，将自己的服务能力绑定在一个众所周知的地址和端口上；</li>
+<li>  接着，服务器端执行 listen 操作，将原先的 socket 转化为服务端的 socket；</li>
+<li>  最后，服务端阻塞在 accept 上等待客户端请求的到来。</li>
+</ul>
+<p>此时，服务器端已经准备就绪。客户端需要：</p>
+<ul>
+<li>  先初始化 socket，</li>
+<li>  再执行 connect 向服务端的地址和端口号发起连接请求(这里的地址和端口必须是客户端预先知晓的)。这个过程，就是著名的 <strong>TCP三次握手</strong>。</li>
+</ul>
+<p>一旦三次握手完成，客户端和服务器端建立连接，就进入了数据传输过程。</p>
+<p>具体来说，</p>
+<ul>
+<li>  客户端进程向操作系统内核发起 write 字节流写操作，</li>
+<li>  内核协议栈将字节流通过网络设备传输到服务器端，</li>
+<li>  服务器端从内核得到消息，将字节流从内核读入到进程中，并开始业务逻辑的处理。</li>
+<li>  完成之后，服务器端再将得到的结果以同样的方式写给客户端。</li>
+</ul>
+<p>可以看到，一旦连接建立，数据的传输就不再是单向的，而是双向的，这也是 TCP 的一个显著特性。</p>
+<p>当客户端完成和服务器端的交互后，比如执行一次 Telnet 操作，或者一次 HTTP 请求，需要和服务器端断开连接，就会执行 close 函数……</p>
+<p>将这幅图的真正意义在于引入 socket 的概念。请注意，以上所有的操作，都是通过 socket 来完成的。无论是客户端的 connect，还是服务器端的 accept，或者 read/write 操作等，<strong>socket 是我们用来建立连接，传输数据的唯一途径。</strong></p>
+<h3 id="更好地理解socket：一个更直观的解释"><a href="#更好地理解socket：一个更直观的解释" class="headerlink" title="更好地理解socket：一个更直观的解释"></a>更好地理解socket：一个更直观的解释</h3>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/14/Guava/" rel="prev" title="Guava">
+                  <i class="fa fa-chevron-left"></i> Guava
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/19/Java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="next" title="Java正则表达式">
+                  Java正则表达式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
