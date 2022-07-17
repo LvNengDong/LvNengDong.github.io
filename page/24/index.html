@@ -116,13 +116,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -156,6 +156,134 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/20/Listener/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/04/20/Listener/" class="post-title-link" itemprop="url">Listener</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-04-20 00:22:22" itemprop="dateCreated datePublished" datetime="2020-04-20T00:22:22+08:00">2020-04-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-05 11:30:23" itemprop="dateModified" datetime="2022-05-05T11:30:23+08:00">2022-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Listener概念"><a href="#Listener概念" class="headerlink" title="Listener概念"></a>Listener概念</h1><blockquote>
+<p>  <strong>Listener；监听器；Web三大组件之一</strong></p>
+</blockquote>
+<p><strong>监听器就是监听某个对象状态变化的组件。</strong> </p>
+<p>常用于监听 Web 应用中某些对象的创建、销毁、增加，修改，删除等动作的发生，然后作出相应的处理。</p>
+<p>当对象的状态发生变化的时候，服务器自动调用监听器对象中的方法。</p>
+<p>事件监听机制</p>
+<ul>
+<li>事件 ：行为，动作</li>
+<li>事件源 ：要监听的对象</li>
+<li>监听器 ：监听对象</li>
+<li>注册监听：将事件、事件源、监听器绑定在一起。 当事件源上发生某个事件后，执行监听器代码</li>
+</ul>
+<hr>
+<h1 id="Listener的实现"><a href="#Listener的实现" class="headerlink" title="Listener的实现"></a>Listener的实现</h1><h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
+<li>自定义一个监听器类，实现<code>ServletContextListener</code>接口。</li>
+<li>重写接口中的方法，完成监听的逻辑。</li>
+<li>配置监听对象（配置文件<code>web.xml</code>或注解方式）。</li>
+</ol>
+<h2 id="配置文件配置监听器对象"><a href="#配置文件配置监听器对象" class="headerlink" title="配置文件配置监听器对象"></a>配置文件配置监听器对象</h2><ul>
+<li>在配置文件 web.xml 中将自定义的监听器类注册到监听器列表中去。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>cn.itcast.web.listener.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="注解配置监听器对象"><a href="#注解配置监听器对象" class="headerlink" title="注解配置监听器对象"></a>注解配置监听器对象</h2><ul>
+<li>在自定义的监听器类上使用 <strong>@WebListener</strong> 注解将该类注册到监听器列表中去。</li>
+</ul>
+<hr>
+<h1 id="ServletContextListener"><a href="#ServletContextListener" class="headerlink" title="ServletContextListener"></a>ServletContextListener</h1><p><strong>作用：</strong>监听<code>ServletContext</code>对象的创建和销毁</p>
+<p><strong>方法：</strong></p>
+<ul>
+<li><p><code>void contextDestroyed(ServletContextEvent sce)</code></p>
+<ul>
+<li>  <code>ServletContext</code>对象被销毁之前会自动调用该方法</li>
+</ul>
+</li>
+<li><p><code>void contextInitialized(ServletContextEvent sce)</code></p>
+<ul>
+<li>  <code>ServletContext</code>对象创建之后会自动调用该方法。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 

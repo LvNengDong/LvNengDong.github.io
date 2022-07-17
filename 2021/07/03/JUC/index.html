@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JUC；java.util.concurrent；  JUC 是 java.util.concurrent 工具包的简称，这是一个专门处理线程的工具包。 JUC 一般指以下三个包：    java.util.concurrent   java.util.concurrent.atomic   java.util.concurrent.locks  前置知识进程&#x2F;线程进程：CPU 分配资源的最">
+    <meta name="description" content="JUC；java.util.concurrent；  JUC 是 java.util.concurrent 工具包的简称，这是一个专门处理线程的工具包。 JUC 一般指以下三个包：    java.util.concurrent   java.util.concurrent.atomic   java.util.concurrent.locks  前置知识进程&#x2F;线程 进程：CPU 分配资源的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JUC">
 <meta property="og:url" content="http://example.com/2021/07/03/JUC/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="JUC；java.util.concurrent；  JUC 是 java.util.concurrent 工具包的简称，这是一个专门处理线程的工具包。 JUC 一般指以下三个包：    java.util.concurrent   java.util.concurrent.atomic   java.util.concurrent.locks  前置知识进程&#x2F;线程进程：CPU 分配资源的最">
+<meta property="og:description" content="JUC；java.util.concurrent；  JUC 是 java.util.concurrent 工具包的简称，这是一个专门处理线程的工具包。 JUC 一般指以下三个包：    java.util.concurrent   java.util.concurrent.atomic   java.util.concurrent.locks  前置知识进程&#x2F;线程 进程：CPU 分配资源的">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/07/03/JUC/image-20210714112703545.png">
 <meta property="og:image" content="http://example.com/2021/07/03/JUC/image-20210706214541876.png">
@@ -53,7 +53,7 @@
 <meta property="og:image" content="http://example.com/2021/07/03/JUC/%E6%AD%BB%E9%94%81.png">
 <meta property="og:image" content="http://example.com/2021/07/03/JUC/image-20210716115243510.png">
 <meta property="article:published_time" content="2021-07-03T02:00:06.000Z">
-<meta property="article:modified_time" content="2021-10-22T12:27:59.756Z">
+<meta property="article:modified_time" content="2022-07-17T13:37:09.225Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/07/03/JUC/image-20210714112703545.png">
@@ -147,13 +147,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -233,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-10-22 20:27:59" itemprop="dateModified" datetime="2021-10-22T20:27:59+08:00">2021-10-22</time>
+      <time title="Modified: 2022-07-17 21:37:09" itemprop="dateModified" datetime="2022-07-17T21:37:09+08:00">2022-07-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -265,25 +265,54 @@
 <li>  <strong>java.util.concurrent.atomic</strong></li>
 <li>  <strong>java.util.concurrent.locks</strong></li>
 </ul>
-<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="进程-线程"><a href="#进程-线程" class="headerlink" title="进程/线程"></a>进程/线程</h2><p>进程：CPU 分配资源的最小单元</p>
-<p>线程：CPU 执行任务的最小单元</p>
-<p>进程：QQ.exe、office.exe</p>
-<p>线程：</p>
-<ol>
-<li> 在运行的 QQ 程序中同时开着聊天窗口、视频聊天、语音聊天，这些分别都是一个个线程；</li>
-<li> 在 Word 中，提供输入页面的是一个线程，打字中如果输出不合法检测并提示的也是一个线程，未保存强制退出后下次可以恢复的功能也需要一直维持一个线程。</li>
-</ol>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="进程-线程"><a href="#进程-线程" class="headerlink" title="进程/线程"></a>进程/线程</h2><ul>
+<li>进程：CPU 分配资源的最小单元</li>
+<li>线程：CPU 执行任务的最小单元</li>
+<li>进程：QQ.exe、office.exe</li>
+<li>线程：<ul>
+<li>在运行的 QQ 程序中同时开着聊天窗口、视频聊天、语音聊天，这些分别都是一个个线程；</li>
+<li>在 Word 中，提供输入页面的是一个线程，打字中如果输出不合法检测并提示的也是一个线程，未保存强制退出后下次可以恢复的功能也需要一直维持一个线程。</li>
+</ul>
+</li>
+</ul>
 <h2 id="并发-并行"><a href="#并发-并行" class="headerlink" title="并发/并行"></a>并发/并行</h2><ul>
 <li>  并发：多个线程蜂拥而入抢同一份资源。秒杀、抢票</li>
 <li>  并行：多件事情同时进行</li>
 </ul>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><ul>
-<li>  3个售票员    卖出    100张票。</li>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p><strong>题目</strong>：三个售票员  卖出  100张票。 </p>
+<blockquote>
+<ul>
+<li>如何编写企业级的多线程代码？<ul>
+<li> 企业级代码固定的编程套路：在高内聚低耦合的情况下，线程 ==&gt; 操作 ==&gt; 资源类</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.juc.day01;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.management.ThreadInfo;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/7/3 20:06</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  题目：三个售票员  卖出  20张票。 如何编写企业级的多线程代码</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 企业级代码固定的编程套路——</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  1、在高内聚低耦合的情况下，  线程      操作      资源类</span></span><br><span class="line"><span class="comment"> *      1.1 一言不合，先创建一个资源类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SaleTicketDemo01</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="type">Ticket</span> <span class="variable">ticket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Ticket</span>(<span class="number">30</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">                ticket.saleTicket();</span><br><span class="line">            &#125;,String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 资源类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Ticket</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer ticketNum;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Ticket</span><span class="params">(Integer ticketNum)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.ticketNum = ticketNum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="comment">/*synchronized*/</span> <span class="keyword">void</span> <span class="title function_">saleTicket</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (ticketNum &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName()+<span class="string">&quot;正在卖出第&quot;</span>+ticketNum+<span class="string">&quot;张票&quot;</span>);</span><br><span class="line">                ticketNum--;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>资源类</strong>：一言不合，先创建一个资源类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> helloJuc;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/7/17 21:01</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Ticket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 车票余量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> ticketNum;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Ticket</span><span class="params">(<span class="type">int</span> ticketNum)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.ticketNum = ticketNum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 如果不使用 synchronized 关键字，会出现重复卖、超卖等情况</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="comment">/*synchronized*/</span> <span class="type">boolean</span> <span class="title function_">sellTicket</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ticketNum &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;票已售罄&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;正在卖出第&quot;</span> + ticketNum + <span class="string">&quot;张票&quot;</span>);</span><br><span class="line">        ticketNum--;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="线程的执行时机"><a href="#线程的执行时机" class="headerlink" title="线程的执行时机"></a>线程的执行时机</h3><ol>
-<li> <code>start()</code> 方法被调用之后线程并不会立即执行，具体什么时候执行要看什么时候能得到CPU资源，这是由底层操作系统决定的。</li>
+<ul>
+<li><strong>主类</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> helloJuc;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/7/17 21:07</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SellTicket</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Ticket</span> <span class="variable">ticket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Ticket</span>(<span class="number">100</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">                    <span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> ticket.sellTicket();</span><br><span class="line">                    <span class="keyword">if</span> (!b)&#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="线程的执行时机"><a href="#线程的执行时机" class="headerlink" title="线程的执行时机"></a>线程的执行时机</h3><ul>
+<li><code>start()</code> 方法被调用之后，新的线程并不会立即被创建，其要执行的任务也不会马上被执行，具体什么时候执行要看什么时候能得到CPU资源，这是由底层操作系统决定的。</li>
+</ul>
+<p><strong>start 方法被调用后执行了多个步骤：</strong></p>
+<ol>
+<li><p>通过 JVM 告诉操作系统创建一个 Thread；</p>
+</li>
+<li><p>操作系统开辟内存并使用『系统调用』创建Thread线程对象；</p>
+</li>
+<li><p>操作系统根据某种调度算法确定 Thread 对象拿到 CPU 资源的时间；</p>
+</li>
+<li><p>Thread 成功获取到 CPU 资源，执行任务。</p>
+</li>
 </ol>
 <h3 id="线程的状态（6种）"><a href="#线程的状态（6种）" class="headerlink" title="线程的状态（6种）"></a>线程的状态（6种）</h3><p><strong>线程有6种状态</strong>。可以通过 <code>Thread.State</code> 进入源码查看。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">State</span> &#123;</span><br><span class="line"></span><br><span class="line">    NEW,</span><br><span class="line"></span><br><span class="line">    RUNNABLE,</span><br><span class="line"></span><br><span class="line">    BLOCKED,</span><br><span class="line"></span><br><span class="line">    WAITING,	<span class="comment">// 不见不散 </span></span><br><span class="line"></span><br><span class="line">    TIMED_WAITING,	<span class="comment">// 过时不候</span></span><br><span class="line"></span><br><span class="line">    TERMINATED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -293,7 +322,7 @@
 <h3 id="线程的4种实现方式"><a href="#线程的4种实现方式" class="headerlink" title="线程的4种实现方式"></a>线程的4种实现方式</h3><ol>
 <li> 继承 Thread 类并重写类中的 run() 方法</li>
 <li> 实现 Runnable 接口并重写接口中的 run() 方法</li>
-<li> 实现 Callable 接口并重写接口中的 run() 方法</li>
+<li> 实现 Callable 接口并重写接口中的 call() 方法</li>
 <li> 通过线程池分配一个线程</li>
 </ol>
 <p>但是我们在上面的代码中，既没有继承 Thread 类和实现 Runnable/Callable 接口，更没有出现过线程池，那么是如何实现线程的呢？</p>
@@ -322,12 +351,19 @@
 </ol>
 </blockquote>
 <ul>
-<li><p>synchronized 是关键字，属于 JVM 层面的锁。</p>
-<p>  底层是通过 monitor 对象来完成，其实 wait/notify 等方法也依赖于 monitor 对象，只有在同步代码块或同步方法中才能调用 wait/notify 等方法。</p>
-<p>   monitorenter 指令代表进入锁对象，monitorexit 代表退出锁对象。</p>
-<p>  为什么会有两个 monitorexit 呢？一个是正常退出，一个是异常退出</p>
+<li><p>synchronized 是关键字；是 JVM 层面的锁。</p>
+<ul>
+<li>底层是通过 monitor 监听器来实现加锁/释放锁的逻辑的。其实 wait/notify 等方法也依赖于 monitor 对象。</li>
+</ul>
 </li>
-<li><p>  Lock 是具体类（<code>java.util.concurrent.locks.Lock</code>），是 API 的层面的锁</p>
+<li><p>只有在同步代码块或同步方法中才能调用 wait/notify 等方法。</p>
+<ul>
+<li>monitorenter 指令表示对资源加锁，monitorexit 表示对资源释放锁。</li>
+</ul>
+</li>
+<li><p>为什么会有两个 monitorexit 呢？一个是正常退出，一个是异常退出</p>
+</li>
+<li><p>  Lock 是具体类（<code>java.util.concurrent.locks.Lock</code>）；是 API 的层面的锁</p>
 </li>
 </ul>
 <blockquote>
@@ -336,7 +372,7 @@
 </ol>
 </blockquote>
 <ul>
-<li>  <strong>synchronized 不需要用户去手动释放锁</strong>，当 synchronized 代码执行完后，系统会自动让线程释放对锁的占用</li>
+<li>  <strong>synchronized 不需要用户去手动释放锁</strong>，当 synchronized 代码执行完后，系统会自动让线程释放对资源加的锁。</li>
 <li>  ReentrantLock 则需要用户去手动释放锁，若没有主动释放锁，就有可能导致出现死锁现象。需要 lock 和 unlock 方法配合 try…finally 语句块来完成</li>
 </ul>
 <blockquote>

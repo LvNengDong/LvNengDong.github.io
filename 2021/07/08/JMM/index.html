@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2021/07/08/JMM/image-20210914164627172.png">
 <meta property="og:image" content="http://example.com/2021/07/08/JMM/image-20210914164909204.png">
 <meta property="article:published_time" content="2021-07-08T14:00:54.000Z">
-<meta property="article:modified_time" content="2021-10-16T01:12:43.623Z">
+<meta property="article:modified_time" content="2022-07-17T15:19:53.827Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/07/08/JMM/JMM.png">
@@ -116,7 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">现代计算机内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">缓存一致性问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">JMM 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E7%9A%84%E5%88%92%E5%88%86"><span class="nav-number">2.1.</span> <span class="nav-text">运行时内存的划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A2%E7%84%B6%E5%A0%86%E6%98%AF%E5%85%B1%E4%BA%AB%E7%9A%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E5%A0%86%E4%B8%AD%E4%BC%9A%E6%9C%89%E5%86%85%E5%AD%98%E4%B8%8D%E5%8F%AF%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">既然堆是共享的，为什么在堆中会有内存不可见问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM%E4%B8%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-number">2.3.</span> <span class="nav-text">JMM与Java内存区域划分的区别与联系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">JMM 工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">JMM 三大特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">有序性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E5%85%B3%E4%BA%8E%E5%90%8C%E6%AD%A5%E7%9A%84%E8%A7%84%E5%AE%9A"><span class="nav-number">5.</span> <span class="nav-text">JMM 关于同步的规定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">6.</span> <span class="nav-text">ThreadLocal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">6.1.</span> <span class="nav-text">1    知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81%E9%AA%8C%E8%AF%81"><span class="nav-number">6.2.</span> <span class="nav-text">2    代码验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before%EF%BC%9A%E6%9C%AA%E4%BD%BF%E7%94%A8-ThreadLocal-%E5%89%8D"><span class="nav-number">6.2.1.</span> <span class="nav-text">Before：未使用 ThreadLocal 前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#After%EF%BC%9A%E4%BD%BF%E7%94%A8-ThreadLocal-%E5%90%8E"><span class="nav-number">6.2.2.</span> <span class="nav-text">After：使用 ThreadLocal 后</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">现代计算机内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">缓存一致性问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">JMM 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E7%9A%84%E5%88%92%E5%88%86"><span class="nav-number">2.1.</span> <span class="nav-text">运行时内存的划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A2%E7%84%B6%E5%A0%86%E6%98%AF%E5%85%B1%E4%BA%AB%E7%9A%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E7%BA%BF%E7%A8%8B%E6%93%8D%E4%BD%9C%E5%A0%86%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E4%BC%9A%E6%9C%89%E5%86%85%E5%AD%98%E4%B8%8D%E5%8F%AF%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">既然堆是共享的，为什么不同线程操作堆中的变量会有内存不可见问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM%E4%B8%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-number">2.3.</span> <span class="nav-text">JMM与Java内存区域划分的区别与联系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">JMM工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">JMM 三大特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">有序性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-%E5%85%B3%E4%BA%8E%E5%90%8C%E6%AD%A5%E7%9A%84%E8%A7%84%E5%AE%9A"><span class="nav-number">5.</span> <span class="nav-text">JMM 关于同步的规定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">6.</span> <span class="nav-text">ThreadLocal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">1 是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">6.2.</span> <span class="nav-text">2 应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ThreadLocal-%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">6.3.</span> <span class="nav-text">3 ThreadLocal 底层实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ThreadLocal%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E9%97%AE%E9%A2%98"><span class="nav-number">6.4.</span> <span class="nav-text">4 ThreadLocal内存泄露问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%BB%A3%E7%A0%81%E9%AA%8C%E8%AF%81"><span class="nav-number">6.5.</span> <span class="nav-text">5 代码验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before%EF%BC%9A%E6%9C%AA%E4%BD%BF%E7%94%A8-ThreadLocal-%E5%89%8D"><span class="nav-number">6.5.1.</span> <span class="nav-text">Before：未使用 ThreadLocal 前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#After%EF%BC%9A%E4%BD%BF%E7%94%A8-ThreadLocal-%E5%90%8E"><span class="nav-number">6.5.2.</span> <span class="nav-text">After：使用 ThreadLocal 后</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -129,13 +129,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -215,7 +215,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-10-16 09:12:43" itemprop="dateModified" datetime="2021-10-16T09:12:43+08:00">2021-10-16</time>
+      <time title="Modified: 2022-07-17 23:19:53" itemprop="dateModified" datetime="2022-07-17T23:19:53+08:00">2022-07-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,33 +257,35 @@
 <li> 程序在运行过程中，如果发现有一部分数据是被反复使用的（如通过阈值来筛选高频出现的数据），就可以把这一部分数据在运行期再加载到高速缓存中。</li>
 <li> 高速缓存中放的只是主内存中的一部分高频使用的数据，并不能把全部数据都复制到高速缓存中，但即使这样，也大大增加了 CPU的利用率。</li>
 </ol>
-<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>​    绝大多数的运算任务都不可能只靠处理器“计算”就能完成，处理器至少要与内存交互，如读取内存数据、存储运算结果等，这个 I/O 是很难消除的。即程序运行时 CPU 需要经历 <code>从内存取数据 --&gt; CPU 运算 --&gt; 将运算结果写回内存</code>，由于 CPU 的运算速度远快于内存的读写速度，就会出现这样一种情况，内存花了 10s 才将要运算的数据传递到 CPU 中，但是 CPU 只用了 1s 就计算完了，那么中间的 9s CPU 就一直没有活干。写出到内存中也存在类似的情况。<strong>基于高速缓存的存储很好地解决了处理器与内存的速度矛盾，但是引入了一个新的问题：缓存一致性</strong>。</p>
-<p>​    在多处理器系统中，每个处理器都有自己的高速缓存，而它们又共享同一主内存（物理意义上的内存，可以看做是内存条）（比如 3 个 CPU，一根内存条）。当多个处理器的运算任务都涉及同一块主内存区域时，将可能导致各自的缓存数据不一致。举例说明就是某个变量在多个 CPU 之间共享，并且这些 CPU 都对这个变量进行了运算，那么当缓存数据同步回主内存时以谁的缓存数据为主呢？</p>
-<p>​    <strong>为了解决缓存一致性的问题，需要各个处理器访问缓存时都要遵循一些协议，在读写的时候要根据协议来进行操作</strong>。</p>
+<h2 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h2><p>绝大多数的运算任务都不可能只靠处理器“计算”就能完成，处理器至少要与内存交互，如读取内存数据、存储运算结果等，这个 I/O 是很难消除的。即程序运行时 CPU 需要经历 <code>从内存取数据 --&gt; CPU 运算 --&gt; 将运算结果写回内存</code>，由于 CPU 的运算速度远快于内存的读写速度，就会出现这样一种情况，内存需要花 10s 才将要运算的数据传递到 CPU 中，而 CPU 只需要用 1s 就可以完成这些数据的计算。那么算下来 CPU 有 9s 的时间就一直没有活干。写出到内存中也存在类似的情况。<strong>基于高速缓存的存储很好地解决了处理器与内存的速度矛盾，但是引入了一个新的问题：缓存一致性</strong>。</p>
+<p>在多处理器系统中，每个处理器都有自己的高速缓存，而它们又共享同一主内存（物理意义上的内存，可以看做是内存条）（比如 3 个 CPU，一根内存条）。当多个处理器的运算任务都涉及同一块主内存区域时，将可能导致各自的缓存数据不一致。举例说明就是某个变量在多个 CPU 之间共享，并且这些 CPU 都对这个变量进行了运算，那么当缓存数据同步回主内存时以谁的缓存数据为主呢？</p>
+<p><strong>为了解决缓存一致性的问题，需要各个处理器访问缓存时都要遵循一些协议，在读写的时候要根据协议来进行操作</strong>。</p>
 <p><img src="/2021/07/08/JMM/JMM.png" alt="JMM"></p>
 <hr>
 <h1 id="JMM-概述"><a href="#JMM-概述" class="headerlink" title="JMM 概述"></a>JMM 概述</h1><blockquote>
 <p>  <strong>JMM；Java Memory Model；Java内存模型</strong></p>
 </blockquote>
-<p><strong>什么是 Java 内存模型？</strong></p>
-<p>​        Java 内存模型就是按照功能将内存划分为几个不同的区域，这些区域在内存中不是真实存在的，而是为了方便理解将某个（或某些）真实的内存区域抽象成了概念上不同的区域。</p>
-<p>​        其实 JVM 也是一种内存模型，因为真实的物理内存空间并未划分什么栈空间、堆空间、方法区等，只不过 JVM 在实现时利用一部分物理空间存储具有相似性的数据，所以才把内存抽象成一块一块不同的区域。</p>
-<p>​        从抽象的角度看，<strong>JMM 定义了线程和主内存之间的抽象关系</strong>：线程之间共享的变量存储在<strong>主内存（Main Memory）</strong>中，每个线程都有一个私有的<strong>本地内存（Local Memory）</strong>，本地内存中存储了该线程读/写共享变量的副本。</p>
-<p>​        <strong>本地内存是 JMM 的一个抽象概念</strong>，并不真实存在，它由缓存、写缓冲区、寄存器以及其它的编译期优化共同实现的。它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段、静态字段和构成数组对象的元素）的访问方式。</p>
+<p><strong>什么是JMM？</strong></p>
+<ul>
+<li>JMM 实际上就是按照功能将内存划分为几个不同的区域，这些区域在内存中不是真实存在的，而是为了方便理解将真实的内存区域抽象成了概念上不同的区域。</li>
+<li>其实 JVM 也是一种内存模型，因为真实的物理内存空间并未划分什么栈空间、堆空间、方法区等，只不过 JVM 在实现时利用一部分物理空间存储具有相似性的数据，所以才把内存抽象成一块一块不同的区域。</li>
+<li>从抽象的角度看，<strong>JMM 定义了线程内存和主内存之间的抽象关系</strong>。<ul>
+<li>线程之间共享的变量存储在<strong>主内存（Main Memory）</strong>中，</li>
+<li>每个线程都有一个私有的<strong>本地内存（Local Memory）</strong>，本地内存中存储了该线程得到的共享变量的副本。</li>
+</ul>
+</li>
+<li><strong>本地内存是 JMM 的一个抽象概念</strong>，并不真实存在，它由缓存、写缓冲区、寄存器以及其它的编译期优化共同实现的。它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段、静态字段和构成数组对象的元素）的访问方式。</li>
+</ul>
 <h2 id="运行时内存的划分"><a href="#运行时内存的划分" class="headerlink" title="运行时内存的划分"></a>运行时内存的划分</h2><img src="/2021/07/08/JMM/image-20210807154853861.png" alt="image-20210807154853861" style="zoom: 33%;">
 
 
 
-<ul>
-<li>  对于每一个线程来说，栈都是私有的，而堆是共有的。</li>
-<li>  也就是说在栈中的变量（局部变量、⽅法定义参数、异常处理器参数）不会在线程之间共享，也就不会有内存可见性的问题，也不受内存模型的影响。</li>
-<li>  而在堆中的变量是共享的，称为共享变量。所以，<strong>内存可见性是针对的共享变量</strong>。</li>
-</ul>
-<h2 id="既然堆是共享的，为什么在堆中会有内存不可见问题？"><a href="#既然堆是共享的，为什么在堆中会有内存不可见问题？" class="headerlink" title="既然堆是共享的，为什么在堆中会有内存不可见问题？"></a>既然堆是共享的，为什么在堆中会有内存不可见问题？</h2><ul>
+<p>对于线程来说，栈是私有的，而堆是共有的。也就是说栈中的变量（局部变量、⽅法定义参数、异常处理器参数）不会在线程之间共享，也就不会有内存可见性的问题，也不受内存模型的影响。而在堆中的变量是共享的，称为共享变量。所以，<strong>内存可见性是针对的共享变量</strong>。</p>
+<h2 id="既然堆是共享的，为什么不同线程操作堆中的变量会有内存不可见问题？"><a href="#既然堆是共享的，为什么不同线程操作堆中的变量会有内存不可见问题？" class="headerlink" title="既然堆是共享的，为什么不同线程操作堆中的变量会有内存不可见问题？"></a>既然堆是共享的，为什么不同线程操作堆中的变量会有内存不可见问题？</h2><ul>
 <li>  这是因为现代计算机为了高效，往往会在高速缓存区中缓存共享变量，因为 CPU 访问缓存区比访问内存要快得多。</li>
 <li>  线程之间的共享变量存在主内存中，每个线程都有一个私有的本地内存，存储了该线程读、写共享变量的副本。</li>
 <li>  本地内存是 Java 内存模型的一个抽象概念，并不真实存在。它涵盖了缓存、写缓冲区、寄存器等。</li>
-<li>  Java 线程之间的通信由 Java 内存模型（简称JMM）控制，从抽象的角度来说，<strong>JMM 定义了线程和主内存之间的抽象关系</strong>。</li>
+<li>  Java 线程之间的通信由 Java 内存模型（简称JMM）控制，从抽象的角度来说，<strong>JMM 定义了线程的本地内存和主内存之间的抽象关系</strong>。</li>
 </ul>
 <h2 id="JMM与Java内存区域划分的区别与联系"><a href="#JMM与Java内存区域划分的区别与联系" class="headerlink" title="JMM与Java内存区域划分的区别与联系"></a>JMM与Java内存区域划分的区别与联系</h2><p>上面两小节分别提到了JMM 和 Java 运行时内存区域的划分，这两者既有差别又有联系：</p>
 <blockquote>
@@ -294,84 +296,73 @@
 <p>  <strong>联系</strong></p>
 </blockquote>
 <ul>
-<li>  都存在私有数据区域和共享数据区域。⼀般来说，<strong>JMM中的主内存属于共享数据区域，他是包含了堆和方法区</strong>；</li>
+<li>  都存在私有数据区域和共享数据区域。⼀般来说，<strong>JMM中的主内存属于共享数据区域，它包含了堆和方法区</strong>；</li>
 <li>  同样，<strong>JMM 中的本地内存属于私有数据区域，包含了程序计数器、本地方法栈、虚拟机栈</strong>。</li>
 <li>  实际上，他们表达的是同⼀种含义，这⾥不做区分。</li>
 </ul>
 <hr>
-<h1 id="JMM-工作原理"><a href="#JMM-工作原理" class="headerlink" title="JMM 工作原理"></a>JMM 工作原理</h1><p>​    上面我们讲了：JMM 定义了线程与主内存之间的抽象关系。</p>
-<p>​    在一个运行的 Java 程序中，JVM 是一个进程，运行时包含多个线程，而每个线程创建时 JVM 都会为其创建一个<strong>工作内存</strong>，工作内存是每个线程私有的数据区域，而 JMM 中规定所有变量都要存储在<strong>主内存</strong>，主内存是共享内存区域，所有线程都可以访问，但 <strong>线程对变量的操作（读取、赋值等）必须要在工作内存中进行，首先要将变量从主内存拷贝到自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存</strong>，而不能直接操作主内存中的变量，各个线程中的工作内存中存储着主内存中的变量副本拷贝，因此不同的线程间无法访问对方的工作内存。<strong>若多个线程间想要通信，必须通过主内存来完成</strong>。其简要访问过程如下图：</p>
+<h1 id="JMM工作原理"><a href="#JMM工作原理" class="headerlink" title="JMM工作原理"></a>JMM工作原理</h1><p>上面我们讲了：JMM 定义了线程本地内存与主内存之间的抽象关系。</p>
+<p>运行 Java 程序会启动一个 JVM 进程，其下可以包含多个线程。JVM 会在创建每个线程时为其分配一块<strong>工作内存</strong>，工作内存是每个线程私有的数据区域。</p>
+<p>而 JMM 中规定所有变量都要存储在<strong>主内存</strong>，主内存是共享内存区域，所有线程都可以访问，但<strong>线程对变量的操作（读取、赋值等）必须要在工作内存中进行。首先要将变量从主内存拷贝到自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存</strong>。而不能直接操作主内存中的变量，各个线程中的工作内存中存储的是主内存中的变量的副本，不同线程间无法访问对方的工作内存。<strong>若多个线程间想要通信，必须通过主内存来完成</strong>。其简要访问过程如下图：</p>
 <p><img src="/2021/07/08/JMM/JMM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" alt="JMM内存结构"></p>
-<p>从图中可以看出：</p>
-<ol>
-<li>所有的共享变量都存在主内存中。</li>
-<li>每个线程都保存了⼀份该线程使用到的共享变量的副本。</li>
-<li>如果线程A与线程B之间要通信的话，必须经历下面2个步骤：</li>
-</ol>
+<p>从图中可以看出，所有的共享变量的原始数据保存存在主内存中，每个线程根据自己要操作的共享变量拷贝了一份副本到本地内存中。如果线程A与线程B之间要通信的话，必须经历下面2个步骤：</p>
 <ul>
-<li>  线程A将本地内存A中更新过的共享变量刷新到主内存中去。</li>
-<li>  线程B到主内存中去读取线程A之前已经更新过的共享变量。</li>
+<li>  线程A将本地内存A中最新的共享变量刷新到主内存中去；</li>
+<li>  线程B到主内存中去读取线程A之前更新过的最新的共享变量。</li>
 </ul>
-<p>所以，<strong>线程A无法直接访问线程B的工作内存，线程间通信必须经过主内存</strong>。<br>注意，根据JMM的规定，<strong>线程对共享变量的所有操作都必须在自己的本地内存中进行，不能直接从主内存中读取</strong>。</p>
-<p>所以线程B并不是直接去主内存中读取共享变量的值，⽽是先在本地内存B中找到这个共享变量，发现这个共享变量已经被更新了，然后本地内存B去主内存中读取这个共享变量的新值，并拷贝到本地内存B中，最后线程B再读取本地内存B中的新值。</p>
+<p><strong>线程A无法直接访问线程B的工作内存，线程间通信必须经过主内存</strong>。</p>
+<p>当主内存中的共享变量发生变换后，线程B在使用这个变量的副本时，就可以发现这个共享变量已经更新了，然后线程B会去主内存中重新拷贝这个共享变量的最新值到本地内存B中，最后线程B再使用本地内存B中的最新值。</p>
 <p>那么怎么知道这个共享变量的被其他线程更新了呢？这就是JMM的功劳了，也是 JMM 存在的必要性之一。JMM通过控制主内存与每个线程的本地内存之间的交互，来提供内存可见性保证。</p>
 <ul>
-<li>  Java中的 volatile 关键字可以保证多线程操作共享变量的可见性以及禁止指令重排，</li>
+<li>  Java 中的 volatile 关键字可以保证多线程操作共享变量的可见性以及禁止指令重排，</li>
 <li>  synchronized 关键字不仅保证可见性，同时也保证了原子性（互斥性）。</li>
 <li>  在更底层，JMM通过内存屏障来实现内存的可见性以及禁止指令重排。</li>
 </ul>
 <hr>
 <h1 id="JMM-三大特性"><a href="#JMM-三大特性" class="headerlink" title="JMM 三大特性"></a>JMM 三大特性</h1><blockquote>
-<ol>
-<li> <strong>可见性</strong></li>
-<li> <strong>原子性</strong></li>
-<li> <strong>有序性</strong></li>
-</ol>
+<ul>
+<li><strong>可见性</strong></li>
+<li><strong>有序性</strong></li>
+<li><strong>原子性</strong></li>
+</ul>
 </blockquote>
-<p>​    JMM 三大特性是大多数多线程开发需要遵守的规定。但是 volatile 只支持可见性、有序性（禁止指令重排），而不支持原子性。</p>
+<p>JMM 三大特性是大多数多线程开发需要遵守的规定。但是 volatile 只支持可见性、有序性（禁止指令重排），而不支持原子性。</p>
 <h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><ul>
-<li>  每个线程对主内存中共享变量的读写操作都是先将主内存中的共享变量拷贝到自己的工作内存进行运算，然后再写回到主内存中的。</li>
+<li>  每个线程对主内存中共享变量的读写操作都是先将主内存中的共享变量拷贝到自己的工作内存，进行运算，然后再将运算结果写回到主内存中的。</li>
 <li>  这就可能会造成：线程 A 修改了共享变量 X 的值但还未写回主内存时，另一个线程 B 又对主内存中同一个共享变量 X 进行操作，但此时 A 线程工作内存中的共享变量 X 对线程 B 来说并不可见。这种工作内存与主内存同步延迟现象造成了可见性问题。</li>
 </ul>
-<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><blockquote>
-<p>  <strong>什么是原子性？</strong></p>
-</blockquote>
-<ul>
+<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><ul>
 <li><pre><code>     不可分割性，完整性，即某个线程正在做某个具体业务时，中间不可以被加塞或者被分隔，需要整体完整。
 </code></pre>
 </li>
-<li><pre><code>     要么同时成功，要么同时失败。有点类似于关系型数据库中的事务。
+<li><pre><code>     要么同时成功，要么同时失败。有点类似于关系型数据库中的事务的原子性。
 </code></pre>
 </li>
 </ul>
-<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><h1 id="JMM-关于同步的规定"><a href="#JMM-关于同步的规定" class="headerlink" title="JMM 关于同步的规定"></a>JMM 关于同步的规定</h1><ol>
-<li> 线程加锁前，必须把共享变量的值刷新回<strong>主内存</strong>；</li>
-<li> 线程加锁前，必须读取主内存的最新值到<strong>自己的工作内存</strong>；</li>
-<li> 加锁解锁是同一把锁。</li>
-</ol>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><hr>
+<h1 id="JMM-关于同步的规定"><a href="#JMM-关于同步的规定" class="headerlink" title="JMM 关于同步的规定"></a>JMM 关于同步的规定</h1><ul>
+<li>线程加锁前，<ul>
+<li>必须把本地内存中的共享变量的值刷新回<strong>主内存</strong>；</li>
+<li>必须读取主内存的最新值到<strong>自己的工作内存</strong>；</li>
+</ul>
+</li>
+<li>加锁和解锁必须是同一把锁。</li>
+</ul>
 <hr>
-<h1 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h1><h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1    知识点"></a>1    知识点</h2><blockquote>
-<p>  <strong>是什么？</strong></p>
-</blockquote>
-<p>ThreadLocal，即线程本地变量。如果你在堆空间中创建了一个 ThreadLocal 对象，那么访问这个对象的每个线程都会创建一份该对象的副本，多个线程操作这个对象的时候，实际上操作的是自己的副本对象， 从而起到线程隔离的作用，避免了线程安全问题。</p>
+<h1 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h1><h2 id="1-是什么？"><a href="#1-是什么？" class="headerlink" title="1 是什么？"></a>1 <strong>是什么？</strong></h2><p>ThreadLocal 是线程本地变量对象。</p>
+<p>在代码中使用 <code>new ThreadLocal()</code> 会在堆空间中创建了一个 ThreadLocal 对象。但是对于访问这个对象的每个线程，都会在线程的本地空间创建一份该对象的副本，每个线程操作这个对象的时候，实际上操作的是线程本地的副本对象，起到了线程隔离的作用，因此 ThreadLocal 对象不存在线程安全问题。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个ThreadLocal对象</span></span><br><span class="line"><span class="keyword">static</span> ThreadLocal&lt;String&gt; localVariable = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br></pre></td></tr></table></figure>
 
 
 
-<blockquote>
-<p>  <strong>应用场景</strong></p>
-</blockquote>
-<ul>
-<li>  <strong>数据库连接池</strong>：每个线程都只维护一个独立的与数据库的连接，在线程范围内，连接数据发生的改变与堆内存中的源数据无关。</li>
+<h2 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2 应用场景"></a>2 应用场景</h2><ul>
+<li>  <strong>存储数据库连接池信息</strong>：每个线程都只维护一个独立的与数据库的连接，在线程内，连接数据发生的改变与堆内存中的源数据无关。</li>
 <li>  <strong>会话管理中使用</strong>：同上。</li>
 </ul>
-<blockquote>
-<p>  <strong>使用 ThreadLocal 进行线程本地存储</strong></p>
-</blockquote>
-<ul>
-<li>  <strong>ThreadLocal</strong> 是 Java 中提供的<strong>线程本地存储机制</strong>，可以利用该机制将数据与某个线程绑定，该线程可以在任意时刻、任意方法中获取缓存中的数据。</li>
-<li>  ThreadLocal 底层是通过 <strong>ThreadLocalMap</strong> 来实现的（<code>ThreadLocalMap</code> 是 <code>ThreadLocal</code> 的一个静态内部类），每个线程对象都会维护一个属于自己的 <code>ThreadLocalMap</code>。</li>
-<li>  ThreadLocalMap 内部维护着一个 <strong>Entry</strong> 数组，每个 Entry 代表一个完整的对象，Entry 是 <code>&lt;K，V&gt;</code> 键值对结构的，key 为 ThreadLocal 对象本身，value 为需要存入的值（数据类型与 ThreadLocal 的泛型值）。</li>
+<h2 id="3-ThreadLocal-底层实现原理"><a href="#3-ThreadLocal-底层实现原理" class="headerlink" title="3 ThreadLocal 底层实现原理"></a>3 ThreadLocal 底层实现原理</h2><ul>
+<li>  ThreadLocal 是JDK提供的线程本地存储机制，利用该机制可以让数据与某个线程绑定，该线程可以在任意时刻、任意方法中获取线程工作空间中的数据。</li>
+<li>  ThreadLocal 底层是通过 <strong>ThreadLocalMap</strong> 来实现的（<code>ThreadLocalMap</code> 是 <code>ThreadLocal</code> 的一个静态内部类），每个线程都会在本地空间中维护一个自己的 <code>ThreadLocalMap</code>。</li>
+<li>  ThreadLocalMap 内部是着一个 <strong>Entry</strong> 数组，Entry 是一个 <code>&lt;K，V&gt;</code> 键值对结构的对象，key 为主内存中的 ThreadLocal 对象引用，value 为需要存入的值（数据类型与 ThreadLocal 的泛型值）。</li>
 <li>  ThreadLocalMap 的 key 始终为 ThreadLocal 的引用，value 是一个 Object 类型，可以将其声明为一个 Map 类型，这样就可以存储多对元素了。</li>
 </ul>
 <p><img src="/2021/07/08/JMM/ThreadLocal.png" alt="ThreadLocal"></p>
@@ -380,18 +371,15 @@
 </blockquote>
 <p><img src="/2021/07/08/JMM/image-20210914163551442.png" alt="image-20210914163551442"></p>
 <ul>
-<li>  <strong>Thread</strong> 对象中持有一个 <strong>ThreadLocal.ThreadLocalMap</strong> 的成员变量。</li>
-<li>  ThreadLocalMap 内部维护了 <strong>Entry 数组</strong>，每个 Entry 代表一个完整的对象，key 是 ThreadLocal 本身，value 是 ThreadLocal 的泛型值。</li>
+<li>  <strong>Thread</strong> 对象中有一个 <strong>ThreadLocal.ThreadLocalMap</strong> 的成员变量。</li>
+<li>  ThreadLocalMap 内部维护了 <strong>Entry 数组</strong>，每个 Entry 代表一个完整的对象，key 是主内存中的 ThreadLocal 引用，value 是 ThreadLocal 的泛型值。</li>
 <li>  ThreadLocalMap 仍然是一个所有的线程都可以访问的区域。</li>
-<li>  但是当 Thread1 进来的时候，它会占用一个 Entry，可以设置该线程对应的值为 <code>(ThreadLocal1, 张三)</code>，当 Thread2 进来的时候，又会占用一个 Entry，如 <code>(ThreadLocal2, 李四)</code></li>
+<li>但是当 Thread1 进来的时候，它会占用一个 Entry，可以设置该线程对应的值为 <code>(ThreadLocal, 张三)</code>，当 Thread2 进来的时候，又会占用一个 Entry，如 <code>(ThreadLocal, 李四)</code></li>
 </ul>
-<blockquote>
-<p>  <strong>ThreadLocal 内存泄露问题</strong></p>
-</blockquote>
-<p>ThreadLocalMap 中的 Entry 是一个键值对形式的对象，该对象的 key 是 ThreadLocal 的引用，但是这个引用是一种弱引用。查看源码可知，ThreadLocalMap 中使用的 key 为 ThreadLocal 的弱引用，如下：</p>
+<h2 id="4-ThreadLocal内存泄露问题"><a href="#4-ThreadLocal内存泄露问题" class="headerlink" title="4 ThreadLocal内存泄露问题"></a>4 ThreadLocal内存泄露问题</h2><p>ThreadLocalMap 中的 Entry 是一个键值对形式的对象，该对象的 key 是 ThreadLocal 对象的引用，但是这个引用是一种弱引用。查看源码可知，ThreadLocalMap 中使用的 key 为 ThreadLocal 的弱引用，如下：</p>
 <p><img src="/2021/07/08/JMM/image-20210914164627172.png" alt="image-20210914164627172"></p>
 <p>弱引用比较容易被回收，只要垃圾回收机制一运行，不管 JVM 的内存空间是否充足，都会回收该对象占用的内存。</p>
-<p>如果 ThreadLocal（ThreadLocalMap 中 Entry 的 key）被垃圾回收器回收了，按理来讲该 key 对应的整个 Entry 都应该被回收掉，但是因为 ThreadLocalMap 的生命周期和 Thread 是一样的，所以还存在通过 ThreadLocalMap 发出的强引用会指向这个 Entry，因此该 Entry 也不会被回收，就会出现这种情况：ThreadLocalMap 中的某个 Entry 的 key 没了，value 还在，这就会<strong>「造成了内存泄漏」</strong>。</p>
+<p>如果 ThreadLocal（ThreadLocalMap 中 Entry 的 key）被垃圾回收器回收了，按理来讲该 key 对应的所有 Entry 都应该被回收掉，但是因为 ThreadLocalMap 的生命周期和 Thread 是一样的，所以还存在通过 ThreadLocalMap 发出的强引用会指向这个 Entry，因此该 Entry 也不会被回收，就会出现这种情况：ThreadLocalMap 中的某个 Entry 的 key 没了，value 还在，这就会<strong>「造成了内存泄漏」</strong>。</p>
 <ul>
 <li>  ThreadLocal 的引用示意图</li>
 </ul>
@@ -403,20 +391,14 @@
 <li>  ThreadLocal 提供了解决内存泄露的方案。在 ThreadLocal 中存在 <code>remove()</code> 方法，当调用该方法时，底层会再调用一个 <code>expungeStaleEntry()</code> 方法，这个方法会将 key 为 null 的 Entry 删除，从而避免内存泄露。</li>
 <li>  养成良好习惯：使用完 ThreadLocal 后，及时调用 <code>remove()</code> 方法释放内存空间。</li>
 </ul>
-<h2 id="2-代码验证"><a href="#2-代码验证" class="headerlink" title="2    代码验证"></a>2    代码验证</h2><h3 id="Before：未使用-ThreadLocal-前"><a href="#Before：未使用-ThreadLocal-前" class="headerlink" title="Before：未使用 ThreadLocal 前"></a>Before：未使用 ThreadLocal 前</h3><blockquote>
-<ol>
-<li> <strong>定义一个 Person 类</strong></li>
-</ol>
-</blockquote>
+<h2 id="5-代码验证"><a href="#5-代码验证" class="headerlink" title="5 代码验证"></a>5 代码验证</h2><h3 id="Before：未使用-ThreadLocal-前"><a href="#Before：未使用-ThreadLocal-前" class="headerlink" title="Before：未使用 ThreadLocal 前"></a>Before：未使用 ThreadLocal 前</h3><ul>
+<li>定义一个 Person 类</li>
+</ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-<blockquote>
-<ol start="2">
-<li> <strong>测试</strong></li>
-</ol>
-</blockquote>
+<ul>
+<li>测试</li>
+</ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.tmp;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/8/9 11:31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();  <span class="comment">// 堆中</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            person.setName(<span class="string">&quot;张学友&quot;</span>);  </span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">2000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程T1==========&quot;</span>+ person.getName());</span><br><span class="line">        &#125;, <span class="string">&quot;T1&quot;</span>).start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            person.setName(<span class="string">&quot;乌蝇哥&quot;</span>);  </span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">1000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程T2==========&quot;</span>+ person.getName());</span><br><span class="line">        &#125;, <span class="string">&quot;T2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -436,19 +418,15 @@
 </li>
 </ul>
 <p>对于这种不确定的结果，在生产中是不可以接受的。如果要求，线程 T1 的输出结果始终是 “张学友”，而线程 T2 的输出结果始终是 “乌蝇哥”，就可以使用 ThreadLocal ，将 <code>Person.name</code> 属性保存在线程的本地内存中。</p>
-<h3 id="After：使用-ThreadLocal-后"><a href="#After：使用-ThreadLocal-后" class="headerlink" title="After：使用 ThreadLocal 后"></a>After：使用 ThreadLocal 后</h3><blockquote>
-<ol>
-<li> <strong>修改 Person 类</strong></li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line"></span><br><span class="line">    ThreadLocal&lt;String&gt; threadLocalName = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//    private String name;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.threadLocalName.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.threadLocalName.set(name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">     <span class="keyword">public</span> ThreadLocal&lt;String&gt; <span class="title function_">getThreadLocalName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocalName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="After：使用-ThreadLocal-后"><a href="#After：使用-ThreadLocal-后" class="headerlink" title="After：使用 ThreadLocal 后"></a>After：使用 ThreadLocal 后</h3><ul>
+<li><strong>修改 Person 类</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ThreadLocal&lt;String&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        threadLocal.set(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ThreadLocal&lt;String&gt; <span class="title function_">getThreadLocal</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<ol start="2">
-<li> <strong>测试</strong></li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/8/9 11:31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();  <span class="comment">// 堆中</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            person.setName(<span class="string">&quot;张学友&quot;</span>);  <span class="comment">// T1线程的栈中</span></span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">2000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程T1==========&quot;</span>+ person.getName());</span><br><span class="line">            </span><br><span class="line">            person.getThreadLocalName().remove();</span><br><span class="line">        &#125;, <span class="string">&quot;T1&quot;</span>).start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            person.setName(<span class="string">&quot;乌蝇哥&quot;</span>);  <span class="comment">// T2线程的栈中</span></span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">1000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程T2==========&quot;</span>+ person.getName());</span><br><span class="line">            </span><br><span class="line">            person.getThreadLocalName().remove();</span><br><span class="line">        &#125;, <span class="string">&quot;T2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>测试</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/8/9 11:31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();   <span class="comment">// 堆中</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt;&#123;</span><br><span class="line">            person.setName(<span class="string">&quot;张学友&quot;</span>);  <span class="comment">// T1线程的栈中</span></span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">2000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程T1==========&quot;</span>+ person.getName());</span><br><span class="line">            <span class="comment">// 防止内存泄露</span></span><br><span class="line">            person.getThreadLocal().remove();</span><br><span class="line">        &#125;, <span class="string">&quot;T1&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt;&#123;</span><br><span class="line">            person.setName(<span class="string">&quot;乌蝇哥&quot;</span>);  <span class="comment">// T2线程的栈中</span></span><br><span class="line">            <span class="keyword">try</span> &#123; Thread.sleep(<span class="number">1000</span>); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123; e.printStackTrace(); &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程T2==========&quot;</span>+ person.getName());</span><br><span class="line"></span><br><span class="line">            person.getThreadLocal().remove();</span><br><span class="line">        &#125;, <span class="string">&quot;T2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 

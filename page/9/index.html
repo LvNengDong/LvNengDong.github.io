@@ -116,13 +116,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -156,6 +156,560 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">MySQL锁机制</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-10-06 14:21:52" itemprop="dateCreated datePublished" datetime="2021-10-06T14:21:52+08:00">2021-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-07 21:52:04" itemprop="dateModified" datetime="2021-10-07T21:52:04+08:00">2021-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p><strong>定义：</strong></p>
+<ul>
+<li>  锁是<strong>计算机协调多个进程或线程并发访问某一资源时的机制</strong>。</li>
+<li>  在数据库中的数据是一种供许多用户共享的资源，所以就可能出现多个用户并发访问的情况。<strong>如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题</strong>。锁冲突也是影响数据库并发访问性能的一个重要因素。</li>
+<li>  在 MySQL 架构的连接层中，存在一个 ConnectionPool，与 MySQL 服务器连接的每个客户端都会维护一个会话（Session），当同时有多个 Session 操作同一数据库中的同一数据时，就会产生冲突，这时就需要 MySQL 的锁机制来维护数据的一致性了。</li>
+</ul>
+<p><strong>生活案例：</strong></p>
+<p>淘宝秒杀抢手机，库存只剩最后一件了，如果同时有多个用户同时点击了购买，到底谁买到？</p>
+<p>首先，这里肯定要使用到事务，我们先从库存表中取出商品数量，然后插入订单，付款后插入付款表信息，最后更新商品数量。在这个过程中，使用锁可以对共享资源进行保护，解决隔离和并发的矛盾。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>  <strong>数据库锁都是悲观锁！！！</strong></li>
+</ul>
+<hr>
+<h1 id="锁分类"><a href="#锁分类" class="headerlink" title="锁分类"></a>锁分类</h1><blockquote>
+<p>  <strong>一些概念：</strong></p>
+</blockquote>
+<ul>
+<li>  开销：开销指实现锁需要消耗的资源</li>
+<li>  加锁速度：</li>
+<li>  死锁：</li>
+<li>  粒度：</li>
+<li>  并发性能：</li>
+</ul>
+<blockquote>
+<p>  从<strong>对数据操作的类型</strong>来分可分为：</p>
+</blockquote>
+<ul>
+<li>  <strong>读锁（共享锁）</strong>：针对同一份数据，多个读操作可以同时读而不会互相影响。</li>
+<li>  <strong>写锁（排它锁）</strong>：当前写操作没有完成之前，它会阻断其它写锁和读锁。【注意：写和读都被阻断了】</li>
+</ul>
+<blockquote>
+<p>  从<strong>对数据操作的粒度</strong>来分可分为：</p>
+</blockquote>
+<ul>
+<li>  <strong>行锁（Row_Level_Lock）：</strong>开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。</li>
+<li>  <strong>表锁（Table_Level_Lock）：</strong>开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高,并发度最低。</li>
+<li>  <strong>页锁：</strong>开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。</li>
+</ul>
+<blockquote>
+<p>  <strong>使用场景：</strong></p>
+</blockquote>
+<ul>
+<li>  只能就具体应用的特点来说哪种锁更合适。</li>
+<li>  表锁更适合以查询为主的表使用。</li>
+<li>  行锁更适合以写为主的表使用。</li>
+</ul>
+<blockquote>
+<p>  <strong>小总结</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">读锁（共享锁）</th>
+<th align="center">写锁（独占锁）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>表锁</strong></td>
+<td align="center">表共享读锁</td>
+<td align="center">表独占写锁</td>
+</tr>
+<tr>
+<td align="center"><strong>行锁</strong></td>
+<td align="center">行共享读锁</td>
+<td align="center">行独占写锁</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="MySQL-锁机制"><a href="#MySQL-锁机制" class="headerlink" title="MySQL 锁机制"></a>MySQL 锁机制</h1><h2 id="MySQL-中的锁"><a href="#MySQL-中的锁" class="headerlink" title="MySQL 中的锁"></a>MySQL 中的锁</h2><ol>
+<li><p>MyISAM 表锁</p>
+<ul>
+<li>  MyISAM 表共享读锁</li>
+<li>  MyISAM 表独占写锁</li>
+</ul>
+</li>
+<li><p>InnoDB 行锁</p>
+<ul>
+<li>  InnoDB 行共享读锁</li>
+<li>  InnoDB 行独占写锁</li>
+</ul>
+<p> InnoDB 表锁</p>
+<ul>
+<li>  InnoDB 表共享读锁</li>
+<li>  InnoDB 表独占写锁</li>
+</ul>
+</li>
+<li><p> Memory 表锁</p>
+</li>
+<li><p> ……</p>
+</li>
+</ol>
+<h2 id="MySQL-锁机制-1"><a href="#MySQL-锁机制-1" class="headerlink" title="MySQL 锁机制"></a>MySQL 锁机制</h2><p><strong>MySQL 的锁机制比较简单，就是不同的存储引擎支持不同的锁机制。</strong>比如：</p>
+<ul>
+<li>  InnoDB 默认使用行锁，但也支持表锁。</li>
+<li>  MyISAM 默认使用表锁，且只支持表锁。</li>
+</ul>
+<hr>
+<h1 id="表锁（偏读）"><a href="#表锁（偏读）" class="headerlink" title="表锁（偏读）"></a>表锁（偏读）</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>  无死锁</li>
+<li>  锁粒度大</li>
+<li>  发生锁冲突的概率最高</li>
+<li>  并发度最低</li>
+<li>  开销小，加锁快【一张表只需加一个锁自然开销小，锁的粒度大，加锁自然快】</li>
+</ul>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li>  查看数据库中所有表锁</li>
+<li>  加（表）锁</li>
+<li>  释放（表）锁</li>
+</ul>
+<ol>
+<li> **创建表 tb_emp 和 tb_dep **</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS tb_emp (</span><br><span class="line">    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">    NAME VARCHAR(20) DEFAULT &#x27;&#x27;</span><br><span class="line">)ENGINE=MYISAM;	# 使用MYISAM引擎建的表 </span><br><span class="line"></span><br><span class="line">CREATE TABLE IF NOT EXISTS tb_dep (</span><br><span class="line">    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">    NAME VARCHAR(20) DEFAULT &#x27;&#x27;</span><br><span class="line">)ENGINE=MYISAM;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li> <strong>手动加锁（读锁或写锁）</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 语法</span><br><span class="line">lock table 表名1 read, 表名2 write;</span><br><span class="line"></span><br><span class="line">-- 给tb_emp表加读锁，给 tb_dep表加写锁</span><br><span class="line">lock table tb_emp read, tb_dep write;	</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li> <strong>查看数据库中所有表的锁</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 查看数据库中所有表的锁</span><br><span class="line">SHOW OPEN TABLES;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/image-20210725182834745.png" alt="image-20210725182834745"></p>
+<ol start="4">
+<li> <strong>释放锁</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 释放锁（Tip：释放锁使不能单个表释放，只能一次性释放所有表的锁）</span><br><span class="line">UNLOCK TABLE;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="给表加读锁"><a href="#给表加读锁" class="headerlink" title="给表加读锁"></a>给表加读锁</h3><ol>
+<li> <strong>向上面建好的 tb_emp 表中插入数据</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO tb_emp(NAME) VALUES(&#x27;张三&#x27;);</span><br><span class="line">INSERT INTO tb_emp(NAME) VALUES(&#x27;李四&#x27;);</span><br><span class="line">INSERT INTO tb_emp(NAME) VALUES(&#x27;王五&#x27;);</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li> <strong>模拟两个连接同时操作 tb_emp 表</strong></li>
+</ol>
+<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/%E8%AF%BB%E9%94%81.png" alt="读锁"></p>
+<table>
+<thead>
+<tr>
+<th align="center">线程 T1</th>
+<th align="center">线程 T2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>lock table tb_emp read; </code>【OK】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>select * from tb_emp; </code>  【OK】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>select * from tb_emp; </code>  【OK】</td>
+</tr>
+<tr>
+<td align="center"><code>UPDATE tb_emp SET NAME=&quot;张飞&quot; WHERE id=1;</code>  【Error】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>UPDATE tb_emp SET NAME=&quot;张飞&quot; WHERE id=1;</code>  【阻塞】</td>
+</tr>
+<tr>
+<td align="center"><code>UNLOCK TABLES;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>UPDATE tb_emp SET NAME=&quot;张飞&quot; WHERE id=1;</code>  【OK】</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>  <strong>分析：</strong></p>
+</blockquote>
+<p>两个线程同时操作数据库中的同一张表，</p>
+<ol>
+<li> 首先，线程 T1 先对 emp 表加表共享读锁；</li>
+<li> 然后，T1 对加锁的表执行查询操作，OK；【因为 T1 本身就是持有锁的】</li>
+<li> 再之，T2 对加锁的表进行查询操作，OK；【因为读锁是一种共享锁】</li>
+<li> T1 在未释放锁之前，想要读取其它表（非加锁的表），发现<strong>报错</strong>；【拿着锁不干事反而想去操作其它表是不被允许的】</li>
+<li> T2 读取未加锁的表，OK；</li>
+<li> T1 在未释放锁之前，想要修改被加锁的表，<strong>报错</strong>；【读锁只能读不能写】</li>
+<li> T2 想要修改未加锁的表，发现没有报错 ，但程序被<strong>阻塞</strong>【一直在转圈，但不能执行结束】</li>
+<li> T1 释放读锁；</li>
+<li> 这时 T2 立即执行未执行完的更新的操作。</li>
+</ol>
+<h3 id="给表加写锁"><a href="#给表加写锁" class="headerlink" title="给表加写锁"></a>给表加写锁</h3><ul>
+<li>  当前线程对表的 查询+更新+插入 操作都可以执行；</li>
+<li>  其它线程对表的查询被阻塞，需要等待锁被释放。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对所有使用 MyISAM 引擎的表进行操作，会有以下情况：</p>
+<ul>
+<li>  对 MyISAM 表的读操作，不会阻塞其它线程对同一表的读请求，但是会阻塞对同一表的写请求。只有当读锁释放后，才会执行其它线程的写操作。</li>
+<li>  对 MyISAM 表的写操作，会阻塞其它线程对同一表的读和写操作，只有当写锁释放后，才会执行其它线程的读写操作。</li>
+</ul>
+<p>简而言之，就是<strong>读的时候可以读，读的时候不能写，写的时候不能读，写的时候不能写</strong>（读就是共享读，其它的可以读，不能写；写是独占写，其它的不能读也不能写）</p>
+<p><strong>MyISAM 不适合作为以写操作为主的表的引擎</strong>。因为对表中数据进行的写操作会造成表被自动加写锁，导致其它线程不能做任何操作，如果存在大量的更新会使得查询操作很难获取到锁，从而造成永远阻塞。</p>
+<hr>
+<h2 id="表锁分析"><a href="#表锁分析" class="headerlink" title="表锁分析"></a>表锁分析</h2><blockquote>
+<p>  <strong>查看哪些表被加锁了</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW OPEN TABLES;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>  <strong>表锁分析</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 检查锁的状态</span><br><span class="line">SHOW STATUS LIKE &#x27;table%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/image-20210727220206563.png" alt="image-20210727220206563"></p>
+<p>这里有一些属性记录了某个表锁的运行情况，两个重要的属性说明如下：</p>
+<ul>
+<li>  <strong>table_locks_immediate</strong>：表锁被获取过的次数，每次获取锁时该值 <code>+1</code>。</li>
+<li>  <strong>table_locks_waited</strong>：由于表锁争用而发生等待的次数（不能立即获取锁的次数，每等待一次该值 <code>+1</code>）。此值较高则说明存在着较严重的表级锁争用的情况。</li>
+</ul>
+<hr>
+<h1 id="行锁（偏写）"><a href="#行锁（偏写）" class="headerlink" title="行锁（偏写）"></a>行锁（偏写）</h1><h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>  会出现死锁</li>
+<li>  锁的粒度小</li>
+<li>  发生锁冲突的概率最低</li>
+<li>  并发度最高</li>
+<li>  开销大，加锁慢。（需要给每行数据都加锁，自然开销比较大，加锁比较慢）</li>
+</ul>
+<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><ul>
+<li>  加<strong>行共享读锁</strong>：<code>lock in share mode</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 开始事务</span><br><span class="line">BEGIN;</span><br><span class="line"></span><br><span class="line">-- 手动</span><br><span class="line">SELECT * FROM tb_stu WHERE id=5 LOCK IN SHARE MODE;</span><br><span class="line"></span><br><span class="line">-- 事务提交后会自动释放锁</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>  加<strong>行独占写锁</strong>：<code>FOR UPDATE</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 开始事务</span><br><span class="line">BEGIN;</span><br><span class="line"></span><br><span class="line">-- 手动锁定某一行</span><br><span class="line">SELECT * FROM tb_stu WHERE id=5 FOR UPDATE;</span><br><span class="line">-- 在 SELECT xxx... FOR UPDATE 执行后到事务提交之前，其它线程对该条记录的写操作都会被阻塞！！</span><br><span class="line"></span><br><span class="line">-- 事务提交后会自动释放锁</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="行锁基本操作演示"><a href="#行锁基本操作演示" class="headerlink" title="行锁基本操作演示"></a>行锁基本操作演示</h2><blockquote>
+<p>  <strong>建表</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-- 建表</span><br><span class="line">CREATE TABLE tb_stu (</span><br><span class="line">    id INT(11),</span><br><span class="line">    age VARCHAR(16)</span><br><span class="line">)ENGINE=INNODB;</span><br><span class="line"></span><br><span class="line">-- 插入数据</span><br><span class="line">INSERT INTO tb_stu VALUES(1,&#x27;10&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(3,&#x27;30&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(4,&#x27;40&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(5,&#x27;50&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(6,&#x27;60&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(7,&#x27;70&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(8,&#x27;80&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(9,&#x27;90&#x27;);</span><br><span class="line"># 注意：这里没有插入 id=2 的数据！！！</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 分别为 id 和 age 创建索引 </span><br><span class="line">CREATE INDEX a ON tb_stu(id);</span><br><span class="line">CREATE INDEX b ON tb_stu(age);</span><br><span class="line"></span><br><span class="line">-- 关闭 MySQL 的自动提交功能</span><br><span class="line">SET autocommit = 0;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>  <strong>模拟两个线程同时操作 <code>tb_stu</code> 表数据。建立两个会话分别为 Session1 和  Session2。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Session1</th>
+<th align="center">Session2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>SET autocommit = 0</code></td>
+<td align="center"><code>SET autocommit = 0</code></td>
+</tr>
+<tr>
+<td align="center"><code>UPDATE tb_stu SET age=11 WHERE id=1;</code>【OK】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>SELECT * FROM tb_stu;</code>【查看后发现更新成功】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>SELECT * FROM tb_stu;</code>【未读到Session1未提交的事务】</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>UPDATE tb_stu SET age=19 WHERE id=1;</code>【写操作被阻塞】</td>
+</tr>
+<tr>
+<td align="center"><code>COMMIT;</code>【Session1 提交事务】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">【阻塞解除，更新操作继续执行成功。此时，id=1对应的age=19】</td>
+</tr>
+</tbody></table>
+<ol>
+<li> 分别关掉 Session1 和 Session2 事务的自动提交行为；</li>
+<li> 更新 <code>id=1</code> 的这一条记录，在 Session1 中更新成功，但在 Session2 中并未读取到 Session1 的更新。这是由于 MySQL 默认的隔离级别（可重复读）导致的。</li>
+<li> 此时，如果在 Session2 中想要更新同一行数据，发现 Session 的操作被阻塞，这是因为 InnoDB 默认给每行数据加了行锁。</li>
+<li> 使用 COMMIT 提交事务后，行锁也会被释放，这时 Session2 的更新操作得以继续执行。</li>
+</ol>
+<hr>
+<h2 id="InnoDB-的行锁的实现原理"><a href="#InnoDB-的行锁的实现原理" class="headerlink" title="InnoDB 的行锁的实现原理"></a>InnoDB 的行锁的实现原理</h2><p><strong>InnoDB 是基于索引来完成行锁</strong>。例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from emp where id = 1 for update;	-- 为查询语句加了行级写锁</span><br></pre></td></tr></table></figure>
+
+<p><code>for update</code> 可以根据条件来完成行锁锁定，并且 <code>id</code> 必须是有索引键的列，如果 <code>id</code> 不是索引键那么 InnoDB 将升级为表锁，并发将无从谈起。</p>
+<hr>
+<h2 id="索引失效行锁升级为表锁"><a href="#索引失效行锁升级为表锁" class="headerlink" title="索引失效行锁升级为表锁"></a>索引失效行锁升级为表锁</h2><p><strong>原理</strong></p>
+<ul>
+<li>  <strong>行锁必须依赖于索引才能实现，否则会自动升级为表锁。</strong>    </li>
+<li>所以在 InnoDB 表中有两种情况会导致行锁升级为表锁：<ul>
+<li>  一是条件字段压根没有建立索引；</li>
+<li>  二是条件字段的索引在使用中失效了。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/">索引失效的常见场景</a></p>
+</blockquote>
+<p><strong>举例</strong></p>
+<p>在 <code>tb_stu</code> 表中，<code>id</code> 为 <code>int</code> 类型，<code>age</code> 为 <code>varchar</code> 类型。并且为这两个字段分别创建了索引 <code>a</code> 和 <code>b</code>。如果我们在更新数据的过程中，不小心把 <code>varchar</code> 类型的数据写成了 <code>int</code> 类型的数据，这就会发生隐式的类型转换，虽然 <code>int</code> 类型也能被识别而不会报错，但是此时就破坏了索引 <code>b</code> 的结构，就会导致索引 <code>b</code> 失效。从而导致行锁会升级到表锁。</p>
+<ol>
+<li> 破坏索引结构</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line"></span><br><span class="line"># UPDATE tb_stu SET id=1 WHERE age=&#x27;19&#x27;; # 正确写法</span><br><span class="line">UPDATE tb_stu SET id=1 WHERE age=19;	# 这里故意写错，目的是为了破坏索引结构</span><br><span class="line"></span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li> 经过上面的操作后，<code>age</code> 对应的索引 <code>b</code> 的结构已经失效了，如果接下来还有以 age 为条件字段的操作，则行锁会升级为表锁。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">Session1</th>
+<th align="center">Session2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>BEGIN;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>UPDATE tb_stu SET id=66 WHERE age=&#39;60&#39;;</code>【OK】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>UPDATE tb_stu SET id=77 WHERE age=70</code>【被阻塞】</td>
+</tr>
+<tr>
+<td align="center"><code>COMMIT;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">【更新操作继续执行】</td>
+</tr>
+</tbody></table>
+<p>Session1 设置为手动事务提交，Session2 设置为自动事务提交。</p>
+<ol>
+<li> Session1 开启事务，更新  <code>age=&#39;60&#39;</code> 的行记录，OK；</li>
+<li> Session2 更新 <code>age=&#39;70&#39;</code> 的行记录，却发现被阻塞。但是明明 tb_stu 表使用的是行锁呀？这就是索引失效后行锁自动升级为表锁了。</li>
+<li> Session1 提交后，释放表锁，Session2 得以继续进行，修改成功。</li>
+</ol>
+<hr>
+<h2 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h2><p><strong>间隙锁案例：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Session1</th>
+<th align="center">Session2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>SET autocommit = 0</code></td>
+<td align="center"><code>SET autocommit = 0</code></td>
+</tr>
+<tr>
+<td align="center"><code>UPDATE tb_stu SET age=99 WHERE id&gt;1 AND id&lt;6;</code><br>【更新 <code>1&lt;id&lt;6</code>的所有数据】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>SELECT * FROM tb_stu;</code>【查看后发现更新成功】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>INSERT INTO tb_stu VALUES(2,&quot;20&quot;);</code><br>【产生阻塞，插入操作无法执行完毕】</td>
+</tr>
+<tr>
+<td align="center"><code>COMMIT;</code>【Session1 提交事务】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">【阻塞解除，插入操作继续执行成功。id=2的数据被成功插入】</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p> 分别关闭 Session1 和 Session2 的事务自动提交；</p>
+</li>
+<li><p> 更新 id 为 <code>(1, 6)</code> 范围内的所有数据，由于当前表中没有 id 为 2 的数据，所以就是更新 id 为 3，4，5 的数据，设置 age=99。</p>
+</li>
+<li><p>但是我们此时使用 Session2 想要插入一条 <code>id=2</code> 的数据，却发现被阻塞了。这时为什么呢？</p>
+<p>  按理来说，行锁只会作用于当前行，在本例中也就是第 3、4、5 行，而 Session2 操作的明明是第 2 行，为什么也会被阻塞呢？这时因为此时 id=2 的那一行也被加了行锁，这就是所谓的<strong>间隙锁</strong>。 </p>
+</li>
+<li><p> 只有当 Session1 的事务提交后，所有作用于行上的锁被释放了，Session2 的插入操作才能继续完成。</p>
+</li>
+</ol>
+<blockquote>
+<p>  <strong>什么是间隙锁？</strong></p>
+</blockquote>
+<ul>
+<li>  当我们使用范围条件而不是相等条件读/写数据，并请求共享/排它锁时，InnoDB 会给符合条件的已有数据记录的索引项加锁，这是显然的；</li>
+<li>  对于索引的键值在条件范围内但并不存在的记录，叫做“<strong>间隙（GAP）</strong>”。InnoDB 也会对这个“间隙”加锁，这种锁机制就是所谓的<strong>间隙锁（Next-Key锁）</strong>。</li>
+<li>  <strong>总结：</strong> <code>间隙锁 = 使用范围条件加锁 +检索的字段是一个索引</code></li>
+</ul>
+<blockquote>
+<p>  <strong>间隙锁的危害</strong></p>
+</blockquote>
+<ul>
+<li>  间隙锁有一个致命的弱点就是当锁定一个范围的键值之后，即使某些不存在的键值也会被无辜的锁定，从而造成在锁定的时候无法插入锁定键值范围内的任何数据。在某些场景下这可能会对性能造成很大的危害。</li>
+<li>  因为 Query 执行过程中通过范围查找的话，它会锁定整个范围内所有的索引键值，即使这个键值在索引表中并不存在。</li>
+</ul>
+<hr>
+<h2 id="InnoDB-优缺点"><a href="#InnoDB-优缺点" class="headerlink" title="InnoDB 优缺点"></a>InnoDB 优缺点</h2><blockquote>
+<p>  <strong>优点：</strong></p>
+</blockquote>
+<ul>
+<li>  InnoDB 存储引擎实现了行锁，虽然在实现锁时损耗的性能比表锁高一些，但其并发处理的能力是远优于 MyISAM 的表锁的。</li>
+<li>  当系统并发量较高时，InnoDB 的整体性能和 MyISAM 相比就会有比较明显的优势了。</li>
+</ul>
+<blockquote>
+<p>  <strong>缺点：</strong></p>
+</blockquote>
+<ul>
+<li>  但是，InnoDB 也有其脆弱的一面，当我们使用不当时（如索引失效导致行锁升级为表锁 ），可能会让 InnoDB 的整体性能表现不仅不能比 MyISAM 高，甚至可能会更差。</li>
+</ul>
+<hr>
+<h2 id="行锁分析"><a href="#行锁分析" class="headerlink" title="行锁分析"></a>行锁分析</h2><blockquote>
+<p>  <strong>如何分析行锁？</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 展示行锁的各个状态量</span><br><span class="line">SHOW STATUS LIKE &#x27;innodb_row_lock%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/image-20210729091146048.png" alt="image-20210729091146048"></p>
+<p>对各个状态量的说明如下：</p>
+<ul>
+<li>  <strong>InnoDB_row_lock_current_waits</strong>：当前正在等待锁的数量；</li>
+<li>  <strong>InnoDB_row_lock_time</strong>：从系统启动到当前时间该行数据被锁定的总时间；【★】</li>
+<li>  <strong>InnoDB_row_lock_time_avg</strong>：每次等待所花的平均时间；【★】</li>
+<li>  <strong>InnoDB_row_lock_time_max</strong>：从系统启动到当前时间等待最长的一次所花的时间；</li>
+<li>  <strong>InnoDB_row_lock_waits</strong>：系统启动到当前时间总共等待的次数；【★】</li>
+</ul>
+<p>对于这五个状态量，比较重要的有三个。尤其是当等待次数很高，而且等待平均时长也不小的时候，我们就需要分析系统中为什么会有 这么多等待，然后根据分析结果制定优化计划。</p>
+<hr>
+<h2 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h2><ul>
+<li>  尽可能让所有数据检索都通过索引来完成，避免无索引行锁升级为表锁；</li>
+<li>  合理设计索引，尽量缩小锁的范围；</li>
+<li>  尽可能缩小检索条件，避免频繁出现间隙锁 ；</li>
+<li>  尽量控制事务大小，减少锁定资源量和时间长度；</li>
+<li>  尽可能低级别事务隔离。</li>
+</ul>
+<hr>
+<h1 id="页锁"><a href="#页锁" class="headerlink" title="页锁"></a>页锁</h1><ul>
+<li>  页锁的开销和加锁时间介于表锁和行锁之间；</li>
+<li>  会出现死锁；</li>
+<li>  锁的粒度介于表锁和行锁之间；</li>
+<li>  并发度一般。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -2057,109 +2611,6 @@
 <li>  在本题中，我们可以看到，元素在同一个组合内是可以重复的，但是最终结果内的任意两个组合是不能重复的。所以本题中的去重可以理解为：在同一树层间去重。【对同一树层去重的话，先要对数组中的元素进行排序】</li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/26/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/26/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">约瑟夫环问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-08-26 17:13:36" itemprop="dateCreated datePublished" datetime="2021-08-26T17:13:36+08:00">2021-08-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-09-24 18:47:10" itemprop="dateModified" datetime="2021-09-24T18:47:10+08:00">2021-09-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>  约瑟夫环问题</p>
-</blockquote>
-<blockquote>
-<p>  <strong>LeetCode地址</strong></p>
-</blockquote>
-<ul>
-<li>  <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/</a></li>
-</ul>
-<h2 id="数组实现"><a href="#数组实现" class="headerlink" title="数组实现"></a>数组实现</h2><blockquote>
-<p>  <strong>分析</strong></p>
-</blockquote>
-<ol>
-<li> 模拟：建立一个数组，里面存放的就是每个人的编号，一步一步模拟出队的过程，当出队了 n-1 次之后，数组中最后剩下的数字就是要求得的数字。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">数组长度都设置为0，表示对应编号的人没有出局</span><br><span class="line">int n， int m	// 表示总共有n 人，数到m时出局</span><br><span class="line">int count	计数器</span><br><span class="line">int i = 0; 表示当前报数开始的编号（初始为0）</span><br><span class="line"></span><br><span class="line">// 只有当出局的人数小于 n 时循环才有必要继续</span><br><span class="line">while(count &lt; n)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="循环链表实现"><a href="#循环链表实现" class="headerlink" title="循环链表实现"></a>循环链表实现</h2><h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2>
       
     </div>
 

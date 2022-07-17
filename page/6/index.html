@@ -116,13 +116,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -156,6 +156,971 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-title-link" itemprop="url">数据仓库</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-01-04 21:32:25" itemprop="dateCreated datePublished" datetime="2022-01-04T21:32:25+08:00">2022-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-05-27 19:54:33" itemprop="dateModified" datetime="2022-05-27T19:54:33+08:00">2022-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E4%BB%93/" itemprop="url" rel="index"><span itemprop="name">数仓</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1、数据采集平台搭建</span><br><span class="line"></span><br><span class="line">2、实现业务数据仓库分层搭建</span><br><span class="line"></span><br><span class="line">3、针对数仓中的数据进行分析</span><br><span class="line">	留存：用户粘性</span><br><span class="line">	转换率：注册用户中有多少用户使用了业务</span><br><span class="line">	GMV：成交额</span><br><span class="line">	复购率：重新购买某件商品的概率</span><br><span class="line">	活跃：日活、月活、...</span><br><span class="line">4、机器学习应用</span><br></pre></td></tr></table></figure>
+
+<p><strong>埋点</strong>：需要什么数据，就在应用程序对应的部位添加数据采集的模块。</p>
+<h2 id="FastJson"><a href="#FastJson" class="headerlink" title="FastJson"></a>FastJson</h2><p>解析JSON的框架FastJson</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--阿里巴巴开源json解析框架--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.51<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="logback"><a href="#logback" class="headerlink" title="logback"></a>logback</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--日志生成框架--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;logback.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;logback.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>  日志记录框架：logback</p>
+</li>
+<li><p>  <code>log4j --&gt;&gt; log4j2 --&gt;&gt; logback</code></p>
+</li>
+<li><p>  <code>logback</code> 是 <code>log4j</code> 的升级版，速度更快，性能更高，测试更充分！logback 提供了对 SLF4J 的支持，可以从 log4j 无缝切换到logback</p>
+</li>
+<li><p>  <strong>区别：</strong>log4j使用的log4j.properties作为配置文件，logback使用logback.xml作为配置文件</p>
+</li>
+<li><p><strong>使用：</strong>在配置文件中，可以定义三种组件</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Logger:  日志的记录器，可以在Logger上定义日志的记录级别(INFO,WARN)</span><br><span class="line">Appender： 负责将输出的信息，追加到目的地(文件，控制台，网络端口，数据库)</span><br><span class="line">Layout:  输出的样式，每条信息都会格式化为指定的样式输出</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>  Logback 主要用于在磁盘和控制台打印日志。</li>
+<li>Logback具体使用：<ol>
+<li> 在 resources 文件夹下创建 logback.xml 文件。</li>
+<li> 在 logback.xml 文件中填写如下配置</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">debug</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;LOG_HOME&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/tmp/logs/&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 控制台输出 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;STDOUT&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;50&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 按照每天生成日志文件。存储事件日志 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;FILE&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;File&gt;$&#123;LOG_HOME&#125;/app.log&lt;/File&gt;设置日志不超过$&#123;log.max.size&#125;时的保存路径，注意，如果是web项目会保存到Tomcat的bin目录 下 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span></span></span><br><span class="line"><span class="tag">                       <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--日志文件输出的文件名 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">FileNamePattern</span>&gt;</span>$&#123;LOG_HOME&#125;/app-%d&#123;yyyy-MM-dd&#125;.log<span class="tag">&lt;/<span class="name">FileNamePattern</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--日志文件保留天数 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">MaxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">MaxHistory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--日志文件最大的大小 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">triggeringPolicy</span></span></span><br><span class="line"><span class="tag">                          <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">MaxFileSize</span>&gt;</span>10MB<span class="tag">&lt;/<span class="name">MaxFileSize</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">triggeringPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--异步打印日志--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span> =<span class="string">&quot;ASYNC_FILE&quot;</span> <span class="attr">class</span>= <span class="string">&quot;ch.qos.logback.classic.AsyncAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">discardingThreshold</span> &gt;</span>0<span class="tag">&lt;/<span class="name">discardingThreshold</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">queueSize</span>&gt;</span>512<span class="tag">&lt;/<span class="name">queueSize</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 添加附加的appender,最多只能添加一个 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span> = <span class="string">&quot;FILE&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 日志输出级别 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;INFO&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span> /&gt;</span>	</span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ASYNC_FILE&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;error&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="打包框架"><a href="#打包框架" class="headerlink" title="打包框架"></a>打包框架</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--编译打包插件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 如果已经在Maven的全局配置中，配置了JDK编译的界别，这个插件可以省略 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;plugin&gt;</span></span><br><span class="line"><span class="comment">            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">            &lt;version&gt;2.3.2&lt;/version&gt;</span></span><br><span class="line"><span class="comment">            &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                &lt;source&gt;1.8&lt;/source&gt;</span></span><br><span class="line"><span class="comment">                &lt;target&gt;1.8&lt;/target&gt;</span></span><br><span class="line"><span class="comment">            &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">        &lt;/plugin&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">		在mvn:package阶段使用 maven-assembly-plugin 可以将当前项目及其依赖中的Jar中的字节码全部打包！</span></span><br><span class="line"><span class="comment">		Maven项目默认提供的打包插件 maven-jar-plugin，只会将自己写的代码打包。</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--当前jar包的主类的全限定类名--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.atguigu.appclient.AppMain<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>make-assembly<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h1 id="数仓分层"><a href="#数仓分层" class="headerlink" title="数仓分层"></a>数仓分层</h1><h2 id="如何分层？"><a href="#如何分层？" class="headerlink" title="如何分层？"></a>如何分层？</h2><p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220130155736785.png" alt="image-20220130155736785"></p>
+<p><strong>ODS</strong></p>
+<p>Operation Data Store 直译过来是“操作数据层”，那么何为“操作数据”呢？我们将业务系统中产生的数据称为操作数据，由于这一层存储的就是直接从业务系统中同步过来的数据，没有做任何处理，所以又称之为“原始数据层”。</p>
+<ul>
+<li>  职责：存放原始数据</li>
+<li>  数据来源：业务系统，保存从业务系统同步过来的日志、及关系型数据库中的数据</li>
+</ul>
+<p><strong>DWD</strong></p>
+<p>Data Warehouse Detail，数据明细层</p>
+<ul>
+<li>  职责：保存业务事实明细。每一个业务操作都叫做一个“业务事实”。[业务事实就是事实表中的数据，事实表中的数据需要维度表数据进行解释说明，因为在事实表中多数数据都以“码”存在]</li>
+</ul>
+<p><strong>DIM</strong></p>
+<p>Dimension，维度层。保存维度数据，其实就是维度表中的数据。主要是对业务事实（也就是业务数据表中的数据）的描述信息。</p>
+<p><strong>DWS</strong></p>
+<p>Data Warehouse Summary，数据汇总层。</p>
+<ul>
+<li>  汇总数据来源：DWD层的业务事实数据</li>
+</ul>
+<p><strong>DWT</strong></p>
+<p>Data Warehouse Topic，数据主题层</p>
+<p><strong>DIM</strong></p>
+<p>维度层</p>
+<p><strong>ADS</strong></p>
+<p>Application Data Store，数据应用层</p>
+<p>为数仓后续的应用提供结果</p>
+<ul>
+<li>  ODS层：原始数据层，存放原始数据，数据保持原貌不做处理</li>
+<li>  DWD层：结构和粒度与原始表保持一致，对 ODS 层数据进行ETL过滤（去除空值、脏数据和异常数据等）</li>
+<li>  DWS层：以DWD层为基础，进行初步汇总。基于ADS层需要统计的主题，创建宽表</li>
+<li>  ADS层：为各种统计报表直接提供数据。基于DWS层的宽表，计算出结果</li>
+</ul>
+<p>数仓分层并没有绝对的标准，可以根据业务情况适当增加或减少。</p>
+<h2 id="为什么分层？"><a href="#为什么分层？" class="headerlink" title="为什么分层？"></a>为什么分层？</h2><ol>
+<li><p>把复杂问题简单化</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">复杂需求拆解</span><br><span class="line"></span><br><span class="line">大SQL</span><br><span class="line">	1、编写复杂</span><br><span class="line">	2、出问题后排查复杂</span><br><span class="line">	3、降低开发复杂度</span><br><span class="line"></span><br><span class="line">每层只处理简单的任务，开发目标明确，开发方便</span><br><span class="line">遇到问题时方便定位</span><br></pre></td></tr></table></figure>
+
+<p> 将一个复杂的任务分解成多个步骤来完成，每层只处理单一的步骤，比较简单，并且方便定位问题。</p>
+</li>
+<li><p>减少重复开发</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">所有业务都需要从ODS查询数据，</span><br><span class="line">	1、清洗操作逻辑相同，但需要重复开发</span><br><span class="line">	2、分层之后，统一清洗，把清洗结果放到DWD层，避免重复开发</span><br></pre></td></tr></table></figure>
+
+<p> 规范数据分层，通过中间层数据，能够极大减少重复计算，增加单次计算结果的复用性</p>
+</li>
+<li><p>隔离原始数据（数据脱敏）</p>
+<p> 使真实数据与统计数据解耦开，保证真实数据的安全性</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ODS可能存在一些用户的敏感数据，如手机号等</span><br><span class="line">敏感信息脱敏</span><br><span class="line">禁止从ODS层取数据，可以起到隔离原始数据，避免敏感数据泄露的风险</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">宽表：为了防止大量的join操作，将很多表的数据放到一个宽表中</span><br><span class="line"></span><br><span class="line">DWS层存在大量宽表</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="数仓建模（重点）"><a href="#数仓建模（重点）" class="headerlink" title="数仓建模（重点）"></a>数仓建模（重点）</h2><p><strong>准则：</strong>在搭建数仓的每一层的时候，都需要解决如下两个问题：</p>
+<ol>
+<li> 确定需要创建哪些表</li>
+<li>确定每张表的表结构<ul>
+<li>  确定每行数据的含义</li>
+<li>  确定表的字段</li>
+<li>  确定表的分区规划</li>
+</ul>
+</li>
+</ol>
+<p><strong>ODS</strong></p>
+<p>ODS的建表逻辑整体参照待同步表的业务逻辑</p>
+<p>参照MySQL中同步的表建立ODS层的表</p>
+<ul>
+<li>  分区：按天分区，存储当天从关系型数据库同步过来的数据</li>
+</ul>
+<p><strong>DWD</strong>：业务事实 ==&gt; 维度模型中的事实表</p>
+<p><strong>DIM</strong>：对业务事实的描述信息 ==&gt; 维度模型中的维度表</p>
+<p>确定需要哪些事实表 ==&gt; 声明粒度 ==&gt; 确定维度</p>
+<hr>
+<h1 id="数仓理论"><a href="#数仓理论" class="headerlink" title="数仓理论"></a>数仓理论</h1><h2 id="1-1-表的分类"><a href="#1-1-表的分类" class="headerlink" title="1.1 表的分类"></a>1.1 表的分类</h2><h3 id="1-1-1-实体表"><a href="#1-1-1-实体表" class="headerlink" title="1.1.1 实体表"></a>1.1.1 实体表</h3><p><strong>实体表</strong>，一般是指一个现实存在的业务对象，比如用户，商品，商家，销售员等等。</p>
+<p>用户表：</p>
+<table>
+<thead>
+<tr>
+<th>用户id</th>
+<th>姓名</th>
+<th>生日</th>
+<th>性别</th>
+<th>邮箱</th>
+<th>用户等级</th>
+<th>创建时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>张三</td>
+<td>2011-11-11</td>
+<td>男</td>
+<td><a href="mailto:&#122;&#x73;&#x40;&#49;&#54;&#51;&#46;&#99;&#111;&#x6d;">&#122;&#x73;&#x40;&#49;&#54;&#51;&#46;&#99;&#111;&#x6d;</a></td>
+<td>2</td>
+<td>2018-11-11</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>2011-11-11</td>
+<td>女</td>
+<td><a href="mailto:&#108;&#x73;&#x40;&#x31;&#54;&#x33;&#x2e;&#99;&#111;&#x6d;">&#108;&#x73;&#x40;&#x31;&#54;&#x33;&#x2e;&#99;&#111;&#x6d;</a></td>
+<td>3</td>
+<td>2018-11-11</td>
+</tr>
+<tr>
+<td>3</td>
+<td>王五</td>
+<td>2011-11-11</td>
+<td>中性</td>
+<td><a href="mailto:&#119;&#119;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;">&#119;&#119;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;</a></td>
+<td>1</td>
+<td>2018-11-11</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<h3 id="1-1-2-维度表"><a href="#1-1-2-维度表" class="headerlink" title="1.1.2 维度表"></a>1.1.2 维度表</h3><p><strong>维度表</strong>，一般是指对应一些业务状态，编号的解释表。也可以称之为码表。</p>
+<p>比如地区表，订单状态，支付方式，审批状态，商品分类等等。</p>
+<p>订单状态表：</p>
+<table>
+<thead>
+<tr>
+<th>订单状态编号</th>
+<th>订单状态名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>未支付</td>
+</tr>
+<tr>
+<td>2</td>
+<td>支付</td>
+</tr>
+<tr>
+<td>3</td>
+<td>发货中</td>
+</tr>
+<tr>
+<td>4</td>
+<td>已发货</td>
+</tr>
+<tr>
+<td>5</td>
+<td>已完成</td>
+</tr>
+</tbody></table>
+<p>​    商品分类表：</p>
+<table>
+<thead>
+<tr>
+<th>商品分类编号</th>
+<th>分类名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>服装</td>
+</tr>
+<tr>
+<td>2</td>
+<td>保健</td>
+</tr>
+<tr>
+<td>3</td>
+<td>电器</td>
+</tr>
+<tr>
+<td>4</td>
+<td>图书</td>
+</tr>
+</tbody></table>
+<h3 id="1-1-3-事务型事实表"><a href="#1-1-3-事务型事实表" class="headerlink" title="1.1.3 事务型事实表"></a>1.1.3 事务型事实表</h3><p><strong>事务型事实表</strong>，一般指随着业务发生不断产生数据。特点是一旦发生不会再变化。</p>
+<p>一般比如，交易流水，操作日志，出库入库记录等等。</p>
+<p>交易流水表：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>对外业务编号</th>
+<th>订单编号</th>
+<th>用户编号</th>
+<th>支付宝交易流水编号</th>
+<th>支付金额</th>
+<th>交易内容</th>
+<th>支付类型</th>
+<th>支付时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>7577697945</td>
+<td>1</td>
+<td>111</td>
+<td>QEyF-63000323</td>
+<td>223.00</td>
+<td>海狗人参丸1</td>
+<td>alipay</td>
+<td>2019-02-10 00:50:02</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0170099522</td>
+<td>2</td>
+<td>222</td>
+<td>qdwV-25111279</td>
+<td>589.00</td>
+<td>海狗人参丸2</td>
+<td>wechatpay</td>
+<td>2019-02-10 00:50:02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1840931679</td>
+<td>3</td>
+<td>666</td>
+<td>hSUS-65716585</td>
+<td>485.00</td>
+<td>海狗人参丸3</td>
+<td>unionpay</td>
+<td>2019-02-10 00:50:02</td>
+</tr>
+<tr>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+</tr>
+</tbody></table>
+<h3 id="1-1-4-周期型事实表"><a href="#1-1-4-周期型事实表" class="headerlink" title="1.1.4    周期型事实表"></a>1.1.4    周期型事实表</h3><p><strong>周期型事实表</strong>，一般指随着业务发生不断产生变化(更新, 新增)的数据。</p>
+<p>与事务型不同的是，数据会随着业务周期性的推进而变化。</p>
+<p> 比如订单，其中订单状态会周期性变化。再比如，请假、贷款申请，随着批复状态在周期性变化。</p>
+<p>订单表：</p>
+<table>
+<thead>
+<tr>
+<th>订单编号</th>
+<th>订单金额</th>
+<th>订单状态</th>
+<th>用户id</th>
+<th>支付方式</th>
+<th>支付流水号</th>
+<th>创建时间</th>
+<th>操作时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>223.00</td>
+<td>2</td>
+<td>111</td>
+<td>alipay</td>
+<td>QEyF-63000323</td>
+<td>2019-02-10 00:01:29</td>
+<td>2019-02-10 00:01:29</td>
+</tr>
+<tr>
+<td>2</td>
+<td>589.00</td>
+<td>2</td>
+<td>222</td>
+<td>wechatpay</td>
+<td>qdwV-25111279</td>
+<td>2019-02-10 00:05:02</td>
+<td>2019-02-10 00:05:02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>485.00</td>
+<td>1</td>
+<td>666</td>
+<td>unionpay</td>
+<td>hSUS-65716585</td>
+<td>2019-02-10 00:50:02</td>
+<td>2019-02-10 00:50:02</td>
+</tr>
+<tr>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+</tr>
+</tbody></table>
+<h2 id="1-2-同步策略"><a href="#1-2-同步策略" class="headerlink" title="1.2 同步策略"></a>1.2 同步策略</h2><p>数据同步策略的类型包括：全量表、增量表、新增及变化表、拉链表</p>
+<p>Ø 全量表：存储完整的数据。</p>
+<p>Ø 增量表：存储新增加的数据。</p>
+<p>Ø 新增及变化表：存储新增加的数据和变化的数据。</p>
+<p>Ø 拉链表：对新增及变化表做定期合并。</p>
+<h3 id="1-1-1-实体表同步策略"><a href="#1-1-1-实体表同步策略" class="headerlink" title="1.1.1 实体表同步策略"></a>1.1.1 实体表同步策略</h3><p>实体表：比如用户，商品，商家，销售员等</p>
+<p>实体表数据量比较小：通常可以做每日全量，就是每天存一份完整数据。即每日全量。</p>
+<h3 id="1-1-2-维度表同步策略"><a href="#1-1-2-维度表同步策略" class="headerlink" title="1.1.2 维度表同步策略"></a>1.1.2 维度表同步策略</h3><p>维度表：比如订单状态，审批状态，商品分类</p>
+<p>维度表数据量比较小：通常可以做每日全量，就是每天存一份完整数据。即每日全量。</p>
+<p>说明：</p>
+<p>1）针对可能会有变化的状态数据可以存储每日全量。</p>
+<p>2）没变化的客观世界的维度（比如性别，地区，民族，政治成分，鞋子尺码）可以只存一份固定值。</p>
+<h3 id="1-1-3-事务型事实表同步策略"><a href="#1-1-3-事务型事实表同步策略" class="headerlink" title="1.1.3 事务型事实表同步策略"></a>1.1.3 事务型事实表同步策略</h3><p>事务型事实表：比如，交易流水，操作日志，出库入库记录等。</p>
+<p>因为数据不会变化，而且数据量巨大，所以每天只同步新增数据即可，所以可以做成每日增量表，即每日创建一个分区存储。</p>
+<h3 id="1-1-4-周期型事实表同步策略"><a href="#1-1-4-周期型事实表同步策略" class="headerlink" title="1.1.4 周期型事实表同步策略"></a>1.1.4 周期型事实表同步策略</h3><p>周期型事实表：比如，订单、请假、贷款申请等</p>
+<p>这类表从数据量的角度，存每日全量的话，数据量太大，冗余也太大。如果用每日增量的话无法反应数据变化。</p>
+<p> 每日新增及变化量，包括了当日的新增和修改。一般来说这个表，足够计算大部分当日数据的。但是这种依然无法解决能够得到某一个历史时间点（时间切片）的切片数据。 </p>
+<p> 所以要用利用每日新增和变化表，制作一张拉链表，以方便的取到某个时间切片的快照数据。所以我们需要得到每日新增及变化量。</p>
+<p>拉链表：</p>
+<table>
+<thead>
+<tr>
+<th>name姓名</th>
+<th>start新名字创建时间</th>
+<th>end名字更改时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>1990/1/1</td>
+<td>2018/12/31</td>
+</tr>
+<tr>
+<td>张小三</td>
+<td>2019/1/1</td>
+<td>2019/4/30</td>
+</tr>
+<tr>
+<td>张大三</td>
+<td>2019/5/1</td>
+<td>9999-99-99</td>
+</tr>
+<tr>
+<td>。。。</td>
+<td>。。。</td>
+<td>。。。</td>
+</tr>
+</tbody></table>
+<p>select * from user where start =&lt;’2019-1-2’ and end&gt;=’2019-1-2’</p>
+<hr>
+<h2 id="1-3-范式理论"><a href="#1-3-范式理论" class="headerlink" title="1.3 范式理论"></a>1.3 范式理论</h2><h3 id="1-3-1-范式概念"><a href="#1-3-1-范式概念" class="headerlink" title="1.3.1 范式概念"></a>1.3.1 范式概念</h3><p>关系型数据库设计时，遵照一定的规范要求，目的在于降低数据的冗余性，目前业界范式有：第一范式(1NF)、第二范式(2NF)、第三范式(3NF)、巴斯-科德范式(BCNF)、第四范式(4NF)、第五范式(5NF)。</p>
+<p>范式可以理解为设计一张数据表的表结构，符合的标准级别。</p>
+<p> 使用范式的根本目的是：</p>
+<p> 1）减少数据冗余，尽量让每个数据只出现一次。</p>
+<p> 2）保证数据一致性</p>
+<p> 缺点是获取数据时，需要通过Join拼接出最后的数据。</p>
+<h3 id="1-3-2-函数依赖"><a href="#1-3-2-函数依赖" class="headerlink" title="1.3.2 函数依赖"></a>1.3.2 函数依赖</h3><h3 id="1-3-3-三范式区分"><a href="#1-3-3-三范式区分" class="headerlink" title="1.3.3 三范式区分"></a>1.3.3 三范式区分</h3><h2 id="1-4-关系建模与维度建模"><a href="#1-4-关系建模与维度建模" class="headerlink" title="1.4 关系建模与维度建模"></a>1.4 关系建模与维度建模</h2><h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220130163059487.png" alt="image-20220130163059487"></p>
+<p>关系模型主要应用与OLTP系统中，为了保证数据的一致性以及避免冗余，所以大部分业务系统的表都是遵循第三范式的。</p>
+<p>关系模型严格遵循第三范式（3NF），数据冗余程度低，数据的一致性容易得到保证。由于数据分布于众多的表中，查询会相对复杂，在大数据的场景下，查询效率相对较低。</p>
+<p><strong>为什么关系模型在大数据中查询效率低？</strong></p>
+<p>由于表的数量较多，查询可能用到 join 操作，每次 join 会涉及到 MR 的 Shuffle 操作，在 MR 中Shuffle 是一个比较耗时的操作，join多Shuffle就多，就会比较耗时。</p>
+<h3 id="维度模型"><a href="#维度模型" class="headerlink" title="维度模型"></a>维度模型</h3><p>模型相对清晰、简洁。</p>
+<p>维度模型以数据分析作为出发点，不遵循三范式，故数据存在一定的冗余。维度模型面向业务，将业务用事实表和维度表呈现出来。表结构简单，故查询简单，查询效率较高。</p>
+<p>事实表和维度表是维度模型中的两类表。业务事实存储在事实表中。维度表中存储的是业务事实的描述信息。</p>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220130163024436.png" alt="image-20220130163024436"></p>
+<p>维度模型主要应用于OLAP系统中，因为关系模型虽然冗余少，但是在大规模数据，跨表分析统计查询过程中，会造成多表关联，这会大大降低执行效率。</p>
+<p>所以把相关各种表整理成两种：<strong>事实表和维度</strong>表两种。所有维度表围绕着事实表进行解释。</p>
+<p>维度模型（以星型为例），表与表之间最多只做一次关联，join查询较少，shuffle较少，效率较高。</p>
+<p>事实表存储的是业务事实信息</p>
+<p>维度表存储的是对业务事实的描述信息</p>
+<p>不管多么复杂的业务，都可以用事实表和维度表进行描述。</p>
+<p>事实表中的字段分类：</p>
+<ul>
+<li>  各种维度表的外键，叫做<strong>维度外键</strong></li>
+<li>  数字类型的字段，叫做<strong>度量值</strong></li>
+</ul>
+<h3 id="OLAP与OLTP对比"><a href="#OLAP与OLTP对比" class="headerlink" title="OLAP与OLTP对比"></a>OLAP与OLTP对比</h3><table>
+<thead>
+<tr>
+<th><strong>对比属性</strong></th>
+<th><strong>OLTP</strong></th>
+<th><strong>OLAP</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>读特性</strong></td>
+<td>每次查询只返回少量记录</td>
+<td>对大量记录进行汇总</td>
+</tr>
+<tr>
+<td><strong>写特性</strong></td>
+<td>随机、低延时写入用户的输入</td>
+<td>批量导入</td>
+</tr>
+<tr>
+<td><strong>使用场景</strong></td>
+<td>用户，Java EE项目</td>
+<td>内部分析师，为决策提供支持</td>
+</tr>
+<tr>
+<td><strong>数据表征</strong></td>
+<td>最新数据状态</td>
+<td>随时间变化的历史状态</td>
+</tr>
+<tr>
+<td><strong>数据规模</strong></td>
+<td>GB</td>
+<td>TP到PB</td>
+</tr>
+</tbody></table>
+<h2 id="维度表和事实表（重点）"><a href="#维度表和事实表（重点）" class="headerlink" title="维度表和事实表（重点）"></a>维度表和事实表（重点）</h2><h3 id="2-3-1-维度表"><a href="#2-3-1-维度表" class="headerlink" title="2.3.1 维度表"></a>2.3.1 维度表</h3><p><strong>维度表</strong>：一般是对事实的<strong>描述信息</strong>[维度表中的数据一般是对业务数据的描述信息]。每一张维表对应现实世界中的一个对象或者概念。例如：用户、商品、日期、地区等。</p>
+<p><strong>维表的特征：</strong></p>
+<ul>
+<li>  维表的范围很宽（具有多个属性、列比较多）</li>
+<li>  跟事实表相比，行数相对较小：通常&lt; 10万条</li>
+<li>  内容相对固定：编码表</li>
+</ul>
+<p>时间维度表：</p>
+<table>
+<thead>
+<tr>
+<th>日期ID</th>
+<th>day of week</th>
+<th>day of year</th>
+<th>季度</th>
+<th>节假日</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2020-01-01</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>元旦</td>
+</tr>
+<tr>
+<td>2020-01-02</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2020-01-03</td>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2020-01-04</td>
+<td>5</td>
+<td>4</td>
+<td>1</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2020-01-05</td>
+<td>6</td>
+<td>5</td>
+<td>1</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-2-事实表"><a href="#2-3-2-事实表" class="headerlink" title="2.3.2 事实表"></a>2.3.2 事实表</h3><p><strong>事实表中的每行数据代表一个业务事件（下单、支付、退款、评价等）</strong>。“事实”这个术语表示的是业务事件的<strong>度量值（可统计次数、个数、金额等）</strong>，例如，2020年5月21日，宋宋老师在京东花了250块钱买了一瓶海狗人参丸。维度表：时间、用户、商品、商家。事实表：250块钱、一瓶</p>
+<p>每一个事实表的行包括：具有可加性的数值型的度量值、与维表相连接的外键，通常具有两个和两个以上的外键。</p>
+<p>事实表的特征：</p>
+<p>Ø 非常的大（数据量比较大/行数比较多）</p>
+<p>Ø 内容相对的窄：列数较少（主要是外键id和度量值）</p>
+<p>Ø 经常发生变化，每天会新增加很多。</p>
+<p><strong>1）事务型事实表</strong></p>
+<p>以<strong>每个事务或事件为单位</strong>，例如一个销售订单记录，一笔支付记录等，作为事实表里的一行数据。一旦事务被提交，事实表数据被插入，数据就不再进行更改，其更新方式为增量更新。</p>
+<p><strong>2****）周期型快照事实表</strong></p>
+<p>周期型快照事实表中<strong>不会保留所有[业务操作]数据</strong>，<strong>只保留固定时间间隔的数据</strong>，例如每天或者每月的销售额，或每月的账户余额等。</p>
+<p>例如购物车，有加减商品，随时都有可能变化，但是我们更关心每天结束时这里面有多少商品，方便我们后期统计分析。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">每日全量同步</span><br><span class="line"></span><br><span class="line">使用场景：不关心业务明细操作，只关心最终的操作结果</span><br><span class="line"></span><br><span class="line">同步策略：全量同步</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3****）累积型快照事实表</strong></p>
+<p><strong>累计快照事实表用于跟踪业务事实的变化。</strong>例如，数据仓库中可能需要累积或者存储订单从下订单开始，到订单商品被打包、运输、和签收的各个业务阶段的时间点数据来跟踪订单声明周期的进展情况。当这个业务过程进行时，事实表的记录也要不断更新。</p>
+<table>
+<thead>
+<tr>
+<th><strong>订单id</strong></th>
+<th><strong>用户id</strong></th>
+<th><strong>下单时间</strong></th>
+<th><strong>打包时间</strong></th>
+<th><strong>发货时间</strong></th>
+<th><strong>签收时间</strong></th>
+<th><strong>订单金额</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td>3-8</td>
+<td>3-8</td>
+<td>3-9</td>
+<td>3-10</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="1-5-雪花模型、星型模型和星座模型"><a href="#1-5-雪花模型、星型模型和星座模型" class="headerlink" title="1.5 雪花模型、星型模型和星座模型"></a>1.5 雪花模型、星型模型和星座模型</h2><p>在维度建模的基础上又分为三种模型：星型模型、雪花模型、星座模型。</p>
+<p> <img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220104215355987.png" alt="image-20220104215355987"></p>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220104215433736.png" alt="image-20220104215433736"></p>
+<p>雪花：对维度表进行规范化，消除数据的冗余。</p>
+<hr>
+<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><p><strong>安装Sqoop</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">建议Sqoop和Hive安装在同一台机器上</span><br><span class="line"></span><br><span class="line">	import：MySQL ==&gt; HDFS ==&gt; Hive</span><br><span class="line">	export: ODS ==&gt; DWD ==&gt; DWS ==&gt; ADS ==&gt; MySql</span><br><span class="line">    	从导出的角度讲，Sqoop 需要和 Hive 安装在同一台机器上</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="离线数仓项目"><a href="#离线数仓项目" class="headerlink" title="离线数仓项目"></a>离线数仓项目</h1><p><strong>离线数仓项目Sqoop导入数据脚本</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">db_date=$2</span><br><span class="line">echo $db_date</span><br><span class="line">db_name=gmall</span><br><span class="line"></span><br><span class="line">import_data() &#123;</span><br><span class="line">/opt/module/sqoop/bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/$db_name \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--target-dir /origin_data/$db_name/db/$1/$db_date \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--fields-terminated-by &quot;\t&quot; \</span><br><span class="line">--query &quot;$2&quot;&#x27; and $CONDITIONS;&#x27;</span><br><span class="line">--null-string &#x27;\\N&#x27; \</span><br><span class="line">--null-non-string &#x27;\\N&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_sku_info()&#123;</span><br><span class="line">  import_data &quot;sku_info&quot; &quot;select </span><br><span class="line">id, spu_id, price, sku_name, sku_desc, weight, tm_id,</span><br><span class="line">category3_id, create_time</span><br><span class="line">  from sku_info where 1=1&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_user_info()&#123;</span><br><span class="line">  import_data &quot;user_info&quot; &quot;select </span><br><span class="line">id, name, birthday, gender, email, user_level, </span><br><span class="line">create_time </span><br><span class="line">from user_info where 1=1&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_base_category1()&#123;</span><br><span class="line">  import_data &quot;base_category1&quot; &quot;select </span><br><span class="line">id, name from base_category1 where 1=1&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_base_category2()&#123;</span><br><span class="line">  import_data &quot;base_category2&quot; &quot;select </span><br><span class="line">id, name, category1_id from base_category2 where 1=1&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_base_category3()&#123;</span><br><span class="line">  import_data &quot;base_category3&quot; &quot;select id, name, category2_id from base_category3 where 1=1&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_order_detail()&#123;</span><br><span class="line">  import_data   &quot;order_detail&quot;   &quot;select </span><br><span class="line">    od.id, </span><br><span class="line">    order_id, </span><br><span class="line">    user_id, </span><br><span class="line">    sku_id, </span><br><span class="line">    sku_name, </span><br><span class="line">    order_price, </span><br><span class="line">    sku_num, </span><br><span class="line">    o.create_time  </span><br><span class="line">  from order_info o, order_detail od</span><br><span class="line">  where o.id=od.order_id</span><br><span class="line">  and DATE_FORMAT(create_time,&#x27;%Y-%m-%d&#x27;)=&#x27;$db_date&#x27;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_payment_info()&#123;</span><br><span class="line">  import_data &quot;payment_info&quot;   &quot;select </span><br><span class="line">    id,  </span><br><span class="line">    out_trade_no, </span><br><span class="line">    order_id, </span><br><span class="line">    user_id, </span><br><span class="line">    alipay_trade_no, </span><br><span class="line">    total_amount,  </span><br><span class="line">    subject, </span><br><span class="line">    payment_type, </span><br><span class="line">    payment_time </span><br><span class="line">  from payment_info </span><br><span class="line">  where DATE_FORMAT(payment_time,&#x27;%Y-%m-%d&#x27;)=&#x27;$db_date&#x27;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import_order_info()&#123;</span><br><span class="line">  import_data   &quot;order_info&quot;   &quot;select </span><br><span class="line">    id, </span><br><span class="line">    total_amount, </span><br><span class="line">    order_status, </span><br><span class="line">    user_id, </span><br><span class="line">    payment_way, </span><br><span class="line">    out_trade_no, </span><br><span class="line">    create_time, </span><br><span class="line">    operate_time  </span><br><span class="line">  from order_info </span><br><span class="line">  where (DATE_FORMAT(create_time,&#x27;%Y-%m-%d&#x27;)=&#x27;$db_date&#x27; or DATE_FORMAT(operate_time,&#x27;%Y-%m-%d&#x27;)=&#x27;$db_date&#x27;)&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">  &quot;base_category1&quot;)</span><br><span class="line">     import_base_category1</span><br><span class="line">;;</span><br><span class="line">  &quot;base_category2&quot;)</span><br><span class="line">     import_base_category2</span><br><span class="line">;;</span><br><span class="line">  &quot;base_category3&quot;)</span><br><span class="line">     import_base_category3</span><br><span class="line">;;</span><br><span class="line">  &quot;order_info&quot;)</span><br><span class="line">     import_order_info</span><br><span class="line">;;</span><br><span class="line">  &quot;order_detail&quot;)</span><br><span class="line">     import_order_detail</span><br><span class="line">;;</span><br><span class="line">  &quot;sku_info&quot;)</span><br><span class="line">     import_sku_info</span><br><span class="line">;;</span><br><span class="line">  &quot;user_info&quot;)</span><br><span class="line">     import_user_info</span><br><span class="line">;;</span><br><span class="line">  &quot;payment_info&quot;)</span><br><span class="line">     import_payment_info</span><br><span class="line">;;</span><br><span class="line">   &quot;all&quot;)</span><br><span class="line">   import_base_category1</span><br><span class="line">   import_base_category2</span><br><span class="line">   import_base_category3</span><br><span class="line">   import_order_info</span><br><span class="line">   import_order_detail</span><br><span class="line">   import_sku_info</span><br><span class="line">   import_user_info</span><br><span class="line">   import_payment_info</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Sqoop导入导出NULL存储一致性问题（在论文中体现）"><a href="#Sqoop导入导出NULL存储一致性问题（在论文中体现）" class="headerlink" title="Sqoop导入导出NULL存储一致性问题（在论文中体现）"></a>Sqoop导入导出NULL存储一致性问题（在论文中体现）</h2><p>Hive 中的 NULL 在底层是以 <code>\N</code> 来存储，而 MySQL 中的 Null 在底层就是 <code>Null</code>，为了保证数据两端的一致性。在导出数据时采用 <strong>–input-null-string</strong> 和 <strong>–input-null-non-string</strong> 两个参数。导入数据时采用 <strong>–null-string</strong> 和 <strong>–null-non-string</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1、在 MySQL 中，NULL 值直接以 NULL 来存储</span><br><span class="line">2、在 Hive 中，NULL 的底层用 \N 来存储</span><br><span class="line"></span><br><span class="line">所以，MySQL 中的数据在导入到 Hive 之后，如果存在 NULL 值，在 Hive 中会被识别为 &#x27;NULL&#x27; 字符串。</span><br><span class="line">为了保证两端数据的一致性，在导入数据 MySQL--&gt;Hive 时采用 --null-string 和 --null-non-string。</span><br><span class="line"></span><br><span class="line">--null-string：当MySQL的字符串类型为null时，导入到Hive中时，使用某个值来代替。</span><br><span class="line">--null-string arg：如果MySQL中，当前列是字符串类型（char、varchar），假如该列值为NULL，导入到Hive中时，则使用 arg 来代替。</span><br><span class="line"></span><br><span class="line">--null-non-string arg：如果MySQL中，当前列是不是字符串类型，假如该列值为NULL，导入到Hive中时，则使用 arg 来代替。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>老师讲的</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">三、在导入和导出数据时，如果源数据库有字段为NULL值，那么导入和导出后，如何也使用NULL</span><br><span class="line"></span><br><span class="line">目前：  mysql--operate_time--NULL  导入到  hdfs时， hdfs----operate_time----&#x27;null&#x27;</span><br><span class="line">希望：  mysql--operate_time--NULL  导入到  hdfs时， hdfs----operate_time----NULL</span><br><span class="line"></span><br><span class="line">需要在sqoop导入和导出的命令中添加额外的参数！</span><br><span class="line"></span><br><span class="line">①默认sqoop到import数据时，将Mysql的Null类型，转为&#x27;null&#x27;</span><br><span class="line">②hive中使用\N代表NULL类型</span><br><span class="line">③如果希望在import时，讲将Mysql的Null类型，转为自己期望的类型，</span><br><span class="line">需要使用--null-string and --null-non-string </span><br><span class="line">	--null-string：  当mysql的string类型列为null时，导入到hive时，使用什么来代替！</span><br><span class="line">		--null-string a:  如果mysql中，当前列是字符串类型(varchar,char)，假如这列值为NULL，</span><br><span class="line">							导入到hive时，使用a来代替！</span><br><span class="line">	--null-non-string： 当mysql的非string类型列为null时，导入到hive时，使用什么来代替！</span><br><span class="line">		--null-non-string b: 如果mysql中，当前列不是字符串类型(varchar,char)，假如这列值为NULL，</span><br><span class="line">							导入到hive时，使用b来代替！</span><br><span class="line">④如果到导出时，希望将指定的参数，导出为mysql的NULL类型，需要使用</span><br><span class="line">--input-null-string and --input-null-non-string </span><br><span class="line">	 --input-null-string a： 在hive导出到mysql时，如果hive中string类型的列的值为a,导出到mysql中，使用NULL代替！</span><br><span class="line">	--input-null-non-string b: 在hive导出到mysql时，如果hive中非string类型的列的值为b,导出到mysql中，使用NULL代替！</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="DWD层建表"><a href="#DWD层建表" class="headerlink" title="DWD层建表"></a>DWD层建表</h2><p>老师讲的支持 snappy，我没有做，因此建表语句将会发生一些变化</p>
+<ul>
+<li>  <strong>创建订单表</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists dwd_order_info;</span><br><span class="line">create external table dwd_order_info (</span><br><span class="line">    `id` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `total_amount` decimal(10,2) COMMENT &#x27;&#x27;,</span><br><span class="line">    `order_status` string COMMENT &#x27; 1 2 3 4 5&#x27;,</span><br><span class="line">    `user_id` string COMMENT &#x27;id&#x27;,</span><br><span class="line">    `payment_way` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `out_trade_no` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `create_time` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `operate_time` string COMMENT &#x27;&#x27;</span><br><span class="line">) </span><br><span class="line">PARTITIONED BY (`dt` string)</span><br><span class="line">location &#x27;/warehouse/gmall/dwd/dwd_order_info/&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  创建订单详情表</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists dwd_order_detail;</span><br><span class="line">create external table dwd_order_detail( </span><br><span class="line">    `id` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `order_id` decimal(10,2) COMMENT &#x27;&#x27;, </span><br><span class="line">    `user_id` string COMMENT &#x27;id&#x27;,</span><br><span class="line">    `sku_id` string COMMENT &#x27;id&#x27;,</span><br><span class="line">    `sku_name` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `order_price` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `sku_num` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `create_time` string COMMENT &#x27;&#x27;</span><br><span class="line">)</span><br><span class="line">PARTITIONED BY (`dt` string)</span><br><span class="line">location &#x27;/warehouse/gmall/dwd/dwd_order_detail/&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  创建用户表</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists dwd_user_info;</span><br><span class="line">create external table dwd_user_info( </span><br><span class="line">    `id` string COMMENT &#x27;id&#x27;,</span><br><span class="line">    `name` string COMMENT &#x27;&#x27;, </span><br><span class="line">    `birthday` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `gender` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `email` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `user_level` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `create_time` string COMMENT &#x27;&#x27;</span><br><span class="line">) </span><br><span class="line">PARTITIONED BY (`dt` string)</span><br><span class="line">location &#x27;/warehouse/gmall/dwd/dwd_user_info/&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  创建支付流水表</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists dwd_payment_info;</span><br><span class="line">create external table dwd_payment_info(</span><br><span class="line">    `id`   bigint COMMENT &#x27;&#x27;,</span><br><span class="line">    `out_trade_no`    string COMMENT &#x27;&#x27;,</span><br><span class="line">    `order_id`        string COMMENT &#x27;&#x27;,</span><br><span class="line">    `user_id`         string COMMENT &#x27;&#x27;,</span><br><span class="line">    `alipay_trade_no` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `total_amount`    decimal(16,2) COMMENT &#x27;&#x27;,</span><br><span class="line">    `subject`         string COMMENT &#x27;&#x27;,</span><br><span class="line">    `payment_tpe`    string COMMENT &#x27;&#x27;,</span><br><span class="line">    `payment_time`    string COMMENT &#x27;&#x27;</span><br><span class="line">   )  </span><br><span class="line">PARTITIONED BY (`dt` string)</span><br><span class="line">location &#x27;/warehouse/gmall/dwd/dwd_payment_info/&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  创建商品表（增加分类）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists dwd_sku_info;</span><br><span class="line">create external table dwd_sku_info(</span><br><span class="line">    `id` string COMMENT &#x27;skuId&#x27;,</span><br><span class="line">    `spu_id` string COMMENT &#x27;spuid&#x27;,</span><br><span class="line">    `price` decimal(10,2) COMMENT &#x27;&#x27;,</span><br><span class="line">    `sku_name` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `sku_desc` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `weight` string COMMENT &#x27;&#x27;,</span><br><span class="line">    `tm_id` string COMMENT &#x27;id&#x27;,</span><br><span class="line">    `category3_id` string COMMENT &#x27;1id&#x27;,</span><br><span class="line">    `category2_id` string COMMENT &#x27;2id&#x27;,</span><br><span class="line">    `category1_id` string COMMENT &#x27;3id&#x27;,</span><br><span class="line">    `category3_name` string COMMENT &#x27;3&#x27;,</span><br><span class="line">    `category2_name` string COMMENT &#x27;2&#x27;,</span><br><span class="line">    `category1_name` string COMMENT &#x27;1&#x27;,</span><br><span class="line">    `create_time` string COMMENT &#x27;&#x27;</span><br><span class="line">) </span><br><span class="line">PARTITIONED BY (`dt` string)</span><br><span class="line">location &#x27;/warehouse/gmall/dwd/dwd_sku_info/&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="DWD层"><a href="#DWD层" class="headerlink" title="DWD层"></a>DWD层</h2><p>对ODS层数据进行轻度聚合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DWD层（8张表）--&gt;ODS层（5张表）</span><br><span class="line"></span><br><span class="line">商品表及其分类表 --&gt; 一张表</span><br><span class="line"></span><br><span class="line">原先：需要多次join</span><br><span class="line">数仓中：维度建模，将商品相关的一个实体表和三张维度表放入到一张宽表/降维表中。（这个操作叫做降维）</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>向DWD层导入降维后的数据（SQL）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 需求：DWD层降维后的商品表</span><br><span class="line"></span><br><span class="line"># 相关表（先从下面这四张表中取出数据）</span><br><span class="line">ods_base_category1</span><br><span class="line">ods_base_category2</span><br><span class="line">ods_base_category3</span><br><span class="line">ods_sku_info</span><br><span class="line"></span><br><span class="line"># 思路：通过四张表关联，将和商品相关的1、2、3级分类信息汇总，插入到降维后的商品表 dwd_sku_info 中</span><br><span class="line">insert overwrite table dwd_sku_info PARTITION(dt=&#x27;2020-02-11&#x27;)</span><br><span class="line">SELECT </span><br><span class="line">t1.id, t1.spu_id, t1.price,</span><br><span class="line">t1.sku_name, </span><br><span class="line">t1.sku_desc, </span><br><span class="line">t1.weight, </span><br><span class="line">t1.tm_id, </span><br><span class="line">t1.category3_id,</span><br><span class="line">t3.id category2_id, </span><br><span class="line">t4.id category1_id,</span><br><span class="line">t2.name category3_name,</span><br><span class="line">t3.name category2_name,</span><br><span class="line">t4.name category1_name,</span><br><span class="line">t1.create_time</span><br><span class="line">FROM </span><br><span class="line">(select * from ods_sku_info where dt=&#x27;2020-02-11&#x27;) t1 </span><br><span class="line">join </span><br><span class="line">(select * from ods_base_category3 where dt=&#x27;2020-02-11&#x27;) t2 </span><br><span class="line">on t1.category3_id=t2.id </span><br><span class="line">join </span><br><span class="line">(select * from ods_base_category2 where dt=&#x27;2020-02-11&#x27;) t3</span><br><span class="line">on t2.category2_id=t3.id</span><br><span class="line">join</span><br><span class="line">(select * from ods_base_category1 where dt=&#x27;2020-02-11&#x27; )t4</span><br><span class="line">on t3.category1_id=t4.id</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>将导入数据的SQL生成脚本文件</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义变量方便修改</span></span><br><span class="line">APP=gmall</span><br><span class="line">hive=/opt/module/hive/bin/hive</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是输入的日期按照取输入日期；如果没输入日期取当前时间的前一天</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$1</span>&quot;</span> ] ;<span class="keyword">then</span></span><br><span class="line">	do_date=<span class="variable">$1</span></span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">	do_date=`<span class="built_in">date</span> -d <span class="string">&quot;-1 day&quot;</span> +%F`  </span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">sql=<span class="string">&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">set hive.exec.dynamic.partition.mode=nonstrict;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">insert overwrite table &quot;</span><span class="variable">$APP</span><span class="string">&quot;.dwd_order_info partition(dt)</span></span><br><span class="line"><span class="string">select * from &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_order_info </span></span><br><span class="line"><span class="string">where dt=&#x27;<span class="variable">$do_date</span>&#x27; and id is not null;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">insert overwrite table &quot;</span><span class="variable">$APP</span><span class="string">&quot;.dwd_order_detail partition(dt)</span></span><br><span class="line"><span class="string">select * from &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_order_detail </span></span><br><span class="line"><span class="string">where dt=&#x27;<span class="variable">$do_date</span>&#x27;   and id is not null;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">insert overwrite table &quot;</span><span class="variable">$APP</span><span class="string">&quot;.dwd_user_info partition(dt)</span></span><br><span class="line"><span class="string">select * from &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_user_info</span></span><br><span class="line"><span class="string">where dt=&#x27;<span class="variable">$do_date</span>&#x27; and id is not null;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">insert overwrite table &quot;</span><span class="variable">$APP</span><span class="string">&quot;.dwd_payment_info partition(dt)</span></span><br><span class="line"><span class="string">select * from &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_payment_info</span></span><br><span class="line"><span class="string">where dt=&#x27;<span class="variable">$do_date</span>&#x27; and id is not null;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">insert overwrite table &quot;</span><span class="variable">$APP</span><span class="string">&quot;.dwd_sku_info partition(dt)</span></span><br><span class="line"><span class="string">select  </span></span><br><span class="line"><span class="string">    sku.id,</span></span><br><span class="line"><span class="string">    sku.spu_id,</span></span><br><span class="line"><span class="string">    sku.price,</span></span><br><span class="line"><span class="string">    sku.sku_name,</span></span><br><span class="line"><span class="string">    sku.sku_desc,</span></span><br><span class="line"><span class="string">    sku.weight,</span></span><br><span class="line"><span class="string">    sku.tm_id,</span></span><br><span class="line"><span class="string">    sku.category3_id,</span></span><br><span class="line"><span class="string">    c2.id category2_id,</span></span><br><span class="line"><span class="string">    c1.id category1_id,</span></span><br><span class="line"><span class="string">    c3.name category3_name,</span></span><br><span class="line"><span class="string">    c2.name category2_name,</span></span><br><span class="line"><span class="string">    c1.name category1_name,</span></span><br><span class="line"><span class="string">    sku.create_time,</span></span><br><span class="line"><span class="string">    sku.dt</span></span><br><span class="line"><span class="string">from</span></span><br><span class="line"><span class="string">    &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_sku_info sku</span></span><br><span class="line"><span class="string">join &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_base_category3 c3 on sku.category3_id=c3.id </span></span><br><span class="line"><span class="string">    join &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_base_category2 c2 on c3.category2_id=c2.id </span></span><br><span class="line"><span class="string">    join &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ods_base_category1 c1 on c2.category1_id=c1.id </span></span><br><span class="line"><span class="string">where sku.dt=&#x27;<span class="variable">$do_date</span>&#x27;  and c2.dt=&#x27;<span class="variable">$do_date</span>&#x27;</span></span><br><span class="line"><span class="string">and c3.dt=&#x27;<span class="variable">$do_date</span>&#x27; and c1.dt=&#x27;<span class="variable">$do_date</span>&#x27;</span></span><br><span class="line"><span class="string">and sku.id is not null;</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$hive</span> -e <span class="string">&quot;<span class="variable">$sql</span>&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="创建用户在电商业务中的行为宽表"><a href="#创建用户在电商业务中的行为宽表" class="headerlink" title="创建用户在电商业务中的行为宽表"></a>创建用户在电商业务中的行为宽表</h3><h4 id="创建用户行为宽表"><a href="#创建用户行为宽表" class="headerlink" title="创建用户行为宽表"></a>创建用户行为宽表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists dws_user_action;</span><br><span class="line">create external table dws_user_action </span><br><span class="line">(   </span><br><span class="line">    user_id          string      comment &#x27;用户 id&#x27;,</span><br><span class="line">    order_count     bigint      comment &#x27;下单次数 &#x27;,</span><br><span class="line">    order_amount    decimal(16,2)  comment &#x27;下单金额 &#x27;,</span><br><span class="line">    payment_count   bigint      comment &#x27;支付次数&#x27;,</span><br><span class="line">    payment_amount  decimal(16,2) comment &#x27;支付金额 &#x27;</span><br><span class="line">) COMMENT &#x27;每日用户行为宽表&#x27;</span><br><span class="line">PARTITIONED BY (`dt` string)</span><br><span class="line">location &#x27;/warehouse/gmall/dws/dws_user_action/&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>需求：dws_user_action</strong>：创建用户在电商业务中的行为宽表，统计每个用户每天的</p>
+<ol>
+<li> 下单总数</li>
+<li> 下单总金额</li>
+<li> 支付总数</li>
+<li> 支付总金额</li>
+<li> 和评论次数（不要了）</li>
+</ol>
+<p><strong>相关表：</strong></p>
+<ul>
+<li>  dwd_order_info： 取user_id(用户)，total_amount(当前订单金额)</li>
+<li>  dwd_payment_info： 取user_id(用户)，total_amount(当前支付金额)</li>
+<li>  dwd_comment_log： 取user_id(用户)，统计评论次数，<code>不要了</code></li>
+</ul>
+<p><strong>注意：</strong>最后拼接结果集时，不能使用 inner join!</p>
+<ul>
+<li>  因为三个结果集中，可能存在差异（只存在在t3，不在t2,t1中），需要使用full join!</li>
+<li>  如果不使用 join，则需要使用 union all</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite TABLE dws_user_action PARTITION(dt=&#x27;2020-02-11&#x27;)</span><br><span class="line">select</span><br><span class="line">    user_id,</span><br><span class="line">    sum(order_count),</span><br><span class="line">    sum(order_amount),</span><br><span class="line">    sum(payment_count),</span><br><span class="line">    sum(payment_amount)</span><br><span class="line">from</span><br><span class="line">(</span><br><span class="line">    select </span><br><span class="line">    	user_id,</span><br><span class="line">    	count(*) order_count,</span><br><span class="line">    	sum(total_amount) order_amount,</span><br><span class="line">    	0 payment_count,</span><br><span class="line">    	0 payment_amount</span><br><span class="line">    from dwd_order_info</span><br><span class="line">    where dt=&#x27;2020-02-11&#x27;</span><br><span class="line">    GROUP by user_id</span><br><span class="line">    </span><br><span class="line">    union all</span><br><span class="line"></span><br><span class="line">    select </span><br><span class="line">    	user_id,</span><br><span class="line">    	0 order_count,</span><br><span class="line">    	0 order_amount,</span><br><span class="line">    	count(*) payment_count,</span><br><span class="line">    	sum(total_amount) payment_amount</span><br><span class="line">	from dwd_payment_info</span><br><span class="line">    where dt=&#x27;2020-02-11&#x27;</span><br><span class="line">    GROUP by user_id</span><br><span class="line">) tmp</span><br><span class="line">GROUP by user_id</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>转换生成脚本文件</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义变量方便修改</span></span><br><span class="line">APP=gmall</span><br><span class="line">hive=/opt/module/hive/bin/hive</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是输入的日期按照取输入日期；如果没输入日期取当前时间的前一天</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$1</span>&quot;</span> ] ;<span class="keyword">then</span></span><br><span class="line">	do_date=<span class="variable">$1</span></span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">	do_date=`<span class="built_in">date</span> -d <span class="string">&quot;-1 day&quot;</span> +%F`  </span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">sql=<span class="string">&quot;</span></span><br><span class="line"><span class="string">insert overwrite TABLE dws_user_action PARTITION(dt=&#x27;<span class="variable">$do_date</span>&#x27;)</span></span><br><span class="line"><span class="string">select</span></span><br><span class="line"><span class="string">    user_id,</span></span><br><span class="line"><span class="string">    sum(order_count),</span></span><br><span class="line"><span class="string">    sum(order_amount),</span></span><br><span class="line"><span class="string">    sum(payment_count),</span></span><br><span class="line"><span class="string">    sum(payment_amount)</span></span><br><span class="line"><span class="string">from</span></span><br><span class="line"><span class="string">(</span></span><br><span class="line"><span class="string">    select </span></span><br><span class="line"><span class="string">    	user_id,</span></span><br><span class="line"><span class="string">    	count(*) order_count,</span></span><br><span class="line"><span class="string">    	sum(total_amount) order_amount,</span></span><br><span class="line"><span class="string">    	0 payment_count,</span></span><br><span class="line"><span class="string">    	0 payment_amount</span></span><br><span class="line"><span class="string">    from dwd_order_info</span></span><br><span class="line"><span class="string">    where dt=&#x27;<span class="variable">$do_date</span>&#x27;</span></span><br><span class="line"><span class="string">    GROUP by user_id</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    union all</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    select </span></span><br><span class="line"><span class="string">    	user_id,</span></span><br><span class="line"><span class="string">    	0 order_count,</span></span><br><span class="line"><span class="string">    	0 order_amount,</span></span><br><span class="line"><span class="string">    	count(*) payment_count,</span></span><br><span class="line"><span class="string">    	sum(total_amount) payment_amount</span></span><br><span class="line"><span class="string">	from dwd_payment_info</span></span><br><span class="line"><span class="string">    where dt=&#x27;<span class="variable">$do_date</span>&#x27;</span></span><br><span class="line"><span class="string">    GROUP by user_id</span></span><br><span class="line"><span class="string">) tmp</span></span><br><span class="line"><span class="string">GROUP by user_id</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$hive</span> -e <span class="string">&quot;<span class="variable">$sql</span>&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="需求一：GMV成交总额"><a href="#需求一：GMV成交总额" class="headerlink" title="需求一：GMV成交总额"></a>需求一：GMV成交总额</h2><p>ADS层：面向业务的一层</p>
+<p>流程：</p>
+<ol>
+<li> 建立 ADS 层的表</li>
+<li> 将查询得到的数据写入到表中</li>
+</ol>
+<p><strong>建表</strong>：统计每天的 GMV 总额</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hive (gmall)&gt;</span><br><span class="line">drop table if exists ads_gmv_sum_day;</span><br><span class="line">create external table ads_gmv_sum_day(</span><br><span class="line">    `dt` string COMMENT &#x27;统计日期&#x27;,</span><br><span class="line">    `gmv_count`  bigint COMMENT &#x27;当日gmv订单个数&#x27;,</span><br><span class="line">    `gmv_amount`  decimal(16,2) COMMENT &#x27;当日gmv订单总金额&#x27;,</span><br><span class="line">    `gmv_payment`  decimal(16,2) COMMENT &#x27;当日支付金额&#x27;</span><br><span class="line">) COMMENT &#x27;GMV&#x27;</span><br><span class="line">row format delimited fields terminated by &#x27;\t&#x27;</span><br><span class="line">location &#x27;/warehouse/gmall/ads/ads_gmv_sum_day/&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>向新表中插入从宽表中得到的数据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">use gmall;</span><br><span class="line">INSERT INTO TABLE  ads_gmv_sum_day</span><br><span class="line">SELECT </span><br><span class="line">	&#x27;2020-02-11&#x27;,</span><br><span class="line">	SUM(order_count) AS gmv_count,</span><br><span class="line">	SUM(order_amount) AS gmv_amount,</span><br><span class="line">	SUM(payment_amount) AS gmv_payment</span><br><span class="line">FROM dws_user_action</span><br><span class="line">WHERE dt=&#x27;2020-02-11&#x27;</span><br><span class="line">group by dt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>制作成脚本</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义变量方便修改</span></span><br><span class="line">APP=gmall</span><br><span class="line">hive=/opt/module/hive/bin/hive</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是输入的日期按照取输入日期；如果没输入日期取当前时间的前一天</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$1</span>&quot;</span> ] ;<span class="keyword">then</span></span><br><span class="line">	do_date=<span class="variable">$1</span></span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">	do_date=`<span class="built_in">date</span> -d <span class="string">&quot;-1 day&quot;</span> +%F`</span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">sql=<span class="string">&quot;</span></span><br><span class="line"><span class="string">insert into table &quot;</span><span class="variable">$APP</span><span class="string">&quot;.ads_gmv_sum_day </span></span><br><span class="line"><span class="string">select </span></span><br><span class="line"><span class="string">    &#x27;<span class="variable">$do_date</span>&#x27; dt,</span></span><br><span class="line"><span class="string">    sum(order_count)  gmv_count,</span></span><br><span class="line"><span class="string">    sum(order_amount) gmv_amount,</span></span><br><span class="line"><span class="string">    sum(payment_amount) payment_amount </span></span><br><span class="line"><span class="string">from &quot;</span><span class="variable">$APP</span><span class="string">&quot;.dws_user_action </span></span><br><span class="line"><span class="string">where dt =&#x27;<span class="variable">$do_date</span>&#x27;</span></span><br><span class="line"><span class="string">group by dt;</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$hive</span> -e <span class="string">&quot;<span class="variable">$sql</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="需求二：转化率之用户新鲜度及漏斗分析（不做）"><a href="#需求二：转化率之用户新鲜度及漏斗分析（不做）" class="headerlink" title="需求二：转化率之用户新鲜度及漏斗分析（不做）"></a>需求二：转化率之用户新鲜度及漏斗分析（不做）</h2><hr>
+<h1 id="数据仓库分层"><a href="#数据仓库分层" class="headerlink" title="数据仓库分层"></a>数据仓库分层</h1><blockquote>
+<ol>
+<li>什么是数据分层？</li>
+<li>数据分层的好处</li>
+<li>一种通用的数据分层设计举例</li>
+<li>各层会用到的计算引擎和存储系统</li>
+<li>分层实现</li>
+<li>数据分层的一些概念说明</li>
+<li>大数据相关基础概念</li>
+</ol>
+</blockquote>
+<h2 id="一、什么是数据分层？"><a href="#一、什么是数据分层？" class="headerlink" title="一、什么是数据分层？"></a>一、什么是数据分层？</h2><p>数据分层是一套行之有效的数据组织和管理方法，使得数据体系更有序。</p>
+<h2 id="二、数据分层的好处"><a href="#二、数据分层的好处" class="headerlink" title="二、数据分层的好处"></a>二、数据分层的好处</h2><ol>
+<li> 清晰数据结构：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便的定位和理解。</li>
+<li> 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算。</li>
+<li> 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径。</li>
+<li> 复杂问题简单化：将一个复杂的任务分解成多个步骤完成，每一层解决特定的问题。</li>
+</ol>
+<h2 id="三、一种通用的数据分层设计"><a href="#三、一种通用的数据分层设计" class="headerlink" title="三、一种通用的数据分层设计"></a>三、一种通用的数据分层设计</h2><ul>
+<li>  ODS：存放原始数据</li>
+<li>  DW：存放数仓中间层数据</li>
+<li>  APP：面向业务定制的应用数据</li>
+</ul>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_1_20200103045352770" alt="大数据之数据仓库分层"></p>
+<h2 id="三、举例"><a href="#三、举例" class="headerlink" title="三、举例"></a>三、举例</h2><p>以下是一个电商网站的数据体系设计，只关注用户访问日志这部分数据。</p>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_2_20200103045352832" alt="大数据之数据仓库分层"></p>
+<h2 id="四、各层会用到的计算引擎和存储系统"><a href="#四、各层会用到的计算引擎和存储系统" class="headerlink" title="四、各层会用到的计算引擎和存储系统"></a>四、各层会用到的计算引擎和存储系统</h2><p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_3_202001030453534" alt="大数据之数据仓库分层"></p>
+<h2 id="五、分层实现"><a href="#五、分层实现" class="headerlink" title="五、分层实现"></a>五、分层实现</h2><p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_4_2020010304535367" alt="大数据之数据仓库分层"></p>
+<p>在确定建模思路和模型类型之后，下一步的工作是数据分层。数据分层可以使得数据构建体系更加清晰，便于数据使用者快速对数据进行定位；同时数据分层也可以简化数据加工处理流程，降低计算复杂度。</p>
+<p>我们常用的数据仓库的数据分层通常分为集市层、中间层、基础数据层上下三层结构。由传统的多层结构减少到上下三层结构的目的是为了压缩整体数据处理流程的长度，同时扁平化的数据处理流程有助于数据质量控制和数据运维。</p>
+<p>在上下三层的结构的右侧，我们增加了流式数据，将其添加成数据体系的一部分。这是因为当前的数据应用方向会越来越关注数据的时效性，越实时的数据价值度越高。</p>
+<p>但是，由于流式数据集的采集、加工和管理的成本较高，一般都会按照需求驱动的方式建设；此外，考虑到成本因素，流式数据体系的结构更加扁平化，通常不会设计中间层。</p>
+<p>下面来具体看下每一层的具体作用。</p>
+<p><strong>数据基础层</strong></p>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_5_20200103045353113" alt="大数据之数据仓库分层"></p>
+<p>数据基础层主要完成的工作包括以下几点：</p>
+<ul>
+<li>  数据采集：把不同数据源的数据统一采集到一个平台上；</li>
+<li>  数据清洗，清洗不符合质量要求的数据，避免脏数据参与后续数据计算；</li>
+<li>  数据归类，建立数据目录，在基础层一般按照来源系统和业务域进行分类；</li>
+<li>  数据结构化，对于半结构化和非结构化的数据，进行结构化；</li>
+<li>  数据规范化，包括规范维度标识、统一计量单位等规范化操作。</li>
+</ul>
+<p><strong>数据中间层</strong></p>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_6_20200103045353176" alt="大数据之数据仓库分层"></p>
+<p>数据中间层最为重要的目标就是把同一实体不同来源的数据打通起来，这是因为当前业务形态下，同一实体的数据可能分散在不同的系统和来源，且这些数据对同一实体的标识符可能不同。此外，数据中间层还可以从行为中抽象关系。从行为中抽象出来的基础关系，会是未来上层应用一个很重要的数据依赖。例如抽象出的兴趣、偏好、习惯等关系数据是推荐、个性化的基础生产资料。</p>
+<p>在中间层，为了保证主题的完整性或提高数据的易用性，经常会进行适当的数据冗余。比如某一实事数据和两个主题相关但自身又没有成为独立主题，则会放在两个主题库中；为了提高单数据表的复用性和减少计算关联，通常会在事实表中冗余部分维度信息。</p>
+<p><strong>数据集市层</strong></p>
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/179455377_7_20200103045353238" alt="大数据之数据仓库分层"></p>
+<p>数据集市层是上下三层架构的最上层，通常是由需求场景驱动建设的，并且各集市间垂直构造。在数据集市层，我们可以深度挖掘数据价值。值得注意的是，数据集市层需要能够快速试错。</p>
+<p><strong>数据架构</strong></p>
+<p>数据架构包括数据整合、数据体系、数据服务三部分。其中，数据整合又可以分为结构化、半结构化、非结构化三类。</p>
+<ul>
+<li><strong>数据整合</strong><ul>
+<li>  结构化数据采集又可细分为全量采集、增量采集、实时采集三类。三种采集方式的各自特点和适应场合如上图所示，其中全量采集的方式最为简单；实时采集的采集质量最难控制。</li>
+<li>  在传统的架构中，日志的结构化处理是放在数仓体系之外的。在大数据平台仓库架构中，日志在采集到平台之前不做结构化处理；在大数据平台上按行符分割每条日志，整条日志存储在一个数据表字段；后续，通过UDF或MR计算框架实现日志结构化。</li>
+<li>  在我们看来，日志结构越规范，解析成本越低。在日志结构化的过程中，并不一定需要完全平铺数据内容，只需结构化出重要常用字段；同时，为了保障扩展性，我们可以利用数据冗余保存原始符合字段（如useragent字段）。</li>
+<li>  非结构化的数据需要结构化才能使用。非结构化数据特征提取包括语音转文本、图片识别、自然语言处理、图片达标、视频识别等方式。尽管目前数仓架构体系中并不包含非结构化数据特征提取操作，但在未来，这将成为可能。</li>
+</ul>
+</li>
+<li><strong>数据服务化</strong>：数据服务化包括统计服务、分析服务和标签服务：<ul>
+<li>  统计服务主要是偏传统的报表服务，利用大数据平台将数据加工后的结果放入关系型数据库中，供前端的报表系统或业务系统查询；</li>
+<li>  分析服务用来提供明细的事实数据，利用大数据平台的实时计算能力，允许操作人员自主灵活的进行各种维度的交叉组合查询。分析服务的能力类似于传统cube提供的内容，但是在大数据平台下不需要预先建好cube，更灵活、更节省成本；</li>
+<li>  标签服务，大数据的应用场景下，经常会对主体进行特征刻画，比如客户的消费能力、兴趣习惯、物理特征等等，这些数据通过打标签转换成KV的数据服务，用于前端应用查询。</li>
+</ul>
+</li>
+</ul>
+<h2 id="六、数据分层的一些概念说明"><a href="#六、数据分层的一些概念说明" class="headerlink" title="六、数据分层的一些概念说明"></a>六、数据分层的一些概念说明</h2><p>大数据数据仓库是基于HIVE构建的数据仓库，分布文件系统为HDFS，资源管理为Yarn，计算引擎主要包括MapReduce/Tez/Spark等，分层架构说明如下：</p>
+<ol>
+<li> 数据来源层：日志或者关系型数据库，并通过Flume、Sqoop、Kettle等etl工具导入到HDFS，并映射到HIVE的数据仓库表中。</li>
+<li> 事实表是数据仓库结构中的中央表，它包含联系事实与维度表的数字度量值和键。事实数据表包含描述业务（例如产品销售）内特定事件的数据。</li>
+<li> 维度表是维度属性的集合。是分析问题的一个窗口。是人们观察数据的特定角度，是考虑问题时的一类属性，属性的集合构成一个维。数据库结构中的星型结构，该结构在位于结构中心的单个事实数据表中维护数据，其它维度数据存储在维度表中。每个维度表与事实数据表直接相关，且通常通过一个键联接到事实数据表中。星型架构是数据仓库比较流向的一种架构。</li>
+</ol>
+<p>星型模式的基本思想就是保持立方体的多维功能，同时也增加了小规模数据存储的灵活性。</p>
+<p><strong>说明：</strong></p>
+<p>1)、事实表就是你要关注的内容；</p>
+<p>2)、维度表就是你观察该事务的角度，是从哪个角度去观察这个内容的。</p>
+<p>例如，某地区商品的销量，是从地区这个角度观察商品销量的。事实表就是销量表，维度表就是地区表</p>
+<ol start="4">
+<li><p>主题表：主题（Subject）是在较高层次上将企业信息系统中的数据进行综合、归类和分析利用的一个抽象概念，每一个主题基本对应一个宏观的分析领域。在逻辑意义上，它是对应企业中某一宏观分析领域所涉及的分析对象。例如“销售分析”就是一个分析领域，因此这个数据仓库应用的主题就是“销售分析”。</p>
+<p> 面向主题的数据组织方式，就是在较高层次上对分析对象数据的一个完整并且一致的描述，能刻画各个分析对象所涉及的企业各项数据，以及数据之间的联系。所谓较高层次是相对面向应用的数据组织方式而言的，是指按照主题进行数据组织的方式具有更高的数据抽象级别。与传统数据库面向应用进行数据组织的特点相对应，数据仓库中的数据是面向主题进行组织的。例如，一个生产企业的数据仓库所组织的主题可能有产品订货分析和货物发运分析等。而按应用来组织则可能为财务子系统、销售子系统、供应子系统、人力资源子系统和生产调度子系统。</p>
+</li>
+<li><p> 汇总数据层：聚合原子粒度事实表及维度表，为满足固定分析需求，以提高查询性能为目的，形成的高粒度表，如周报、月报、季报、年报等。</p>
+</li>
+<li><p> 应用层：这层数据是完全为了满足具体的分析需求而构建的数据，也是星形结构的数据。应用层为前端应用的展现提现数据，可以为关系型数据库组成。</p>
+</li>
+<li><p>【补充】数据缓存层：</p>
+<p> 用于存放接口方提供的原始数据的数据库层，此层的表结构与源数据保持基本一致，数据存放时间根据数据量大小和项目情况而定，如果数据量较大，可以只存近期数据，将历史数据进行备份。此层的目的在于数据的中转和备份。</p>
+<p> 临时数据表层：</p>
+<p> 存放临时测试数据表（Temp表），或者中间结果集的表。</p>
+</li>
+</ol>
+<h2 id="七、大数据相关基础概念"><a href="#七、大数据相关基础概念" class="headerlink" title="七、大数据相关基础概念"></a>七、大数据相关基础概念</h2><blockquote>
+<p>  数据源：业务系统、埋点、爬虫</p>
+</blockquote>
+<p>PG：PostgreSQL,一种关系型数据库</p>
+<p>Sqoop：是一个在结构化数据(mysql/oracle)和Hadoop(Hive)之间进行批量数据迁移的工具</p>
+<p>Flume：是一个分布式、可靠、高可用的海量日志采集、聚合和传输的系统。支持在日志系统中定制各类数据发送方，用于收集数据；提供对数据进行简单处理，并写到各种数据接受方（HDFS\Hbase）的能力。</p>
+<p>Kafka：是一个分布式、支持分区的、多副本的，基于zookeeper协调的分布式消息系统。</p>
+<p>Flink：一个流式的数据流执行引擎。针对数据流的分布式计算提供了数据分布、数据通信以及容错机制等功能。</p>
+<p>Kylin：是一个开源的分布式分析引擎，提供Hadoop/Spark之上的SQL查询接口及多维分析（OLAP）能力一直吃超大规模数据。能在亚秒内查询巨大的Hive表。</p>
+<p>ES：elasticsSearch,是一个高扩展、开源的全文检索和分析引擎，可准实时地快速存储、搜索、分析海量的数据。</p>
+<p>Hadoop：是一个分布式系统基础架构，可使用户在不了解分布式底层细节的情况下开发分布式程序，充分利用集群的威力进行高速运算和存储。两大核心：HDFS\MapReduce</p>
+<p>HDFS：是可扩展、容错、高性能的分布式文件系统，异步复制，一次写入多次读取，主要负责存储。</p>
+<p>MapReduce：分布式计算框架。</p>
+<p>Spark：是一个专为大规模数据处理而设计的快速通用的计算引擎。</p>
+<hr>
+<h1 id="数据仓库分层-1"><a href="#数据仓库分层-1" class="headerlink" title="数据仓库分层"></a>数据仓库分层</h1><p>数仓中的每一层都需要解决这样两个问题：</p>
+<ol>
+<li><p> 确定要创建哪些表</p>
+</li>
+<li><p>确定每张表的表结构</p>
+<ul>
+<li>  确定每行数据的含义</li>
+<li>  确定表的字段</li>
+<li>  确定表的分区规划</li>
+</ul>
+</li>
+</ol>
+<p>提高数据的复用性，避免重复计算</p>
+<h1 id="毕设实战"><a href="#毕设实战" class="headerlink" title="毕设实战"></a>毕设实战</h1><h2 id="Sqoop导入数据"><a href="#Sqoop导入数据" class="headerlink" title="Sqoop导入数据"></a>Sqoop导入数据</h2><ol>
+<li><p>ods_base_material</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_material \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_material</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>ods_base_material_type</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_material_type \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_material_type</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>ods_base_province</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_province \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_province</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>ods_base_region</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_region \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_region</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>ods_base_screw</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_screw \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_screw</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>ods_base_spud_type</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_spud_type \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_spud_type</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_base_company</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table base_company \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_base_company</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_environment</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table environment \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_environment</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_final_product</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table final_product \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_final_product</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_geo_type</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table geo_type \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_geo_type</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_material_list</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table material_list \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_material_list</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_mud</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table mud \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_mud</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_rock_type</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table rock_type \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_rock_type</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_spud_num</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table spud_num \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_spud_num</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_store_record</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table store_record \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_store_record</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_warehouse</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table warehouse \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_warehouse</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_well</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table well \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_well</span><br></pre></td></tr></table></figure></li>
+<li><p>ods_well_type</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table well_type \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--hive-import \</span><br><span class="line">--fields-terminated-by <span class="string">&quot;\t&quot;</span> \</span><br><span class="line">--hive-overwrite \</span><br><span class="line">--hive-table material.ods_well_type</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Sqoop导出数据"><a href="#Sqoop导出数据" class="headerlink" title="Sqoop导出数据"></a>Sqoop导出数据</h2><ol>
+<li><p>app_company_use</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material_res \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table company_use \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--export-dir /warehouse/material/app/app_company_use \</span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>app_warehouse_use</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material_res \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table warehouse_use \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--export-dir /warehouse/material/app/app_warehouse_use \</span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>app_well_use</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop <span class="built_in">export</span> \</span><br><span class="line">--connect jdbc:mysql://hadoop102:3306/material_res \</span><br><span class="line">--username root \</span><br><span class="line">--password 123456 \</span><br><span class="line">--table well_use \</span><br><span class="line">--num-mappers 1 \</span><br><span class="line">--export-dir /warehouse/material/app/app_well_use \</span><br><span class="line">--input-fields-terminated-by <span class="string">&quot;\t&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS dwd_material_use;</span><br><span class="line">CREATE EXTERNAL TABLE dwd_material_use(</span><br><span class="line">    id INT COMMENT &#x27;编号&#x27;,</span><br><span class="line">    company_id INT COMMENT &#x27;公司id&#x27;,</span><br><span class="line">    warehouse_id INT COMMENT &#x27;仓库id&#x27;,</span><br><span class="line">    material_id INT COMMENT &#x27;物料id&#x27;,</span><br><span class="line">    operator_id INT COMMENT &#x27;操作者id&#x27;,</span><br><span class="line">    well_id INT COMMENT &#x27;井id&#x27;,</span><br><span class="line">    type INT COMMENT &#x27;出库为0，入库为1&#x27;,</span><br><span class="line">    num INT COMMENT &#x27;数量&#x27;,</span><br><span class="line">    operate_time STRING COMMENT &#x27;操作时间&#x27;</span><br><span class="line">) COMMENT &#x27;物料消耗事实表&#x27;</span><br><span class="line">LOCATION &#x27;/warehouse/material/dwd/dwd_material_use/&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h2 id="数据挖掘原始数据"><a href="#数据挖掘原始数据" class="headerlink" title="数据挖掘原始数据"></a>数据挖掘原始数据</h2><p><strong>MySQL</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	spud_num.`env_id`,</span><br><span class="line">	base_material_type.`name`,</span><br><span class="line">	GROUP_CONCAT(base_material.material_name SEPARATOR &#x27;,&#x27;) AS material_name, </span><br><span class="line">	GROUP_CONCAT(material_list.num  SEPARATOR &#x27;,&#x27;) AS material_num</span><br><span class="line">FROM spud_num, environment, material_list, base_material, base_material_type</span><br><span class="line">WHERE spud_num.env_id = environment.id</span><br><span class="line">AND spud_num.`product_id` = material_list.`product_id`</span><br><span class="line">AND spud_num.`spud_type` = material_list.`spud_id`</span><br><span class="line">AND material_list.`material_id` = base_material.`id`</span><br><span class="line">AND base_material.`material_type` = base_material_type.`id`</span><br><span class="line">AND base_material_type.id = 1</span><br><span class="line">GROUP BY environment.id</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220223112144155.png" alt="image-20220223112144155"></p>
+<p><strong>Hive</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">-- 钻头</span><br><span class="line">with</span><br><span class="line">mat_use as (</span><br><span class="line">    SELECT</span><br><span class="line">        dwd_material_list.env_id,</span><br><span class="line">        concat_ws(&#x27;,&#x27;, collect_set(dim_material_info.material_name)) AS material_name,</span><br><span class="line">        concat_ws(&#x27;,&#x27;, collect_set(cast(ods_material_list.num as STRING))) AS material_num</span><br><span class="line">    FROM dwd_material_list, dim_environment, ods_material_list, dim_material_info</span><br><span class="line">    WHERE dwd_material_list.env_id = dim_environment.environment_id</span><br><span class="line">    AND dwd_material_list.product_id = ods_material_list.product_id</span><br><span class="line">    AND dwd_material_list.spud_type = ods_material_list.spud_id</span><br><span class="line">    AND ods_material_list.`material_id` = dim_material_info.material_id</span><br><span class="line">    AND dim_material_info.material_type_id = 1</span><br><span class="line">    GROUP BY dwd_material_list.env_id</span><br><span class="line">),</span><br><span class="line">env as (</span><br><span class="line">    select</span><br><span class="line">        *</span><br><span class="line">    from dim_environment</span><br><span class="line">)</span><br><span class="line">select</span><br><span class="line">    material_name,</span><br><span class="line">    material_num,</span><br><span class="line">    well_type_name,</span><br><span class="line">    well_type_name,</span><br><span class="line">    geo_type_name,</span><br><span class="line">    mud_type_name,</span><br><span class="line">    rock_type_name,</span><br><span class="line">    spud_deep,</span><br><span class="line">    pressure,</span><br><span class="line">    temperature,</span><br><span class="line">    hardness,</span><br><span class="line">    plastic</span><br><span class="line">from mat_use</span><br><span class="line">left join env on mat_use.env_id = env.environment_id;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/01/04/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/image-20220223115252122.png" alt="image-20220223115252122"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -5495,74 +6460,6 @@
 </ul>
 <p>注意：按照部门编号分区，不一定就是固定死的数值，可以是20号和30号部门分到一个分区里面去。</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/11/Spark-Streaming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/11/Spark-Streaming/" class="post-title-link" itemprop="url">Spark_Streaming</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-12-11 20:50:37" itemprop="dateCreated datePublished" datetime="2021-12-11T20:50:37+08:00">2021-12-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 

@@ -116,13 +116,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -156,6 +156,508 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Hadoop集群搭建</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-11-21 11:57:51" itemprop="dateCreated datePublished" datetime="2021-11-21T11:57:51+08:00">2021-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-02-16 10:32:21" itemprop="dateModified" datetime="2022-02-16T10:32:21+08:00">2022-02-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Hadoop-运行环境搭建"><a href="#Hadoop-运行环境搭建" class="headerlink" title="Hadoop 运行环境搭建"></a>Hadoop 运行环境搭建</h1><h2 id="安装前的注意事项"><a href="#安装前的注意事项" class="headerlink" title="安装前的注意事项"></a>安装前的注意事项</h2><ol>
+<li><p>Hadoop项目是用Java语言实现的，Hadoop运行时依赖JDK相关的类库，所以安装Hadoop前必须保证当前机器已经安装了JDK，并且配置了 <code>JAVA_HOME</code> 全局变量。</p>
+</li>
+<li><p>Hadoop 集群本质上通过多个不同类型的进程配合工作，如 NameNode，DataNode，ResourceManager，NodeManager 等，这些进程往往部署在不同的机器上，并且进程之间需要互相通信。既然要通信时就需要知道彼此的 IP 地址和端口号，为了方便记忆和书写，我们往往会选择使用主机名进行通信，这时候就需要修改 <code>hosts</code> 文件配置主机名到 IP 的映射了。当然直接使用 IP 进行通信的话就无需配置主机名到 IP 的映射了。</p>
+<ul>
+<li>  host 文件在不同系统下的位置：</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; Linux：/etc/hosts</span></span><br><span class="line"><span class="quote">&gt; Windows：C:\Windows\System32\drivers\etc\hosts</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>文件权限</strong>：Hadoop 在运行时会产生很多数据（包括 HDFS 存储的数据和每个节点的日志文件等），对于保存这些数据的目录，我们必须设置让当前启动 Hadoop 进程的用户拥有写权限。</p>
+</li>
+<li><p>关闭防火墙，并且关闭防火墙开机自启。</p>
+</li>
+</ol>
+<hr>
+<h2 id="使用普通用户操作-Hadoop"><a href="#使用普通用户操作-Hadoop" class="headerlink" title="使用普通用户操作 Hadoop"></a>使用普通用户操作 Hadoop</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 创建普通用户 Xxx</span><br><span class="line">    useradd Xxx</span><br><span class="line">2. 为 Xxx 设置密码</span><br><span class="line">    passwd 123456</span><br><span class="line">3. 赋予 Xxx 用户 root 权限</span><br><span class="line">    vim /etc/sudoers</span><br><span class="line">4. 将 /opt 目录下创建的 software 目录和 module 目录的属主改为 Xxx</span><br><span class="line">    <span class="built_in">chown</span> -R Xxx:Xxx /opt/software /opt/module</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="安装-Hadoop"><a href="#安装-Hadoop" class="headerlink" title="安装 Hadoop"></a>安装 Hadoop</h2><ol>
+<li><p> 将 <code>hadoop-2.7.2.tar.gz</code> 导入到 <code>opt/software</code> 目录下；</p>
+</li>
+<li><p>解压安装文件到 <code>/opt/module</code> 下面；</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.2.tar.gz -C /opt/module/</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>将 HADOOP_HOME 添加到环境变量</strong></p>
+<ul>
+<li>  （1）获取 Hadoop 安装路径</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ <span class="built_in">pwd</span></span><br><span class="line">/opt/module/hadoop-2.7.2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>（2）编辑 <code>/etc/profile.d/my_env.sh</code> 文件</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/profile.d/my_env.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>（3）在文件末尾添加 <code>HADOOP_HOME</code></p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># HADOOP_HOME</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/sbin</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>测试配置是否生效</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop version</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Hadoop-的目录介绍"><a href="#Hadoop-的目录介绍" class="headerlink" title="Hadoop 的目录介绍"></a>Hadoop 的目录介绍</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 module]$ ll hadoop-2.7.2/</span><br><span class="line">总用量 28</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   194 5月  22 2017 bin</span><br><span class="line">drwxr-xr-x. 3 lvnengdong lvnengdong    20 5月  22 2017 etc</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   106 5月  22 2017 include</span><br><span class="line">drwxr-xr-x. 3 lvnengdong lvnengdong    20 5月  22 2017 lib</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   239 5月  22 2017 libexec</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 15429 5月  22 2017 LICENSE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   101 5月  22 2017 NOTICE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1366 5月  22 2017 README.txt</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong  4096 5月  22 2017 sbin</span><br><span class="line">drwxr-xr-x. 4 lvnengdong lvnengdong    31 5月  22 2017 share</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <strong>bin</strong>：存放对 Hadoop 相关服务（HDFS、MR 和 YARN ）进行操作的脚本。</li>
+<li>  <strong>sbin</strong> ：存放管理员启动和停止集群时使用的命令脚本。</li>
+<li>  <strong>etc</strong>：存放 Hadoop 的配置文件。</li>
+<li>  <strong>lib</strong>：存放 Hadoop 的本地库</li>
+<li>  <strong>share</strong>：存放 Hadoop 的依赖 jar 包、文件和官方案例。</li>
+</ul>
+<hr>
+<h1 id="Hadoop-运行模式"><a href="#Hadoop-运行模式" class="headerlink" title="Hadoop 运行模式"></a>Hadoop 运行模式</h1><p>Hadoop 提供了两类三种运行模式，分别是：</p>
+<ul>
+<li>  <strong>本地模式</strong></li>
+<li><strong>分布式模式</strong><ul>
+<li>  伪分布式模式：如果 NN 和 DN 都在一台机器，且只有一个 DN 节点，称为伪分布式！</li>
+<li>  完全分布式模式</li>
+</ul>
+</li>
+</ul>
+<p>这两种运行模式本质上其实就是 HDFS 的运行模式，分别对应了：</p>
+<ul>
+<li>  1️⃣在本地机器上使用 HDFS，即使用本地机器的文件系统。 </li>
+<li>  2️⃣在多台机器上使用 HDFS，即使用了一个分布式的文件系统。</li>
+</ul>
+<p>Hadoop 安装后默认使用的本地模式，如果想要使用分布式模式，需要修改对应的配置文件中的配置参数。</p>
+<h2 id="HDFS-运行模式配置"><a href="#HDFS-运行模式配置" class="headerlink" title="HDFS 运行模式配置"></a>HDFS 运行模式配置</h2><p>HDFS 采用哪种运行模式，取决于配置参数 <strong>fs.defaultFS</strong>，该参数要在 <code>core-default.xml</code> 配置文件中进行配置。默认使用的是本地模式。</p>
+<p><strong>本地模式</strong></p>
+<ul>
+<li><p>  概念：使用当前计算机的文件系统作为 HDFS 的文件系统。</p>
+</li>
+<li><p>参数：</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">&lt;!-- core-default.xml --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- fs.defaultFS=file:///    （默认）【file:/// 是一种本地文件系统协议】 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:///<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>分布式模式</strong></p>
+<ul>
+<li><p>  概念：要使用的文件系统是一个分布式的文件系统！一个分布式的文件系统，必须由 NameNode，DataNode 等若干进程共同运行完成文件系统的读写操作！</p>
+</li>
+<li><p>参数：</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">&lt;!-- core-default.xml --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- fs.defaultFS=hdfs://     【hdfs:// 代表一种分布式文件系统协议】 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="MapReduce-的运行模式"><a href="#MapReduce-的运行模式" class="headerlink" title="MapReduce 的运行模式"></a>MapReduce 的运行模式</h2><ol>
+<li><p>按照 MR 的规范编写一个程序；</p>
+</li>
+<li><p>将程序打成一个 jar 包</p>
+</li>
+<li><p>运行 jar 包。</p>
+<p>运行 jar 包可以选择两种模式，分别是：1️⃣本地模式；2️⃣在 Yarn 上运行（将 jar 包提交给 Yarn，由 Yarn 调度资源完成运算）。具体使用哪一种模式由参数由参数 <code>mapreduce.framework.name</code> 决定，该参数也需要在 <code>core-default.xml</code> 配置文件中进行配置。默认值是：<code>mapreduce.framework.name=local</code>，表示在本地模式下运行。</p>
+</li>
+</ol>
+<p><strong>MapReduce 的两种运行方式</strong></p>
+<ol>
+<li><p><strong>本地模式</strong>：在本地运行 MR，即在本机使用多线程的方式模拟多个 Task 的运行。对应的在  <code>mapred-default.xml</code> 配置文件中的配置信息为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mapred-default.xml --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- mapreduce.framework.name=local --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>local<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>在 YARN 上运行</strong>：需要启动 YARN，YARN 由 RM 和 NM 进程组成，所以还需要启动 RM 和 NM。将 MR 生成的 Job 提交给 YARN ，由 YARN 负责将 Job 中拆分成多个 Task 并分配到多台机器中运算。对应的在  <code>mapred-default.xml</code> 配置文件中的配置信息为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mapred-default.xml --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- mapreduce.framework.name=yarn --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>local<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Hadoop-的配置文件"><a href="#Hadoop-的配置文件" class="headerlink" title="Hadoop 的配置文件"></a>Hadoop 的配置文件</h1><p>同大多数的项目一样，Hadoop 安装后，为我们提供了 4 个默认的配置文件，通过加载默认配置文件已经可以正常启动一个 Hadoop 项目。但是，如果想要使用自定义配置信息的话，有两种方法：</p>
+<ul>
+<li>  <strong>方式一</strong>：Hadoop 同时也提供了 4 个自定义配置文件支持用户使用自定义的配置文件覆盖默认配置信息。Hadoop 在启动时，会先加载 4 个默认的配置文件，再加载用户自定义的配置文件，如果自定义的配置文件中出现了和默认配置文件中同名的参数，就会覆盖默认配置文件中的值。</li>
+<li>  <strong>方式二</strong>：通过显式指定配置参数的方法启动Hadoop，这种方法的弊端是仅在当前次有效，当集群重启后还是会以配置文件中的配置信息为准。</li>
+</ul>
+<h2 id="四个默认配置文件"><a href="#四个默认配置文件" class="headerlink" title="四个默认配置文件"></a>四个默认配置文件</h2><p> <strong>默认配置文件所在目录：</strong>默认配置文件直接内嵌在Hadoop依赖的类库中，具体目录为：</p>
+<ul>
+<li>  <code>$HADOOP_HOME/share</code>：该目录下保存 着 Hadoop 启动时需要加载的所有 jar 包。</li>
+<li>  <code>$HADOOP_HOME/share/hadoop/.../xxx.jar/xxx-default.xml</code> ：默认配置文件的保存路径，4个配置文件分别保存在4个不同的 jar 包的类路径下</li>
+</ul>
+<p><strong>默认配置文件：</strong></p>
+<ul>
+<li><strong>core-default.xml</strong>    保存 Hadoop 最核心的配置参数</li>
+<li><strong>hdfs-default.xml</strong>    保存 HDFS 相关的参数</li>
+<li><strong>mapred-default.xm</strong>l   保存 MapReduce 相关的参数</li>
+<li><strong>yarn-default.xml</strong>    保存 YARN 相关的参数</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop-common-2.7.7.jar  ==&gt; core-default.xml <span class="comment"># core-default.xml 配置文件保存在  hadoop-common-2.7.2.jar 这个jar包中</span></span><br><span class="line">hadoop-hdfs-2.7.2.jar ==&gt; hdfs-default.xml</span><br><span class="line">hadoop-mapreduce-client-core-2.7.2.jar ==&gt; mapred-default.xml</span><br><span class="line">hadoop-yarn-common-2.7.2.jar ==&gt; yarn-default.xml</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="四个用户自定义配置文件"><a href="#四个用户自定义配置文件" class="headerlink" title="四个用户自定义配置文件"></a>四个用户自定义配置文件</h2><p><strong>注意事项：</strong></p>
+<ul>
+<li>  4个用户自定义配置文件必须命名为 <code>xxx-site.xml</code>，只有这样<strong>用户自定义的配置文件才会覆盖默认配置文件中的同名参数。</strong></li>
+<li>  Hadoop 在启动时，首先会加载 4 个默认的配置文件，再加载用户自定义的配置文件，如果用户自定义的配置文件中有和默认配置文件中同名的参数，可以覆盖之前已经加载的值！</li>
+</ul>
+<p><strong>自定义配置文件所在目录：</strong><code>$HADOOP_HOME/etc/hadoop/</code> </p>
+<p><strong>自定义配置文件：</strong></p>
+<ul>
+<li>  <strong>core-site.xml</strong>    保存用户自定义的 Hadoop 最核心的配置参数</li>
+<li>  <strong>hdfs-site.xml</strong>    保存用户自定义的 HDFS 相关的参数</li>
+<li>  <strong>mapred-site.xml</strong>    保存用户自定义的 MapReduce 相关的参数</li>
+<li>  <strong>yarn-site.xml</strong>    保存用户自定义的 YARN 相关的参数</li>
+</ul>
+<hr>
+<h2 id="配置文件使用小技巧"><a href="#配置文件使用小技巧" class="headerlink" title="配置文件使用小技巧"></a>配置文件使用小技巧</h2><p><strong>小技巧1：</strong></p>
+<p>在 <code>$HADOOP_HOME/etc/hadoop/</code> 目录下保存了四个自定义配置信息的模板，我们在需要使用自定义配置的时候可以直接拷贝这几个配置文件并加以修改使用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ ll <span class="variable">$HADOOP_HOME</span>/etc/hadoop/ | grep site.xml</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   774 5月  22 2017 core-site.xml</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   775 5月  22 2017 hdfs-site.xml</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   620 5月  22 2017 httpfs-site.xml</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  5511 5月  22 2017 kms-site.xml</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   758 5月  22 2017 mapred-site.xml.template</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   690 5月  22 2017 yarn-site.xml</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>小技巧2</strong></p>
+<ol>
+<li><p><strong>在使用 Hadoop 命令时可以手动指定加载哪个目录下的配置文件</strong></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在Linux终端中键入 `hadoop`，会提示如下信息 </span></span><br><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop</span><br><span class="line">Usage: hadoop [--config confdir] [COMMAND | CLASSNAME]</span><br><span class="line"></span><br><span class="line"><span class="comment"># [--config confdir] 表示在使用 hadoop 命令时可以手动指定要加载哪个目录中的自定义配置文件</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <strong>如果未显式指定配置文件的目录，默认读取 <code>$HADOOP_HOME/etc/hadoop</code> 目录下对应的自定义配置文件！</strong></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="本地-HDFS-使用测试"><a href="#本地-HDFS-使用测试" class="headerlink" title="本地 HDFS 使用测试"></a>本地 HDFS 使用测试</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用：hadoop fs 命令 文件路径</span><br><span class="line"><span class="comment"># 表示使用 hadoop 的 file system 执行操作</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <code>hadoop fs</code> 常见命令</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop fs</span><br><span class="line">Usage: hadoop fs [generic options]</span><br><span class="line">	[-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">	[-<span class="built_in">cat</span> [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">	[-checksum &lt;src&gt; ...]</span><br><span class="line">	[-<span class="built_in">chgrp</span> [-R] GROUP PATH...]</span><br><span class="line">	[-<span class="built_in">chmod</span> [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; PATH...]</span><br><span class="line">	[-<span class="built_in">chown</span> [-R] [OWNER][:[GROUP]] PATH...]</span><br><span class="line">	[-copyFromLocal [-f] [-p] [-l] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">	[-copyToLocal [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">	[-count [-q] [-h] &lt;path&gt; ...]</span><br><span class="line">	[-<span class="built_in">cp</span> [-f] [-p | -p[topax]] &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">	[-createSnapshot &lt;snapshotDir&gt; [&lt;snapshotName&gt;]]</span><br><span class="line">	[-deleteSnapshot &lt;snapshotDir&gt; &lt;snapshotName&gt;]</span><br><span class="line">	[-<span class="built_in">df</span> [-h] [&lt;path&gt; ...]]</span><br><span class="line">	[-<span class="built_in">du</span> [-s] [-h] &lt;path&gt; ...]</span><br><span class="line">	[-expunge]</span><br><span class="line">	[-find &lt;path&gt; ... &lt;expression&gt; ...]</span><br><span class="line">	[-get [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">	[-getfacl [-R] &lt;path&gt;]</span><br><span class="line">	[-getfattr [-R] &#123;-n name | -d&#125; [-e en] &lt;path&gt;]</span><br><span class="line">	[-getmerge [-<span class="built_in">nl</span>] &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">	[-<span class="built_in">help</span> [cmd ...]]</span><br><span class="line">	[-<span class="built_in">ls</span> [-d] [-h] [-R] [&lt;path&gt; ...]]</span><br><span class="line">	[-<span class="built_in">mkdir</span> [-p] &lt;path&gt; ...]</span><br><span class="line">	[-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">	[-moveToLocal &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">	[-<span class="built_in">mv</span> &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">	[-put [-f] [-p] [-l] &lt;localsrc&gt; ... &lt;dst&gt;]	<span class="comment"># 上传文件，&lt;localsrc&gt;表示文件源地址；&lt;dst&gt;表示目的地址</span></span><br><span class="line">	[-renameSnapshot &lt;snapshotDir&gt; &lt;oldName&gt; &lt;newName&gt;]</span><br><span class="line">	[-<span class="built_in">rm</span> [-f] [-r|-R] [-skipTrash] &lt;src&gt; ...]</span><br><span class="line">	[-<span class="built_in">rmdir</span> [--ignore-fail-on-non-empty] &lt;<span class="built_in">dir</span>&gt; ...]</span><br><span class="line">	[-setfacl [-R] [&#123;-b|-k&#125; &#123;-m|-x &lt;acl_spec&gt;&#125; &lt;path&gt;]|[--<span class="built_in">set</span> &lt;acl_spec&gt; &lt;path&gt;]]</span><br><span class="line">	[-setfattr &#123;-n name [-v value] | -x name&#125; &lt;path&gt;]</span><br><span class="line">	[-setrep [-R] [-w] &lt;rep&gt; &lt;path&gt; ...]</span><br><span class="line">	[-<span class="built_in">stat</span> [format] &lt;path&gt; ...]</span><br><span class="line">	[-<span class="built_in">tail</span> [-f] &lt;file&gt;]</span><br><span class="line">	[-<span class="built_in">test</span> -[defsz] &lt;path&gt;]</span><br><span class="line">	[-text [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">	[-touchz &lt;path&gt; ...]</span><br><span class="line">	[-<span class="built_in">truncate</span> [-w] &lt;length&gt; &lt;path&gt; ...]</span><br><span class="line">	[-usage [cmd ...]]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<ol>
+<li><p>创建一个 testUpload 文件用于测试文件上传</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ vim /opt/module/hadoop-2.7.2/etc/hadoop/testUpload</span><br><span class="line"></span><br><span class="line"><span class="comment"># testUpload 文件内容为：</span></span><br><span class="line">测试文件上传</span><br></pre></td></tr></table></figure></li>
+<li><p>在当前目录创建一个保存自定义配置文件的目录 <code>myconfig</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> myconfig</span><br></pre></td></tr></table></figure></li>
+<li><p>运行 <code>hadoop fs</code> 命令上传文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop --config myconfig fs -put testUpload /</span><br><span class="line"><span class="comment"># 表示加载 myconfig 目录下的配置文件，完成将当前目录下的 testUpload 文件上传到 HDFS 的根目录（/）下</span></span><br><span class="line"><span class="comment"># 因为在本地模式下HDFS使用的就是当前Linux系统的文件系统，所以 / 就表示当前Linux系统的根目录</span></span><br></pre></td></tr></table></figure></li>
+<li><p>报错信息分析</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># core-site.xml not found，因为我们创建的 myconfig 目录是一个空目录，没有任何的自定义配置文件，</span></span><br><span class="line"><span class="comment"># 而如果配置了 --config，则至少需要有一个自定义的 core-site.xml 文件。</span></span><br><span class="line"><span class="comment"># 解决办法是在 myconfig 目录下创建一个 core-site.xml 自定义配置文件</span></span><br><span class="line">Exception <span class="keyword">in</span> thread <span class="string">&quot;main&quot;</span> java.lang.RuntimeException: core-site.xml not found</span><br><span class="line">	at org.apache.hadoop.conf.Configuration.loadResource(Configuration.java:2566)</span><br><span class="line">	at org.apache.hadoop.conf.Configuration.loadResources(Configuration.java:2492)</span><br><span class="line">	at org.apache.hadoop.conf.Configuration.getProps(Configuration.java:2405)</span><br><span class="line">	at org.apache.hadoop.conf.Configuration.<span class="built_in">set</span>(Configuration.java:1143)</span><br><span class="line">	at org.apache.hadoop.conf.Configuration.<span class="built_in">set</span>(Configuration.java:1115)</span><br><span class="line">	at org.apache.hadoop.conf.Configuration.setBoolean(Configuration.java:1451)</span><br><span class="line">	at org.apache.hadoop.util.GenericOptionsParser.processGeneralOptions(GenericOptionsParser.java:321)</span><br><span class="line">	at org.apache.hadoop.util.GenericOptionsParser.parseGeneralOptions(GenericOptionsParser.java:487)</span><br><span class="line">	at org.apache.hadoop.util.GenericOptionsParser.&lt;init&gt;(GenericOptionsParser.java:170)</span><br><span class="line">	at org.apache.hadoop.util.GenericOptionsParser.&lt;init&gt;(GenericOptionsParser.java:153)</span><br><span class="line">	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:64)</span><br><span class="line">	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:84)</span><br><span class="line">	at org.apache.hadoop.fs.FsShell.main(FsShell.java:340)</span><br></pre></td></tr></table></figure></li>
+<li><p>将 <code>$HADOOP_HOME/etc/hadoop/</code> 目录下的 <code>core-site.xml</code> 配置文件复制到 <code>myconfig</code> 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ <span class="built_in">cp</span> <span class="variable">$HADOOP_HOME</span>/etc/hadoop/core-site.xml myconfig/</span><br></pre></td></tr></table></figure></li>
+<li><p>重新执行文件上传命令</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop --config myconfig fs -put testUpload /</span><br><span class="line">put: /testUpload._COPYING_ (权限不够)</span><br></pre></td></tr></table></figure></li>
+<li><p> 报错信息分析：因为当前使用的是本地模式，也就是说 HDFS 使用 Linux 的本地文件系统，而我们当前登录的用户对 HDFS 的根目录 <code>/</code> 是没有操作权限的，我们可以将该文件上传到一个当前登录用户拥有权限的目录下，该命令就可以正常执行了。</p>
+</li>
+<li><p>重新执行上传命令</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop --config myconfig fs -put testUpload /opt/module/</span><br><span class="line">[lvnengdong@hadoop102 hadoop]$ <span class="built_in">echo</span> $?</span><br><span class="line">0	<span class="comment"># 表示上一条命令执行成功</span></span><br></pre></td></tr></table></figure></li>
+<li><p>执行结果验证</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ ll /opt/module/</span><br><span class="line">总用量 4</span><br><span class="line"><span class="comment"># ..</span></span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  19 11月 21 20:47 testUpload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 /opt/module/ 目录下多出了一个 testUpload，表示文件上传执行成功了</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="分布式-HDFS-使用测试"><a href="#分布式-HDFS-使用测试" class="headerlink" title="分布式 HDFS 使用测试"></a>分布式 HDFS 使用测试</h1><h2 id="分布式-HDFS-常用命令"><a href="#分布式-HDFS-常用命令" class="headerlink" title="分布式 HDFS 常用命令"></a>分布式 HDFS 常用命令</h2><p>在分布式 HDFS 中，需要额外管理 NameNode、DataNode 等，所以针对 NameNode、DataNode 等有额外的操作命令。</p>
+<h3 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h3><p><strong>NameNode</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动Namenode	</span></span><br><span class="line">hadoop-daemon.sh start namenode</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止Namenode	</span></span><br><span class="line">hadoop-daemon.sh stop namenode</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>DataNode</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动datanode	</span></span><br><span class="line">hadoop-daemon.sh start datanode</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止datanode</span></span><br><span class="line">hadoop-daemon.sh stop datanode</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  上述四条命令都是 sbin 目录中的脚本【sbin 已经被添加到环境变量中了】</li>
+</ul>
+<hr>
+<h3 id="查看-NameNode-DataNode-进程状态"><a href="#查看-NameNode-DataNode-进程状态" class="headerlink" title="查看 NameNode/DataNode 进程状态"></a>查看 NameNode/DataNode 进程状态</h3><ol>
+<li><p><strong>jps命令</strong>    </p>
+<ul>
+<li>  因为 Hadoop 是用 Java 实现的，所以可以直接用 <code>jps</code> 命令查看 NameNode 和 DataNode 进程的运行状态。</li>
+</ul>
+</li>
+<li><p>通过<strong>浏览器访问</strong></p>
+<ul>
+<li>  Hadoop 给我们提供了可视化的管理界面，可以访问该页面查看 HDFS 中相关进程（包括 NameNode 和 DataNode）的运行状态。</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问地址</span></span><br><span class="line">http://&#123;NameNode所在主机的IP地址&#125;:50070</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过浏览器访问是通过 http 协议访问的，而 NameNode 的 http 协议访问端口号是 50070</span></span><br><span class="line"><span class="comment"># 当前还可以通过 RPC 协议来访问 NameNode，RPC 访问端口号是我们在配置文件中自定义的，一般都设置为 9000</span></span><br><span class="line"><span class="comment"># DataNode 被 NameNode 管理，所以在 NameNode 的可视化管理界面可以查看 DataNode 线程的信息</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="格式化-Namenode"><a href="#格式化-Namenode" class="headerlink" title="格式化 Namenode"></a>格式化 Namenode</h3><p><strong>命令：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：格式化 Namenode 只需要执行一次</strong></p>
+<p><strong>作用：</strong>格式化时，首先会根据配置文件 <code>core-default.xml</code> 或 <code>core-site.xml</code> 中的配置信息生成用于保存 NameNode 和 DataNode 数据的目录；并在这个目录中生成一些版本验证文件。</p>
+<p><strong>Demo：</strong></p>
+<ol>
+<li><p> 使用 <code>hadoop namenode -format</code> 命令自动创建的保存 NameNode 和 DataNode 数据的目录；</p>
+</li>
+<li><p> 并使用 <code>tree</code> 命令查看这个命令的目录结构。</p>
+</li>
+<li><p>我们发现在这个目录下会多出一个 <strong>dfs</strong> 目录，<strong>name</strong> 目录用于保存 NameNode 节点的数据，并且继续深入还会有一些目录和文件，这些目录和文件用于进行版本验证，表明当前目录就是一个 NameNode 保存运行时数据的目录。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ tree /opt/module/hadoop-2.7.2/data/</span><br><span class="line">/opt/module/hadoop-2.7.2/data/</span><br><span class="line">└── dfs</span><br><span class="line">    └── name	<span class="comment"># name 目录用于保存 NameNode 节点的数据文件</span></span><br><span class="line">        ├── current</span><br><span class="line">        │   ├── edits_inprogress_0000000000000000001</span><br><span class="line">        │   ├── fsimage_0000000000000000000</span><br><span class="line">        │   ├── fsimage_0000000000000000000.md5</span><br><span class="line">        │   ├── seen_txid</span><br><span class="line">        │   └── VERSION</span><br><span class="line">        └── in_use.lock</span><br></pre></td></tr></table></figure></li>
+<li><p>由于当前我们还没有启动 DataNode 节点，当启动 DataNode 节点并向该节点上传数据后，该目录下会新出现一个 <code>./dfs/data/...</code> 目录用于存储 DataNode 运行时产生的数据。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ tree /opt/module/hadoop-2.7.2/data/</span><br><span class="line">/opt/module/hadoop-2.7.2/data/</span><br><span class="line">└── dfs</span><br><span class="line">    ├── data	<span class="comment"># data 目录用于保存 DataNode 节点的数据文件</span></span><br><span class="line">    │   ├── current</span><br><span class="line">    │   │   ├── BP-401557870-192.168.1.102-1637506411781</span><br><span class="line">    │   │   │   ├── current</span><br><span class="line">    │   │   │   │   ├── finalized</span><br><span class="line">    │   │   │   │   │   └── subdir0</span><br><span class="line">    │   │   │   │   │       └── subdir0</span><br><span class="line">    │   │   │   │   │           ├── blk_1073741825	<span class="comment"># block块的id，与浏览器中展示的块的id一致</span></span><br><span class="line">    │   │   │   │   │           └── blk_1073741825_1001.meta</span><br><span class="line">    │   │   │   │   ├── rbw</span><br><span class="line">    │   │   │   │   └── VERSION</span><br><span class="line">    │   │   │   ├── scanner.cursor</span><br><span class="line">    │   │   │   └── tmp</span><br><span class="line">    │   │   └── VERSION</span><br><span class="line">    │   └── in_use.lock</span><br><span class="line">    └── name	<span class="comment"># name 目录用于保存 NameNode 节点的数据文件</span></span><br><span class="line">        ├── current</span><br><span class="line">        │   ├── edits_inprogress_0000000000000000001</span><br><span class="line">        │   ├── fsimage_0000000000000000000</span><br><span class="line">        │   ├── fsimage_0000000000000000000.md5</span><br><span class="line">        │   ├── seen_txid</span><br><span class="line">        │   └── VERSION</span><br><span class="line">        └── in_use.lock</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="NameNode-通信地址原理分析"><a href="#NameNode-通信地址原理分析" class="headerlink" title="NameNode 通信地址原理分析"></a>NameNode 通信地址原理分析</h2><p>HDFS（Hadoop分布式文件系统）就是一个服务器集群，HDFS 集群是由一个 NameNode 和多个 DataNode 组成的，其中 NameNode 负责保存元数据信息、<strong>与 DataNode 通信</strong>以及<strong>与客户端通信</strong>。既然要通信，那么就必须明确两点：</p>
+<ol>
+<li> <strong>通信协议：</strong>在 Hadoop 中，客户端与 NameNode（服务器端）， NameNode 和 DataNode 之间通信采用的都是 RPC 协议，并且如果使用 HDFS 文件传输的话，还需要满足 <code>hdfs://</code> 文件传输协议。</li>
+<li> <strong>通信地址：</strong>NameNode 在这三者中处于通信的核心地位，既要和 DataNode 通信，又要和客户端通信，所以 NameNode 必须对外暴露自己的通信地址，让客户端和 NameNode 可以找到自己。又因为 NameNode 是一个线程，唯一定位一个线程需要 IP 地址和端口号两个因素。</li>
+</ol>
+<p>在 <code>core-site.xml</code> 配置文件中，<code>fs.defaultFS</code> 属性配置的其实就是 NameNode 的通信地址，用于让客户端和 DataNode 能够找到自己，NameNode 进程的通信地址由 IP 地址和端口号组成。如果不配置端口号的话每次启动线程时 NameNode 所在的服务器都会随机分配一个端口号给 NameNode 进程，不方便客户端和 DataNode 查找到 NameNode，所以我们一般会将 NameNode 的端口号写死，这样每次启动 NameNode 时使用的就都是同一端口号了。</p>
+<hr>
+<h2 id="NameNode-生成保存数据的目录原理分析"><a href="#NameNode-生成保存数据的目录原理分析" class="headerlink" title="NameNode 生成保存数据的目录原理分析"></a>NameNode 生成保存数据的目录原理分析</h2><p><strong>手动指定保存数据的目录</strong></p>
+<p>Hadoop 在运行期间，HDFS 中的 NameNode 节点中需要一定的磁盘空间来保存元数据，DataNode 节点需要一定的磁盘空间来保存真正的数据，在默认配置文件 <code>core-default.xml</code> 中，设置了将每个节点会数据都保存在当前服务器的 <code>/tmp/hadoop-用户名/dfs</code> 目录下，而我们当前的服务器上可能并没有这个目录，所以一定要事先将这个目录创建好。</p>
+<p>由于 <code>/tmp</code> 目录是 Linux 系统中的一个临时目录，每 15 天会自动清空一次，所以为了防止数据丢失，我们一般会重新指定这个目录。这时就需要在自定义的配置文件 <code>hdfs-core.xml</code> 中重写配置信息覆盖 <strong>hadoop.tmp.dir</strong> 属性。</p>
+<ul>
+<li>  默认配置文件 <code>core-default.xml</code> 中的配置信息</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- core-default.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/tmp/hadoop-$&#123;user.name&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>A base for other temporary directories.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  自定义配置文件 <code>core-site.xml</code> 中的配置信息</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">     配置 HDFS 框架在运行时产生的数据的存储目录。</span></span><br><span class="line"><span class="comment">	（1）NameNode 上保存的元数据等信息,</span></span><br><span class="line"><span class="comment">	（2）DataNode 上保存的真实数据信息</span></span><br><span class="line"><span class="comment">  都保存在该目录下。</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/module/hadoop-2.7.2/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>使用格式化指令创建保存数据的目录</strong></p>
+<p>在上面的配置文件中，我们设置了 HDFS 中数据的保存目录。所以我们必须事先在 NameNode 节点的服务器上创建这个目录后才能成功启动 NameNode。<strong>但是</strong>这个文件并不是一个空目录，也就是说如果我们通过 <code>mkdir</code> 命令创建的空目录是无法识别为能够保存 HDFS 数据的目录，能够保存 HDFS 数据的目录中必须有一个版本验证文件，如果想要创建一个包含版本验证文件的目录，我们需要通过 Hadoop 提供的格式化工具<strong>（hadoop namenode -format）</strong>生成一个目录，并且会自动在这个目录下生成一个版本号。</p>
+<hr>
+<h2 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h2><ol>
+<li> 如果想要使用分布式的 HDFS，首先需要在自定义配置文件 <code>core-site.xml</code> 中重写默认配置文件中的  <code>fs.defaultFS</code> 属性为 <code>hdfs://</code>。它的含义是设置文件传输协议为 hdfs，表示 FileSystem 为 hdfs 分布式文件系统。</li>
+<li> 同时要设置 NameNode 的唯一通信地址为：<code>hadoop102:9000</code>（IP地址 + 端口号）</li>
+<li> 二者结合一下就变成了 <code>hdfs://hadoop102:9000</code></li>
+<li> 在 <code>core-site.xml</code> 中重写 NameNode 和 DataNode 保存数据的目录</li>
+<li> 使用 Hadoop 提供的格式化命令 <code>hadoop namenode -format</code> 创建这个保存数据的目录。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">    1、使用分布式文件存储系统</span></span><br><span class="line"><span class="comment">    2、通知DataNode和客户端NameNode的唯一地址</span></span><br><span class="line"><span class="comment">    [Hadoop 集群中的各个进程之间需要互相通信，通过 RPC 方式通信：</span></span><br><span class="line"><span class="comment">        （1）客户端与 NN 直接通信；</span></span><br><span class="line"><span class="comment">        （2）DN 与 NN 也要进行通信。</span></span><br><span class="line"><span class="comment">    所以我们必须在集群中每台机器的配置文件 core-site.xml 中配置 NN 的通信地址]</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop102:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">    <span class="comment">&lt;!-- hadoop102:主机名到IP地址的映射</span></span><br><span class="line"><span class="comment">	 9000：NameNode进程在RPC协议下的端口号（随便取，只要不被占用即可）</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">     配置 HDFS 框架在运行时产生的数据的存储目录。</span></span><br><span class="line"><span class="comment">	（1）NameNode 上保存的元数据等信息,</span></span><br><span class="line"><span class="comment">	（2）DataNode 上保存的真实数据信息</span></span><br><span class="line"><span class="comment">  都保存在该目录下。</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/module/hadoop-2.7.2/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li><p>首先，修改上一章节使用过的自定义配置文件 <code>./myconfig/core-site.xml</code> 。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ vim myconfig/core-site.xml</span><br></pre></td></tr></table></figure></li>
+<li><p>添加自定义的 NameNode 配置信息。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop102:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用自定义的配置文件启动 NameNode</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop-daemon.sh --config /opt/module/hadoop-2.7.2/etc/hadoop/myconfig/ start namenode</span><br><span class="line"><span class="comment"># 启动后的输出的信息</span></span><br><span class="line">starting namenode, logging to /opt/module/hadoop-2.7.2/logs/hadoop-lvnengdong-namenode-hadoop102.out</span><br><span class="line"><span class="comment"># 这条信息表示，启动 namenode 后，所有的日志信息都会保存在这个目录下，目录的组成信息为：</span></span><br><span class="line"><span class="comment"># $HADOOP_HOME/logs/hadoop-用户名-进程名-主机名.out</span></span><br><span class="line"><span class="comment"># out 表示日志输出时的配置文件，真正的日志其实保存在 logs 目录下的 `xxx.log` 文件中</span></span><br><span class="line">2021-11-21 21:56:35,921 INFO  [main] namenode.NameNode (LogAdapter.java:info(47)) - STARTUP_MSG: </span><br><span class="line">/************************************************************</span><br><span class="line">STARTUP_MSG: Starting NameNode</span><br><span class="line">STARTUP_MSG:   host = hadoop102/192.168.1.102</span><br><span class="line">STARTUP_MSG:   args = []</span><br><span class="line">STARTUP_MSG:   version = 2.7.2</span><br><span class="line">......</span><br></pre></td></tr></table></figure></li>
+<li><p>查看进程是否启动成功。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ jps</span><br><span class="line"><span class="comment"># 发现未启动成功</span></span><br></pre></td></tr></table></figure></li>
+<li><p>查看日志信息</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印日志文件的后100行信息</span></span><br><span class="line">[lvnengdong@hadoop102 logs]$ <span class="built_in">tail</span> -n 100 hadoop-lvnengdong-namenode-hadoop102.out</span><br></pre></td></tr></table></figure></li>
+<li><p>storage directory does not exist or is not accessible ==&gt;存储目录不存在或不可访问。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /tmp/hadoop-lvnengdong/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverStorageDirs(FSImage.java:<span class="number">327</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverTransitionRead(FSImage.java:<span class="number">215</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFSImage(FSNamesystem.java:<span class="number">975</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFromDisk(FSNamesystem.java:<span class="number">681</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.loadNamesystem(NameNode.java:<span class="number">584</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.initialize(NameNode.java:<span class="number">644</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:<span class="number">811</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:<span class="number">795</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:<span class="number">1488</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:<span class="number">1554</span>)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">异常分析：</span></span><br><span class="line"><span class="comment">	因为我们在自定义的配置文件中未重写 NameNode 和 DataNode 保存数据的目录，所以在项目启动时</span></span><br><span class="line"><span class="comment">	使用的仍然是默认配置文件中的配置，也就是说会把数据保存在 /tmp/hadoop-用户名/dfs/ 目录下，</span></span><br><span class="line"><span class="comment">	但是该目录在当前服务器上并不存在，所以才会报错“storage directory does not exist or is not accessible”</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在自定义的配置文件 <code>hdfs-core.xml</code> 中添加配置信息覆盖 <strong>hadoop.tmp.dir</strong> 属性。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/module/hadoop-2.7.2/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>并创建 <code>/opt/module/hadoop-2.7.2/data</code> 目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 myconfig]$ <span class="built_in">mkdir</span> /opt/module/hadoop-2.7.2/data</span><br></pre></td></tr></table></figure></li>
+<li><p>重新启动 NameNode</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 myconfig]$ hadoop-daemon.sh --config /opt/module/hadoop-2.7.2/etc/hadoop/myconfig/ start namenode</span><br></pre></td></tr></table></figure></li>
+<li><p> 使用 jps 命令查看发现仍然没有 NameNode 进程；</p>
+</li>
+<li><p>查看日志：发现错误信息仍然显示保存数据的目录没有创建，但是我们确实创建了。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /opt/<span class="keyword">module</span>/hadoop-<span class="number">2.7</span><span class="number">.2</span>/data/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverStorageDirs(FSImage.java:<span class="number">327</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverTransitionRead(FSImage.java:<span class="number">215</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFSImage(FSNamesystem.java:<span class="number">975</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFromDisk(FSNamesystem.java:<span class="number">681</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.loadNamesystem(NameNode.java:<span class="number">584</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.initialize(NameNode.java:<span class="number">644</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:<span class="number">811</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:<span class="number">795</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:<span class="number">1488</span>)</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:<span class="number">1554</span>)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">异常分析：</span></span><br><span class="line"><span class="comment">	这个错误是因为目前我们虽然创建了和配置文件中一致的目录来保存NameNode和DataNode运行时产生的数据，</span></span><br><span class="line"><span class="comment">	但是由于这个目录是我们通过 mkdir 手动创建的，是一个空目录，该目录中并没有版本验证文件，所以无法</span></span><br><span class="line"><span class="comment">	证明这个目录就是用来保存 NameNode 和 DataNode 数据的目录。为了解决这个问题，我们还需要通过</span></span><br><span class="line"><span class="comment">	Hadoop提供的格式化工具来自动根据配置文件生成带版本号的可以保存NameNode生产数据的目录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+<li><p>先删除我们自己创建的 <code>/opt/module/hadoop-2.7.2/data</code> 目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ <span class="built_in">rm</span> -rf data</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 <strong>hadoop namenode -format</strong> 格式化工具自动生成带版本号文件的目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop --config /opt/module/hadoop-2.7.2/etc/hadoop/myconfig/ namenode -format</span><br></pre></td></tr></table></figure></li>
+<li><p>我们发现在执行完这条命令后会根据配置文件自动帮我们创建一个 <strong>data</strong> 目录，并在 <code>data</code> 目录下自动帮我们创建了一个 <strong>dfs</strong> 文件，这个 <code>dfs</code> 文件就是存储 NameNode 和 DataNode 运行时数据的目录。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ ll data/</span><br><span class="line">总用量 0</span><br><span class="line">drwxrwxr-x. 3 lvnengdong lvnengdong 18 11月 21 22:53 dfs</span><br></pre></td></tr></table></figure></li>
+<li><p>重新启动 NameNode</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 myconfig]$ hadoop-daemon.sh --config /opt/module/hadoop-2.7.2/etc/hadoop/myconfig/ start namenode</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 jps 命令查看，发现此时 NameNode 进程已经成功启动了。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ jps</span><br><span class="line">94994 Jps</span><br><span class="line">94543 NameNode</span><br></pre></td></tr></table></figure></li>
+<li><p>还可以通过浏览器界面来访问 NameNode</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122102444283.png" alt="image-20211122102444283"></p>
+</li>
+<li><p>使用当前配置文件启动一个 NameNode</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 myconfig] $ hadoop-daemon.sh --config /opt/module/hadoop-2.7.2/etc/hadoop/myconfig/ start datanode</span><br></pre></td></tr></table></figure></li>
+<li><p>查看 DataNode 是否成功启动</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ jps</span><br><span class="line">50678 DataNode</span><br><span class="line">51053 Jps</span><br><span class="line">94543 NameNode</span><br></pre></td></tr></table></figure></li>
+<li><p>或者在浏览器中查看 DataNode 的启动情况</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122104518498.png" alt="image-20211122104518498"></p>
+</li>
+<li><p>当 NameNode 和 DataNode 都启动成功后，执行上传文件命令</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ hadoop --config /opt/module/hadoop-2.7.2/etc/hadoop/myconfig/ fs -put /opt/module/hadoop-2.7.2/etc/hadoop/testUpload /</span><br><span class="line"><span class="comment"># 表示加载 myconfig 目录下的配置文件，完成将 testUpload 文件上传到 HDFS 的根目录（/）下</span></span><br></pre></td></tr></table></figure></li>
+<li><p>上传完成后，通过浏览器查看是否上传成功</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122105055584.png" alt="image-20211122105055584"></p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122105640671.png" alt="image-20211122105640671"></p>
+</li>
+<li><p>也可以在 HDFS 指定的保存数据的目录下查看上传的文件信息</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ tree /opt/module/hadoop-2.7.2/data/</span><br><span class="line">/opt/module/hadoop-2.7.2/data/</span><br><span class="line">└── dfs</span><br><span class="line">    ├── data	<span class="comment"># data 目录用于保存 DataNode 节点的数据文件</span></span><br><span class="line">    │   ├── current</span><br><span class="line">    │   │   ├── BP-401557870-192.168.1.102-1637506411781</span><br><span class="line">    │   │   │   ├── current</span><br><span class="line">    │   │   │   │   ├── finalized</span><br><span class="line">    │   │   │   │   │   └── subdir0</span><br><span class="line">    │   │   │   │   │       └── subdir0</span><br><span class="line">    │   │   │   │   │           ├── blk_1073741825	<span class="comment"># block块的id，与浏览器中展示的块的id一致</span></span><br><span class="line">    │   │   │   │   │           └── blk_1073741825_1001.meta</span><br><span class="line">    │   │   │   │   ├── rbw</span><br><span class="line">    │   │   │   │   └── VERSION</span><br><span class="line">    │   │   │   ├── scanner.cursor</span><br><span class="line">    │   │   │   └── tmp</span><br><span class="line">    │   │   └── VERSION</span><br><span class="line">    │   └── in_use.lock</span><br><span class="line">    └── name	<span class="comment"># name 目录用于保存 NameNode 节点的数据文件</span></span><br><span class="line">        ├── current</span><br><span class="line">        │   ├── edits_inprogress_0000000000000000001</span><br><span class="line">        │   ├── fsimage_0000000000000000000</span><br><span class="line">        │   ├── fsimage_0000000000000000000.md5</span><br><span class="line">        │   ├── seen_txid</span><br><span class="line">        │   └── VERSION</span><br><span class="line">        └── in_use.lock</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>继续查看 <code>blk_1073741825</code> 块文件的信息，发现内容与我们之前写的 testUpLoad 文件一致</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ <span class="built_in">cat</span> /opt/module/hadoop-2.7.2/data/dfs/data/current/BP-401557870-192.168.1.102-1637506411781/current/finalized/subdir0/subdir0/blk_1073741825</span><br><span class="line">测试上传文件</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="本地-MapReduce-测试"><a href="#本地-MapReduce-测试" class="headerlink" title="本地 MapReduce 测试"></a>本地 MapReduce 测试</h1><p>在 <code>$HADOOP_HOME/share/hadoop/mapreduce/</code> 目录下有一个自带的 MapReduce 测试案例 <code>hadoop-mapreduce-examples-2.7.2.jar</code>，我们可以直接调用这个 jar 包进行测试。</p>
+<ol>
+<li><p>进入到实例程序 jar 包所在的目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop-2.7.2]$ <span class="built_in">cd</span> share/hadoop/mapreduce/</span><br></pre></td></tr></table></figure></li>
+<li><p>尝试执行这个 jar 包</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mapreduce]$ hadoop jar hadoop-mapreduce-examples-2.7.2.jar </span><br><span class="line">An example program must be given as the first argument. <span class="comment"># 实例程序必须给一个参数，这个参数就是要执行该jar包下的哪个方法</span></span><br><span class="line">Valid program names are:</span><br><span class="line">  aggregatewordcount: An Aggregate based map/reduce program that counts the words <span class="keyword">in</span> the input files.</span><br><span class="line">  aggregatewordhist: An Aggregate based map/reduce program that computes the histogram of the words <span class="keyword">in</span> the input files.</span><br><span class="line">  bbp: A map/reduce program that uses Bailey-Borwein-Plouffe to compute exact digits of Pi.</span><br><span class="line">  dbcount: An example job that count the pageview counts from a database.</span><br><span class="line">  distbbp: A map/reduce program that uses a BBP-<span class="built_in">type</span> formula to compute exact bits of Pi.</span><br><span class="line">  grep: A map/reduce program that counts the matches of a regex <span class="keyword">in</span> the input.</span><br><span class="line">  <span class="built_in">join</span>: A job that effects a <span class="built_in">join</span> over sorted, equally partitioned datasets</span><br><span class="line">  multifilewc: A job that counts words from several files.</span><br><span class="line">  pentomino: A map/reduce tile laying program to find solutions to pentomino problems.</span><br><span class="line">  pi: A map/reduce program that estimates Pi using a quasi-Monte Carlo method.</span><br><span class="line">  randomtextwriter: A map/reduce program that writes 10GB of random textual data per node.</span><br><span class="line">  randomwriter: A map/reduce program that writes 10GB of random data per node.</span><br><span class="line">  secondarysort: An example defining a secondary <span class="built_in">sort</span> to the reduce.</span><br><span class="line">  <span class="built_in">sort</span>: A map/reduce program that sorts the data written by the random writer.</span><br><span class="line">  sudoku: A sudoku solver.</span><br><span class="line">  teragen: Generate data <span class="keyword">for</span> the terasort</span><br><span class="line">  terasort: Run the terasort</span><br><span class="line">  teravalidate: Checking results of terasort</span><br><span class="line">  wordcount: A map/reduce program that counts the words <span class="keyword">in</span> the input files.	<span class="comment"># 单词统计方法</span></span><br><span class="line">  wordmean: A map/reduce program that counts the average length of the words <span class="keyword">in</span> the input files.</span><br><span class="line">  wordmedian: A map/reduce program that counts the median length of the words <span class="keyword">in</span> the input files.</span><br><span class="line">  wordstandarddeviation: A map/reduce program that counts the standard deviation of the length of the words <span class="keyword">in</span> the input files.</span><br></pre></td></tr></table></figure></li>
+<li><p>尝试执行该 jar 包下的 wordcount 方法</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mapreduce]$ hadoop jar hadoop-mapreduce-examples-2.7.2.jar wordcount</span><br><span class="line">Usage: wordcount &lt;<span class="keyword">in</span>&gt; [&lt;<span class="keyword">in</span>&gt;...] &lt;out&gt;</span><br><span class="line"><span class="comment"># 调用 wordcount 方法必须传递一个或多个源文件路径和一个统计结果保存的路径</span></span><br><span class="line"><span class="comment"># 源文件路径和统计结果保存的路径都是HDFS上的路径</span></span><br></pre></td></tr></table></figure></li>
+<li><p>当前 HDFS 的 NameNode 的根目录下有一个 <code>testUpLoad</code> 文件，我们可以统计该文件中单词的个数</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mapreduce]$ hadoop jar hadoop-mapreduce-examples-2.7.2.jar wordcount / /result</span><br><span class="line"><span class="comment"># 调用 wordcount 方法统计根目录 `/` 下的所有文件中的单词个数，并把结果输出到 `/result` 目录下 </span></span><br></pre></td></tr></table></figure></li>
+<li><p>查看浏览器发现根目录下多了一个 <code>/result</code> 目录</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122173553541.png" alt="image-20211122173553541"></p>
+</li>
+<li><p><code>/result</code> 目录</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122173729381.png" alt="image-20211122173729381"></p>
+</li>
+<li><p><code>part-r-00000</code>，</p>
+<p> 我们可以将这个文件下载到本地查看，发现该文件就是统计了 <code>/</code> 目录下每个单词出现的次数。</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122174007581.png" alt="image-20211122174007581"></p>
+</li>
+</ol>
+<hr>
+<h1 id="在-YARN-上运行-MapReduce"><a href="#在-YARN-上运行-MapReduce" class="headerlink" title="在 YARN 上运行 MapReduce"></a>在 YARN 上运行 MapReduce</h1><h2 id="1、修改-MapReduce-的运行模式"><a href="#1、修改-MapReduce-的运行模式" class="headerlink" title="1、修改 MapReduce 的运行模式"></a>1、修改 MapReduce 的运行模式</h2><ol>
+<li><p>默认的 MapReduce 的运行模式是本地模式。我们可以通过 MapReduce 的默认配置文件 <code>mapred-default.xml</code> 来查看。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>local<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>The runtime framework for executing MapReduce jobs.</span><br><span class="line">  Can be one of local, classic or yarn. </span><br><span class="line">  <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">	运行模式可以是 local、classic、yarn 中的任意一个，默认选择的 local</span></span><br><span class="line"><span class="comment">		（1）local 是本地模式</span></span><br><span class="line"><span class="comment">		（2）classic 是Hadoop1.x 版本提供的一种运行模式</span></span><br><span class="line"><span class="comment">		（3）yarn 是将MR程序交给YARN去执行</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>如果我们想要通过 Yarn 来执行 MapReduce 程序，就需要在自定义的配置文件中重写这个配置信息。在 <code>$HADOOP_HOME/etc/hadoop/</code> 目录下创建并修改 <code>mapred-site.xml</code> 文件的信息，添加如下配置：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">     将 MapReduce 从本地模式改为在 YARN 上运行</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="2、启动-Yarn"><a href="#2、启动-Yarn" class="headerlink" title="2、启动 Yarn"></a>2、启动 Yarn</h2><p><strong>配置 ResourceManager 的通信地址</strong></p>
+<p>Yarn 由 ResourceManager 和 NodeManager 线程组成。同理，Yarn 作为一个服务器集群，其中的 ResourceManager 既要负责和客户端通信，又要负责和 NodeManager 通信，所以 ResourceManager 必须对外暴露自己的服务地址。这一信息要在 <code>yarn-default.xml</code> 配置文件中进行修改。修改 <code>$HADOOP_HOME/etc/hadoop/yarn-site.xml</code> 文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">     配置 Yarn 的 ResourceManager 的服务地址</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop102<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>配置 Reducer 获取数据的方式</strong></p>
+<ul>
+<li>  MapReduce 思想处理数据的方式是将任务拆分执行，最后将结果合并，这时候就可能出现多个 Map 间需要进行数据共享的问题，那么这多个 Map 之间数据传递的方式就叫做 shuffle，所以我们必须配置这一属性，否则在 Yarn 上运行 MR 程序时就会报错。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">     配置 Reducer 获取数据的方式</span></span><br><span class="line"><span class="comment">     Map 阶段处理好的数据最后要传递到 Reducer 上使用。</span></span><br><span class="line"><span class="comment">     而传递数据的方式称为 shuffle ，所以 YARN 中必须配置shuffle 才能正常运行</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>启动</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、启动 RM</span></span><br><span class="line">yarn-daemon.sh start resourcemanager</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、启动 NM</span></span><br><span class="line">yarn-daemon.sh start nodemanager</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>查看</strong></p>
+<ol>
+<li><p>通过 jps 命令查看</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 hadoop]$ jps</span><br><span class="line">63025 NodeManager</span><br><span class="line">35193 NameNode</span><br><span class="line">36077 DataNode</span><br><span class="line">62367 ResourceManager</span><br><span class="line">64799 Jps</span><br></pre></td></tr></table></figure></li>
+<li><p>通过浏览器查看</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问：http://&#123;ResourceManager线程所在机器的IP&#125;:8088</span><br><span class="line"><span class="comment"># ResourceManager 对外暴露的 http 端口号是 8088</span></span><br></pre></td></tr></table></figure>
+
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122183127209.png" alt="image-20211122183127209"></p>
+</li>
+</ol>
+<hr>
+<h2 id="3、提交任务"><a href="#3、提交任务" class="headerlink" title="3、提交任务"></a>3、提交任务</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar  jar包  主类名 参数&#123;多个输入目录，一个输出目录&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>在<code>/opt/module/hadoop-2.7.2/share/hadoop/mapreduce</code> 目录下创建一个文件<code>testMR</code></p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mapreduce]$ vim testMR</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑该文件的内容为：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">test</span></span><br><span class="line">MR</span><br><span class="line">demo</span><br></pre></td></tr></table></figure></li>
+<li><p>将该文件上传到 HDFS 的<code>/mr</code> 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mapreduce]$ hadoop fs -put ./testMR /mr</span><br></pre></td></tr></table></figure></li>
+<li><p>调用 wordcount 方法统计目录 <code>/mr</code> 下的所有文件中的单词个数，并把结果输出到 <code>/count</code> 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mapreduce]$ hadoop jar hadoop-mapreduce-examples-2.7.2.jar wordcount /mr /count</span><br></pre></td></tr></table></figure></li>
+<li><p>通过浏览器查看执行结果。</p>
+<p> <img src="/2021/11/21/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/image-20211122194846938.png" alt="image-20211122194846938"></p>
+</li>
+</ol>
+<p><strong>注意事项：</strong></p>
+<ol>
+<li> 更改配置信息后需要重启 ResourceManager 和 NodeManager！</li>
+<li> 输入目录中必须全部是文件，不能有目录。如果有目录的话会报错！</li>
+<li> 输出目录必须不存在！</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -3771,560 +4273,6 @@
     
     <div class="post-body" itemprop="articleBody">
           
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">MySQL锁机制</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-10-06 14:21:52" itemprop="dateCreated datePublished" datetime="2021-10-06T14:21:52+08:00">2021-10-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-10-07 21:52:04" itemprop="dateModified" datetime="2021-10-07T21:52:04+08:00">2021-10-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p><strong>定义：</strong></p>
-<ul>
-<li>  锁是<strong>计算机协调多个进程或线程并发访问某一资源时的机制</strong>。</li>
-<li>  在数据库中的数据是一种供许多用户共享的资源，所以就可能出现多个用户并发访问的情况。<strong>如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题</strong>。锁冲突也是影响数据库并发访问性能的一个重要因素。</li>
-<li>  在 MySQL 架构的连接层中，存在一个 ConnectionPool，与 MySQL 服务器连接的每个客户端都会维护一个会话（Session），当同时有多个 Session 操作同一数据库中的同一数据时，就会产生冲突，这时就需要 MySQL 的锁机制来维护数据的一致性了。</li>
-</ul>
-<p><strong>生活案例：</strong></p>
-<p>淘宝秒杀抢手机，库存只剩最后一件了，如果同时有多个用户同时点击了购买，到底谁买到？</p>
-<p>首先，这里肯定要使用到事务，我们先从库存表中取出商品数量，然后插入订单，付款后插入付款表信息，最后更新商品数量。在这个过程中，使用锁可以对共享资源进行保护，解决隔离和并发的矛盾。</p>
-<p><strong>注意：</strong></p>
-<ul>
-<li>  <strong>数据库锁都是悲观锁！！！</strong></li>
-</ul>
-<hr>
-<h1 id="锁分类"><a href="#锁分类" class="headerlink" title="锁分类"></a>锁分类</h1><blockquote>
-<p>  <strong>一些概念：</strong></p>
-</blockquote>
-<ul>
-<li>  开销：开销指实现锁需要消耗的资源</li>
-<li>  加锁速度：</li>
-<li>  死锁：</li>
-<li>  粒度：</li>
-<li>  并发性能：</li>
-</ul>
-<blockquote>
-<p>  从<strong>对数据操作的类型</strong>来分可分为：</p>
-</blockquote>
-<ul>
-<li>  <strong>读锁（共享锁）</strong>：针对同一份数据，多个读操作可以同时读而不会互相影响。</li>
-<li>  <strong>写锁（排它锁）</strong>：当前写操作没有完成之前，它会阻断其它写锁和读锁。【注意：写和读都被阻断了】</li>
-</ul>
-<blockquote>
-<p>  从<strong>对数据操作的粒度</strong>来分可分为：</p>
-</blockquote>
-<ul>
-<li>  <strong>行锁（Row_Level_Lock）：</strong>开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低,并发度也最高。</li>
-<li>  <strong>表锁（Table_Level_Lock）：</strong>开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高,并发度最低。</li>
-<li>  <strong>页锁：</strong>开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。</li>
-</ul>
-<blockquote>
-<p>  <strong>使用场景：</strong></p>
-</blockquote>
-<ul>
-<li>  只能就具体应用的特点来说哪种锁更合适。</li>
-<li>  表锁更适合以查询为主的表使用。</li>
-<li>  行锁更适合以写为主的表使用。</li>
-</ul>
-<blockquote>
-<p>  <strong>小总结</strong></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">读锁（共享锁）</th>
-<th align="center">写锁（独占锁）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>表锁</strong></td>
-<td align="center">表共享读锁</td>
-<td align="center">表独占写锁</td>
-</tr>
-<tr>
-<td align="center"><strong>行锁</strong></td>
-<td align="center">行共享读锁</td>
-<td align="center">行独占写锁</td>
-</tr>
-</tbody></table>
-<hr>
-<h1 id="MySQL-锁机制"><a href="#MySQL-锁机制" class="headerlink" title="MySQL 锁机制"></a>MySQL 锁机制</h1><h2 id="MySQL-中的锁"><a href="#MySQL-中的锁" class="headerlink" title="MySQL 中的锁"></a>MySQL 中的锁</h2><ol>
-<li><p>MyISAM 表锁</p>
-<ul>
-<li>  MyISAM 表共享读锁</li>
-<li>  MyISAM 表独占写锁</li>
-</ul>
-</li>
-<li><p>InnoDB 行锁</p>
-<ul>
-<li>  InnoDB 行共享读锁</li>
-<li>  InnoDB 行独占写锁</li>
-</ul>
-<p> InnoDB 表锁</p>
-<ul>
-<li>  InnoDB 表共享读锁</li>
-<li>  InnoDB 表独占写锁</li>
-</ul>
-</li>
-<li><p> Memory 表锁</p>
-</li>
-<li><p> ……</p>
-</li>
-</ol>
-<h2 id="MySQL-锁机制-1"><a href="#MySQL-锁机制-1" class="headerlink" title="MySQL 锁机制"></a>MySQL 锁机制</h2><p><strong>MySQL 的锁机制比较简单，就是不同的存储引擎支持不同的锁机制。</strong>比如：</p>
-<ul>
-<li>  InnoDB 默认使用行锁，但也支持表锁。</li>
-<li>  MyISAM 默认使用表锁，且只支持表锁。</li>
-</ul>
-<hr>
-<h1 id="表锁（偏读）"><a href="#表锁（偏读）" class="headerlink" title="表锁（偏读）"></a>表锁（偏读）</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>  无死锁</li>
-<li>  锁粒度大</li>
-<li>  发生锁冲突的概率最高</li>
-<li>  并发度最低</li>
-<li>  开销小，加锁快【一张表只需加一个锁自然开销小，锁的粒度大，加锁自然快】</li>
-</ul>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
-<li>  查看数据库中所有表锁</li>
-<li>  加（表）锁</li>
-<li>  释放（表）锁</li>
-</ul>
-<ol>
-<li> **创建表 tb_emp 和 tb_dep **</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS tb_emp (</span><br><span class="line">    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">    NAME VARCHAR(20) DEFAULT &#x27;&#x27;</span><br><span class="line">)ENGINE=MYISAM;	# 使用MYISAM引擎建的表 </span><br><span class="line"></span><br><span class="line">CREATE TABLE IF NOT EXISTS tb_dep (</span><br><span class="line">    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">    NAME VARCHAR(20) DEFAULT &#x27;&#x27;</span><br><span class="line">)ENGINE=MYISAM;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li> <strong>手动加锁（读锁或写锁）</strong></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 语法</span><br><span class="line">lock table 表名1 read, 表名2 write;</span><br><span class="line"></span><br><span class="line">-- 给tb_emp表加读锁，给 tb_dep表加写锁</span><br><span class="line">lock table tb_emp read, tb_dep write;	</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li> <strong>查看数据库中所有表的锁</strong></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 查看数据库中所有表的锁</span><br><span class="line">SHOW OPEN TABLES;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/image-20210725182834745.png" alt="image-20210725182834745"></p>
-<ol start="4">
-<li> <strong>释放锁</strong></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 释放锁（Tip：释放锁使不能单个表释放，只能一次性释放所有表的锁）</span><br><span class="line">UNLOCK TABLE;</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="给表加读锁"><a href="#给表加读锁" class="headerlink" title="给表加读锁"></a>给表加读锁</h3><ol>
-<li> <strong>向上面建好的 tb_emp 表中插入数据</strong></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO tb_emp(NAME) VALUES(&#x27;张三&#x27;);</span><br><span class="line">INSERT INTO tb_emp(NAME) VALUES(&#x27;李四&#x27;);</span><br><span class="line">INSERT INTO tb_emp(NAME) VALUES(&#x27;王五&#x27;);</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="2">
-<li> <strong>模拟两个连接同时操作 tb_emp 表</strong></li>
-</ol>
-<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/%E8%AF%BB%E9%94%81.png" alt="读锁"></p>
-<table>
-<thead>
-<tr>
-<th align="center">线程 T1</th>
-<th align="center">线程 T2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>lock table tb_emp read; </code>【OK】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>select * from tb_emp; </code>  【OK】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>select * from tb_emp; </code>  【OK】</td>
-</tr>
-<tr>
-<td align="center"><code>UPDATE tb_emp SET NAME=&quot;张飞&quot; WHERE id=1;</code>  【Error】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>UPDATE tb_emp SET NAME=&quot;张飞&quot; WHERE id=1;</code>  【阻塞】</td>
-</tr>
-<tr>
-<td align="center"><code>UNLOCK TABLES;</code></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>UPDATE tb_emp SET NAME=&quot;张飞&quot; WHERE id=1;</code>  【OK】</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>  <strong>分析：</strong></p>
-</blockquote>
-<p>两个线程同时操作数据库中的同一张表，</p>
-<ol>
-<li> 首先，线程 T1 先对 emp 表加表共享读锁；</li>
-<li> 然后，T1 对加锁的表执行查询操作，OK；【因为 T1 本身就是持有锁的】</li>
-<li> 再之，T2 对加锁的表进行查询操作，OK；【因为读锁是一种共享锁】</li>
-<li> T1 在未释放锁之前，想要读取其它表（非加锁的表），发现<strong>报错</strong>；【拿着锁不干事反而想去操作其它表是不被允许的】</li>
-<li> T2 读取未加锁的表，OK；</li>
-<li> T1 在未释放锁之前，想要修改被加锁的表，<strong>报错</strong>；【读锁只能读不能写】</li>
-<li> T2 想要修改未加锁的表，发现没有报错 ，但程序被<strong>阻塞</strong>【一直在转圈，但不能执行结束】</li>
-<li> T1 释放读锁；</li>
-<li> 这时 T2 立即执行未执行完的更新的操作。</li>
-</ol>
-<h3 id="给表加写锁"><a href="#给表加写锁" class="headerlink" title="给表加写锁"></a>给表加写锁</h3><ul>
-<li>  当前线程对表的 查询+更新+插入 操作都可以执行；</li>
-<li>  其它线程对表的查询被阻塞，需要等待锁被释放。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对所有使用 MyISAM 引擎的表进行操作，会有以下情况：</p>
-<ul>
-<li>  对 MyISAM 表的读操作，不会阻塞其它线程对同一表的读请求，但是会阻塞对同一表的写请求。只有当读锁释放后，才会执行其它线程的写操作。</li>
-<li>  对 MyISAM 表的写操作，会阻塞其它线程对同一表的读和写操作，只有当写锁释放后，才会执行其它线程的读写操作。</li>
-</ul>
-<p>简而言之，就是<strong>读的时候可以读，读的时候不能写，写的时候不能读，写的时候不能写</strong>（读就是共享读，其它的可以读，不能写；写是独占写，其它的不能读也不能写）</p>
-<p><strong>MyISAM 不适合作为以写操作为主的表的引擎</strong>。因为对表中数据进行的写操作会造成表被自动加写锁，导致其它线程不能做任何操作，如果存在大量的更新会使得查询操作很难获取到锁，从而造成永远阻塞。</p>
-<hr>
-<h2 id="表锁分析"><a href="#表锁分析" class="headerlink" title="表锁分析"></a>表锁分析</h2><blockquote>
-<p>  <strong>查看哪些表被加锁了</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW OPEN TABLES;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>  <strong>表锁分析</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 检查锁的状态</span><br><span class="line">SHOW STATUS LIKE &#x27;table%&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/image-20210727220206563.png" alt="image-20210727220206563"></p>
-<p>这里有一些属性记录了某个表锁的运行情况，两个重要的属性说明如下：</p>
-<ul>
-<li>  <strong>table_locks_immediate</strong>：表锁被获取过的次数，每次获取锁时该值 <code>+1</code>。</li>
-<li>  <strong>table_locks_waited</strong>：由于表锁争用而发生等待的次数（不能立即获取锁的次数，每等待一次该值 <code>+1</code>）。此值较高则说明存在着较严重的表级锁争用的情况。</li>
-</ul>
-<hr>
-<h1 id="行锁（偏写）"><a href="#行锁（偏写）" class="headerlink" title="行锁（偏写）"></a>行锁（偏写）</h1><h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>  会出现死锁</li>
-<li>  锁的粒度小</li>
-<li>  发生锁冲突的概率最低</li>
-<li>  并发度最高</li>
-<li>  开销大，加锁慢。（需要给每行数据都加锁，自然开销比较大，加锁比较慢）</li>
-</ul>
-<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><ul>
-<li>  加<strong>行共享读锁</strong>：<code>lock in share mode</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 开始事务</span><br><span class="line">BEGIN;</span><br><span class="line"></span><br><span class="line">-- 手动</span><br><span class="line">SELECT * FROM tb_stu WHERE id=5 LOCK IN SHARE MODE;</span><br><span class="line"></span><br><span class="line">-- 事务提交后会自动释放锁</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>  加<strong>行独占写锁</strong>：<code>FOR UPDATE</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 开始事务</span><br><span class="line">BEGIN;</span><br><span class="line"></span><br><span class="line">-- 手动锁定某一行</span><br><span class="line">SELECT * FROM tb_stu WHERE id=5 FOR UPDATE;</span><br><span class="line">-- 在 SELECT xxx... FOR UPDATE 执行后到事务提交之前，其它线程对该条记录的写操作都会被阻塞！！</span><br><span class="line"></span><br><span class="line">-- 事务提交后会自动释放锁</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="行锁基本操作演示"><a href="#行锁基本操作演示" class="headerlink" title="行锁基本操作演示"></a>行锁基本操作演示</h2><blockquote>
-<p>  <strong>建表</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-- 建表</span><br><span class="line">CREATE TABLE tb_stu (</span><br><span class="line">    id INT(11),</span><br><span class="line">    age VARCHAR(16)</span><br><span class="line">)ENGINE=INNODB;</span><br><span class="line"></span><br><span class="line">-- 插入数据</span><br><span class="line">INSERT INTO tb_stu VALUES(1,&#x27;10&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(3,&#x27;30&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(4,&#x27;40&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(5,&#x27;50&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(6,&#x27;60&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(7,&#x27;70&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(8,&#x27;80&#x27;);</span><br><span class="line">INSERT INTO tb_stu VALUES(9,&#x27;90&#x27;);</span><br><span class="line"># 注意：这里没有插入 id=2 的数据！！！</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 分别为 id 和 age 创建索引 </span><br><span class="line">CREATE INDEX a ON tb_stu(id);</span><br><span class="line">CREATE INDEX b ON tb_stu(age);</span><br><span class="line"></span><br><span class="line">-- 关闭 MySQL 的自动提交功能</span><br><span class="line">SET autocommit = 0;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>  <strong>模拟两个线程同时操作 <code>tb_stu</code> 表数据。建立两个会话分别为 Session1 和  Session2。</strong></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">Session1</th>
-<th align="center">Session2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>SET autocommit = 0</code></td>
-<td align="center"><code>SET autocommit = 0</code></td>
-</tr>
-<tr>
-<td align="center"><code>UPDATE tb_stu SET age=11 WHERE id=1;</code>【OK】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>SELECT * FROM tb_stu;</code>【查看后发现更新成功】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>SELECT * FROM tb_stu;</code>【未读到Session1未提交的事务】</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>UPDATE tb_stu SET age=19 WHERE id=1;</code>【写操作被阻塞】</td>
-</tr>
-<tr>
-<td align="center"><code>COMMIT;</code>【Session1 提交事务】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">【阻塞解除，更新操作继续执行成功。此时，id=1对应的age=19】</td>
-</tr>
-</tbody></table>
-<ol>
-<li> 分别关掉 Session1 和 Session2 事务的自动提交行为；</li>
-<li> 更新 <code>id=1</code> 的这一条记录，在 Session1 中更新成功，但在 Session2 中并未读取到 Session1 的更新。这是由于 MySQL 默认的隔离级别（可重复读）导致的。</li>
-<li> 此时，如果在 Session2 中想要更新同一行数据，发现 Session 的操作被阻塞，这是因为 InnoDB 默认给每行数据加了行锁。</li>
-<li> 使用 COMMIT 提交事务后，行锁也会被释放，这时 Session2 的更新操作得以继续执行。</li>
-</ol>
-<hr>
-<h2 id="InnoDB-的行锁的实现原理"><a href="#InnoDB-的行锁的实现原理" class="headerlink" title="InnoDB 的行锁的实现原理"></a>InnoDB 的行锁的实现原理</h2><p><strong>InnoDB 是基于索引来完成行锁</strong>。例如:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from emp where id = 1 for update;	-- 为查询语句加了行级写锁</span><br></pre></td></tr></table></figure>
-
-<p><code>for update</code> 可以根据条件来完成行锁锁定，并且 <code>id</code> 必须是有索引键的列，如果 <code>id</code> 不是索引键那么 InnoDB 将升级为表锁，并发将无从谈起。</p>
-<hr>
-<h2 id="索引失效行锁升级为表锁"><a href="#索引失效行锁升级为表锁" class="headerlink" title="索引失效行锁升级为表锁"></a>索引失效行锁升级为表锁</h2><p><strong>原理</strong></p>
-<ul>
-<li>  <strong>行锁必须依赖于索引才能实现，否则会自动升级为表锁。</strong>    </li>
-<li>所以在 InnoDB 表中有两种情况会导致行锁升级为表锁：<ul>
-<li>  一是条件字段压根没有建立索引；</li>
-<li>  二是条件字段的索引在使用中失效了。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>  <a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2021/07/23/MySQL%E7%B4%A2%E5%BC%95/">索引失效的常见场景</a></p>
-</blockquote>
-<p><strong>举例</strong></p>
-<p>在 <code>tb_stu</code> 表中，<code>id</code> 为 <code>int</code> 类型，<code>age</code> 为 <code>varchar</code> 类型。并且为这两个字段分别创建了索引 <code>a</code> 和 <code>b</code>。如果我们在更新数据的过程中，不小心把 <code>varchar</code> 类型的数据写成了 <code>int</code> 类型的数据，这就会发生隐式的类型转换，虽然 <code>int</code> 类型也能被识别而不会报错，但是此时就破坏了索引 <code>b</code> 的结构，就会导致索引 <code>b</code> 失效。从而导致行锁会升级到表锁。</p>
-<ol>
-<li> 破坏索引结构</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line"></span><br><span class="line"># UPDATE tb_stu SET id=1 WHERE age=&#x27;19&#x27;; # 正确写法</span><br><span class="line">UPDATE tb_stu SET id=1 WHERE age=19;	# 这里故意写错，目的是为了破坏索引结构</span><br><span class="line"></span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li> 经过上面的操作后，<code>age</code> 对应的索引 <code>b</code> 的结构已经失效了，如果接下来还有以 age 为条件字段的操作，则行锁会升级为表锁。</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="center">Session1</th>
-<th align="center">Session2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>BEGIN;</code></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>UPDATE tb_stu SET id=66 WHERE age=&#39;60&#39;;</code>【OK】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>UPDATE tb_stu SET id=77 WHERE age=70</code>【被阻塞】</td>
-</tr>
-<tr>
-<td align="center"><code>COMMIT;</code></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">【更新操作继续执行】</td>
-</tr>
-</tbody></table>
-<p>Session1 设置为手动事务提交，Session2 设置为自动事务提交。</p>
-<ol>
-<li> Session1 开启事务，更新  <code>age=&#39;60&#39;</code> 的行记录，OK；</li>
-<li> Session2 更新 <code>age=&#39;70&#39;</code> 的行记录，却发现被阻塞。但是明明 tb_stu 表使用的是行锁呀？这就是索引失效后行锁自动升级为表锁了。</li>
-<li> Session1 提交后，释放表锁，Session2 得以继续进行，修改成功。</li>
-</ol>
-<hr>
-<h2 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h2><p><strong>间隙锁案例：</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">Session1</th>
-<th align="center">Session2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>SET autocommit = 0</code></td>
-<td align="center"><code>SET autocommit = 0</code></td>
-</tr>
-<tr>
-<td align="center"><code>UPDATE tb_stu SET age=99 WHERE id&gt;1 AND id&lt;6;</code><br>【更新 <code>1&lt;id&lt;6</code>的所有数据】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><code>SELECT * FROM tb_stu;</code>【查看后发现更新成功】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"><code>INSERT INTO tb_stu VALUES(2,&quot;20&quot;);</code><br>【产生阻塞，插入操作无法执行完毕】</td>
-</tr>
-<tr>
-<td align="center"><code>COMMIT;</code>【Session1 提交事务】</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">【阻塞解除，插入操作继续执行成功。id=2的数据被成功插入】</td>
-</tr>
-</tbody></table>
-<ol>
-<li><p> 分别关闭 Session1 和 Session2 的事务自动提交；</p>
-</li>
-<li><p> 更新 id 为 <code>(1, 6)</code> 范围内的所有数据，由于当前表中没有 id 为 2 的数据，所以就是更新 id 为 3，4，5 的数据，设置 age=99。</p>
-</li>
-<li><p>但是我们此时使用 Session2 想要插入一条 <code>id=2</code> 的数据，却发现被阻塞了。这时为什么呢？</p>
-<p>  按理来说，行锁只会作用于当前行，在本例中也就是第 3、4、5 行，而 Session2 操作的明明是第 2 行，为什么也会被阻塞呢？这时因为此时 id=2 的那一行也被加了行锁，这就是所谓的<strong>间隙锁</strong>。 </p>
-</li>
-<li><p> 只有当 Session1 的事务提交后，所有作用于行上的锁被释放了，Session2 的插入操作才能继续完成。</p>
-</li>
-</ol>
-<blockquote>
-<p>  <strong>什么是间隙锁？</strong></p>
-</blockquote>
-<ul>
-<li>  当我们使用范围条件而不是相等条件读/写数据，并请求共享/排它锁时，InnoDB 会给符合条件的已有数据记录的索引项加锁，这是显然的；</li>
-<li>  对于索引的键值在条件范围内但并不存在的记录，叫做“<strong>间隙（GAP）</strong>”。InnoDB 也会对这个“间隙”加锁，这种锁机制就是所谓的<strong>间隙锁（Next-Key锁）</strong>。</li>
-<li>  <strong>总结：</strong> <code>间隙锁 = 使用范围条件加锁 +检索的字段是一个索引</code></li>
-</ul>
-<blockquote>
-<p>  <strong>间隙锁的危害</strong></p>
-</blockquote>
-<ul>
-<li>  间隙锁有一个致命的弱点就是当锁定一个范围的键值之后，即使某些不存在的键值也会被无辜的锁定，从而造成在锁定的时候无法插入锁定键值范围内的任何数据。在某些场景下这可能会对性能造成很大的危害。</li>
-<li>  因为 Query 执行过程中通过范围查找的话，它会锁定整个范围内所有的索引键值，即使这个键值在索引表中并不存在。</li>
-</ul>
-<hr>
-<h2 id="InnoDB-优缺点"><a href="#InnoDB-优缺点" class="headerlink" title="InnoDB 优缺点"></a>InnoDB 优缺点</h2><blockquote>
-<p>  <strong>优点：</strong></p>
-</blockquote>
-<ul>
-<li>  InnoDB 存储引擎实现了行锁，虽然在实现锁时损耗的性能比表锁高一些，但其并发处理的能力是远优于 MyISAM 的表锁的。</li>
-<li>  当系统并发量较高时，InnoDB 的整体性能和 MyISAM 相比就会有比较明显的优势了。</li>
-</ul>
-<blockquote>
-<p>  <strong>缺点：</strong></p>
-</blockquote>
-<ul>
-<li>  但是，InnoDB 也有其脆弱的一面，当我们使用不当时（如索引失效导致行锁升级为表锁 ），可能会让 InnoDB 的整体性能表现不仅不能比 MyISAM 高，甚至可能会更差。</li>
-</ul>
-<hr>
-<h2 id="行锁分析"><a href="#行锁分析" class="headerlink" title="行锁分析"></a>行锁分析</h2><blockquote>
-<p>  <strong>如何分析行锁？</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 展示行锁的各个状态量</span><br><span class="line">SHOW STATUS LIKE &#x27;innodb_row_lock%&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/10/06/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/image-20210729091146048.png" alt="image-20210729091146048"></p>
-<p>对各个状态量的说明如下：</p>
-<ul>
-<li>  <strong>InnoDB_row_lock_current_waits</strong>：当前正在等待锁的数量；</li>
-<li>  <strong>InnoDB_row_lock_time</strong>：从系统启动到当前时间该行数据被锁定的总时间；【★】</li>
-<li>  <strong>InnoDB_row_lock_time_avg</strong>：每次等待所花的平均时间；【★】</li>
-<li>  <strong>InnoDB_row_lock_time_max</strong>：从系统启动到当前时间等待最长的一次所花的时间；</li>
-<li>  <strong>InnoDB_row_lock_waits</strong>：系统启动到当前时间总共等待的次数；【★】</li>
-</ul>
-<p>对于这五个状态量，比较重要的有三个。尤其是当等待次数很高，而且等待平均时长也不小的时候，我们就需要分析系统中为什么会有 这么多等待，然后根据分析结果制定优化计划。</p>
-<hr>
-<h2 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h2><ul>
-<li>  尽可能让所有数据检索都通过索引来完成，避免无索引行锁升级为表锁；</li>
-<li>  合理设计索引，尽量缩小锁的范围；</li>
-<li>  尽可能缩小检索条件，避免频繁出现间隙锁 ；</li>
-<li>  尽量控制事务大小，减少锁定资源量和时间长度；</li>
-<li>  尽可能低级别事务隔离。</li>
-</ul>
-<hr>
-<h1 id="页锁"><a href="#页锁" class="headerlink" title="页锁"></a>页锁</h1><ul>
-<li>  页锁的开销和加锁时间介于表锁和行锁之间；</li>
-<li>  会出现死锁；</li>
-<li>  锁的粒度介于表锁和行锁之间；</li>
-<li>  并发度一般。</li>
-</ul>
-
       
     </div>
 

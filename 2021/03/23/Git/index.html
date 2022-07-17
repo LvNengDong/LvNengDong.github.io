@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="是什么？Git 是一个分布式版本控制系统，它是没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本库都在自己的电脑上。 既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说张三在电脑上改了文件A，李四也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。 下图就是分布式版本控制工具的管理方式：   Git工">
+    <meta name="description" content="是什么？Git 是一个分布式版本控制系统，它是没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本库都在自己的电脑上。 既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说张三在电脑上改了文件A，李四也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。 下图就是分布式版本控制工具的管理方式：  Git v">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git">
 <meta property="og:url" content="http://example.com/2021/03/23/Git/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="是什么？Git 是一个分布式版本控制系统，它是没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本库都在自己的电脑上。 既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说张三在电脑上改了文件A，李四也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。 下图就是分布式版本控制工具的管理方式：   Git工">
+<meta property="og:description" content="是什么？Git 是一个分布式版本控制系统，它是没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本库都在自己的电脑上。 既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说张三在电脑上改了文件A，李四也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。 下图就是分布式版本控制工具的管理方式：  Git v">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/03/23/Git/image-20210326134303413.png">
 <meta property="og:image" content="http://example.com/2021/03/23/Git/clip_image002.jpg">
@@ -80,7 +80,7 @@
 <meta property="og:image" content="http://example.com/2021/03/23/Git/image-20210327170059376.png">
 <meta property="og:image" content="http://example.com/2021/03/23/Git/image-20210327170730236.png">
 <meta property="article:published_time" content="2021-03-23T15:44:24.000Z">
-<meta property="article:modified_time" content="2022-04-24T09:28:48.647Z">
+<meta property="article:modified_time" content="2022-07-17T12:09:57.725Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/03/23/Git/image-20210326134303413.png">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">Git工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3Git%E4%B8%AD%E7%9A%84checkout%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">如何理解Git中的checkout？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">Git安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TortoiseGit%E5%AE%89%E8%A3%85-%E5%8F%AF%E9%80%89"><span class="nav-number">3.1.</span> <span class="nav-text">TortoiseGit安装(可选)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85-%E5%8F%AF%E9%80%89"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装中文语言包(可选)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Git%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%89%88%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">使用Git管理文件版本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">1 创建版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">2 添加文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8C%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="nav-number">4.2.1.</span> <span class="nav-text">工作区和暂存区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">3 修改文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BF%AE%E6%94%B9"><span class="nav-number">4.3.1.</span> <span class="nav-text">提交修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E5%8E%86%E5%8F%B2"><span class="nav-number">4.3.2.</span> <span class="nav-text">查看修改历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82%E6%AF%94%E8%BE%83"><span class="nav-number">4.3.3.</span> <span class="nav-text">差异比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%98%E5%8E%9F%E4%BF%AE%E6%94%B9"><span class="nav-number">4.3.4.</span> <span class="nav-text">还原修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="nav-number">4.4.</span> <span class="nav-text">4 删除文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86Java%E9%A1%B9%E7%9B%AE%E6%8F%90%E4%BA%A4%E5%88%B0%E7%89%88%E6%9C%AC%E5%BA%93"><span class="nav-number">5.</span> <span class="nav-text">将Java项目提交到版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95%E8%A7%84%E8%8C%83"><span class="nav-number">5.1.</span> <span class="nav-text">忽略文件语法规范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="nav-number">6.1.</span> <span class="nav-text">1    添加远程库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.1.</span> <span class="nav-text">1.1    创建远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BD%BF%E7%94%A8-SSH-%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.2.</span> <span class="nav-text">1.2    使用 SSH  创建连接远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">SSH 基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E7%A7%98%E9%92%A5%E7%94%9F%E6%88%90%EF%BC%88windows%EF%BC%89"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">SSH 秘钥生成（windows）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E7%A7%98%E9%92%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">SSH 秘钥配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%90%8C%E6%AD%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.3.</span> <span class="nav-text">1.3    同步到远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Git-Bash-%E5%90%8C%E6%AD%A5"><span class="nav-number">6.1.3.1.</span> <span class="nav-text">使用 Git Bash 同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TortoiseGit-%E5%90%8C%E6%AD%A5"><span class="nav-number">6.1.3.2.</span> <span class="nav-text">使用 TortoiseGit 同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86"><span class="nav-number">6.2.</span> <span class="nav-text">2    从远程仓库克隆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BD%BF%E7%94%A8-git-bash-%E5%85%8B%E9%9A%86"><span class="nav-number">6.2.1.</span> <span class="nav-text">2.1    使用 git bash 克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BD%BF%E7%94%A8-TortoiseGit-%E5%85%8B%E9%9A%86"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.2    使用 TortoiseGit 克隆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.</span> <span class="nav-text">3    从远程仓库取代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-git-bash-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.1.</span> <span class="nav-text">使用 git bash 拉取代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TortoiseGit-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.2.</span> <span class="nav-text">使用 TortoiseGit 拉取代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA-Git-%E7%A7%81%E6%9C%8D"><span class="nav-number">7.</span> <span class="nav-text">搭建 Git 私服</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">分支管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="nav-number">9.</span> <span class="nav-text">Git 常见命令</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-vs-SVN"><span class="nav-number">1.1.</span> <span class="nav-text">Git vs. SVN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">Git工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3Git%E4%B8%AD%E7%9A%84checkout%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">如何理解Git中的checkout？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">Git安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TortoiseGit%E5%AE%89%E8%A3%85-%E5%8F%AF%E9%80%89"><span class="nav-number">3.1.</span> <span class="nav-text">TortoiseGit安装(可选)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85-%E5%8F%AF%E9%80%89"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装中文语言包(可选)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Git%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%89%88%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">使用Git管理文件版本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">1 创建版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">2 添加文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8C%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="nav-number">4.2.1.</span> <span class="nav-text">工作区和暂存区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">3 修改文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BF%AE%E6%94%B9"><span class="nav-number">4.3.1.</span> <span class="nav-text">提交修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E5%8E%86%E5%8F%B2"><span class="nav-number">4.3.2.</span> <span class="nav-text">查看修改历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82%E6%AF%94%E8%BE%83"><span class="nav-number">4.3.3.</span> <span class="nav-text">差异比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%98%E5%8E%9F%E4%BF%AE%E6%94%B9"><span class="nav-number">4.3.4.</span> <span class="nav-text">还原修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="nav-number">4.4.</span> <span class="nav-text">4 删除文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86Java%E9%A1%B9%E7%9B%AE%E6%8F%90%E4%BA%A4%E5%88%B0%E7%89%88%E6%9C%AC%E5%BA%93"><span class="nav-number">5.</span> <span class="nav-text">将Java项目提交到版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95%E8%A7%84%E8%8C%83"><span class="nav-number">5.1.</span> <span class="nav-text">忽略文件语法规范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="nav-number">6.1.</span> <span class="nav-text">1    添加远程库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.1.</span> <span class="nav-text">1.1    创建远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BD%BF%E7%94%A8-SSH-%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.2.</span> <span class="nav-text">1.2    使用 SSH  创建连接远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">SSH 基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E7%A7%98%E9%92%A5%E7%94%9F%E6%88%90%EF%BC%88windows%EF%BC%89"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">SSH 秘钥生成（windows）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E7%A7%98%E9%92%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">6.1.2.3.</span> <span class="nav-text">SSH 秘钥配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%90%8C%E6%AD%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">6.1.3.</span> <span class="nav-text">1.3    同步到远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Git-Bash-%E5%90%8C%E6%AD%A5"><span class="nav-number">6.1.3.1.</span> <span class="nav-text">使用 Git Bash 同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TortoiseGit-%E5%90%8C%E6%AD%A5"><span class="nav-number">6.1.3.2.</span> <span class="nav-text">使用 TortoiseGit 同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86"><span class="nav-number">6.2.</span> <span class="nav-text">2    从远程仓库克隆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BD%BF%E7%94%A8-git-bash-%E5%85%8B%E9%9A%86"><span class="nav-number">6.2.1.</span> <span class="nav-text">2.1    使用 git bash 克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BD%BF%E7%94%A8-TortoiseGit-%E5%85%8B%E9%9A%86"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.2    使用 TortoiseGit 克隆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.</span> <span class="nav-text">3    从远程仓库取代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-git-bash-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.1.</span> <span class="nav-text">使用 git bash 拉取代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TortoiseGit-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.2.</span> <span class="nav-text">使用 TortoiseGit 拉取代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA-Git-%E7%A7%81%E6%9C%8D"><span class="nav-number">7.</span> <span class="nav-text">搭建 Git 私服</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91"><span class="nav-number">8.</span> <span class="nav-text">分支开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">Git 常用命令（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-add"><span class="nav-number">9.1.</span> <span class="nav-text">git add</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-push"><span class="nav-number">9.2.</span> <span class="nav-text">git push</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-branch-git-checkout"><span class="nav-number">9.3.</span> <span class="nav-text">git branch&#x2F;git checkout</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98"><span class="nav-number">9.3.1.</span> <span class="nav-text">实战</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-config"><span class="nav-number">9.4.</span> <span class="nav-text">git config</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-number">9.4.1.</span> <span class="nav-text">常用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%B8%B8%E7%94%A8"><span class="nav-number">9.4.2.</span> <span class="nav-text">不常用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-diff"><span class="nav-number">9.5.</span> <span class="nav-text">git diff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-log"><span class="nav-number">9.6.</span> <span class="nav-text">git log</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-log-%E5%92%8C-git-diff-%E5%91%BD%E4%BB%A4%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-number">9.6.1.</span> <span class="nav-text">git log 和 git diff 命令结合使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-fetch-git-merge"><span class="nav-number">9.7.</span> <span class="nav-text">git fetch&#x2F;git merge&#x2F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-reset"><span class="nav-number">9.8.</span> <span class="nav-text">git reset</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">10.</span> <span class="nav-text">常规开发流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">11.</span> <span class="nav-text">使用中遇到的一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9AGit%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%90%8C%E6%AD%A5%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">11.1.</span> <span class="nav-text">问题：Git远程仓库与工作区数据不同步的排查与解决方案</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,13 +174,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">231</span>
+          <span class="site-state-item-count">232</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-24 17:28:48" itemprop="dateModified" datetime="2022-04-24T17:28:48+08:00">2022-04-24</time>
+      <time title="Modified: 2022-07-17 20:09:57" itemprop="dateModified" datetime="2022-07-17T20:09:57+08:00">2022-07-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,6 +286,15 @@
 <p>既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说张三在电脑上改了文件A，李四也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
 <p>下图就是分布式版本控制工具的管理方式：</p>
 <p><img src="/2021/03/23/Git/image-20210326134303413.png" alt="image-20210326134303413"></p>
+<h2 id="Git-vs-SVN"><a href="#Git-vs-SVN" class="headerlink" title="Git vs. SVN"></a>Git vs. SVN</h2><ul>
+<li>SVN：不同版本代码的对比需要与中央服务器交互</li>
+<li>Git：版本间的对比发生在本地，中央服务器只需要承担的工作量减少。当远程服务器发生故障时，只需要找到一个比较完整的本地仓库，将其数据重新作为远程仓库，就可以基本还原远程仓库。</li>
+</ul>
+<p>SVN 存储每个版本文件的变化，这样在进行版本间切换时每次都需要将变化的操作重新执行一遍。</p>
+<p>而 Git 存储每个版本文件的快照，在进行版本间切换时只需要更改指针的引用位置即可，效率极快。但缺点是占用存储空间高。</p>
+<p>Git 几乎所有操作都在本地完成</p>
+<p>SVN 需要与服务器通讯以获取其它版本的文件</p>
+<p>相对而言，Git 的响应速度更快。</p>
 <hr>
 <h1 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h1><p>Git的一般工作流程如下：</p>
 <p><img src="/2021/03/23/Git/clip_image002.jpg" alt="clip_image002"></p>
@@ -604,24 +613,208 @@
 <h1 id="搭建-Git-私服"><a href="#搭建-Git-私服" class="headerlink" title="搭建 Git 私服"></a>搭建 Git 私服</h1><blockquote>
 <p>更新ing…</p>
 </blockquote>
-<h1 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h1><blockquote>
-<p>更新ing…</p>
-</blockquote>
-<h1 id="Git-常见命令"><a href="#Git-常见命令" class="headerlink" title="Git 常见命令"></a>Git 常见命令</h1><blockquote>
-<p>查看 Git 的配置信息</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy <span class="comment">#查看git的http代理配置</span></span><br><span class="line">git config --global https.proxy <span class="comment">#查看git的https代理配置</span></span><br><span class="line">git config --global -l <span class="comment">#查看git的所有配置</span></span><br></pre></td></tr></table></figure>
+<h1 id="分支开发"><a href="#分支开发" class="headerlink" title="分支开发"></a>分支开发</h1><ul>
+<li>在单独的分支上开发</li>
+<li>将不同的分支合并</li>
+</ul>
+<p>为什么需要在不同的分支上开发？</p>
+<ul>
+<li>如果在同一个分支上开发，当 A 修改的代码与 B 修改的代码产生冲突时，就必须通过 merge 来解决这些冲突，如果修改频繁的话，需要 merge 的次数也会很多，这对程序员的负担是很大的，因为这需要 A 和 B 协作解决。</li>
+<li>如果在不同的分支上进行开发，A 和 B 只需要在各自分支上开发自己的功能模块，只需要在确定最终版时 merge 一次，合并这两个分支即可，这可以减少对人力资源的浪费。</li>
+</ul>
+<hr>
+<h1 id="Git-常用命令（重要）"><a href="#Git-常用命令（重要）" class="headerlink" title="Git 常用命令（重要）"></a>Git 常用命令（重要）</h1><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>init</td>
+<td>clone</td>
+<td>remote</td>
+<td>status</td>
+<td>log</td>
+<td>reflog</td>
+<td>config</td>
+</tr>
+<tr>
+<td>add</td>
+<td>commit</td>
+<td>fetch</td>
+<td>pull</td>
+<td>push</td>
+<td>rm</td>
+<td>stash</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>checkout</td>
+<td>merge</td>
+<td>diff</td>
+<td>reset</td>
+<td>revert</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>git init</code></li>
+<li><code>git clone</code></li>
+<li><code>git remote</code>：  管理相关的远程仓库</li>
+<li><code>git status</code>：显示工作区的状态</li>
+<li><code>git log</code>：查看 commit 操作的日志</li>
+<li><code>git reflog</code>：查看所有分支的所有操作的日志<ul>
+<li>git log 只记录“commit操作”的日志，而 git reflog 记录所有操作的日志</li>
+<li>git reflog 的日志只存在于本地仓库，并不会同步到远程仓库中去。而 git log 的日志则在本地和远程仓库分别保存一份。</li>
+</ul>
+</li>
+<li><code>git commit -m “说明信息” </code></li>
+<li><code>git </code></li>
+<li>使用 <code>git reset HEAD &lt;file&gt;</code> 或 <code>git restore --staged &lt;file&gt;</code>将文件撤出暂存区</li>
+</ul>
+<h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>作用：将工作区的文件加入到暂存区</p>
+<p>使用场景：</p>
+<ul>
+<li><p>将工作区的一个或多个文件加入到暂存区</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个文件</span></span><br><span class="line">git add text.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个文件</span></span><br><span class="line">git add doc.md user/profile.txt</span><br></pre></td></tr></table></figure></li>
+<li><p>将工作区的目录加入到暂存区</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将mydir目录加入到暂存区</span></span><br><span class="line">git add mydir</span><br></pre></td></tr></table></figure></li>
+<li><p>将工作区的全部文件都加入到暂存区（以下三种用法的作用完全相同）</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git add -A</span><br><span class="line"></span><br><span class="line">git add --all</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>设置 Git 使用代理（端口号是代理软件开启代理时占用的端口号，可在计算机的设置中查看）</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy 127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>作用：将本地仓库的文件推送到远程服务器</p>
+<ul>
+<li><p>如果你自己在本地仓库中新建了特性分支，并且在远程仓库中并没有与之对应的分支，通过 <code>git push</code>推送时，会报错，并给出一个解决方案，即通过添加参数建立一个远程仓库的分支与本地分支相对应。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、先在远程仓库创建一个同名的远程子分支  </span></span><br><span class="line"><span class="comment"># 2、将本地分支的内容上传到同名远程分支上</span></span><br><span class="line">git push --set-upstream origin 子分支名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价命令</span></span><br><span class="line">git push -u origin 子分支名称</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="git-branch-git-checkout"><a href="#git-branch-git-checkout" class="headerlink" title="git branch/git checkout"></a>git branch/git checkout</h2><p><strong>git branch  管理分支</strong></p>
+<p><strong>git checkout  切换分支或撤销文件</strong></p>
+<ul>
+<li><p>git branch 显示所有的分支，以及当前位于哪个分支</p>
+</li>
+<li><p>git branch -v    显示所有分支的详情</p>
+</li>
+<li><p>git branch ${分支名称}   新建分支（但不切换分支）</p>
+</li>
+<li><p>git checkout -b branch ${分支名称}   新建分支并切换到这个分支上</p>
+</li>
+<li><p>git branch -d ${分支名称}    删除分支</p>
+</li>
+<li><p>git checkout ${分支名称}    切换分支</p>
+</li>
+<li><p><code>git checkout --&lt;filename&gt;</code>   撤销对文件的修改（默认还原到最初版本）</p>
+</li>
+<li><p><code>git checkout &lt;版本号&gt; --&lt;filename&gt;</code>   撤销对文件的修改（还原到指定版本）</p>
+</li>
+<li><p><code>git checkout HEAD --&lt;filename&gt;</code>   撤销对文件的修改（还原到指定版本）</p>
+</li>
+<li><ul>
+<li>HEAD 表示当前提交，<ul>
+<li>HEAD ~ 表示切换到上一次提交</li>
+<li>HEAD ~2  表示切换到前两次提交，以此类推</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>git branch -r</code>   查看远程仓库的所有分支：</p>
+</li>
+</ul>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><ol>
+<li><p>从远程仓库克隆项目</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 仓库名称</span><br></pre></td></tr></table></figure></li>
+<li><p>为克隆到本地的项目创建一个特性分支</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b branch 分支名</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h2><p>作用：查看/修改 Git 的配置信息。</p>
+<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><ul>
+<li><p>查看 Git 的全局配置文件</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config -e</span><br></pre></td></tr></table></figure></li>
+<li><p>设置 Git 本地用户的用户名和邮箱信息</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --add user.name xxx</span><br><span class="line">git config --add user.email xxx</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="不常用"><a href="#不常用" class="headerlink" title="不常用"></a>不常用</h3><ul>
+<li><p>查看 Git 的代理配置</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy <span class="comment">#查看git的http代理配置</span></span><br><span class="line">git config --global https.proxy <span class="comment">#查看git的https代理配置</span></span><br><span class="line">git config --global -l <span class="comment">#查看git的所有配置</span></span><br></pre></td></tr></table></figure></li>
+<li><p>设置 Git 使用代理（端口号是代理软件开启代理时占用的端口号，可在计算机的设置中查看）</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">7890</span></span><br><span class="line">git config --global https.proxy <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">7890</span></span><br></pre></td></tr></table></figure></li>
+<li><p>取消使用 Git 代理</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>取消使用 Git 代理</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><p>显示不同提交/不同工作区域/不同分支之间的差别</p>
+<ul>
+<li><p>默认（即不加任何参数）显示工作区与暂存区之间文件的差异</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
 
+</li>
+<li><p>git diff –cached 或 git diff –staged  对比暂存区与本地仓库之间的差异</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached</span><br><span class="line">git diff --staged</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h2><p>使用 git diff 对比不同分支之间的区别</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff <span class="variable">$&#123;branch1&#125;</span> <span class="variable">$&#123;branch2&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="git-log-和-git-diff-命令结合使用"><a href="#git-log-和-git-diff-命令结合使用" class="headerlink" title="git log 和 git diff 命令结合使用"></a>git log 和 git diff 命令结合使用</h3><p>使用 git log 可以查看每次的 commit 操作的日志，每个日志都有一个 id，使用 Git diff 可以比较两次提交间的差异。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff <span class="variable">$&#123;log_id1&#125;</span> <span class="variable">$&#123;log_id2&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="git-fetch-git-merge"><a href="#git-fetch-git-merge" class="headerlink" title="git fetch/git merge/"></a>git fetch/git merge/</h2><ul>
+<li>git fetch  拉取远程仓库到本地仓库</li>
+<li>git merge 合并分支</li>
+<li>git pull 拉取远程仓库到本地仓库并合并到本地分支（git fetch + git merge）</li>
+</ul>
+<hr>
+<h2 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h2><p>重置HEAD到指定的状态</p>
+<hr>
+<h1 id="常规开发流程"><a href="#常规开发流程" class="headerlink" title="常规开发流程"></a>常规开发流程</h1><ol>
+<li>创建仓库/从远程仓库克隆</li>
+<li>创建并切换到特性分支（自己的分支，之后的所有操作都需要在自己的分支上进行）</li>
+<li>创建/修改文件</li>
+<li>提交工作区的文件到暂存区</li>
+<li>提交暂存区文件到本地仓库</li>
+<li>切换到主干分支</li>
+<li>合并特性分支到主干分支（在这一步解决代码冲突的问题）</li>
+<li>推送本地仓库到远程仓库</li>
+</ol>
+<hr>
+<h1 id="使用中遇到的一些问题"><a href="#使用中遇到的一些问题" class="headerlink" title="使用中遇到的一些问题"></a>使用中遇到的一些问题</h1><h2 id="问题：Git远程仓库与工作区数据不同步的排查与解决方案"><a href="#问题：Git远程仓库与工作区数据不同步的排查与解决方案" class="headerlink" title="问题：Git远程仓库与工作区数据不同步的排查与解决方案"></a>问题：Git远程仓库与工作区数据不同步的排查与解决方案</h2><p>我在使用Git提交代码到远程仓库时，出现的一个问题就是，明明我在工作区已经删除了某些文件，但是在 push 到远程仓库后，发现这些被删除的文件依然存在。这种情况可能的问题有如下几种：</p>
+<ul>
+<li>工作区中的文件已经add到了暂存区中</li>
+<li>工作区中的文件已经commit到了本地仓库中</li>
+</ul>
+<p>因为通过push向远程仓库推送文件是以本地仓库为基础的，所以如果本地仓库中存在这些被删除的文件，那么远程仓库中也一定会有这些文件。</p>
+<p>这一问题的主要解决方式如下：</p>
+<ol>
+<li><p>通过 diff 命令查看工作区与暂存区或者本地仓库的差别。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git diff  查看工作区与暂存区之间文件的差异</span><br><span class="line">git diff --cached 或 git diff --staged  查看暂存区与本地仓库之间的差异</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>确定原因后，比如我的原因是工作区与暂存区中的内容不一致，暂存区比工作区多出了一些文件。此时我要做的就是删除暂存区中多出来的文件。</p>
+<ul>
+<li><p>删除暂存区中多余的文件/目录</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 删除暂存区文件</span><br><span class="line">git <span class="built_in">rm</span> --cached <span class="variable">$&#123;文件名&#125;</span></span><br><span class="line"></span><br><span class="line">// 删除暂存区目录（递归删除）</span><br><span class="line">git <span class="built_in">rm</span> -r --cached <span class="variable">$&#123;目录&#125;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>紧接着重新 commit、push 即可把最新的内容同步到远程仓库中。</p>
+</li>
+</ul>
+</li>
+</ol>
 
     </div>
 
