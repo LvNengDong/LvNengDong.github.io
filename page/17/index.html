@@ -116,13 +116,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">232</span>
+          <span class="site-state-item-count">235</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -156,6 +156,1463 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/NoSQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/03/24/NoSQL/" class="post-title-link" itemprop="url">NoSQL</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-03-24 23:07:39 / Modified: 23:08:48" itemprop="dateCreated datePublished" datetime="2021-03-24T23:07:39+08:00">2021-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NoSQL/" itemprop="url" rel="index"><span itemprop="name">NoSQL</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="NOSQL"><a href="#NOSQL" class="headerlink" title="NOSQL"></a>NOSQL</h1><blockquote>
+<p>NoSQL（Not Only SQL）：”不仅仅是SQL”，是一种全新的数据库理念，泛指非关系型数据库。</p>
+</blockquote>
+<h1 id="NoSQL-vs-SQL"><a href="#NoSQL-vs-SQL" class="headerlink" title="NoSQL  vs.  SQL"></a>NoSQL  vs.  SQL</h1><blockquote>
+<p>关系型数据库的优势</p>
+</blockquote>
+<ol>
+<li>复杂查询：<ul>
+<li>可以用SQL语句方便的在一个表以及多个表之间做非常复杂的数据查询</li>
+</ul>
+</li>
+<li>事务支持<ul>
+<li>事务支持使得对于<strong>安全性能</strong>要求很高的数据访问需求得以实现。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>关系型数据库的缺点：</p>
+</blockquote>
+<ol>
+<li>在处理<strong>超大规模</strong>和<strong>高并发</strong>的数据时<strong>速度慢</strong>！</li>
+</ol>
+<blockquote>
+<p>非关系型数据库的优点：</p>
+</blockquote>
+<ol>
+<li>查询大型规模数据集合时<strong>速度快</strong>！<ul>
+<li>NOSQL 数据库将数据存储在缓存中，关系型数据库将数据存储在硬盘中。自然NOSQL数据库查询速度要更快！）</li>
+</ul>
+</li>
+<li>存储数据的格式多样化。<ul>
+<li>NoSQL 中数据的存储格式有：<code>&lt;K, V&gt;</code> 格式、文档形式、图片形式等等。 不仅可以存储基础类型的数据，还可以存储对象或者是集合等各种格式，而数据库则只支持基础类型。）</li>
+</ul>
+</li>
+<li>扩展性好。<ul>
+<li>关系型数据库有类似于 join 这样的多表查询机制，导致数据库一旦创建就很难扩展。</li>
+<li>而NoSQL是基于键值对存储数据的，数据之间没有耦合，所以非常容易水平扩展。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>非关系型数据库的缺点：</p>
+</blockquote>
+<ol>
+<li><p>没有标准的SQL（结构化查询语句）的支持。    </p>
+<p>（没有一个统一的标准来规定 NoSQL 的语法。  也就是说，对于不同的 NoSQL 数据库，增删改查等语句不尽相同，会增加用户的学习和使用成本。）</p>
+</li>
+<li><p>不提供关系型数据库对事务的处理。</p>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<ol>
+<li>关系型数据库与NOSQL数据库并非对立而是互补的关系。即通常情况下使用关系型数据库，在适合使用NOSQL的时候使用NOSQL数据库。</li>
+<li>一般情况下，会将数据存储在关系型数据库中，在NoSQL数据库中存储关系型数据库中数据的备份。</li>
+</ol>
+<hr>
+<h1 id="主流的NoSQL产品"><a href="#主流的NoSQL产品" class="headerlink" title="主流的NoSQL产品"></a>主流的NoSQL产品</h1><h3 id="键值对-lt-K-V-gt-存储数据库"><a href="#键值对-lt-K-V-gt-存储数据库" class="headerlink" title="键值对&lt;K, V&gt;存储数据库"></a>键值对&lt;K, V&gt;存储数据库</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">相关产品</td>
+<td align="center"><code>Tokyo Cabinet、Tyrant、Redis、Voldemort、Berkeley DB</code></td>
+</tr>
+<tr>
+<td align="center">典型应用</td>
+<td align="center">内容缓存，主要用于<strong>处理大量数据</strong>的高访问负载</td>
+</tr>
+<tr>
+<td align="center">数据模型</td>
+<td align="center">键值对</td>
+</tr>
+<tr>
+<td align="center">优势</td>
+<td align="center">快速查询</td>
+</tr>
+<tr>
+<td align="center">劣势</td>
+<td align="center">存储的数据缺少结构化</td>
+</tr>
+</tbody></table>
+<h3 id="列存储数据库"><a href="#列存储数据库" class="headerlink" title="列存储数据库"></a>列存储数据库</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">相关产品</td>
+<td align="center"><code>Cassandra、Hbase、Riak</code></td>
+</tr>
+<tr>
+<td align="center">典型应用</td>
+<td align="center">分布式的文件系统</td>
+</tr>
+<tr>
+<td align="center">数据模型</td>
+<td align="center">以列簇式存储，将同一列数据存在一起</td>
+</tr>
+<tr>
+<td align="center">优势</td>
+<td align="center">查找速度快，可扩展性强，更容易进行分布式扩展</td>
+</tr>
+<tr>
+<td align="center">劣势</td>
+<td align="center">功能相对局限</td>
+</tr>
+</tbody></table>
+<h3 id="文档型数据库"><a href="#文档型数据库" class="headerlink" title="文档型数据库"></a>文档型数据库</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">相关产品</td>
+<td align="center"><code>CouchDB、MongoDB</code></td>
+</tr>
+<tr>
+<td align="center">典型应用</td>
+<td align="center">Web应用（与key-value类似）</td>
+</tr>
+<tr>
+<td align="center">数据模型</td>
+<td align="center">键值对</td>
+</tr>
+<tr>
+<td align="center">优势</td>
+<td align="center">数据结构要求不严格</td>
+</tr>
+<tr>
+<td align="center">劣势</td>
+<td align="center">查询性能不高，而且缺乏统一的查询语法</td>
+</tr>
+</tbody></table>
+<h3 id="图形数据库"><a href="#图形数据库" class="headerlink" title="图形数据库"></a>图形数据库</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">相关产品</td>
+<td align="center"><code>Neo4J、InfoGrid、Infinite Graph</code></td>
+</tr>
+<tr>
+<td align="center">典型应用</td>
+<td align="center">社交网络</td>
+</tr>
+<tr>
+<td align="center">数据模型</td>
+<td align="center">图结构</td>
+</tr>
+<tr>
+<td align="center">优势</td>
+<td align="center">利用图结构的相关算法</td>
+</tr>
+<tr>
+<td align="center">劣势</td>
+<td align="center">需要对整个图做计算才能得出结果，不容易做分布式的集群方案</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/Git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/03/23/Git/" class="post-title-link" itemprop="url">Git</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-03-23 23:44:24" itemprop="dateCreated datePublished" datetime="2021-03-23T23:44:24+08:00">2021-03-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-23 10:19:21" itemprop="dateModified" datetime="2022-07-23T10:19:21+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" itemprop="url" rel="index"><span itemprop="name">版本控制</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h1><p>Git 是一个<strong>分布式版本控制系统</strong>，它是没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本库都在自己的电脑上。</p>
+<p>既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说张三在电脑上改了文件A，李四也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+<p>下图就是分布式版本控制工具的管理方式：</p>
+<p><img src="/2021/03/23/Git/image-20210326134303413.png" alt="image-20210326134303413"></p>
+<h2 id="Git-vs-SVN"><a href="#Git-vs-SVN" class="headerlink" title="Git vs. SVN"></a>Git vs. SVN</h2><ul>
+<li>SVN：不同版本代码的对比需要与中央服务器交互</li>
+<li>Git：版本间的对比发生在本地，中央服务器只需要承担的工作量减少。当远程服务器发生故障时，只需要找到一个比较完整的本地仓库，将其数据重新作为远程仓库，就可以基本还原远程仓库。</li>
+</ul>
+<p>SVN 存储每个版本文件的变化，这样在进行版本间切换时每次都需要将变化的操作重新执行一遍。</p>
+<p>而 Git 存储每个版本文件的快照，在进行版本间切换时只需要更改指针的引用位置即可，效率极快。但缺点是占用存储空间高。</p>
+<p>Git 几乎所有操作都在本地完成</p>
+<p>SVN 需要与服务器通讯以获取其它版本的文件</p>
+<p>相对而言，Git 的响应速度更快。</p>
+<hr>
+<h1 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h1><p>Git的一般工作流程如下：</p>
+<p><img src="/2021/03/23/Git/clip_image002.jpg" alt="clip_image002"></p>
+<ol>
+<li> <strong>clone</strong>：从远程(共享)仓库中下载资源文件到本地仓库；</li>
+<li> <strong>checkout</strong>：将本地仓库中某个版本的文件 checkout 到工作区；</li>
+<li> 在工作区进行文件的修改工作；</li>
+<li> <strong>add</strong>：将工作区的文件保存到暂存区(Index Stage)，此时本地仓库不能感知到文件的修改；</li>
+<li> <strong>commit</strong>：将暂存区的修改提交到本地仓库，每次 commit 都会保存为一个版本。如果发生多次 commit，本地仓库将保存多个历史版本。</li>
+<li> <strong>push</strong>：将本地仓库中最新版本文件 push 到远程(共享)仓库。</li>
+</ol>
+<h2 id="如何理解Git中的checkout？"><a href="#如何理解Git中的checkout？" class="headerlink" title="如何理解Git中的checkout？"></a>如何理解Git中的checkout？</h2><p><code>checkout</code> 的意思是“检出”。</p>
+<p>Git 官方给定的含义是：使用这个命令切换分支。</p>
+<p>其实 checkout 命令的本质操作就是：<strong>将本地仓库中某个版本的文件检出到工作区</strong>。</p>
+<p>具体一点就是：当你在工作区修改了一些文件，但是发现修改错了，不想保存提交，而是想恢复到未修改之前，这个时候，你就可以使用 <code>git checkout &#123;file&#125;</code> 命令，Git 会把本地仓库中对应文件的原始版本检出到工作区，覆盖掉你之前的修改，这样就达到了撤销修改的目的。</p>
+<p><strong>举一反三：</strong>理解了 <code>git checkout</code>，你就知道， <code>git checkout</code> 后面不仅可以追加分支，还可以追加任何的 commit HASH 值，只要对应仓库的一个 commit 提交即可。</p>
+<p><strong>语法：</strong></p>
+<ol>
+<li> <code>git checkout branch</code>：切换分支。在切换分支之前，必须确保工作区是 clean 的</li>
+<li> <code>git checkout file</code>：使用仓库里版本覆盖掉当前工作区的文件，相当于取消掉你当前工作区的修改。</li>
+</ol>
+<h1 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h1><ul>
+<li><p>  <a target="_blank" rel="noopener" href="https://git-scm.com/download">安装包下载地址</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">官网安装指导</a></p>
+</li>
+</ul>
+<h2 id="TortoiseGit安装-可选"><a href="#TortoiseGit安装-可选" class="headerlink" title="TortoiseGit安装(可选)"></a>TortoiseGit安装(可选)</h2><ul>
+<li>  TortoiseGit 是一个基于 Git 的可视化工具。</li>
+<li>  <a target="_blank" rel="noopener" href="https://tortoisegit.org/download/">下载地址</a></li>
+</ul>
+<p>下载 TortoiseGit 后进行傻瓜式安装，安装成功后与 Git 环境进行绑定。具体步骤：</p>
+<ol>
+<li> <strong>配置 Git.exe Path</strong>：找到已安装的 Git 的 bin 目录作为 <code>Git.exe Path</code>。</li>
+</ol>
+<p><img src="/2021/03/23/Git/Git%5Cimage-20210326135454050.png" alt="image-20210326135454050"></p>
+<ol start="2">
+<li> 配置开发者姓名和邮箱。之后每次提交代码时都会把此信息加入到提交的信息中。</li>
+</ol>
+<p><img src="/2021/03/23/Git/Git%5Cimage-20210326135657510.png" alt="image-20210326135657510"></p>
+<ol start="3">
+<li> 使用默认配置，点击“完成”按钮完成配置。</li>
+</ol>
+<p><img src="/2021/03/23/Git/Git%5Cimage-20210326135749350.png" alt="image-20210326135749350"></p>
+<ol start="4">
+<li> 安装完毕后，在系统右键菜单中会出现 TortoiseGit 的菜单项。</li>
+</ol>
+<p><img src="/2021/03/23/Git/Git%5Cimage-20210326135913266.png" alt="image-20210326135913266"></p>
+<h3 id="安装中文语言包-可选"><a href="#安装中文语言包-可选" class="headerlink" title="安装中文语言包(可选)"></a>安装中文语言包(可选)</h3><ul>
+<li>  TortoiseGit 默认语言为英文，若需要切换为中文还需额外安装中文插件。</li>
+<li>  <a target="_blank" rel="noopener" href="https://tortoisegit.org/download/">下载地址</a> </li>
+<li>  下载成功后，直接傻瓜式安装，点击“下一步”即可成功安装。</li>
+<li>  安装成功后，在 TortoiseGit 的设置中调整语言为中文</li>
+</ul>
+<p><img src="/2021/03/23/Git/Git%5Cimage-20210326155003079.png" alt="image-20210326155003079"></p>
+<hr>
+<h1 id="使用Git管理文件版本"><a href="#使用Git管理文件版本" class="headerlink" title="使用Git管理文件版本"></a>使用Git管理文件版本</h1><h2 id="1-创建版本库"><a href="#1-创建版本库" class="headerlink" title="1 创建版本库"></a>1 创建版本库</h2><ul>
+<li>  <strong>什么是版本库？</strong></li>
+</ul>
+<p>版本库就是仓库(repository），可以是本地仓库，也可以是远程(共享)仓库。简单理解就是一个目录，这个目录中的所有文件都会被 Git 管理起来，对每个文件执行的写操作都会被记录下来，以便在任何时刻都能追踪历史，或者在将来某个时刻将其“还原”。</p>
+<ul>
+<li>  <strong>如何创建版本库？</strong></li>
+</ul>
+<p>创建一个版本库非常简单，可以使用 <code>git init</code> 命令。</p>
+<ol>
+<li>选择任意一个空目录，如 <code>E:\temp\git\repo</code></li>
+<li>在当前目录下进入 Git Bash 窗口(或者直接使用 Windows 自带的命令行窗口也可以)，输入 <code>git init</code> 命令进行版本库的初始化，初始化后该目录就变成一个本地版本库了。</li>
+<li>或者使用 TortoiseGit 工具提供的图形化界面。</li>
+</ol>
+<p><img src="/2021/03/23/Git/image-20210327131114601.png" alt="image-20210327131114601"></p>
+<ol start="4">
+<li> 版本库创建成功后，会在当前目录下生成一个 <code>.git</code> 隐藏目录！</li>
+</ol>
+<blockquote>
+<p>  <strong>相关概念：</strong></p>
+<ul>
+<li>  <strong>版本库</strong>：<code>.git</code> 目录就是版本库，所有被 Git 管理的文件都会保存到版本库中。</li>
+<li>  <strong>工作目录</strong>：包含 <code>.git</code> 目录的目录，也就是 <code>.git</code> 目录所在的目录。只有工作目录中的文件才能保存到版本库中。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="2-添加文件"><a href="#2-添加文件" class="headerlink" title="2 添加文件"></a>2 添加文件</h2><ol>
+<li><p>在工作目录下新建 <code>mytest.txt</code> 文件</p>
+</li>
+<li><p>将文件保存到暂存区。对 <code>mytest.txt</code> 执行 <code>add</code> 操作</p>
+<p><img src="/2021/03/23/Git/image-20210327132001998.png" alt="image-20210327132001998"></p>
+<p><img src="/2021/03/23/Git/image-20210327132018703.png" alt="image-20210327132018703"></p>
+<p>文本文件变为带“+”号的图标：</p>
+<p><img src="/2021/03/23/Git/image-20210327132054758.png" alt="image-20210327132054758"></p>
+</li>
+<li><p>将暂存区的文件提交到本地仓库。在 <code>mytest.txt</code> 上再次点击右键选择“提交”，此时将文件会保存到本地版本库中。</p>
+<p><img src="/2021/03/23/Git/image-20210327132211404.png" alt="image-20210327132211404"></p>
+<p><img src="/2021/03/23/Git/image-20210327132227172.png" alt="image-20210327132227172"></p>
+<p><img src="/2021/03/23/Git/image-20210327132337915.png" alt="image-20210327132337915"></p>
+</li>
+</ol>
+<h3 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h3><p>Git 和其它版本控制系统如 SVN 的一个不同之处就是有暂存区的概念。</p>
+<blockquote>
+<p>什么是工作区（Working Directory）？</p>
+</blockquote>
+<ul>
+<li><p>工作区就是你在电脑里能看到的目录，比如<code>E:\temp\git\repo</code> 文件夹就是一个工作区。</p>
+</li>
+<li><p><code>repo</code> 目录是<strong>工作区</strong>，在这个目录中的 <code>.git</code> 隐藏目录就是<strong>版本库</strong>。</p>
+</li>
+<li><p>Git 的版本库里存了很多东西，其中最重要的就是<strong>暂存区(index stage)<strong>，还有Git为我们自动创建的第一个</strong>分支</strong>master，以及指向master的一个指针叫 HEAD。</p>
+<p>  HEAD 文件是一个文件指向 Master 分支，某个 HEAD 文件的具体内容如下：</p>
+  <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ref</span>: <span class="string">refs/heads/master</span></span><br></pre></td></tr></table></figure>
+
+<p>  显然，这就是一个引用。指向了 master 分支。</p>
+</li>
+</ul>
+<p><img src="/2021/03/23/Git/clip_image001.jpg" alt="IMG_256"></p>
+<p>我们把工作区的文件向本地版本库里添加的时候，是分两步执行的：</p>
+<ol>
+<li><p>第 1 步用 <code>git add</code> 把文件修改保存到暂存区；</p>
+<p> 注意观察文件的修改日期，<strong>index</strong>文件是在工作区的文件执行 <code>add</code> 命令后才生成的，该文件就是暂存区的物理实现。</p>
+<p> <img src="/2021/03/23/Git/image-20220128104844247.png" alt="image-20220128104844247"></p>
+</li>
+<li><p>第 2 步用 <code>git commit</code> 就是把暂存区的内容提交到当前分支。</p>
+</li>
+</ol>
+<blockquote>
+<p>说明</p>
+</blockquote>
+<ul>
+<li>因为我们创建 Git 版本库时，Git 自动为我们创建了唯一一个 master 分支，所以 <code>git commit</code> 就是往master分支上提交更改。</li>
+<li>可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</li>
+</ul>
+<h2 id="3-修改文件"><a href="#3-修改文件" class="headerlink" title="3 修改文件"></a>3 修改文件</h2><h3 id="提交修改"><a href="#提交修改" class="headerlink" title="提交修改"></a>提交修改</h3><p>被版本库管理的文件不可避免的要发生修改，此时只需要直接对文件修改即可。修改完毕后需要将修改后的文件提交到本地版本库。</p>
+<p>在<code>mytest.txt</code>文件上点击右键，然后选择“提交”</p>
+<p><img src="/2021/03/23/Git/image-20210327133648607.png" alt="image-20210327133648607"> </p>
+<p><img src="/2021/03/23/Git/image-20210327133731241.png" alt="image-20210327133731241"></p>
+<p><img src="/2021/03/23/Git/image-20210327133738077.png" alt="image-20210327133738077"></p>
+<h3 id="查看修改历史"><a href="#查看修改历史" class="headerlink" title="查看修改历史"></a>查看修改历史</h3><p>在开发过程中可能会经常查看代码的修改历史，或者叫做修改日志。来查看某个版本是谁修改的，什么时间修改的，修改了哪些内容。</p>
+<p>可以在文件上点击右键选择“显示日志”来查看文件的修改历史。</p>
+<p><img src="/2021/03/23/Git/image-20210327133836905.png" alt="image-20210327133836905"></p>
+<p><img src="/2021/03/23/Git/image-20210327133847160.png" alt="image-20210327133847160"></p>
+<h3 id="差异比较"><a href="#差异比较" class="headerlink" title="差异比较"></a>差异比较</h3><p>当文件内容修改后，需要和修改之前对比一下修改了哪些内容此时可以使用“<strong>比较差异功能</strong>”</p>
+<p><img src="/2021/03/23/Git/image-20210327133922884.png" alt="image-20210327133922884"></p>
+<p><img src="/2021/03/23/Git/image-20210327134014492.png" alt="image-20210327134014492"></p>
+<h3 id="还原修改"><a href="#还原修改" class="headerlink" title="还原修改"></a>还原修改</h3><p>当文件修改后不想把修改的内容提交，还想还原到未修改之前的状态。此时可以使用“<strong>还原</strong>”功能</p>
+<p><img src="/2021/03/23/Git/image-20210327134135519.png" alt="image-20210327134135519"></p>
+<p><img src="/2021/03/23/Git/image-20210327134143489.png" alt="image-20210327134143489"></p>
+<p><img src="/2021/03/23/Git/image-20210327134154307.png" alt="image-20210327134154307"></p>
+<blockquote>
+<p><strong>Tip：</strong></p>
+</blockquote>
+<ul>
+<li>此操作会撤销所有<strong>未提交</strong>的修改，所以当做还原操作是需要慎重慎重！</li>
+<li>如果修改已提交就不能还原了！！！</li>
+</ul>
+<h2 id="4-删除文件"><a href="#4-删除文件" class="headerlink" title="4 删除文件"></a>4 删除文件</h2><p>需要删除无用的文件时可以使用 git 提供的删除功能直接将文件从版本库中删除。</p>
+<p><img src="/2021/03/23/Git/image-20210327134451557.png" alt="image-20210327134451557"></p>
+<hr>
+<h1 id="将Java项目提交到版本库"><a href="#将Java项目提交到版本库" class="headerlink" title="将Java项目提交到版本库"></a>将Java项目提交到版本库</h1><ol>
+<li><p>初始化一个工作区，并在工作区中创建一个Java项目</p>
+<p> <img src="/2021/03/23/Git/image-20210327134819549.png" alt="image-20210327134819549"></p>
+</li>
+<li><p>将Java项目文件保存到暂存区。</p>
+<p> <img src="/2021/03/23/Git/image-20210327134826342.png" alt="image-20210327134826342"></p>
+<p> 未受版本控制的文件指的是还没有被 Git 管理的文件，我们想要做的就是把这些未受版本控制的文件变为受版本控制的文件！</p>
+<p> <img src="/2021/03/23/Git/image-20210327135002014.png" alt="image-20210327135002014"></p>
+<p> 点击确定完成向暂存区添加文件。</p>
+<p> <img src="/2021/03/23/Git/image-20210327135140841.png" alt="image-20210327135140841"></p>
+</li>
+<li><p>忽略文件或文件夹</p>
+<ul>
+<li>在此工程中，并不是所有文件都需要保存到版本库中的，例如 <code>bin</code> 目录下的文件就可以忽略。</li>
+<li>这个问题解决起来也很简单，在 Git 工作区的根目录下创建一个特殊的 <code>.gitignore</code> 文件，然后把要忽略的文件名填进去，Git 在管理时就会自动忽略这些文件。</li>
+<li>如果使用TortoiseGit的话可以使用菜单项直接进行忽略。</li>
+</ul>
+<p> <img src="/2021/03/23/Git/image-20210327135439205.png" alt="image-20210327135439205"></p>
+<p> <img src="/2021/03/23/Git/image-20210327135503431.png" alt="image-20210327135503431"></p>
+<ul>
+<li><p>完成后在工作区中会自动生成一个<code>.gitignore</code>文件，这个文件的内容就是忽略文件的列表。</p>
+</li>
+<li><p>当然也可以选择在工作区中手动创建 <code>.gitignore</code> 文件，其中的内容就是把<code>bin</code>目录忽略掉。</p>
+<p>  <img src="/2021/03/23/Git/image-20210327135811371.png" alt="image-20210327135811371"></p>
+</li>
+</ul>
+</li>
+<li><p> 提交代码：默认会将代码添加到 master 分支上，其中 <code>.gitignore</code> 文件也需要添加到暂存区，然后提交到版本库。</p>
+</li>
+</ol>
+<h2 id="忽略文件语法规范"><a href="#忽略文件语法规范" class="headerlink" title="忽略文件语法规范"></a>忽略文件语法规范</h2><ul>
+<li>空行 或 以 # 开头的行即注释行。</li>
+<li>可以在前面添加正斜杠 / 来避免递归。</li>
+<li>可以在后面添加正斜杠 / 来忽略文件夹，例如 build/ 即忽略build文件夹。</li>
+<li>可以使用 ! 来否定忽略，即比如在前面用了 *.apk ，然后使用 !a.apk ，则这个a.apk不会被忽略。</li>
+<li>* 用来匹配零个或多个字符，如 <em>.[oa] 忽略所有以”.o”或”.a”结尾</em></li>
+<li>~ 忽略所有以 ~ 结尾的文件（这种文件通常被许多编辑器标记为临时文件）； </li>
+<li>[] 用来匹配括号内的任一字符，如 [abc] ，也可以在括号内加连接符，如 [0-9] 匹配0至9的数； </li>
+<li>? 用来匹配单个字符。 </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 忽略 .a 文件</span></span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 但否定忽略 lib.a, 尽管已经在前面忽略了 .a 文件</span></span><br><span class="line">!lib.a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅在当前目录下忽略 TODO 文件， 但不包括子目录下的 subdir/TODO</span></span><br><span class="line">/TODO</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略 build/ 文件夹下的所有文件</span></span><br><span class="line">build/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略 doc/notes.txt, 不包括 doc/server/arch.txt</span></span><br><span class="line">doc/*.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略所有的 .pdf 文件 在 doc/ directory 下的</span></span><br><span class="line">doc/**/*.pdf</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><h2 id="1-添加远程库"><a href="#1-添加远程库" class="headerlink" title="1    添加远程库"></a>1    添加远程库</h2><blockquote>
+<p>常用的远程仓库有：GitHub、Gitee 等。国内我们一般选择Gitee ！</p>
+</blockquote>
+<h3 id="1-1-创建远程仓库"><a href="#1-1-创建远程仓库" class="headerlink" title="1.1    创建远程仓库"></a>1.1    创建远程仓库</h3><p>首先我们在 Gitee 上创建一个空的远程仓库！</p>
+<p>Gitee 支持两种同步方式 <strong>https</strong> 和 <strong>SSH</strong> 。</p>
+<ul>
+<li>使用 <strong>https</strong> 很简单基本不需要配置就可以使用，但是每次提交代码和下载代码时都需要输入用户名和密码。</li>
+<li>使用 <strong>SSH</strong> 方式需要先再客户端生成一个密钥对，然后把公钥放到 <strong>Gitee</strong> 的服务器上。</li>
+</ul>
+<h3 id="1-2-使用-SSH-创建连接远程仓库"><a href="#1-2-使用-SSH-创建连接远程仓库" class="headerlink" title="1.2    使用 SSH  创建连接远程仓库"></a>1.2    使用 SSH  创建连接远程仓库</h3><h4 id="SSH-基本原理"><a href="#SSH-基本原理" class="headerlink" title="SSH 基本原理"></a>SSH 基本原理</h4><blockquote>
+<p>超链接</p>
+</blockquote>
+<h4 id="SSH-秘钥生成（windows）"><a href="#SSH-秘钥生成（windows）" class="headerlink" title="SSH 秘钥生成（windows）"></a>SSH 秘钥生成（windows）</h4><p>在 Windows下我们可以使用 <strong>Git Bash</strong> 来生成密钥。</p>
+<ol>
+<li><p>首先我们通过开始菜单或者右键打开Git Bash</p>
+</li>
+<li><p>在 git bash 中执行下面的命令生成秘钥对</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/03/23/Git/image-20210327151542089.png" alt="image-20210327151542089"></p>
+<p>执行命令完成后，在 <code>C:\Users\用户名\.ssh</code> 目录下就会生成如下名称的公钥和私钥：</p>
+<p><img src="/2021/03/23/Git/image-20210327154503841.png" alt="image-20210327154503841"></p>
+</li>
+</ol>
+<h4 id="SSH-秘钥配置"><a href="#SSH-秘钥配置" class="headerlink" title="SSH 秘钥配置"></a>SSH 秘钥配置</h4><p>密钥生成后需要将公钥上传到 Gitee 上并配置后，本地才可以顺利访问。</p>
+<p><img src="/2021/03/23/Git/image-20210327144350181.png" alt="image-20210327144350181"></p>
+<p><img src="/2021/03/23/Git/image-20210327144639965.png" alt="image-20210327144639965"></p>
+<ul>
+<li><strong>标题</strong>为自定义的公钥标题，可以是任意名称</li>
+<li>在<strong>公钥</strong>部分将 <code>id_rsa.pub</code> 文件内容添加进去，然后点击确定完成配置。</li>
+</ul>
+<h3 id="1-3-同步到远程仓库"><a href="#1-3-同步到远程仓库" class="headerlink" title="1.3    同步到远程仓库"></a>1.3    同步到远程仓库</h3><blockquote>
+<p>同步到远程仓库可以使用 <strong>git bash</strong> 也可以使用 <strong>tortoiseGit</strong></p>
+</blockquote>
+<p><strong>在连接远程仓库时一定要注意区分HTTPS 和 SSH 的远程仓库地址路径！！！</strong> </p>
+<p><img src="/2021/03/23/Git/image-20210327163204082.png" alt="image-20210327163204082"></p>
+<h4 id="使用-Git-Bash-同步"><a href="#使用-Git-Bash-同步" class="headerlink" title="使用 Git Bash 同步"></a>使用 Git Bash 同步</h4><ol>
+<li>在仓库所在的目录<code>E:\tmp\git\repo</code> 中点击右键选择“Git Bash Here”，启动git bash程序。</li>
+</ol>
+<p><img src="/2021/03/23/Git/image-20210327141914532.png" alt="image-20210327141914532"></p>
+<ol start="2">
+<li><p>然后在<strong>git bash</strong>中执行如下语句：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 与远程仓库建立连接</span></span><br><span class="line">git remote add origin git@gitee.com:lv_neng_dong/demo00.git</span><br><span class="line"><span class="comment"># 将本地仓库中的内容推送到远程仓库中</span></span><br><span class="line">git push -u origin master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：远程仓库的地址要换成自己制定的远程仓库地址</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>命令解析(重要！！！)</strong></p>
+<ol>
+<li><code>git remote add origin git@gitee.com:xxx/xx.git</code></li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`origin git@gitee.com:lv_neng_dong/demo00.git` 是绑定在一起的，`git@gitee.com:xxx/xx.git` 是远程仓库在网络上真实的地址，而 `origin` 是一个别名，也就是远程仓库在本地的一个代号，可以是任意名称，比如我就把它起名为 `origintest` 也是可以的，当然我们一般不太修改这个属性！</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>git push -u origin master</code></li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">这条命令中的 `origin` 参数被本地计算机读取，然后根据这个参数得到远程仓库在网络上的真实地址！	</span><br><span class="line">但是我在上面将远程仓库地址的别名设置为 `origintest` ，所以我在推送到远端仓库时也要使用 `origintest` 来检索远端仓库的真实地址！</span><br><span class="line"></span><br><span class="line">`master` 用于指定远程仓库的分支，Git 会默认帮我们创建一个名为 `master` 的分支！由于我在这里没有自己创建爱你其它的分支，所以直接使用默认分支即可！</span><br><span class="line">当然如果你创建了自己的分支，将分支名换为自定义的分支名即可！</span><br><span class="line"></span><br><span class="line">所以本条命令的具体含义就是：</span><br><span class="line">git push -u [远程仓库在本地的代号] [远程仓库的分支名]</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意事项</strong></p>
+<ul>
+<li><p>在与远程仓库建立连接的过程中，如果出现下面的错误，则说明你本地已经有一个代号为<strong>origin</strong>的远程仓库地址了。主要由两种解决办法：</p>
+<p><img src="/2021/03/23/Git/image-20210327161349405.png" alt="image-20210327161349405"></p>
+<ol>
+<li><p>为你的远程仓库地址更换一个新的本地不存在的代号，如：</p>
+<p><img src="/2021/03/23/Git/image-20210327161632988.png" alt="image-20210327161632988"></p>
+</li>
+<li><p>删除本地中代号为<strong>origin</strong>的远程仓库地址</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先执行删除本地代号为 `origin` 的远程仓库</span></span><br><span class="line">git remote <span class="built_in">rm</span> origin</span><br><span class="line"><span class="comment"># 再重新执行与远程仓库建立连接的代码</span></span><br><span class="line">git remote add origin git@gitee.com:lv_neng_dong/demo00.git</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>在使用 SSH 同步本地仓库中的数据到远程仓库时，会出现下图所示的一段提示，大致意思是说“无法确定主机“gitee.com(180.97.125.228)”的真实性，但是发现了一段秘钥信息，是否继续建立连接？”  我们直接选择”yes”就好！</p>
+</li>
+</ul>
+<p><img src="/2021/03/23/Git/image-20210327161243212.png" alt="image-20210327161243212"></p>
+</li>
+<li><p>出现下图琐事信息即为执行成功！</p>
+<p><img src="/2021/03/23/Git/image-20210327162902864.png" alt="image-20210327162902864"></p>
+</li>
+</ol>
+<hr>
+<h4 id="使用-TortoiseGit-同步"><a href="#使用-TortoiseGit-同步" class="headerlink" title="使用 TortoiseGit 同步"></a>使用 TortoiseGit 同步</h4><ol>
+<li><p>由于 TortoiseGit 默认使用的 SSH 工具是 <strong>PuTTY</strong>，而我们使用 Git Bash 生成的秘钥使用的 SSH 工具是 <strong>openSSH</strong>。所以如果想让TortoiseGit 也能使用上面生成的密钥就需要将 TortoiseGit 使用的 SSH 解析工具修改为 openSSH！</p>
+<p><img src="/2021/03/23/Git/image-20210327164112185.png" alt="image-20210327164112185"></p>
+</li>
+<li><p>配置远端仓库的信息</p>
+<p><img src="/2021/03/23/Git/image-20210327164451017.png" alt="image-20210327164451017"></p>
+</li>
+<li><p>同步。在本地仓库的文件夹中单击右键，选择<strong>Git同步</strong></p>
+<p><img src="/2021/03/23/Git/image-20210327165039911.png" alt="image-20210327165039911"></p>
+<p><img src="/2021/03/23/Git/image-20210327165048543.png" alt="image-20210327165048543"></p>
+</li>
+<li><p>推送成功！</p>
+<p><img src="/2021/03/23/Git/image-20210327165316280.png" alt="image-20210327165316280"></p>
+</li>
+</ol>
+<h2 id="2-从远程仓库克隆"><a href="#2-从远程仓库克隆" class="headerlink" title="2    从远程仓库克隆"></a>2    从远程仓库克隆</h2><blockquote>
+<p>克隆远程仓库也就是从远程把仓库复制一份到本地，克隆后会创建一个新的本地仓库。</p>
+</blockquote>
+<h3 id="2-1-使用-git-bash-克隆"><a href="#2-1-使用-git-bash-克隆" class="headerlink" title="2.1    使用 git bash 克隆"></a>2.1    使用 git bash 克隆</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法：git clone [远程仓库地址]</span></span><br><span class="line">git <span class="built_in">clone</span> git@gitee.com:lv_neng_dong/demo01.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-使用-TortoiseGit-克隆"><a href="#2-2-使用-TortoiseGit-克隆" class="headerlink" title="2.2    使用 TortoiseGit 克隆"></a>2.2    使用 TortoiseGit 克隆</h3><ol>
+<li>在任意目录点击右键：</li>
+</ol>
+<p><img src="/2021/03/23/Git/image-20210327170145785.png" alt="image-20210327170145785"></p>
+<ol start="2">
+<li>添加远程仓库的地址，选择克隆到本地的保存位置即可！</li>
+</ol>
+<p><img src="/2021/03/23/Git/image-20210327170059376.png" alt="image-20210327170059376"></p>
+<hr>
+<h2 id="3-从远程仓库取代码"><a href="#3-从远程仓库取代码" class="headerlink" title="3    从远程仓库取代码"></a>3    从远程仓库取代码</h2><h3 id="使用-git-bash-拉取代码"><a href="#使用-git-bash-拉取代码" class="headerlink" title="使用 git bash 拉取代码"></a>使用 git bash 拉取代码</h3><p>Git 从远程仓库的分支中获取最新版本的数据到本地有 2 个命令：</p>
+<ol>
+<li><strong>git fetch</strong>：相当于是从远程获取最新版本到本地，不会自动 merge（合并代码）</li>
+<li><strong>git pull</strong>：相当于是从远程获取最新版本并 merge 到本地</li>
+</ol>
+<h3 id="使用-TortoiseGit-拉取代码"><a href="#使用-TortoiseGit-拉取代码" class="headerlink" title="使用 TortoiseGit 拉取代码"></a>使用 TortoiseGit 拉取代码</h3><p><code>右键 --&gt;&gt; TortoiseGit(T) --&gt;&gt; 点击“拉取”（pull）或者“获取”（fetch）</code></p>
+<p><img src="/2021/03/23/Git/image-20210327170730236.png" alt="image-20210327170730236"></p>
+<hr>
+<h1 id="搭建-Git-私服"><a href="#搭建-Git-私服" class="headerlink" title="搭建 Git 私服"></a>搭建 Git 私服</h1><blockquote>
+<p>更新ing…</p>
+</blockquote>
+<h1 id="分支开发"><a href="#分支开发" class="headerlink" title="分支开发"></a>分支开发</h1><ul>
+<li>在单独的分支上开发</li>
+<li>将不同的分支合并</li>
+</ul>
+<p>为什么需要在不同的分支上开发？</p>
+<ul>
+<li>如果在同一个分支上开发，当 A 修改的代码与 B 修改的代码产生冲突时，就必须通过 merge 来解决这些冲突，如果修改频繁的话，需要 merge 的次数也会很多，这对程序员的负担是很大的，因为这需要 A 和 B 协作解决。</li>
+<li>如果在不同的分支上进行开发，A 和 B 只需要在各自分支上开发自己的功能模块，只需要在确定最终版时 merge 一次，合并这两个分支即可，这可以减少对人力资源的浪费。</li>
+</ul>
+<hr>
+<h1 id="Git-常用命令（重要）"><a href="#Git-常用命令（重要）" class="headerlink" title="Git 常用命令（重要）"></a>Git 常用命令（重要）</h1><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>init</td>
+<td>clone</td>
+<td>remote</td>
+<td>status</td>
+<td>log</td>
+<td>reflog</td>
+<td>config</td>
+</tr>
+<tr>
+<td>add</td>
+<td>commit</td>
+<td>fetch</td>
+<td>pull</td>
+<td>push</td>
+<td>rm</td>
+<td>stash</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>checkout</td>
+<td>merge</td>
+<td>diff</td>
+<td>reset</td>
+<td>revert</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>git init</code></li>
+<li><code>git clone</code></li>
+<li><code>git remote</code>：  管理相关的远程仓库</li>
+<li><code>git status</code>：显示工作区的状态</li>
+<li><code>git log</code>：查看 commit 操作的日志</li>
+<li><code>git reflog</code>：查看所有分支的所有操作的日志<ul>
+<li>git log 只记录“commit操作”的日志，而 git reflog 记录所有操作的日志</li>
+<li>git reflog 的日志只存在于本地仓库，并不会同步到远程仓库中去。而 git log 的日志则在本地和远程仓库分别保存一份。</li>
+</ul>
+</li>
+<li><code>git commit -m “说明信息” </code></li>
+<li><code>git </code></li>
+<li>使用 <code>git reset HEAD &lt;file&gt;</code> 或 <code>git restore --staged &lt;file&gt;</code>将文件撤出暂存区</li>
+</ul>
+<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h2><p>使用 git clone 拉取项目非常简单，但是默认拉取的是主分支上的项目代码。下面这条命令可以让我们使用 git 命令拉取指定分支下的项目。</p>
+<p><strong>使用 Git 拉取远程仓库指定分支中的代码</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b <span class="variable">$&#123;分支名称&#125;</span> git@github.com:xxx/designPattern.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>作用：将工作区的文件加入到暂存区</p>
+<p>使用场景：</p>
+<ul>
+<li><p>将工作区的一个或多个文件加入到暂存区</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个文件</span></span><br><span class="line">git add text.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个文件</span></span><br><span class="line">git add doc.md user/profile.txt</span><br></pre></td></tr></table></figure></li>
+<li><p>将工作区的目录加入到暂存区</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将mydir目录加入到暂存区</span></span><br><span class="line">git add mydir</span><br></pre></td></tr></table></figure></li>
+<li><p>将工作区的全部文件都加入到暂存区（以下三种用法的作用完全相同）</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git add -A</span><br><span class="line"></span><br><span class="line">git add --all</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>作用：将本地仓库的文件推送到远程服务器</p>
+<ul>
+<li><p>如果你自己在本地仓库中新建了特性分支，并且在远程仓库中并没有与之对应的分支，通过 <code>git push</code>推送时，会报错，并给出一个解决方案，即通过添加参数建立一个远程仓库的分支与本地分支相对应。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、先在远程仓库创建一个同名的远程子分支  </span></span><br><span class="line"><span class="comment"># 2、将本地分支的内容上传到同名远程分支上</span></span><br><span class="line">git push --set-upstream origin 子分支名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价命令</span></span><br><span class="line">git push -u origin 子分支名称</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="git-branch-git-checkout"><a href="#git-branch-git-checkout" class="headerlink" title="git branch/git checkout"></a>git branch/git checkout</h2><p><strong>git branch  管理分支</strong></p>
+<p><strong>git checkout  切换分支或撤销文件</strong></p>
+<ul>
+<li><p>git branch 显示所有的分支，以及当前位于哪个分支</p>
+</li>
+<li><p>git branch -v    显示所有分支的详情</p>
+</li>
+<li><p>git branch ${分支名称}   新建分支（但不切换分支）</p>
+</li>
+<li><p>git checkout -b branch ${分支名称}   新建分支并切换到这个分支上</p>
+</li>
+<li><p>git branch -d ${分支名称}    删除分支</p>
+</li>
+<li><p>git checkout ${分支名称}    切换分支</p>
+</li>
+<li><p><code>git checkout --&lt;filename&gt;</code>   撤销对文件的修改（默认还原到最初版本）</p>
+</li>
+<li><p><code>git checkout &lt;版本号&gt; --&lt;filename&gt;</code>   撤销对文件的修改（还原到指定版本）</p>
+</li>
+<li><p><code>git checkout HEAD --&lt;filename&gt;</code>   撤销对文件的修改（还原到指定版本）</p>
+</li>
+<li><ul>
+<li>HEAD 表示当前提交，<ul>
+<li>HEAD ~ 表示切换到上一次提交</li>
+<li>HEAD ~2  表示切换到前两次提交，以此类推</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>git branch -r</code>   查看远程仓库的所有分支：</p>
+</li>
+</ul>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><ol>
+<li><p>从远程仓库克隆项目</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 仓库名称</span><br></pre></td></tr></table></figure></li>
+<li><p>为克隆到本地的项目创建一个特性分支</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b branch 分支名</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h2><p>作用：查看/修改 Git 的配置信息。</p>
+<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><ul>
+<li><p>查看 Git 的全局配置文件</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config -e</span><br></pre></td></tr></table></figure></li>
+<li><p>设置 Git 本地用户的用户名和邮箱信息</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --add user.name xxx</span><br><span class="line">git config --add user.email xxx</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="不常用"><a href="#不常用" class="headerlink" title="不常用"></a>不常用</h3>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/18/MongoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/03/18/MongoDB/" class="post-title-link" itemprop="url">MongoDB</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-03-18 00:04:49" itemprop="dateCreated datePublished" datetime="2021-03-18T00:04:49+08:00">2021-03-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-05-05 11:56:02" itemprop="dateModified" datetime="2021-05-05T11:56:02+08:00">2021-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MongoDB/" itemprop="url" rel="index"><span itemprop="name">MongoDB</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li>MongoDB 是由 C++ 语言编写的一个基于分布式文件存储的开源<strong>数据库系统</strong>。</li>
+<li>在高负载的情况下，添加更多的节点，可以保证服务器性能。</li>
+<li>MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。</li>
+<li>MongoDB 将数据存储为一个文档，数据结构由键值对(<code>key: value</code>)组成。</li>
+<li>MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</li>
+</ul>
+<p><img src="/2021/03/18/MongoDB/image-20210318210640539.png" alt="image-20210318210640539"></p>
+<h2 id="MongoDB-特点"><a href="#MongoDB-特点" class="headerlink" title="MongoDB 特点"></a>MongoDB 特点</h2><ul>
+<li>MongoDB 是一个面向文档存储的数据库，操作起来比较简单和容易。</li>
+<li>你可以在MongoDB记录中设置任何属性的索引 (如：FirstName=”Sameer”,Address=”8 Gandhi Road”)来实现更快的排序。</li>
+<li>你可以通过本地或者网络创建数据镜像，这使得MongoDB有更强的扩展性。</li>
+<li>如果负载的增加（需要更多的存储空间和更强的处理能力） ，它可以分布在计算机网络中的其他节点上这就是所谓的分片。</li>
+<li>Mongo支持丰富的查询表达式。查询指令使用JSON形式的标记，可轻易查询文档中内嵌的对象及数组。</li>
+<li>MongoDb 使用update()命令可以实现替换完成的文档（数据）或者一些指定的数据字段 。</li>
+<li>Mongodb中的Map/reduce主要是用来对数据进行批量处理和聚合操作。</li>
+<li>Map和Reduce。Map函数调用emit(key,value)遍历集合中所有的记录，将key与value传给Reduce函数进行处理。</li>
+<li>Map函数和Reduce函数是使用Javascript编写的，并可以通过db.runCommand或mapreduce命令来执行MapReduce操作。</li>
+<li>GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件。</li>
+<li>MongoDB允许在服务端执行脚本，可以用Javascript编写某个函数，直接在服务端执行，也可以把函数的定义存储在服务端，下次直接调用即可。</li>
+<li>MongoDB支持各种编程语言:RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。</li>
+<li>MongoDB安装简单。</li>
+</ul>
+<ul>
+<li></li>
+</ul>
+<h2 id="MongoDB-概念解析"><a href="#MongoDB-概念解析" class="headerlink" title="MongoDB 概念解析"></a>MongoDB 概念解析</h2><p>在 MongoDB 中基本的概念是<strong>文档、集合、数据库</strong></p>
+<p>与 SQL 中概念的对比关系如下：</p>
+<table>
+<thead>
+<tr>
+<th>SQL术语</th>
+<th>MongoDB术语</th>
+<th>解释/说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>数据库表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据记录行/文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>table joins</td>
+<td></td>
+<td>表连接，MongoDB不支持</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键，MongoDB自动将<code>_id</code>字段设置为主键</td>
+</tr>
+</tbody></table>
+<p>通过下图实例，我们也可以更直观的的了解Mongo中的一些概念：</p>
+<p><img src="/2021/03/18/MongoDB/image-20210318212244435.png" alt="image-20210318212244435"></p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>一个 MongoDB 服务器中可以建立多个数据库。</p>
+<p>常用操作：</p>
+<blockquote>
+<ol>
+<li>Help 查看命令提示   </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.help()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2、 切换/创建数据库  </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法： use 数据库名</span><br><span class="line">示例： use test  </span><br><span class="line"><span class="comment">// 如果数据库不存在，则创建数据库；如果数据库存在，则切换到指定数据库</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、 查询所有数据库   </p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show dbs</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="4">
+<li>删除当前使用数据库   </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.dropDatabase()</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="5">
+<li>查看当前使用的数据库   </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getName()</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="6">
+<li>显示当前db状态   </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.stats()</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="7">
+<li>查看当前db版本   </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.version()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="8">
+<li>查看当前db的连接的机器地址</li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getMong()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Tip：<ol>
+<li>所有的命令都采用驼峰式命名法。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><ul>
+<li><strong>文档</strong>是一组键值对<code>（key-value）</code>，也叫做 Bson，是一种类 Json 的数据格式。</li>
+<li>MongoDB 的多个文档之间不需要设置相同的字段，并且相同的字段也不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</li>
+<li>下面列出了 RDBMS 与 MongoDB 对应的术语：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>RDBMS</th>
+<th>MongoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>表格</td>
+<td>集合</td>
+</tr>
+<tr>
+<td>行</td>
+<td>文档</td>
+</tr>
+<tr>
+<td>列</td>
+<td>字段</td>
+</tr>
+<tr>
+<td>表联合</td>
+<td>嵌入文档</td>
+</tr>
+<tr>
+<td>主键</td>
+<td>主键 (MongoDB 提供了  key 为 _id )</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>RDBMS</strong>（Relational Database Management System）：关系数据库管理系统：</p>
+</blockquote>
+<p><strong>Tips：</strong></p>
+<ol>
+<li>文档中的键/值对是有序的。</li>
+<li>文档中的值不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)。</li>
+<li>MongoDB 区分类型和大小写。</li>
+<li>MongoDB 的文档不能有重复的键。</li>
+<li>文档的键是字符串。除了少数例外情况，键可以使用任意UTF-8字符。</li>
+</ol>
+<p><strong>文档键命名规范：</strong></p>
+<ol>
+<li>键不能含有<code>\0</code> (空字符)。这个字符用来表示键的结尾。</li>
+<li><code>.</code> 和 <code>$</code> 有特别的意义，只有在特定环境下才能使用。</li>
+<li>以下划线 <code>_</code> 开头的键是保留的(不是严格要求的)。</li>
+</ol>
+<hr>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><ul>
+<li>集合就是 MongoDB 文档组（文档的集合），类似于 RDBMS 中的表格。</li>
+<li>集合存在于数据库中，集合没有固定的结构，这意味着你可以向集合中插入不同格式和类型的数据，但通常情况下我们插入集合的数据都会有一定的关联性。</li>
+</ul>
+<p><strong>常用命令：</strong></p>
+<blockquote>
+<ol>
+<li>创建一个集合（table)  </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(&quot;collName&quot;); </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="2">
+<li>得到指定名称的集合（table ) </li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getCollection(&quot;user&quot;);  </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="MongoDB-数据类型"><a href="#MongoDB-数据类型" class="headerlink" title="MongoDB 数据类型"></a>MongoDB 数据类型</h2><blockquote>
+<p>MongoDB 中常用的数据类型：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String</td>
+<td>字符串。存储数据常用的数据类型。在 MongoDB 中，UTF-8 编码的字符串才是合法的。</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>整型数值。用于存储数值。根据你所采用的服务器，可分为 32 位或 64 位。</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>布尔值。用于存储布尔值（真/假）。</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>双精度浮点值。用于存储浮点值。</td>
+</tr>
+<tr>
+<td>Min/Max keys</td>
+<td>将一个值与 BSON（二进制的  JSON）元素的最低值和最高值相对比。</td>
+</tr>
+<tr>
+<td>Arrays</td>
+<td>用于将数组或列表或多个值存储为一个键。</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>时间戳。记录文档修改或添加的具体时间。</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>用于内嵌文档。</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>用于创建空值。</td>
+</tr>
+<tr>
+<td>Symbol</td>
+<td>符号。该数据类型基本上等同于字符串类型，但不同的是，它一般用于采用特殊符号类型的语言。</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>日期时间。用 UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息。</td>
+</tr>
+<tr>
+<td>Object ID</td>
+<td>对象 ID。用于创建文档的  ID。</td>
+</tr>
+<tr>
+<td>Binary Data</td>
+<td>二进制数据。用于存储二进制数据。</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>代码类型。用于在文档中存储 JavaScript 代码。</td>
+</tr>
+<tr>
+<td>Regular expression</td>
+<td>正则表达式类型。用于存储正则表达式。</td>
+</tr>
+</tbody></table>
+<h2 id="MongoDB-适用场景"><a href="#MongoDB-适用场景" class="headerlink" title="MongoDB 适用场景"></a>MongoDB 适用场景</h2><blockquote>
+<p><strong>适用场景</strong></p>
+</blockquote>
+<ol>
+<li>网站数据：Mongo 非常适合实时的插入，更新与查询，并具备网站实时数据存储所需的复制及高度伸缩性。</li>
+<li>缓存：由于性能很高，Mongo 也适合作为信息基础设施的缓存层。在系统重启之后，由 Mongo 搭建的持久化缓存层可以避免下层的数据源过载。</li>
+<li>大尺寸，低价值的数据：使用传统的关系型数据库存储一些数据时可能会比较昂贵， 在此之前，很多时候程序员往往会选择传统的文件进行存储。</li>
+<li>高伸缩性的场景：Mongo 非常适合由数十或数百台服务器组成的数据库。Mongo的路线图中已经包含对 Map Reduce 引擎的内置支持。</li>
+<li>用于对象及 Json 数据的存储：Mongo 的 Bson 数据格式非常适合文档化格式的存储及查询。</li>
+</ol>
+<blockquote>
+<p><strong>不适用场景</strong></p>
+</blockquote>
+<p>1、高度事务性的系统：例如银行或会计系统。传统的关系型数据库目前还是更适用于需要大量原子性复杂事务的应用程序。</p>
+<p>2、传统的商业智能应用：针对特定问题的BI数据库会对产生高度优化的查询方式。对于此类应用，数据仓库可能是更合适的选择。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
+<li>超链接</li>
+</ul>
+<h1 id="MongoDB-常用操作"><a href="#MongoDB-常用操作" class="headerlink" title="MongoDB 常用操作"></a>MongoDB 常用操作</h1><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2><blockquote>
+<p>新增数据</p>
+</blockquote>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 语法：db.数据库名.save(&#123;json格式的数据&#125;)</span></span><br><span class="line"><span class="operator">&gt;</span> db.User.save(&#123;name:<span class="string">&#x27;zhangsan&#x27;</span>,age:<span class="number">21</span>,sex:<span class="literal">true</span>&#125;)  </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h2><blockquote>
+<ol>
+<li>基本查询</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">User</span>			<span class="comment">-- SQL</span></span><br><span class="line"><span class="operator">&gt;</span> db.User.find()				<span class="comment">-- MongoDB</span></span><br><span class="line"><span class="operator">&gt;</span> &#123;&quot;_id&quot;:  Objectld(&quot;4f69e680c9106ee2ec95da66&quot;), &quot;name&quot;:  &quot;zhangsan&quot;, &quot;age&quot;: <span class="number">21</span>,  &quot;sex&quot;: <span class="literal">true</span>&#125;</span><br><span class="line"><span class="comment">-- 可以看到，在查询得到的数据中存在主键 _id ，但是我们在上面插入的时候并没有设置这个值，这个主键是Mongo帮我们自动生成的唯一标识</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="2">
+<li>WHERE</li>
+</ol>
+</blockquote>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">where</span> name <span class="operator">=</span>  <span class="string">&#x27;zhangsan&#x27;</span>  	</span><br><span class="line"><span class="operator">&gt;</span> db.User.find(</span><br><span class="line">    &#123;name:&quot;zhangsan&quot;&#125;		<span class="comment">-- where </span></span><br><span class="line">  )  			</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="3">
+<li>FIELDS</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> name, age <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">where</span> age  <span class="operator">=</span> <span class="number">21</span>  </span><br><span class="line"><span class="operator">&gt;</span> db.User.find(</span><br><span class="line">    &#123;age:<span class="number">21</span>&#125;,				<span class="comment">-- where  </span></span><br><span class="line">    &#123;<span class="string">&#x27;name&#x27;</span>:<span class="number">1</span>, <span class="string">&#x27;age&#x27;</span>:<span class="number">1</span>&#125;		 <span class="comment">-- fields</span></span><br><span class="line">  )  </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="4">
+<li>SORT</li>
+</ol>
+</blockquote>
+<p>在 MongoDB 中使用 <code>sort()</code> 方法对数据进行排序，<code>sort()</code> 方法可以通过参数指定排序的字段，并使用 1 和 -1 来指定排序的方式（1升序，-1降序）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">order</span> <span class="keyword">by</span> age  </span><br><span class="line"><span class="operator">&gt;</span> db.User.find().sort(&#123;age:<span class="number">1</span>&#125;)  </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="5">
+<li>SUCE</li>
+</ol>
+</blockquote>
+<p>在 MongoDB 中使用 <code>limit()</code> 方法来读取指定数量的数据，使用 <code>skip()</code> 方法来跳过指定数量的数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">skip</span> <span class="number">2</span> limit <span class="number">3</span>  </span><br><span class="line"><span class="operator">&gt;</span> db.User.find().<span class="keyword">skip</span>(<span class="number">0</span>).limit(<span class="number">3</span>)  </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="6">
+<li>IN</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">where</span> age <span class="keyword">in</span> (<span class="number">21</span>,  <span class="number">26</span>, <span class="number">32</span>)  </span><br><span class="line"><span class="operator">&gt;</span> db.User.find(&#123;age:&#123;$<span class="keyword">in</span>:[<span class="number">21</span>,<span class="number">26</span>,<span class="number">32</span>]&#125;&#125;)  </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="7">
+<li>COUNT</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">where</span> age<span class="operator">&gt;</span><span class="number">20</span>  </span><br><span class="line"><span class="operator">&gt;</span> db.User.find(&#123;age:&#123;$gt:<span class="number">20</span>&#125;&#125;).<span class="built_in">count</span>()  </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<ol start="8">
+<li>OR</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">User</span> <span class="keyword">where</span> age <span class="operator">=</span> <span class="number">21</span> <span class="keyword">or</span>  age <span class="operator">=</span> <span class="number">28</span>  </span><br><span class="line"><span class="operator">&gt;</span> db.User.find(&#123;$<span class="keyword">or</span>:[&#123;age:<span class="number">21</span>&#125;, &#123;age:<span class="number">28</span>&#125;]&#125;)  </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">update</span> <span class="keyword">User</span> <span class="keyword">set</span> age <span class="operator">=</span> <span class="number">100</span>, sex <span class="operator">=</span> <span class="number">0</span>  <span class="keyword">where</span> name <span class="operator">=</span> <span class="string">&#x27;user1&#x27;</span>  </span><br><span class="line"><span class="operator">&gt;</span> db.User.update(&#123;name:&quot;zhangsan&quot;&#125;,  &#123;$<span class="keyword">set</span>:&#123;age:<span class="number">100</span>, sex:<span class="number">0</span>&#125;&#125;)  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- update() 方法有几个参数需要注意：</span><br><span class="line">&gt; db.collection.update(criteria, objNew, upsert, mult)</span><br><span class="line">	# criteria:需要更新的条件表达式	[where]</span><br><span class="line">	# objNew:更新表达式	[set xxx]</span><br><span class="line">	# upsert:如FI标记录不存在，是否插入新文档。 </span><br><span class="line">	# multi:是否更新多个文档。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h2><p><code>remove()</code>用于删除单个或全部文档，删除后的文档无法恢复。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 移除对应id的行(Document)</span></span><br><span class="line"><span class="operator">&gt;</span> db.User.remove(id)</span><br><span class="line"><span class="comment">-- 移除所有（即不限制任何条件的删除）</span></span><br><span class="line"><span class="operator">&gt;</span> db.User.remove(&#123;&#125;)   </span><br></pre></td></tr></table></figure>
+
+<h2 id="aggregate"><a href="#aggregate" class="headerlink" title="aggregate"></a>aggregate</h2><ul>
+<li>MongoDB 中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。</li>
+<li>有点类似sql语句中的 count(*)</li>
+</ul>
+<blockquote>
+<p>插入数据</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> db.article.insert(&#123;</span><br><span class="line">                    title: <span class="string">&#x27;MongoDB Overview&#x27;</span>, </span><br><span class="line">                    description: <span class="string">&#x27;MongoDB is no sql database&#x27;</span>, </span><br><span class="line">                    by_user: <span class="string">&#x27;runoob.com&#x27;</span>, </span><br><span class="line">                    url: <span class="string">&#x27;http://www.runoob.com&#x27;</span>, </span><br><span class="line">                    tags: [<span class="string">&#x27;mongodb&#x27;</span>, <span class="string">&#x27;database&#x27;</span>, <span class="string">&#x27;NoSQL&#x27;</span>], </span><br><span class="line">                    likes: <span class="number">100</span></span><br><span class="line">                    &#125;)  </span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> db.article.insert(&#123;</span><br><span class="line">                   title: <span class="string">&#x27;NoSQL Overview&#x27;</span>,</span><br><span class="line">                   description: <span class="string">&#x27;No sql database is very fast&#x27;</span>,</span><br><span class="line">                   by_user: <span class="string">&#x27;runoob.com&#x27;</span>,</span><br><span class="line">                   url: <span class="string">&#x27;http://www.runoob.com&#x27;</span>,</span><br><span class="line">                   tags: [<span class="string">&#x27;mongodb&#x27;</span>, <span class="string">&#x27;database&#x27;</span>, <span class="string">&#x27;NoSQL&#x27;</span>],</span><br><span class="line">                   likes: <span class="number">10</span></span><br><span class="line">                   &#125;)</span><br><span class="line">                   </span><br><span class="line"><span class="operator">&gt;</span> db.article.insert(&#123;</span><br><span class="line">                    title: <span class="string">&#x27;Neo4j Overview&#x27;</span>,</span><br><span class="line">                    description: <span class="string">&#x27;Neo4j is no sql database&#x27;</span>,</span><br><span class="line">                    by_user: <span class="string">&#x27;Neo4j&#x27;</span>,     url: <span class="string">&#x27;http://www.neo4j.com&#x27;</span>,</span><br><span class="line">                    tags: [<span class="string">&#x27;neo4j&#x27;</span>, <span class="string">&#x27;database&#x27;</span>, <span class="string">&#x27;NoSQL&#x27;</span>],</span><br><span class="line">                    likes: <span class="number">750</span></span><br><span class="line">                    &#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="统计-sum"><a href="#统计-sum" class="headerlink" title="统计 sum"></a>统计 sum</h3><p>现在我们通过以上集合计算每个作者所写的文章数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">select</span> by_user, <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> article  <span class="keyword">group</span> <span class="keyword">by</span> by_user  </span><br><span class="line"><span class="operator">&gt;</span> db.article.aggregate([&#123;$<span class="keyword">group</span>: &#123;_id: &quot;$by_user&quot;, num_tutorial: &#123;$sum : <span class="number">1</span>&#125;&#125;&#125;])     </span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> &#123;&quot;result&quot;: [&#123;&quot;_id&quot;: &quot;runoob.com&quot;, &quot;num_tutorial&quot;: <span class="number">2</span>&#125;,</span><br><span class="line">              &#123;&quot;_id&quot;: &quot;Neo4j&quot;, &quot;num_tutorial&quot;: <span class="number">1</span>&#125;],  </span><br><span class="line">              &quot;ok&quot; : <span class="number">1</span>  &#125;  </span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，我们通过字段 by_user 字段对数据进行分组，并计算 by_user 字段相同值的总和。</p>
+<h3 id="常见的聚合表达式"><a href="#常见的聚合表达式" class="headerlink" title="常见的聚合表达式"></a>常见的聚合表达式</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>表达式</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>实例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code> $sum </code></td>
+<td>计算总和。</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, num_tutorial : {$sum : “$likes”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code> $avg </code></td>
+<td>计算平均值</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, num_tutorial : {$avg : “$likes”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code> $min</code></td>
+<td>获取集合中所有文档对应值得最小值。</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, num_tutorial : {$min : “$likes”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code> $max </code></td>
+<td>获取集合中所有文档对应值得最大值。</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, num_tutorial : {$max : “$likes”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code> $push </code></td>
+<td>在结果文档中插入值到一个数组中。</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, url : {$push: “$url”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code>$addToSet</code></td>
+<td>在结果文档中插入值到一个数组中，但不创建副本。</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, url : {$addToSet : “$url”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code>$first</code></td>
+<td>根据资源文档的排序获取第一个文档数据。</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, first_url : {$first : “$url”}}}])</td>
+</tr>
+<tr>
+<td align="left"><code> $last </code></td>
+<td>根据资源文档的排序获取最后一个文档数据</td>
+<td>db.mycol.aggregate([{$group  : {_id : “$by_user”, last_url : {$last : “$url”}}}])</td>
+</tr>
+</tbody></table>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ul>
+<li>索引通常能够极大的提高查询的效率，如果没有索引，MongoDB 在读取数据时必须扫描集合中的每个文件并选取那些符合查询条件的记录。这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。</li>
+<li>索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排序的一种结构。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> db.User.createIndex(&#123;&quot;name&quot;:<span class="number">1</span>&#125;)  </span><br><span class="line"><span class="comment">-- 语法中 name 值为你要创建的索引字段，1 为指定按升序创建索引，如果你想按降序来创建索引指定为 -1 即可</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Spring-boot-集成-MongoDB"><a href="#Spring-boot-集成-MongoDB" class="headerlink" title="Spring boot 集成 MongoDB"></a>Spring boot 集成 MongoDB</h1><h2 id="1、集成简介"><a href="#1、集成简介" class="headerlink" title="1、集成简介"></a>1、集成简介</h2><ul>
+<li>spring-data-mongodb 提供了 <strong>MongoTemplate</strong> 与 <strong>MongoRepository</strong> 两种方式访问 MongoDB。</li>
+<li>MongoRepository 操作简单，缺点是不够灵活；</li>
+<li>MongoTemplate操作灵活，但操作复杂；</li>
+<li>我们在项目中可以灵活适用这两种方式操作 MongoDB ！</li>
+</ul>
+<h2 id="2、搭建开发环境"><a href="#2、搭建开发环境" class="headerlink" title="2、搭建开发环境"></a>2、搭建开发环境</h2><h3 id="2-1-初始化工程，引入依赖"><a href="#2-1-初始化工程，引入依赖" class="headerlink" title="2.1 初始化工程，引入依赖"></a>2.1 初始化工程，引入依赖</h3><blockquote>
+<ol>
+<li>使用 Spring Initializr 快速初始化一个 Spring Boot 工程</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>添加 MongoDB 依赖</li>
+</ol>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- MongoDB 的SpringBoot 启动依赖--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-mongodb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>joda-time<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>joda-time<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.10.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-添加配置"><a href="#2-2-添加配置" class="headerlink" title="2.2    添加配置"></a>2.2    添加配置</h3><blockquote>
+<ol start="3">
+<li>在application.properties文件添加配置</li>
+</ol>
+</blockquote>
+<h4 id="MongoDB-数据库无加密"><a href="#MongoDB-数据库无加密" class="headerlink" title="MongoDB 数据库无加密"></a>MongoDB 数据库无加密</h4><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 MongoDB 中某个数据库所在的URL</span></span><br><span class="line"><span class="attr">spring.data.mongodb.uri</span> = <span class="string">mongodb://192.0.0.1:27017/test</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MongoDB-数据库有加密"><a href="#MongoDB-数据库有加密" class="headerlink" title="MongoDB 数据库有加密"></a>MongoDB 数据库有加密</h4><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.data.mongodb.uri</span>=<span class="string">mongodb://用户名:密码@192.0.0.1:27017/?authSource=数据库名</span></span><br><span class="line"><span class="attr">spring.data.mongodb.database</span>=<span class="string">数据库名</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3、-基于-MongoTemplate-开发"><a href="#3、-基于-MongoTemplate-开发" class="headerlink" title="3、 基于 MongoTemplate  开发"></a>3、 基于 MongoTemplate  开发</h2><h3 id="3-1-添加实体"><a href="#3-1-添加实体" class="headerlink" title="3.1 添加实体"></a>3.1 添加实体</h3><p>添加com.atguigu.mongodb.entity.User类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Document(&quot;User&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Id</span></span><br><span class="line"> <span class="keyword">private</span> String id;</span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="keyword">private</span> Integer age;</span><br><span class="line"> <span class="keyword">private</span> String email;</span><br><span class="line"> <span class="keyword">private</span> String createDate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-实现"><a href="#3-2-实现" class="headerlink" title="3.2 实现"></a>3.2 实现</h3><p><strong>常用方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mongoTemplate.findAll(User.class)</code></td>
+<td>查询User文档的全部数据</td>
+</tr>
+<tr>
+<td><code>mongoTemplate.findById(&lt;id&gt;, User.class)</code></td>
+<td>查询User文档中指定id的数据</td>
+</tr>
+<tr>
+<td><code>mongoTemplate.find(query, User.class)</code></td>
+<td>根据query内的查询条件查询<br>[query是一个条件查询对象]</td>
+</tr>
+<tr>
+<td><code>mongoTemplate.upsert(query, update, User.class)</code></td>
+<td>修改</td>
+</tr>
+<tr>
+<td><code>mongoTemplate.remove(query, User.class)</code></td>
+<td>删除</td>
+</tr>
+<tr>
+<td><code>mongoTemplate.insert(User)</code></td>
+<td>新增</td>
+</tr>
+</tbody></table>
+<p><strong>Query对象</strong></p>
+<ol>
+<li>创建一个<strong>query对象</strong>（用来封装所有条件的对象)，再创建一个<strong>criteria对象</strong>（用来构建条件的对象）</li>
+<li>精准条件：criteria.and(“key”).is(“条件”)<br>模糊条件：criteria.and(“key”).regex(“条件”)</li>
+<li>封装条件：query.addCriteria(criteria)</li>
+<li>大于（创建新的criteria）：Criteria gt = Criteria.where(“key”).gt（“条件”）<br>小于（创建新的criteria）：Criteria lt = Criteria.where(“key”).lt（“条件”）</li>
+<li>Query.addCriteria(new Criteria().andOperator(gt,lt));</li>
+<li>一个query中只能有一个andOperator()。其参数也可以是Criteria数组。</li>
+<li>排序 ：query.with（new Sort(Sort.Direction.ASC, “age”). and(new Sort(Sort.Direction.DESC, “date”)))</li>
+</ol>
+<h3 id="3-3-添加测试类"><a href="#3-3-添加测试类" class="headerlink" title="3.3 添加测试类"></a>3.3 添加测试类</h3><blockquote>
+<p>在/test/java下面添加测试类：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DemomogoApplicationTests</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MongoTemplate mongoTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createUser</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        user.setAge(<span class="number">20</span>);</span><br><span class="line">        user.setName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        user.setEmail(<span class="string">&quot;4932200@qq.com&quot;</span>);</span><br><span class="line">        <span class="type">User</span> <span class="variable">user1</span> <span class="operator">=</span> mongoTemplate.insert(user);</span><br><span class="line">        System.out.println(user1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询所有</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUser</span><span class="params">()</span> &#123;</span><br><span class="line">        List&lt;User&gt; userList = mongoTemplate.findAll(User.class);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据id查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getById</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> </span><br><span class="line">            mongoTemplate.findById(<span class="string">&quot;5ffbfa2ac290f356edf9b5aa&quot;</span>, User.class);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//条件查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUserList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Query</span> <span class="variable">query</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Query</span>(Criteria</span><br><span class="line">                                .where(<span class="string">&quot;name&quot;</span>).is(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">                                .and(<span class="string">&quot;age&quot;</span>).is(<span class="number">20</span>));</span><br><span class="line">        List&lt;User&gt; userList = mongoTemplate.find(query, User.class);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//模糊查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUsersLikeName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;est&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> String.format(<span class="string">&quot;%s%s%s&quot;</span>, <span class="string">&quot;^.*&quot;</span>, name, <span class="string">&quot;.*$&quot;</span>);</span><br><span class="line">        <span class="type">Pattern</span> <span class="variable">pattern</span> <span class="operator">=</span> Pattern.compile(regex, Pattern.CASE_INSENSITIVE);</span><br><span class="line">        <span class="type">Query</span> <span class="variable">query</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Query</span>(Criteria.where(<span class="string">&quot;name&quot;</span>).regex(pattern));</span><br><span class="line">        List&lt;User&gt; userList = mongoTemplate.find(query, User.class);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//分页查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUsersPage</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;est&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">pageNo</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">Query</span> <span class="variable">query</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Query</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> String.format(<span class="string">&quot;%s%s%s&quot;</span>, <span class="string">&quot;^.*&quot;</span>, name, <span class="string">&quot;.*$&quot;</span>);</span><br><span class="line">        <span class="type">Pattern</span> <span class="variable">pattern</span> <span class="operator">=</span> Pattern.compile(regex, Pattern.CASE_INSENSITIVE);</span><br><span class="line">        query.addCriteria(Criteria.where(<span class="string">&quot;name&quot;</span>).regex(pattern));</span><br><span class="line">        <span class="type">int</span> <span class="variable">totalCount</span> <span class="operator">=</span> (<span class="type">int</span>) mongoTemplate.count(query, User.class);</span><br><span class="line">        List&lt;User&gt; userList = mongoTemplate.find(query.skip((pageNo - <span class="number">1</span>) * pageSize).limit(pageSize), User.class);</span><br><span class="line"></span><br><span class="line">        Map&lt;String, Object&gt; pageMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        pageMap.put(<span class="string">&quot;list&quot;</span>, userList);</span><br><span class="line">        pageMap.put(<span class="string">&quot;totalCount&quot;</span>,totalCount);</span><br><span class="line">        System.out.println(pageMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//修改</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateUser</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> mongoTemplate.findById(<span class="string">&quot;5ffbfa2ac290f356edf9b5aa&quot;</span>, User.class);</span><br><span class="line">        user.setName(<span class="string">&quot;test_1&quot;</span>);</span><br><span class="line">        user.setAge(<span class="number">25</span>);</span><br><span class="line">        user.setEmail(<span class="string">&quot;493220990@qq.com&quot;</span>);</span><br><span class="line">        <span class="type">Query</span> <span class="variable">query</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Query</span>(Criteria.where(<span class="string">&quot;_id&quot;</span>).is(user.getId()));</span><br><span class="line">        <span class="type">Update</span> <span class="variable">update</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Update</span>();</span><br><span class="line">        update.set(<span class="string">&quot;name&quot;</span>, user.getName());</span><br><span class="line">        update.set(<span class="string">&quot;age&quot;</span>, user.getAge());</span><br><span class="line">        update.set(<span class="string">&quot;email&quot;</span>, user.getEmail());</span><br><span class="line">        <span class="type">UpdateResult</span> <span class="variable">result</span> <span class="operator">=</span> mongoTemplate.upsert(query, update, User.class);</span><br><span class="line">        <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> result.getModifiedCount();</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除操作</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Query</span> <span class="variable">query</span> <span class="operator">=</span> </span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Query</span>(Criteria.where(<span class="string">&quot;_id&quot;</span>).is(<span class="string">&quot;5ffbfa2ac290f356edf9b5aa&quot;</span>));</span><br><span class="line">        <span class="type">DeleteResult</span> <span class="variable">result</span> <span class="operator">=</span> mongoTemplate.remove(query, User.class);</span><br><span class="line">        <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> result.getDeletedCount();</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4、-基于-MongoRepository-开发"><a href="#4、-基于-MongoRepository-开发" class="headerlink" title="4、 基于 MongoRepository 开发"></a>4、 基于 MongoRepository 开发</h2><h3 id="4-1-实现"><a href="#4-1-实现" class="headerlink" title="4.1 实现"></a>4.1 实现</h3><p>Spring Data提供了对mongodb数据访问的支持，我们只需要继承MongoRepository类，按照Spring Data规范就可以使用了</p>
+<p>SpringData 方法定义规范</p>
+<p><img src="/2021/03/18/MongoDB/clip_image002.gif" alt="IMG_256"></p>
+<p><img src="/2021/03/18/MongoDB/clip_image004.jpg" alt="IMG_256"></p>
+<ol>
+<li>不是随便声明的，而需要符合一定的规范</li>
+<li>查询方法以find | read | get开头</li>
+<li>涉及条件查询时，条件的属性用条件关键字连接</li>
+<li>要注意的是：条件属性首字母需要大写</li>
+<li>支持属性的级联查询，但若当前类有符合条件的属性则优先使用，而不使用级联属性,若需要使用级联属性，则属性之间使用_强制进行连接</li>
+</ol>
+<h3 id="4-2-添加Repository类"><a href="#4-2-添加Repository类" class="headerlink" title="4.2 添加Repository类"></a>4.2 添加Repository类</h3><p>添加com.atguigu.mongodb.repository.UserRepository类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.mongodb.repository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atguigu.mongodb.entity.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.repository.MongoRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserRepository</span> <span class="keyword">extends</span> <span class="title class_">MongoRepository</span>&lt;User, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-添加测试类"><a href="#4-3-添加测试类" class="headerlink" title="4.3 添加测试类"></a>4.3 添加测试类</h3><p>在/test/java下面添加测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DemomogoApplicationTests1</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserRepository userRepository;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createUser</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        user.setAge(<span class="number">20</span>);</span><br><span class="line">        user.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        user.setEmail(<span class="string">&quot;3332200@qq.com&quot;</span>);</span><br><span class="line">        <span class="type">User</span> <span class="variable">user1</span> <span class="operator">=</span> userRepository.save(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询所有</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUser</span><span class="params">()</span> &#123;</span><br><span class="line">        List&lt;User&gt; userList = userRepository.findAll();</span><br><span class="line">        System.out.println(userList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//id查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getById</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userRepository.findById(<span class="string">&quot;5ffbfe8197f24a07007bd6ce&quot;</span>).get();</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//条件查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUserList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        user.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        user.setAge(<span class="number">20</span>);</span><br><span class="line">        Example&lt;User&gt; userExample = Example.of(user);</span><br><span class="line">        List&lt;User&gt; userList = userRepository.findAll(userExample);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//模糊查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUsersLikeName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//创建匹配器，即如何使用查询条件</span></span><br><span class="line">        <span class="type">ExampleMatcher</span> <span class="variable">matcher</span> <span class="operator">=</span> ExampleMatcher.matching() <span class="comment">//构建对象</span></span><br><span class="line">            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) <span class="comment">//改变默认字符串匹配方式：模糊查询</span></span><br><span class="line">            .withIgnoreCase(<span class="literal">true</span>); <span class="comment">//改变默认大小写忽略方式：忽略大小写</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        user.setName(<span class="string">&quot;三&quot;</span>);</span><br><span class="line">        Example&lt;User&gt; userExample = Example.of(user, matcher);</span><br><span class="line">        List&lt;User&gt; userList = userRepository.findAll(userExample);</span><br><span class="line">        System.out.println(userList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//分页查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findUsersPage</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Sort</span> <span class="variable">sort</span> <span class="operator">=</span> Sort.by(Sort.Direction.DESC, <span class="string">&quot;age&quot;</span>);</span><br><span class="line">        <span class="comment">//0为第一页</span></span><br><span class="line">        <span class="type">Pageable</span> <span class="variable">pageable</span> <span class="operator">=</span> PageRequest.of(<span class="number">0</span>, <span class="number">10</span>, sort);</span><br><span class="line">        <span class="comment">//创建匹配器，即如何使用查询条件</span></span><br><span class="line">        <span class="type">ExampleMatcher</span> <span class="variable">matcher</span> <span class="operator">=</span> ExampleMatcher.matching() <span class="comment">//构建对象</span></span><br><span class="line">            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) <span class="comment">//改变默认字符串匹配方式：模糊查询</span></span><br><span class="line">            .withIgnoreCase(<span class="literal">true</span>); <span class="comment">//改变默认大小写忽略方式：忽略大小写</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        user.setName(<span class="string">&quot;三&quot;</span>);</span><br><span class="line">        Example&lt;User&gt; userExample = Example.of(user, matcher);</span><br><span class="line">        <span class="comment">//创建实例</span></span><br><span class="line">        Example&lt;User&gt; example = Example.of(user, matcher);</span><br><span class="line">        Page&lt;User&gt; pages = userRepository.findAll(example, pageable);</span><br><span class="line">        System.out.println(pages);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//修改</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateUser</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userRepository.findById(<span class="string">&quot;5ffbfe8197f24a07007bd6ce&quot;</span>).get();</span><br><span class="line">        user.setName(<span class="string">&quot;张三_1&quot;</span>);</span><br><span class="line">        user.setAge(<span class="number">25</span>);</span><br><span class="line">        user.setEmail(<span class="string">&quot;883220990@qq.com&quot;</span>);</span><br><span class="line">        <span class="type">User</span> <span class="variable">save</span> <span class="operator">=</span> userRepository.save(user);</span><br><span class="line">        System.out.println(save);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">()</span> &#123;</span><br><span class="line">        userRepository.deleteById(<span class="string">&quot;5ffbfe8197f24a07007bd6ce&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -3134,1177 +4591,6 @@
 </ol>
 </li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/Docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/01/Docker/" class="post-title-link" itemprop="url">Docker</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-03-01 23:50:12" itemprop="dateCreated datePublished" datetime="2021-03-01T23:50:12+08:00">2021-03-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-03-27 19:52:29" itemprop="dateModified" datetime="2021-03-27T19:52:29+08:00">2021-03-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Dcoker"><a href="#Dcoker" class="headerlink" title="Dcoker"></a>Dcoker</h1><ol>
-<li>如果我们想要安装 MySQL ，首先第一步就是要搜索 Docker 库里面有没有 MySQL 镜像！</li>
-</ol>
-<h2 id="在linux系统上安装docker"><a href="#在linux系统上安装docker" class="headerlink" title="在linux系统上安装docker"></a>在linux系统上安装docker</h2><blockquote>
-<p>步骤：</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1、检查内核版本，必须是3.10及以上</span><br><span class="line">uname ‐r</span><br><span class="line"></span><br><span class="line">2、安装 docker</span><br><span class="line">yum install docker</span><br><span class="line"></span><br><span class="line">3、输入 y 确认安装</span><br><span class="line"></span><br><span class="line">4、启动 docker</span><br><span class="line">[root@localhost ~]# systemctl start docker</span><br><span class="line"></span><br><span class="line">5、查看 docker 版本信息</span><br><span class="line">[root@localhost ~]# docker ‐v</span><br><span class="line"></span><br><span class="line">6、设置 docker 开机自启</span><br><span class="line">[root@localhost ~]# systemctl enable docker</span><br><span class="line"></span><br><span class="line">6、停止docker</span><br><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h1><h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">命令</th>
-<th align="center">eg</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">检索</td>
-<td align="center"><code>docker search 镜像名</code></td>
-<td align="center"><code>docker search mysql</code></td>
-<td>检索（检索镜像库中的镜像）。我们经常去 <a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a> 上检索镜像的详细信息，如镜像的TAG。</td>
-</tr>
-<tr>
-<td align="center">拉取</td>
-<td align="center"><code>docker pull 镜像名:tag</code></td>
-<td align="center"><code>docker pull mysql</code></td>
-<td>拉取镜像（下载）。<code>:tag</code> 是可选的，表示标签，多为软件的版本，默认是 <code>latest</code></td>
-</tr>
-<tr>
-<td align="center">列表</td>
-<td align="center"><code>docker images</code></td>
-<td align="center"><code>docker images</code></td>
-<td>查看所有本地镜像</td>
-</tr>
-<tr>
-<td align="center">删除</td>
-<td align="center"><code>ocker rmi image-id</code></td>
-<td align="center"></td>
-<td>删除指定的本地镜像</td>
-</tr>
-</tbody></table>
-<h2 id="容器操作"><a href="#容器操作" class="headerlink" title="容器操作"></a>容器操作</h2><p>软件镜像（QQ安装程序）—-运行镜像—-产生一个容器（正在运行的软件，运行的QQ）</p>
-<blockquote>
-<ol>
-<li>根据镜像启动容器     </li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">	docker run [--name container-name] -d image-name</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">	--name	开启自定义容器的名字</span><br><span class="line">	container-name	容器的名字</span><br><span class="line">	-d		后台运行</span><br><span class="line">	image-name		指定要启动的镜像</span><br><span class="line"></span><br><span class="line">eg：</span><br><span class="line">	docker run --name mysql -d tomcat:3.4.5</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<ol start="2">
-<li>查看运行中的容器（列表）</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ol start="3">
-<li>查看所有的容器（包括运行中的和已经停止的）   </li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<ol start="3">
-<li>停止运行中的容器    </li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">	docker stop container-name（或container-id）</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">	container-name		容器的名字</span><br><span class="line">	container-id		容器的ID</span><br><span class="line">eg：</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ol start="4">
-<li>启动容器（启动容器针对的是已经启动过但停止的容器，直接启动一个镜像则不会成功）     </li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start container-name（或container-id）</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ol start="5">
-<li>删除容器（删除容器的时候容器一定要是停止状态）   </li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm container-id</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ol start="6">
-<li>端口映射：<ul>
-<li>功能：将 Docker容器 中的服务的端口号映射到主机的端口号上。</li>
-<li>原因：Docker 安装在服务器上，启动容器中的服务使用的是容器内部的端口，而通过 HTTP 协议访问的端口是服务器的端口号。  如果不映射的话，通过浏览器就不能访问到Docker容器内的服务，所以必须把 Docker容器 内部的端口号映射到主机的端口号上，这样才能够通过 HTTP 协议访问到容器中的服务！</li>
-<li>端口映射应该在启动容器时进行！</li>
-</ul>
-</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">格式：</span><br><span class="line">	docker run [--name container-name] -d [-p host_port:docker_port] container-name[:tags]</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">	-d：后台运行</span><br><span class="line">	-p：将 Docker容器 中的服务的端口号映射到主机的端口号上。   </span><br><span class="line">		格式：主机端口号:容器端口号</span><br></pre></td></tr></table></figure>
-
-
-
-<ol>
-<li>查看容器的日志</li>
-<li>-e  指定参数（参数是键值对）</li>
-</ol>
-<h1 id="Docker启动高版本的tomcat容器访问端口显示404页面显示"><a href="#Docker启动高版本的tomcat容器访问端口显示404页面显示" class="headerlink" title="Docker启动高版本的tomcat容器访问端口显示404页面显示"></a>Docker启动高版本的tomcat容器访问端口显示404页面显示</h1><p>docker启动tomcat容器访问端口显示404页面显示 源服务器未能找到目标资源的表示或者是不愿公开一个已经存在<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xyq608074/article/details/107084407">https://blog.csdn.net/xyq608074/article/details/107084407</a></p>
-<h1 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h1><p>对于5.x版本的MySQL可以直接使用，对于更高版本的MySQL验证方式有所不同</p>
-<h1 id="解决docker安装mysql8-0无法远程连接问题"><a href="#解决docker安装mysql8-0无法远程连接问题" class="headerlink" title="解决docker安装mysql8.0无法远程连接问题"></a>解决docker安装mysql8.0无法远程连接问题</h1><p>MySQL8.0 的加密方式发生了改变，需要把加密方式改回来后才可以正常进行远程登录<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/shuoshuo132/article/details/81304123">https://blog.csdn.net/shuoshuo132/article/details/81304123</a></p>
-<h1 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h1><p>把主机的 /my/custum 文件夹挂载到 mysqldocker 容器的 /etc/mysql/conf.d 文件夹里面（采用合并的方式，即自定义的配置文件会覆盖合并原先配置文件中同名的属性）<br>我们可以自己指定本地主机中的配置文件夹的名称，如可以将  /my/custum 修改成 /conf/mysql 等</p>
-<h1 id="Docker-安装-MongoDB"><a href="#Docker-安装-MongoDB" class="headerlink" title="Docker 安装 MongoDB"></a>Docker 安装 MongoDB</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">拉取镜像</span> </span><br><span class="line">docker pull mongo:latest</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建和启动容器</span> </span><br><span class="line">docker run -d --restart=always -p 27017:27017 --name mymongo -v /data/db:/data/db -d mongo</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入容器</span> </span><br><span class="line">docker exec -it mymongo /bin/bash </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用MongoDB客户端进行操作</span> </span><br><span class="line">mongo </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show dbs <span class="comment">#查询所有的数据库</span></span> </span><br><span class="line">admin 0.000GB </span><br><span class="line">config 0.000GB </span><br><span class="line">local 0.000GB </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/MapReduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/02/19/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-19 15:10:17" itemprop="dateCreated datePublished" datetime="2021-02-19T15:10:17+08:00">2021-02-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-12-14 19:23:26" itemprop="dateModified" datetime="2021-12-14T19:23:26+08:00">2021-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MapReduce-理论基础"><a href="#MapReduce-理论基础" class="headerlink" title="MapReduce 理论基础"></a>MapReduce 理论基础</h1><h2 id="MapReduce-定义"><a href="#MapReduce-定义" class="headerlink" title="MapReduce 定义"></a>MapReduce 定义</h2><p>MapReduce 是一个分布式运算程序的编程框架，是用户开发“基于Hadoop的数据分析应用”的核心框架。</p>
-<p>MapReduce 核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，可以运行在一个Hadoop集群上。</p>
-<hr>
-<h2 id="MapReduce优缺点"><a href="#MapReduce优缺点" class="headerlink" title="MapReduce优缺点"></a>MapReduce优缺点</h2><h3 id="优点——简单"><a href="#优点——简单" class="headerlink" title="优点——简单"></a>优点——简单</h3><h3 id="缺点——慢"><a href="#缺点——慢" class="headerlink" title="缺点——慢"></a>缺点——慢</h3><hr>
-<h2 id="MapReduce-组件"><a href="#MapReduce-组件" class="headerlink" title="MapReduce 组件"></a>MapReduce 组件</h2><p>MapReduce 是一种编程思想，符合这种编程思想的程序就可以叫做 MapReduce 程序。</p>
-<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p><strong>Job</strong>（作业）：一个符合 MapReduce 编程规范的程序就是一个 Job，Job 其实就是一段可以运行的静态代码。</p>
-<hr>
-<h3 id="MrAppMaster"><a href="#MrAppMaster" class="headerlink" title="MrAppMaster"></a>MrAppMaster</h3><p><strong>MrAppMaster</strong>：MrAppMaster 是一个进程。在分布式环境下运行 Job 时，会先启动一个 MRAppMaster 进程，这个进程就主要负责 Job 中程序运行过程中执行状态的监控，容错，和 ResourceManager 申请资源，提交 Task 等。</p>
-<hr>
-<h3 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h3><p><strong>Task</strong>：Task 也是一个进程，负责 Job 任务的计算。</p>
-<ul>
-<li>  MapTask：负责 Map 阶段程序计算的 Task 称为 MapTask。</li>
-<li>  ReduceTask：负责 Reduce 阶段程序计算的 Task 称为 ReduceTask。</li>
-</ul>
-<hr>
-<h3 id="Partitioner（分区）"><a href="#Partitioner（分区）" class="headerlink" title="Partitioner（分区）"></a>Partitioner（分区）</h3><p>Partitioner（分区器）负责在 Mapper 将数据写出时，为每组 <code>&lt;keyout-valueout&gt;</code> 打上标记，保存在不同的分区中。</p>
-<p>如果 Map 阶段的数据保存在多个分区中，在 Reduce 阶段，一个 ReduceTask 只需处理一个分区的数据即可。</p>
-<hr>
-<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map 阶段是 MapReduce 程序运行的第一个阶段。</p>
-<p>Map 阶段会将输入的数据进行切分，将一份大数据切分为若干小部分，切分后每个部分称为一<strong>片（split）</strong>，每片数据会交给一个MapTask 进程进行计算。</p>
-<p>在一个 MapReduce 程序的 Map 阶段，会启动 N 个 MapTask 进程并行运算。</p>
-<ul>
-<li>  N 取决于切片（split）数，一般会为每一个 split 都分配一个 Task。</li>
-</ul>
-<hr>
-<h3 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h3><p>Reduce 阶段是 MapReduce 程序运行的第二个阶段。</p>
-<p>Reduce 阶段的目的是将 Map 阶段每个 MapTask 计算后的结果进行合并汇总，得到最终结果。</p>
-<p>Reduce 阶段是可选的，也就是说一个 MapReduce 程序运行时可以没有 Reduce 阶段。</p>
-<p>一个 Job 可以通过设置，启动 N 个 ReduceTask，这些 ReduceTask 也是并行运行的，每个 ReduceTask 最终都会产生一个结果。</p>
-<hr>
-<h2 id="MapReduce-常用API"><a href="#MapReduce-常用API" class="headerlink" title="MapReduce 常用API"></a>MapReduce 常用API</h2><p>Hadoop 是用 Java 实现的，在 MapReduce 程序运行过程中，会创建一些实例对象，其中一些重要的<strong>基类</strong>对象如下：</p>
-<h3 id="Map-阶段"><a href="#Map-阶段" class="headerlink" title="Map 阶段"></a>Map 阶段</h3><ol>
-<li><p> <strong>Mapper</strong>：map阶段的核心对象</p>
-</li>
-<li><p><strong>InputFormat</strong>：用于处理指定格式的输入数据</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MapReduce 规范规定程序运行时必须指定一个输入目录，一个输出目录。</span><br><span class="line">InputFormat 限定了输入目录中文件的格式。</span><br><span class="line">	1、如果是普通文件，可以使用 FileInputFormat 实现类；</span><br><span class="line">	2、如果是SequeceFile文件（hadoop提供的一种文件格式），可以使用 SequnceFileInputFormat 实现类；</span><br><span class="line">	3、如果处理的数据在数据库中，需要使用 DBInputFormat 实现类</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>RecordReader</strong>：记录读取器</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RecordReader 负责从输入目录文件中，读取数据，读取后封装为一组键值对记录。</span><br><span class="line">因为 MapReduce 只能处理&lt;K,V&gt;数据</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h3 id="Reduce阶段"><a href="#Reduce阶段" class="headerlink" title="Reduce阶段"></a>Reduce阶段</h3><ol>
-<li><p> <strong>Reducer</strong>：reduce 阶段的核心对象</p>
-</li>
-<li><p><strong>OutPutFormat</strong>：用于处理输出数据的格式</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OutPutFormat 用于指定 MapReduce 处理后的结果，要以什么样的文件格式写出。</span><br><span class="line">	1、如果想将结果写出到一个普通文件中，可以使用 FileOutputFormat；</span><br><span class="line">	2、如果想将结果写出到数据库中，可以使用 DBOutPutFormat；</span><br><span class="line">	4、如果想将结果写出到 SequeceFile 中，可以使用 SequnceFileOutputFormat</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>RecordWriter</strong>：记录写出器</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RecordWriter 将处理的结果以什么样的格式，写出到输出文件中。</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h3 id="MapReduce-处理数据的流程："><a href="#MapReduce-处理数据的流程：" class="headerlink" title="MapReduce 处理数据的流程："></a>MapReduce 处理数据的流程：</h3><ol>
-<li> <code>InputFormat</code> 调用 <code>RecordReader</code>，读取输入目录下的文件中的数据，并将数据封装为 <code>&lt;keyin, valuein&gt;</code> 对象；</li>
-<li> 将封装好的 <code>&lt;keyin, valuein&gt;</code> 对象，交给 <code>Mapper.map()</code>处理 <code>--&gt;</code> 将处理的结果写出到 <code>&lt;keyout, valueout&gt;</code> 对象中；</li>
-<li> 将<code>&lt;keyout, valueout&gt;</code> 对象序列化到磁盘中存储；</li>
-<li> <code>ReduceTask</code> 进程创建 <code>Reducer</code> 对象，使用 <code>Reducer.reduce()</code> 处理 Mapper 写出的 <code>&lt;keyout, valueout&gt;</code> 对象；</li>
-<li> <code>OutPutFormat</code> 调用 <code>RecordWriter</code>，将 <code>Reducer</code> 处理后的 <code>&lt;keyout, valueout&gt;</code> 对象写出到文件中。</li>
-</ol>
-<hr>
-<h1 id="MapReduce-编程规范"><a href="#MapReduce-编程规范" class="headerlink" title="MapReduce 编程规范"></a>MapReduce 编程规范</h1><p>用户编写的程序分成三个部分：Mapper、Reducer 和 Driver</p>
-<h2 id="一、Mapper-阶段"><a href="#一、Mapper-阶段" class="headerlink" title="一、Mapper 阶段"></a>一、Mapper 阶段</h2><ol>
-<li><p>用户自定义的 Mapper 要继承 <code>org.apache.hadoop.mapreduce.Mapper</code></p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Mapper</span>&lt;KEYIN, VALUEIN, KEYOUT, VALUEOUT&gt; &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p> Mapper 的输入数据是 KV 对的形式（KV 的类型可自定义）</p>
-</li>
-<li><p> Mapper 的业务逻辑写在 <code>map()</code> 方法中</p>
-</li>
-<li><p> Mapper 的输出数据是 KV 对的形式（KV 的类型可自定义）</p>
-</li>
-<li><p> <code>map()</code> 方法（MapTask 进程）会对每个 <code>&lt;K, V&gt;</code> 都调用一次。</p>
-</li>
-</ol>
-<hr>
-<h2 id="二、Reducer-阶段"><a href="#二、Reducer-阶段" class="headerlink" title="二、Reducer 阶段"></a>二、Reducer 阶段</h2><ol>
-<li><p>用户自定义的 Reducer 要继承 <code>org.apache.hadoop.mapreduce.Reducer</code></p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Reducer</span>&lt;KEYIN,VALUEIN,KEYOUT,VALUEOUT&gt; &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p> Reducer 的输入数据类型对应 Mapper 的输出数据类型，也是 KV</p>
-</li>
-<li><p> Reducer 的输出数据是 KV 对的形式（KV 的类型可自定义）</p>
-</li>
-<li><p> Reducer 的业务逻辑写在 <code>reduce()</code> 方法中</p>
-</li>
-<li><p> ReduceTask 进程对每一组相同 K 的 <code>&lt;K, V&gt;</code> 组调用一次 <code>reduce()</code> 方法。</p>
-</li>
-</ol>
-<hr>
-<h2 id="三、Driver"><a href="#三、Driver" class="headerlink" title="三、Driver"></a>三、Driver</h2><p><strong>Driver 就相当于 Yarn 的客户端，用于提交 Job 到 Yarn 中。</strong></p>
-<hr>
-<h1 id="WordCount-案例"><a href="#WordCount-案例" class="headerlink" title="WordCount 案例"></a>WordCount 案例</h1><h2 id="WordCount-案例分析"><a href="#WordCount-案例分析" class="headerlink" title="WordCount 案例分析"></a>WordCount 案例分析</h2><p><img src="/2021/02/19/MapReduce/image-20211126202235883.png" alt="image-20211126202235883"></p>
-<p><img src="/2021/02/19/MapReduce/image-20211202113216507.png" alt="image-20211202113216507"></p>
-<h3 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h3><p>在 HDFS 的 <code>/hello</code> 目录下存在两个文件，现在要求统计两个文件中不同单词的数量，并要求将 <code>a-p</code> 开头的单词放入到一个结果文件中，<code>q-z</code> 开头的单词放入到另一个结果文件中。    </p>
-<ul>
-<li><p><code>/hello/a.txt    200M</code></p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hello,hi,hadoop</span><br><span class="line">hive,hadoop,hive,</span><br><span class="line">zoo,spark,wow</span><br><span class="line">zoo,spark,wow</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li><p><code>/hello/b.txt    100M</code></p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello,hi,hadoop</span><br><span class="line">zoo,spark,wow</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Map-阶段-1"><a href="#Map-阶段-1" class="headerlink" title="Map 阶段"></a>Map 阶段</h3><p>Map 阶段：运行多个 MapTask 进程，将大数据切分成若干份小数据，每个 MapTask 进程处理一部分数据，并输出阶段性的结果。</p>
-<ol>
-<li><p>数据切片（split）：默认的切分策略是以文件为单位，以 block 的大小为单个片的大小进行切片。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/hello/a.txt	200M</span><br><span class="line">/hello/b.txt	100M</span><br><span class="line"></span><br><span class="line">现在我们有2个文件，默认块的大小是128M，所以split的大小也为128M。</span><br><span class="line">所以我们需要对文件 a.txt 进行切片，切分后的结果为：</span><br><span class="line">	split0: /hello/a.txt,0-128M</span><br><span class="line">	split1: /hello/a.txt,128M-200M</span><br><span class="line">对于文件 b.txt，其大小小于128M，所以不需要再进行切片了，直接保存在一个单独的split上；</span><br><span class="line">	split2: /hello/b.txt,0M-100M</span><br></pre></td></tr></table></figure></li>
-<li><p>由于目前我们有 3 个 split，所以启动 3 个 MapTask 进程执行任务，每个 MapTask 进程负责处理一个 split 上的数据</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">split0: /hello/a.txt,0-128M--------MapTask1</span><br><span class="line">split1: /hello/a.txt,128M-200M--------MapTask2</span><br><span class="line">split2: /hello/b.txt,0M-100M--------MapTask3</span><br></pre></td></tr></table></figure></li>
-<li><p>读取数据阶段。</p>
-<p> 在 MapReduce 中，所有的数据必须封装为 <code>&lt;K, V&gt;</code> 形式，所以 MapTask1、2、3 分别都会创建一个 <code>InputFormat</code> 对象（默认实现类为 <code>TextInputFormat</code>），每个 <code>InputFormat</code> 对象再创建一个依赖对象 <code>RecordReader</code>（默认实现类为 <code>LineRecordReader</code>），<code>RecordReader</code> 负责读取 split 中的数据，并封装成 <code>&lt;K, V&gt;</code> 格式。</p>
-<p> <code>LineRecordReader</code>：以文件中的当前行的偏移量（offset ）为 key，当前行的内容为 value，将文件内容封装成一个个<code>&lt;K,V&gt;</code>对象。</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">举例：a.txt</span><br><span class="line"><span class="comment"># (k，v) &lt;---&gt; (偏移量，内容)</span></span><br><span class="line">hello,hi,hadoop-----&gt;(<span class="number">0</span>, (hello,hi,hadoop))</span><br><span class="line">hive,hadoop,hive-----&gt;(<span class="number">20</span>, (hive,hadoop,hive))</span><br><span class="line">zoo,spark,wow-----&gt;(<span class="number">30</span>, (zoo,spark,wow))</span><br><span class="line">zoo,spark,wow-----&gt;(<span class="number">40</span>, (zoo,spark,wow))</span><br></pre></td></tr></table></figure></li>
-<li><p><code>map()</code>方法</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">map() 是 Map 阶段的核心处理逻辑。 </span><br><span class="line">在单词统计中，map() 会被循环调用，对输入的每个&lt;K,V&gt;对象都进行处理！</span><br><span class="line">    输入：(0, (hello,hi,hadoop))</span><br><span class="line">    输出：(hello,1),(hi,1),(hadoop,1)</span><br><span class="line"></span><br><span class="line">    输入：(20, (hive,hadoop,hive))</span><br><span class="line">    输出：(hive,1),(hadoop,1),(hive,1)  </span><br><span class="line"></span><br><span class="line">    输入：(30, (zoo,spark,wow))</span><br><span class="line">    输出：(zoo,1),(spark,1),(wow,1)  </span><br><span class="line"></span><br><span class="line">    输入：(40, (zoo,spark,wow))</span><br><span class="line">    输出：(zoo,1),(spark,1),(wow,1) </span><br></pre></td></tr></table></figure></li>
-<li><p>根据需求，我们需要生成两个结果文件，将 <code>a-p</code> 开头的单词放入到一个结果文件中，<code>q-z</code> 开头的单词放入到另一个结果文件中。所以，我们需要将 MapTask 输出的记录进行<strong>分区</strong>，将 <code>a-p</code> 开头的单词放入到一个区，<code>q-z</code> 开头的单词放入到另一个区，这就需要在Mapper 输出结果后，调用 Partitioner，对 Mapper 输出的 <code>key-value</code> 进行分区，在分区过程中默认会将结果按照字典顺序排序。为了分别处理这两个区的数据，我们也会启动两个 ReduceTask ，每个 ReduceTask 负责处理一个分区中的数据。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">分区规则： </span><br><span class="line">	a-p开头的单词放入到一个区；q-z开头的单词放入到另一个区</span><br><span class="line"></span><br><span class="line">MapTask1：	<span class="comment">// MapTask1 的处理结果分别放入两个区，同理，MapTask2、3也一样，将处理结果输出到两个区中 </span></span><br><span class="line"><span class="number">0</span>号区：  (hadoop,<span class="number">1</span>)，(hadoop,<span class="number">1</span>)，(hello,<span class="number">1</span>),(hi,<span class="number">1</span>),(hive,<span class="number">1</span>),(hive,<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span>号区：  (spark,<span class="number">1</span>),(spark,<span class="number">1</span>),(wow,<span class="number">1</span>) ，(wow,<span class="number">1</span>),(zoo,<span class="number">1</span>)(zoo,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">MapTask2:		   </span><br><span class="line"><span class="number">0</span>号区： ...</span><br><span class="line"><span class="number">1</span>号区： ...</span><br><span class="line"></span><br><span class="line">MapTask3:		   </span><br><span class="line"><span class="number">0</span>号区： (hadoop,<span class="number">1</span>),(hello,<span class="number">1</span>),(hi,<span class="number">1</span>),	<span class="comment">// 分区后的数据按key的字典顺序排列</span></span><br><span class="line"><span class="number">1</span>号区： (spark,<span class="number">1</span>),(wow,<span class="number">1</span>),(zoo,<span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h3 id="Reduce-阶段"><a href="#Reduce-阶段" class="headerlink" title="Reduce 阶段"></a>Reduce 阶段</h3><ol>
-<li><p><strong>copy</strong>：<code>ReduceTask</code> 进程启动后，会启动 <strong>shuffle</strong> 进程，从 MapTask 进程中拷贝相应分区的数据。比如：</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ReduceTask1: 只负责0号区</span><br><span class="line">	将3个MapTask生成的保存在0号区数据全部拷贝到ReduceTask1所在的机器！</span><br><span class="line">        (hadoop,1)，(hadoop,1)，(hello,1),(hi,1),(hive,1),(hive,1)</span><br><span class="line">        (hadoop,1),(hello,1),(hi,1),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ReduceTask2: 只负责1号区</span><br><span class="line">	将3个MapTask生成的保存在1号区数据全部拷贝到ReduceTask2所在的机器！</span><br><span class="line">        (spark,1),(spark,1),(wow,1) ，(wow,1),(zoo,1)(zoo,1)</span><br><span class="line">        (spark,1),(wow,1),(zoo,1)</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p><strong>sort</strong>：排序</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReduceTask1: 将从0号区拷贝到本地机器上的数据进行排序：</span><br><span class="line">	(hadoop,1)，(hadoop,1)，(hadoop,1),(hello,1),(hello,1),(hi,1),(hi,1),(hive,1),(hive,1)</span><br><span class="line">ReduceTask2: 将从1号区拷贝到本地机器上的数据进行排序：</span><br><span class="line">	(spark,1),(spark,1),(spark,1),(wow,1) ，(wow,1),(wow,1),(zoo,1),(zoo,1)(zoo,1)</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>reduce</strong></p>
-<p> <code>ReduceTask进程 --&gt; 创建Reducer对象 --&gt; 调用reduce()方法(一次读入一组数据)</code></p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">何为一组数据: key相同的为一组数据</span><br><span class="line">ReduceTask1----&gt;Reducer-----&gt;reduce(一次读入一组数据)</span><br><span class="line">	输入： (hadoop,1)，(hadoop,1)，(hadoop,1)</span><br><span class="line">	输出： (hadoop,3)</span><br><span class="line"></span><br><span class="line">	输入： (hello,1),(hello,1)</span><br><span class="line">	输出： (hello,2)</span><br><span class="line">	</span><br><span class="line">	输入： (hi,1),(hi,1)</span><br><span class="line">	输出： (hi,2)</span><br><span class="line">	</span><br><span class="line">	输入：(hive,1),(hive,1)</span><br><span class="line">	输出：(hive,2)</span><br><span class="line">	</span><br><span class="line">ReduceTask2----&gt;Reducer-----&gt;reduce(一次读入一组数据)</span><br><span class="line">	输入： (spark,1),(spark,1),(spark,1)</span><br><span class="line">	输出： (spark,3)</span><br><span class="line">	</span><br><span class="line">	输入： (wow,1) ，(wow,1),(wow,1)</span><br><span class="line">	输出： (wow,3)</span><br><span class="line"></span><br><span class="line">	输入：(zoo,1),(zoo,1)(zoo,1)</span><br><span class="line">	输出：(zoo,3)</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>调用 <code>OutPutFormat</code> 中的 <code>RecordWriter</code> 将 <code>Reducer</code> 输出的记录落盘</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ReduceTask1----&gt;OutPutFormat（默认使用TextOutPutFormat）------&gt;RecordWriter（默认使用LineRecoreWriter）</span><br><span class="line">    LineRecoreWriter会将一个&lt;K,V&gt;写出为一行，key和alue之间使用\t分割</span><br><span class="line">    在输出目录中，生成文件part-r-0000</span><br><span class="line">        hadoop	3</span><br><span class="line">        hello	2</span><br><span class="line">        hi	2</span><br><span class="line">        hive	2</span><br><span class="line"></span><br><span class="line">ReduceTask2----&gt;OutPutFormat（默认TextOutPutFormat）------&gt;RecordWriter（LineRecoreWriter）</span><br><span class="line">    LineRecoreWriter会将一个&lt;K,V&gt;写出为一行，key和alue之间使用\t分割</span><br><span class="line">    在输出目录中，生成文件part-r-0001</span><br><span class="line">        spark	3</span><br><span class="line">        wow	3</span><br><span class="line">        zoo	3</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="MapReduce总结"><a href="#MapReduce总结" class="headerlink" title="MapReduce总结"></a>MapReduce总结</h3><ul>
-<li><p>Map阶段(MapTask)</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">切片(Split)-----读取数据(Read)-------交给Mapper处理(Map)------分区和排序(sort)</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>Reduce阶段(ReduceTask)</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">拷贝数据(copy)------排序(sort)-----合并(reduce)-----写出(write)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<hr>
-<h2 id="WordCount案例实战"><a href="#WordCount案例实战" class="headerlink" title="WordCount案例实战"></a>WordCount案例实战</h2><h3 id="一、准备数据"><a href="#一、准备数据" class="headerlink" title="一、准备数据"></a>一、准备数据</h3><p><strong>注意：</strong></p>
-<ul>
-<li>  准备的数据的格式必须是文本</li>
-<li>  编码必须是<code>utf-8无bom</code></li>
-</ul>
-<p><img src="/2021/02/19/MapReduce/image-20211202141842801.png" alt="image-20211202141842801"></p>
-<hr>
-<h1 id="Hadoop-序列化"><a href="#Hadoop-序列化" class="headerlink" title="Hadoop 序列化"></a>Hadoop 序列化</h1><h2 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h2><ul>
-<li>  <strong>序列化</strong>就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储（持久化）和网络传输。</li>
-<li>  <strong>反序列化</strong>就是将收到字节序列（或其他数据传输协议）或者是硬盘的持久化数据，转换成内存中的对象。</li>
-</ul>
-<hr>
-<h2 id="为什么要序列化"><a href="#为什么要序列化" class="headerlink" title="为什么要序列化"></a>为什么要序列化</h2><p>一般来说，“活的”对象只存在于内存中，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。然而序列化可以存储“活的”对象，可以将“活的”对象发送到远程计算机。</p>
-<hr>
-<h2 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h2><p>Java 的序列化是一个重量级的序列化框架（Serializable），一个对象被序列化后，会附带很多额外的信息（各种校验信息，Header，继承体系等），不便于在网络中高效传输。所以，Hadoop 自己开发了一套轻量级的序列化机制（Writable）。</p>
-<p><strong>Hadoop 序列化特点：</strong></p>
-<ol>
-<li> 紧凑：高效使用存储空间。</li>
-<li> 快速：读写数据的额外开销小。</li>
-<li> 可扩展：随着通信协议的升级而可升级</li>
-<li> 互操作：支持多语言的交互</li>
-</ol>
-<hr>
-<h2 id="常用数据序列化类型"><a href="#常用数据序列化类型" class="headerlink" title="常用数据序列化类型"></a>常用数据序列化类型</h2><blockquote>
-<p>  常用的数据类型对应的 Hadoop 数据序列化类型</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Java类型</th>
-<th>Hadoop Writable类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>boolean</td>
-<td>BooleanWritable</td>
-</tr>
-<tr>
-<td>byte</td>
-<td>ByteWritable</td>
-</tr>
-<tr>
-<td>int</td>
-<td>IntWritable</td>
-</tr>
-<tr>
-<td>float</td>
-<td>FloatWritable</td>
-</tr>
-<tr>
-<td>long</td>
-<td>LongWritable</td>
-</tr>
-<tr>
-<td>double</td>
-<td>DoubleWritable</td>
-</tr>
-<tr>
-<td>String</td>
-<td>Text</td>
-</tr>
-<tr>
-<td>map</td>
-<td>MapWritable</td>
-</tr>
-<tr>
-<td>array</td>
-<td>ArrayWritable</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="自定义-bean-对象事件序列化接口（Writable）"><a href="#自定义-bean-对象事件序列化接口（Writable）" class="headerlink" title="自定义 bean 对象事件序列化接口（Writable）"></a>自定义 bean 对象事件序列化接口（Writable）</h2><p>自定义的 bean 对象如果想要序列化传输，就必须实现序列化接口。具体的操作步骤如下 7 步：</p>
-<ol>
-<li><p> 实现 <code>Writable</code> 接口</p>
-</li>
-<li><p>反序列化时，需要反射调用 bean 对象的空参构造函数，所以自定义的 bean 对象必须提供空参构造函数。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">FlowBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>重写序列化方法</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	out.writeLong(upFlow);</span><br><span class="line">	out.writeLong(downFlow);</span><br><span class="line">	out.writeLong(sumFlow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>重写反序列化方法</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	upFlow = in.readLong();</span><br><span class="line">	downFlow = in.readLong();</span><br><span class="line">	sumFlow = in.readLong();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p> 注意反序列化方法中参数的顺序要与序列化方法中参数的顺序完全一致</p>
-</li>
-<li><p> 要想把结果显示在文件中，需要重写 <code>toString()</code> 方法</p>
-</li>
-<li><p>如果需要将自定义的 bean 对象作为 key 传输，则还需要实现 Comparable 接口，因为 MapReduce 中的 Shuffle 过程要求 key 必须能排序。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(FlowBean o)</span> &#123;</span><br><span class="line">    <span class="comment">// 倒序排列，从大到小</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.sumFlow &gt; o.getSumFlow() ? -<span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h2 id="序列化案例实操"><a href="#序列化案例实操" class="headerlink" title="序列化案例实操"></a>序列化案例实操</h2><p><strong>一、需求</strong></p>
-<p>统计每一个手机号耗费的总上行流量、下行流量、总流量</p>
-<p>（1）输入数据</p>
-<p>（2）输入数据格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">7	13560436666		120.196.100.99		1116	954		 200  </span><br><span class="line">id   手机号码     	 网络ip             上行流量  下行流量   网络状态码  </span><br></pre></td></tr></table></figure>
-
-<p>（3）期望输出数据格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">13560436666      1116         954            2070  </span><br><span class="line">手机号码        上行流量     下行流量         总流量  </span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/02/19/MapReduce/image-20211202150116535.png" alt="image-20211202150116535"></p>
-<hr>
-<h1 id="MapReduce-框架原理"><a href="#MapReduce-框架原理" class="headerlink" title="MapReduce 框架原理"></a>MapReduce 框架原理</h1><p><img src="/2021/02/19/MapReduce/image-20211127120148703.png" alt="image-20211127120148703"></p>
-<hr>
-<h1 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h1><h2 id="FileInputFormat切片源码解析-input-getSplits-job"><a href="#FileInputFormat切片源码解析-input-getSplits-job" class="headerlink" title="FileInputFormat切片源码解析(input.getSplits(job))"></a>FileInputFormat切片源码解析(input.getSplits(job))</h2><p><img src="/2021/02/19/MapReduce/image-20211202172418064.png" alt="image-20211202172418064"></p>
-<h2 id="FileInputFormat-的切片策略（默认切片策略）"><a href="#FileInputFormat-的切片策略（默认切片策略）" class="headerlink" title="FileInputFormat 的切片策略（默认切片策略）"></a>FileInputFormat 的切片策略（默认切片策略）</h2><ul>
-<li><strong>切片策略</strong><ol>
-<li> 首先获取当前输入目录中的所有文件；</li>
-<li> 以文件为单位进行切片，如果文件是空文件，默认创建一个空的切片（split）。</li>
-<li> 如果文件不为空，要先判断文件是否可切片（非压缩文件都可切，压缩文件只有Bzip2格式可切）。</li>
-<li> 如果文件不可切，将整个文件作为一片</li>
-<li>如果文件可切，先获取事先设置的每片的大小（默认等于 Block 的大小），再按照文件的内容长度进行循环切片。<ul>
-<li>  如果 <code>待切片内容长度/每片大小 &gt; 1.1</code>，则先切去一片，再用剩余的文件大小作为待切片内容，循环判断；</li>
-<li>  如果 <code>待切片内容长度/每片大小 &lt;= 1.1</code>，将剩余的所有内容整个作为 1 片。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<ul>
-<li><p><strong>案例分析</strong></p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">（1）输入目录中共有两个文件</span><br><span class="line">	file1.txt	320M</span><br><span class="line">	file2.txt	130M</span><br><span class="line">	</span><br><span class="line">（2）经过 FileInputFormat 切片后，形成的切片信息如下：</span><br><span class="line">	file1.txt.split1 --- 0~128M</span><br><span class="line">	file1.txt.split2 --- 128~256M</span><br><span class="line">	file1.txt.split3 --- 256~320M</span><br><span class="line">	file2.txt.split1 --- 0~130M</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="片和块的关系"><a href="#片和块的关系" class="headerlink" title="片和块的关系"></a><strong>片和块的关系</strong></h2><ul>
-<li>  片（Split）：切片（Split）的过程发生在内存中，在运算 MapReduce 程序时，由于每个 MapTask 会负责一个 split 的运算，所以会临时的将某个目录下的所有文件划分为若干 split。但是实际上每个 split 中的数据还是以 block 的形式存储在 HDFS 中的。</li>
-<li>  块（Block）：在向 HDFS 中写文件时，文件中的内容以 block 为单位存储。块是实际的物理存在。</li>
-<li>  MapTask 在读取切片的内容时，需要根据切片的 metainfo ，获取到当前切片属于文件的哪部分，再根据此信息去寻找对应的块，读取数据。</li>
-</ul>
-<p><strong>建议：</strong></p>
-<p><img src="/2021/02/19/MapReduce/image-20211202170551898.png" alt="image-20211202170551898"></p>
-<ul>
-<li><p>片大小最好等于块大小。</p>
-<blockquote>
-<p>  因为每个片都会启动一个对应的 MapTask 进程，每个 MapTask 进程只能运行在一台服务器上，如果片大小不等于块大小，比如片大小为100M，块大小为128M，那么一个 MapTask 进程就可能要跨节点加载数据，这时产生的网络IO和磁盘IO代价是非常大的。如果片大小等于块大小，就不会出现跨节点加载数据的过程，可以节省网络IO的时间。</p>
-</blockquote>
-</li>
-<li><p>  MapReduce 程序速度慢的原因在于执行时，会频繁发生磁盘 IO 和网络 IO。比如在 map 阶段，需要先将磁盘中的文件读取到内存中进行运算，运算结束后还需要将阶段性的运算结果写出到磁盘上；这个运算结果还可能需要通过网络传输到集群中的其它节点上进行 reduce 阶段的运算，reduce 阶段同样需要把磁盘上的文件（map 阶段的运算结果文件）加载到内存中运算，运算结束后再将运算结果写出到磁盘上。</p>
-</li>
-<li><p>  将片大小设置为和块大小一致，可以最大限度减少因为切片带来的磁盘 IO 和网络 IO。</p>
-</li>
-</ul>
-<hr>
-<p><img src="/2021/02/19/MapReduce/image-20211202173603095.png" alt="image-20211202173603095"></p>
-<hr>
-<h2 id="CombineTextInputFormat切片机制"><a href="#CombineTextInputFormat切片机制" class="headerlink" title="CombineTextInputFormat切片机制"></a>CombineTextInputFormat切片机制</h2><p>框架默认的TextInputformat切片机制是对任务按文件规划切片，不管文件多小，都会是一个单独的切片，都会交给一个MapTask，这样如果有大量小文件，就会产生大量的MapTask，处理效率极其低下。</p>
-<p><strong>一、应用场景：</strong></p>
-<p><code>CombineTextInputFormat</code> 用于小文件过多的场景，它可以将多个小文件从逻辑上规划到一个切片中，这样，多个小文件就可以交给一个MapTask处理。</p>
-<p><strong>二、虚拟存储切片最大值设置</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CombineTextInputFormat.setMaxInputSplitSize(job, <span class="number">4194304</span>);	<span class="comment">// 4m</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>  虚拟存储切片最大值设置可以根据实际的小文件大小情况来设置具体的值。</li>
-</ul>
-<p><strong>三、切片机制</strong></p>
-<p>生成切片过程包括：<strong>虚拟存储过程</strong>和<strong>切片过程</strong>两部分。</p>
-<ol>
-<li><p><strong>虚拟存储过程：</strong></p>
-<ul>
-<li>  （a）将输入目录下所有文件按照文件名称字典顺序一次读入，记录文件大小，并累加计算所有文件的总长度。</li>
-<li>  （b）根据是否设置 <code>setMaxInputSplitSize</code> 值，将每个文件划分成一个一个 <code>setMaxInputSplitSize</code> 值大小的文件。</li>
-<li>  （c）注意：当剩余数据大小超过 <code>setMaxInputSplitSize</code> 值且不大于2倍 <code>setMaxInputSplitSize</code> 值，此时将文件均分成2个虚拟存储块（防止出现太小切片）。</li>
-<li>  例如 <code>setMaxInputSplitSize</code> 值为4M，最后文件剩余的大小为4.02M，如果按照4M逻辑划分，就会出现0.02M的小的虚拟存储文件，所以将剩余的4.02M文件切分成（2.01M和2.01M）两个文件。</li>
-</ul>
-</li>
-<li><p><strong>切片过程：</strong></p>
-<ul>
-<li><p>  （a）判断虚拟存储的文件大小是否大于 <code>setMaxInputSplitSize</code> 值，大于等于则单独形成一个切片。</p>
-</li>
-<li><p>  （b）如果不大于则跟下一个虚拟存储文件进行合并，共同形成一个切片。</p>
-</li>
-<li><p>（c）测试举例：有4个小文件大小分别为1.7M、5.1M、3.4M以及6.8M这四个小文件，则虚拟存储之后形成6个文件块，大小分别为：</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.7M，（2.55M、2.55M），3.4M以及（3.4M、3.4M）</span><br><span class="line"></span><br><span class="line">最终会形成3个切片，大小分别为：</span><br><span class="line"></span><br><span class="line">（1.7+2.55）M，（2.55+3.4）M，（3.4+3.4）M</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="CombineTextInputFormat-案例实操"><a href="#CombineTextInputFormat-案例实操" class="headerlink" title="CombineTextInputFormat 案例实操"></a>CombineTextInputFormat 案例实操</h2><ol>
-<li><p>需求</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将输入的大量小文件合并成一个切片统一处理。</span><br><span class="line"></span><br><span class="line">（1）输入数据</span><br><span class="line">	准备4个小文件</span><br><span class="line">（2）期望</span><br><span class="line">	期望一个切片处理4个文件</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h1 id="InputFormat-数据输入"><a href="#InputFormat-数据输入" class="headerlink" title="InputFormat 数据输入"></a>InputFormat 数据输入</h1><h2 id="FileInputFormat-接口"><a href="#FileInputFormat-接口" class="headerlink" title="FileInputFormat 接口"></a>FileInputFormat 接口</h2><p>MapReduce 任务的输入文件一般都存储在 HDFS 里面。常见的输入文件格式包括：<strong>基于行的日志文件、二进制格式文件等</strong>。这些文件一般会很大，达到数十GB，甚至更大。那么MapReduce是如何读取这些数据的呢？下面我们首先学习 FileInputFormat 接口。</p>
-<p>FileInputFormat 常见的接口实现类包括：</p>
-<ul>
-<li>  TextInputFormat</li>
-<li>  KeyValueTextInputFormat</li>
-<li>  NLineInputFormat</li>
-<li>  CombineTextInputFormat</li>
-<li>  自定义 InputFormat </li>
-</ul>
-<hr>
-<h2 id="FileInputFormat-实现类"><a href="#FileInputFormat-实现类" class="headerlink" title="FileInputFormat 实现类"></a>FileInputFormat 实现类</h2><h3 id="TextInputFormat"><a href="#TextInputFormat" class="headerlink" title="TextInputFormat"></a>TextInputFormat</h3><ul>
-<li><p>  使用场景：TextInputFormat 是默认的 InputFormat，常用于输入目录中全是文本文件的场景。</p>
-</li>
-<li><p>  切片策略：使用默认的切片策略。</p>
-</li>
-<li><p>RecordReader：使用的实现类是<code>LineRecordReader</code>，一次处理一行数据，以行头的偏移量为 key，该行内容作为 value。</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LineRecordReader</span><br><span class="line">	LongWritable key	<span class="comment">// 存储该行在整个文件中的起始字节偏移量	</span></span><br><span class="line">	Text value	<span class="comment">// 该行的内容</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="NLineInputFormat"><a href="#NLineInputFormat" class="headerlink" title="NLineInputFormat"></a>NLineInputFormat</h3><ul>
-<li><p>  使用场景：常用于输入目录中全是文本文件的场景。适合一行的内容特别多，在 Map 阶段 map() 的处理逻辑非常负责，可以根据行数自定义切片的大小。</p>
-</li>
-<li><p>  切片策略：以文件为单位，每 N 行作为一个切片。</p>
-</li>
-<li><p>RecordReader：使用的实现类是<code>LineRecordReader</code>，一次处理一行数据，以行头的偏移量为 key，该行内容作为 value。</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LineRecordReader</span><br><span class="line">	LongWritable key</span><br><span class="line">	Text value</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="KeyValueTextInputFormat"><a href="#KeyValueTextInputFormat" class="headerlink" title="KeyValueTextInputFormat"></a>KeyValueTextInputFormat</h3><ul>
-<li><p>  使用场景：常用于输入目录中全是文本文件的场景。使用分隔字符，将每一行的内容分割为 key 和 value。如果没有找到分隔符，则以当前行的内容作为 key，value 为空串。默认的分隔符为 <code>\t</code>，可以通过参数<code>mapreduce.input.keyvaluelinerecordreader.key.value.separator</code> 显式指定分隔符。</p>
-</li>
-<li><p>  切片策略：使用默认的切片策略。</p>
-</li>
-<li><p>RecordReader：使用的实现类是 <code>KeyValueLineRecordReader</code></p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">KeyValueLineRecordReader</span><br><span class="line">    Text key	分隔符之前的内容</span><br><span class="line">    Text value	分隔符之后的内容</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="CombineTextInputFormat"><a href="#CombineTextInputFormat" class="headerlink" title="CombineTextInputFormat"></a>CombineTextInputFormat</h3><p>框架默认的 <code>TextInputformat</code> 切片机制是以文件为单位，在文件内按照块大小对文件进行切片。也就是说不管文件多小，都会是一个单独的切片，都会交给一个 MapTask，这样如果有大量小文件，就会产生大量的 MapTask，处理效率极其低下。</p>
-<ul>
-<li><p>  应用场景：<code>CombineTextInputFormat</code> 改变了传统的切片方式，它将多个小文件划分到一个切片中，这样多个小文件就可以交给一个 MapTask 处理，适合小文件较多的场景。</p>
-</li>
-<li><p>  切片策略：多个小文件划分到一个切片中。根据 maxSize 对每个文件进行逻辑切片，切分为若干 part，将多个 part 组合，直到超过 maxSize，这些 part 作为一个切片。1hu</p>
-</li>
-<li><p>RecordReader：使用的实现类是<code>LineRecordReader</code>，一次处理一行数据，以行头的偏移量为 key，该行内容作为 value。</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LineRecordReader</span><br><span class="line">	LongWritable key</span><br><span class="line">	Text value</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="自定义-InputFormat-实现类"><a href="#自定义-InputFormat-实现类" class="headerlink" title="自定义 InputFormat 实现类"></a>自定义 InputFormat 实现类</h3><p>在开发中，Hadoop 框架自带的 InputFormat 类型并不能满足所有的应用场景，有时还需要通过自定义 InputFormat 来解决实际问题。</p>
-<p>无论是 HDFS 还是 MapReduce，在处理小文件时效率都非常低，但又难免面临处理大量小文件的场景，此时，就需要有相应解决方案。可以自定义 InputFormat 实现小文件的合并。</p>
-<p><strong>一、需求</strong></p>
-<p>将多个小文件合并成一个 <code>SequenceFile</code> 文件（SequenceFile 文件是 Hadoop 用来存储二进制形式的 <code>key-value</code> 对的文件格式），SequenceFile 里面存储着多个文件，存储的形式为：<code>文件路径+文件名 = key</code>，<code>文件内容=value</code>。</p>
-<p><img src="/2021/02/19/MapReduce/image-20211202202010080.png" alt="image-20211202202010080"></p>
-<p><strong>二、需求分析</strong></p>
-<ol>
-<li>自定义一个类继承 FileInputFormat<ul>
-<li>  （1）重写 <code>isSplitable()</code> 方法，返回 false 表示单个文件不可被切片</li>
-<li>  （2）重写 <code>createRecordReader()</code> 方法，返回自定义的 RecordReader 对象。</li>
-</ul>
-</li>
-<li>重写 RecordReader，实现一次读取一个完整的文件并按照一定的规则封装为<code>&lt;K,V&gt;</code>对象<ul>
-<li>  （1）采用 IO 流一次读取一个完整的文件输出到 value 中。（因为设置了文件不可被切片，所以每次都会读取一整个文件封装到 value 中）</li>
-<li>  （2）获取 <code>文件路径信息+名称</code>，作为 key </li>
-</ul>
-</li>
-<li> 默认的输出格式是 <code>TextOutputFormat</code>（文本的输出格式），由于我们要将文件输出为 <code>SequenceFile</code> 文件，所以需要将最终的输出格式设置为<code>SequnceFileOutputFormat</code></li>
-</ol>
-<p><strong>三、程序实现</strong></p>
-<hr>
-<h2 id="关键设置"><a href="#关键设置" class="headerlink" title="关键设置"></a>关键设置</h2><p>如何设置 MapTask 的数量？</p>
-<ul>
-<li>  MapTask 的数量，人为设置是无效的，只能由切片数来决定。</li>
-</ul>
-<h1 id="Job-提交流程阶段总结"><a href="#Job-提交流程阶段总结" class="headerlink" title="Job 提交流程阶段总结"></a>Job 提交流程阶段总结</h1><h2 id="Job提交流程源码"><a href="#Job提交流程源码" class="headerlink" title="Job提交流程源码"></a>Job提交流程源码</h2><blockquote>
-<p>  Job提交流程源码详解</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提交job</span></span><br><span class="line">waitForCompletion()</span><br><span class="line"></span><br><span class="line"><span class="comment">// --&gt;</span></span><br><span class="line">submit();</span><br><span class="line"></span><br><span class="line"><span class="comment">// --&gt;</span></span><br><span class="line"><span class="comment">// 1、建立连接</span></span><br><span class="line">connect();  </span><br><span class="line">    <span class="comment">// （1）加载配置，创建提交Job的代理</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Cluster</span>(getConfiguration());</span><br><span class="line">    <span class="comment">// （2）判断是本地yarn还是远程</span></span><br><span class="line">    initialize(jobTrackAddr, conf); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、提交job</span></span><br><span class="line">submitter.submitJobInternal(Job.<span class="built_in">this</span>, cluster)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// （1）创建给集群提交数据的Stag路径</span></span><br><span class="line">  <span class="type">Path</span> <span class="variable">jobStagingArea</span> <span class="operator">=</span> JobSubmissionFiles.getStagingDir(cluster, conf);</span><br><span class="line">  <span class="comment">// （2）获取jobId ，并创建Job路径</span></span><br><span class="line">  <span class="type">JobID</span> <span class="variable">jobId</span> <span class="operator">=</span> submitClient.getNewJobID();</span><br><span class="line">  <span class="comment">// （3）拷贝jar包到集群</span></span><br><span class="line">  copyAndConfigureFiles(job, submitJobDir);  </span><br><span class="line">  rUploader.uploadFiles(job, jobSubmitDir);</span><br><span class="line">  <span class="comment">// （4）计算切片，生成切片规划文件</span></span><br><span class="line">  writeSplits(job, submitJobDir);</span><br><span class="line">  maps = writeNewSplits(job, jobSubmitDir);</span><br><span class="line">  input.getSplits(job);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// （5）向Stag路径写XML配置文件</span></span><br><span class="line">  writeConf(conf, submitJobFile);</span><br><span class="line">  conf.writeXml(out);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// （6）提交Job,返回提交状态</span></span><br><span class="line">  status = submitClient.submitJob(jobId, submitJobDir.toString(), job.getCredentials());</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<h2 id="本地模式"><a href="#本地模式" class="headerlink" title="本地模式"></a>本地模式</h2><p>一、准备阶段</p>
-<p>运行 <code>Job.waitForCompletion()</code>，先使用 JobSubmitter 提交 Job，在提交之前，会在 Job 的作业目录中生成以下信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">job.split: 当前Job的切片信息，有几个切片对象</span><br><span class="line">job.splitmetainfo: 切片对象的属性信息</span><br><span class="line">job.xml: job所有的属性配置</span><br></pre></td></tr></table></figure>
-
-
-
-<p>二、提交阶段</p>
-<ol>
-<li><p>LocalJobRunner 进行提交</p>
-<ul>
-<li>  创建一个 LocalJobRunner.job()</li>
-<li>  <code>Job.start()</code>   启动线程</li>
-</ul>
-</li>
-<li><p>Map 阶段</p>
-<ul>
-<li>  采用线程池提交多个MapTaskRunable线程！</li>
-<li>  每个MapTaskRunable线程上，实例化一个MapTask对象！</li>
-<li>  每个MapTask对象，实例化一个Mapper!</li>
-<li>  Mapper.run()</li>
-<li>  线程运行结束，会在线程的作业目录中生成 file.out文件，保存MapTask输出的所有的key-value!</li>
-</ul>
-</li>
-<li><p>Reduce 阶段</p>
-<ul>
-<li>  采用线程池提交多个ReduceTaskRunable线程！</li>
-<li>  每个ReduceTaskRunable线程上，实例化一个ReduceTask对象！</li>
-<li>  每个ReduceTask对象，实例化一个Reduce!</li>
-<li>  reducer.run()</li>
-<li>  线程运行结束，会在输出目录中生成 part-r-000x 文件，保存 ReduceTask 输出的所有的key-value!</li>
-</ul>
-<p>  阶段定义： </p>
-<ul>
-<li>  copy：使用 shuffle 线程拷贝 MapTask 对应分区中的数据！</li>
-<li>  sort: 将拷贝的所有的分区的数据汇总后，排序</li>
-<li>  reduce：对排好序的数据，进行合并！</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h1 id="Shuffle-机制"><a href="#Shuffle-机制" class="headerlink" title="Shuffle 机制"></a>Shuffle 机制</h1><p>MapReduce 为了确保 Reducer 阶段每个输入数据都是按 key 排序的，会执行多次排序的过程，这个阶段被称为 Shuffle 阶段。</p>
-<p>从 Mapper 出去到 Reducer 接收之前全部都是 Shuffle 的范围。</p>
-<h2 id="MapTask-工作机制"><a href="#MapTask-工作机制" class="headerlink" title="MapTask 工作机制"></a>MapTask 工作机制</h2><p><img src="/2021/02/19/MapReduce/image-20211203123841956.png" alt="image-20211203123841956"></p>
-<p><strong>一、MapTask 的两个阶段（官方定义）</strong></p>
-<p>MapTask 的执行过程大致可分为两个阶段：</p>
-<ol>
-<li> map 阶段：<code>Mapper.map()</code> 方法中在执行 <code>context.write(keyout, valueout)</code> 之前都属于 map 阶段；</li>
-<li> sort 阶段：只有当存在 ReduceTask 时才会有 sort 阶段</li>
-</ol>
-<p><code>Mapper#map()</code> 方法是一个会循环执行的方法，在该方法中会调用 <code>context.write(keyout, valueout)</code> 方法将当前次处理的 <code>&lt;keyout. valueout&gt;</code> 写出到磁盘上。当然写出到磁盘上是最终目的，在真正执行的时候，肯定是先把一个个键值对对象先保存到一个缓冲区中，等到缓冲区快满的时候再写出到磁盘上。</p>
-<p>每条记录在写入缓冲区时，会先调用<strong>分区器（Partitioner）</strong>为当前记录分配一个区号。</p>
-<p>缓冲区中记录的顺序是按照进入缓冲区的先后时间来排序的，也就是说进入的越早，分配到的索引（index）就越小，第一个进入缓冲区的记录分配到的 index 就是 0，之后依次自增。</p>
-<p>缓冲区也是一块内存，对于其中的每条记录，寻址方式就是偏移量。从缓冲区内存的开始位置起（偏移量从0开始），每条记录 key 的偏移量记为 <code>keystart</code>，值的偏移量记为 <code>valuestart</code>。</p>
-<p>缓冲区中每条记录的数据格式如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">索引（序号）	分区号		 key偏移量		value偏移量	key的值	  value的值</span><br><span class="line">index		partition	keystart	  valuestart	  key		  value 		unsued</span><br></pre></td></tr></table></figure>
-
-<p>缓冲区有两个线程，一个为收集线程，收集线程负责将Mapper写出的<code>&lt;K,V&gt;</code> 记录收集到缓冲区。另一个为溢写线程，溢写线程会在缓冲区已经占满了80%时被唤醒，唤醒后负责将缓冲区收集的数据溢写到磁盘。</p>
-<p>一旦缓冲区满足了溢写条件后，会先对缓冲区中的所有数据进行一次排序。排序是按照 key 进行升序排序（数字大小升序或字典升序）。排序时，只对索引进行排序，而不会真实移动数据的位置。</p>
-<p>排序完成之后，接下来就需要对数据进行溢写，溢写数据的时候会按照分区将数据写出到不同的区。每次溢写都会生成一个临时文件 <code>spillx.out</code>，在一次 MapReduce 中，可能会发生多次溢写（因为每次缓冲区快满的时候就会溢写一次），生成多个临时文件。当 map 阶段执行结束时，缓冲区中的最后一批数据会执行一次 flush（即使缓冲区没有达到要溢写的阈值）。</p>
-<p>溢写结束后，会对生成的所有临时文件 <code>spillx.out</code> 执行一次 merge，将多个临时文件合并成一个最终结果。合并时，会将同一个分区的临时文件进行汇总，汇总后再进行排序，由于此时单个临时文件已经是有序的了，所以汇总之后的排序算法采用的是归并排序。在最终结果中，每个分区中的 <code>&lt;K,V&gt;</code> 记录都是有序的，并且会将最终文件写到 MapTask 所在机器磁盘上的某个文件中。等待 ReduceTask 的 Shuffle 线程来拷贝数据。</p>
-<blockquote>
-<p>  <strong>细节部分</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">① 先分区</span><br><span class="line"></span><br><span class="line">② 每次溢写前，都需要对缓冲区中的数据进行排序。</span><br><span class="line">	排序时，只排索引，不移动数据</span><br><span class="line">	使用的排序算法是快速排序</span><br><span class="line"></span><br><span class="line">③ 合并多个溢写临时文件为最终的文件时，先汇总后排序，排序算法使用归并排序</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<hr>
-<h2 id="Partition-分区"><a href="#Partition-分区" class="headerlink" title="Partition 分区"></a>Partition 分区</h2><p><strong>一、问题引出</strong></p>
-<p>要求<strong>将统计结果按照条件输出到不同的文件中</strong>（分区），比如：将统计结果按照手机归属地不同省份输出到不同文件中。</p>
-<p>二、默认 Partition 分区</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashPartitioner</span>&lt;K2, V2&gt; <span class="keyword">implements</span> <span class="title class_">Partitioner</span>&lt;K2, V2&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPartition</span><span class="params">(K2 key, V2 value, <span class="type">int</span> numReduceTasks)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (key.hashCode() &amp; <span class="number">2147483647</span>) % numReduceTasks;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>  默认分区是根据 key 的 hashCode 对 ReduceTasks 个数取模得到的。</li>
-</ul>
-<p><strong>三、自定义 Partition 步骤</strong></p>
-<ol>
-<li><p>自定义实现类继承 Partitioner，重写 <code>getPartition</code> 方法</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyPartitioner</span> <span class="keyword">extends</span> <span class="title class_">Partitioner</span>&lt;Text, FlowBean&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPartition</span><span class="params">(Text text, FlowBean flowBean, <span class="type">int</span> numPartitions)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO 控制分区的代码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>在 Job 驱动中，将分区器置换为自定义的 Partitioner</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.setPartitionerClass(MyPartitioner.class);</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>自定义 Partition 后，要根据自定义 Partitioner 的逻辑设置相应数量的 ReduceTask</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.setNumReduceTasks(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p><strong>四、小总结</strong></p>
-<ol>
-<li> 如果 <code>ReduceTask的数量 &gt; getPartition的结果数</code>，则会多产生几个空的输出文件 <code>part-r-000xx</code>；</li>
-<li> 如果 <code>1 &lt; ReduceTask的数量 &lt; getPartitioner的结果数</code>，则会有一部分数据无处安放，会抛出 Exception；</li>
-<li> 如果 <code>ReduceTask的数量=1</code>，则不管 MapTask 端输出多少个分区文件，最终结果都会交给这一个 ReduceTask，最终也就只会产生一个结果文件 <code>part-r-0000</code>。</li>
-</ol>
-<hr>
-<h3 id="案例实操"><a href="#案例实操" class="headerlink" title="案例实操"></a>案例实操</h3><hr>
-<h2 id="WriteComparable-排序"><a href="#WriteComparable-排序" class="headerlink" title="WriteComparable 排序"></a>WriteComparable 排序</h2><h3 id="排序概述"><a href="#排序概述" class="headerlink" title="排序概述"></a>排序概述</h3><p>排序是 MapReduce 框架中最重要的操作之一。</p>
-<p>MapTask 和 ReduceTask 均会对数据按照 key 进行排序。该操作属于 Hadoop 的默认行为。任何应用程序中的数据均会被排序，而不管逻辑上是否需要。</p>
-<p>默认排序方式是按照字典顺序排序，且实现该排序的方法是快速排序。</p>
-<p>对于 MapTask，它会将处理的结果暂时放到一个缓冲区中，当缓冲区使用率达到一定阈值后（溢写阈值），再对缓冲区中的数据进行一次排序，并将这些有序数据写到磁盘上，而当数据处理完毕后，它会对磁盘上所有文件进行一次合并，以将这些文件合并成一个大的有序文件。</p>
-<p>对于 ReduceTask，它从每个 MapTask 所在的服务器上远程拷贝相应的数据文件，如果文件大小超过一定阈值，则放到磁盘上，否则放到内存中。如果磁盘上文件数目达到一定阈值，则进行一次合并以生成一个更大的文件；如果内存中文件大小或数目超过一定阈值，则进行一次合并后将数据写到磁盘上。当所有数据拷贝完毕后，ReduceTask 统一对内存和磁盘上的所有数据进行一次归并排序。</p>
-<hr>
-<h3 id="排序分类"><a href="#排序分类" class="headerlink" title="排序分类"></a>排序分类</h3><p>一、部分排序</p>
-<p>MapReduce 根据输入记录的键对数据集排序，保证输出的每个文件内部有序。</p>
-<p>二、全排序</p>
-<p>最终输出结果只有一个文件，且文件内部有序。实现方式是只设置一个 ReduceTask。但该方法在处理大型文件时效率极低，因为一台机器处理所有文件，完全丧失了 MapReduce 所提供的并行架构。</p>
-<p>三、辅助排序</p>
-<p>四、二次排序</p>
-<hr>
-<h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><p><strong>一、原理</strong></p>
-<p>bean 对象实现 <code>WritableComparable</code> 接口，重写接口中的 <code>compareTo</code> 方法，就可以实现自定义排序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(FlowBean o)</span> &#123;</span><br><span class="line">	<span class="comment">// 倒序排列，从大到小</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>.sumFlow &gt; o.getSumFlow() ? -<span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<h2 id="Combiner-合并"><a href="#Combiner-合并" class="headerlink" title="Combiner 合并"></a>Combiner 合并</h2><ol>
-<li> Combiner 是 MR 程序中 Mapper 和 Reducer 之外的另一种组件；</li>
-<li> Combiner 组件的父类就是 Reducer；</li>
-<li>Combiner 和 Reducer 的区别在于运行的位置：<ul>
-<li>  Reducer 是在 reduce 阶段调用，Combiner 是在 shuffle 阶段调用；</li>
-<li>  Combiner 是在每一个 MapTask 所在的节点运行；</li>
-<li>  Reducer 是接收全局所有 Mapper 的输出结果。</li>
-<li>  Combiner 和 Reducer 本质上都是 Reducer 类，作用都是对有相同 key 的 <code>&lt;K,V&gt;</code> 进行合并。 </li>
-</ul>
-</li>
-<li> Combiner 的意义就是对每一个 MapTask 的输出结果进行局部汇总，以减少网络传输量。</li>
-<li> Combiner 能够应用的前提是不影响最终的业务逻辑，而且，Combiner 的输出 <code>&lt;K,V&gt;</code> 应该和 Reducer 的输入 <code>&lt;K,V&gt;</code> 类型对应起来。</li>
-</ol>
-<h3 id="自定义-Combiner-实现步骤"><a href="#自定义-Combiner-实现步骤" class="headerlink" title="自定义 Combiner 实现步骤"></a>自定义 Combiner 实现步骤</h3><ol>
-<li><p>自定义一个 Combiner 继承 Reducer，重写 reduce 方法</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCombiner</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 汇总操作</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(IntWritable v :values)&#123;</span><br><span class="line">			count += v.get();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写出</span></span><br><span class="line">        context.write(key, <span class="keyword">new</span> <span class="title class_">IntWritable</span>(count));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>在 Job 驱动类中设置</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.setCombinerClass(MyCombiner.class);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h2 id="GroupingComparator分组（辅助排序）"><a href="#GroupingComparator分组（辅助排序）" class="headerlink" title="GroupingComparator分组（辅助排序）"></a>GroupingComparator分组（辅助排序）</h2><p>对Reduce阶段的数据根据某一个或几个字段进行分组。</p>
-<h3 id="GroupingComparator分组案例实操"><a href="#GroupingComparator分组案例实操" class="headerlink" title="GroupingComparator分组案例实操"></a>GroupingComparator分组案例实操</h3><hr>
-<p>移动计算而不是移动数据【目的：减少磁盘IO和网络IO】</p>
-<blockquote>
-<p>  Shuffle 阶段数据发生了关键的变化：</p>
-</blockquote>
-<ol>
-<li> 从 Mapper 出去的 &lt;K，V&gt; 值是无序的，而到了 Reducer 中数据则是有分组的。 也就是说，在 Shuffle 阶段会将数据整理、分组。</li>
-<li> Mapper 出来的数据是无序的，在 Shuffle 阶段首先对数据进行排序，排完序之后，相等的数据就挨在一起了，再进行分组就相对容易了。</li>
-<li>排序方法：快排 + 归并<ul>
-<li>  对于快速排序来说，需要将所有的数据全部加载进内存中然后再进行比较；但是对于大数据而言，显然是不合理的。所以会先将大数据的切分，对每一块数据进行快排。</li>
-<li>  然后再将多个有序块再进行归并排序。</li>
-</ul>
-</li>
-<li> 数据会被分片（逻辑上），每一个片对应一个 MapTask 。每个 MapTask 都会进行排序，最终形成一个归并排序后的有序数据块，这些数据块最终又会汇总到一个 Reducer 中。Reducer 在拿到多个有序文件后，再进行一次归并让多个有序文件变成一个有序文件，最终输入到 Reducer 中。</li>
-<li> 这就是 Shuffle 阶段如何把数据进行排序、分组的过程。</li>
-</ol>
-<ul>
-<li>三次排序：<ol>
-<li> 快排</li>
-<li> 归并</li>
-<li> 再次归并</li>
-</ol>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/10/Hadoop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/02/10/Hadoop/" class="post-title-link" itemprop="url">Hadoop理论基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-10 10:49:09" itemprop="dateCreated datePublished" datetime="2021-02-10T10:49:09+08:00">2021-02-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-12-14 16:52:33" itemprop="dateModified" datetime="2021-12-14T16:52:33+08:00">2021-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h1><blockquote>
-<p>大数据（Big Data）：</p>
-</blockquote>
-<p>大数据指<strong>无法在一定时间范围内</strong>用常规软件工具进行捕捉、管理和处理的数据集合。是需要新处理模式才能具有更强的决策力、洞察发现力和流程优化能力的<strong>海量、高增长率和多样化的信息资产</strong>。</p>
-<ul>
-<li><strong>多样化</strong>：传统的数据库如 MySQL 只能处理结构化的数据类型，而大数据不仅可以处理结构化的数据，还可以处理非结构化、半结构化的数据。</li>
-</ul>
-<blockquote>
-<p>大数据技术/大数据框架：</p>
-</blockquote>
-<p>主要解决，海量数据的<strong>存储</strong>和海量数据的<strong>分析计算</strong>问题。</p>
-<blockquote>
-<p>大数据特点：</p>
-</blockquote>
-<ol>
-<li><p>Volume（大量）  </p>
-</li>
-<li><p>Velocity（高速）</p>
-</li>
-<li><p>Variety（多样）</p>
-</li>
-<li><p>Value（低价值密度）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">因为低价值密度的特点，所以需要：</span><br><span class="line">    （1）我们的计算机有足够好的算力；</span><br><span class="line">    （2）优良的算法。</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h1 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h1><blockquote>
-<p>Hadoop 设计的初衷是采用大量廉价的机器，组成一个集群！完成大数据的存储和计算！[通过数量的堆叠来提高算力]</p>
-</blockquote>
-<h2 id="Hadoop-是什么"><a href="#Hadoop-是什么" class="headerlink" title="Hadoop 是什么"></a>Hadoop 是什么</h2><ul>
-<li>Hadoop 是一个由 Apache 基金会所开发的<strong>分布式系统基础架构</strong>。【分布式 ==&gt; 多台机器】</li>
-<li>主要解决，海量数据的<strong>存储</strong>和海量数据的<strong>分析计算</strong>问题。</li>
-<li>狭义上来说，单指 Hadoop 技术。</li>
-<li>广义上来说，Hadoop 通常是指一个更广泛的概念——<strong>Hadoop 生态圈</strong></li>
-</ul>
-<p><img src="/2021/02/10/Hadoop/image-20210210110619991.png" alt="image-20210210110619991"></p>
-<hr>
-<h2 id="Hadoop-的优点（4高）"><a href="#Hadoop-的优点（4高）" class="headerlink" title="Hadoop 的优点（4高）"></a>Hadoop 的优点（4高）</h2><ol>
-<li><p><strong>高可靠性</strong></p>
-<p> Hadoop 底层维护多个数据副本，所以即使某个存储节点出现故障（即使 Hadoop 集群中的某个数据副本所在的节点出现故障），也不会导致数据的丢失。</p>
-<p> 而且 Hadoop 会实时动态的监测集群中的节点数量，如果集群中的某个节点发生故障导致副本数小于集群预设的副本数，那么 Hadoop 就会自动创建一个新的副本，维护副本数量等于预设的副本数量。</p>
-</li>
-<li><p><strong>高扩展性</strong></p>
-<p> 在集群间分配任务数据，可方便的扩展数以千计的节点。</p>
-<p> 在处理数据时如果发现集群中的节点不够使用了，可以很方便的增加一些节点扩展整个 Hadoop 集群。</p>
-</li>
-<li><p><strong>高效性</strong></p>
-<p> 在 MapReduce 的思想下，Hadoop 是并行工作的，通过多台机器数量的堆叠来提高算力，以加快任务处理速度。</p>
-</li>
-<li><p><strong>高容错性</strong></p>
-<p> 能够自动将失败的任务重新分配。</p>
-<p> Hadoop 在 Map 阶段会将大的任务分成若干个小的任务进行运算，如果在运算过程中某个小的任务因某些不可抗力因素发生失败，那么 Hadoop  就会重新分配一个线程来运行未成功的任务，直至成功。</p>
-</li>
-</ol>
-<hr>
-<h2 id="Hadoop-组件"><a href="#Hadoop-组件" class="headerlink" title="Hadoop 组件"></a>Hadoop 组件</h2><p><img src="/2021/02/10/Hadoop/image-20210210111631179.png" alt="image-20210210111631179"></p>
-<ul>
-<li>在 Hadoop1.x 时代，Hadoop 中的 MapReduce 同时负责业务运算和资源调度，耦合性较大；</li>
-<li><strong>在 Hadoop2.x 时代，增加了 Yarn 。Yarn 只负责资源的调度，MapReduce 只负责运算。</strong></li>
-</ul>
-<h3 id="Hadoop-1-0"><a href="#Hadoop-1-0" class="headerlink" title="Hadoop 1.0"></a>Hadoop 1.0</h3><ul>
-<li><strong>HDFS</strong>：负责存储数据</li>
-<li><strong>Common</strong>：Hadoop 中常用工具包的模块。</li>
-<li><strong>MapReduce</strong>：1️⃣编程模型；2️⃣负责计算资源的申请和调度。</li>
-</ul>
-<h3 id="Hadoop-2-0"><a href="#Hadoop-2-0" class="headerlink" title="Hadoop 2.0"></a>Hadoop 2.0</h3><ul>
-<li><strong>HDFS</strong>：负责存储数据</li>
-<li><strong>Common</strong>：Hadoop 中常用工具包的模块。</li>
-<li><strong>YARN</strong>：只负责资源调度。[只有在计算时才会用到 YRAN ，因为在计算时需要申请软、硬件资源，都是由 YARN 统一分配的]</li>
-<li><strong>MapReduce</strong>（编程模型）：使用 Hadoop 制定的编程规范要求，来编写程序，完成大数据的计算。</li>
-</ul>
-<h3 id="Hadoop-1-x-和-Hadoop-2-x-的区别"><a href="#Hadoop-1-x-和-Hadoop-2-x-的区别" class="headerlink" title="Hadoop 1.x 和 Hadoop 2.x 的区别"></a>Hadoop 1.x 和 Hadoop 2.x 的区别</h3><ul>
-<li>  在 1.x 版本中，MapReduce 模块既负责规定 MR 程序规范还负责为 MR 程序申请运算资源，<strong>运算和资源申请是硬绑定的</strong>，所以 Hadoop 只能为符合 MR 编程规范的程序提供服务！</li>
-<li>  在 2.x 版本中，MR 只负责 MR 程序的计算，资源的调度和管理由 YARN 负责！Hadoop 集群不仅能为自身的 MR 程序提供服务，还可以集成第三方计算引擎，例如 TeZ，Spark，Flink 等提供计算资源的调度服务！</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">完成Java程序运行 vs. 完成大数据的计算</span><br><span class="line"></span><br><span class="line">1、写程序，程序需要符合计算框架的要求！</span><br><span class="line">		java----&gt;main-----&gt;运行</span><br><span class="line">		MapReduce(编程模型)-----&gt;Map--Reducer</span><br><span class="line">2、运行程序，申请计算资源（软、硬件资源）</span><br><span class="line">		java-----&gt;JVM------&gt;OS-----&gt;申请计算资源</span><br><span class="line">		1.0: MapReduce(编程模型)----&gt;JobTracker-----&gt;JVM-----&gt;申请计算资源</span><br><span class="line">		2.0: MapReduce(编程模型)----&gt;jar------&gt;运行时，将jar包中的任务，提交给YARN，和YARN进行通信，由YARN中的组件-----&gt;JVM------&gt;申请计算资源</span><br><span class="line">				</span><br><span class="line">	1.x和2.x的区别是将资源调度和管理进行分离！由统一的资源调度平台YARN进行大数据计算资源的调度！</span><br><span class="line">    提升了Hadoop的通用性！Hadoop搭建的集群中的计算资源，不仅可以运行 Hadoop 中的 MR 程序！</span><br><span class="line">    也可以运行其他计算框架的程序！</span><br><span class="line">	在hadoop不久之后，由于MR的低效性，出现了许多更为高效的计算框架！</span><br><span class="line">	例如： Tez，Storm,Spark，Flink</span><br></pre></td></tr></table></figure>
-
-
-
-<ol>
-<li> <strong>编写代码</strong>。MapReduce 是一种编程规范，是一种编写代码的标准，如果想要我们写的程序能在 Hadoop 上运行就需要让自己编写的程序符合 MR 规范。</li>
-<li> <strong>打成 jar 包</strong>。我们编写好了符合 MapReduce 规范的程序后（其实也就是 Java 程序），就会把这个程序打成 jar 包。这个 jar 包就是需要执行的任务的描述，在执行任务时，需要把 jar 包提交给 Yarn 由 Yarn 中的 ResourceManager 调度资源来执行这个 jar 包中的程序。</li>
-</ol>
-<hr>
-<h1 id="HDFS-概述"><a href="#HDFS-概述" class="headerlink" title="HDFS 概述"></a>HDFS 概述</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2021/02/08/HDFS/">HDFS 详情页链接</a></p>
-</blockquote>
-<p>HDFS（Hadoop Distribute File System）：负责存储数据。</p>
-<p><img src="/2021/02/10/Hadoop/HDFS%20%E6%A0%B8%E5%BF%83%E8%BF%9B%E7%A8%8B.png" alt="HDFS 核心进程"></p>
-<h2 id="1、NameNode"><a href="#1、NameNode" class="headerlink" title="1、NameNode"></a>1、NameNode</h2><p>HDFS 是一个分布式文件存储系统，所谓的分布式，就是多台机器。我们知道在大数据环境下数据量能轻易达到 TB、PB 级别，如果想要在单台机器上存储这么多的数据是不实际的，所以就衍生出了分布式文件存储系统，将非常大的数据切割成多份小的数据，分别保存在不同的服务器上。</p>
-<p>举个例子就是说如果一个文件大小为 1TB，但是目前提供的所有机器最大存储量都是 500GB，那么如果想要对该大文件进行存储，就必须对大文件进行分割，比如使用 ABC 三台机器，A机器存第 0<del>300GB 的数据，B机器存第 300</del>600GB 的数据，C机器存第 600~1000GB 的数据，这样就成功解决了大文件的存储问题。</p>
-<p>但是解决了存储问题后，我们还必须解决数据访问的问题。如果我们若想访问该文件中的某一部分数据，那么我们首先就要定位到这部分数据存储在哪台机器上，在分布式文件存储系统中，一定会有一个文件中保存了该系统中所有数据的分布情况信息，那么保存该文件的节点就叫做 <strong>NameNode</strong>，这个文件中保存的信息就叫做<strong>元数据</strong>。</p>
-<p><strong>概念：</strong></p>
-<ul>
-<li>  NameNode（nn）：负责存储文件的<strong>元数据</strong>。</li>
-<li>  <strong>元数据</strong>：文件的属性信息。如<strong>文件名、文件目录结构、文件属性</strong>（生成时间、副本数、文件权限），以及每个文件的<strong>块列表</strong>和<strong>块所在的DataNode</strong> 等。</li>
-</ul>
-<p><strong>职责：</strong></p>
-<ol>
-<li>接收客户端的请求，根据元数据信息将请求转发给对应的 DN。</li>
-<li>接收 DN 的请求，实时更新元数据信息。[DN 会向 NN 上报当前节点中数据的变化情况]</li>
-<li>向 DN 分配任务。</li>
-</ol>
-<hr>
-<h2 id="2、DataNode"><a href="#2、DataNode" class="headerlink" title="2、DataNode"></a>2、DataNode</h2><p><strong>概念：</strong></p>
-<ul>
-<li>  DataNode（dn）：负责文件中数据的存储。</li>
-<li>  在本地文件系统中<strong>存储文件块数据</strong>，以及<strong>块数据的校验和</strong>。</li>
-</ul>
-<p><strong>职责：</strong></p>
-<ol>
-<li>负责接收 NM 分配的任务。</li>
-<li>负责数据块（block）的管理（读、写）</li>
-</ol>
-<hr>
-<h2 id="3、SecondaryNameNode"><a href="#3、SecondaryNameNode" class="headerlink" title="3、SecondaryNameNode"></a>3、SecondaryNameNode</h2><p><strong>概念：</strong></p>
-<ul>
-<li>  SecondaryNameNode（2nn）：负责辅助 NameNode 工作！</li>
-<li>  <strong>每隔一段时间对NameNode元数据备份</strong>。</li>
-</ul>
-<hr>
-<h1 id="MapReduce-概述"><a href="#MapReduce-概述" class="headerlink" title="MapReduce 概述"></a>MapReduce 概述</h1><blockquote>
-<p>  <a target="_blank" rel="noopener" href="https://lvnengdong.github.io/2021/02/19/MapReduce/">MapReduce详解</a></p>
-</blockquote>
-<p>MapReduce 是一种<strong>编程规范</strong>，将程序的运行划分成两个阶段，一个称为 Map 阶段，另一个称为 Reduce 阶段。在 Map 阶段和 Reduce 阶段分别启动多个进程负责程序的运算，这些进程称为 Task。在 Map 阶段启动的 Task 称为 MapTask，在 Reduce 阶段启动的 Task 称为 ReduceTask。</p>
-<p><strong>一个符合 MapReduce 编程规范的程序被称为一个 Job，执行一个 Job 时会使用多个 Task。</strong>Job 就是一段任务代码，描述了任务应该怎么做，而 Task 则是一些线程，用于真正地执行 Job。</p>
-<blockquote>
-<p>  Job：任务</p>
-<p>   Task：进程</p>
-<p>  MRAppMaster：MapReduce 应用管理者，进程</p>
-</blockquote>
-<ul>
-<li>遵循 MapReduce 编程规范编写的程序，打包后，被称为一个 <strong>Job</strong>。</li>
-<li>Job 需要提交到 YARN 上，向 YARN 申请计算资源，分配 Task 执行 Job 。</li>
-<li>在开始执行 Job 时，会先创建一个 MRAppMaster 进程，由这个进程和 ResourceManager 进行通信，为 Job 中的每个 Task 申请计算所需的资源。</li>
-<li>Task 的请求，会被 ResourceManager 缓存到一个调度队列中，由 NodeManager 领取 Task，领取后 NodeManager 会根据 Task 的要求，提供计算资源；提供后，为了避免计算资源在当前 Task 使用时被其它的 Task 抢占，NodeManager 会将已分配的计算资源封装到一个容器（Container）中。Container 可以对计算资源进行隔离。</li>
-<li>MrAppMaster 还负责监控 Job 中各个 Task 运行情况，进行容错管理！</li>
-</ul>
-<p>要求程序中有 Mapper（简单处理） 和 Reducer（合并）。</p>
-<p>MapReduce将计算过程分为两个阶段：Map和Reduce</p>
-<ul>
-<li>Map阶段并行处理输入数据</li>
-<li>Reduce阶段对Map结果进行汇总</li>
-</ul>
-<hr>
-<h1 id="Yarn-架构概述"><a href="#Yarn-架构概述" class="headerlink" title="Yarn 架构概述"></a>Yarn 架构概述</h1><p>Yarn 负责集群中所有计算资源的管理和调度。</p>
-<p>MapReduce 程序会被提交给 Yarn 中的 ResourceManager 上，相当于把一个计算任务交给 的 ResourceManager，ResourceManager 对于 MapReduce 而言就是一个黑盒，ResourceManager 怎么处理 MapReduce 不管</p>
-<p>实际上 ResourceManager 在收到了 MapReduce 任务后，会把任务下发给 NodeManager 去执行，ResourceManager 自己是不会真正去执行这个任务的</p>
-<p><strong>核心进程</strong></p>
-<blockquote>
-<ol>
-<li>ResourceManager（1个）：负责整个集群上所有资源的管理调度</li>
-</ol>
-</blockquote>
-<ul>
-<li>职责<ol>
-<li>接收客户端提交的 Job 任务，</li>
-<li>向  NM 分配任务。</li>
-<li>接收 NM 上报的资源信息。</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<ol start="2">
-<li>NodeManager（N个）：负责单台计算机上所有资源的管理调度</li>
-</ol>
-</blockquote>
-<ul>
-<li>职责：<ol>
-<li>负责和 RM 进行通信，上报本机中的可用资源</li>
-<li>负责领取 RM 分配的任务！</li>
-<li>负责为 Job 中的每个 Task 分配计算资源！</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">计算资源：内存、CPU、硬盘等等。</span><br><span class="line"></span><br><span class="line">1、NM 负责单台计算机所有计算资源的管理调度。	</span><br><span class="line">	* 即 NM 会统计出当前计算机已经使用了多少计算资源，还剩多少资源。</span><br><span class="line">2、RM 负责整个集群所有计算资源的管理调度。	</span><br><span class="line">	* 即每台 NM 统计出自己已使用和可使用的计算资源后，都会上报给 RM 。</span><br><span class="line">	* RM 接收并统计集群中所有已使用和可使用计算资源。	</span><br><span class="line">	* 这样当客户端提交 Job 请求时，RM 就可宏观调控根据需求分配具体的计算资源到每台机器上。 </span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>概念</strong>：</p>
-<blockquote>
-<p>Container（容器）：</p>
-</blockquote>
-<p>比如：NodeManager 为 Job 的某个 Task 分配了 2 个 CPU 和 2G 内存的计算资源！</p>
-<p>为了防止当前 Task 在使用这些资源期间，被其它的 Task 抢占资源。 NodeManager 就会将这些计算资源，封装到一个 Container 中，在 Container 中的资源，会被暂时隔离，无法被其它进程所抢占。</p>
-<p>当前 Task 运行结束后，当前 Container 中的资源才会被释放！允许其它 task 来 使用！</p>
-<p><img src="/2021/02/10/Hadoop/image-20210210113413297.png" alt="image-20210210113413297"></p>
-<blockquote>
-<ol>
-<li>ResourceManager（RM）</li>
-</ol>
-</blockquote>
-<ol>
-<li>处理客户端请求</li>
-<li>监控NodeManager</li>
-<li>启动或监控ApplicationMaster</li>
-<li>资源的分配与调度</li>
-</ol>
-<blockquote>
-<ol start="2">
-<li>NodeManager（NM）</li>
-</ol>
-</blockquote>
-<ol>
-<li>管理单个节点上的资源</li>
-<li>处理来自ResourceManager的命令</li>
-<li>处理来自ApplicationMaster的命令</li>
-</ol>
-<blockquote>
-<ol start="3">
-<li>ApplicationMaster（AM）</li>
-</ol>
-</blockquote>
-<ol>
-<li>负责数据的切分</li>
-<li>为应用程序申请资源并分配给内部的任务</li>
-<li>任务的监控与容错</li>
-</ol>
-<blockquote>
-<ol start="4">
-<li>Container</li>
-</ol>
-</blockquote>
-<p>Container 是YARN中的资源抽象，它封装了某个节点上的多维度资源，<strong>如内存、CPU、磁盘、网络等</strong>。</p>
-<hr>
-<h1 id="大数据技术生态体系"><a href="#大数据技术生态体系" class="headerlink" title="大数据技术生态体系"></a>大数据技术生态体系</h1><p><img src="/2021/02/10/Hadoop/image-20210210114157414.png" alt="image-20210210114157414"></p>
-<p>图中涉及的技术名词解释如下：</p>
-<ol>
-<li>Sqoop：Sqoop 是一款开源的工具，主要用于在 Hadoop、Hive 与传统的数据库（MySql）间进行数据的传递，可以将一个关系型数据库（例如 ：MySQL，Oracle 等）中的数据导进到 Hadoop 的 HDFS 中，也可以将 HDFS 的数据导进到关系型数据库中。</li>
-<li>Flume：Flume 是一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统，Flume 支持在日志系统中定制各类数据发送方，用于收集数据； </li>
-<li>Kafka：Kafka 是一种高吞吐量的分布式发布订阅消息系统； </li>
-<li>Storm：Storm 用于“连续计算”，对数据流做连续查询，在计算时就将结果以流的形式输出给用户。</li>
-<li>Spark：Spark 是当前最流行的开源大数据内存计算框架。可以基于 Hadoop 上存储的大数据进行计算。</li>
-<li>Flink：Flink 是当前最流行的开源大数据内存计算框架。用于实时计算的场景较多。</li>
-<li>Oozie：Oozie 是一个管理 Hdoop 作业（job）的工作流程调度管理系统。</li>
-<li>Hbase：HBase 是一个分布式的、面向列的开源数据库。HBase 不同于一般的关系数据库，它是一个适合于非结构化数据存储的数据库。</li>
-<li>Hive：Hive 是基于 Hadoop 的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的 SQL 查询功能，可以将 SQL 语句转换为 MapReduce 任务进行运行。 其优点是学习成本低，可以通过类 SQL 语句快速实现简单的 MapReduce 统计，不必开发专门的 MapReduce 应用，十分适合数据仓库的统计分析。</li>
-<li>ZooKeeper：它是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。</li>
-</ol>
 
       
     </div>

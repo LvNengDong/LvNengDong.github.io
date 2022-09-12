@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Git基础暂存区的作用暂存区的作用：暂时存放，还没有作为一个正式提交的版本。但是暂存区中的文件已经被git管理了，暂存区中的文件可以很容易地被git变成一次正式的提交；同时，它又可以回退，用暂存区的文件覆盖工作目录的文件，在实际开发中还是很有使用价值的。  在工作目录中执行修改操作引发的变更，可以先添加到暂存区； 然后再在工作目录中尝试使用另外一套解决方案，假如第二套方案没有第一套方案好的话，就可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git常用操作">
+<meta property="og:url" content="http://example.com/2022/09/10/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Git基础暂存区的作用暂存区的作用：暂时存放，还没有作为一个正式提交的版本。但是暂存区中的文件已经被git管理了，暂存区中的文件可以很容易地被git变成一次正式的提交；同时，它又可以回退，用暂存区的文件覆盖工作目录的文件，在实际开发中还是很有使用价值的。  在工作目录中执行修改操作引发的变更，可以先添加到暂存区； 然后再在工作目录中尝试使用另外一套解决方案，假如第二套方案没有第一套方案好的话，就可">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910152842936.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910153545186.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910154004923.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910154104422.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910154623103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155226183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155819134.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910160602002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910160803119.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910161235381.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910161924272.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910162111914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910162840536.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910163237014.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910163600623.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911001742494.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911002056285.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911003831557.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911003036152.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911002056285.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911005239122.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911005735914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911010601184.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911011805031.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911013408226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911013835531.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911014148594.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911195110717.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202518833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202703873.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202955357.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911203328098.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911203352863.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911205651063.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911210933363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911214624907.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911214316309.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911215651915.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911220149820.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911220311588.png">
+<meta property="article:published_time" content="2022-09-10T07:09:16.000Z">
+<meta property="article:modified_time" content="2022-09-11T14:13:35.861Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910152842936.png">
+
+
+<link rel="canonical" href="http://example.com/2022/09/10/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/09/10/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/","path":"2022/09/10/git常用操作/","title":"git常用操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>git常用操作 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">Git基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%82%E5%AD%98%E5%8C%BA%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">暂存区的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%87%A0%E6%AC%A1commit%E6%9D%A5%E8%AE%A4%E8%AF%86%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8C%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="nav-number">1.2.</span> <span class="nav-text">通过几次commit来认识工作区和暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%99%E6%96%87%E4%BB%B6%E9%87%8D%E5%91%BD%E5%90%8D%E7%9A%84%E7%AE%80%E4%BE%BF%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">给文件重命名的简便方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">复杂方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BE%BF%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">简便方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87git-log%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%E6%BC%94%E5%8F%98%E5%8E%86%E5%8F%B2"><span class="nav-number">1.4.</span> <span class="nav-text">通过git log查看版本演变历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E7%9B%AE%E5%BD%95"><span class="nav-number">1.5.</span> <span class="nav-text">.git目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HEAD"><span class="nav-number">1.5.1.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config"><span class="nav-number">1.5.2.</span> <span class="nav-text">config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#refs"><span class="nav-number">1.5.3.</span> <span class="nav-text">refs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#objects"><span class="nav-number">1.5.4.</span> <span class="nav-text">objects</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commit%E3%80%81tree%E5%92%8Cblob%E4%B8%89%E4%B8%AA%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.6.</span> <span class="nav-text">commit、tree和blob三个对象之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commit"><span class="nav-number">1.6.1.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tree"><span class="nav-number">1.6.2.</span> <span class="nav-text">tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blob"><span class="nav-number">1.6.3.</span> <span class="nav-text">blob</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.6.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%95%B0%E4%B8%80%E6%95%B0tree%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">小练习：数一数tree的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%A6%BB%E5%A4%B4%E6%8C%87%E9%92%88%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.8.</span> <span class="nav-text">分离头指针情况下的注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E7%A6%BB%E5%A4%B4%E6%8C%87%E9%92%88%EF%BC%9F"><span class="nav-number">1.8.1.</span> <span class="nav-text">什么是分离头指针？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%A6%BB%E5%A4%B4%E6%8C%87%E9%92%88%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.8.2.</span> <span class="nav-text">分离头指针的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%A6%BB%E5%A4%B4%E6%8C%87%E9%92%88%E7%9A%84%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">1.8.3.</span> <span class="nav-text">分离头指针的使用案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%90%86%E8%A7%A3HEAD%E5%92%8Cbranch"><span class="nav-number">1.9.</span> <span class="nav-text">进一步理解HEAD和branch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E5%88%86%E6%94%AF%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-number">1.9.1.</span> <span class="nav-text">比较两个分支间的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HEAD%E7%9A%84%E7%89%B9%E6%AE%8A%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">1.9.2.</span> <span class="nav-text">HEAD的特殊标识符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">独自使用Git时的常见场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%88%A0%E9%99%A4%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E5%88%86%E6%94%AF"><span class="nav-number">2.1.</span> <span class="nav-text">怎么删除不需要的分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BF%AE%E6%94%B9%E6%9C%80%E6%96%B0commit%E7%9A%84Message%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">怎么修改最新commit的Message？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BF%AE%E6%94%B9%E8%80%81%E6%97%A7commit%E7%9A%84message%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">怎么修改老旧commit的message？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E6%A0%B7%E6%8A%8A%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%A4%9A%E4%B8%AAcommit%E6%95%B4%E7%90%86%E6%88%901%E4%B8%AA%EF%BC%9F"><span class="nav-number">2.4.</span> <span class="nav-text">怎样把连续的多个commit整理成1个？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%AF%94%E8%BE%83%E6%9A%82%E5%AD%98%E5%8C%BA%E5%92%8CHEAD%E6%89%80%E5%90%AB%E6%96%87%E4%BB%B6%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%9F"><span class="nav-number">2.5.</span> <span class="nav-text">怎么比较暂存区和HEAD所含文件的差异？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%AF%94%E8%BE%83%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8C%E6%9A%82%E5%AD%98%E5%8C%BA%E6%96%87%E4%BB%B6%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%9F"><span class="nav-number">2.6.</span> <span class="nav-text">怎么比较工作区和暂存区文件的差异？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E6%9A%82%E5%AD%98%E5%8C%BA%E6%81%A2%E5%A4%8D%E6%88%90%E5%92%8CHEAD%E7%9A%84%E4%B8%80%E6%A0%B7%EF%BC%9F"><span class="nav-number">2.7.</span> <span class="nav-text">如何让暂存区恢复成和HEAD的一样？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E5%B7%A5%E4%BD%9C%E5%8C%BA%E7%9A%84%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E6%88%90%E5%92%8C%E6%9A%82%E5%AD%98%E5%8C%BA%E7%9A%84%E4%B8%80%E6%A0%B7%EF%BC%9F"><span class="nav-number">2.8.</span> <span class="nav-text">如何让工作区的文件恢复成和暂存区的一样？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E6%A0%B7%E5%8F%96%E6%B6%88%E6%9A%82%E5%AD%98%E5%8C%BA%E9%83%A8%E5%88%86%E6%96%87%E4%BB%B6%E7%9A%84%E6%9B%B4%E6%94%B9%EF%BC%9F"><span class="nav-number">2.9.</span> <span class="nav-text">怎样取消暂存区部分文件的更改？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">235</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/10/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="git常用操作 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git常用操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-09-10 15:09:16" itemprop="dateCreated datePublished" datetime="2022-09-10T15:09:16+08:00">2022-09-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-09-11 22:13:35" itemprop="dateModified" datetime="2022-09-11T22:13:35+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h1><h2 id="暂存区的作用"><a href="#暂存区的作用" class="headerlink" title="暂存区的作用"></a>暂存区的作用</h2><p>暂存区的作用：暂时存放，还没有作为一个正式提交的版本。但是暂存区中的文件已经被git管理了，暂存区中的文件可以很容易地被git变成一次正式的提交；同时，它又可以回退，用暂存区的文件覆盖工作目录的文件，在实际开发中还是很有使用价值的。</p>
+<ol>
+<li>在工作目录中执行修改操作引发的变更，可以先添加到暂存区；</li>
+<li>然后再在工作目录中尝试使用另外一套解决方案，假如第二套方案没有第一套方案好的话，就可以用暂存区的第一套方案覆盖工作目录。</li>
+</ol>
+<h2 id="通过几次commit来认识工作区和暂存区"><a href="#通过几次commit来认识工作区和暂存区" class="headerlink" title="通过几次commit来认识工作区和暂存区"></a>通过几次commit来认识工作区和暂存区</h2><blockquote>
+<p>大纲：4次提交</p>
+<ul>
+<li>第一次提交：加入 index.html 和 git-logo 图片</li>
+<li>第二次提交：加入 style.css</li>
+<li>第三次提交：加入 script.js</li>
+<li>第四次提交：修改 index.html</li>
+</ul>
+</blockquote>
+<p><strong>git status 查看工作目录和暂存区的状态</strong></p>
+<ol>
+<li><p>初始化一个 Git 项目，命名为 git-learning</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Git init <span class="string">&quot;git-learning&quot;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>向仓库中添加 <code>index.html</code> 和 <code>images/git-logo</code> 图片文件</p>
+</li>
+<li><p>通过 <code>git status</code> 查看工作目录和暂存区的状态</p>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910152842936.png" alt="image-20220910152842936"></p>
+<ul>
+<li>当前处于 master 分支；</li>
+<li>还没有提交（commit）过；</li>
+<li>git还没有管理下列文件，可以使用 <code>git add</code> 命令可以将下列文件加入到暂存区，以便于将来可以被提交（commit）；</li>
+<li>没有添加任何提交，存在未被跟踪的文件，可以使用 <code>git add</code> 进行跟踪。</li>
+</ul>
+</li>
+<li><p>将上面的文件及文件夹加入暂存区，纳入Git的管理，重新查看工作目录和暂存区的状态</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.html images/git-logo.png</span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910153545186.png" alt="image-20220910153545186"></p>
+<ul>
+<li>暂存区的下列变化处于待提交状态，可以被commit</li>
+</ul>
+</li>
+<li><p>为上面的变更执行一次正式的提交，并查看工作目录及暂存区状态</p>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910154004923.png" alt="image-20220910154004923"></p>
+</li>
+<li><p>使用 <code>git log</code> 查看提交（commit）日志</p>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910154104422.png" alt="image-20220910154104422"></p>
+</li>
+<li><p>考虑到页面太简陋了，我们可以新添加一个 css 文件：<code>styles/style.css</code></p>
+<ul>
+<li>使用 <code>git status</code> 查看状态</li>
+<li>将 css 文件添加到暂存区</li>
+<li>提交</li>
+<li>查看提交日志</li>
+</ul>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910154623103.png" alt="image-20220910154623103"></p>
+</li>
+<li><p>添加js文件实现动画效果<code>js/script.js</code></p>
+<ul>
+<li>使用 <code>git status</code> 查看状态</li>
+<li>将 css 文件添加到暂存区</li>
+<li>提交</li>
+<li>查看提交日志</li>
+</ul>
+</li>
+<li><p>修改 index.html，声明参考文件的信息。</p>
+<ul>
+<li><p>查看工作区和暂存区状态</p>
+<p>  <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155226183.png" alt="image-20220910155226183"></p>
+</li>
+<li><p>将变更添加到暂存区：<strong>git add -u：对于已经被 Git 管理的文件，可以使用 git add -u 将这些文件添加到暂存区，无需挨个添加文件到暂存区</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -u</span><br></pre></td></tr></table></figure></li>
+<li><p>提交</p>
+</li>
+<li><p>查看提交日志</p>
+</li>
+</ul>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155819134.png" alt="image-20220910155819134"></p>
+</li>
+</ol>
+<p><strong>经验：</strong>不应该将全部的文件都被Git管理，每次修改后，只需将要被管理的文件加入暂存区，等到觉得可以达到一次提交的程度，将暂存区的文件一次性提交到git仓库即可。</p>
+<h2 id="给文件重命名的简便方法"><a href="#给文件重命名的简便方法" class="headerlink" title="给文件重命名的简便方法"></a>给文件重命名的简便方法</h2><h3 id="复杂方法："><a href="#复杂方法：" class="headerlink" title="复杂方法："></a>复杂方法：</h3><p>给文件重命名的复杂方法：</p>
+<ol>
+<li>在工作目录给文件重命名；</li>
+<li>将重命名的文件提交到暂存区；</li>
+<li>将暂存区的文件提交到git本地仓库</li>
+</ol>
+<p>我们先让git仓库管理一个 readme 文件。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910160602002.png" alt="image-20220910160602002"></p>
+<p>然后使用这种复杂的方式将 readme 重命名为 <code>readme.md</code></p>
+<ol>
+<li><p>在工作目录将 readme 重命名为 <code>readme.md</code>，查看当前状态</p>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910160803119.png" alt="image-20220910160803119"></p>
+<p> 可以看到，对于 git 而言，它要求你：先将 readme 文件删除，然后将 readme.md 文件添加到暂存区。所以我们需要进行<strong>两个步骤</strong>：</p>
+<ul>
+<li>将 readme.md 添加到暂存区；</li>
+<li>将 readme 从Git仓库中删除（如果不删除会影响后面的提交）</li>
+</ul>
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910161235381.png" alt="image-20220910161235381"></p>
+<p> 最终在暂存区表现出的状态是“重命名”：<code>readme -&gt; readme.md</code></p>
+</li>
+</ol>
+<h3 id="简便方法："><a href="#简便方法：" class="headerlink" title="简便方法："></a>简便方法：</h3><p>好了，看完了“复杂方法”，我们再来看一种简单的方法。首先，我们可以将暂存区及工作目录上所有的变更都清理掉，撤回上一次提交的状态。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910161924272.png" alt="image-20220910161924272"></p>
+<p>使用简洁的命令完成重命名操作</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910162111914.png" alt="image-20220910162111914"></p>
+<p>提交</p>
+<h2 id="通过git-log查看版本演变历史"><a href="#通过git-log查看版本演变历史" class="headerlink" title="通过git log查看版本演变历史"></a>通过git log查看版本演变历史</h2><p><a target="_blank" rel="noopener" href="https://www.processon.com/view/link/631c49f41e085349e18bb085">https://www.processon.com/view/link/631c49f41e085349e18bb085</a></p>
+<p>基于 master 分支的第二个版本创建一个 temp 分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b temp ee0dbd54ba13aef995</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910162840536.png" alt="image-20220910162840536"></p>
+<p>在 tmep 分支进行一次 commit</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910163237014.png" alt="image-20220910163237014"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有分支的演进历史，并启用图形化功能</span></span><br><span class="line">$ git <span class="built_in">log</span> --all --graph --oneline</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910163600623.png" alt="image-20220910163600623"></p>
+<ul>
+<li>前两次提交是公共的，从这之后开始分叉；</li>
+<li>第三次、五次和六次提交属于 master 分支；</li>
+<li>test 提交属于 temp 分支。</li>
+</ul>
+<h2 id="git目录"><a href="#git目录" class="headerlink" title=".git目录"></a>.git目录</h2><p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911001742494.png" alt="image-20220911001742494"></p>
+<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><p>HEAD 是一个文本文件，查看其内容为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> HEAD</span><br><span class="line">ref: refs/heads/temp</span><br></pre></td></tr></table></figure>
+
+<p>ref 表示这是一个引用，引用指向的地址为 <code>refs/heads/temp</code>，去对应的地址中查看可知，HEAD指向的就是正在使用的分支，可以看到目前指向了 temp 分支。当然，如果你当前不在 temp 分支上，比如你在 master 分支上进行开发，HEAD 指向的就是 master 分支。如果你切换了分支，HEAD 的引用就会发生改变。实际上，我们手动去编辑 HEAD 文件内容，与执行 <code>check out</code> 切换分支的效果是一样的。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911002056285.png" alt="image-20220911002056285"></p>
+<p>通过 git branch 命令查看当前工作在哪个分支上。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911003831557.png" alt="image-20220911003831557"></p>
+<p>通过 git checkout 切换分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><p>config 也是一个文本文件（配置文件）,保存了当前git的一些配置信息。对于这些配置信息，我们既可以通过 git提供的一些简单命令进行修改（比如用户名和邮箱信息），也可以直接在配置文件上进行修改，最终效果都是一样的。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> config</span><br><span class="line">[core]</span><br><span class="line">        repositoryformatversion = 0</span><br><span class="line">        filemode = <span class="literal">false</span></span><br><span class="line">        bare = <span class="literal">false</span></span><br><span class="line">        logallrefupdates = <span class="literal">true</span></span><br><span class="line">        symlinks = <span class="literal">false</span></span><br><span class="line">        ignorecase = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="refs"><a href="#refs" class="headerlink" title="refs"></a>refs</h3><p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911003036152.png" alt="image-20220911003036152"></p>
+<p>refs 目录下有 heads 和 tags 两个目录，复数意味着Git仓库是可以有很多 head 和 tag 的。</p>
+<ul>
+<li>tag 又叫做“里程碑”，比如我们的项目开发到了一个新的阶段，需要的当前的成功进行发版，比如 V1.0，这时候可以对当前最新的 commit 打上一个标识（tag）。但实际上，tag 引用的也是这次 commit 的 id。</li>
+<li>heads 对应着我们的许多分支，分支就是独立的开发空间，对于一个人来说，比如我们开发前后端分离的项目，我们可以为前端建立一个分支，为后端建立一个分支，两个分支相互独立开发。对于多人协作开发来说，每个人可以在自己独立的分支上进行代码开发，开发完毕后将所有的分支合并到主分支上，避免开发过程中频繁冲突的问题。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911002056285.png" alt="image-20220911002056285"></p>
+<p>实际上，不管是 heads 还是 tags 中，保存的都是一些文件。对于 heads/xx，xx指向的是xx分支下最新的一次commit id，对于 tags/xx，xx 指向的是发布 tag 那一次的 commit id。</p>
+<p>我们可以进入这两个文件夹看一下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> ./refs/heads/master</span><br><span class="line">c646c8437e51ef484391dc69d3302bac92c5b5a2</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 master 是一个文件，它指向当前分支最近一次提交（commit）的id；同理，tags 下面的文件也是 tag 的提交名称，这个名称的内容是 tag 提交（commit）时的 id。</p>
+<p>我们来具体看一下这个 id 的类型，可以看到它确实是一个 commit 类型。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911005239122.png" alt="image-20220911005239122"></p>
+<h3 id="objects"><a href="#objects" class="headerlink" title="objects"></a>objects</h3><p>objects 中都是一些目录。可以看到有非常多的文件夹，一个比较特殊的文件夹是 <strong>pack</strong>，pack 的作用就是整理，当 objects 中文件夹的数量太多时，Git 就会进行自我梳理，将一些前缀一样的文件打包整理到 pack 中</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911005735914.png" alt="image-20220911005735914"></p>
+<p>以文件夹 e6 为例，这里面存放的都是以 “e6” 开头的 object，我们通过拼接 “e6” 与文件夹内的子文件夹名称，可以得到一个完成的 id，根据这个 id 可以查看对应的 object 类型。比如下面我们就查出了两种类型 <strong>commit</strong> 和 <strong>blob</strong>，实际上 Git 中还有类型为 <strong>tree</strong> 的 object。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911010601184.png" alt="image-20220911010601184"></p>
+<p>object 可以近似地理解为 Java 中的 Object，Git 中任何东西都可以称为 object。比如一次 commit 是一个 object，一个分支（head）是一个 object，一个 tag 是一个 object。</p>
+<hr>
+<h2 id="commit、tree和blob三个对象之间的关系"><a href="#commit、tree和blob三个对象之间的关系" class="headerlink" title="commit、tree和blob三个对象之间的关系"></a>commit、tree和blob三个对象之间的关系</h2><p>Git对象彼此关系</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911011805031.png" alt="image-20220911011805031"></p>
+<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><p>每一次执行 git commit 命令都会创建一个 commit 对象。一个 commit 一定会对应于一棵树（tree）。</p>
+<p>这棵树表示这次 commit 后得到的当前项目所有文件夹及文件的快照视图。</p>
+<h3 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h3><p>在 tree 对象中，我们还可以看到子 tree 对象，表示文件夹，对应的，blob 对象表示文件。</p>
+<h3 id="blob"><a href="#blob" class="headerlink" title="blob"></a>blob</h3><p>文件内容。</p>
+<p>注意的一点是：blob 与文件名没有一点儿关系。只要文件的内容相同，那么 Git 就会将其视为一个 blob。所以对于一些名字不同而内容相同的文件，Git 不会对内容进行重复存储，只需要将这两个文件名指向同一个 blob 即可。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>接下来，我们通过具体操作对上面的理论进行测试。</p>
+<ol>
+<li>查看当前所处的分支，并选定某一次 commit 进行测试，这里选择第六次提交这个分支吧。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911013408226.png" alt="image-20220911013408226"></p>
+<ol start="2">
+<li><p>查看 commit 对象的内容</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p c646c8437e51ef484391dc69d</span><br></pre></td></tr></table></figure></li>
+<li><p>在 commit 对象中找到 tree 的 id 继续查看 tree 内容</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 111c8fce9c06a90c640</span><br></pre></td></tr></table></figure></li>
+<li><p>在 tree 对象中找到 blob 的 id 继续查看 blob 的内容</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -p 6ad4c68d567a1a5b415dcfce2010</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911013835531.png" alt="image-20220911013835531"></p>
+<ol start="5">
+<li>返回上一步，查看最外层 tree 对象下的 tree 对象的内容。发现 tree 下面继续是一个 blob 对象。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911014148594.png" alt="image-20220911014148594"></p>
+<hr>
+<h2 id="小练习：数一数tree的个数"><a href="#小练习：数一数tree的个数" class="headerlink" title="小练习：数一数tree的个数"></a>小练习：数一数tree的个数</h2><p>TODO</p>
+<h2 id="分离头指针情况下的注意事项"><a href="#分离头指针情况下的注意事项" class="headerlink" title="分离头指针情况下的注意事项"></a>分离头指针情况下的注意事项</h2><h3 id="什么是分离头指针？"><a href="#什么是分离头指针？" class="headerlink" title="什么是分离头指针？"></a>什么是分离头指针？</h3><p>分离头指针：<strong>HEAD指针与分支分离</strong>。commit没有基于某个分支（branch），这就会造成 HEAD 不与分支绑定，这种情况就叫做“分离头指针”。</p>
+<h3 id="分离头指针的使用场景"><a href="#分离头指针的使用场景" class="headerlink" title="分离头指针的使用场景"></a>分离头指针的使用场景</h3><p>通常情况下，我们都会使用 <code>git checkout 分支名称</code> 命令来进行分支间的切换，但是 checkout 后面不光可以跟分支名称，还可以是某次 commit 的 id 号，比如下面这样，我们使用“第二次提交”的 commit id 作为 checkout 的目的地。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout ee0dbd54ba13aef995ec7</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911195110717.png" alt="image-20220911195110717"></p>
+<p>与正常切换分支不同的是，这次切换我们可以看到一大段的建议信息，大意如下：</p>
+<blockquote>
+<ul>
+<li>你现在正处于“分离头指针”状态下，你可以在这个状态下进行一些实验性的修改，如果你觉得实验结果好的话，可以提交这些修改，如果觉得实验结果不好的话，可以放弃在这个状态下进行的任何提交。通过切换回现存的某个分支来放弃这些修改。</li>
+<li>如果你想保留你在这个状态下的提交，需要创建一个新的分支，你可以参考如下命令：</li>
+</ul>
+</blockquote>
+<p>给它一个使用场景就是：我们现在想基于某一个 commit 进行实验性的开发，那么就可以进入“分离头指针”状态，在一个没有分支的状态下工作，在这个状态下进行试验开发并提交代码。如果试验的结果不理想，你不想要这些测试代码了，那么你可以直接切回到一个现有的分支下（比如 master），你在 “detached HEAD” 状态下进行的所有开发都会在不远的将来的某一时间被 Git 清理掉。</p>
+<p>当然，如果你觉得这次试验很成功，那么一定不要忘了给 “detached HEAD” 绑定一个真正的分支，否则这些提交都会被 Git 当做无关紧要的 commit 而丢弃掉。</p>
+<h3 id="分离头指针的使用案例"><a href="#分离头指针的使用案例" class="headerlink" title="分离头指针的使用案例"></a>分离头指针的使用案例</h3><p>通过前面一系列工作，我们现在已经处于 “detached HEAD” 状态，当前数据是基于“第二次提交”这个分支。我们现在修改 css 文件，将其中的某个参数的颜色改为 green，然后通过 git status 查看工作区与暂存区的状态。可以看到Git已经识别出了，当前处于分离头指针状态，并且对应于某一个 commit。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202518833.png" alt="image-20220911202518833"></p>
+<p>继续 commit 这次修改，并查看 log 状态。可以看到，在 log 中，HEAD 指针并没有指向某个具体的分支，这与我们前面看到的是不一样的，正常的应该类似于 <code>HEAD -&gt; master</code>，这也是“分离头指针”名字的由来，即<strong>HEAD指针与分支分离</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202703873.png" alt="image-20220911202703873"></p>
+<p>我们查看所有分支上的 log 树可知，Git 并没有把 “detached HEAD” 状态下的提交当成一次正式提交，所以当切换到某个具体分支后，在 “detached HEAD” 状态下的提交都会在将来某个时间段被 Git 清理掉。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202955357.png" alt="image-20220911202955357"></p>
+<p>比如，我们在进行分支切换的时候，Git 也会提示你：如果需要的话，可以为 “detached HEAD” 状态下的提交创建一个新的分支。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911203328098.png" alt="image-20220911203328098"></p>
+<p>我们可以先为其创建一个新的分支，然后重新查看所有分支的 log 记录，此时，“detached HEAD” 状态下的分支由于绑定了具体的分支，这些提交也就变成了有效提交，可以被永久保存。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911203352863.png" alt="image-20220911203352863"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果你想进行一些尝试性的变更，可以在分离头指针的状态下进行，如果尝试的结果不理想，可以直接 checkout 到一个开发分支上，那么你在分离头指针状态下的变更会被自动回收。</p>
+<p>当进行分支切换时，在分离头指针状态下产生的切换很可能会被Git当做垃圾回收掉，如果你认为这些变更是重要的，切记一定要将commit与分支进行绑定。</p>
+<p>如果你想进行变更，请一定要跟某个分支关联。在分支的基础上，对分支进行变更。</p>
+<hr>
+<h2 id="进一步理解HEAD和branch"><a href="#进一步理解HEAD和branch" class="headerlink" title="进一步理解HEAD和branch"></a>进一步理解HEAD和branch</h2><p>HEAD 最终落脚的一定是某一个 commit。当前这个 commit 可以是在某个分支下的，也可以是与分支无关的。</p>
+<p>HEAD 不仅可以指向当前分支的最近一次提交，同时 HEAD 也可以不与分支关联，当处于“分离头状态”下，HEAD 指向的就是某一次提交，不与任何分支关联。</p>
+<p>Before：已有分支情况下，HEAD 和 branch 之间的关系</p>
+<p>Now：新建分支的情况下，HEAD 和 branch 的关系</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在source的基础上创建并切换分支，source可以是某一个分支，也可以是某一次commit</span></span><br><span class="line">git checkout -b <span class="variable">$&#123;branch_name&#125;</span> <span class="variable">$&#123;source&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>基于 fix_css 分支创建新的 fix_readme 分支。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911205651063.png" alt="image-20220911205651063"></p>
+<p>查看 HEAD 指向的引用（最终一定是某一次 commit）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> .git/HEAd</span><br><span class="line">ref: refs/heads/fix_readme</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> .git/refs/heads/fix_readme</span><br><span class="line">a9773e93bd968e575a17b29c79f33529629273df</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="比较两个分支间的差异"><a href="#比较两个分支间的差异" class="headerlink" title="比较两个分支间的差异"></a>比较两个分支间的差异</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff commit_id1 commit_id2</span><br></pre></td></tr></table></figure>
+
+<p>这里也可以使用 HEAD 及其衍生的关键字来代替 commit id。比如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff HEAD HEAD~1</span><br></pre></td></tr></table></figure>
+
+<p>因为 HEAD 指的是当前分支的最新版本，我们可以以此为基础，倒推出 HEAD 的前一个版本、前两个版本等等。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911210933363.png" alt="image-20220911210933363"></p>
+<h3 id="HEAD的特殊标识符"><a href="#HEAD的特殊标识符" class="headerlink" title="HEAD的特殊标识符"></a>HEAD的特殊标识符</h3><p>几种常见的表示方式：</p>
+<ul>
+<li><code>HEAD~1</code>：HEAD 的上一个版本</li>
+<li><code>HEAD~2</code>：HEAD 的前两个版本</li>
+<li><code>HEAD^1</code>：等价于 <code>HEAD~1</code></li>
+<li><code>HEAD^</code>：等价于 <code>HEAD^1</code></li>
+<li><code>HEAD^^</code>：HEAD 的前两个版本，等价于 <code>HEAD~2</code></li>
+</ul>
+<h1 id="独自使用Git时的常见场景"><a href="#独自使用Git时的常见场景" class="headerlink" title="独自使用Git时的常见场景"></a>独自使用Git时的常见场景</h1><h2 id="怎么删除不需要的分支"><a href="#怎么删除不需要的分支" class="headerlink" title="怎么删除不需要的分支"></a>怎么删除不需要的分支</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d 分支名称</span><br><span class="line">git branch -D 分支名称</span><br></pre></td></tr></table></figure>
+
+<p>如图所示，我们正处于 master 分支下，准备删除 <code>fix_readme</code> 分支，执行 <code>git branch -d fix_readme</code> 命令后出错，错误信息是：</p>
+<blockquote>
+<p>fix_readme 分支还没有被完全 merge 到主分支上，是否确认删除？如果确认删除，请执行<code>git branch -D fix_readme</code> 命令。</p>
+</blockquote>
+<p>这其实相当于“确认删除”的按钮，如果你非常确定就是要删除某一个分支，并不准备对其进行 merge，可以直接执行 <code>git branch -D</code> 来删除分支。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911214624907.png" alt="image-20220911214624907"></p>
+<p><strong>注意事项</strong></p>
+<p>删除分支前需要注意，不能在当前分支上删除当前分支。也就是说，比如你正处于 <code>fix_readme</code> 分支下，那么你是不能删除这个分支的，你必须切换到其它分支（比如master），然后才能删除 <code>fix_readme</code> 分支。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911214316309.png" alt="image-20220911214316309"></p>
+<h2 id="怎么修改最新commit的Message？"><a href="#怎么修改最新commit的Message？" class="headerlink" title="怎么修改最新commit的Message？"></a>怎么修改最新commit的Message？</h2><p>查看 master 分支的 commit log 可知，我们的 commit message 没有“第四次提交”，这是因为我在提交的时候记岔了，那么现在我想要改变一下提交信息。首先，我们把最新的 commit message 由“第六次提交”改成“第五次提交”。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911215651915.png" alt="image-20220911215651915"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+
+<p>输入这条命令后，会弹出一个可编辑的 vim 文本，直接修改即可。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911220149820.png" alt="image-20220911220149820"></p>
+<p>修改完成后，重新查看 commit log。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911220311588.png" alt="image-20220911220311588"></p>
+<h2 id="怎么修改老旧commit的message？"><a href="#怎么修改老旧commit的message？" class="headerlink" title="怎么修改老旧commit的message？"></a>怎么修改老旧commit的message？</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i commit_id</span><br></pre></td></tr></table></figure>
+
+<p>基于哪个 commit 变更</p>
+<p>TODO</p>
+<h2 id="怎样把连续的多个commit整理成1个？"><a href="#怎样把连续的多个commit整理成1个？" class="headerlink" title="怎样把连续的多个commit整理成1个？"></a>怎样把连续的多个commit整理成1个？</h2><p>TODO</p>
+<h2 id="怎么比较暂存区和HEAD所含文件的差异？"><a href="#怎么比较暂存区和HEAD所含文件的差异？" class="headerlink" title="怎么比较暂存区和HEAD所含文件的差异？"></a>怎么比较暂存区和HEAD所含文件的差异？</h2><p>TODO</p>
+<h2 id="怎么比较工作区和暂存区文件的差异？"><a href="#怎么比较工作区和暂存区文件的差异？" class="headerlink" title="怎么比较工作区和暂存区文件的差异？"></a>怎么比较工作区和暂存区文件的差异？</h2><h2 id="如何让暂存区恢复成和HEAD的一样？"><a href="#如何让暂存区恢复成和HEAD的一样？" class="headerlink" title="如何让暂存区恢复成和HEAD的一样？"></a>如何让暂存区恢复成和HEAD的一样？</h2><h2 id="如何让工作区的文件恢复成和暂存区的一样？"><a href="#如何让工作区的文件恢复成和暂存区的一样？" class="headerlink" title="如何让工作区的文件恢复成和暂存区的一样？"></a>如何让工作区的文件恢复成和暂存区的一样？</h2><h2 id="怎样取消暂存区部分文件的更改？"><a href="#怎样取消暂存区部分文件的更改？" class="headerlink" title="怎样取消暂存区部分文件的更改？"></a>怎样取消暂存区部分文件的更改？</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/14/ZooKeeper%E5%AE%89%E8%A3%85/" rel="prev" title="ZooKeeper安装">
+                  <i class="fa fa-chevron-left"></i> ZooKeeper安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="next" title="计算机组成原理">
+                  计算机组成原理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

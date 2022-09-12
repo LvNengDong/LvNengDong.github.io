@@ -116,13 +116,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">232</span>
+          <span class="site-state-item-count">235</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -156,6 +156,888 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" class="post-title-link" itemprop="url">Linux下安装Redis</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-23 10:53:13" itemprop="dateCreated datePublished" datetime="2022-04-23T10:53:13+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-25 15:35:30" itemprop="dateModified" datetime="2022-04-25T15:35:30+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h1><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统</td>
+<td>CentOS7</td>
+</tr>
+<tr>
+<td>Redis版本</td>
+<td>Redis6.2.6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="卸载现有-Redis"><a href="#卸载现有-Redis" class="headerlink" title="卸载现有 Redis"></a>卸载现有 Redis</h1><ol>
+<li><p>查询当前机器是否安装了 Redis</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; rpm -qa | grep -i redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  <code>-i</code> 是忽略大小写</li>
+</ul>
+</li>
+<li><p>如果安装了，且与预期的版本不符，则卸载该 Redis</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; rpm -e --nodeps redis-3.2.12-2.el7.x86_64</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  注意 <code>redis-3.2.12-2.el7.x86_64</code> 换为自己系统上 Redis 的版本。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="Yum-安装-Redis"><a href="#Yum-安装-Redis" class="headerlink" title="Yum 安装 Redis"></a>Yum 安装 Redis</h1><h2 id="Yum-直接安装-Redis"><a href="#Yum-直接安装-Redis" class="headerlink" title="Yum 直接安装 Redis"></a>Yum 直接安装 Redis</h2><ol>
+<li><p>检查是 Yum 中否存在 redis 的安装包。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum search redis</span><br></pre></td></tr></table></figure></li>
+<li><p>若未找到 redis 安装包，则需安装 EPEL 源。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum -y install epel-release</span><br></pre></td></tr></table></figure></li>
+<li><p>再次查询 Yum 仓库中是否存在 Redis，正常查询，应该出现：</p>
+<blockquote>
+<p>  redis.x86_64 : A persistent key-value database</p>
+</blockquote>
+</li>
+<li><p>安装 Redis </p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum -y install redis</span><br></pre></td></tr></table></figure></li>
+<li><p>安装完毕后，使用下面的命令启动 Redis 服务</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 Redis</span></span><br><span class="line">$&gt; systemctl start redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启自启 Redis</span></span><br><span class="line">$&gt; systemctl <span class="built_in">enable</span> redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 Redis</span></span><br><span class="line">$&gt; systemctl stop redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Redis 运行状态</span></span><br><span class="line">$&gt; systemctl status redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 Redis</span></span><br><span class="line">$&gt; systemctl restart redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Redis 进程</span></span><br><span class="line">$&gt; ps -ef | grep redis</span><br></pre></td></tr></table></figure></li>
+<li><p>启动 Redis 客户端，进入 Redis 服务（默认是不需要密码的）</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; redis-cli</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Yum-下载安装包安装-Redis"><a href="#Yum-下载安装包安装-Redis" class="headerlink" title="Yum 下载安装包安装 Redis"></a>Yum 下载安装包安装 Redis</h2><p>上面我们介绍了直接通过 Yum 安装 Redis 的过程，当然我们也可以先通过 Yum 将安装包下载到本地，再通过安装包安装 Redis。</p>
+<p>前 3 步与上文一致，我们直接从第 4 步开始说明。</p>
+<ol start="4">
+<li><p>下载 Redis 安装包到 /opt/software/ 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum install --downloadonly --downloaddir=/opt/software/redis/ redis</span><br></pre></td></tr></table></figure>
+
+<p> 查看</p>
+<p> <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424114832651.png" alt="image-20220424114832651"></p>
+<blockquote>
+<p>  <strong>注意：</strong></p>
+<p>  这一步的下载过程，会将 Redis 的安装包及其依赖的安装包都下载到该目录下。我的目录下只存在一个安装包是因为我已经安装了它的依赖。如果没有安装的话，可能出现下载到多个安装包的情况。</p>
+</blockquote>
+</li>
+<li><p>安装</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; rpm -ivh /opt/software/redis/*</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  考虑到存在多个依赖安装包的情况，我这里使用了通配符一次性安装该目录下的所有安装包。</li>
+</ul>
+</li>
+<li><p>安装结束后，查看 Redis 的安装情况</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; whereis redis</span><br></pre></td></tr></table></figure>
+
+<p> <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424115413331.png" alt="image-20220424115413331"></p>
+</li>
+<li><p>启动 Redis</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; systemctl start redis</span><br></pre></td></tr></table></figure></li>
+<li><p>客户端登录 Redis</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; redis-cli</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过 Yum 安装 Redis 的方式看似方便，但 Redis 官方并不推荐使用这种方式来安装 Redis，因为这种方式安装的 Redis 不是当前最新的可用版本。Redis 官方推荐是通过编译安装 Redis。</p>
+<hr>
+<h1 id="编译安装-Redis"><a href="#编译安装-Redis" class="headerlink" title="编译安装 Redis"></a>编译安装 Redis</h1><ol>
+<li><p>安装依赖包</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  Redis 是用 C 语言实现的，所以通过编译的方式安装 Redis 时，要先安装 gcc。</li>
+</ul>
+</li>
+<li><p>下载 Redis 安装包</p>
+<ul>
+<li><p>下载地址：<a target="_blank" rel="noopener" href="https://redis.io/download/">https://redis.io/download/</a></p>
+  <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424121207274.png" alt="image-20220424121207274" style="zoom:67%;"></li>
+</ul>
+</li>
+<li><p>找到下载地址，使用 wget 下载指定版本的 Redis 到当前目录下。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; wget https://download.redis.io/releases/redis-6.2.6.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p> 或者使用如下命令，下载当前最新的稳定版本</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; wget http://download.redis.io/redis-stable.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>将 redis-6.2.6.tar.gz 解压到 /opt/module/ 目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; tar -zxvf /opt/software/redis-6.2.6.tar.gz -C /opt/module/jj</span><br></pre></td></tr></table></figure></li>
+<li><p>进入到 redis-6.2.6 目录下，执行编译命令</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">cd</span> /opt/module/redis-6.2.6</span><br><span class="line">$&gt; make</span><br></pre></td></tr></table></figure></li>
+<li><p>安装并指定安装目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; make install PREFIX=/usr/local/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  在执行完 make install 后，在 /usr/local/bin 目录下将出现一些 Redis 脚本</li>
+</ul>
+<p> <img src="/2022/04/23/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Redis/image-20220424122533226.png" alt="image-20220424122533226"></p>
+<ul>
+<li>  /usr/local/bin 为环境变量，故其下的脚本可以直接使用。</li>
+</ul>
+</li>
+<li><p>启动服务（前台启动）</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; /usr/local/bin/redis-server</span><br></pre></td></tr></table></figure></li>
+<li><p>后台启动</p>
+<ul>
+<li><p>从 Redis 的源码目录中复制 redis.conf 配置文件到 redis 的安装目录下</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">cp</span> /opt/module/redis-6.2.6/redis.conf /usr/local</span><br></pre></td></tr></table></figure></li>
+<li><p>根据配置文件启动 Redis</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; /usr/local/bin/redis-server redis.conf</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>客户端登录 Redis</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; /usr/local/bin/redis-cli</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>  理论上，/usr/local/bin 是环境变量，可以在任意位置调用该路径下的脚本文件。但是我自己在实际情况下报错：找不到文件或目录。因此，我在这里通过绝对路径来执行 Redis 的启动和客户端脚本。</li>
+</ul>
+<hr>
+<h1 id="修改-Redis-配置文件"><a href="#修改-Redis-配置文件" class="headerlink" title="修改 Redis 配置文件"></a>修改 Redis 配置文件</h1><p>设置Redis允许远程访问</p>
+<p>默认情况下，是不允许远程访问 Redis 数据库的，如果想要设置允许访问，需要额外进行设置。</p>
+<ol>
+<li><p>修改 Redis 的配置文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/redis.conf</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">logfile &quot;/usr/local/redis/logs/redis.log&quot;</span><br><span class="line">daemonize yes     ## 若使用开机启动，生成pid，该项必须设置为诶yes，否则redis将不能够正常执行开机启动(systemctl start redis,执行后一直卡着，直到超时)</span><br><span class="line">#bind 127.0.0.1  ##注释掉，允许所有其他ip访问，真实使用最好坐下限制，只允许某些主机访问</span><br><span class="line">protected-mode no  ## 允许其他机器上的客户端连接当前redis，配置文件设置该项，则开机启动处就可以去掉--protected no </span><br><span class="line">dir /usr/local/redis/ ## db保存路径，由于db持久化到磁盘，占用空间可能比较大，所以选择比较打的文件夹设置</span><br><span class="line">requirepass 12345  ##设置密码</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p> 开放 Redis 远程访问的端口（6379）</p>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$&gt; firewall-cmd --add-port=6379/tcp --permanent &amp;&amp; firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 6379 端口是否开放成功（查看所有开放的端口）</span></span><br><span class="line">$&gt; firewall-cmd --list-all</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li> 设置 Redis 允许远程访问</li>
+</ol>
+<blockquote>
+<p>  参考文档：</p>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qq931399960/p/10584877.html">https://www.cnblogs.com/qq931399960/p/10584877.html</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b93c7f261637">https://www.jianshu.com/p/b93c7f261637</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/" class="post-title-link" itemprop="url">Linux下安装MySQL</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-21 10:24:02" itemprop="dateCreated datePublished" datetime="2022-04-21T10:24:02+08:00">2022-04-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-24 16:56:29" itemprop="dateModified" datetime="2022-04-24T16:56:29+08:00">2022-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>安装前需检查是否已经安装了某个版本的 MySQL，如果安装了，需要先卸载，避免因版本冲突导致的错误。</p>
+<ul>
+<li><p>查看</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep mysql</span><br></pre></td></tr></table></figure></li>
+<li><p>如果有则需要卸载</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -e --nodeps xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>  使用 <code>rpm -e</code> 卸载后，需要删除 <code>/var/lib/mysql</code> 目录。</p>
+</li>
+</ul>
+<hr>
+<h1 id="使用-yum-安装-MySQL"><a href="#使用-yum-安装-MySQL" class="headerlink" title="使用 yum 安装 MySQL"></a>使用 yum 安装 MySQL</h1><blockquote>
+<ul>
+<li>  官方文档地址：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/">https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/</a></li>
+<li>  官方文档地址已经非常全面了，对于不习惯英文阅读的小伙伴，可以通过浏览器的翻译插件进行查看，或者直接看下文的教程。</li>
+<li>  提示：本文 MySQL 的安装基于 CentOS7，CentOS 是 Redhat 体系的一员，所以在选择安装包版本时选择 RedHat 系即可。</li>
+</ul>
+</blockquote>
+<p>为了防止，官方文档地址发生变动，在此处粘一个『yum 安装 MySQL 指南』的查找路径。</p>
+<ol>
+<li><p>首先进入<a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL官网</a>，进入『文档』专栏，下拉选择按『主题』查找。</p>
+<p> <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131815293.png" alt="image-20220421131815293"></p>
+</li>
+<li><p>继续下拉找到『A Quick Guide to Using the MySQL Yum Repository』专栏，点击进入，即为“使用 Yum 仓库安装 MySQL 快速入门指南”。</p>
+<p> <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421131947148.png" alt="image-20220421131947148"></p>
+</li>
+</ol>
+<h2 id="1、下载-MySQL-Yum-存储仓库"><a href="#1、下载-MySQL-Yum-存储仓库" class="headerlink" title="1、下载 MySQL Yum 存储仓库"></a>1、下载 MySQL Yum 存储仓库</h2><p>首先，将 MySQL Yum 存储仓库（这是一个文件）下载到当前 Linux 系统中。</p>
+<ul>
+<li><p>  转到 <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/repo/yum/">https://dev.mysql.com/downloads/repo/yum/</a> 的 MySQL Yum 文件的下载页面。</p>
+</li>
+<li><p>为你的平台选择并下载发布包的版本（我选择的是 RedHat 系列 Linux7 系统的社区版）。</p>
+  <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115245966.png" alt="image-20220421115245966" style="zoom: 80%;"></li>
+<li><p>选择需要的版本，点击“Download”，进入详情页面，复制下载链接地址，下载对应的 rpm 文件。</p>
+  <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220421115510940.png" alt="image-20220421115510940" style="zoom: 50%;"></li>
+<li><p>使用以下命令安装下载发布包。使用上一个链接地址替换 『<em>platform-and-version-specific-package-name</em>.rpm』</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 我的</span></span><br><span class="line">sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>  <strong>笔记</strong></p>
+<p>  一旦发布包安装在你的系统上，<strong>yum update</strong> 命令的任何系统范围更新（或启用 dnf 系统的 dnf 升级）将自动升级你系统中的 MySQL 包并替换本机所有第三方包。</p>
+</blockquote>
+<h2 id="2、选择发布系列"><a href="#2、选择发布系列" class="headerlink" title="2、选择发布系列"></a>2、选择发布系列</h2><p>使用 MySQL Yum 存储仓库时，默认安装 MySQL 最新的 GA 版本。如果这是你想要的，可以直接跳到下一步，使用 Yum 安装 MySQL。</p>
+<p>而我们想要安装 MySQL5.7 版本。还需要执行额外操作。</p>
+<p>在 MySQL Yum 存储库（<a target="_blank" rel="noopener" href="https://repo.mysql.com/yum/%EF%BC%89%E4%B8%AD%EF%BC%8CMySQL">https://repo.mysql.com/yum/）中，MySQL</a> 社区服务器的不同版本托管在不同的子存储库中。最新 GA 系列的子库（默认是 MySQL8.0）默认启用。所有其它系列（例如 MySQL5.7 系列）的字库默认禁用。使用下面的命令可以查看 MySQL Yum 存储库的所有子存储库，并查看其中哪些已启用或已禁用（对于启用 dnf 的系统，请将命令中的 yum 替换为 dnf）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum repolist all | grep mysql</span><br></pre></td></tr></table></figure>
+
+<p>如果安装最新的 GA 版本，无需配置。但是如果想要安装其它的版本，需要在安装之前禁用最新 GA 系列的子存储库并启用特定系列的子存储库。如果你的平台支持『yum-config-manager』或『dnf config-manager』命令，可以直接使用下述命令实现禁用8.0系列的子存储库并启用5.7系列的子存储库。</p>
+<ul>
+<li><p>对于支持 yum 的平台</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&gt; sudo yum-config-manager --<span class="built_in">disable</span> mysql80-community</span><br><span class="line">$&gt; sudo yum-config-manager --<span class="built_in">enable</span> mysql57-community</span><br></pre></td></tr></table></figure></li>
+<li><p>对于支持 dnf 的平台</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&gt; sudo dnf config-manager --<span class="built_in">disable</span> mysql80-community</span><br><span class="line">$&gt; sudo dnf config-manager --<span class="built_in">enable</span> mysql57-community</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>除了使用『yum-config-manager』或『dnf config-manager』命令外，你还可以通过手动编辑 <code>/etc/yum.repos.d/mysql-community.repo</code> 文件来选择版本。这是文件中发布系统的子存储库的典型条目：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[mysql80-community]</span></span><br><span class="line"><span class="attr">name</span>=<span class="string">MySQL 8.0 Community Server</span></span><br><span class="line"><span class="attr">baseurl</span>=<span class="string">http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=<span class="string">file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql-2022</span></span><br><span class="line">       <span class="attr">file</span>:<span class="string">///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+
+<p>找到你要配置的子存储库条目，然后编辑 enable 选项。指定 <code>enable=0</code> 禁用子存储库或 <code>enable=1</code> 启用子存储库。例如，要安装 MySQL5.7，请确保你具有 <code>enable=0</code> 的 MySQL8.0 的上述子存储库条目，并具有 <code>enable=1</code> 的 MySQL5.7 的子存储库条目。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable to use MySQL 5.7</span></span><br><span class="line"><span class="attr">[mysql57-community]</span></span><br><span class="line"><span class="attr">name</span>=<span class="string">MySQL 5.7 Community Server</span></span><br><span class="line"><span class="attr">baseurl</span>=<span class="string">http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=<span class="string">file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql-2022</span></span><br><span class="line">       <span class="attr">file</span>:<span class="string">///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：你应该在任何时候都只为一个版本系列启用子存储库。当启用多个版本系列的子存储库时，Yum 将使用最新的系列。</p>
+<p>通过运行以下命令并检查其输出来验证是否已经启用或禁用正确的子存储库（对于支持 dnf 的系统，将命令中的 yum 替换为 dnf）：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; yum repolist enabled | grep mysql</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3、禁用默认的-MySQL-模块"><a href="#3、禁用默认的-MySQL-模块" class="headerlink" title="3、禁用默认的 MySQL 模块"></a>3、禁用默认的 MySQL 模块</h2><p>（仅限于EL8系统）基于 EL8 的系统（例如 RHEL8 和 Oracle Linux 8）包含默认启用的 MySQL 模块。除非禁用此模块，否则它会屏蔽 MySQL 存储库提供的包。要禁用包含的模块并使 MySQL 存储库包可见，请使用以下命令（对于启用 dnf 的系统， 将命令中的 <strong>yum 替换为 dnf</strong>）：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; sudo yum module <span class="built_in">disable</span> mysql</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="4、安装-MySQL"><a href="#4、安装-MySQL" class="headerlink" title="4、安装 MySQL"></a>4、安装 MySQL</h2><p>通过以下命令安装 MySQL（对于启用 dnf 的系统， 将命令中的 <strong>yum 替换为 dnf</strong>）：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; sudo yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+
+<p>这将安装 MySQL 服务器的包及其依赖的包。</p>
+<h2 id="5、启动-MySQL-服务器"><a href="#5、启动-MySQL-服务器" class="headerlink" title="5、启动 MySQL 服务器"></a>5、启动 MySQL 服务器</h2><p>启动 MySQL 服务器的命令</p>
+<ul>
+<li><p>命令1：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; systemctl start mysqld</span><br></pre></td></tr></table></figure></li>
+<li><p>命令2：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; service mysql start</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>查看 MySQL 服务器状态的命令</p>
+<ul>
+<li><p>命令1：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; systemctl status mysqld</span><br></pre></td></tr></table></figure></li>
+<li><p>命令2：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; service mysql status</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="6、MySQL-服务器初始化"><a href="#6、MySQL-服务器初始化" class="headerlink" title="6、MySQL 服务器初始化"></a>6、MySQL 服务器初始化</h2><p>从 MySQL5.7 开始，在服务器初始化时，假设服务器的数据目录为空，会发生以下情况：</p>
+<ul>
+<li><p>  初始化服务器。</p>
+</li>
+<li><p>  在数据目录中生成 SSL 证书和秘钥文件。</p>
+</li>
+<li><p>  安装并启用<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/validate-password.html">validate_password 插件</a>。</p>
+</li>
+<li><p>创建一个超级用户账号『<code>&#39;root&#39;@&#39;localhost&#39;</code>』，并将超级用户的密码保存在错误日志文件中。日志文件的存储位置为：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; sudo <span class="built_in">cat</span> /var/log/mysqld.log | grep password</span><br></pre></td></tr></table></figure></li>
+<li><p>接下来就可以通过生成的临时密码登录，并使用超级用户设置自定义密码。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;MyNewPass4!&#x27;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>  <strong>笔记</strong></p>
+<p>  MySQL 的 validate_password 插件默认安装。这就要求密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符，并且总密码长度至少为 8 个字符。</p>
+</blockquote>
+<h2 id="7、设置远程登录账户"><a href="#7、设置远程登录账户" class="headerlink" title="7、设置远程登录账户"></a>7、设置远程登录账户</h2><ol>
+<li><p>进入 MySQL 命令行，使用如下命令，设置允许访问 MySQL 的 IP 白名单。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 选中 `mysql` 数据库</span><br><span class="line">mysql&gt; use `mysql`</span><br><span class="line"></span><br><span class="line"># 修改权限</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;您的密码&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line"># 刷新</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li>
+<li><p>开放 3306 端口</p>
+<ul>
+<li>  方式一：</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、开放3306端口</span></span><br><span class="line">$&gt; firewall-cmd --zone=public --add-port=3306/tcp --permanent</span><br><span class="line"><span class="comment"># 2、重启防火墙</span></span><br><span class="line">$&gt; systemctl restart firewalld.service</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  方式二：</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此方式不需要重启防火墙</span></span><br><span class="line">$&gt; firewall-cmd --add-port=3306/tcp --permanent &amp;&amp; firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>命令含义：<ul>
+<li>  <code>--zone</code>：作用域</li>
+<li>  <code>--add-port=3306/tcp</code>：添加端口，格式为：端口/通信协议</li>
+<li>  <code>--permanent</code>：永久生效，没有此参数重启后失效。</li>
+</ul>
+</li>
+<li>  查看 3306 端口是否开放成功（查看所有开放的端口）</li>
+</ul>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; firewall-cmd --list-all</span><br></pre></td></tr></table></figure>
+
+ <img src="/2022/04/21/Linux%E4%B8%8B%E5%AE%89%E8%A3%85MySQL/image-20220423102519269.png" alt="image-20220423102519269" style="zoom:67%;"></li>
+</ol>
+<hr>
+<h1 id="使用安装包安装-MySQL"><a href="#使用安装包安装-MySQL" class="headerlink" title="使用安装包安装 MySQL"></a>使用安装包安装 MySQL</h1><h2 id="1、下载安装包并上传到-Linux-服务器"><a href="#1、下载安装包并上传到-Linux-服务器" class="headerlink" title="1、下载安装包并上传到 Linux 服务器"></a>1、下载安装包并上传到 Linux 服务器</h2><ol>
+<li><p>解压 <code>mysql-libs.zip</code> 文件到<code>/opt/module/</code>目录下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ unzip mysql-libs.zip -d /opt/module/</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>进入到 <code>mysql-libs</code> 文件夹下</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mysql-libs]$ ll</span><br><span class="line">总用量 76048</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong 18509960 3月  26 2015 MySQL-client-5.6.24-1.el6.x86_64.rpm   <span class="comment"># 客户端</span></span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong  3575135 12月  1 2013 mysql-connector-java-5.1.27.tar.gz</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong 55782196 3月  26 2015 MySQL-server-5.6.24-1.el6.x86_64.rpm   <span class="comment"># 服务端</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>CentOS7 使用该博客中的方法安装 MySQL：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51510236/article/details/113791490">https://blog.csdn.net/m0_51510236/article/details/113791490</a></p>
+<h2 id="4-2-安装-MySQL-服务器"><a href="#4-2-安装-MySQL-服务器" class="headerlink" title="4.2    安装 MySQL 服务器"></a>4.2    安装 MySQL 服务器</h2><ol>
+<li><p>安装 <code>mysql</code> 服务端</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mysql-libs]$ sudo rpm -ivh MySQL-server-5.6.24-1.el6.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>查看产生的随机密码</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cat /root/.mysql_secret</span><br><span class="line">OEXaQuS8IWkG19Xs</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="4-3-安装-MySQL-客户端"><a href="#4-3-安装-MySQL-客户端" class="headerlink" title="4.3 安装 MySQL 客户端"></a>4.3 安装 MySQL 客户端</h2><ol>
+<li><p>安装 <code>mysql</code> 客户端</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 mysql-libs]$ sudo rpm -ivh MySQL-client-5.6.24-1.el6.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>连接 <code>mysql</code> 服务器端</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 mysql-libs]# mysql -uroot -pOEXaQuS8IWkG19Xs</span><br><span class="line">mysql -uroot -h127.0.0.1 -p</span><br></pre></td></tr></table></figure></li>
+<li><p>修改密码</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SET PASSWORD=PASSWORD(<span class="string">&#x27;000000&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>退出 <code>mysql</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;exit</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="4-4-MySQL-中-user-表中主机配置"><a href="#4-4-MySQL-中-user-表中主机配置" class="headerlink" title="4.4    MySQL 中 user 表中主机配置"></a>4.4    MySQL 中 user 表中主机配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">配置只要是root用户+密码，在任何主机上都能登录MySQL数据库。</span><br><span class="line"></span><br><span class="line">1．进入mysql</span><br><span class="line"></span><br><span class="line">[root@hadoop102 mysql-libs]# mysql -uroot -p000000</span><br><span class="line"></span><br><span class="line">2．显示数据库</span><br><span class="line"></span><br><span class="line">mysql&gt;show databases;</span><br><span class="line"></span><br><span class="line">3．使用mysql数据库</span><br><span class="line"></span><br><span class="line">mysql&gt;use mysql;</span><br><span class="line"></span><br><span class="line">4．展示mysql数据库中的所有表</span><br><span class="line"></span><br><span class="line">mysql&gt;show tables;</span><br><span class="line"></span><br><span class="line">5．展示user表的结构</span><br><span class="line"></span><br><span class="line">mysql&gt;desc user;</span><br><span class="line"></span><br><span class="line">6．查询user表</span><br><span class="line"></span><br><span class="line">mysql&gt;select User, Host, Password from user;</span><br><span class="line"></span><br><span class="line">7．修改user表，把Host表内容修改为%</span><br><span class="line"></span><br><span class="line">mysql&gt;update user set host=&#x27;%&#x27; where host=&#x27;localhost&#x27;;</span><br><span class="line"></span><br><span class="line">8．删除root用户的其他host</span><br><span class="line"></span><br><span class="line">mysql&gt;delete from user where Host=&#x27;hadoop102&#x27;;</span><br><span class="line"></span><br><span class="line">mysql&gt;delete from user where Host=&#x27;127.0.0.1&#x27;;</span><br><span class="line"></span><br><span class="line">mysql&gt;delete from user where Host=&#x27;::1&#x27;;</span><br><span class="line"></span><br><span class="line">9．刷新</span><br><span class="line"></span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line"></span><br><span class="line">10．退出</span><br><span class="line"></span><br><span class="line">mysql&gt;quit;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-%E5%A4%A7%E7%BA%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/10/%E6%89%8B%E5%86%99Spring-%E5%A4%A7%E7%BA%B2/" class="post-title-link" itemprop="url">手写Spring-大纲</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-04-10 11:32:18 / Modified: 20:15:52" itemprop="dateCreated datePublished" datetime="2022-04-10T11:32:18+08:00">2022-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="学习目的"><a href="#学习目的" class="headerlink" title="学习目的"></a>学习目的</h2><p>本系列课程的学习目的是：通过手写简化的 Spring 实现来抓住 Spring 源码的核心思想，为阅读 Spring 源码奠定基础。</p>
+<p>学习本课程需要有一定的 Spring 基础。</p>
+<h2 id="课程大纲"><a href="#课程大纲" class="headerlink" title="课程大纲"></a>课程大纲</h2><p><img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-%E5%A4%A7%E7%BA%B2/%E6%89%8B%E5%86%99Spring%E8%AF%BE%E7%A8%8B%E5%A4%A7%E7%BA%B2.png" alt="手写Spring课程大纲"></p>
+<blockquote>
+<p>  图片地址：<a target="_blank" rel="noopener" href="https://www.processon.com/view/link/625250755653bb0743cc6b1c">https://www.processon.com/view/link/625250755653bb0743cc6b1c</a></p>
+</blockquote>
+<h2 id="课程目录"><a href="#课程目录" class="headerlink" title="课程目录"></a>课程目录</h2><ul>
+<li>  <a href>模拟 Spring 扫描底层实现</a></li>
+<li>  <a href>模拟 BeanDefinition 的生成</a></li>
+<li>  <a href>模拟 getBean 方法的底层实现</a></li>
+<li>  <a href>模拟 Bean 创建流程</a></li>
+<li>  <a href>模拟依赖注入</a></li>
+<li>  <a href>模拟 Aware 回调机制</a></li>
+<li>  <a href>模拟 Spring 初始化机制</a></li>
+<li>  <a href>模拟 BeanPostProcessor 机制</a></li>
+<li>  <a href>模拟 SpringAOP 机制</a></li>
+</ul>
+<h2 id="课程源码地址"><a href="#课程源码地址" class="headerlink" title="课程源码地址"></a>课程源码地址</h2><p><a href>课程源码地址</a></p>
+<h2 id="后续课程：Spring-源码解读"><a href="#后续课程：Spring-源码解读" class="headerlink" title="后续课程：Spring 源码解读"></a>后续课程：Spring 源码解读</h2><ul>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+<li>  <a href>TODO</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/" class="post-title-link" itemprop="url">手写Spring-Part01</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-04-10 11:29:29" itemprop="dateCreated datePublished" datetime="2022-04-10T11:29:29+08:00">2022-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-11 12:16:47" itemprop="dateModified" datetime="2022-04-11T12:16:47+08:00">2022-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>在正式编写 Spring 核心代码之前，首先需要完成以下准备工作：</p>
+<ol>
+<li><p>创建一个 JavaSE 项目，项目结构如下图所示。</p>
+<p> <img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410114651862.png" alt="image-20220410114651862"></p>
+<p> 其中，service 包用来保存业务代码；spring 包用来保存我们手写模拟的 spring 核心实现代码。</p>
+</li>
+<li><p> 在 service 包下创建 2 个类，Test 类和 UserService 类。Test 类是一个包含 mian 方法的启动类，UserService 是一个普通的业务类。</p>
+</li>
+<li><p>在 spring 包下创建 MyApplicationContext 类，这是一个自定义的 Spring 顶级容器类。 </p>
+<ul>
+<li>  UserService 类</li>
+</ul>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/4/10 8:32</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 业务类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  Test 类</li>
+</ul>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/4/10 8:32</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 包含 main 方法的启动类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>  MyApplicationContext 类</li>
+</ul>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.spring;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span> 2022/4/10 8:34</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 自定义的 Spring 顶级容器类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyApplicationContext</span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="模拟-Spring"><a href="#模拟-Spring" class="headerlink" title="模拟 Spring"></a>模拟 Spring</h1><p>完成准备工作后，我们就可以正式开始手写模拟 Spring 了。</p>
+<p>我们知道，在真实的 Spring 项目中，使用 Spring 总是从创建一个保存 Bean 实例的容器开始，在代码中的具体体现就是：<code>new XxxApplicationContext()</code>。并且，我们在创建 Bean 容器的时候，往往是通过加载一个配置文件或者配置类的方式，根据配置信息完成容器的初始化。</p>
+<p>我们在这里使用的是配置类的方式，在 MyApplicationContext 的构造方法中通过传入一个配置类完成容器的初始化。并调用容器提供的 getBean() 方法根据 beanName 获取对象实例。具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// Spring容器根据配置类初始化容器</span></span><br><span class="line">        <span class="type">MyApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyApplicationContext</span>(MyConfig.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 依赖查找</span></span><br><span class="line">        <span class="type">UserService</span> <span class="variable">userService</span> <span class="operator">=</span> (UserService)applicationContext.getBean(<span class="string">&quot;userService&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，这段代码存在两个问题。</p>
+<ul>
+<li>  第一个是：在创建自定义容器 MyApplicationContext 实例的时候需要加载配置类，而目前我们的项目中没有这个配置类。</li>
+<li>  第二个是：自定义容器 MyApplicationContext 类中提供了根据 beanName 获取实例的 getBean 方法，而目前 MyApplicationContext 类中没有定义这个方法。</li>
+</ul>
+<p>为了让工程中的代码可以正常编译运行，我们需要完成以下工作：</p>
+<ul>
+<li><p>在 service 包下创建我们自己的配置类 MyConfig</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span> &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在 MyApplicationContext 类中添加新的构造方法、成员变量和成员方法。具体代码如下：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyApplicationContext</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class configClass; <span class="comment">// 保存配置类的信息 </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyApplicationContext</span><span class="params">(Class configClass)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.configClass = configClass;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String beanName)</span>&#123;</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>目前为止，该项目已经可以正常编译运行了。接下来，我们就来研究一下，项目启动时 Spring 容器替我们完成了哪些工作吧。</p>
+<hr>
+<h1 id="模拟-Spring-扫描的底层实现"><a href="#模拟-Spring-扫描的底层实现" class="headerlink" title="模拟 Spring 扫描的底层实现"></a>模拟 Spring 扫描的底层实现</h1><p>Spring 项目启动时，首先执行的操作就是“扫描”，需要将扫描到的 Bean 实例化并加入容器中。</p>
+<p>而关于扫描操作又有非常多的细节。比如：要扫描哪些 Bean ？这就需要得到一个扫描路径。对于扫描到的 Bean，是立即创建还是延迟创建？诸如此类的问题还有很多。这里我们首先来看第一个问题，即 <strong>Spring 容器在启动时要扫描哪些 Bean ？</strong></p>
+<p>要执行扫描 Bean 的操作，首先就要拿到『<strong>扫描路径</strong>』；在 Spring 中，扫描路径是在『配置类』中定义的，由配置类上的 @ComponentScan 注解指定。所以，我们需要完成以下工作：</p>
+<ul>
+<li><p>在项目的 spring 包下创建注解类 ComponentScan。[注意：这里的 @ComponentScan 注解是我们自己定义的]</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Component &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>; <span class="comment">// 注解中的变量 value，同时也是默认值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在 service 包下的 MyConfig 类上添加 @ComponentScan 注解，并指定 Spring 容器要扫描的包。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan(&quot;cn.xsyu.service&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span> &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>接下来，我们就可以在自定义的 Spring 容器类 MyApplicationContext 的构造函数内，解析这个配置类，并根据配置类的注解信息，确定容器要扫描的真实路径。其整体的实现思路如下：</p>
+<h2 id="1、加载配置类"><a href="#1、加载配置类" class="headerlink" title="1、加载配置类"></a>1、加载配置类</h2><p>首先，我们可以看到 MyApplicationContext 的构造函数的入参是 <code>Class configClass</code>，结合上面 Test 类的代码的运行过程，真正的入参就是 <code>MyConfig.class</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// MyApplicationContext 类的构造函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyApplicationContext</span><span class="params">(Class configClass)</span> &#123;</span><br><span class="line">       <span class="built_in">this</span>.configClass = configClass;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2、提取-ComponentScan-注解中的包名"><a href="#2、提取-ComponentScan-注解中的包名" class="headerlink" title="2、提取 @ComponentScan 注解中的包名"></a>2、提取 @ComponentScan 注解中的包名</h2><p>在拿到配置类之后，我们首先应该检查配置类上是否存在 @ComponentScan 注解，如果含有，则获取该注解的值。如果没有，则使用默认值（为了简化代码，我们在代码中没有使用默认值这一分支）。</p>
+<p>在 MyApplicationContext 构造函数中添加如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 断言配置类 MyConfig 上是否存在 @ComponentScan 注解</span></span><br><span class="line"><span class="keyword">if</span> (configClass.isAnnotationPresent(ComponentScan.class))&#123;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 如果存在，获取注解中 value 变量的值作为容器要扫描的包路径</span></span><br><span class="line">    <span class="type">ComponentScan</span> <span class="variable">componentScanAnnotation</span> <span class="operator">=</span> (ComponentScan)configClass.getAnnotation(ComponentScan.class); <span class="comment">// 获取注解类实例。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> componentScanAnnotation.value(); <span class="comment">// 获取注解类中的 value 值</span></span><br><span class="line">    System.out.println(path); <span class="comment">// 输出结果：cn.xsyu.service</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// TODO 如果不存在，使用默认扫描的包路径，这里不做实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码中我们可以看到，目前得到的 path 变量是一个包名『cn.xsyu.service』，它就是配置类的 @ComponentScan 注解中的 value 值。但是它只是一个包名，既不是一个相对路径，也不是一个绝对路径。也就是说我们无法将 path 作为一个扫描路径。</p>
+<p>那我们接下来要做的工作就比较清晰了，就是把 path 变量转变成一个可以被扫描的路径。</p>
+<h2 id="3、将包名转换为可被扫描的路径"><a href="#3、将包名转换为可被扫描的路径" class="headerlink" title="3、将包名转换为可被扫描的路径"></a>3、将包名转换为可被扫描的路径</h2><p>在进行 <code>包名 -&gt; 路径</code> 的转换之前，我们需要先考虑这样一些问题：</p>
+<ul>
+<li>  （1）我们应该扫描源码包下的 .java 文件还是编译后的包下的 .class 文件 ？</li>
+<li>  （2）我们该如何确定编译后包的路径？应该使用绝对路径还是相对路径 ？</li>
+</ul>
+<p>上面第一个问题比较简单，JVM 在创建对象时依赖的是 .class 文件而非 .java 文件，所以我们的扫描的也应该是编译后的包。</p>
+<p>那我们如何确定编译后包的路径呢？我们可以先进行一个简单的编译测试。运行 Test 类中的 main 程序，程序运行时会自动执行编译操作。执行结束后，我们可以看到当前目录中多出了一个 out 目录，我们编译后的 .class 文件就保存在这个目录下，并且这个目录拥有和源代码相似的目录结构。</p>
+<p><img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211214557.png" alt="image-20220410211214557"></p>
+<p>但相似始终不是相等，虽然我们这里编译后相比于源代码多出了 <code>out/production</code> 两级父目录，但不一定所有的项目都遵循这个规则，或许有的规则会把编译后的代码放在 target 目录中。</p>
+<p>也就是说，我们在获取『扫描路径』时，一定不能把路径写死。而是要根据编译的规则来动态获取『扫描路径』。</p>
+<p>关于如何动态获取扫描路径，我们接着往下看。</p>
+<p>可以看到，在 main 程序执行结束后，控制台上会打印这样一段代码。</p>
+<p><img src="/2022/04/10/%E6%89%8B%E5%86%99Spring-Part01/image-20220410211926383.png" alt="image-20220410211926383"></p>
+<p>我们把这段代码展开复制出来是这样的（我们在几个关键字上加了着重号表示）：</p>
+<blockquote>
+<p>  D:\Software\Dev\Java\jdk1.8.0_162\bin\『java.exe』</p>
+<p>  “『-javaagent』:D:\Software\Dev\IDEA\IntelliJ IDEA 2020.3.2\lib\idea_rt.jar=60605:D:\Software\Dev\IDEA\IntelliJ IDEA 2020.3.2\bin” </p>
+<p>  『-Dfile.encoding』=UTF-8 </p>
+<p>  『-classpath 』</p>
+<p>  D:\Software\Dev\Java\jdk1.8.0_162\jre\lib\charsets.jar;</p>
+<p>  D:\Software\Dev\Java\jdk1.8.0_162\jre\lib\ext\zipfs.jar;</p>
+<p>  ……（省略大多数 JDK 内置的 jar 包）</p>
+<p>  D:\Software\Dev\Java\jdk1.8.0_162\jre\lib\resources.jar;</p>
+<p>  E:\workspace_java\simple-spring\out\production\simple-spring cn.xsyu.service.Test</p>
+</blockquote>
+<ul>
+<li>  第一个关键字是 <code>java.exe</code>，这是一个编译操作，用于将 .java 文件编译成 .class 文件。该关键字之前的部分是当前机器的 %JAVA_HOME%\bin 目录，表示在该目录下执行编译操作。</li>
+<li>  第二个关键字是 <code>-javaagent</code>，包含了一些 IDEA 代理信息（非重点）。</li>
+<li>  第三个关键字是 <code>-Dfile.encoding</code>，用于设置编码格式（非重点）。</li>
+<li>第四个关键字是 <code>-classpath</code>，这是本节要讨论的重点。可以看到 classpath 的值有多个，可以理解为一个数组，数组中包含当前项目正常运行所需的依赖，可以看到，这些依赖可分为两类：<ul>
+<li>  一类是 JDK 自带的 jar 包，来源于 JAVA_HOME 目录下；（为了简化排版，这里省略了很多 jar 包）</li>
+<li>  另一类是我们刚刚编写的含有 main 方法的 Test 类编译后的文件所在的『classpath + 全限定类名』的字符串组合。也就是 E:\workspace_java\simple-spring\out\production\simple-spring cn.xsyu.service.Test</li>
+</ul>
+</li>
+</ul>
+<p>不知道你发现了没有，对于这个字符串，只要将原先字符串中 main 方法所在类的 “全限定类名” 替换成上面第 2 小节得到的 path 变量，就变成了 <code>E:\workspace_java\simple-spring\out\production\simple-spring cn.xsyu.service</code>，我们只需要再进行简单的字符串处理，就能得到要扫描的包目录的绝对路径，即 <code>E:\workspace_java\simple-spring\out\production\simple-spring\cn\xsyu\service</code>。</p>
+<p><em>为了完成本小节的代码，我们需要在这里额外学习一些小知识。</em></p>
+<blockquote>
+<p>  Class.getResource() 与 ClassLoader.getResource() 的区别：</p>
+<p>  一句话先说明白：</p>
+<ul>
+<li>  Class.getResource(String name)：在当前调用类的同一路径下查找该资源</li>
+<li>  ClassLoader.getResource(String name)：在根目录下查找该资源（根目录即 classpath 目录），找到后返回资源的 URL</li>
+</ul>
+<p>  原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33591903/article/details/91444342">https://blog.csdn.net/qq_33591903/article/details/91444342</a></p>
+</blockquote>
+<p>继续在 MyApplicationContext 的构造函数中进行操作，本小节内容对应的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将 path 表示的包名转换成相对路径格式 </span></span><br><span class="line">path = path.replace(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;/&quot;</span>); <span class="comment">// cn.xsyu.service -&gt; cn/xsyu/service</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 classpath 下查找资源 path，若找到则返回 path 对应资源的完整 URL</span></span><br><span class="line"><span class="type">ClassLoader</span> <span class="variable">classLoader</span> <span class="operator">=</span> MyApplicationContext.class.getClassLoader();</span><br><span class="line"><span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> classLoader.getResource(path);</span><br><span class="line">System.out.println(<span class="string">&quot;resource=&quot;</span> + resource); <span class="comment">// resource=file:/E:/workspace_java/simple-spring/out/production/simple-spring/cn/xsyu/service</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>  <strong>一句话总结：</strong></p>
+</blockquote>
+<p>此时，就完成了根据 @ComponentScan 注解中的 value 值（cn.xsyu.service）获取 cn.xsyu.service 源代码包编译后所在包的目录的绝对路径（file:/E:/workspace_java/simple-spring/out/production/simple-spring/cn/xsyu/service）的功能。</p>
+<h2 id="4、获取可被装载的-Bean"><a href="#4、获取可被装载的-Bean" class="headerlink" title="4、获取可被装载的 Bean"></a>4、获取可被装载的 Bean</h2><p>上一节我们得到了要被扫描的 Bean 所在的路径，那么接下来我们可以直接把该路径下的所有资源统统装载进容器吗吗？答案是不可以的。</p>
+<p>虽然现在我们项目的扫描路径下只有 .class 文件，但这不代表所有项目的扫描路径下都只有 .class 文件。所以，我们在获取到『扫描路径』后，接下来就应该考虑如何把 .class 文件和其它文件区分开来。</p>
+<blockquote>
+<p>  『问题』：那么，该如何判断 .class 资源和其它资源呢？</p>
+</blockquote>
+<p>最简单的思路就是“遍历”，遍历该目录下所有的文件，通过判断文件是否以 <code>.class</code> 为后缀来进行区分。</p>
+<blockquote>
+<p>  『Tip』：</p>
+</blockquote>
+<p>在正式进入编程之前，我们可能一直忽略了一个细节。那就是：为什么如此笃定我们在上一节获取到的 resource 变量代表的是一个目录呢？</p>
+<p>这里其实我们犯了先入为主的错误，因为在我们的项目中配置的是一个目录，所以我们就想当然的认为 resource 变量应该是一个目录。但其实并不然，@ComponentScan 的 value 值是 String 类型的，我们完全可以配置一个全限定类名，这样获取到的 resource 变量就表示一个文件的 URL。</p>
+<p>所以我们首先需要将 URL 转为一个 File（File 既可以表示文件也可以表示目录），然后再去判断 File 是文件还是目录。</p>
+<p>上面两个步骤的具体代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据 URL resource 获取 File</span></span><br><span class="line"><span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> resource.getFile();</span><br><span class="line"><span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (file.isDirectory())&#123; <span class="comment">// file是目录的情况</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前目录下的所有文件。并且我们只关心 .class 文件</span></span><br><span class="line">    File[] files = file.listFiles();</span><br><span class="line">    <span class="keyword">for</span> (File aFile : files) &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">absolutePath</span> <span class="operator">=</span> aFile.getAbsolutePath();</span><br><span class="line">        System.out.println(<span class="string">&quot;absolutePath=&quot;</span> + absolutePath);   <span class="comment">// absolutePath=E:\workspace_java\simple-spring\out\production\simple-spring\cn\xsyu\service\MyConfig.class</span></span><br><span class="line">		</span><br><span class="line">        <span class="keyword">if</span> (absolutePath.endsWith(<span class="string">&quot;.class&quot;</span>))&#123; <span class="comment">// 筛选出所有的 .class 文件</span></span><br><span class="line">            <span class="comment">// TODO 判断当前 .class 文件是否是一个 Bean</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123; <span class="comment">// file 是文件的情况</span></span><br><span class="line">	<span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在筛选得到了所有的 <code>.class</code> 文件后，我们就能为其创建 Bean 实例了吗？还是不能。因为我们只能将标注了 @Component 注解的类实例化到容器中，所以我们还需要继续筛选。</p>
+<p>筛选的思路是：</p>
+<ul>
+<li>  （1）判断这个类上是否标注了 “@Component” 注解[ -&gt; 使用反射 -&gt; 如果要使用反射的话，先要拿到 Class 对象]</li>
+<li>  （2）只有标注了 @Component 注解的类，才是一个可被容器管理的 Bean</li>
+</ul>
+<blockquote>
+<p>  在进行逻辑判断前，我们继续来完善一下我们的代码。</p>
+</blockquote>
+<ul>
+<li><p>在 spring 包下创建 Component 注解类：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.spring;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Component &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在 UserService 类上添加 @Component 注解</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component(&quot;userService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>判断 .class 文件是否是一个 Bean 的具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 目标：判断当前 .class 文件是否是一个 Bean</span></span><br><span class="line"><span class="comment">// 思路：判断这个类上是否标注了 “@Component” 注解 -&gt; 使用反射 -&gt; 如果要使用反射的话，先要拿到 Class 对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类加载器入参的格式：类的全限定类名，如 cn.xsyu.service.UserService。</span></span><br><span class="line"><span class="comment">// 所以我们首先要将上面得到的 absolutePath 转为全限定类名。如 cn.xsyu.service.UserService</span></span><br><span class="line"><span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> absolutePath.substring(absolutePath.indexOf(<span class="string">&quot;cn&quot;</span>), absolutePath.indexOf(<span class="string">&quot;.class&quot;</span>));</span><br><span class="line">className = className.replace(<span class="string">&quot;\\&quot;</span>, <span class="string">&quot;.&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;className：&quot;</span> + className); <span class="comment">// className：cn.xsyu.service.MyConfig</span></span><br><span class="line"><span class="comment">// 根据全限定类名获取 Class 对象</span></span><br><span class="line">Class&lt;?&gt; clazz = classLoader.loadClass(className);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (clazz.isAnnotationPresent(Component.class)) &#123; <span class="comment">// 如果 Class 对象上含有 @Component 注解</span></span><br><span class="line">	<span class="comment">// TODO 未完待续...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>现在，我们已经得到了指定扫描路径下标注了 @Component 注解的类，那接下来是不是就可以直接创建 Bean 实例了呢？还是不行。具体的内容我们将在下一小节详细展开。</p>
+<hr>
+<h1 id="模拟-BeanDefinition-的生成"><a href="#模拟-BeanDefinition-的生成" class="headerlink" title="模拟 BeanDefinition 的生成"></a>模拟 BeanDefinition 的生成</h1><p>在上一小节中，我们已经得到了扫描路径，并获取到了该路径下所有标注了 @Component 注解的类，那为什么不能直接根据这些类创建实例 Bean 并加入容器呢？</p>
+<p>因为 Spring 容器中，不同类型的 Bean 的生命周期是不一样的，对于单例 Bean 来说，它的生命周期和整个工程的生命周期相同，对于原型 Bean 来说，它的生命周期则是不固定的，它在使用时才创建，并且在项目运行期间如果满足 GC 条件会被定期清除。所以，这里就涉及到了一个延迟加载的问题。</p>
+<p>并且，Spring 容器为我们提供了 getBean 方法，通过 beanName 获取 bean 实例。如果在 getBean 方法中，每次都根据 beanName 去调用 MyApplicationContext 的构造方法，在构造方法中判断是单例还是多例，这种情况每次都需要执行根据 beanName 字符串解析 Class 对象，再判断 Class 对象是否含有 Scope 注解，注解中的值是单例还是多例的过程。显然，会拖慢程序的性能。</p>
+<p>为了解决这个问题，Spring 官方提供的解决思路就是：在容器初始化时，虽然不会根据扫描到的 Class 对象创建实例 Bean，但是会创建一个对象用于保存这些 Class 对象的关键信息。这个对象就是 BeanDefinitionMap，Map 中的每个元素是 <code>&lt;beanName, beanDefinition&gt;</code> 这样格式的对象，beanDefinition 实例中保存了当前 bean 的一些关键信息。</p>
+<p>根据这样的数据结构，在调用 getBean 方法时，我们就可以很容易的判断 beanName 对应的 bean 实例是一个单例对象还是原型对象。如果是单例对象，就可以先从某一缓冲池中去拿，拿不到再去创建；如果是多例对象，直接创建即可。</p>
+<p>也就是说，为了满足延迟加载和其它的一些特殊需求，当扫描到一个类上标注了 @Component 注解时，只能确定开发人员在这里定义了一个 Bean，但并不会立即根据反射为其创建 bean 实例，只是根据反射将 Class 中的一些信息保存到了 BeanDefinition 对象中，将真正创建 Bean 的时机延后了。</p>
+<p>至于 Bean 何时创建，如何创建，这些相关的关键信息都会保存到 BeanDefinition 中，在真正创建 Bean 实力时只需要读取 BeanDefinition 即可获取到关键信息。</p>
+<p>所以在这里，我们只需要为每一个 Class 对象创建一个 BeanDefinition 实例即可。当然，对于每一个 BeanDefinition 对象，我们需要将它与对应的 beanName 对应起来并保存在内存中，以供后续使用，所以我们还需要在 MyApplicationContext 类中新添加一个成员变量 beanDefinitionMap。</p>
+<p>相关代码如下：</p>
+<ul>
+<li><p>为了区分单例、多例对象，我们首先需要新增一个 Scope 注解。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.spring;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Scope &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>  在 UserService 类上添加 @Scope(“prototype”) 注解，表明这是一个原型对象</p>
+</li>
+<li><p>  在 MyConfig 类上添加 @Scope(“singleton”) 注解，表明这是一个单例对象</p>
+</li>
+<li><p>在 spring 包下创建一个 BeanDefinition 对象</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xsyu.spring;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> lnd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/4/10 10:31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  对 Bean 的描述，比如：</span></span><br><span class="line"><span class="comment"> *      * 当前 Bean 的类型是什么？</span></span><br><span class="line"><span class="comment"> *      * 当前 Bean 是一个单例对象还是多例对象？</span></span><br><span class="line"><span class="comment"> *      * ......</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanDefinition</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class type;</span><br><span class="line">    <span class="keyword">private</span> String scope;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class <span class="title function_">getType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setType</span><span class="params">(Class type)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getScope</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> scope;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setScope</span><span class="params">(String scope)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.scope = scope;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>完善 MyApplicationContext 的构造方法</p>
+<ul>
+<li>  新增一个成员变量 beanDefinitionMap 用于保存所有的 BeanDefinition 信息</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ConcurrentHashMap&lt;String, BeanDefinition&gt; beanDefinitionMap = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyApplicationContext</span><span class="params">(Class configClass)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">    <span class="keyword">if</span> (clazz.isAnnotationPresent(Component.class)) &#123; <span class="comment">// 如果 Class 对象上含有 @Component 注解</span></span><br><span class="line">        <span class="comment">// 创建 BeanDefinition 实例</span></span><br><span class="line">        <span class="type">BeanDefinition</span> <span class="variable">beanDefinition</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanDefinition</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 beanDefinition 的 type 属性</span></span><br><span class="line">        beanDefinition.setType(clazz);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 beanDefinition 的 scope 属性</span></span><br><span class="line">        <span class="keyword">if</span> (clazz.isAnnotationPresent(Scope.class)) &#123;</span><br><span class="line">            <span class="type">Scope</span> <span class="variable">myScopeAnnotation</span> <span class="operator">=</span> clazz.getAnnotation(Scope.class);</span><br><span class="line">            beanDefinition.setScope(myScopeAnnotation.value());</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            beanDefinition.setScope(<span class="string">&quot;singleton&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将 &lt;beanName，beanDefinition&gt; 加入 beanDefinitionMap</span></span><br><span class="line">        <span class="type">Component</span> <span class="variable">componentAnnotation</span> <span class="operator">=</span> clazz.getAnnotation(Component.class);</span><br><span class="line">        <span class="type">String</span> <span class="variable">beanName</span> <span class="operator">=</span> componentAnnotation.value();</span><br><span class="line">        <span class="built_in">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1441,886 +2323,6 @@
 </blockquote>
 <p><strong>考点：delete，max，min，in</strong></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/01/Spring-Bean%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/01/Spring-Bean%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Spring-Bean基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-04-01 10:53:04" itemprop="dateCreated datePublished" datetime="2022-04-01T10:53:04+08:00">2022-04-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-03 10:31:24" itemprop="dateModified" datetime="2022-04-03T10:31:24+08:00">2022-04-03</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ul>
-<li>  BeanDefinition 元信息</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">属性</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Class</td>
-<td align="left">Bean 全限定类名。必须是具体类，不能用抽象类或接口</td>
-</tr>
-<tr>
-<td align="left">Name</td>
-<td align="left">Bean 的名称或者 ID</td>
-</tr>
-<tr>
-<td align="left">Scope</td>
-<td align="left">Bean 的作用域（如：singleton、prototype 等）</td>
-</tr>
-<tr>
-<td align="left">Constructor arguments</td>
-<td align="left">Bean 构造器参数（用于依赖注入）</td>
-</tr>
-<tr>
-<td align="left">Properties</td>
-<td align="left">Bean 属性设置（用于依赖注入）</td>
-</tr>
-<tr>
-<td align="left">Autowiring mode</td>
-<td align="left">Bean 自动绑定模式（如：通过名称 byName）</td>
-</tr>
-<tr>
-<td align="left">Lazy initialization mode</td>
-<td align="left">Bean 延迟初始化模式（延迟和非延迟）</td>
-</tr>
-<tr>
-<td align="left">Initialization method</td>
-<td align="left">Bean 初始化回调方法名称</td>
-</tr>
-<tr>
-<td align="left">Destruction method</td>
-<td align="left">Bean 销毁回调方法名称</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>BeanDefinition 构建</p>
-<ul>
-<li>  通过 BeanDefinitionBuilder</li>
-<li>通过 AbstractBeanDefinition 以及派生类</li>
-</ul>
-</li>
-</ul>
-<p><img src="/2022/04/01/Spring-Bean%E5%9F%BA%E7%A1%80/image-20220401112054138.png" alt="image-20220401112054138"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">Spring-IoC容器概述</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-03-30 16:46:26" itemprop="dateCreated datePublished" datetime="2022-03-30T16:46:26+08:00">2022-03-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-01 10:53:36" itemprop="dateModified" datetime="2022-04-01T10:53:36+08:00">2022-04-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Spring/IoC/" itemprop="url" rel="index"><span itemprop="name">IoC</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><p>本篇文章的内容是关于 Spring IoC 的一个整体的概述，主要通过一些具体的例子来展示 Spring IoC 是怎样使用的。至于更底层、更详细的诸如源码分析等内容，之后将会在更加细微的章节展开说明。</p>
-<p>那么本篇文章要将的大致内容如下，你可以先快速浏览一下：</p>
-<blockquote>
-<ol>
-<li> Spring IoC 依赖查找</li>
-<li> Spring IoC 依赖注入</li>
-<li> Spring IoC 依赖来源</li>
-<li> Spring IoC 配置元信息</li>
-<li> Spring 应用上下文</li>
-<li> 使用 Spring IoC 容器</li>
-<li> Spring IoC 容器声明周期</li>
-<li> 面试题精选</li>
-</ol>
-</blockquote>
-<p>我们可以对上面罗列出来的这些内容先进行一下简单的分类。</p>
-<p>首先，我们可以把 IoC 分为依赖、配置、和容器三部分。其中，依赖又可细分为 依赖查找、依赖注入、依赖来源、配置元信息管理 四部分。</p>
-<p>其次，我们要学习 Spring 应用上下文是什么，Spring 容器是什么，以及具体使用时如何在这二者间进行取舍，到底谁才是真正的底层 IoC 容器，谁才是面向程序的 IoC 容器。</p>
-<p>最后呢，我们会分析一下 Spring IoC 里面一些核心对象的基本的生命周期。为后续文章进行源码分析奠定一个基础。</p>
-<h1 id="Spring-IoC-依赖查找"><a href="#Spring-IoC-依赖查找" class="headerlink" title="Spring IoC 依赖查找"></a>Spring IoC 依赖查找</h1><blockquote>
-<p>  开篇词：依赖注入还不够吗？依赖查找的价值到底在哪儿？</p>
-</blockquote>
-<p>我们知道，Spring 中 IoC 的主要实现方式有两种：依赖注入和依赖查找。</p>
-<p>其中，依赖查找的主要实现方式有以下这些：</p>
-<ul>
-<li>根据 Bean 名称查找<ul>
-<li>  实时查找</li>
-<li>  延迟查找</li>
-</ul>
-</li>
-<li>根据 Bean 类型查找<ul>
-<li>  单个 Bean 对象</li>
-<li>  多个 Bean 对象（集合）</li>
-</ul>
-</li>
-<li>  根据 <code>Bean名称+类型</code> 查找</li>
-<li>根据 Java 注解查找<ul>
-<li>  单个 Bean 对象</li>
-<li>  多个 Bean 对象（集合）</li>
-</ul>
-</li>
-</ul>
-<p>我们可以试着猜想一下为什么要这样分类，熟悉 Spring 的小伙伴一定知道，在 Spring 上下文中，Bean 的名称是唯一的，这里的名称我们可以理解为 “id”，在下文中如无特别说明，一律可以将名称视为“id”。</p>
-<p>显然，由于 Bean 的名称是唯一的，所以 “根据 Bean 名称” 和 “根据 Bean名称+类型” 进行依赖查找得到的一定是单个实例，那么就没有必要采用集合的实现方式。</p>
-<p>同理可得，“根据 Bean 类型” 或者 “根据 Java 注解” 进行的依赖查找，在一个上下文中，一个 Bean 类型对应的实例可能有多个，一个 Java 注解也可以用在多个类上，所以这两种依赖查找的方式又可分为找到一个 Bean 和找到多个 Bean 两种。</p>
-<p>接下来，我将对这些依赖查找的实现方式进行逐一展示。</p>
-<h2 id="1、根据-Bean-名称查找"><a href="#1、根据-Bean-名称查找" class="headerlink" title="1、根据 Bean 名称查找"></a>1、根据 Bean 名称查找</h2><p>通过 Bean 的名称进行依赖查找在 Spring 中被称为一种“鉴定”。</p>
-<p>虽然名称在一个上下文中必须是唯一的，但这时候又会涉及到另一个问题，那就是：一个 Spring 应用里只有一个上下文吗？答案是否定的！对于一个 Spring 应用中包含多个上下文的情况，我们暂不讨论。我们先来看一下单个上下文环境中，通过 Bean 名称查找的依赖查找方式。</p>
-<p>首先，对于“根据名称查找”，我们有两种方式，一种方式叫实时查找————即马上查找，马上索得。另外一种方式是延迟查找。</p>
-<p>如果你有一定的 Spring 基础，那么你一定知道在 Spring 里有一个“延迟加载的 Bean”，那和这个东西是不是一码事呢？答案是否定的。这里讲的延迟查找是通过另外一种途径方式去实现的。 </p>
-<p>那么，接下来，我们就通过具体的代码演示，来看看这两种依赖查找的实现方式。</p>
-<h3 id="1-1、实时查找"><a href="#1-1、实时查找" class="headerlink" title="1.1、实时查找"></a>1.1、实时查找</h3><p>在正式编写核心代码前，我们要先进行一些准备工作，这些工作包括：</p>
-<ol>
-<li><p>创建一个 Maven 工程，并引入相关的依赖。由于我们目前只想使用依赖查找相关的功能，所以只需引入 Spring IoC 的核心依赖 <code>spring-context</code> 即可。</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring IoC 核心依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>一般来讲，我们最常见的 IoC 容器的实现方式是通过加载 XML 文件，所以我们需要创建一个 XML 文件用于保存容器对象的元信息，并引入相关的约束（约束的格式可直接从 Spring 官网复制）。</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>&gt;</span>  </span><br><span class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- more bean definitions go here --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>创建一些实体类用于后续的测试。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 省略 getter/setter/toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>接下来，我们正式进入核心代码的编写。</p>
-<ol>
-<li><p> 首先创建一个类 DependencyLookupDemo 用于编写依赖查找相关的代码。</p>
-</li>
-<li><p>在 XML 文件中配置 User 对象的属性。</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;章鱼哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>在 DependencyLookupDemo 中创建上下文，并加载指定配置文件。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DependencyLookupDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 配置 XML 配置文件</span></span><br><span class="line">        <span class="comment">// 启动 Spring 应用上下文</span></span><br><span class="line">        <span class="type">BeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;META-INF/dependency-lookup-context.xml&quot;</span>);</span><br><span class="line">        <span class="comment">// 实时查找</span></span><br><span class="line">        lookupInRealTime(beanFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>接下来就可以根据 XML 文件中配置的 user 的名称来查找它的实例对象了。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupInRealTime</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User) beanFactory.getBean(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;根据id查找 - 实时查找：&quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据id查找 - 实时查找：User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>我们来看一下上面这两行代码，你会发现 getBean() 方法返回的对象是一个 Object 类型，而不是 User 类型。</p>
-<p>所以，很多早期的书中都会通过上面这种形式将 Object 强转为 User 类型。这是因为 Spring3 之前使用的是 JDK5，JDK5 是不支持泛型的，所以我们只能使用这种强制转型的方式。</p>
-<h3 id="1-2、延迟查找"><a href="#1-2、延迟查找" class="headerlink" title="1.2、延迟查找"></a>1.2、延迟查找</h3><p>接下来我们继续来看“延迟查找”，同样在按名称查找的条件下，延迟查找会用到另外一个类————ObjectFactory。</p>
-<p>提起 ObjectFactory，这就涉及到了另外一个常见的面试题：Spring 中，ObjectFactory、BeanFactory 和 FactoryBean 之间的区别和联系？当然这个问题不是今天的重点，我们暂且不谈，先回到本节内容。</p>
-<p>ObjectFactory 是一个接口，从字面意思上理解，它是一个工厂类（接口）。从作用上来讲，ObjectFactory 接口中只有一个方法 getObject()，它的作用是“Return an instance of the object managed by this factory（返回一个工厂管理的对象实例。）”。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ObjectFactory</span>&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return an instance (possibly shared or independent)</span></span><br><span class="line"><span class="comment">	 * of the object managed by this factory.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the resulting instance</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> BeansException in case of creation errors</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	T <span class="title function_">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不知道你有没有发现，这个接口中只是声明了返回一个对象实例，但压根没有说返回哪一个实例。也就是说这个接口其实啥也没说。</p>
-<p>所以说，该接口的实现类重写该方法后，可以是“根据名称返回对象实例”，也可以是“根据类型返回对象实例”，这是不固定的，只要返回的是一个对象实例即可。</p>
-<p>实际上，我们要讲的“延迟加载”就是通过实现 ObjectFactory 接口，重写 getObject() 方法实现“根据名称获取对象”的。</p>
-<p>当然，这和我们传统的 CRUD 业务开发中使用的接口习惯有点不一样。我们在业务开发中，一般会在接口中的抽象方法上声明入参，但不声明业务逻辑。而我们可以看到 ObjectFactory 接口中的 getObject() 方法，它既没有声明入参，也没有声明业务逻辑。</p>
-<p>实现“延迟加载”真正业务逻辑的类是 ObjectFactory 接口的一个实现类————ObjectFactoryCreatingFactoryBean。</p>
-<p>我们可以看到，在该实现类中重写了 getObject() 方法，实现了“根据名称获取对象”的功能，但其实底层真正执行的还是 <code>beanFactory.getBean(this.targetBeanName)</code>，即通过 targetBeanName 属性来获得 bean。和上面的“根据 Bean 名称实时查找”没有什么两样，而 targetBeanName 我们也可以在 XML 中通过 ObjectFactoryCreatingFactoryBean 的属性配置。所以说“延迟查找”和“实时查找”相比，只是多了一个中间商（但它不赚差价）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectFactoryCreatingFactoryBean</span> <span class="keyword">extends</span> <span class="title class_">AbstractFactoryBean</span>&lt;ObjectFactory&lt;Object&gt;&gt; &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> String targetBeanName;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TargetBeanObjectFactory</span> <span class="keyword">implements</span> <span class="title class_">ObjectFactory</span>&lt;Object&gt;, Serializable &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> BeanFactory beanFactory;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> String targetBeanName;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">TargetBeanObjectFactory</span><span class="params">(BeanFactory beanFactory, String targetBeanName)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.beanFactory = beanFactory;</span><br><span class="line">			<span class="built_in">this</span>.targetBeanName = targetBeanName;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="keyword">public</span> Object <span class="title function_">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">this</span>.beanFactory.getBean(<span class="built_in">this</span>.targetBeanName); <span class="comment">// 与我们通过自定义的 BeanFactory 获取对象没有两样</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们就通过代码来实现一下 ObjectFactory 的延迟加载。</p>
-<ul>
-<li>  首先，我们需要把 ObjectFactory 的实现类 ObjectFactoryCreatingFactoryBean 配置到XML文件中；</li>
-<li>  其次，我们还要设置实现类的 targetBeanName 属性，让其与 user 关联（最终形成 <code>targetBeanName -&gt; user -&gt; ioc.overview.domain.User</code> 的三级关联关系，当然你可以略过中间的关联，只看头和尾即可）。</li>
-<li>  这样，我们在代码中就可以直接使用 ObjectFactory 的 getObject() 方法获取对象了。</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;章鱼哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;objectFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;targetBeanName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;user&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupInLazy</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    ObjectFactory&lt;User&gt; objectFactory = (ObjectFactory&lt;User&gt;) beanFactory.getBean(<span class="string">&quot;objectFactory&quot;</span>);</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> objectFactory.getObject();</span><br><span class="line">    System.out.println(<span class="string">&quot;根据id查找 - 延迟查找：&quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据id查找 - 延迟查找：User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>其实，所谓的延迟加载并不神奇，就是多了一个中转站，让 objectFactory 去调用 beanFactory 来加载 bean，而不是直接使用 beanFactory 去加载 bean。</p>
-<p>也就是说，当我得到 objectFactory 的时候，并不会马上初始化 “user” 这个 bean，只有在调用 objectFactory.getObject() 方法的时候，才会去调用 beanFactory 真正地加载 “user” 对应的 bean。</p>
-<p>【TODO】老实说，目前我还并没有真正理解这个 ObjectFactory 的在实际应用中的意义在哪里，保持学习，继续研究。</p>
-<h2 id="2、根据-Bean-类型查找"><a href="#2、根据-Bean-类型查找" class="headerlink" title="2、根据 Bean 类型查找"></a>2、根据 Bean 类型查找</h2><p>依赖查找的第二种类型就是通过 Bean 的类型来查找 Bean 对象，既然是根据类型查找，那我们理所应当地应该想到：可能只找到一个对象，也可能找到了多个对象。</p>
-<p>对于只找到一个对象，我们直接用对象本身的类型来接收即可，但对于找到了多个对象，如果还采用这种方式的话，显然程序会出错。因为我们不能用单个对象的数据类型来保存多个对象。举个例子就是，如果容器中 User 类对应的实例只有一个，那么可以直接用 User user 这种方式来保存；但如果容器中 User 类对应的实例存在多个，那前面那种保存方式显然就不适合了。对于这种情况，Spring 提供了三种解决方案：</p>
-<ul>
-<li><p>  （1）我们可以通过集合类型，比如 <code>List&lt;User&gt; users</code> 这样的方式来接收。</p>
-</li>
-<li><p>  （2）我们还可以通过增加筛选条件，比如，在根据 Bean 类型查找的基础上，再进行一轮筛选，根据 Bean 名称继续筛选。这样，得到的实例就能保证一定只有一个，我们还可以按照 User user 的方式来接收。</p>
-</li>
-<li><p>（3）第三种就是，在 XML 中的 <code>&lt;bean&gt;</code> 标签中，设置属性 <code>primary=&quot;true&quot;</code>。比如，在 XML 配置了三个 User 类的实例，user1，user2，user3，我们可以选择其中一个（如 user2），为其加上 <code>primary=&quot;true&quot;</code> 这个属性，那么 Spring 在查找到容器中包含多个同样类型的 User 对象后，只会返回 user2 对象，</p>
-  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;章鱼哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span> <span class="attr">primary</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;痞老板&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user3&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;派大星&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>对于按照类型查找，我们可以通过 BeanFactory 中 getBean() 的重载方法来实现按类型查找实例。对于其中那些包含泛型的方法，它们都应该是从 Spring3.0 之后才开始投入使用的，因为 Spring3.0 支持 JDK5 版本，而 JDK5 开始才支持使用泛型。</p>
-<img src="/2022/03/30/Spring-IoC%E5%AE%B9%E5%99%A8%E6%A6%82%E8%BF%B0/image-20220330201508443.png" alt="image-20220330201508443" style="zoom:67%;">
-
-
-
-
-
-<h3 id="2-1、根据类型查找单个对象"><a href="#2-1、根据类型查找单个对象" class="headerlink" title="2.1、根据类型查找单个对象"></a>2.1、根据类型查找单个对象</h3><p>根据类型查找单个对象的使用方式非常简单，代码如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupByType</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> beanFactory.getBean(User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;根据类型查找 - 实时查找：&quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据类型查找 - 实时查找：User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
-
-<p>但是根据类型查找有个缺点就是：上下文中某个类型的对象可能不只一个，如果使用按照类型查找，且使用的是按照类型查找单个对象的方法，就会导致程序无法识别而报错。具体的我们可以试一下。</p>
-<ol>
-<li><p>我们首先在 XML 文件中新配置一个对象 user2。</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;痞老板&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p> 然后重新调用 lookupByType 方法，就会出现如下报错信息：<code>No qualifying bean of type &#39;ioc.overview.domain.User&#39; available: expected single matching bean but found 2: user,user2</code></p>
-</li>
-</ol>
-<p>也就是说，如果上下文中同一类型的对象有多个，就只能使用下面要讲的，根据类型查找多个对象的方法。或者通过 类型+名称 这样的双重筛选方式达到最终返回的结果只有一个的效果。</p>
-<h3 id="2-2、根据类型查找多个对象"><a href="#2-2、根据类型查找多个对象" class="headerlink" title="2.2、根据类型查找多个对象"></a>2.2、根据类型查找多个对象</h3><p>使用“根据类型查找多个对象”时，首先需要将 beanFactory 转换为 ListableBeanFactory 类型，之后再使用 ListableBeanFactory 中的 getBeansOfType() 方法获取多个对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupCollectionByType</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ListableBeanFactory)&#123;</span><br><span class="line">        <span class="type">ListableBeanFactory</span> <span class="variable">listableBeanFactory</span> <span class="operator">=</span> (ListableBeanFactory) beanFactory;</span><br><span class="line">        Map&lt;String, User&gt; users = listableBeanFactory.getBeansOfType(User.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;查到的所有的 User 集合对象：&quot;</span> + users);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">查到的所有的 User 对象：&#123;user=User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;, user2=User&#123;id=2, name=&#x27;痞老板&#x27;&#125;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
-
-<p>我们可以看到，多个对象以双列集合的形式保存，key 即为 bean 的名称，value 是实例对象的内容。</p>
-<h2 id="3、根据-Bean名称-类型-查找"><a href="#3、根据-Bean名称-类型-查找" class="headerlink" title="3、根据 Bean名称+类型 查找"></a>3、根据 Bean名称+类型 查找</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupByTypeAndId</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user2</span> <span class="operator">=</span> beanFactory.getBean(<span class="string">&quot;user2&quot;</span>, User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;根据`类型+名称`查找 - 实时查找：&quot;</span> + user2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">根据`类型+名称`查找 - 实时查找：User&#123;id=2, name=&#x27;痞老板&#x27;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="4、根据-Java-注解查找"><a href="#4、根据-Java-注解查找" class="headerlink" title="4、根据 Java 注解查找"></a>4、根据 Java 注解查找</h2><p>最后一种方式是“通过 Java 注解的方式来查找实例对象”，比如说，你的某些类上标了注解，这时候我们通过注解的方式来进行依赖查询，就可以将包含找到所有包含注解的实例对象。</p>
-<p>当然，查找到的实例对象也分为单个和多个两种，单个直接用对象的类型接收，多个 Bean 用 <code>Collection&lt;T&gt;</code> 类型接收。</p>
-<p>我们直接来看代码。</p>
-<p>首先，我们新增一个 SpuerUser 类继承自 User 类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Super</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperUser</span> <span class="keyword">extends</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">	<span class="comment">// 省略 getter/setter/toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>本质上讲，User 和 SuperUser 都是用户，为了增加它们之间区分度，我们来编写一个 Annotation 注解对 SuperUser 进行声明。<code>@Super</code> 注解的内容如下。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span> <span class="comment">// 注解的标注范围</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span> <span class="comment">// 运行时生效</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Super &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后，在 SuperUser 类上声明 <code>@Super</code> 注解。此时，代码中标准的 User 类没有注解，SuperUser 类含有一个  <code>@Super</code> 注解。</p>
-<p>这时我们再在 XML 文件中添加一个 SuperUser 的 bean，并设置继承 user 的信息。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;superuser&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ioc.overview.domain.SuperUser&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;user&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;address&quot;</span> <span class="attr">value</span>=<span class="string">&quot;比奇堡&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>现在我们再执行以下代码，发现输出结果中只包含标有 <code>@Super</code> 注解的 Bean 对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lookupByAnnotationType</span><span class="params">(BeanFactory beanFactory)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ListableBeanFactory)&#123;</span><br><span class="line">        <span class="type">ListableBeanFactory</span> <span class="variable">listableBeanFactory</span> <span class="operator">=</span> (ListableBeanFactory) beanFactory;</span><br><span class="line">        Map&lt;String, Object&gt; users = listableBeanFactory.getBeansWithAnnotation(Super.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;查找标注 @Super 注解的所有 User 对象：&quot;</span> + users);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 执行以上代码，输出结果为：</span></span><br><span class="line"><span class="comment">--------------------------------------</span></span><br><span class="line"><span class="comment">查找标注 @Super 注解的所有 User 对象：&#123;superuser=SuperUser&#123;address=&#x27;比奇堡&#x27;&#125; User&#123;id=1, name=&#x27;章鱼哥&#x27;&#125;&#125;</span></span><br><span class="line"><span class="comment">----------------------------------- */</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-<hr>
-<h1 id="Spring-IoC-依赖注入"><a href="#Spring-IoC-依赖注入" class="headerlink" title="Spring IoC 依赖注入"></a>Spring IoC 依赖注入</h1><h2 id="大纲-1"><a href="#大纲-1" class="headerlink" title="大纲"></a>大纲</h2><blockquote>
-<ol>
-<li> 根据 Bean 名称注入</li>
-<li>根据 Bean 类型注入<ul>
-<li>  2.1 单个 Bean 对象</li>
-<li>  2.2 多个 Bean 对象（集合）</li>
-</ul>
-</li>
-<li> 注入容器内建 Bean 对象</li>
-<li> 注入非 Bean 对象</li>
-<li>注入类型<ul>
-<li>  5.1、实时注入</li>
-<li>  5.2、延迟注入</li>
-</ul>
-</li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException &#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>.startupShutdownMonitor) &#123; <span class="comment">// 加锁</span></span><br><span class="line">        <span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">        prepareRefresh(); <span class="comment">// 启动前的准备工作</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">        <span class="type">ConfigurableListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> obtainFreshBeanFactory(); <span class="comment">// 得到 beanFactory 实例</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">        prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">            postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">            invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">            registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize message source for this context.</span></span><br><span class="line">            initMessageSource();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">            initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">            onRefresh();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">            registerListeners();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">            finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">            finishRefresh();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">            <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line">                            <span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">            destroyBeans();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line">            cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Propagate exception to caller.</span></span><br><span class="line">            <span class="keyword">throw</span> ex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line">            <span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">            resetCommonCaches();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" class="post-title-link" itemprop="url">Vue组件化开发</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-03-24 20:45:27" itemprop="dateCreated datePublished" datetime="2022-03-24T20:45:27+08:00">2022-03-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-03-25 13:52:30" itemprop="dateModified" datetime="2022-03-25T13:52:30+08:00">2022-03-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>  前置知识链接：</p>
-</blockquote>
-<p>在大型应用开发的时候，页面需要划分成很多部分。往往不同的页面，也会有相同的部分。例如可能会有相同的头部导航。</p>
-<p>组件化就是把页面中可以复用的部分抽取成成独立的组件，然后在不同的地方<strong>复用</strong>这些组件，减少了开发成本！</p>
-<p>其实 Vue 应用就是一个组件，这也是它被称为 SPA 的由来，只不过这个组件底下又有很多层很多个子组件。</p>
-<p>组件本质上也是一个 Vue 实例，因此它在创建时也需要定义 data、methods、生命周期函数等。</p>
-<p>不同的是组件不会与某个页面的元素绑定，否则就无法复用了，因此没有 el 属性。</p>
-<p>但是组件又是一个页面的一部分，即组件也是由静态 HTML 和 Vue 实例共同组成的，所以增加了 template 属性，它的值就是一段 HTML 代码。</p>
-<h2 id="1-全局组件"><a href="#1-全局组件" class="headerlink" title="1 全局组件"></a>1 全局组件</h2><p>全局组件是一个创建后可悲任何 vue 实例都直接调用的组件。它是通过 <code>Vue.component()</code> 方法创建的。具体代码如下：</p>
-<ul>
-<li>  <strong>在组件中，data 必须是一个函数，不再是一个对象。</strong></li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用定义好的全局组件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../node_modules/vue/dist/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 定义一个全局组件。两个参数：1，组件名称。2，组件参数</span></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;aaa&quot;</span>,&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>:<span class="string">&#x27;&lt;button v-on:click=&quot;bbb++&quot;&gt;你点了我 &#123;&#123; bbb &#125;&#125; 次，我记住了.&lt;/button&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">data</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span>&#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">bbb</span>: <span class="number">0</span></span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>效果：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/60.gif"></p>
-<h2 id="2-组件的复用"><a href="#2-组件的复用" class="headerlink" title="2 组件的复用"></a>2 组件的复用</h2><p>定义好的组件，可以任意复用多次：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--复用定义好的全局组件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>效果：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530084943778.png" alt="1530084943778"></p>
-<p>你会发现每个组件互不干扰，都有自己的 bbb 值。这是怎么实现的呢？</p>
-<p>答案就是：<strong>组件的data属性必须是函数</strong>。</p>
-<p>当我们定义这个 <code>&lt;aaa&gt;</code> 组件时，它的 data 并不是像这样直接提供一个对象：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">data</span>: &#123;</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>取而代之的是，一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">data</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果 Vue 没有这条规则，点击一个按钮就会影响到其它所有实例！</p>
-<hr>
-<h2 id="3-局部注册"><a href="#3-局部注册" class="headerlink" title="3 局部注册"></a>3 局部注册</h2><p>一旦全局注册，就意味着即便以后你不再使用这个组件，它依然会随着Vue的加载而加载。</p>
-<p>因此，对于一些并不频繁使用的组件，我们会采用局部注册。</p>
-<p>我们先在外部定义一个对象，结构与创建组件时传递的第二个参数一致：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">&#x27;&lt;button v-on:click=&quot;count++&quot;&gt;你点了我 &#123;&#123; count &#125;&#125; 次，我记住了.&lt;/button&gt;&#x27;</span>,</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">count</span>:<span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>然后在Vue中使用它：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        <span class="attr">counter</span>:counter <span class="comment">// 将定义的对象注册为组件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>components 就是当前 vue 对象导入的组件集合。<ul>
-<li>其key就是子组件名称</li>
-<li>其值就是组件对象的属性</li>
-</ul>
-</li>
-<li>效果与刚才的全局注册是类似的，不同的是，这个counter组件只能在当前的Vue实例中使用</li>
-</ul>
-<hr>
-<h2 id="4-组件通信"><a href="#4-组件通信" class="headerlink" title="4 组件通信"></a>4 组件通信</h2><p>通常一个单页应用会以一棵嵌套的组件树的形式来组织：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1525855149491.png" alt="1525855149491"></p>
-<ul>
-<li>页面首先分成了顶部导航、左侧内容区、右侧边栏三部分</li>
-<li>左侧内容区又分为上下两个组件</li>
-<li>右侧边栏中又包含了3个子组件</li>
-</ul>
-<p>各个组件之间以嵌套的关系组合在一起，那么这个时候不可避免的会有组件间通信的需求。</p>
-<h3 id="4-1-props（父向子传递）"><a href="#4-1-props（父向子传递）" class="headerlink" title="4.1 props（父向子传递）"></a>4.1 props（父向子传递）</h3><ol>
-<li>父组件使用子组件时，自定义属性（属性名任意，属性值为要传递的数据）</li>
-<li>子组件通过props接收父组件属性</li>
-</ol>
-<p>父组件使用子组件，并自定义了title属性：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>打个招呼：<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用子组件，同时传递title属性--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">introduce</span> <span class="attr">title</span>=<span class="string">&quot;大家好，我是锋哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./node_modules/vue/dist/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;introduce&quot;</span>,&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 直接使用props接收到的属性来渲染页面</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>:<span class="string">&#x27;&lt;h1&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">props</span>:[<span class="string">&#x27;title&#x27;</span>] <span class="comment">// 通过props来接收一个父组件传递的属性</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>效果：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530093525973.png" alt="1530093525973"></p>
-<h3 id="4-2-props验证"><a href="#4-2-props验证" class="headerlink" title="4.2.props验证"></a>4.2.props验证</h3><p>我们定义一个子组件，并接受复杂数据：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myList = &#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;\</span></span><br><span class="line"><span class="string">    &lt;ul&gt;\</span></span><br><span class="line"><span class="string">    	&lt;li v-for=&quot;item in items&quot; :key=&quot;item.id&quot;&gt;&#123;&#123;item.id&#125;&#125; : &#123;&#123;item.name&#125;&#125;&lt;/li&gt;\</span></span><br><span class="line"><span class="string">    &lt;/ul&gt;\</span></span><br><span class="line"><span class="string">    &#x27;</span>,</span><br><span class="line">    <span class="attr">props</span>: &#123;</span><br><span class="line">        <span class="attr">items</span>: &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="title class_">Array</span>,</span><br><span class="line">            <span class="attr">default</span>: [],</span><br><span class="line">            <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这个子组件可以对 items 进行迭代，并输出到页面。</li>
-<li>props：定义需要从父组件中接收的属性<ul>
-<li>items：是要接收的属性名称<ul>
-<li>type：限定父组件传递来的必须是数组</li>
-<li>default：默认值</li>
-<li>required：是否必须</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。</strong> </p>
-<p>我们在父组件中使用它：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>传智播客已开设如下课程：<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用子组件的同时，传递属性，这里使用了v-bind，指向了父组件自己的属性lessons --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">my-list</span> <span class="attr">:items</span>=<span class="string">&quot;lessons&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">components</span>:&#123;</span><br><span class="line">        myList <span class="comment">// 当key和value一样时，可以只写一个</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">lessons</span>:[</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;java&#x27;</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;php&#x27;</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>: <span class="string">&#x27;ios&#x27;</span>&#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>效果：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530107338625.png" alt="1530107338625"></p>
-<p>type类型，可以有：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530108427358.png" alt="1530108427358"></p>
-<h3 id="4-3-动态静态传递"><a href="#4-3-动态静态传递" class="headerlink" title="4.3.动态静态传递"></a>4.3.动态静态传递</h3><p>给 prop 传入一个静态的值： </p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">introduce</span> <span class="attr">title</span>=<span class="string">&quot;大家好，我是锋哥&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>给 prop 传入一个动态的值： （通过v-bind从数据模型中，获取title的值）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">introduce</span> <span class="attr">:title</span>=<span class="string">&quot;title&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>静态传递时，我们传入的值都是字符串类型的，但实际上<strong>任何类型</strong>的值都可以传给一个 props。 </p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 即便 `42` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这是一个JavaScript表达式而不是一个字符串。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:likes</span>=<span class="string">&quot;42&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 用一个变量进行动态赋值。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">v-bind:likes</span>=<span class="string">&quot;post.likes&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4-4-子向父的通信"><a href="#4-4-子向父的通信" class="headerlink" title="4.4.子向父的通信"></a>4.4.子向父的通信</h3><p>来看这样的一个案例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>num: &#123;&#123;num&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--使用子组件的时候，传递num到子组件中--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">counter</span> <span class="attr">:num</span>=<span class="string">&quot;num&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./node_modules/vue/dist/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;counter&quot;</span>, &#123;<span class="comment">// 子组件，定义了两个按钮，点击数字num会加或减</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>:<span class="string">&#x27;\</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">            &lt;div&gt;\</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                &lt;button @click=&quot;num++&quot;&gt;加&lt;/button&gt;  \</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                &lt;button @click=&quot;num--&quot;&gt;减&lt;/button&gt;  \</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">            &lt;/div&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">props</span>:[<span class="string">&#x27;num&#x27;</span>]<span class="comment">// count是从父组件获取的。</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">data</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">num</span>:<span class="number">0</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>子组件接收父组件的num属性</li>
-<li>子组件定义点击按钮，点击后对num进行加或减操作</li>
-</ul>
-<p>我们尝试运行，好像没问题，点击按钮试试：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/1530115066496.png" alt="1525859093172"></p>
-<p>子组件接收到父组件属性后，默认是不允许修改的。怎么办？</p>
-<p>既然只有父组件能修改，那么加和减的操作一定是放在父组件：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">num</span>:<span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">methods</span>:&#123; <span class="comment">// 父组件中定义操作num的方法</span></span><br><span class="line">        <span class="title function_">increment</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">num</span>++;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">decrement</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">num</span>--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>但是，点击按钮是在子组件中，那就是说需要子组件来调用父组件的函数，怎么做？</p>
-<p>我们可以<strong>通过v-on指令将父组件的函数绑定到子组件</strong>上：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>num: &#123;&#123;num&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">counter</span> <span class="attr">:count</span>=<span class="string">&quot;num&quot;</span> @<span class="attr">inc</span>=<span class="string">&quot;increment&quot;</span> @<span class="attr">dec</span>=<span class="string">&quot;decrement&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在子组件中定义函数，函数的具体实现调用父组件的实现，并在子组件中调用这些函数。当子组件中按钮被点击时，调用绑定的函数：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;counter&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">&#x27;\</span></span><br><span class="line"><span class="string">        &lt;div&gt;\</span></span><br><span class="line"><span class="string">            &lt;button @click=&quot;plus&quot;&gt;加&lt;/button&gt;  \</span></span><br><span class="line"><span class="string">            &lt;button @click=&quot;reduce&quot;&gt;减&lt;/button&gt;  \</span></span><br><span class="line"><span class="string">        &lt;/div&gt;&#x27;</span>,</span><br><span class="line">    <span class="attr">props</span>:[<span class="string">&#x27;count&#x27;</span>],</span><br><span class="line">    <span class="attr">methods</span>:&#123;</span><br><span class="line">        <span class="title function_">plus</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.$emit(<span class="string">&quot;inc&quot;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">reduce</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.$emit(<span class="string">&quot;dec&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>vue提供了一个内置的this.$emit()函数，用来调用父组件绑定的函数</li>
-</ul>
-<p>效果：</p>
-<p><img src="/2022/03/24/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/61.gif"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/" class="post-title-link" itemprop="url">检索技术（Part1）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-03-21 19:16:27" itemprop="dateCreated datePublished" datetime="2022-03-21T19:16:27+08:00">2022-03-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-05 14:05:53" itemprop="dateModified" datetime="2022-04-05T14:05:53+08:00">2022-04-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">检索技术</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="01-线性结构检索：从数组和链表的原理初窥检索本质"><a href="#01-线性结构检索：从数组和链表的原理初窥检索本质" class="headerlink" title="01 | 线性结构检索：从数组和链表的原理初窥检索本质"></a>01 | 线性结构检索：从数组和链表的原理初窥检索本质</h1><blockquote>
-<p>  <strong>学习目标</strong>：通过学习数组和链表这样的线性结构的检索过程，举一反三，深入理解检索的概念。</p>
-</blockquote>
-<p>【问题】首先，我们来思考一个问题：什么是检索？</p>
-<p>从字面意义上来讲，<u>检索就是将我们所需要的信息，从存储数据的地方高效取出的一种技术。</u>通过对这句话的简单理解，我们可以大概猜想到：想要提高检索效率，那我们的关注点应该有两个：</p>
-<ol>
-<li> 存储数据的地方</li>
-<li> 取出数据的方式</li>
-</ol>
-<p>实际上也是这样，数据不同的存储方式，会导致不同的检索效率。那么，到底什么样的数据存储方式检索快？什么样的数据存储方式检索慢呢？这其实并无一个标准的答案，因为并没有哪种数据存储方式的检索效率可以在所有使用场景下都具有优势，脱离实际的理论都是空谈，在不同的应用场景中我们要学会取舍，选择当前需求下最合适的存储方式来解决问题。</p>
-<p>今天，我们首先从数组和链表的特点入手，先来看一下它们是如何进行检索的。</p>
-<h2 id="数组和链表有哪些优点？"><a href="#数组和链表有哪些优点？" class="headerlink" title="数组和链表有哪些优点？"></a>数组和链表有哪些优点？</h2><p>相信有一定计算机基础的小伙伴儿对这个问题已不陌生了。数组就是用一块连续的内存来存储数据。那如果我申请不到连续的内存空间怎么办呢？这时候就可以派上用场了。链表可以申请不连续的空间，通过一个指针按顺序将这些空间串起来，形成一条链，链表也正是因此得名。不过，严格意义上来讲，这个叫做单链表。如果没有特别说明，下文我提到的链表，指的都是只有一个后续指针的单链表。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321193427186.png" alt="image-20220321193427186"></p>
-<p>从图片中我们可以看出，<strong>数组和链表代表了连续空间和不连续空间最基础的存储方式，它们是线性表（Linked List）的典型代表。其它所有的数据结构，比如栈、队列、二叉树、B+树等，不外乎都是这两者的结合和变化。</strong>以栈为例，它本质就是一个限制了读写位置的数组，特点是只允许先进后出。</p>
-<p>因此，<strong>我们只需要从最基础的数组和链表入手，结合实际应用中遇到的问题去思考解决方案，就能逐步学习和了解更过的数据结构和检索技术。</strong></p>
-<p>那么，数组和链表这两种线性数据结构的检索效率究竟如何呢？我们来具体看一下。</p>
-<h2 id="如何使用二分查找提升数组的检索效率？"><a href="#如何使用二分查找提升数组的检索效率？" class="headerlink" title="如何使用二分查找提升数组的检索效率？"></a>如何使用二分查找提升数组的检索效率？</h2><p>首先，如果是无序数组的话，不管是数组还是链表，想要查找一个指定元素是否存在，在缺乏数据分布信息的情况下，我们只能从头到尾遍历一遍，才能知道其是否存在。这样的检索效率就是 <code>O(n)</code>。当然，如果数据集不大的话，其实直接遍历速度也很快。但是如果数据集规模比较大的话，我们就需要考虑更高效的检索方式。</p>
-<p>对于大规模的、可排序的数据集，我们往往是先将它通过排序算法转换为有序的数据集，如果数据不可排序，那我们可以先对其建立索引，通过对索引进行排序间接完成数据的有序存储。然后通过一些检索算法，比如二分查找法来完成高效的检索。</p>
-<p>二分查找也叫折半查找，它的思路很直观，就是将有序数组二分为左右两个部分，通过只在半边进行查找来提升检索效率。下面是二分查找的的具体实现步骤：</p>
-<blockquote>
-<p>  我们会先从中间元素查起，这就会有三种查询结果。</p>
-<ol>
-<li>中间元素的值就是我们要查询的值。也就是说直接查到了，那直接返回即可。</li>
-<li>如果中间元素的值小于我们想查询的值，因为数组是有序的，所以我们以中间元素为分隔，左半边的数组元素一定都小于中间元素，也就是小于我们想查询的值。因此，我们想查询的值只可能存在于右半边的数组中。对于右半边的数组，我们还是可以继续使用二分查找的思路，再从它的中间查起，重复上面的过程。这样不停地“二分”下去，每次的检索空间都能减少一半，整体的平均查询效率就是 O(log n)，远远小于遍历整个数组的代价 O(n)。</li>
-<li>同理，如果中间元素的值大于我们想查询的值，那么我们就只在左边的数组元素查找即可。</li>
-</ol>
-</blockquote>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321195720343.png" alt="image-20220321195720343"></p>
-<p>由此可见，合理地组织数据的存储可以提高检索效率。<strong>检索的核心思路，其实就是通过合理组织数据，尽可能地快速减少查询范围。</strong>我们见到的各种检索算法和技术，本质上都是通过灵活应用各种数据结构的特点来组织数据，从而达到快速减少查询范围的目的。</p>
-<h2 id="链表在检索和动态调整上的优缺点"><a href="#链表在检索和动态调整上的优缺点" class="headerlink" title="链表在检索和动态调整上的优缺点"></a>链表在检索和动态调整上的优缺点</h2><p>前面我们说了，数据无序存储的话，数据和链表的检索效率都很低，都需要全盘扫描遍历。如果数据有序的话，采用数组存储数据可以通过二分查找大大提高检索效率。但你有没有发现一个问题，即便数据有序，链表好像也没法儿提高检索效率啊。</p>
-<p>数组的“连续空间存储”带来了数据可随机访问的特点。在有序数组应用二分查找时，它能以 O(1) 的时间代价快速访问到位于中间的值，然后以中间点为分界线，只选择左边或右边继续查找，从而能快速缩小查询范围。</p>
-<p>但是链表并不具备“随机访问”的特点。当链表想要访问中间的元素时，我们必须从链表头开始，沿着链一步一步遍历过去，才能访问到期望的数值。即如果想要访问链表中间的节点，我们就需要遍历一半的节点，时间代价已经是 O(n/2) 了。从这个方面来看，由于少了“随机访问”的特性，链表的检索能力是偏弱的。</p>
-<p>但，凡事都有两面性，<strong>链表的检索能力偏弱，作为弥补，它在动态调整上会更容易</strong>。我们可以以 O(1) 的时间代价完成节点的插入和删除，这是“连续空间”的数组难以做到的。毕竟如果我们要在有序数组中插入一个元素，为了保证“数组有序”，我们就必须将数组中排在这个元素后面的元素，全部顺序后移一位，这其实是一个 O(n) 的时间代价了。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321201525392.png" alt="image-20220321201525392"></p>
-<p>因此，<u>在一些需要频繁插入删除数据的场合，有序数组不见得是最合适的选择。另一方面，在数据量非常大的场合，我们也很难保证能申请到连续空间来构建有序数组。</u>因此，学会高效合理地使用链表，也是非常重要的。</p>
-<h2 id="如何灵活改造链表提升检索效率？"><a href="#如何灵活改造链表提升检索效率？" class="headerlink" title="如何灵活改造链表提升检索效率？"></a>如何灵活改造链表提升检索效率？</h2><p><u><strong>本质上，我们学习链表，就是在学习“非连续存储空间”的组织方案。</strong>我们知道，对于“非连续空间”，可以用指针将它串联成一个整体。只要掌握了这个思想，我们就可以在不同的应用场景中，设计出适用的数据结构，而不需要拘泥于链表自身的结构限制。</u></p>
-<p>我们可以来看一个简单的例子。</p>
-<p>比如说，如果我们觉得链表一个节点一个节点地遍历太慢，那么我们是不是可以对其进行简单改造，让链表的每个节点不再只是存储一个元素，而是存储一个小的数组。这样我们就能大幅减少节点的数量，从而减少依次遍历节点带来的“低寻址效率”。</p>
-<p>如下图所示，我的链表里就只有两个节点，每个节点都存储了一个小的有序数组。这样在检索的时候，我可以用二分查找的思想，先查询第一个节点存储的数组中的末尾元素，看看是否是我们想要的数字。如果不是，我们要么在第一个节点的数组中继续二分查找，要么在第二个节点的数组中继续二分查找。这样的结构就能同时兼顾数组和链表的特点了，而且时间代价也是 O(log n)。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/image-20220321202554930.png" alt="image-20220321202554930"></p>
-<p>可见，尽管常规的链表只能遍历检索，但是只要我们掌握了“非连续存储空间可以灵活调整”的特性，就可以设计更高效的数据结构和检索算法了。</p>
-<hr>
-<h1 id="02-非线性结构检索：数据频繁变化的情况下，如何高效检索？"><a href="#02-非线性结构检索：数据频繁变化的情况下，如何高效检索？" class="headerlink" title="02 | 非线性结构检索：数据频繁变化的情况下，如何高效检索？"></a>02 | 非线性结构检索：数据频繁变化的情况下，如何高效检索？</h1><p>当我们在电脑中查文件的时候，我们一般习惯先打开相应的磁盘，再打开文件夹及子文件夹，最后找到我们需要的文件。这其实就是一个检索路径。如果把所有的文件展开，这个查找路径其实是一种树状结构，即是一种非线性结构，而不是一个所有文件平铺排列的线性结构。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/1859310bd112d5479eac9c097db8b946.jpeg" alt="img"></p>
-<p>我们都知道，<u>有层次的文件组织肯定比散乱平铺的文件更容易找到。这样一个熟悉的场景，是否是能给我们一个启发：对于零散的数据，非线性的树状结构是否可以帮助我们提高检索效率呢？</u></p>
-<p>另一方面，我们也知道，在数据频繁更新的场景中，连续存储的有序数组并不是最合适的存储方案。因为数组为了保持有序必须不停地重建和排序，系统的检索性能就会急剧下滑。但是，非连续存储的有序链表倒是具有高效插入新数据的能力。因此，我们能否结合上面的例子，使用非线性的树状结构来改造有序链表，让链表也具有二分查找的能力呢？并且，如果成功的话，还是一种适用于写多读少场景的二分查找能力。</p>
-<h2 id="树结构是如何进行二分查找的？"><a href="#树结构是如何进行二分查找的？" class="headerlink" title="树结构是如何进行二分查找的？"></a>树结构是如何进行二分查找的？</h2><p>上一节我们说过，因为链表不具备“随机访问”的特点，所以二分查找无法生效。当链表想要访问中间的元素时，我们必须从链表头开始，沿着指针一步一步遍历，需要遍历一半的节点才能到达中间节点，时间代价是 O(n/2)。而有序数组由于可以“随机访问”，因此只需要 O(1) 的时间代价就可以访问到中间节点了。</p>
-<p>那如果我们能在链表中以 O(1) 的时间代价快速访问到中间的节点，是不是就可以和有序数组一样使用二分查找了？</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/2c61d26ed919411dd9be1a94cefb30ca.jpg" alt="img"></p>
-<p>既然我们希望能以 O(1) 的时间代价访问中间节点，那直接将这个节点记录下来是不是就可以了？因此，如果我们已经把中间节点 M 拎出来单独记录了，那我们的第一步操作就是直接访问这个中间节点，然后判断这个节点和要查找的元素是否相等。如果相等，则返回查询结果。如果节点元素大于要查找的元素，那我们就道左边的部分继续查找；反之，则到右边的部分继续查找。</p>
-<p>对于左边或者右边的部分，我们可以将它们视为两个独立的子链表，依然沿用这个逻辑。如果想用 O(1) 的时间代价就能访问这两个子链表的中间节点，我们就应该把左边部分的中间节点 L 和右边部分的中间节点 R 单独拎出来记录。</p>
-<p>并且，由于我们是在访问完了 M 节点后，才决定接下来该去访问左边的 L 还是右边的 R。所以，我们还需要将 M 和 L，M 和 R 连接起来。我们可以让 M 带有两个指针，一个左指针指向 L，一个右指针指向 R。这样，在访问 M 以后，一旦发现 M 不是我们要查找的节点，那么我们接下来就可以通过指针快速访问到 L 或者 R 了。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/d274bfacd98b00d82746cfeb838ec1f4.jpeg" alt="img"></p>
-<p>对于其余的节点，我们也可以进行同样的处理。下面这个结构，你是不是很熟悉，没错，这就是我们常见的二叉树。你再来观察一下，这个二叉树和普通的二叉树有什么不一样？</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/bf8df69285c21e28b493bd2f7a0c1abb.jpeg" alt="img"></p>
-<p>没错，这个二叉树是有序的。它的左子树的所有节点的值都小于根节点，同时右子树所有节点的值都大于等于根节点。这样的有序结构，使得它能使用二分查找法，快速地过滤掉一半的数据。具备了这样特点的树，就是<strong>二叉检索树（Binary Search Tree）</strong>，或叫<strong>二叉排序树（Binary Sorted Tree）</strong>。</p>
-<p>现在我们就可以简单对比一下。<strong>尽管有序数组和二叉检索树，在数据形态上看起来差异很大，但是在提高检索效率上，它们的核心原理都是一样的。</strong>那么，它们是如何提高检索效率的呢？核心原理又一致在哪里呢？下面我们从两个方面总结一下：</p>
-<ul>
-<li>  将数据有序化，并且根据数据存储的特点进行不同的组织。对于连续存储空间的数组而言，由于它具有“随机访问”的特性，因此直接存储即可；对于非连续存储空间的有序链表而言，由于它不具备“随机访问”的特性，因此，需要将它改造成可以快速访问到中间节点的树形结构。</li>
-<li>  在进行检索的时候，它们都是通过二分查找的思想从中间节点开始查起。如果不命中，会快速缩小一半的查询空间。这样不停迭代的查询方式，让检索的时间代价能达到 O(log n) 这个级别。</li>
-</ul>
-<p>当然，如果你有一定的数据结构基础，就应该知道，二叉检索树的时间复杂度并不一定永远是 O(log n)。</p>
-<h2 id="二叉检索树的空间平衡方案"><a href="#二叉检索树的空间平衡方案" class="headerlink" title="二叉检索树的空间平衡方案"></a>二叉检索树的空间平衡方案</h2><br>
-
-<br>
-
-<br>
-
-<hr>
-<h1 id="04-状态检索：如何判断一个用户是否存在？"><a href="#04-状态检索：如何判断一个用户是否存在？" class="headerlink" title="04 | 状态检索：如何判断一个用户是否存在？"></a>04 | 状态检索：如何判断一个用户是否存在？</h1><p>在实际工作中，我们经常需要判断一个对象是否存在。比如说，在注册新用户的时候，我们需要先快速判断这个用户 ID 是否被注册过；再比如说，在爬虫系统抓取网页之前，我们要判断一个 URL 是否已经被抓取过，从而避免无谓的、重复的抓取工作。</p>
-<p>那么，对于这一类是否存在的状态检索需求，如果直接使用前面讲过的检索技术，如有序数组、二叉检索树以及哈希表来实现的话，它们的检索性能如何？是否有优化的方案呢？今天，我们就一起来讨论一下这些问题。</p>
-<h3>如何使用数据的随机访问特性提高查询效率？
-
-<p>以新注册用户时查询用户 ID 是否存在为例，我们可以直接使用有序数组、二叉检索树或者哈希表来存储所有的用户 ID。</p>
-<p>我们知道，无论是有序数组还是二叉检索树，它们都是使用二分查找的思想从中间元素开始查起的。所以，在查询用户 ID 是否存在时，它们的平均检索时间复杂度都是 O(log n)，而哈希表的平均检索时间复杂度是 O(1)。因此，如果我们希望能快速查询出元素是否存在，那哈希表无疑是最合适的选择。不过，如果从工程实现的角度来看的话，哈希表的查询过程还是可以继续优化的。</p>
-<p>比如说，如果我们要查询的对象 ID 本身是正整数类型，且 ID 范围有上限的话。我们可以申请一个足够大的数组，让数组长度超过 ID 的上限。然后，把数组中所有位置的值都初始化为 0。对于存在的用户，我们<strong>直接将用户 ID 作为数组下标</strong>，将该位置对应的值从 0 设置为 1 就可以了。</p>
-<hr>
-<h1 id="05-倒排索引：如何从海量数据中查出同时带有“极“和”客”的唐诗？"><a href="#05-倒排索引：如何从海量数据中查出同时带有“极“和”客”的唐诗？" class="headerlink" title="05 | 倒排索引：如何从海量数据中查出同时带有“极“和”客”的唐诗？"></a>05 | 倒排索引：如何从海量数据中查出同时带有“极“和”客”的唐诗？</h1><blockquote>
-<p>  <strong>提出问题：</strong></p>
-</blockquote>
-<p>试想这样一个场景：假设你已经熟读唐诗300首了。这个时候，如果我给你一首诗的题目，相信你一定可以很快背出这首诗的内容。但是如果我问你，有哪些诗中同时包含了“极”和“客”字？很显然，第二个问题的难度比第一个问题大得多。</p>
-<p>那么从程序设计的角度来看，这两个问题对应的检索过程又有什么不同呢？这就对应了两种非常常见且重要的检索技术：**正排索引 **和 <strong>倒排索引</strong>。</p>
-<h3>什么是倒排索引？
-
-<p>我们先来看看第一个问题：给出一首诗的题目，马上背出内容。这其实就是一个典型的键值查询场景。针对这个场景，我们可以给每首诗一个唯一的编号作为 ID，然后使用哈希表将诗的 ID 作为键（Key），把诗的内容作为键对应的值（Value）。这样，我们就能在 O(1) 的时间复杂度内，完成对指定 key 的检索。这样的以对象的唯一 ID 为 key 的哈希索引结构，叫做<strong>正排索引（Forward Index）</strong>。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/4b5e88addf89120aba176671c53d25f1.jpeg" alt="img"></p>
-<p>一般来说，我们会遍历哈希表，遍历的时间复杂度是 O(n)。在遍历过程中，对于遇到的每一个元素对应着一首诗，如果我们想要判断这首诗中是否包含“极”字和“客”字，我们还需要遍历这首诗中的每一个字符。假设每首诗的平均长度是 k，那么遍历一首诗的时间代价就是 O(k)。所以，判断哪些诗中包含“极”字和“客”字的时间复杂度就是 O(n*k)。从分析中我们可以发现，这个检索过程全部都是遍历，因此时间复杂度非常高。对此，有什么优化方法吗？</p>
-<p>我们首先来分析一下这两个场景。我们会发现，“根据题目查找内容”和“根据关键字查找题目”，这两个问题其实是完全相反的。既然完全相反，那我们能否“反着”建立一个哈希表来帮助我们查找呢？也就是说，如果我们以关键字作为 key 建立哈希表，是不是问题就解决了呢？接下来，我们试着操作一下。</p>
-<p>我们将每个关键字当做 key，将包含了这个关键字的诗的列表当做存储的内容。这样，我们就建立了一个哈希表，根据关键字来查询这个哈希表，在 O(1) 的时间复杂度内，我们就能得到包含该关键字的文档列表。这种根据具体内容或者属性反过来索引文档标题的结构，就叫做<strong>倒排索引（Invert Index）</strong>。在倒排索引中，key 的集合叫做<strong>字典（Dictionary）</strong>，一个 key 后面对应的记录集合叫做<strong>记录列表（Posting List）</strong>。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/8e602ab79d98380c8c258a30a1e2108b.jpg" alt="img"></p>
-<h3>如何创建倒排索引？
-
-<p>前面我们介绍了倒排索引的概念，那创建一个倒排索引的过程究竟是怎么样的呢？我把这个过程总结成了以下步骤：</p>
-<ol>
-<li> 给每个文档编号，作为其唯一标识，<u>并且排好序</u>，然后开始遍历文档（为什么要先排序，然后再遍历文档呢？你可以想一下，后面我们会解释）。</li>
-<li> 解析当前文档中的每个关键字，生成 <code>&lt;关键字, 文档ID, 关键字位置&gt;</code> 这样的数据对象。为什么要记录关键字位置这个信息呢？因为在许多检索的场景中，都需要显示关键字前后的内容，比如，在组合查询时，我们要判断多个关键字之间是否足够接近。所以我们需要记录位置信息，以方便提取相应关键字的位置。</li>
-<li> 每检测到一个关键字，就将关键字作为 key 插入哈希表，如果哈希表中已经有这个 key 了，我们就在对应的 posting list 后面追加节点，记录该文档 ID（关键字的位置信息如果需要，也可以一并记录在节点中）；如果哈希表中还没有这个 key，我们就直接插入该 key，并创建 posting list 和对应节点。</li>
-<li> 重复第2步和第3步，处理完所有文档，完成倒排索引的创建。</li>
-</ol>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/2ccc78df6ebbd4d716318d5113fa090d.jpg" alt="img"></p>
-<h3>如何查询同时含有“极”字和“客”字两个key的文档？
-
-<p>如果只是查询包含“极”或者“客”这样的单个字的文档，我们直接以查询的字作为 key 去倒排索引表中检索，得到的 posting list 就是结果了。但是，如果我们的目的是要查询同时包含“极”和“客”这两个字的文档，那我们该如何操作呢？</p>
-<p>我们可以先分别用两个 key 去倒排索引中检索，这样会得到两个不同的 posting list：A 和 B。A 中的文档都包含了“极”字，B 中的文档都包含了“客”字。那么，如果一个文档既出现在 A 中，又出现在 B 中，它是不是就同时包含了这两个字呢？按照这个思路，我们只需查找出 A 和 B 的公共元素即可。</p>
-<p>那么问题来了，<u>我们该如何在 A 和 B 这两个链表中查找出公共元素呢？</u>如果 A 和 B 都是无序链表，我们只能将 A 链表和 B 链表中的每个元素分别比对一次，这个时间复杂度时 O(m*n)。但是，如果两个链表是有序的，我们就可以用归并排序的方法来遍历 A 和 B 两个链表，时间复杂度会降低到 O(m+n)，其中 m 是链表 A 的长度，n 是链表 B 的长度。</p>
-<blockquote>
-<p>  链表归并排序的步骤：</p>
-<ol>
-<li> 使用指定 p1 和 p2 分别指向有序链表 A 和 B 的第一个元素。</li>
-<li>对比 p1 和 p2 指向的节点是否相同，这时会出现三种情况：<ul>
-<li>  （1）两者的 id 相同，说明该节点为公共元素，直接将该节点加入归并结果。然后，p1 和 p2 要同时后移，指向下一个元素；</li>
-<li>  （2）p1 元素的 id 小于 p2 元素的 id，p1 后移，指向 A 链表中的下一个元素；</li>
-<li>  （3）p1 元素的 id 大于 p2 元素的 id，p2 后移，指向 B 链表中的下一个元素。</li>
-</ul>
-</li>
-<li> 重复第 2 步，直到 p1 或 p2 移动到链表尾为止。</li>
-</ol>
-<p>  具体的操作步骤如下图所示：</p>
-</blockquote>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/a377f626bbfc1de2f98f199ed0ad585f.jpg" alt="img"></p>
-<p>那对于<strong>两个 key</strong> 的联合查询来说，除了有“<strong>同时存在</strong>”这样的场景以外，还有很多联合查询的实际例子。比如说，我们可以查询包含“极”<strong>或</strong>“客”的诗，也可以查询包含“极“<strong>且不包含</strong>”客”的诗。这些场景分别对应着交集、并集和差集等问题。具体的实现流程也和“同时存在”差不多，也是通过遍历链表对比的方式来完成的。</p>
-<p>此外，在实际应用中，我们可能还需要对<strong>多个 key</strong> 进行联合查询，比如说，要查询同时包含“极“、”客“、”时“、”间” 四个字的诗，这个时候，我们利用多路归并的方法，同时遍历这四个关键字对应的 posting list 即可。实现过程如下图所示：</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/c91ce2f3cff16b20b0cca52a57336b96.jpeg" alt="img"></p>
-<h3>重点回顾
-
-<p>回顾上面讲的，你会发现，<u>倒排索引的核心其实并不复杂，它的具体实现其实是哈希表</u>，只是它不是将文档 ID 或者题目作为 key，而是反过来，通过将内容或者属性作为 key 来存储对应的文档列表，使得我们能在 O(1) 的时间复杂度内完成查询。</p>
-<p>尽管倒排索引的原理并不复杂，但是倒排索引是很多搜索引擎的核心。比如说：数据库的全文索引功能、搜索引擎的索引、广告引擎和推荐引擎，都使用了倒排索引技术来实现检索功能。</p>
-<hr>
-<h1 id="06-数据库检索：如何使用B-树对海量磁盘数据建立索引？"><a href="#06-数据库检索：如何使用B-树对海量磁盘数据建立索引？" class="headerlink" title="06 | 数据库检索：如何使用B+树对海量磁盘数据建立索引？"></a>06 | 数据库检索：如何使用B+树对海量磁盘数据建立索引？</h1><h2 id="为什么需要磁盘数据检索技术？"><a href="#为什么需要磁盘数据检索技术？" class="headerlink" title="为什么需要磁盘数据检索技术？"></a>为什么需要磁盘数据检索技术？</h2><p>前面我们学习的那些检索相关的数据结构和技术，都是直接操作内存中的数据，但是有时候，系统要处理的数据量非常庞大，数据无法全部存储在内存中，这时我们就需要借助磁盘完成存储和检索。我们熟悉的关系型数据库，比如 MySQL 和 Oracle，就是这样的典型系统。</p>
-<p>数据库中支持多种索引方式，比如：Hash索引、全文索引和B+树索引，其中B+树索引是使用最频繁的类型，下面我们就来聊一聊磁盘上的数据检索有什么特点，以及B+树索引为什么能对磁盘上的大规模数据进行高效索引。</p>
-<h2 id="磁盘和内存中数据的读写效率有什么不同？"><a href="#磁盘和内存中数据的读写效率有什么不同？" class="headerlink" title="磁盘和内存中数据的读写效率有什么不同？"></a>磁盘和内存中数据的读写效率有什么不同？</h2><p>首先，我们来研究一下，存储在内存中和磁盘中的数据，在检索效率方面有什么不同。</p>
-<p>内存是半导体元件。<u>对于内存而言，只要给出了内存地址，我们就可以直接访问该地址取出数据。这个过程具有高效的随机访问特性</u>，因此内存也叫<strong>随机访问存储器（Random Access Memory，即 RAM）</strong>。内存的访问速度很快，但是价格相对较昂贵，因此一般的计算机内存空间都相对较小。</p>
-<p>而磁盘是机械硬件。<u>磁盘访问数据时，需要等磁盘盘片旋转到磁头下，才能读取响应的数据。</u>尽管磁盘的旋转速度很快，但是和内存的随机访问相比，性能差距非常大。一般来说，如果是随机读写，会有 10~100 万倍左右的差距。<u>但如果是顺序访问大批量数据的话，磁盘的性能和内存就是一个数量级的</u>。为什么会这样呢？这就和磁盘的读写原理有关了。</p>
-<p>磁盘的最小读写单位是扇区，较早期的磁盘一个扇区是 512 字节。随着磁盘技术的发展，目前常见的磁盘扇区是 4K 个字节。操作系统会一次读写多个扇区，所以<u>操作系统的最小读写单位是<strong>块（Block）</strong>，也叫做<strong>簇（Cluster）</strong>。当我们要从磁盘中读取一个数据时，操作系统会一次性将整个块都读出来</u>。因此，对于大批量的顺序读写来说，磁盘的效率会比随机读写高许多。</p>
-<p>举个例子就是，在内存中读一个数据可能需要 0.01s，那么读 100 个数据就需要 1s。而在磁盘中，读一个数据需要 1s，假设这 100 个数据分布在不同的块中，那么读 100 个数据就需要 100s；而如果这 100 个数据分布在一个块中，那么同样只需要 1s 。所以说，对于大批量的顺序读写来说，磁盘的效率会比随机读写高许多。</p>
-<p>现在我们已经了解磁盘的特点了，那我们可以来看一下，如果使用之前学过的检索技术来检索磁盘中的数据，检索效率回是怎样的呢？</p>
-<p>假设一个有序数据存储在硬盘中，如果它足够大，那么它会存储在多个块中。当我们要对这个数组使用二分查找时，需要先找到中间元素所在的块，将这个块从磁盘读到内存中，然后在内存中进行二分查找。如果下一步要读的元素在其它块中，则需要再将相应块从磁盘读入内存。直到查询结束，这个过程可能会多次访问磁盘。我们可以看到，这样的检索性能非常低。</p>
-<p>由于磁盘相对于内存而言，访问速度实在太慢，因此，对于磁盘上数据的高效检索，我们有一个极其重要的原则：<strong>对磁盘的访问次数要尽可能的少！</strong></p>
-<p>那么问题来了，我们应该如何减少磁盘的访问次数呢？将索引和数据分离就是一种常见的设计思路。</p>
-<h2 id="如何将索引和数据分离？"><a href="#如何将索引和数据分离？" class="headerlink" title="如何将索引和数据分离？"></a>如何将索引和数据分离？</h2><p>我们以查询用户信息为例。我们知道，一个系统中的用户信息非常多，除了有唯一标识的ID以外，还有名字、邮箱、手机、兴趣爱好以及文章列表等各种信息。一个保存了所有用户信息的数组往往非常大，无法全部放在内存中，因此，我们会将它存储在磁盘中。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/3ad283ed20ba36a8f5f8350ee4bd7d56.jpg" alt="img"></p>
-<p>当我们以用户的ID进行检索时，这个检索过程其实并不是需要读取存储用户的具体信息。因此，我们可以生成一个只用于检索的有序索引数组。数组中的每个元素只存两个值，一个是用户ID，另一个是这个用户信息在磁盘上的位置，那么这个数组空间就会很小，也就可以放入内存中了。这种用有序数组做索引的方法，叫做<strong>线性索引</strong>（Linear Index）。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/0e7ca7c9a2c9c373353ae5ec824f4f1e.jpg" alt="img"></p>
-<p>【有序数组的缺点：】在数据频繁变化的场景中，有序数组并不是一个最好的选择，二叉检索树或者哈希表往往更有普适性。（数据频繁变化 -&gt; 写操作多 -&gt; 产生大量的新增/删除/修改操作 -&gt; 有序数组中元素的位置需要频繁变化）</p>
-<p>【哈希表的缺点：】但是，哈希表由于缺乏范围检索的能力，在一些场合中也不适用。</p>
-<p>【只剩下二叉检索树：】因此，二叉检索树这种树形结构是许多常见检索系统的实施方案。那么，上图中的线性索引结构，就变成了下图这个样子。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/0203a7cc903e3acf38e47a59ad3aa6b4.jpeg" alt="img"></p>
-<p>【二叉检索树的缺点：】尽管二叉检索树可以解决数据动态修改的问题，但<u>在索引数据很大的情况下，依然会存在数据无法全部加载到内存中的情况。</u>这种情况下我们应该怎么办呢？</p>
-<p>一个很自然的思路，就是将索引数据也存在磁盘中。那如果是树形索引，我们应该将哪些节点存入磁盘，又要如何从磁盘中读出这些数据进行检索呢？我们可以先自己想一想。然后再来看一下业界常用的解决方案 B+树是怎么做的。</p>
-<h2 id="如何理解B-树的数据结构？"><a href="#如何理解B-树的数据结构？" class="headerlink" title="如何理解B+树的数据结构？"></a>如何理解B+树的数据结构？</h2><p>B+树是检索技术中非常重要的一个部分。这是为什么呢？因为<strong>B+树给出了树形索引的所有节点都存在磁盘上的高效检索方案，</strong>使得索引技术摆脱了内存空间的限制，得到了广泛的应用。</p>
-<p>前面我们讲了，操作系统对磁盘数据的访问是以块为单位的。因此，如果我们想将树形索引的一个节点从磁盘中读出，即使该节点的数据量很小（比如说只有几个字节），但磁盘依然会将整个块的数据全部读出来，而不是只读这一小部分数据，这会让有效读取效率很低。<strong>B+树的一个关键设计就是，让一个节点的大小等于一个块的大小。节点内存储的数据，不是一个元素，而是一个可以装 m 个元素的有序数组。</strong>这样一来，我们就可以将磁盘一次读取的数据全部利用起来，使得读取效率最大化。</p>
-<p>B+树还有另一个设计，就是将所有的节点分为内部节点和叶子节点。尽管内部节点和叶子节点的数据结构是一样的，但存储的内容是不同的。</p>
-<p><u>内部节点仅存储 key 和维持树形结构的指针，并不存储 key 对应的数据（无论是具体数据还是文件位置信息）。</u>这样内部节点就能存储更多的索引数据，我们也就可以使用最少的内部节点，将所有数据组织起来了。而<u>叶子节点仅存储 key 和对应数据，不存储维持树形结构的指针。</u>通过这样的设计，B+树就能做到节点的空间利用率最大化。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/a994e93f2fdd38291998cba8149270eb.jpg" alt="img"></p>
-<p>此外，<u>B+树还将同一层的所有节点串成了有序的双向链表，这样一来B+树就同时具备了良好的范围查询能力和灵活调整能力了。</u></p>
-<p>因此，B+树是一棵完全平衡的 m 阶多叉树。所谓的 m 阶，就是每个节点最多有 m 个子节点，并且每个节点里都存了一个紧凑的可包含 m 个元素的数组。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/72499a6180cfb1ee7e3c33e6ca433b65.jpg" alt="img"></p>
-<h2 id="B-树是如何检索的？"><a href="#B-树是如何检索的？" class="headerlink" title="B+树是如何检索的？"></a>B+树是如何检索的？</h2><p>这样的结构，使得B+树可以作为一个完整的文件全部存储在磁盘中。当从根节点开始查询时，通过一次磁盘访问，我们就能将文件中的根节点这个数据块读出，然后在根节点的有序数组中进行二分查找。</p>
-<p>具体的查找过程如下：</p>
-<ol>
-<li> 我们先确认要查找的值，位于数组中哪两个相邻的元素之间，然后我们将第一个元素对应的指针读出，获得下一个block的位置。（该 block 保存了两个相邻元素间的所有数据的ID）</li>
-<li> 读出下一个 block 的节点数据后，我们再对它做同样的处理。这样，B+树会逐层访问内部节点，直到读出叶子节点。对于叶子节点中的数组，直接使用二分查找算法，我们就可以判断查找的元素是否存在。如果存在，我们就可以得到该查询值对应的存储数据。如果这个数据是详细信息的指针，那我们还需要再访问磁盘一次，将详细信息读出。</li>
-</ol>
-<p>我们前面说了，B+树是一棵完全平衡的 m 阶多叉树。所以，B+树的一个节点就能存储一个包含 m 个元素的数组，这样的话，一个只有 2~4 层的 B+ 树，就能索引数量级非常大的数据了，因此 B+ 树的层数往往很矮。比如说，一个 4K 的节点的内部可以存储 400 个元素，那么一个 4 层的 B+ 树最多能存储 400^4，也就是 256 亿个元素。（根节点存400个元素，第二层存 <code>400*400</code> 个元素，第三层存 <code>400*400*400</code>，第四层存 <code>400*400*400*400</code> 个元素，并且因为B+树只有叶子节点存储真实元素，所以说最多能存储 400^4 个元素）</p>
-<p>不过，因为 B+ 树只有 4 层，这就意味着我们最多只需要读取 4 次就能到达叶子节点。并且，我们还可以通过将上面几层（非叶子节点层）的内部节点全部读取内存的方式，来降低磁盘读取的次数。</p>
-<p>比如说，对于一个 4 层的 B+ 树，每个节点的大小是 4K，那么第一层根节点就是 4K，第二层最多有 400 个节点，一共就是 1.6M，第三层最多有 400^2 个节点，一共是 640M。对于现在常见的计算机来说，前三层的内部节点其实都可以存储在内存中，只有第四层的叶子节点才需要存储在磁盘中。这样一来，我们就只需要读取一次磁盘即可。这也是为什么，B+ 树要将内部节点和叶子节点区分开的原因。通过这种只让内部节点存储索引数据的设计，我们就可以更容易地把内部节点全部加载到内存中了。</p>
-<h2 id="B-树是如何动态调整的？"><a href="#B-树是如何动态调整的？" class="headerlink" title="B+树是如何动态调整的？"></a>B+树是如何动态调整的？</h2><p>现在，你已经知道 B+ 树的结构和原理了。那 B+ 树在“新增节点”和“删除节点”这样的动态变化场景中，又是怎样操作的呢？接下来，让我们一起来看一下。</p>
-<p>首先，我们来看插入数据。由于具体的数据都是存储在叶子节点上的，因此，数据的插入也是从叶子节点开始的。以一个节点有 3 个元素的 B+ 树为例，如果我们要插入一个 ID=6 的节点，首先要查询到对应的叶子节点，如果叶子节点的数组未满，那么就直接将该元素插入数组即可。具体过程如下图所示：</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/9ed9028cab65e6530966faae00d0d3d4.jpg" alt="img"></p>
-<p>如果我们插入的是 ID=10 的节点呢？按照之前的逻辑，我们应该插入到 ID9 后面，但是 ID9 所在的这个节点已经存满了 3 个节点，无法继续存入了。因此，我们需要将该叶子节点<strong>分裂</strong>。<u>分裂的逻辑就是生成一个新的节点，并将数据在两个节点平分。</u></p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/674115e7c61637e56791e001ea840af2.jpg" alt="img"></p>
-<p>叶子节点分裂完成后，上一层的内部节点也需要修改。但如果上一层的父节点也是满的，那么上一层的父节点也需要分裂。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/03af63ed8cd065743bd8b2bd812e5057.jpg" alt="img"></p>
-<p>内部节点调整好了，下一步我们就要调整根节点了。由于根节点未满，因此我们不需要分裂，直接修改即可。</p>
-<p><img src="/2022/03/21/%E6%A3%80%E7%B4%A2%E6%8A%80%E6%9C%AF%EF%BC%88Part1%EF%BC%89/53fd14349369951706f53abd1eff560f.jpg" alt="img"></p>
-<p>如果根节点满了，那我们就需要将根节点分裂，并生成新的根节点作为第一层。</p>
-<p>删除数据也类似。如果节点数据较慢，直接删除，如果删除后数组有一般以上的空间为空，那为了提高节点的空间利用率，该节点需要将左右两边兄弟节点中的元素转移过来。可以成功转移的条件是，元素转移后该节点及其兄弟节点的空间必须都能维持在半满以上。如果无法满足这个条件，就说明兄弟节点其实也足够空闲，那我们直接将该节点的元素并入兄弟节点，然后删除该节点即可。</p>
-<h2 id="重点回顾"><a href="#重点回顾" class="headerlink" title="重点回顾"></a>重点回顾</h2><p>通过这节内容，你会发现，即使是复杂的 B+ 树，我们将它拆解开来，其实也是由简单的数组、链表和树组成的，而且 <u>B+ 树的检索过程其实也是二分查找。因此，如果 B+ 树完全加载在内存中的话，它的检索效率其实并不会比有序数组或者二叉检索树更高，也还是二分查找的 log(n) 的效率。并且，它还比数组和二叉检索树更加复杂，还会带来额外的开销</u>。</p>
-<p><u>但是，B+ 树最大的优点在于，它提供了将索引数据存在磁盘中的高效检索方案。这让检索技术摆脱了内存的限制，</u>得到了更广泛的使用。</p>
-<p>另外，本节内容还有一个重要的设计思想就是：将索引和数据分离，通过这样的方式，我们能将索引的数组大小保持在一个较小的范围内，让它能加载在内存中。在很多大规模系统中，都是使用这个设计思路来精简索引的。而且，B+ 树的内部节点和叶子节点的区分，其实也是索引和数据分离的一种实践。</p>
-</h3></h3></h3></h3></h3>
       
     </div>
 
