@@ -201,7 +201,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-09-14 00:12:53" itemprop="dateModified" datetime="2022-09-14T00:12:53+08:00">2022-09-14</time>
+      <time title="Modified: 2022-09-15 00:30:10" itemprop="dateModified" datetime="2022-09-15T00:30:10+08:00">2022-09-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -674,7 +674,77 @@
 <td>速度较慢</td>
 </tr>
 </tbody></table>
-
+<h1 id="计算机的控制器（CPU组件之一）"><a href="#计算机的控制器（CPU组件之一）" class="headerlink" title="计算机的控制器（CPU组件之一）"></a>计算机的控制器（CPU组件之一）</h1><p>计算机的控制器是协调和控制计算机运行的。</p>
+<p>计算机的控制器主要包含以下组件：</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/image-20220914234102144.png" alt="image-20220914234102144"></p>
+<p><strong>程序计数器</strong>：</p>
+<p>程序计数器用于存储下一条要执行的指令的地址。当CPU工作时，会循环不断地从程序计数器中拿出指令的地址，进而找打指令并执行，当这个地址被拿出时，程序计数器会指向下一条指令的地址。</p>
+<p>所以说，程序计数器是用于提供给其它控制单元，当前要执行的指令的地址的。</p>
+<p><strong>时序发生器</strong></p>
+<ul>
+<li>电气工程领域，用于发送时序脉冲。</li>
+<li>CPU依据不同的时序脉冲有节奏的进行工作。</li>
+</ul>
+<p><strong>指令译码器</strong></p>
+<ul>
+<li>指令译码器是控制器的主要部件之一。</li>
+<li>前面我们讲过了，计算机指令由操作码和地址码两部分组成。</li>
+<li>指令译码器的工作就是将操作码或地址码翻译成对应的操作，以及控制传输地址码对应的数据。</li>
+</ul>
+<p><strong>指令寄存器</strong></p>
+<ul>
+<li>指令寄存器也是控制器的主要部件之一</li>
+<li>它的作用是从主存或者高速缓存中取计算机指令，这样CPU就可以直接从指令寄存器中拿到指令并运算了，速度更快。</li>
+</ul>
+<p><strong>主存地址寄存器</strong></p>
+<ul>
+<li>保存当前CPU正要访问的内存单元的地址</li>
+<li>使用地址总线与主存通信。</li>
+</ul>
+<p><strong>主存数据寄存器</strong></p>
+<ul>
+<li>保存当前CPU正要读或者些的主存数据</li>
+<li>使用数据总线与主存通信。</li>
+</ul>
+<p><strong>通用寄存器</strong></p>
+<ul>
+<li>用于暂时存放或传送数据或指令</li>
+<li>可保存ALU运算的中间结果</li>
+<li>容量比一般专用寄存器要大</li>
+</ul>
+<h1 id="计算机的运算器（CPU组件之一）"><a href="#计算机的运算器（CPU组件之一）" class="headerlink" title="计算机的运算器（CPU组件之一）"></a>计算机的运算器（CPU组件之一）</h1><p>运算器使用来进行数据运算加工的。</p>
+<p>主要由数据缓冲器、ALU、通用寄存器、状态字寄存器组成。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/image-20220914235904462.png" alt="image-20220914235904462"></p>
+<p><strong>数据缓冲器</strong>：数据缓冲器分为输入缓冲和输出缓冲。输入缓冲用于暂时存放外设传送过来的数据；输出缓冲用于暂时存放发往外设的数据。也就是说，ALU在运算时下一个数据是从缓冲区中获取的，同样，ALU在运算完毕时会先将数据保存在输出缓冲中，等待控制器下一步的命令，把它送到相应的位置。</p>
+<p><strong>ALU</strong></p>
+<ul>
+<li>ALU：算术逻辑单元，是运算器的重要组成部分</li>
+<li>可以完成常见的位运算（左右位移、与或非等）</li>
+<li>完成算术运算（加减乘除）</li>
+</ul>
+<p><strong>状态字寄存器</strong></p>
+<p>状态寄存器主要存放一些运算中的状态，比如：条件码、进位、溢出、结果正负等；</p>
+<p>同时它也可以存放一些运算控制信息（比如调试跟踪标记位、允许中断位等）</p>
+<p><strong>通用寄存器</strong></p>
+<ul>
+<li>用于暂时存放或传送数据或指令</li>
+<li>可以保存ALU的运算中间结果</li>
+<li>容量一般比专用寄存器要大</li>
+</ul>
+<h1 id="计算机指令的执行过程"><a href="#计算机指令的执行过程" class="headerlink" title="计算机指令的执行过程"></a>计算机指令的执行过程</h1><h2 id="指令执行过程"><a href="#指令执行过程" class="headerlink" title="指令执行过程"></a>指令执行过程</h2><p>整体来说，指令执行的过程可分为3步：<code>取指令 -&gt; 分析指令 -&gt; 执行指令</code></p>
+<p>指令执行过程中涉及到的一些设备：</p>
+<ul>
+<li>数据缓存器</li>
+<li>指令缓存器</li>
+<li>运算器（ALU）</li>
+<li>寄存器<ul>
+<li>数据缓存器</li>
+<li>状态字寄存器</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/image-20220915001916422.png" alt="image-20220915001916422"></p>
+<h2 id="CPU的流水线设计"><a href="#CPU的流水线设计" class="headerlink" title="CPU的流水线设计"></a>CPU的流水线设计</h2>
       
     </div>
 
