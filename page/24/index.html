@@ -122,7 +122,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1858,7 +1858,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-08-13 17:13:28" itemprop="dateModified" datetime="2021-08-13T17:13:28+08:00">2021-08-13</time>
+      <time title="Modified: 2022-09-15 23:04:13" itemprop="dateModified" datetime="2022-09-15T23:04:13+08:00">2022-09-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -3232,13 +3232,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、修饰基本类型变量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    a = <span class="number">99</span>; <span class="comment">// error，编译时直接报错，不可被重新赋值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、修饰引用类型变量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">100</span>);</span><br><span class="line">    u = <span class="keyword">new</span> <span class="title class_">User</span>();     <span class="comment">// error,地址不能再修改</span></span><br><span class="line">    u.setName(<span class="string">&quot;zs&quot;</span>);    <span class="comment">// Ok，可以修改对象内部成员变量的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <hr>
-<h2 id="权限修饰符（3个）"><a href="#权限修饰符（3个）" class="headerlink" title="权限修饰符（3个）"></a>权限修饰符（3个）</h2><table>
+<h2 id="权限修饰符（3个-4类）"><a href="#权限修饰符（3个-4类）" class="headerlink" title="权限修饰符（3个/4类）"></a>权限修饰符（3个/4类）</h2><table>
 <thead>
 <tr>
 <th align="center"></th>
 <th align="center">public</th>
 <th align="center">protected</th>
-<th align="center">默认</th>
+<th align="center">package-private</th>
 <th align="center">private</th>
 </tr>
 </thead>
@@ -3271,6 +3271,7 @@
 <td align="center"></td>
 </tr>
 </tbody></table>
+<p>package private：包级私有</p>
 <blockquote>
 <p><strong>建议</strong>：</p>
 <ol>

@@ -27,10 +27,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="安装环境JDK 环境由于 ZooKeeper 是基于 Java 开发的，所以在安装 ZooKeeper 前必须保证当前计算机上已经安装了 JDK，并配置了 JAVA_HOME 环境变量。 安装包选择问题描述： 在安装 zookeeper-3.5.7 时，已经在 conf 文件夹下拷贝并重命名了一份 zoo.cfg 文件，结果在执行 bin 目录下的 zkServer.sh 脚本时依然启动失败，查看">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/ZooKeeper/image-20220915234458103.png">
 <meta property="article:published_time" content="2022-08-14T10:49:52.000Z">
-<meta property="article:modified_time" content="2022-08-14T10:55:24.679Z">
+<meta property="article:modified_time" content="2022-09-15T16:21:52.760Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/ZooKeeper/image-20220915234458103.png">
 
 
 <link rel="canonical" href="http://example.com/2022/08/14/ZooKeeper%E5%AE%89%E8%A3%85/">
@@ -108,7 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">JDK 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85%E9%80%89%E6%8B%A9"><span class="nav-number">1.2.</span> <span class="nav-text">安装包选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">本地模式安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">ZK 配置文件分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-number">4.</span> <span class="nav-text">分布式安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZK-%E9%9B%86%E7%BE%A4%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">ZK 集群的特点</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">JDK 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85%E9%80%89%E6%8B%A9"><span class="nav-number">1.2.</span> <span class="nav-text">安装包选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%8A%82%E7%82%B9ZK%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">单节点ZK安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">ZK 配置文件分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-number">4.</span> <span class="nav-text">分布式安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZK-%E9%9B%86%E7%BE%A4%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">ZK 集群的特点</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -127,7 +129,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -199,9 +201,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-08-14 18:49:52 / Modified: 18:55:24" itemprop="dateCreated datePublished" datetime="2022-08-14T18:49:52+08:00">2022-08-14</time>
+      <time title="Created: 2022-08-14 18:49:52" itemprop="dateCreated datePublished" datetime="2022-08-14T18:49:52+08:00">2022-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-09-16 00:21:52" itemprop="dateModified" datetime="2022-09-16T00:21:52+08:00">2022-09-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -209,7 +217,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" itemprop="url" rel="index"><span itemprop="name">软件安装</span></a>
+          <a href="/categories/ZooKeeper/" itemprop="url" rel="index"><span itemprop="name">ZooKeeper</span></a>
         </span>
     </span>
 
@@ -236,27 +244,49 @@
 <ul>
 <li>重新下载 <code>apache-zookeeper-3.5.5-bin.tar.gz</code> 包，然后解压使用。</li>
 </ul>
-<h2 id="本地模式安装部署"><a href="#本地模式安装部署" class="headerlink" title="本地模式安装部署"></a>本地模式安装部署</h2><ol>
+<h2 id="单节点ZK安装部署"><a href="#单节点ZK安装部署" class="headerlink" title="单节点ZK安装部署"></a>单节点ZK安装部署</h2><ol>
+<li><p>首先你需要下载ZooKeeper的安装包。如果你在本地直接有这个安装包，可以调到第4步。</p>
+</li>
+<li><p>去ZooKeeper官网找某一版本的下载链接，使用 <code>wget</code>命令进行下载。wget默认会把文件下载到当前路径下，你可以根据需求自行调整。</p>
+</li>
+</ol>
+<p>  <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/ZooKeeper/image-20220915234458103.png" alt="image-20220915234458103"></p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dlcdn.apache.org/zookeeper/zookeeper-3.7.1/apache-zookeeper-3.7.1-bin.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>如果没有安装 wget，可以先使用 <code>yum install -y wget</code> 下载 wget。</p>
+</li>
 <li><p>拷贝 ZooKeeper 安装包<code>（apache-zookeeper-3.5.7-bin-bin.tar.gz）</code>到 Linux 系统下的指定目录<code>(/opt/software)</code>中。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ ll</span><br><span class="line">总用量 375040</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong   3130819 11月 30 11:09 apache-zookeeper-3.5.7-bin-bin.tar.gz    # ZooKeeper安装包</span><br></pre></td></tr></table></figure></li>
-<li><p>将安装包解压到 <code>/opt/module</code> 目录下</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxvf apache-zookeeper-3.5.7-bin-bin.tar.gz -C ../module/</span><br></pre></td></tr></table></figure></li>
-<li><p>ZooKeeper 目录简析</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll</span><br><span class="line">总用量 32</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   232 2月  10 2020 bin   # 保存运行ZooKeeper的脚本文件</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong    77 2月   7 2020 conf  # 配置文件目录</span><br><span class="line">drwxr-xr-x. 5 lvnengdong lvnengdong  4096 2月  10 2020 docs</span><br><span class="line">drwxrwxr-x. 2 lvnengdong lvnengdong  4096 11月 30 12:02 lib</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 11358 9月  13 2018 LICENSE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   432 2月  10 2020 NOTICE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1560 2月   7 2020 README.md</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1347 2月   7 2020 README_packaging.txt</span><br></pre></td></tr></table></figure>
-
 </li>
-<li><p><code>bin</code> 目录简析</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll bin</span><br><span class="line">总用量 56</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  232 5月   4 2018 README.txt</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2067 2月   7 2020 zkCleanup.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1158 2月  10 2020 zkCli.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1621 2月   7 2020 zkCli.sh   # 启动ZK客户端</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1766 2月   7 2020 zkEnv.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3690 1月  31 2020 zkEnv.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1286 1月  31 2020 zkServer.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4573 2月   7 2020 zkServer-initialize.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 9386 2月   7 2020 zkServer.sh    # 启动ZK服务器端</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  996 10月  3 2019 zkTxnLogToolkit.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1385 2月   7 2020 zkTxnLogToolkit.sh</span><br></pre></td></tr></table></figure>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ ll</span><br><span class="line">总用量 375040</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong   3130819 11月 30 11:09 apache-zookeeper-3.5.7-bin-bin.tar.gz    # ZooKeeper安装包</span><br></pre></td></tr></table></figure>
 
-</li>
-<li><p>尝试启动 ZooKeeper 服务器端</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">mkdir: 无法创建目录&quot;&quot;: 没有那个文件或目录</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>将安装包解压到 <code>/opt/module</code> 目录下</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxvf apache-zookeeper-3.5.7-bin-bin.tar.gz -C ../module/</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>ZooKeeper 目录简析</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll</span><br><span class="line">总用量 32</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   232 2月  10 2020 bin   # 保存运行ZooKeeper的脚本文件</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong    77 2月   7 2020 conf  # 配置文件目录</span><br><span class="line">drwxr-xr-x. 5 lvnengdong lvnengdong  4096 2月  10 2020 docs</span><br><span class="line">drwxrwxr-x. 2 lvnengdong lvnengdong  4096 11月 30 12:02 lib</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 11358 9月  13 2018 LICENSE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   432 2月  10 2020 NOTICE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1560 2月   7 2020 README.md</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1347 2月   7 2020 README_packaging.txt</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><code>bin</code> 目录简析</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll bin</span><br><span class="line">总用量 56</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  232 5月   4 2018 README.txt</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2067 2月   7 2020 zkCleanup.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1158 2月  10 2020 zkCli.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1621 2月   7 2020 zkCli.sh   # 启动ZK客户端</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1766 2月   7 2020 zkEnv.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3690 1月  31 2020 zkEnv.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1286 1月  31 2020 zkServer.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4573 2月   7 2020 zkServer-initialize.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 9386 2月   7 2020 zkServer.sh    # 启动ZK服务器端</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  996 10月  3 2019 zkTxnLogToolkit.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1385 2月   7 2020 zkTxnLogToolkit.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>尝试启动 ZooKeeper 服务器端</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">mkdir: 无法创建目录&quot;&quot;: 没有那个文件或目录</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>异常分析：ZK 启动时要加载 <code>/conf/zoo.cfg</code> 配置文件，而我们当前的服务器上并没有创建这个配置文件，所以我们需要去创建这个配置文件。</li>
 </ul>
-</li>
-<li><p>修改配置文件</p>
+<ol start="9">
+<li>修改配置文件</li>
+</ol>
 <ul>
 <li><p>在 <code>conf</code> 目录下有一个文件叫做 <code>zoo_sample.cfg</code>，这是一个配置文件的模板，我们可以复制其副本为 <code>zoo.cfg</code>，作为 ZK 启动时加载的配置文件，在这个基础上进行自定义修改。</p>
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ cd conf/</span><br><span class="line">[lvnengdong@hadoop102 conf]$ ll</span><br><span class="line">总用量 12</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  535 5月   4 2018 configuration.xsl</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 2712 2月   7 2020 log4j.properties</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  922 2月   7 2020 zoo_sample.cfg</span><br></pre></td></tr></table></figure></li>
@@ -265,24 +295,27 @@
 <li><p>修改配置文件 <code>zoo.cfg</code>【配置文件分析见下文】</p>
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ vim zoo.cfg</span><br><span class="line"></span><br><span class="line"># 修改 dataDir 属性为：</span><br><span class="line">dataDir=/opt/module/apache-zookeeper-3.5.7-bin-bin/data</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li><p>创建 <code>/opt/module/apache-zookeeper-3.5.7-bin/data</code>目录</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ mkdir data</span><br></pre></td></tr></table></figure></li>
-<li><p>再次尝试启动 ZK</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh --help</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br><span class="line"></span><br><span class="line"># 启动ZK</span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li>创建 <code>/opt/module/apache-zookeeper-3.5.7-bin/data</code>目录</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ mkdir data</span><br></pre></td></tr></table></figure>
 
-</li>
-<li><p>查看是否启动成功</p>
+<ol start="11">
+<li>再次尝试启动 ZK</li>
+</ol>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh --help</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br><span class="line"></span><br><span class="line"># 启动ZK</span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>查看是否启动成功</li>
+</ol>
 <ul>
-<li><p>JPS</p>
+<li><p>jps</p>
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ jps</span><br><span class="line">80707 QuorumPeerMain</span><br></pre></td></tr></table></figure></li>
 <li><p>执行 <code>zkServer.sh status</code> 脚本查看 ZK 的状态</p>
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: standalone    # 单机模式</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-</ol>
 <h2 id="ZK-配置文件分析"><a href="#ZK-配置文件分析" class="headerlink" title="ZK 配置文件分析"></a>ZK 配置文件分析</h2><p><strong>zoo.cfg</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line"># Zookeeper服务器与客户端的心跳间隔时间，单位毫秒。</span><br><span class="line"># 即默认每 2000ms 客户端与服务器端进行一次心跳</span><br><span class="line"># “心跳”是Zookeeper中使用的基本时间单位</span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"># The number of ticks that the initial </span><br><span class="line"># synchronization phase can take</span><br><span class="line"># 集群中的Follower与Leader之间初始连接时能容忍的</span><br><span class="line"># 最多心跳次数（tickTime的数量），用它来限定集群中的</span><br><span class="line"># Zookeeper服务器连接到Leader的时限。</span><br><span class="line"># 人话：也就是说ZK集群中的Follower在刚启动时需要从Leader中</span><br><span class="line"># 同步数据，同步数据耗时最长不能超过10次心跳（默认），</span><br><span class="line"># 如果超过了就抛出异常</span><br><span class="line">initLimit=10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># The number of ticks that can pass between </span><br><span class="line"># sending a request and getting an acknowledgement</span><br><span class="line"># 集群中Leader与Follower之间的最大响应时间单位，假如响应</span><br><span class="line"># 时间超过5次心跳，Leader就认为Follwer已经死掉了，就会从</span><br><span class="line"># 服务器列表中删除Follwer。</span><br><span class="line">syncLimit=5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># the directory where the snapshot is stored.</span><br><span class="line"># do not use /tmp for storage, /tmp here is just </span><br><span class="line"># example sakes.</span><br><span class="line"># ZK集群保存数据的目录。</span><br><span class="line"># 建议不要使用 /tmp 目录，因为在Linux中临时文件目录会被定期清理</span><br><span class="line">dataDir=/tmp/zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># the port at which the clients will connect</span><br><span class="line"># 客户端要连接的端口，也就是ZK服务器端进程的端口号</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line"># 最大客户端连接数（需要使用时可以将注释放开）</span><br><span class="line">#maxClientCnxns=60</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line"># 在 dataDir 目录中保留的不同版本的快照数量（需要使用时可以将注释放开）</span><br><span class="line">#autopurge.snapRetainCount=3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line"># 清除任务间隔时间(小时)</span><br><span class="line"># 设置为 “0” 表示禁用自动清除功能</span><br><span class="line">#autopurge.purgeInterval=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"># Zookeeper服务器与客户端的心跳间隔时间，单位毫秒。</span><br><span class="line"># 即默认每 2000ms 客户端与服务器端进行一次心跳</span><br><span class="line"># “心跳”是Zookeeper中使用的基本时间单位</span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"># 集群中Follower与Leader第一次连接时能容忍的</span><br><span class="line"># 最大心跳次数（tickTime的数量），用于划定集群中</span><br><span class="line"># Follower机器连接Leader机器的。</span><br><span class="line"># 人话：也就是说ZK集群中的Follower在刚启动时需要从Leader中</span><br><span class="line"># 同步数据，同步数据耗时最长不能超过10次心跳（默认），</span><br><span class="line"># 如果超过了就抛出异常</span><br><span class="line">initLimit=10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 集群中Leader与Follower之间的最大响应时间单位，假如响应</span><br><span class="line"># 时间超过5次心跳，Leader就认为Follwer已经死掉了，就会从</span><br><span class="line"># 服务器列表中删除Follwer。</span><br><span class="line">syncLimit=5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ZK集群保存数据的目录。</span><br><span class="line"># 建议不要使用 /tmp 目录，因为在Linux中临时文件目录会被定期清理</span><br><span class="line">dataDir=/tmp/zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ZK进程对外暴露的提供服务的端口号，也就是客户端连接时使用的端口。</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line"># 最大客户端连接数（需要使用时可以将注释放开）</span><br><span class="line">#maxClientCnxns=60</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line"># 在 dataDir 目录中保留的不同版本的快照数量（需要使用时可以将注释放开）</span><br><span class="line">#autopurge.snapRetainCount=3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line"># 清除任务间隔时间(小时)</span><br><span class="line"># 设置为 “0” 表示禁用自动清除功能</span><br><span class="line">#autopurge.purgeInterval=1</span><br></pre></td></tr></table></figure>
 
 
 
