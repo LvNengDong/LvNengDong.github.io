@@ -806,7 +806,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-09-11 22:13:35" itemprop="dateModified" datetime="2022-09-11T22:13:35+08:00">2022-09-11</time>
+      <time title="Modified: 2022-09-18 23:30:02" itemprop="dateModified" datetime="2022-09-18T23:30:02+08:00">2022-09-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -828,37 +828,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h1><h2 id="暂存区的作用"><a href="#暂存区的作用" class="headerlink" title="暂存区的作用"></a>暂存区的作用</h2><p>暂存区的作用：暂时存放，还没有作为一个正式提交的版本。但是暂存区中的文件已经被git管理了，暂存区中的文件可以很容易地被git变成一次正式的提交；同时，它又可以回退，用暂存区的文件覆盖工作目录的文件，在实际开发中还是很有使用价值的。</p>
+          <h1 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h1><h2 id="暂存区的作用"><a href="#暂存区的作用" class="headerlink" title="暂存区的作用"></a>暂存区的作用</h2><p>暂存区的作用：暂时存放，还没有作为一个正式的版本提交到仓库中。</p>
+<p>但是需要注意的是：加入暂存区的文件就开始被Git管理了，暂存区中的文件可以很容易地被Git变成一次正式的提交；同时，它又可以回退，用暂存区的文件覆盖工作目录的文件，在实际开发中有很多使用场景。</p>
+<p>比如：</p>
 <ol>
 <li>在工作目录中执行修改操作引发的变更，可以先添加到暂存区；</li>
 <li>然后再在工作目录中尝试使用另外一套解决方案，假如第二套方案没有第一套方案好的话，就可以用暂存区的第一套方案覆盖工作目录。</li>
 </ol>
-<h2 id="通过几次commit来认识工作区和暂存区"><a href="#通过几次commit来认识工作区和暂存区" class="headerlink" title="通过几次commit来认识工作区和暂存区"></a>通过几次commit来认识工作区和暂存区</h2><blockquote>
-<p>大纲：4次提交</p>
+<h2 id="通过几次commit来认识工作区和暂存区"><a href="#通过几次commit来认识工作区和暂存区" class="headerlink" title="通过几次commit来认识工作区和暂存区"></a>通过几次commit来认识工作区和暂存区</h2><p>我们通过4次提交的过程来认识一下工作区和暂存区</p>
 <ul>
 <li>第一次提交：加入 index.html 和 git-logo 图片</li>
 <li>第二次提交：加入 style.css</li>
 <li>第三次提交：加入 script.js</li>
 <li>第四次提交：修改 index.html</li>
 </ul>
-</blockquote>
-<p><strong>git status 查看工作目录和暂存区的状态</strong></p>
+<p><strong>git status——查看工作目录和暂存区的状态</strong></p>
 <ol>
 <li><p>初始化一个 Git 项目，命名为 git-learning</p>
- <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Git init <span class="string">&quot;git-learning&quot;</span></span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>向仓库中添加 <code>index.html</code> 和 <code>images/git-logo</code> 图片文件</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Git init <span class="string">&quot;git-learning&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>向仓库中添加 <code>index.html</code> 和 <code>images/git-logo.jpg</code> 图片文件</p>
 </li>
 <li><p>通过 <code>git status</code> 查看工作目录和暂存区的状态</p>
-<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910152842936.png" alt="image-20220910152842936"></p>
+</li>
+</ol>
+<p>  <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910152842936.png" alt="image-20220910152842936"></p>
 <ul>
 <li>当前处于 master 分支；</li>
 <li>还没有提交（commit）过；</li>
-<li>git还没有管理下列文件，可以使用 <code>git add</code> 命令可以将下列文件加入到暂存区，以便于将来可以被提交（commit）；</li>
+<li>未被Git追踪的文件列表：可以使用 <code>git add &lt;file&gt;</code> 命令将这些文件加入暂存区，纳入Git的管理范围，以便于将来可以很容易的被提交（commit）；</li>
 <li>没有添加任何提交，存在未被跟踪的文件，可以使用 <code>git add</code> 进行跟踪。</li>
 </ul>
-</li>
+<ol start="4">
 <li><p>将上面的文件及文件夹加入暂存区，纳入Git的管理，重新查看工作目录和暂存区的状态</p>
  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.html images/git-logo.png</span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure>
 
@@ -895,30 +895,28 @@
 <li><p>查看工作区和暂存区状态</p>
 <p>  <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155226183.png" alt="image-20220910155226183"></p>
 </li>
-<li><p>将变更添加到暂存区：<strong>git add -u：对于已经被 Git 管理的文件，可以使用 git add -u 将这些文件添加到暂存区，无需挨个添加文件到暂存区</strong></p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -u</span><br></pre></td></tr></table></figure></li>
-<li><p>提交</p>
-</li>
-<li><p>查看提交日志</p>
-</li>
+<li><p>将变更添加到暂存区：<strong>git add -u：对于已经被 Git 管理的文件，可以使用 <code>git add -u </code> 将这些文件添加到暂存区，无需挨个添加文件到暂存区</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -u：update</span></span><br><span class="line">git add -u</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155819134.png" alt="image-20220910155819134"></p>
 </li>
 </ol>
-<p><strong>经验：</strong>不应该将全部的文件都被Git管理，每次修改后，只需将要被管理的文件加入暂存区，等到觉得可以达到一次提交的程度，将暂存区的文件一次性提交到git仓库即可。</p>
+<ul>
+<li>提交</li>
+<li>查看提交日志  <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910155819134.png" alt="image-20220910155819134"></li>
+</ul>
+<p><strong>经验：</strong>不应该将全部的文件都被Git管理，每次修改后，只需将要被管理的文件加入暂存区，等到觉得可以达到一次提交的程度，将暂存区的文件一次性提交到Git仓库即可。</p>
 <h2 id="给文件重命名的简便方法"><a href="#给文件重命名的简便方法" class="headerlink" title="给文件重命名的简便方法"></a>给文件重命名的简便方法</h2><h3 id="复杂方法："><a href="#复杂方法：" class="headerlink" title="复杂方法："></a>复杂方法：</h3><p>给文件重命名的复杂方法：</p>
 <ol>
 <li>在工作目录给文件重命名；</li>
 <li>将重命名的文件提交到暂存区；</li>
 <li>将暂存区的文件提交到git本地仓库</li>
 </ol>
-<p>我们先让git仓库管理一个 readme 文件。</p>
+<p>我们让git仓库管理一个 readme 文件，先使用这种复杂的方式将 readme 文件重命名为 <code>readme.md</code></p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910160602002.png" alt="image-20220910160602002"></p>
-<p>然后使用这种复杂的方式将 readme 重命名为 <code>readme.md</code></p>
 <ol>
 <li><p>在工作目录将 readme 重命名为 <code>readme.md</code>，查看当前状态</p>
 <p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910160803119.png" alt="image-20220910160803119"></p>
-<p> 可以看到，对于 git 而言，它要求你：先将 readme 文件删除，然后将 readme.md 文件添加到暂存区。所以我们需要进行<strong>两个步骤</strong>：</p>
+<p> 可以看到，上述操作对于Git而言识别到的是两个操作：1、先将 readme 文件删除；2、然后将 readme.md 文件添加到暂存区。所以我们需要进行<strong>两个步骤</strong>：</p>
 <ul>
 <li>将 readme.md 添加到暂存区；</li>
 <li>将 readme 从Git仓库中删除（如果不删除会影响后面的提交）</li>
@@ -934,8 +932,7 @@
 <p>使用简洁的命令完成重命名操作</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910162111914.png" alt="image-20220910162111914"></p>
 <p>提交</p>
-<h2 id="通过git-log查看版本演变历史"><a href="#通过git-log查看版本演变历史" class="headerlink" title="通过git log查看版本演变历史"></a>通过git log查看版本演变历史</h2><p><a target="_blank" rel="noopener" href="https://www.processon.com/view/link/631c49f41e085349e18bb085">https://www.processon.com/view/link/631c49f41e085349e18bb085</a></p>
-<p>基于 master 分支的第二个版本创建一个 temp 分支</p>
+<h2 id="通过git-log查看版本演变历史"><a href="#通过git-log查看版本演变历史" class="headerlink" title="通过git log查看版本演变历史"></a>通过git log查看版本演变历史</h2><p>基于 master 分支的第二个版本创建一个 temp 分支</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b temp ee0dbd54ba13aef995</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220910162840536.png" alt="image-20220910162840536"></p>
@@ -966,38 +963,48 @@
 
 
 
-<h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><p>config 也是一个文本文件（配置文件）,保存了当前git的一些配置信息。对于这些配置信息，我们既可以通过 git提供的一些简单命令进行修改（比如用户名和邮箱信息），也可以直接在配置文件上进行修改，最终效果都是一样的。</p>
+<h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><p>config 是一个配置文件，保存了Git的一些配置信息。对于这些配置信息，我们既可以通过Git提供的一些简单命令进行直接修改（比如用户名和邮箱信息），也可以在配置文件上进行修改，最终效果都是一样的。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> config</span><br><span class="line">[core]</span><br><span class="line">        repositoryformatversion = 0</span><br><span class="line">        filemode = <span class="literal">false</span></span><br><span class="line">        bare = <span class="literal">false</span></span><br><span class="line">        logallrefupdates = <span class="literal">true</span></span><br><span class="line">        symlinks = <span class="literal">false</span></span><br><span class="line">        ignorecase = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 
 
 <h3 id="refs"><a href="#refs" class="headerlink" title="refs"></a>refs</h3><p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911003036152.png" alt="image-20220911003036152"></p>
-<p>refs 目录下有 heads 和 tags 两个目录，复数意味着Git仓库是可以有很多 head 和 tag 的。</p>
+<p>refs 目录下有 heads 和 tags 两个目录，复数意味着Git仓库是可以有很多 head 和 tag。</p>
 <ul>
-<li>tag 又叫做“里程碑”，比如我们的项目开发到了一个新的阶段，需要的当前的成功进行发版，比如 V1.0，这时候可以对当前最新的 commit 打上一个标识（tag）。但实际上，tag 引用的也是这次 commit 的 id。</li>
+<li>tag 又叫做“里程碑”，记录了某一次具有重大意义的commit。比如我们的项目开发到了一个新的阶段，需要对当前的commit进行发版，比如 V1.0，这时候可以对当前最新的 commit 打上一个标识（tag）。但实际上，tag 引用的也是这次 commit 的 id。</li>
 <li>heads 对应着我们的许多分支，分支就是独立的开发空间，对于一个人来说，比如我们开发前后端分离的项目，我们可以为前端建立一个分支，为后端建立一个分支，两个分支相互独立开发。对于多人协作开发来说，每个人可以在自己独立的分支上进行代码开发，开发完毕后将所有的分支合并到主分支上，避免开发过程中频繁冲突的问题。</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911002056285.png" alt="image-20220911002056285"></p>
-<p>实际上，不管是 heads 还是 tags 中，保存的都是一些文件。对于 heads/xx，xx指向的是xx分支下最新的一次commit id，对于 tags/xx，xx 指向的是发布 tag 那一次的 commit id。</p>
+<p>实际上，不管是 heads 还是 tags 中，保存的都是一些文件。对于 heads/master 文件，文件内容指向的是 master 分支下最新一次的commit_id，对于 tags/xx 文件，文件内容指向的是发布 tag 那一次的commit_id。</p>
 <p>我们可以进入这两个文件夹看一下</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> ./refs/heads/master</span><br><span class="line">c646c8437e51ef484391dc69d3302bac92c5b5a2</span><br></pre></td></tr></table></figure>
 
 <p>可以看到 master 是一个文件，它指向当前分支最近一次提交（commit）的id；同理，tags 下面的文件也是 tag 的提交名称，这个名称的内容是 tag 提交（commit）时的 id。</p>
 <p>我们来具体看一下这个 id 的类型，可以看到它确实是一个 commit 类型。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911005239122.png" alt="image-20220911005239122"></p>
-<h3 id="objects"><a href="#objects" class="headerlink" title="objects"></a>objects</h3><p>objects 中都是一些目录。可以看到有非常多的文件夹，一个比较特殊的文件夹是 <strong>pack</strong>，pack 的作用就是整理，当 objects 中文件夹的数量太多时，Git 就会进行自我梳理，将一些前缀一样的文件打包整理到 pack 中</p>
+<h3 id="objects"><a href="#objects" class="headerlink" title="objects"></a>objects</h3><p>Git中的Object可以参考Java的Object，是最顶级的父类。包括commit、tree、blob、branch、tag 等都可以看成是一个 Object。</p>
+<p>objects 中都是一些目录。可以看到有非常多的文件夹，一个比较特殊的文件夹是 <strong>pack</strong>，pack 的作用就是整理，当 objects 中文件夹的数量太多时，Git 就会进行自我梳理，将一些前缀一样的文件打包整理到 pack 中</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911005735914.png" alt="image-20220911005735914"></p>
-<p>以文件夹 e6 为例，这里面存放的都是以 “e6” 开头的 object，我们通过拼接 “e6” 与文件夹内的子文件夹名称，可以得到一个完成的 id，根据这个 id 可以查看对应的 object 类型。比如下面我们就查出了两种类型 <strong>commit</strong> 和 <strong>blob</strong>，实际上 Git 中还有类型为 <strong>tree</strong> 的 object。</p>
+<p>以文件夹 e6 为例，这里面存放的都是以 “e6” 开头的 object，我们通过将 “e6” 作为前缀与文件夹内的子文件夹名称进行拼接，可以得到一个完成的 id，根据这个 id 可以查看对应的 object 类型。比如下面我们就查出了两种类型 <strong>commit</strong> 和 <strong>blob</strong>，实际上 Git 中还有类型为 <strong>tree</strong> 的 object。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911010601184.png" alt="image-20220911010601184"></p>
-<p>object 可以近似地理解为 Java 中的 Object，Git 中任何东西都可以称为 object。比如一次 commit 是一个 object，一个分支（head）是一个 object，一个 tag 是一个 object。</p>
 <hr>
 <h2 id="commit、tree和blob三个对象之间的关系"><a href="#commit、tree和blob三个对象之间的关系" class="headerlink" title="commit、tree和blob三个对象之间的关系"></a>commit、tree和blob三个对象之间的关系</h2><p>Git对象彼此关系</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911011805031.png" alt="image-20220911011805031"></p>
-<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><p>每一次执行 git commit 命令都会创建一个 commit 对象。一个 commit 一定会对应于一棵树（tree）。</p>
+<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><p>每次执行 <code>git commit</code> 命令都会创建一个 commit 对象。一个 commit 一定会对应于一棵树（tree）。</p>
 <p>这棵树表示这次 commit 后得到的当前项目所有文件夹及文件的快照视图。</p>
+<ul>
+<li>parent：上次提交的commit_id</li>
+<li>tree：保存本次提交的所有数据的快照的tree对象的id</li>
+<li>author：作者</li>
+<li>committer：提交者</li>
+</ul>
 <h3 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h3><p>在 tree 对象中，我们还可以看到子 tree 对象，表示文件夹，对应的，blob 对象表示文件。</p>
+<ul>
+<li>tree：目录</li>
+<li>blob：文件</li>
+</ul>
 <h3 id="blob"><a href="#blob" class="headerlink" title="blob"></a>blob</h3><p>文件内容。</p>
-<p>注意的一点是：blob 与文件名没有一点儿关系。只要文件的内容相同，那么 Git 就会将其视为一个 blob。所以对于一些名字不同而内容相同的文件，Git 不会对内容进行重复存储，只需要将这两个文件名指向同一个 blob 即可。</p>
+<p>注意的一点是：blob的唯一id与文件名没有一点儿关系。只要文件的内容相同，那么 Git 就会将其视为一个 blob。所以对于一些名字不同而内容相同的文件，Git 不会对内容进行重复存储，只需要将这两个文件名指向同一个 blob 即可。</p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>接下来，我们通过具体操作对上面的理论进行测试。</p>
 <ol>
 <li>查看当前所处的分支，并选定某一次 commit 进行测试，这里选择第六次提交这个分支吧。</li>
@@ -1018,8 +1025,8 @@
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911014148594.png" alt="image-20220911014148594"></p>
 <hr>
 <h2 id="小练习：数一数tree的个数"><a href="#小练习：数一数tree的个数" class="headerlink" title="小练习：数一数tree的个数"></a>小练习：数一数tree的个数</h2><p>TODO</p>
-<h2 id="分离头指针情况下的注意事项"><a href="#分离头指针情况下的注意事项" class="headerlink" title="分离头指针情况下的注意事项"></a>分离头指针情况下的注意事项</h2><h3 id="什么是分离头指针？"><a href="#什么是分离头指针？" class="headerlink" title="什么是分离头指针？"></a>什么是分离头指针？</h3><p>分离头指针：<strong>HEAD指针与分支分离</strong>。commit没有基于某个分支（branch），这就会造成 HEAD 不与分支绑定，这种情况就叫做“分离头指针”。</p>
-<h3 id="分离头指针的使用场景"><a href="#分离头指针的使用场景" class="headerlink" title="分离头指针的使用场景"></a>分离头指针的使用场景</h3><p>通常情况下，我们都会使用 <code>git checkout 分支名称</code> 命令来进行分支间的切换，但是 checkout 后面不光可以跟分支名称，还可以是某次 commit 的 id 号，比如下面这样，我们使用“第二次提交”的 commit id 作为 checkout 的目的地。</p>
+<h2 id="分离头指针情况下的注意事项"><a href="#分离头指针情况下的注意事项" class="headerlink" title="分离头指针情况下的注意事项"></a>分离头指针情况下的注意事项</h2><h3 id="什么是分离头指针？"><a href="#什么是分离头指针？" class="headerlink" title="什么是分离头指针？"></a>什么是分离头指针？</h3><p>分离头指针：<strong>HEAD指针脱离分支而独立存在</strong>。即commit没有基于某个分支（branch），这就会导致HEAD不与分支绑定，这种情况就叫做“分离头指针”。</p>
+<h3 id="分离头指针的使用场景"><a href="#分离头指针的使用场景" class="headerlink" title="分离头指针的使用场景"></a>分离头指针的使用场景</h3><p>通常情况下，我们都会使用 <code>git checkout &lt;branch_name&gt;</code> 命令来进行分支间的切换，但是 checkout 后面不光可以跟分支名称，还可以是某次的 commit_id 号，比如下面这样，我们使用“第二次提交”的 commit id 作为 checkout 的目的地。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout ee0dbd54ba13aef995ec7</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911195110717.png" alt="image-20220911195110717"></p>
@@ -1032,13 +1039,13 @@
 </blockquote>
 <p>给它一个使用场景就是：我们现在想基于某一个 commit 进行实验性的开发，那么就可以进入“分离头指针”状态，在一个没有分支的状态下工作，在这个状态下进行试验开发并提交代码。如果试验的结果不理想，你不想要这些测试代码了，那么你可以直接切回到一个现有的分支下（比如 master），你在 “detached HEAD” 状态下进行的所有开发都会在不远的将来的某一时间被 Git 清理掉。</p>
 <p>当然，如果你觉得这次试验很成功，那么一定不要忘了给 “detached HEAD” 绑定一个真正的分支，否则这些提交都会被 Git 当做无关紧要的 commit 而丢弃掉。</p>
-<h3 id="分离头指针的使用案例"><a href="#分离头指针的使用案例" class="headerlink" title="分离头指针的使用案例"></a>分离头指针的使用案例</h3><p>通过前面一系列工作，我们现在已经处于 “detached HEAD” 状态，当前数据是基于“第二次提交”这个分支。我们现在修改 css 文件，将其中的某个参数的颜色改为 green，然后通过 git status 查看工作区与暂存区的状态。可以看到Git已经识别出了，当前处于分离头指针状态，并且对应于某一个 commit。</p>
+<h3 id="分离头指针的使用案例"><a href="#分离头指针的使用案例" class="headerlink" title="分离头指针的使用案例"></a>分离头指针的使用案例</h3><p>通过前面一系列工作，我们现在已经处于 “detached HEAD” 状态，当前数据是基于“第二次提交”这个commit。我们现在修改 css 文件，将其中的某个参数的颜色改为 green，然后通过 git status 查看工作区与暂存区的状态。可以看到Git已经识别出了，当前处于分离头指针状态，并且对应于某一个 commit。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202518833.png" alt="image-20220911202518833"></p>
 <p>继续 commit 这次修改，并查看 log 状态。可以看到，在 log 中，HEAD 指针并没有指向某个具体的分支，这与我们前面看到的是不一样的，正常的应该类似于 <code>HEAD -&gt; master</code>，这也是“分离头指针”名字的由来，即<strong>HEAD指针与分支分离</strong>。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202703873.png" alt="image-20220911202703873"></p>
 <p>我们查看所有分支上的 log 树可知，Git 并没有把 “detached HEAD” 状态下的提交当成一次正式提交，所以当切换到某个具体分支后，在 “detached HEAD” 状态下的提交都会在将来某个时间段被 Git 清理掉。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911202955357.png" alt="image-20220911202955357"></p>
-<p>比如，我们在进行分支切换的时候，Git 也会提示你：如果需要的话，可以为 “detached HEAD” 状态下的提交创建一个新的分支。</p>
+<p>比如，我们在进行分支切换的时候，Git 也会提示你：如果你想保存这次提交的话，可以为 “detached HEAD” 状态下的提交创建一个新的分支。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911203328098.png" alt="image-20220911203328098"></p>
 <p>我们可以先为其创建一个新的分支，然后重新查看所有分支的 log 记录，此时，“detached HEAD” 状态下的分支由于绑定了具体的分支，这些提交也就变成了有效提交，可以被永久保存。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911203352863.png" alt="image-20220911203352863"></p>
@@ -1055,9 +1062,7 @@
 <p>基于 fix_css 分支创建新的 fix_readme 分支。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911205651063.png" alt="image-20220911205651063"></p>
 <p>查看 HEAD 指向的引用（最终一定是某一次 commit）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> .git/HEAd</span><br><span class="line">ref: refs/heads/fix_readme</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> .git/refs/heads/fix_readme</span><br><span class="line">a9773e93bd968e575a17b29c79f33529629273df</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> .git/HEAD</span><br><span class="line">ref: refs/heads/fix_readme</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> .git/refs/heads/fix_readme</span><br><span class="line">a9773e93bd968e575a17b29c79f33529629273df</span><br></pre></td></tr></table></figure>
 
 
 
@@ -1078,7 +1083,7 @@
 <li><code>HEAD^</code>：等价于 <code>HEAD^1</code></li>
 <li><code>HEAD^^</code>：HEAD 的前两个版本，等价于 <code>HEAD~2</code></li>
 </ul>
-<h1 id="独自使用Git时的常见场景"><a href="#独自使用Git时的常见场景" class="headerlink" title="独自使用Git时的常见场景"></a>独自使用Git时的常见场景</h1><h2 id="怎么删除不需要的分支"><a href="#怎么删除不需要的分支" class="headerlink" title="怎么删除不需要的分支"></a>怎么删除不需要的分支</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d 分支名称</span><br><span class="line">git branch -D 分支名称</span><br></pre></td></tr></table></figure>
+<h1 id="独自使用Git时的常见场景"><a href="#独自使用Git时的常见场景" class="headerlink" title="独自使用Git时的常见场景"></a>独自使用Git时的常见场景</h1><h2 id="怎么删除不需要的分支"><a href="#怎么删除不需要的分支" class="headerlink" title="怎么删除不需要的分支"></a>怎么删除不需要的分支</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;branch_name&gt;</span><br><span class="line">git branch -D &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
 
 <p>如图所示，我们正处于 master 分支下，准备删除 <code>fix_readme</code> 分支，执行 <code>git branch -d fix_readme</code> 命令后出错，错误信息是：</p>
 <blockquote>
@@ -1097,13 +1102,195 @@
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911220149820.png" alt="image-20220911220149820"></p>
 <p>修改完成后，重新查看 commit log。</p>
 <p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220911220311588.png" alt="image-20220911220311588"></p>
-<h2 id="怎么修改老旧commit的message？"><a href="#怎么修改老旧commit的message？" class="headerlink" title="怎么修改老旧commit的message？"></a>怎么修改老旧commit的message？</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i commit_id</span><br></pre></td></tr></table></figure>
+<h2 id="怎么修改老旧commit的message？"><a href="#怎么修改老旧commit的message？" class="headerlink" title="怎么修改老旧commit的message？"></a>怎么修改老旧commit的message？</h2><blockquote>
+<p><code>git rebase</code>——变基</p>
+<ul>
+<li>变基：这里的“基”是指某一次commit，“变基”是指改变这次commit之后的所有commit。</li>
+<li>如果执行 git rebase 成功，那么“基”之后的所有commit_id，都会使用新生成的commit_id。</li>
+</ul>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#基于某次的commit进行变更 </span></span><br><span class="line">git rebase -i &lt;commit_id&gt;	</span><br></pre></td></tr></table></figure>
 
-<p>基于哪个 commit 变更</p>
-<p>TODO</p>
-<h2 id="怎样把连续的多个commit整理成1个？"><a href="#怎样把连续的多个commit整理成1个？" class="headerlink" title="怎样把连续的多个commit整理成1个？"></a>怎样把连续的多个commit整理成1个？</h2><p>TODO</p>
-<h2 id="怎么比较暂存区和HEAD所含文件的差异？"><a href="#怎么比较暂存区和HEAD所含文件的差异？" class="headerlink" title="怎么比较暂存区和HEAD所含文件的差异？"></a>怎么比较暂存区和HEAD所含文件的差异？</h2><p>TODO</p>
-<h2 id="怎么比较工作区和暂存区文件的差异？"><a href="#怎么比较工作区和暂存区文件的差异？" class="headerlink" title="怎么比较工作区和暂存区文件的差异？"></a>怎么比较工作区和暂存区文件的差异？</h2><h2 id="如何让暂存区恢复成和HEAD的一样？"><a href="#如何让暂存区恢复成和HEAD的一样？" class="headerlink" title="如何让暂存区恢复成和HEAD的一样？"></a>如何让暂存区恢复成和HEAD的一样？</h2><h2 id="如何让工作区的文件恢复成和暂存区的一样？"><a href="#如何让工作区的文件恢复成和暂存区的一样？" class="headerlink" title="如何让工作区的文件恢复成和暂存区的一样？"></a>如何让工作区的文件恢复成和暂存区的一样？</h2><h2 id="怎样取消暂存区部分文件的更改？"><a href="#怎样取消暂存区部分文件的更改？" class="headerlink" title="怎样取消暂存区部分文件的更改？"></a>怎样取消暂存区部分文件的更改？</h2>
+<p><strong>注意事项：</strong></p>
+<p>rebase——变基，这里的“基”指的是“基于谁”。所以如果想要改变某一次的 commit_message，首先要找到这次commit的父commit，基于 <code>parent_commit_id</code> 进行rebase操作。</p>
+<p>需要注意的是：执行变基操作后，这个“基”后面的所有commit都会变更，也就是说，如果我们以“第三次提交”的commit 进行 rebase 操作，那么其后的所有操作都会发生改变，而不是说只改变紧跟其后的一次commit。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918180236485.png" alt="image-20220918180236485"></p>
+<p>下图就是执行完上述命令后的界面，我们可以按照它提供的 commands 进行操作。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918172858599.png" alt="image-20220918172858599"></p>
+<p>默认对每次 commit 的操作就是 pick，即“选用”（其真正的含义是将某个commit的信息选出来加入到分离头指针状态下的commit中），但是我们现在的需求是：改写 <code>2f79a92</code> 的信息，那我们就需要执行 <code>r, reword</code> 这条命令。</p>
+<p>在这个文件中，我们只需要选择策略上的修改，即 <code>pick -&gt; reword</code>，在这里不可以进行 message 的修改。在我么修改完保存后，我们会进入到另外一个界面，在另一个界面上真正完成对 commit_message 的修改。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918174920362.png" alt="image-20220918174920362"></p>
+<p>修改 commit_message</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918175000203.png" alt="image-20220918175000203"></p>
+<p>看到如下提示信息，就说明修改成功了。我们可以看到，这里用到了“分离头指针”的操作，我们搭配 log 看一下这个操作。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918175744625.png" alt="image-20220918175744625"></p>
+<p>首先，Git会根据 rebase（变基）命令后变基的文件中的所有command命令，在本例中就是一个 pick 加一个 reword，并将这两个 commit 作为分离头指针状态下的commit。然后再将分离头指针状态下的 commit 合并到 master 分支上。自然，合并到master分支时使用的 commit_id 是在分离头指针状态下的 commit_id，所以原来的“基”(<code>33a29b6</code>) 之后的所有 commit_id 都会改变，自然也就需要更改 HEAD 指针的位置。</p>
+<p>需要注意的是，虽然 commit_id 发生了变化，但是这次 rebase 并没有改变文件的内容，所以对于新的 commit 来说只是改变了相应的 tree 对象和 blob 对象的引用地址，变动其实并不是很大。</p>
+<h2 id="怎样把连续的多个commit整理成1个？"><a href="#怎样把连续的多个commit整理成1个？" class="headerlink" title="怎样把连续的多个commit整理成1个？"></a>怎样把连续的多个commit整理成1个？</h2><p>查看 log 发现，第四次和第五次提交可以合并成一个。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --graph --oneline</span><br><span class="line">* 1b73b2a (HEAD -&gt; master) 第五次提交 <span class="built_in">mv</span> readme to readme.md</span><br><span class="line">* a4d9030 第四次提交：Add readme</span><br><span class="line">* 33a29b6 第三次提交：Add script.css</span><br><span class="line">* ee0dbd5 第二次提交：Add style.css</span><br><span class="line">* 4365475 第一次提交：Add index + logo</span><br></pre></td></tr></table></figure>
+
+<p>合并命令：rebase</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用第三次提交的commit_id</span></span><br><span class="line">git rebase -i 33a29b6</span><br></pre></td></tr></table></figure>
+
+<p>Git 提供的命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Commands:</span></span><br><span class="line"><span class="comment"># p, pick &lt;commit&gt; = use commit</span></span><br><span class="line"><span class="comment"># r, reword &lt;commit&gt; = use commit, but edit the commit message</span></span><br><span class="line"><span class="comment"># e, edit &lt;commit&gt; = use commit, but stop for amending</span></span><br><span class="line"><span class="comment"># s, squash &lt;commit&gt; = use commit, but meld into previous commit</span></span><br><span class="line"><span class="comment"># squash &lt;commit&gt; 合并到以前的提交</span></span><br><span class="line"><span class="comment"># f, fixup &lt;commit&gt; = like &quot;squash&quot;, but discard this commit&#x27;s log message</span></span><br><span class="line"><span class="comment"># x, exec &lt;command&gt; = run command (the rest of the line) using shell</span></span><br><span class="line"><span class="comment"># b, break = stop here (continue rebase later with &#x27;git rebase --continue&#x27;)</span></span><br><span class="line"><span class="comment"># d, drop &lt;commit&gt; = remove commit</span></span><br><span class="line"><span class="comment"># l, label &lt;label&gt; = label current HEAD with a name</span></span><br><span class="line"><span class="comment"># t, reset &lt;label&gt; = reset HEAD to a label</span></span><br><span class="line"><span class="comment"># m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]</span></span><br><span class="line"><span class="comment"># .       create a merge commit using the original merge commit&#x27;s</span></span><br><span class="line"><span class="comment"># .       message (or the oneline, if no original merge commit was</span></span><br><span class="line"><span class="comment"># .       specified). Use -c &lt;commit&gt; to reword the commit message.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>编辑策略</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pick a4d9030 第四次提交：Add readme</span><br><span class="line"><span class="comment"># 将第五次提交合并到第四次提交中去</span></span><br><span class="line">squash 1b73b2a 第五次提交 <span class="built_in">mv</span> readme to readme.md</span><br></pre></td></tr></table></figure>
+
+<p>保存，继续编辑，添加合并 commit 后的 commit_message。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918185020846.png" alt="image-20220918185020846"></p>
+<p>保存，查看日志。并且由于我们未在上一步编辑的文件中删除合并 commit 之前的 message，所以这里依旧可以看到之前的 message 信息。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918185242399.png" alt="image-20220918185242399"></p>
+<h2 id="怎样把间隔的几个commit整理成一个？"><a href="#怎样把间隔的几个commit整理成一个？" class="headerlink" title="怎样把间隔的几个commit整理成一个？"></a>怎样把间隔的几个commit整理成一个？</h2><p>目标：将 <code>4365475</code> 和 <code>1d39bde</code> 合并成一个 commit。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --graph --oneline</span><br><span class="line">* 1d39bde (HEAD -&gt; master) 第四次提交：Add readme.md</span><br><span class="line">* 33a29b6 第三次提交：Add script.css</span><br><span class="line">* ee0dbd5 第二次提交：Add style.css</span><br><span class="line">* 4365475 第一次提交：Add index + logo</span><br></pre></td></tr></table></figure>
+
+<p>同样需要使用 git rebase 命令，这里有一个比较特殊的点是：在使用 <code>git rebase -i 4365475</code> 命令后打开的文本中是没有它自身的，这是因为 4365475 已经是最早的提交了。但我们又希望使用 <code>4365475</code> 参与合并，所以这时我们需要手动将 4365475 这个commit添加到文件中。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918190922058.png" alt="image-20220918190922058"></p>
+<p>修改文件：通过调整位置将 <code>4365475</code> 和 <code>1d39bde</code> 合并成一个 commit，其余两个 commit 保持不变。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918191139816.png" alt="image-20220918191139816"></p>
+<p>保存提交。与整理连续commit不同的是，整理不连续的commit需要手动确认，因为Git会认为这种操作是不安全的。根据提示信息，为了解决冲突，我们需要使用 <code>git rebase --continue</code> 解决冲突</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918191505328.png" alt="image-20220918191505328"></p>
+<p><code>git rebase --continue</code>，进入编辑页面。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918191649475.png" alt="image-20220918191649475"></p>
+<p>修改提交信息并保存，查看日志</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918191734929.png" alt="image-20220918191734929"></p>
+<h2 id="怎么比较暂存区和HEAD所含文件的差异？"><a href="#怎么比较暂存区和HEAD所含文件的差异？" class="headerlink" title="怎么比较暂存区和HEAD所含文件的差异？"></a>怎么比较暂存区和HEAD所含文件的差异？</h2><ol>
+<li><p>查看当前工作目录、暂存区、本地仓库的状态。当前这三者的数据都是一致的。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>修改工作目录中的 index.html 文件;</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim index.html</span><br></pre></td></tr></table></figure></li>
+<li><p>添加文件到暂存区</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.html</span><br></pre></td></tr></table></figure></li>
+<li><p>查看暂存区文件与HEAD文件的差异</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918201652387.png" alt="image-20220918201652387"></p>
+</li>
+<li><p>提交修改</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m<span class="string">&quot;Add first command：add&quot;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="怎么比较工作区和暂存区文件的差异？"><a href="#怎么比较工作区和暂存区文件的差异？" class="headerlink" title="怎么比较工作区和暂存区文件的差异？"></a>怎么比较工作区和暂存区文件的差异？</h2><ol>
+<li><p>修改工作区中 Index.html 文件内容</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim index.html</span><br></pre></td></tr></table></figure></li>
+<li><p>比较工作区和暂存区文件的差异</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff</span><br></pre></td></tr></table></figure></li>
+<li><p>如果同时存在多个文件发生了变更，但是你只想查看某一个文件的变更，可以指定文件名查看diff</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git diff -- index.html</span><br><span class="line">// 注意：-- 后面需要加一个空格</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>允许添加多个文件，多个文件之间用空格隔开。比如 <code>$ git diff -- a.html b.html</code></li>
+</ul>
+</li>
+<li><p>如果确定变更，则将变更提交到暂存区</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.html</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="如何让暂存区恢复成和HEAD的一样？"><a href="#如何让暂存区恢复成和HEAD的一样？" class="headerlink" title="如何让暂存区恢复成和HEAD的一样？"></a>如何让暂存区恢复成和HEAD的一样？</h2><p><strong>使用场景：</strong></p>
+<p>开发前期使用了方案A进行开发，并将方案A的代码提交到了暂存区。但是中途，由于需求变动，方案A变为了方案B，此时，暂存区前期的提交都被废弃了，需要将其恢复到上一次commit的状态，即HEAD状态。</p>
+<p>当然，为了防备后期还有可能需要方案A的代码，我们可以对工作区的数据先进行一次 stash 操作，记录它当前的快照。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将暂存区的数据恢复到HEAD状态</span></span><br><span class="line"><span class="comment"># 注意：这里可以指定将暂存区中的某个文件恢复到HEAD的状态，如果不显示指定，默认是所有的文件</span></span><br><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918204217019.png" alt="image-20220918204217019"></p>
+<p>可以看到，第一次使用 <code>git status</code> 时，暂存区中存在待提交的文件；当我们把暂存区恢复到HEAD后，暂存区中已经没有待提交的文件了，但是工作区中的修改仍然存在。</p>
+<p>我们也可以通过 <code>git diff --cached</code> 查看当前暂存区与HEAD的差别。</p>
+<h2 id="如何让工作区的文件恢复成和暂存区的一样？"><a href="#如何让工作区的文件恢复成和暂存区的一样？" class="headerlink" title="如何让工作区的文件恢复成和暂存区的一样？"></a>如何让工作区的文件恢复成和暂存区的一样？</h2><p><strong>使用场景：</strong></p>
+<p>将方案A的代码提交到暂存区后，继续在方案A的基础上衍生出了方案B，但是发现方案B的效果还不如方案A的好，需要用暂存区的方案A覆盖工作区的代码。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918205024595.png" alt="image-20220918205024595"></p>
+<p>工作区和暂存区都有一个 index.html 文件。工作区的 index.html 含有 <code>git log</code> 关键字，而暂存区的则是 <code>log</code> 关键字，为了保持格式的一致，现在想用暂存区的文件覆盖工作区的文件。</p>
+<p>可以从Git给出的提示看到用暂存区覆盖工作区的方法：<code>use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory</code>。同时，直接使用 <code>git checkout -- &lt;file&gt;</code> 也会导致丢失工作区的内容（如果你未将工作区的变更提交到暂存区的话）</p>
+<p>方法如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将工作区的index.html恢复成暂存区的index.html</span></span><br><span class="line">git checkout -- index.html</span><br><span class="line"><span class="comment">#将工作区的所有内容恢复成暂存区的内容</span></span><br><span class="line">git checkout</span><br><span class="line"></span><br><span class="line"><span class="comment">#将工作区的index.html恢复成暂存区的index.html</span></span><br><span class="line"><span class="comment">#git restore后面必须跟一个路径</span></span><br><span class="line">git restore index.html</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="怎样取消暂存区部分文件的更改（让暂存区另一部分的文件恢复到HEAD状态）？"><a href="#怎样取消暂存区部分文件的更改（让暂存区另一部分的文件恢复到HEAD状态）？" class="headerlink" title="怎样取消暂存区部分文件的更改（让暂存区另一部分的文件恢复到HEAD状态）？"></a>怎样取消暂存区部分文件的更改（让暂存区另一部分的文件恢复到HEAD状态）？</h2><p>暂存区现在有两个文件，现有一需求：只提交<code>readme.md</code>的修改。也就是说，取消对 index.html 的修改。这时候就需要将 <code>index.html</code> 恢复到HEAD状态。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918211028109.png" alt="image-20220918211028109"></p>
+<p>将 <code>index.html</code> 恢复到HEAD状态。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD -- index.html</span><br><span class="line"><span class="comment">#可以指定多个文件，文件名之间用空格隔开</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="消除最近几次提交"><a href="#消除最近几次提交" class="headerlink" title="消除最近几次提交"></a>消除最近几次提交</h2><p>对Git仓库进行回滚，同时暂存区和工作区都会回到某一个历史版本</p>
+<p>切换到 temp 分支上进行操作，</p>
+<p>查看log</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">7ae0f40 (HEAD -&gt; temp) Add <span class="built_in">test</span></span><br><span class="line">ee0dbd5 第二次提交：Add style.css</span><br><span class="line">4365475 第一次提交：Add index + logo</span><br></pre></td></tr></table></figure>
+
+<p>回滚到 <code>4365475</code> 版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 4365475</span><br></pre></td></tr></table></figure>
+
+<p>查看log</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">4365475 (HEAD -&gt; temp) 第一次提交：Add index + logo</span><br></pre></td></tr></table></figure>
+
+<p>查看暂存区和本地文件。可以发现，本地文件中 <code>style.css</code> 不见了。</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918212625042.png" alt="image-20220918212625042"></p>
+<h2 id="查看不同commit之间文件的差异"><a href="#查看不同commit之间文件的差异" class="headerlink" title="查看不同commit之间文件的差异"></a>查看不同commit之间文件的差异</h2><p>查看不同commit之间文件的差异，允许查看不同分支下的 commit 的差异。</p>
+<p>查看所有分支的log</p>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918213617710.png" alt="image-20220918213617710"></p>
+<p>比较 <code>b5d0ead</code> 和 <code>a9773e9</code> 之间的差异</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff b5d0ead a9773e9 </span><br></pre></td></tr></table></figure>
+
+<p> 如果差异的文件很多，展示效果很差，可以指定一个或多个文件逐一查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff b5d0ead a9773e9 -- index.html</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="正确删除文件的方法"><a href="#正确删除文件的方法" class="headerlink" title="正确删除文件的方法"></a>正确删除文件的方法</h2><p>删除一些不再使用的文件。工作区和暂存区中对应的文件都会被删除。commit后本地仓库中的文件也会被删除。</p>
+<p><strong>复杂方式</strong></p>
+<ol>
+<li>删除工作区的文件（index.html）</li>
+<li>将第一步的操作提交到暂存区</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918224700765.png" alt="image-20220918224700765"></p>
+<p><strong>简单方式</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同时删除工作区和暂存区的index.html文件</span></span><br><span class="line">git <span class="built_in">rm</span> index.html</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="开发中临时加塞了紧急任务怎么处理：stash"><a href="#开发中临时加塞了紧急任务怎么处理：stash" class="headerlink" title="开发中临时加塞了紧急任务怎么处理：stash"></a>开发中临时加塞了紧急任务怎么处理：stash</h2><p><strong>场景</strong></p>
+<ul>
+<li>你的上一个功能正在开发中，一部分代码被提到了暂存区，一部分代码还在工作区正在编辑；</li>
+<li>但是，突然来了一个优先级比较高的需求，需要在其它分支上处理紧急出现的bug；</li>
+<li>此时，你就需要先将你完成的部分工作保存到某一个地方，去处理其它分支上的bug，等处理完毕后切回自己的开发分支再继续开发。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918225852578.png" alt="image-20220918225852578"></p>
+<p>可以看到，当前工作区的<code>styles/style.css</code> 以及暂存区的 <code>images/git-logo.png</code> 和 <code>index.html</code> 与 HEAD 相比都发生了变化，此时有一个新的任务加塞进来，我们就可以使用 <strong>git stash</strong> 命令将这些变更暂时保存到一个栈区域，生成一个栈元素，这个栈元素保存了这些变更是基于哪一次的 commit。</p>
+<p>可以使用 <strong>git stash list</strong> 来查看 stash 区域保存的变更，我们可以看到，stash 区域保存的变更是基于所有分支的。</p>
+<p>将这些变更加入到 stash 区域后，工作区和暂存区就恢复到了 HEAD 的状态，之后，你就可以切换分支去完成需要处理的紧急任务了。</p>
+<p>完成紧急任务之后，我们想回溯之前未完成的任务，可以使用 <strong>git stash apply</strong> 或 <strong>git stash pop</strong>。</p>
+<ul>
+<li><code>git stash apply</code> 的作用是将 stash 区域的内容取出来并添加到工作区，但不会删除stash区域的记录。</li>
+<li><code>git stash pop</code> 的作用与 apply 类似，但 pop 是一个弹出栈的动作，除了将 stash 区域的内容取出来并添加到工作区后，还会会删除stash区域的记录。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/LvNengDong/pic-go/main/img/git/image-20220918231620404.png" alt="image-20220918231620404"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将未commit和未add的变更保存到stash区域</span></span><br><span class="line">git stash</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看所有分支保存到stash区域的变更</span></span><br><span class="line">git stash list</span><br><span class="line"></span><br><span class="line"><span class="comment">#将 stash 区域的内容取出来并添加到工作区，但不会删除stash区域的记录</span></span><br><span class="line">git stash apply</span><br><span class="line"></span><br><span class="line"><span class="comment">#将 stash 区域的内容取出来并添加到工作区后，并删除stash区域的记录</span></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="如何指定不需要Git管理的文件"><a href="#如何指定不需要Git管理的文件" class="headerlink" title="如何指定不需要Git管理的文件"></a>如何指定不需要Git管理的文件</h2><p>添加<code>.gitignore</code>文件</p>
+<p>注意事项：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 两层含义：包含 目录+文件</span></span><br><span class="line"><span class="comment"># 1、如果有一个文件叫 xx.DSYM，不会被Git管理；</span></span><br><span class="line"><span class="comment"># 2、同时，如果有一个文件夹叫 xx.DSYM，那么它自身包括其内部的所有文件，都不会被Git管理</span></span><br><span class="line">*.DSYM</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较：只包含目录，不包含文件</span></span><br><span class="line"><span class="comment"># 1、相同点：如果有一个文件夹叫 xx.DSYM，那么它自身包括其内部的所有文件，都不会被Git管理</span></span><br><span class="line"><span class="comment"># 2、不同点：如果有一个文件叫 xx.DSYM，那么它会被Git管理；</span></span><br><span class="line">*.DSYM/</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="如何将Git仓库备份到本地"><a href="#如何将Git仓库备份到本地" class="headerlink" title="如何将Git仓库备份到本地"></a>如何将Git仓库备份到本地</h2>
       
     </div>
 
@@ -1165,7 +1352,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-09-16 00:21:52" itemprop="dateModified" datetime="2022-09-16T00:21:52+08:00">2022-09-16</time>
+      <time title="Modified: 2022-09-16 23:22:57" itemprop="dateModified" datetime="2022-09-16T23:22:57+08:00">2022-09-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1187,8 +1374,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="JDK-环境"><a href="#JDK-环境" class="headerlink" title="JDK 环境"></a>JDK 环境</h3><p>由于 ZooKeeper 是基于 Java 开发的，所以在安装 ZooKeeper 前必须保证当前计算机上已经安装了 JDK，并配置了 JAVA_HOME 环境变量。</p>
-<h3 id="安装包选择"><a href="#安装包选择" class="headerlink" title="安装包选择"></a>安装包选择</h3><p><strong>问题描述：</strong> 在安装 <code>zookeeper-3.5.7</code> 时，已经在 <code>conf</code> 文件夹下拷贝并重命名了一份 <code>zoo.cfg</code> 文件，结果在执行 <code>bin</code> 目录下的 <code>zkServer.sh</code> 脚本时依然启动失败，查看日志中的错误信息，提示如下：</p>
+          <h1 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h1><h2 id="JDK-环境"><a href="#JDK-环境" class="headerlink" title="JDK 环境"></a>JDK 环境</h2><p>由于 ZooKeeper 是基于 Java 开发的，所以在安装 ZooKeeper 前必须保证当前计算机上已经安装了 JDK，并配置了 JAVA_HOME 环境变量。</p>
+<h2 id="安装包选择"><a href="#安装包选择" class="headerlink" title="安装包选择"></a>安装包选择</h2><p><strong>问题描述：</strong> 在安装 <code>zookeeper-3.5.7</code> 时，已经在 <code>conf</code> 文件夹下拷贝并重命名了一份 <code>zoo.cfg</code> 文件，结果在执行 <code>bin</code> 目录下的 <code>zkServer.sh</code> 脚本时依然启动失败，查看日志中的错误信息，提示如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找不到或无法加载主类 org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br></pre></td></tr></table></figure>
 
 <p><strong>原因分析：</strong></p>
@@ -1200,7 +1387,7 @@
 <ul>
 <li>重新下载 <code>apache-zookeeper-3.5.5-bin.tar.gz</code> 包，然后解压使用。</li>
 </ul>
-<h2 id="单节点ZK安装部署"><a href="#单节点ZK安装部署" class="headerlink" title="单节点ZK安装部署"></a>单节点ZK安装部署</h2><ol>
+<h1 id="单节点ZK安装部署"><a href="#单节点ZK安装部署" class="headerlink" title="单节点ZK安装部署"></a>单节点ZK安装部署</h1><ol>
 <li><p>首先你需要下载ZooKeeper的安装包。如果你在本地直接有这个安装包，可以调到第4步。</p>
 </li>
 <li><p>去ZooKeeper官网找某一版本的下载链接，使用 <code>wget</code>命令进行下载。wget默认会把文件下载到当前路径下，你可以根据需求自行调整。</p>
@@ -1215,27 +1402,27 @@
 <li><p>拷贝 ZooKeeper 安装包<code>（apache-zookeeper-3.5.7-bin-bin.tar.gz）</code>到 Linux 系统下的指定目录<code>(/opt/software)</code>中。</p>
 </li>
 </ol>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ ll</span><br><span class="line">总用量 375040</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong   3130819 11月 30 11:09 apache-zookeeper-3.5.7-bin-bin.tar.gz    # ZooKeeper安装包</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ ll</span><br><span class="line">总用量 375040</span><br><span class="line">-rw-rw-r--. 1 lvnengdong lvnengdong   3130819 11月 30 11:09 apache-zookeeper-3.5.7-bin-bin.tar.gz    <span class="comment"># ZooKeeper安装包</span></span><br></pre></td></tr></table></figure>
 
 <ol start="5">
 <li>将安装包解压到 <code>/opt/module</code> 目录下</li>
 </ol>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxvf apache-zookeeper-3.5.7-bin-bin.tar.gz -C ../module/</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 software]$ tar -zxvf apache-zookeeper-3.5.7-bin-bin.tar.gz -C ../module/</span><br></pre></td></tr></table></figure>
 
 <ol start="6">
 <li>ZooKeeper 目录简析</li>
 </ol>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll</span><br><span class="line">总用量 32</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   232 2月  10 2020 bin   # 保存运行ZooKeeper的脚本文件</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong    77 2月   7 2020 conf  # 配置文件目录</span><br><span class="line">drwxr-xr-x. 5 lvnengdong lvnengdong  4096 2月  10 2020 docs</span><br><span class="line">drwxrwxr-x. 2 lvnengdong lvnengdong  4096 11月 30 12:02 lib</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 11358 9月  13 2018 LICENSE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   432 2月  10 2020 NOTICE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1560 2月   7 2020 README.md</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1347 2月   7 2020 README_packaging.txt</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll</span><br><span class="line">总用量 32</span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong   232 2月  10 2020 bin   <span class="comment"># 保存运行ZooKeeper的脚本文件</span></span><br><span class="line">drwxr-xr-x. 2 lvnengdong lvnengdong    77 2月   7 2020 conf  <span class="comment"># 配置文件目录</span></span><br><span class="line">drwxr-xr-x. 5 lvnengdong lvnengdong  4096 2月  10 2020 docs</span><br><span class="line">drwxrwxr-x. 2 lvnengdong lvnengdong  4096 11月 30 12:02 lib</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 11358 9月  13 2018 LICENSE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong   432 2月  10 2020 NOTICE.txt</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1560 2月   7 2020 README.md</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  1347 2月   7 2020 README_packaging.txt</span><br></pre></td></tr></table></figure>
 
 <ol start="7">
 <li><code>bin</code> 目录简析</li>
 </ol>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll bin</span><br><span class="line">总用量 56</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  232 5月   4 2018 README.txt</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2067 2月   7 2020 zkCleanup.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1158 2月  10 2020 zkCli.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1621 2月   7 2020 zkCli.sh   # 启动ZK客户端</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1766 2月   7 2020 zkEnv.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3690 1月  31 2020 zkEnv.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1286 1月  31 2020 zkServer.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4573 2月   7 2020 zkServer-initialize.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 9386 2月   7 2020 zkServer.sh    # 启动ZK服务器端</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  996 10月  3 2019 zkTxnLogToolkit.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1385 2月   7 2020 zkTxnLogToolkit.sh</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ ll bin</span><br><span class="line">总用量 56</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  232 5月   4 2018 README.txt</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 2067 2月   7 2020 zkCleanup.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1158 2月  10 2020 zkCli.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1621 2月   7 2020 zkCli.sh   <span class="comment"># 启动ZK客户端</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1766 2月   7 2020 zkEnv.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 3690 1月  31 2020 zkEnv.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1286 1月  31 2020 zkServer.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 4573 2月   7 2020 zkServer-initialize.sh</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 9386 2月   7 2020 zkServer.sh    <span class="comment"># 启动ZK服务器端</span></span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong  996 10月  3 2019 zkTxnLogToolkit.cmd</span><br><span class="line">-rwxr-xr-x. 1 lvnengdong lvnengdong 1385 2月   7 2020 zkTxnLogToolkit.sh</span><br></pre></td></tr></table></figure>
 
 <ol start="8">
 <li>尝试启动 ZooKeeper 服务器端</li>
 </ol>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">mkdir: 无法创建目录&quot;&quot;: 没有那个文件或目录</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line">grep: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg: 没有那个文件或目录</span><br><span class="line"><span class="built_in">mkdir</span>: 无法创建目录<span class="string">&quot;&quot;</span>: 没有那个文件或目录</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>异常分析：ZK 启动时要加载 <code>/conf/zoo.cfg</code> 配置文件，而我们当前的服务器上并没有创建这个配置文件，所以我们需要去创建这个配置文件。</li>
@@ -1245,11 +1432,14 @@
 </ol>
 <ul>
 <li><p>在 <code>conf</code> 目录下有一个文件叫做 <code>zoo_sample.cfg</code>，这是一个配置文件的模板，我们可以复制其副本为 <code>zoo.cfg</code>，作为 ZK 启动时加载的配置文件，在这个基础上进行自定义修改。</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ cd conf/</span><br><span class="line">[lvnengdong@hadoop102 conf]$ ll</span><br><span class="line">总用量 12</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  535 5月   4 2018 configuration.xsl</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 2712 2月   7 2020 log4j.properties</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  922 2月   7 2020 zoo_sample.cfg</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ <span class="built_in">cd</span> conf/</span><br><span class="line">[lvnengdong@hadoop102 conf]$ ll</span><br><span class="line">总用量 12</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  535 5月   4 2018 configuration.xsl</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong 2712 2月   7 2020 log4j.properties</span><br><span class="line">-rw-r--r--. 1 lvnengdong lvnengdong  922 2月   7 2020 zoo_sample.cfg</span><br></pre></td></tr></table></figure></li>
 <li><p>拷贝配置文件</p>
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure></li>
 <li><p>修改配置文件 <code>zoo.cfg</code>【配置文件分析见下文】</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ vim zoo.cfg</span><br><span class="line"></span><br><span class="line"># 修改 dataDir 属性为：</span><br><span class="line">dataDir=/opt/module/apache-zookeeper-3.5.7-bin-bin/data</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 conf]$ vim zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p>修改 dataDir 属性为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/opt/module/apache-zookeeper-3.5.7-bin-bin/data</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ol start="10">
 <li>创建 <code>/opt/module/apache-zookeeper-3.5.7-bin/data</code>目录</li>
@@ -1259,25 +1449,29 @@
 <ol start="11">
 <li>再次尝试启动 ZK</li>
 </ol>
-   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh --help</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br><span class="line"></span><br><span class="line"># 启动ZK</span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin]$ bin/zkServer.sh --<span class="built_in">help</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin/bin/../conf/zoo.cfg</span><br><span class="line">Usage: bin/zkServer.sh [--config &lt;conf-dir&gt;] &#123;start|start-foreground|stop|restart|status|print-cmd&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动ZK</span></span><br><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
 
 <ol start="12">
 <li>查看是否启动成功</li>
 </ol>
 <ul>
-<li><p>jps</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ jps</span><br><span class="line">80707 QuorumPeerMain</span><br></pre></td></tr></table></figure></li>
-<li><p>执行 <code>zkServer.sh status</code> 脚本查看 ZK 的状态</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: standalone    # 单机模式</span><br></pre></td></tr></table></figure></li>
+<li>jps</li>
 </ul>
-<h2 id="ZK-配置文件分析"><a href="#ZK-配置文件分析" class="headerlink" title="ZK 配置文件分析"></a>ZK 配置文件分析</h2><p><strong>zoo.cfg</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"># Zookeeper服务器与客户端的心跳间隔时间，单位毫秒。</span><br><span class="line"># 即默认每 2000ms 客户端与服务器端进行一次心跳</span><br><span class="line"># “心跳”是Zookeeper中使用的基本时间单位</span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"># 集群中Follower与Leader第一次连接时能容忍的</span><br><span class="line"># 最大心跳次数（tickTime的数量），用于划定集群中</span><br><span class="line"># Follower机器连接Leader机器的。</span><br><span class="line"># 人话：也就是说ZK集群中的Follower在刚启动时需要从Leader中</span><br><span class="line"># 同步数据，同步数据耗时最长不能超过10次心跳（默认），</span><br><span class="line"># 如果超过了就抛出异常</span><br><span class="line">initLimit=10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 集群中Leader与Follower之间的最大响应时间单位，假如响应</span><br><span class="line"># 时间超过5次心跳，Leader就认为Follwer已经死掉了，就会从</span><br><span class="line"># 服务器列表中删除Follwer。</span><br><span class="line">syncLimit=5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ZK集群保存数据的目录。</span><br><span class="line"># 建议不要使用 /tmp 目录，因为在Linux中临时文件目录会被定期清理</span><br><span class="line">dataDir=/tmp/zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ZK进程对外暴露的提供服务的端口号，也就是客户端连接时使用的端口。</span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line"># 最大客户端连接数（需要使用时可以将注释放开）</span><br><span class="line">#maxClientCnxns=60</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line"># 在 dataDir 目录中保留的不同版本的快照数量（需要使用时可以将注释放开）</span><br><span class="line">#autopurge.snapRetainCount=3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line"># 清除任务间隔时间(小时)</span><br><span class="line"># 设置为 “0” 表示禁用自动清除功能</span><br><span class="line">#autopurge.purgeInterval=1</span><br></pre></td></tr></table></figure>
+<pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ jps</span><br><span class="line">80707 QuorumPeerMain</span><br></pre></td></tr></table></figure>
+</code></pre>
+<ul>
+<li>执行 <code>zkServer.sh status</code> 脚本查看 ZK 的状态</li>
+</ul>
+<pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lvnengdong@hadoop102 apache-zookeeper-3.5.7-bin-bin]$ bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /opt/module/apache-zookeeper-3.5.7-bin-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: standalone    <span class="comment"># 单机模式</span></span><br></pre></td></tr></table></figure>
+</code></pre>
+<h1 id="ZK-配置文件分析"><a href="#ZK-配置文件分析" class="headerlink" title="ZK 配置文件分析"></a>ZK 配置文件分析</h1><p><strong>zoo.cfg</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Zookeeper服务器与客户端的心跳间隔时间，单位毫秒。</span></span><br><span class="line"><span class="comment"># 即默认每 2000ms 客户端与服务器端进行一次心跳</span></span><br><span class="line"><span class="comment"># “心跳”是Zookeeper中使用的基本时间单位</span></span><br><span class="line">tickTime=2000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 集群中Follower与Leader第一次连接时能容忍的</span></span><br><span class="line"><span class="comment"># 最大心跳次数（tickTime的数量），用于划定集群中</span></span><br><span class="line"><span class="comment"># Follower机器连接Leader机器的。</span></span><br><span class="line"><span class="comment"># 人话：也就是说ZK集群中的Follower在刚启动时需要从Leader中</span></span><br><span class="line"><span class="comment"># 同步数据，同步数据耗时最长不能超过10次心跳（默认），</span></span><br><span class="line"><span class="comment"># 如果超过了就抛出异常</span></span><br><span class="line">initLimit=10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 集群中Leader与Follower之间的最大响应时间单位，假如响应</span></span><br><span class="line"><span class="comment"># 时间超过5次心跳，Leader就认为Follwer已经死掉了，就会从</span></span><br><span class="line"><span class="comment"># 服务器列表中删除Follwer。</span></span><br><span class="line">syncLimit=5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ZK集群保存数据的目录。</span></span><br><span class="line"><span class="comment"># 建议不要使用 /tmp 目录，因为在Linux中临时文件目录会被定期清理</span></span><br><span class="line">dataDir=/tmp/zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ZK进程对外暴露的提供服务的端口号，也就是客户端连接时使用的端口。</span></span><br><span class="line">clientPort=2181</span><br><span class="line"></span><br><span class="line"><span class="comment"># the maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="comment"># 最大客户端连接数（需要使用时可以将注释放开）</span></span><br><span class="line"><span class="comment">#maxClientCnxns=60</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="comment"># 在 dataDir 目录中保留的不同版本的快照数量（需要使用时可以将注释放开）</span></span><br><span class="line"><span class="comment">#autopurge.snapRetainCount=3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to &quot;0&quot; to disable auto purge feature</span></span><br><span class="line"><span class="comment"># 清除任务间隔时间(小时)</span></span><br><span class="line"><span class="comment"># 设置为 “0” 表示禁用自动清除功能</span></span><br><span class="line"><span class="comment">#autopurge.purgeInterval=1</span></span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h2 id="分布式安装部署"><a href="#分布式安装部署" class="headerlink" title="分布式安装部署"></a>分布式安装部署</h2><h3 id="ZK-集群的特点"><a href="#ZK-集群的特点" class="headerlink" title="ZK 集群的特点"></a>ZK 集群的特点</h3><ol>
+<h1 id="分布式安装部署"><a href="#分布式安装部署" class="headerlink" title="分布式安装部署"></a>分布式安装部署</h1><h2 id="ZK-集群的特点"><a href="#ZK-集群的特点" class="headerlink" title="ZK 集群的特点"></a>ZK 集群的特点</h2><ol>
 <li>ZK 集群中包含一个 Leader 和多个 Follower。Leader 负责发起投票和决议，更新系统状态；Follower 用于接收客户端请求并向客户端返回结果，在选举 Leader 的过程中参与投票。</li>
 <li>ZK 集群实现了主从复制，但没有实现读写分离。</li>
 <li>Follower 在掉线后，重新上线后首先需要同步数据。</li>
@@ -1331,6 +1525,22 @@
 
 </li>
 </ol>
+<h1 id="开放ZooKeeper对外提供的访问端口"><a href="#开放ZooKeeper对外提供的访问端口" class="headerlink" title="开放ZooKeeper对外提供的访问端口"></a>开放ZooKeeper对外提供的访问端口</h1><p>开放ZooKeeper对外提供的访问端口</p>
+<ul>
+<li>方式一：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、开放2181端口</span></span><br><span class="line">$&gt; firewall-cmd --zone=public --add-port=2181/tcp --permanent</span><br><span class="line"><span class="comment"># 2、重启防火墙</span></span><br><span class="line">$&gt; systemctl restart firewalld.service</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方式二：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此方式不需要重启防火墙</span></span><br><span class="line">$&gt; firewall-cmd --add-port=3306/tcp --permanent &amp;&amp; firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>查看端口是否开放成功（查看所有开放的端口）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt; firewall-cmd --list-all</span><br></pre></td></tr></table></figure>
+
+
+
 
       
     </div>
